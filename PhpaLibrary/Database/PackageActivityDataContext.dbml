@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Dev" Class="PackageActivityDataContext" BaseType="Eclipse.PhpaLibrary.Database.DataContextBase" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="MIS.Package" Member="Packages">
+    <Type Name="Package">
+      <Column Name="PackageId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PackageName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Package_PackageActivityTransaction" Member="PackageActivityTransactions" ThisKey="PackageId" OtherKey="PackageId" Type="PackageActivityTransaction" />
+    </Type>
+  </Table>
+  <Table Name="MIS.PackageReport" Member="PackageReports">
+    <Type Name="PackageReport">
+      <Column Name="PackageReportId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="PackageReport_PackageActivityTransaction" Member="PackageActivityTransactions" ThisKey="PackageReportId" OtherKey="PackageReportId" Type="PackageActivityTransaction" />
+      <Association Name="PackageReport_PackageActivityGroup" Member="PackageActivityGroups" ThisKey="PackageReportId" OtherKey="PackageReportId" Type="PackageActivityGroup" />
+    </Type>
+  </Table>
+  <Table Name="MIS.PackageActivityTransaction" Member="PackageActivityTransactions">
+    <Type Name="PackageActivityTransaction">
+      <Column Name="ActivityTransactionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PackageActivityDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PackageId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PackageReportId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="PackageActivityTransaction_PackageActivityTransactionDetail" Member="PackageActivityTransactionDetails" ThisKey="ActivityTransactionId" OtherKey="ActivityTransactionId" Type="PackageActivityTransactionDetail" />
+      <Association Name="Package_PackageActivityTransaction" Member="Package" ThisKey="PackageId" OtherKey="PackageId" Type="Package" IsForeignKey="true" />
+      <Association Name="PackageReport_PackageActivityTransaction" Member="PackageReport" ThisKey="PackageReportId" OtherKey="PackageReportId" Type="PackageReport" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="MIS.PackageActivityTransactionDetail" Member="PackageActivityTransactionDetails">
+    <Type Name="PackageActivityTransactionDetail">
+      <Column Name="ActivityTransactionDetailId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PackageActivtiyData" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="ActivityTransactionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="PackageActivityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="PackageActivityTransaction_PackageActivityTransactionDetail" Member="PackageActivityTransaction" ThisKey="ActivityTransactionId" OtherKey="ActivityTransactionId" Type="PackageActivityTransaction" IsForeignKey="true" />
+      <Association Name="PackageActivity_PackageActivityTransactionDetail" Member="PackageActivity" ThisKey="PackageActivityId" OtherKey="PackageActivityId" Type="PackageActivity" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="MIS.PackageActivity" Member="PackageActivities">
+    <Type Name="PackageActivity">
+      <Column Name="PackageActivityId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ColumnNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PackageActivityGroupId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CalculatedFormula" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="PackageActivity_PackageActivityTransactionDetail" Member="PackageActivityTransactionDetails" ThisKey="PackageActivityId" OtherKey="PackageActivityId" Type="PackageActivityTransactionDetail" />
+      <Association Name="PackageActivityGroup_PackageActivity" Member="PackageActivityGroup" ThisKey="PackageActivityGroupId" OtherKey="PackageActivityGroupId" Type="PackageActivityGroup" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="MIS.PackageActivityGroup" Member="PackageActivityGroups">
+    <Type Name="PackageActivityGroup">
+      <Column Name="PackageActivityGroupId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="PackageReportId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ColumnNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HeaderTextVisible" Type="System.Boolean" DbType="Bit" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="PackageActivityGroup_PackageActivity" Member="PackageActivities" ThisKey="PackageActivityGroupId" OtherKey="PackageActivityGroupId" Type="PackageActivity" />
+      <Association Name="PackageReport_PackageActivityGroup" Member="PackageReport" ThisKey="PackageReportId" OtherKey="PackageReportId" Type="PackageReport" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

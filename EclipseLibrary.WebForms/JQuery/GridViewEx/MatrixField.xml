@@ -1,0 +1,1076 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MatrixField>
+  <doc name="class">
+    <remarks>
+      <para>
+        The <c>MatrixField</c> has the ability to display the values associated with a particular column in a single
+        row. For example, you might have query which retrieves inventory quantity for each SKU and carton area.
+        Without the
+        <c>MatrixField</c> each row of <see cref="GridViewEx"/> will display SKU/Area/Quantity. But suppose you want to see
+        one row per SKU and a column per area. The quantity should display within the appropriate column.
+        <c>MatrixField</c> makes this possible.
+      </para>
+      <para>
+        To understand how <c>MatrixField</c> can help, consider the data returned from the following query.
+      </para>
+      <code>
+        <![CDATA[
+SELECT ctndet.upc_code AS upc_code,
+       ctn.carton_storage_area AS carton_storage_area,
+       ctndet.carton_quantity AS carton_quantity
+  FROM src_carton ctn
+  INNER JOIN src_carton_detail ctndet ON ctn.carton_id = ctndet.carton_id
+ WHERE ...
+ GROUP BY ctndet.upc_code, ctn.carton_storage_area
+ ORDER BY ctndet.upc_code
+        ]]>
+      </code>
+      <para>
+        The results of this query when displayed within <see cref="GridViewEx" /> using <c>BoundField</c> might look like the following:
+      </para>
+      <table>
+        <tr>
+          <th>UPC</th>
+          <th>Area</th>
+          <th>Pieces</th>
+        </tr>
+        <tr>
+          <td>UPC1</td>
+          <td>FPK</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>UPC1</td>
+          <td>SHL</td>
+          <td>25</td>
+        </tr>
+        <tr>
+          <td>UPC2</td>
+          <td>FPK</td>
+          <td>30</td>
+        </tr>
+        <tr>
+          <td>UPC2</td>
+          <td>SHL</td>
+          <td>35</td>
+        </tr>
+        <tr>
+          <td>UPC3</td>
+          <td>FPK</td>
+          <td>40</td>
+        </tr>
+        <tr>
+          <td>UPC3</td>
+          <td>SHL</td>
+          <td>45</td>
+        </tr>
+      </table>
+      <para>
+        What we would really like to see is the following:
+      </para>
+      <table>
+        <tr>
+          <th rowspan="2">UPC</th>
+          <th colspan="2" style="text-align:center">Pieces</th>
+        </tr>
+        <tr>
+          <th>FPK</th>
+          <th>SHL</th>
+        </tr>
+        <tr>
+          <td>UPC1</td>
+          <td>20</td>
+          <td>25</td>
+        </tr>
+        <tr>
+          <td>UPC2</td>
+          <td>30</td>
+          <td>35</td>
+        </tr>
+        <tr>
+          <td>UPC3</td>
+          <td>40</td>
+          <td>45</td>
+        </tr>
+      </table>
+      <para>
+        This is where <c>MatrixField</c> comes it. It allows you to merge adjacent rows into a single row and each value of
+        a particular query column can be displayed in a different grid column. The following markup accomplishes this.
+      </para>
+      <code>
+        <![CDATA[
+<jquery:GridViewEx ID="gv" runat="server" DataSourceID="ds">
+    <Columns>
+        <asp:BoundField DataField="upc_code" HeaderText="UPC" />
+        <jquery:MatrixField DataHeaderFields="carton_storage_area" DataValueFields="quantity"
+            DataMergeFields="upc_code" HeaderText="Pieces">
+        </jquery:MatrixField>
+    </Columns>
+</jquery:GridViewEx>        
+        ]]>
+      </code>
+      <para>
+        The important properties of <c>MatrixField</c> in this example are as follows:
+      </para>
+      <list type="table">
+        <item>
+          <term>
+            <see cref="DataMergeFields" />
+          </term>
+          <description>
+            The adjacent rows having the same upc code should be merged into one. So we specify this as <c>upc_code</c>.
+            To ensure that the all values for the same upc_code appear in adjacent rows, we have carefully specified
+            upc_code as the <c>ORDER BY</c> column in the query.
+          </description>
+        </item>
+        <item>
+          <term>
+            <see cref="DataHeaderFields" />
+          </term>
+          <description>
+            We want each value of <c>carton_storage_area</c> to become a column. In this example, since the query retrieved
+            the distinct areas FPK and SHL, the grid has a column corresponding to each of these areas.
+          </description>
+        </item>
+        <item>
+          <term>
+            <see cref="DataValueFields" />
+          </term>
+          <description>
+            <para>
+              Now we must decide what should be displayed in each carton area column. In this example, we want the
+              <c>carton_quantity</c> to display there.
+            </para>
+          </description>
+        </item>
+        <item>
+          <term>
+            <see cref="DataValueFormatString" />
+          </term>
+          <description>
+            This property gives you options to specify formats to manage the appearance of the values in each matrix cells.
+          </description>
+        </item>
+      </list>
+      <list type="table">
+        <listheader>
+          <term>
+            Common Tasks
+          </term>
+          <description>
+            Reference
+          </description>
+        </listheader>
+        <item>
+          <term>
+            Displaying multiple values in each matrix cell.
+          </term>
+          <description>
+            <see cref="DataValueFields" /> can accept multiple query column names. <see cref="DataValueFormatString" />
+            can fine tune the appearance. <see cref="ItemTemplate" /> provides complete control on what should display in each
+            matrix cell.
+          </description>
+        </item>
+        <item>
+          <term>
+            Displaying custom text or zero for null values in the matrix cells.
+          </term>
+          <description>
+            <see cref="DefaultTemplate" /> will be used to have the control over custom values for null in the matrix cells.
+          </description>
+        </item>
+        <item>
+          <term>Controlling the order of matrix columns</term>
+          <description>
+            By default, columns are displayed sorted by the value of <c>DataHeaderFields</c>.
+            You can specify <see cref="DataHeaderSortFields" /> to get any order you want.
+          </description>
+        </item>
+        <item>
+          <term>
+            Adding columns manually.
+          </term>
+          <description>
+            <see cref="MatrixColumn"/>
+          </description>
+        </item>
+        <item>
+          <term>
+            Customizing <see cref="MatrixColumn.HeaderText"/> of individual <see cref="MatrixColumn"/>.
+          </term>
+          <description>
+            Headers of individual columns in a <c>MatrixField</c> can be customized with the help of
+            <see cref="DataHeaderFormatString"/>.
+          </description>
+        </item>
+        <item>
+          <term>
+            Displaying row and column totals.
+          </term>
+          <description>
+            <see cref="DisplayColumnTotals"/> and <see cref="DisplayRowTotals"/>.
+            Additionally, <see cref="DataTotalFormatString" />
+            can format the totals as well as exclude some of the <see cref="DataValueFields" /> from getting totalled.
+          </description>
+        </item>
+        <item>
+          <term>
+            Programatically accessing the row and column totals of <c>MatrixColumns</c>.
+          </term>
+          <description>
+            Column totals of the each <c>MatrixColumns</c> can be accessed via <see cref="GetColumnTotal" /> function.
+            You can programmatically
+            access the row totals by calling <see cref="IMatrixRow.GetRowTotals" /> during the
+            <see cref="MatrixRowDataBound" /> event.
+          </description>
+        </item>
+      </list>
+    </remarks>
+    <seealso cref="MatrixColumn" />
+    <seealso cref="IMatrixRow" />
+  </doc>
+  <doc name="ItemTemplate">
+    <remarks>
+      <para>
+      <c>ItemTemplate</c> is useful when you want to display complex markup within each matrix cell. When this is specified,
+      <see cref="DataValueFormatString" /> has no impact on what is displayed in each matrix cell. You still need to specify
+      <see cref="DataValueFields" /> because these are the only fields you can display within the <c>ItemTemplate</c>
+        using a specialized data binding syntax.
+      </para>
+    </remarks>
+    <example>
+      <para>
+        This example displays a <see cref="EclipseLibrary.Web.SiteStructure.SiteHyperLink" /> in each matrix cell.
+        When <c>quantity</c> is null, the <see cref="DefaultTemplate" /> is used which display 0 without any associated link.
+        If the <c>DefaultTemplate</c> is not used, the cells with null quantity will display nothing.
+        In all other cases <c>ItemTemplate</c> is used which displays the value of the quantity as text which links to a different
+        page.
+      </para>
+      <code>
+        <![CDATA[
+        <jquery:MatrixField DataHeaderFields="carton_storage_area" DataValueFields="quantity"
+                HeaderText="Quantity in" DataMergeFields="upc_code">
+                <DefaultTemplate>
+                0
+                </DefaultTemplate>
+                <ItemTemplate>
+                    <eclipse:SiteHyperLink runat="server" SiteMapKey="R130_105.aspx"
+                      Text='<%# MatrixBinder.Eval("quantity") %>'
+                        NavigateUrl='<%# MatrixBinder.Eval("upc_code") %>' />
+                </ItemTemplate>
+            </jquery:MatrixField>
+        ]]>
+      </code>
+      <table>
+        <tr>
+          <th rowspan="2">UPC</th>
+          <th colspan="2" style="text-align:center">Pieces</th>
+        </tr>
+        <tr>
+          <th>FPK</th>
+          <th>SHL</th>
+        </tr>
+        <tr>
+          <td>UPC1</td>
+          <td>
+            0
+          </td>
+          <td>
+            <a href="#">25</a>
+          </td>
+        </tr>
+        <tr>
+          <td>UPC2</td>
+          <td>
+            <a href="#">30</a>
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>UPC3</td>
+          <td>
+            <a href="#">40</a>
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+      </table>
+      <para>
+        Notice that we are using <c>MatrixBinder.Eval</c> instead of just <c>Eval</c> which we use in most
+        of data binding code you are familiar with. This is a requirement. Normal <c>Eval</c> will not work. Furthermore,
+        you can only pass those fields to <c>MatrixBinder.Eval</c> which are included in
+        <see cref="DataValueFields" />. Trying to Eval any other field will raise an exception.
+      </para>
+    </example>
+  </doc>
+  <doc name="MatrixColumns">
+    <remarks>
+      <para>
+        You can create custom matrix columns and intersperse them with regular matrix columns. See the
+        Examples section.
+      </para>
+      <para>
+        You can customize the header text of specific values by adding <c>MatrixColumns</c> in markup.
+        This is especially useful for deciding what should display when the database value of the header
+        field is null. The following markup accomplishes this. It specifies that the header text
+        should be <c>No Season</c> when the header value is null.
+      </para>
+      <code>
+        <![CDATA[
+ <jquery:MatrixField DataHeaderFields="price_season_code" DataValueFields="TOTAL_QUANTITY"
+     HeaderText="Price Season Code" DisplayColumnTotals="true" DataValueFormatString="{0:N0}"
+     DataFooterFormatString="{0:N0}" DisplayRowTotals="true" DataMergeFields="style,color,dimension,sku_size,WAREHOUSE_LOC">
+     <MatrixColumns>
+         <jquery:MatrixColumn HeaderText="No Season" />
+     </MatrixColumns>
+ </jquery:MatrixField>
+ ]]>
+      </code>
+      <para>
+        You can also suppress display of specific values by setting the <see cref="MatrixColumn.Visible" />
+        property to false. This example chooses to not display the values when price season code is null or <c>Internal</c>.
+      </para>
+      <code>
+        <![CDATA[
+ <jquery:MatrixField DataHeaderFields="price_season_code" DataValueFields="TOTAL_QUANTITY"
+     HeaderText="Price Season Code" DisplayColumnTotals="true" DataValueFormatString="{0:N0}"
+     DataFooterFormatString="{0:N0}" DisplayRowTotals="true" DataMergeFields="style,color,dimension,sku_size,WAREHOUSE_LOC">
+     <MatrixColumns>
+         <jquery:MatrixColumn Visible="false" />
+         <jquery:MatrixColumn Value="Internal" Visible="false" />
+     </MatrixColumns>
+ </jquery:MatrixField>
+ ]]>
+      </code>
+    </remarks>
+    <example>
+      <para>
+        Add custom matrix columns. First earnings columns are added followed by deductions.
+        This code should exist in some OnLoad event handler, before the grid has been data bound.
+        Between earnings and deduction columns we have a custom "Total Sanction" column.
+      </para>
+      <code>
+        <![CDATA[
+var distinctAdjustments = query.Select(p => p.Adjustment).Distinct();
+MatrixField matrixfield = gvPaybill.Columns.OfType<MatrixField>().Single();
+foreach (Adjustment adj in distinctAdjustments.Where(p => !p.IsDeduction).OrderBy(p => p.ShortDescription))
+{
+    matrixfield.MatrixColumns.Add(new MatrixColumn
+    {
+        HeaderValue = adj.AdjustmentId,
+        HeaderText = "Earnings|" + adj.ShortDescription,
+        SortValue = 0,       // We are presorted
+        CustomData = false
+    });
+}
+
+matrixfield.MatrixColumns.Add(new MatrixColumn
+{
+    CustomId = "Sanction",
+    HeaderText = "Total Sanction|",
+    SortValue = 0,       // We are presorted
+});
+
+foreach (Adjustment adj in distinctAdjustments.Where(p => p.IsDeduction).OrderBy(p => p.ShortDescription))
+{
+    matrixfield.MatrixColumns.Add(new MatrixColumn
+    {
+        HeaderValue = adj.AdjustmentId,
+        HeaderText = "Deductions|" + adj.ShortDescription,
+        SortValue = 0,       // We are presorted
+        CustomData = true
+    });
+}      
+]]>
+      </code>
+      <para>
+        In the <see cref="MatrixRowDataBound" /> event we populate the cells in the "Total Sanction"
+        column.
+      </para>
+      <code>
+        <![CDATA[
+         protected void gvPaybill_MatrixRowDataBound(object sender, MatrixRowEventArgs e)
+        {
+            MatrixField mf = (MatrixField)sender;
+            decimal?[] earnings = e.Cell.GetRowTotals(mf.MatrixColumns.Where(p => p.CustomData != null && !((bool)p.CustomData)));
+            PeriodEmployeeAdjustment pea = (PeriodEmployeeAdjustment)e.Cell.DataItem;
+            decimal totalSanction = (earnings[0] ?? 0) + (pea.EmployeePeriod.BasicPay ?? 0);
+            if (earnings != null && earnings[0].HasValue)
+            {
+                e.Cell.SetCellText(mf.MatrixColumns.Single(p => p.CustomId == "Sanction"),
+                    totalSanction.ToString("N0"));
+            }
+        }       
+        ]]>
+      </code>
+      <para>
+        In the <c>RowDataBound event of the grid, we populate the footer text of the custom column</c>.
+      </para>
+      <code>
+        <![CDATA[
+protected void gvPaybill_RowDataBound(object sender, GridViewRowEventArgs e)
+{
+    switch (e.Row.RowType)
+    {
+        case DataControlRowType.Footer:
+            MatrixField matrixfield = gvPaybill.Columns.OfType<MatrixField>().Single();
+            MultiBoundField basicPayField = gvPaybill.Columns.OfType<MultiBoundField>()
+                .Where(p => p.AccessibleHeaderText == "BasicPay").Single();
+            decimal? totalAllowances = matrixfield.MatrixColumns
+                .Where(p => p.CustomData != null && !((bool)p.CustomData))
+                .Sum(p => matrixfield.GetColumnTotal(p)[0]);
+            decimal? totalBasicPay = basicPayField.SummaryValues[0];
+            matrixfield.MatrixColumns.First(prop => prop.CustomId == "Sanction").FooterText =
+                string.Format("{0:N0}", (totalAllowances ?? 0) + (totalBasicPay ?? 0));
+            break;
+
+        case DataControlRowType.Header:
+            break;
+    }        
+}        
+        ]]>
+      </code>
+    </example>
+  </doc>
+  <doc name="RowTotalHeaderText">
+    <remarks>
+      You have the ability to group matrix columns. By grouping them, you can show row totals for each group
+      and you can specify a seperate first row header text for each group. For example, you might want to
+      display Earnings columns before Deduction columns and show row totals for each. In this case, you can
+      specify pipe seperated header text for each group as shown in the example.
+    </remarks>
+    <example>
+      <para>
+        The <see cref="MatrixField"/> in this example creates two groups of adjustments. The first group
+        has <c>RowTotalHeaderText</c> set to <c>Total Earnings</c> and the second group row total header
+        is <c>Total Deductions</c>. The <see cref="MatrixColumns"/> have been added throug code in the
+        <c>HandleGrid</c> function which can be called from the <c>DataBinding</c>
+        event of <see cref="GridViewEx"/>.
+      </para>
+      <code>
+        <![CDATA[
+         <jquery:GridViewEx ID="gvPaybill" runat="server" AutoGenerateColumns="false" ShowFooter="true">
+             <Columns>
+                 ...
+                 <jquery:MatrixField DataMergeFields="EmployeePeriod.EmployeePeriodId" DataHeaderFields="Adjustment.AdjustmentId"
+                     DataValueFields="Amount" DataValueFormatString="{0:C0}" DisplayColumnTotals="true" DisplayRowTotals="true"
+                     HeaderText="Earnings" AccessibleHeaderText="Earnings" RowTotalHeaderText="Total Earnings|Total Deductions"  />
+             </Columns>
+             <EmptyDataTemplate>
+                 <b>Paybill not found for given month and year.</b>
+             </EmptyDataTemplate>
+         </jquery:GridViewEx>
+         ]]>
+      </code>
+      <para>
+        This code adds <c>Dedudctions|</c> to the <see cref="MatrixColumn.HeaderText"/> for each deduction
+        and <c>Earnings|</c> to the header text of each allowance.
+      </para>
+      <code>
+        <![CDATA[
+         private void HandleGrid() {
+             MatrixField matrixfield = gvPaybill.Columns.OfType<MatrixField>().Single(p => p.AccessibleHeaderText == "Earnings");
+        
+             foreach (Adjustment adj in distinctAdjustments.Where(p => !p.IsDeduction).OrderBy(p => p.ShortDescription)
+                 .Concat(distinctAdjustments.Where(p => p.IsDeduction).OrderBy(p => p.ShortDescription)))
+             {
+                 matrixfield.MatrixColumns.Add(new MatrixColumn
+                 {
+                     HeaderValue = adj.AdjustmentId,
+                     HeaderText = (adj.IsDeduction ? "Deductions" : "Earnings") + "|" + adj.ShortDescription,
+                     SortValue = 0       // We are presorted
+                 });
+             }
+         }
+         ]]>
+      </code>
+    </example>
+  </doc>
+  <doc name="MatrixRowDataBound">
+    <remarks>
+      <para>
+        You can use this event to show custom text in any column. This contrived example shows
+        <c>Sharad</c> as the text of the first matrix column, disregarding whatever values were
+        retrieved from the database.
+      </para>
+      <code>
+        <![CDATA[
+         <jquery:MatrixField DataMergeFields="EmployeePeriod.EmployeePeriodId" DataHeaderFields="Adjustment.AdjustmentId"
+             DataValueFields="AmountRounded" DataValueFormatString="{0:C0}" DisplayColumnTotals="true"
+             DisplayRowTotals="true" HeaderText="Earnings" RowTotalHeaderText="Total Sanction|Total Deduction"
+             OnMatrixRowDataBound="gvPaybill_MatrixRowDataBound">
+             <FooterStyle HorizontalAlign="Right" />
+             <ItemStyle HorizontalAlign="Right" />
+         </jquery:MatrixField>
+         ]]>
+      </code>
+      <code>
+        <![CDATA[
+         protected void gvPaybill_MatrixRowDataBound(object sender, MatrixRowEventArgs e)
+         {
+             MatrixField mf = (MatrixField)sender;
+             e.Cell.SetCellText(mf.MatrixColumns[0], "Sharad");
+         }
+         ]]>
+      </code>
+    </remarks>
+
+  </doc>
+  <doc name="ExcludeColumnFromRowTotal">
+    <remarks>
+      <para>
+        You can use this property to exclude any columns from being calculated in the row total for
+        <c>DisplayRowTotals</c>. This contrived example will not calculate row total for <c>AWC</c> and <c>MAT</c> in the
+        <c>MatrixField</c>.
+      </para>
+      <code>
+        <![CDATA[
+         <jquery:MatrixField DataHeaderFields="CARTON_STORAGE_AREA" DataValueFields="QUANTITY"
+                DataMergeFields="STYLE,COLOR,DIMENSION,SKU_SIZE,VWH_ID,SEWING_PLANT_CODE" RowTotalHeaderText="Total Quantity"
+                HeaderText="Quantity in" DisplayColumnTotals="true" DisplayRowTotals="true" DataFooterFormatString="{0:N0}"
+                DataValueFormatString="{0:N0}" ExcludeColumnFromRowTotal="AWC,MAT">
+         </jquery:MatrixField>
+         ]]>
+      </code>
+    </remarks>
+
+  </doc>
+  <doc name="DisplayColumnTotals">
+    <remarks>
+      <para>
+        By default, <see cref="DataValueFormatString" /> is used to format the totals and values in each matrix cell.
+        To use a different format, specify <see cref="DataTotalFormatString"/>. You will need to do this
+        if you do not want to calculate totals for all fields specified in <see cref="DataValueFields"/>.
+        When <c>DataTotalFormatString</c> is specified, only fields referenced in the format string are summed up.
+        This is especially useful if some of your value fields are non numeric.
+      </para>
+    </remarks>
+    <example>
+      <para>
+        This example displays two values within each matrix cell but shows total for only the first value
+        because <see cref="DataTotalFormatString"/> specified refers to the first field only.
+      </para>
+      <code>
+        <![CDATA[
+ <jq:MatrixField DataHeaderFields="area" DataValueFields="qty,pieces_in_boxes"
+        DataMergeFields="upc_code" HeaderText="Pieces [In Boxes]" 
+        DisplayColumnTotals="true" DataTotalFormatString="{0:N0}"
+        DataValueFormatString="{0:N0} [{1:N0}]">
+  </jq:MatrixField>
+         ]]>
+      </code>
+      <table>
+        <tr>
+          <th rowspan="2">UPC</th>
+          <th colspan="2" style="text-align:center">Pieces [In Boxes]</th>
+        </tr>
+        <tr>
+          <th>FPK</th>
+          <th>SHL</th>
+        </tr>
+        <tr>
+          <td>UPC1</td>
+          <td>20 [19]</td>
+          <td>25 [24]</td>
+        </tr>
+        <tr>
+          <td>UPC2</td>
+          <td>30 [29]</td>
+          <td>35 [34]</td>
+        </tr>
+        <tr>
+          <td>UPC3</td>
+          <td>40 [39]</td>
+          <td>45 [44]</td>
+        </tr>
+        <tfoot>
+          <tr>
+            <td>
+              <strong>Total</strong>
+            </td>
+            <td>
+              <strong>90</strong>
+            </td>
+            <td>
+              <strong>105</strong>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </example>
+  </doc>
+
+  <doc name="DisplayRowTotals">
+    <remarks>
+      <para>
+        By default, <see cref="DataValueFormatString" /> is used to format the totals.
+        To use a different format, specify <see cref="DataTotalFormatString"/>. You will need to do this
+        if you do not want to calculate totals for all fields specified in <see cref="DataValueFields"/>.
+        When <c>DataTotalFormatString</c> is specified, only fields referenced in the format string are summed up.
+        This is especially useful if some of your value fields are non numeric.
+      </para>
+      <para>
+        The header for the row totals column is set using the property <see cref="RowTotalHeaderText"/>. You can programmatically
+        access the row totals by calling <see cref="IMatrixRow.GetRowTotals" /> during the
+        <see cref="MatrixRowDataBound" /> event.
+      </para>
+      <para>
+        You can display arbitrary text in the row total column. See <see cref="IMatrixRow.SetRowTotalText" /> for an example.
+      </para>
+    </remarks>
+    <example>
+      <para>
+        This example displays two values within each matrix cell but shows row total for only the first value
+        because <see cref="DataTotalFormatString"/> specified refers to the first field only.
+      </para>
+      <code>
+        <![CDATA[
+        <jq:MatrixField DataHeaderFields="area" DataValueFields="qty,pieces_in_boxes"
+               DataMergeFields="upc_code" HeaderText="Pieces [In Boxes]" 
+               DisplayRowTotals="true" DataTotalFormatString="{0:N0}"
+               DataValueFormatString="{0:N0} [{1:N0}]">
+         </jq:MatrixField>
+                ]]>
+      </code>
+      <table>
+        <tr>
+          <th rowspan="2">UPC</th>
+          <th colspan="2" style="text-align:center">Pieces [In Boxes]</th>
+          <th colspan="2" rowspan="2" style="text-align:center">
+            <strong> Total</strong>
+          </th>
+        </tr>
+        <tr>
+          <th>FPK</th>
+          <th>SHL</th>
+        </tr>
+        <tr>
+          <td>UPC1</td>
+          <td>20 [19]</td>
+          <td>25 [24]</td>
+          <td>
+            <strong>45</strong>
+          </td>
+        </tr>
+        <tr>
+          <td>UPC2</td>
+          <td>30 [29]</td>
+          <td>35 [34]</td>
+          <td>
+            <strong>65</strong>
+          </td>
+        </tr>
+        <tr>
+          <td>UPC3</td>
+          <td>40 [39]</td>
+          <td>45 [44]</td>
+          <td>
+            <strong>85</strong>
+          </td>
+        </tr>
+      </table>
+    </example>
+  </doc>
+
+  <doc name="DataHeaderFormatString">
+    <remarks>
+      <para>
+        With the help of <c>DataHeaderFormatString</c> we can customize header values (e.g. append constant texts to them).
+        Conditional formatting is supported using <see cref="EclipseLibrary.Formatting.ConditionalFormatter" />. When writing
+        conditional expressions you can access the values of all fields whose values are available in <see cref="MatrixColumn.ColumnValues" />,
+        i.e. <see cref="DataHeaderCustomFields" />, <see cref="DataHeaderSortFields"/> and <see cref="DataHeaderFields" />.    
+      </para>
+    </remarks>
+    <example>
+      <para>
+        The set of fields you can use in the format string is given by <see cref="DataHeaderFields" /> + <see cref="DataHeaderCustomFields" />
+        + <see cref="DataHeaderSortFields"/>.
+        Placeholder {0} in the format string refers to the value of the first field in this set, {1} refers to the second
+        field in this set, and so on for each field in the set.
+      </para>
+      <para>
+        The code below will show you the value being shown from <c>DataHeaderFields</c> is getting
+        appended with "[In Boxes]".
+      </para>
+      <code>
+        <![CDATA[
+                 <jq:MatrixField DataHeaderFields="area" DataValueFields="qty,pieces_in_boxes"
+                     DataMergeFields="upc_code" HeaderText="Pieces" 
+                     DisplayColumnTotals="true" DataTotalFormatString="{0:N0}"
+                     DataValueFormatString="{0:N0} [{1:N0}]" DataHeaderFormatString="{0} [In Boxes]">
+                 </jq:MatrixField>
+                ]]>
+      </code>
+      <table>
+        <tr>
+          <th rowspan="2">UPC</th>
+          <th colspan="2" style="text-align:center">Pieces</th>
+        </tr>
+        <tr>
+          <th>FPK [In Boxes]</th>
+          <th>SHL [In Boxes]</th>
+        </tr>
+        <tr>
+          <td>UPC1</td>
+          <td>20 [19]</td>
+          <td>25 [24]</td>
+        </tr>
+        <tr>
+          <td>UPC2</td>
+          <td>30 [29]</td>
+          <td>35 [34]</td>
+        </tr>
+        <tr>
+          <td>UPC3</td>
+          <td>40 [39]</td>
+          <td>45 [44]</td>
+        </tr>
+        <tfoot>
+          <tr>
+            <td>Total</td>
+            <td>90</td>
+            <td>105</td>
+          </tr>
+        </tfoot>
+      </table>
+      <para>
+        Another example is available in <see cref="DataHeaderFields" />.
+      </para>
+    </example>
+  </doc>
+
+  <doc name="DataHeaderSortFields">
+    <remarks>
+      <para>
+        By default, the matrix columns are displayed in the order they are retrieved from the datasource.
+        You can specify a different fields to sort on if you wish.
+      </para>
+      <para>
+        The columns are always displayed in ascending order of the sort value. To sort descending by a particular field,
+        suffix the field name with a <c>$</c>. Thus <c>DataHeaderSortFields = "AdjustmentTypeDescription$,ShortDescription"</c>
+        will sort descending with respect to <c>AdjustmentTypeDescription</c> and ascending with respect to
+        <c>ShortDescription</c>.
+      </para>
+    </remarks>
+    <example>
+      <para>
+        Assuming that the database contains a column called <c>area_sort_sequence</c> which is intended to display the areas
+        in the correct order.
+      </para>
+      <code lang="xml">
+        <![CDATA[
+<jquery:GridViewEx ID="gv" runat="server" DataSourceID="ds">
+    <Columns>
+        <asp:BoundField DataField="upc_code" HeaderText="UPC" />
+        <jquery:MatrixField DataHeaderFields="carton_storage_area" DataValueFields="quantity"
+            DataMergeFields="upc_code" HeaderText="Pieces" DataHeaderSortFields="area_sort_sequence">
+        </jquery:MatrixField>
+    </Columns>
+</jquery:GridViewEx>        
+        ]]>
+      </code>
+      <para>
+        If <c>DataHeaderSortFields</c> had not been specified, the columns will display in alphabetical order.
+      </para>
+      <table>
+        <tr>
+          <th rowspan="2">UPC</th>
+          <th colspan="2" style="text-align:center">Pieces</th>
+        </tr>
+        <tr>
+          <th>FPK</th>
+          <th>SHL</th>
+        </tr>
+        <tr>
+          <td>UPC1</td>
+          <td>20</td>
+          <td>25</td>
+        </tr>
+        <tr>
+          <td>UPC2</td>
+          <td>30</td>
+          <td>35</td>
+        </tr>
+        <tr>
+          <td>UPC3</td>
+          <td>40</td>
+          <td>45</td>
+        </tr>
+      </table>
+      <para>
+        Setting <c>DataHeaderSortFields = area_sort_sequence</c> causes the SHL column to display first since it has a lower sort sequence.
+      </para>
+      <table>
+        <tr>
+          <th rowspan="2">UPC</th>
+          <th colspan="2" style="text-align:center">Pieces</th>
+        </tr>
+        <tr>
+          <th>SHL</th>
+          <th>FPK</th>
+        </tr>
+        <tr>
+          <td>UPC1</td>
+          <td>25</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>UPC2</td>
+          <td>35</td>
+          <td>30</td>
+        </tr>
+        <tr>
+          <td>UPC3</td>
+          <td>45</td>
+          <td>40</td>
+        </tr>
+      </table>
+      <para>
+        The following markup demonstrates sorting the columns on multiple fields, with the first field being sorted descending.
+      </para>
+      <code lang="XML">
+        <![CDATA[
+<jquery:MatrixField DataMergeFields="EmployeePeriod.EmployeePeriodId"
+    DataHeaderFields="Adjustment.AdjustmentId,Adjustment.AdjustmentTypeDescription,Adjustment.ShortDescription,Adjustment.IsDeduction"
+    DataHeaderFormatString="{1}s|{2}" DataHeaderSortFields="Adjustment.AdjustmentTypeDescription$,Adjustment.ShortDescription"
+    DataValueFields="AmountRounded" />
+</jquery:MatrixField>        
+        ]]>
+      </code>
+    </example>
+  </doc>
+  <doc name="GetColumnTotal">
+    <remarks>
+      <para>
+        Programatically accessing column totals of <c>MatrixField</c> is possible by hooking to the <see cref="GridViewEx" />
+        <c>DataBound</c> event. The function takes <see cref="MatrixColumn" /> as parameter and returns decimal array which
+        contains sum of all the fields specified in <c>MatrixColumn</c>.
+      </para>
+      <para>
+        The first element in the array contains the total
+        for the first field specified for <see cref="DataValueFields"/>, and so on. Fields not referenced in
+        <see cref="DataTotalFormatString"/> are not totalled. The corresponding array element will always contain <c>null</c>.
+      </para>
+    </remarks>
+    <example>
+
+      <table>
+        <tr>
+          <th rowspan="2">
+            Style
+          </th>
+          <th rowspan="2">
+            Color
+          </th>
+          <th rowspan="2">
+            Dim.
+          </th>
+          <th rowspan="2">
+            Size
+          </th>
+          <th colspan="4" style="text-align:center">
+            Quantity in
+          </th>
+        </tr>
+        <tr>
+          <th style="text-align:center">
+            BIR
+          </th>
+          <th style="text-align:center">
+            RCV
+          </th>
+          <th style="text-align:center">
+            RST
+          </th>
+          <th style="text-align:center">
+            SHL
+          </th>
+        </tr>
+        <tr>
+          <td>
+            03519
+          </td>
+          <td>
+            BK
+          </td>
+          <td>
+            A
+          </td>
+          <td>
+            34
+          </td>
+          <td>
+            12,614 - (UpcCode:014671238754)
+          </td>
+          <td>
+            500 - (UpcCode:014671238754)
+          </td>
+          <td>
+            0 - (UpcCode:014671238754)
+          </td>
+          <td>
+            180 - (UpcCode:014671238754)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            03519
+          </td>
+          <td>
+            BK
+          </td>
+          <td>
+            A
+          </td>
+          <td>
+            36
+          </td>
+          <td>
+            6,938 - (UpcCode:014671238723)
+          </td>
+          <td>
+            500 - (UpcCode:014671238723)
+          </td>
+          <td>
+            0 - (UpcCode:014671238723)
+          </td>
+          <td>
+            180 - (UpcCode:014671238723)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            03519
+          </td>
+          <td>
+            BK
+          </td>
+          <td>
+            B
+          </td>
+          <td>
+            34
+          </td>
+          <td>
+            18,836 - (UpcCode:014671238747)
+          </td>
+          <td>
+            500 - (UpcCode:014671238747)
+          </td>
+          <td>
+            60 - (UpcCode:014671238747)
+          </td>
+          <td>
+            180 - (UpcCode:014671238747)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Total</strong>
+          </td>
+          <td>
+
+          </td>
+          <td>
+
+          </td>
+          <td>
+
+          </td>
+          <td>
+            <strong>38,388</strong>
+          </td>
+          <td>
+            <strong>1,500</strong>
+          </td>
+          <td>
+            <strong>60</strong>
+          </td>
+          <td>
+            <strong>540</strong>
+          </td>
+        </tr>
+      </table>
+      <para>
+        The example below fetches sum of first datafield
+        within above shown <c>MatrixColumn</c> for the values "BIR" and "SHL". It is intended to show
+        the difference of two in any label.
+      </para>
+      <code>
+        <![CDATA[
+          void gv_PreRender(object sender, EventArgs e)
+          {
+              MatrixField mf = (MatrixField)gv.Columns.OfType<MatrixField>().Single();
+              decimal? totBIR = 0;
+              decimal? totSHL = 0;
+              foreach (MatrixColumn col in mf.MatrixColumns)
+              {
+                  if (col.HeaderText.Equals("BIR"))
+                  {
+                      totBIR = mf.GetColumnTotal(col)[0];
+                  }
+                  if (col.HeaderText.Equals("SHL"))
+                  {
+                      totSHL = mf.GetColumnTotal(col)[0];
+                  }
+              }
+              decimal? diff = totBIR - totSHL;
+              lblDifference.Text = string.Format("Difference of BIR and SHL = {0}",diff);
+          }
+          ]]>
+      </code>
+    </example>
+  </doc>
+  <doc name="DataHeaderCustomFields">
+    <remarks>
+      <para>
+        Storing custom field values is useful if you want to programmatically manipulate the <see cref="MatrixColumns"/>
+        collection. You access the value of the custom field from the <see cref="MatrixColumn.ColumnValues"/> dictionary.
+      </para>
+    </remarks>
+    <example>
+      <para>
+        In this example, a database column <c>CalculatedFormula</c>
+        contains the formula to be used for displaying the value in one of the
+        matrix field. During the <see cref="MatrixRowDataBound"/> event we search for the column
+        with a formula associated with it, and set its cell text.
+      </para>
+      <code lang="XML">
+        <![CDATA[
+        <jquery:GridViewEx ID="gv" runat="server" AutoGenerateColumns="false" DataSourceID="ds">
+            <Columns>
+                <asp:BoundField HeaderText="Contract Package" DataField="PackageName" FooterText="Total" />
+                <jquery:MatrixField DataHeaderFields="GroupDescription,ActivityDescription,ActivityColumnNumber"
+                    DataHeaderFormatString="{0}|{1}<br/>{2::$ActivityColumnNumber:'('#')'}"
+                    DataHeaderCustomFields="CalculatedFormula" DataValueFields="PackageActivtiyData"
+                    DataMergeFields="PackageId" DataValueFormatString="{0:N2}" OnMatrixRowDataBound="gv_MatrixRowDataBound"
+                    DisplayColumnTotals="true">
+                </jquery:MatrixField>
+            </Columns>
+        </jquery:GridViewEx>
+         ]]>
+      </code>
+      <para>
+        The event handler sets the cell text of all formula columns.
+      </para>
+      <code lang="C#">
+        <![CDATA[
+protected void gv_MatrixRowDataBound(object sender, MatrixRowEventArgs e)
+{
+  var formulaColumns = mf.MatrixColumns.Where(p => p.ColumnValues.ContainsKey("CalculatedFormula"));
+  foreach (MatrixColumn formulaColumn in formulaColumns)
+  {
+    string formula = (string)formulaColumn.ColumnValues["CalculatedFormula"];
+    object columnValue = 0;
+    // Not Shown: Use the formula to calculate the column value
+    e.MatrixRow.SetCellValue(formulaColumn, "PackageActivtiyData",  obj);
+  }
+}
+        ]]>
+      </code>
+    </example>
+  </doc>
+</MatrixField>

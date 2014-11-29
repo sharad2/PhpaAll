@@ -1,0 +1,111 @@
+﻿<%@ Master Language="C#" Inherits="MasterPage" CodeBehind="MasterPage.master.cs" %>
+
+<%@ Register Assembly="Eclipse.PhpaLibrary" Namespace="Eclipse.PhpaLibrary.Web" TagPrefix="phpa" %>
+<%--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">--%>
+<%-- Specifies strict standards compliance --%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Strict//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <title>Untitled Page</title>
+    <jquery:JQueryScriptManager ID="JQueryScriptMgr" runat="server" />
+    <link rel="Shortcut Icon" href="Images/favicon.ico" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div id="page-wrap" class="ui-widget">
+        <div id="toprow" runat="server" class="ui-widget-header">
+            <div style="float: left">
+                <asp:ImageMap ID="ImageMap1" runat="server" ImageUrl='<%$ AppSettings:logo %>' AlternateText="Punatsangchhu Home."
+                    Style="border-width: 0px;" EnableViewState="false">
+                    <asp:CircleHotSpot HotSpotMode="Navigate" NavigateUrl="~/Default.aspx" X="76" Y="75"
+                        Radius="75" AlternateText="PHPA Home" />
+                </asp:ImageMap>
+            </div>
+            <div style="float: right">
+                <asp:LoginView ID="ctlLoginView" runat="server" EnableViewState="false">
+                    <AnonymousTemplate>
+                        <asp:HyperLink ID="ctlLogin" runat="server" Text="Login" NavigateUrl="~/Login.aspx">
+                        </asp:HyperLink>
+                    </AnonymousTemplate>
+                    <LoggedInTemplate>
+                        Welcome
+                        <%= this.Page.User.Identity.Name %>
+                        <b>|</b>
+                        <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect" LogoutPageUrl="~/default.aspx" />
+                    </LoggedInTemplate>
+                </asp:LoginView>
+            </div>
+            <h1 style="text-align: center">
+                <%= ConfigurationManager.AppSettings["title"] %></h1>
+            <p style="text-align: center">
+                <asp:SiteMapPath ID="SiteMapPath1" runat="server" PathSeparator=" -> " EnableViewState="false" />
+            </p>
+        </div>
+        <h2 class="PrintTitle">
+            <%= ConfigurationManager.AppSettings["PrintTitle"]%></h2>
+        <div class="ui-helper-clearfix headerStyle">
+            <%= this.Page.Title %>
+        </div>
+        <div id="content" style="width: 1200px">
+            <div id="SideNavigation" runat="server" class="SideNavigation">
+                <asp:SiteMapDataSource ID="dsModuleMenu" runat="server" ShowStartingNode="False"
+                    StartFromCurrentNode="False" EnableViewState="false" />
+                <eclipse:MenuEx runat="server" DataSourceID="dsModuleMenu" TopItemWidth="7em" DisplayChildItems="false"
+                    DataFilterFields="[Visible]" FilterExpression="not($Filter0)" />
+                <br />
+                <asp:HyperLink ID="hlSiteMap" runat="server" Text="Site Map" NavigateUrl="~/SiteMenu.aspx?StartingNodeUrl=" />
+                <asp:ContentPlaceHolder ID="cphSideNavigation" runat="server" EnableViewState="false">
+                </asp:ContentPlaceHolder>
+                <fieldset class="ui-widget-content" style="padding-left: 1mm">
+                    <legend>Context Menu</legend>
+                    <asp:HyperLink ID="hlTrackBack" runat="server" Visible="false" EnableViewState="false" />
+                    <br />
+                    <asp:SiteMapDataSource ID="dsContext" runat="server" ShowStartingNode="false" StartFromCurrentNode="false"
+                        EnableViewState="false" StartingNodeOffset="2" StartingNodeUrl="~/Default.aspx" />
+                    <eclipse:MenuEx ID="menuContext" runat="server" DataSourceID="dsContext" TopItemWidth="16em"
+                        DisplayChildItems="false" DataFilterFields="[Visible]" FilterExpression="not($Filter0)" />
+                </fieldset>
+                <br />
+                <i:ButtonEx runat="server" Text="About..." OnClientClick="function(e) {
+                $('#dlgAbout').dialog('open');
+                }" />
+                <jquery:Dialog runat="server" ID="dlgAbout" Title="About PHPA Website" AutoOpen="false"
+                    ClientIDMode="Static">
+                    <ContentTemplate>
+                        <eclipse:AboutBox ID="AboutBox1" runat="server" />
+                    </ContentTemplate>
+                    <Buttons>
+                        <jquery:CloseButton Text="Ok" IsDefault="true" />
+                    </Buttons>
+                </jquery:Dialog>
+            </div>
+            <div id="ContentContainer">
+                <asp:SiteMapDataSource runat="server" ID="dsTopLevel" StartFromCurrentNode="false"
+                    ShowStartingNode="False" StartingNodeOffset="1" EnableViewState="false" />
+                <eclipse:MenuEx ID="MenuEx1" runat="server" DataSourceID="dsTopLevel" ClearFix="false"
+                    TopItemWidth="10em" DataFilterFields="[Visible]" FilterExpression="not($Filter0)" />
+                <div style="float: right; margin-top: 1mm">
+                    <asp:ContentPlaceHolder runat="server" ID="contentRight">
+                    </asp:ContentPlaceHolder>
+                </div>
+                <div class="ui-helper-clearfix">
+                </div>
+                <form id="form1" runat="server">
+                <div>
+                    <asp:ContentPlaceHolder ID="cph" runat="server" />
+                </div>
+                </form>
+                <asp:ContentPlaceHolder ID="cphNoForm" runat="server" />
+            </div>
+        </div>
+        
+        <div id="divUserId" class="ui-helper-hidden">
+            <b>Printed By=<%=this.Page.User.Identity.Name %></b></div>
+        <div id="footer" runat="server" class="footer">
+            Copyright &#169; 2012 <a href="http://www.eclsys.com">Eclipse Systems Private Limited</a>.
+            All Rights Reserved.</div>
+    </div>
+</body>
+</html>

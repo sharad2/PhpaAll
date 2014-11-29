@@ -1,0 +1,1 @@
+﻿Alter Table dbo.Division Alter Column DivisionCode nvarchar(25) null

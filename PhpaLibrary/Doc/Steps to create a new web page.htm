@@ -1,0 +1,216 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<title>Steps for creating a new web page</title>
+	<style type="text/css">
+		.style1
+		{
+			list-style-type: lower-alpha;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<h1>
+			Overview</h1>
+		This document discusses how to create a web page using LINQ data source and other
+		custom controls provided by Phpa Library. Given below is a brief description of
+		custom controls which part of Phpa Library.
+		<h3>
+			PhpaLinqDataSource</h3>
+		<br />
+		PhpaLinqDataSource is derived from LINQ data source. It provides logging facility
+		at present.
+		<h1>
+			How to make a read only web page
+		</h1>
+		<ol>
+			<li>• Add PhpaLinqDataSource to your page called dsGridView. </li>
+			<li>• Choose the table name for the data source </li>
+			<li>• Choose your sort criteria. </li>
+			<li>• Now add GridView and assign datasource created above to this gridview. Framework
+				asks you to regenerate gridview column fields and data keys when you press finish
+				button, do not regenerate them.Refresh schema.</li>
+			<li>Make sure that the DataKeyName of the grid has been set to the primary key of the
+				table you are selcting from.</li>
+			<li>• Set the default sort column of the grid and make sure that sorting is working.
+			</li>
+			<li>Enable paging if required. </li>
+			<li>• If you want to have a custom query then handle the Selecting event of the datasource.You
+				must select all the columns that the datagrid is showing. </li>
+		</ol>
+		<h1>
+			How to make a detail view web page
+		</h1>
+		<ol>
+			<li>Add PhpaLinqDataSource to your page called dsFormView. </li>
+			<li>Choose the table name for the data source </li>
+			<li>Now add FormView and assign datasource created above to this Formview. </li>
+			<li>Select the datasource, go to properties and double click where property. This opens
+				Expression Editor,set the parameter as follows: “Parameter source” will be "control"
+				and “ControlID” will be your gridview say, m gvUser. Do not set default Value.</li>
+			<li>At this point you will see the first row in the form view even when nothing is selected
+				in the grid. To prevent this behavior, handle the selecting event of your dsFormView
+				data source. It will look similar to the following:
+				<pre>
+<code>protected void dsFormView_Selecting(object sender, LinqDataSourceSelectEventArgs
+	e) { // UserId is the name of the WhereParameter which you created in dsFormView
+	if (e.WhereParameters["UserId"] == null) { e.Cancel = true; } } </code>                
+</pre>
+			</li>
+		</ol>
+		Now you should be able to view details of the item which you select in the grid.
+		Modify your Item Template to remove any unnecessary details created by the designer.
+		<h1>
+			Add Filter to your web page</h1>
+		<ol>
+			<li>Add a textbox to your page</li>
+			<li>&nbsp;Select the dsGridView datasource, go to properties and double click where
+				property. This opens Expression Editor,set the parameter as follows: “Parameter
+				source” will be control and “ControlID” will be your textboxid. Do not set default
+				Value.</li>
+			<li>Do this for each filter you wish to create.</li>
+		</ol>
+		<p>
+			Now you must handle the Selecting event of dsGridView to ensure that a proper where
+			clause is constructed if your text box contains a value. In the code example below,
+			the where clause is built for each parameter which has a value.</p>
+		<pre>
+    <code>protected void dsUsers_Selecting(object sender, LinqDataSourceSelectEventArgs
+		e) { List&lt;string> whereClauses = new List&lt;string>(); string str = (string)e.WhereParameters["UserName"];
+		if (!string.IsNullOrEmpty(str)) { whereClauses.Add(string.Format("UserName.Contains(@UserName)"));
+		} str=(string)e.WhereParameters["FirstName"]; if(!string.IsNullOrEmpty(str)) { whereClauses.Add(string.Format("FirstName.Contains(@FirstName)"));
+		} str = (string)e.WhereParameters["LastName"]; if(!string.IsNullOrEmpty(str)) {
+		whereClauses.Add(string.Format("Lastname.Contains(@LastName)")); } dsUsers.Where
+		= string.Join(" && ", whereClauses.ToArray()); } </code>
+            </pre>
+		<p>
+			&nbsp;</p>
+		<h1>
+			Make your Page editable</h1>
+		• Create an edit user control say EmployeeEditor. • Add a datasource dsEdit. • Configure
+		datasource dsEdit and enable delete, insert and update. • Framework asks you to
+		regenerate fields and data keys when you press finish button, do not regenerate
+		them otherwise markup will go away.Refresh schema. • Make third field your template
+		field. • Set default value of where parameter to 0.
+		<h1>
+			Using Custom Controls Of Labels and Textboxes in Read Only and Editable Forms:</h1>
+		<p>
+			Before starting with the steps to add custom controls in the FormView, it is expected
+			that the user has already gone through the steps for using Form View and phpa custom
+			linq data source.
+		</p>
+		<h2>Read Only Forms</h2>
+		<ol>
+			<li>Switch to ItemTemplate of Form View.</li>
+			<li>Add &lt; ajax:TabContainer>, if required, or jump to step 5. if not.</li>
+			<li>Again add &lt;ajax:TabPanel> in &lt; ajax:TabContainer></li>
+			<li>Under &lt;ajax:TabPanel> tag give &lt;ContentTemplate> container tag </li>
+			<li>Start a new div element and specify class="PanelContainer".
+				<pre>e.g.-
+<br />&lt;div class="PanelContainer"></pre>
+			</li>
+			<li>Follow the under mentioned steps to add &lt;phpa:LabelLable> under the &lt;div class="PanelContainer">
+				tag.
+				<p>
+					This custom control will add two adjacent labels with all the style being applied
+					previously, thus helping the developers to display the read-only contents in the
+					web page without writing any style specific markup. Now, the developer is not at
+					all required to worry about the placement of controls and styling issues.</p>
+				<ol>
+					<li>Write &lt;phpa:LabelLabel> or simply drag and drop the LabelLabel custom control
+						from PhpaLibrary Components section of Toolbox. </li>
+					<li>Specifying "ID" and "runat" attributes is mandatory.</li>
+					<li>The two important attributes and their descriptions are listed below, along with
+						respective examples.
+						<ol class="style1">
+							<li><u><b>LableText:</b></u> To Get and Set the caption of the control.
+								<pre>e.g.- LabelText="Revised Cost"</pre>
+							</li>
+							<li><u><b>RightLabelText:</b></u> To Get and Set the field name of the datasource.<br />
+								<pre>e.g.- This can be done by writing following expression.
+<br />RightLabelText='&lt;%# Eval("RevisedProjectCost", "INR {0:###,###,###,###.00}") %>'</pre>
+							</li>
+						</ol>
+					</li>
+				</ol>
+			</li>
+		</ol>
+		<h3>*<u>Sample Code</u></h3>
+		<pre>
+			<code>
+	&lt;ItemTemplate>
+		&lt;ajax:TabContainer ID="TabContainer1" runat="server">
+			&lt;ajax:TabPanel runat="server" ID="Panel2" HeaderText="Details">
+				&lt;ContentTemplate>
+					&lt;div class="PanelContainer">
+						&lt;phpa:LabelLabel ID="lblProjectCost" runat="server" LabelText="Cost" 
+						RightLabelText='&lt;%# Eval("ProjectCost", "INR{0:###,###,###,###.00}") %>' />
+					&lt;/div>
+				&lt;/ContentTemplate>
+			&lt;/ajax:TabPanel>
+		&lt;/ajax:TabContainer>
+	&lt;/ItemTemplate>
+			</code>
+		</pre>
+		<h2>Editable Forms</h2>
+		<ol>
+			<li>Switch to EditItemTemplate of Form View.</li>
+			<li>Start a new div element and specify class="PanelContainer".
+				<pre>e.g.-<br />&lt;div class="PanelContainer"></pre>
+			</li>
+			<li>Follow the under mentioned steps to add &lt;phpa:LabelLable> under the &lt;div class="PanelContainer">
+				tag.
+				<p>
+					This custom control will add one label and to it's right, one textbox with all the
+					style being applied previously, thus helping the developers to display the editable
+					contents in the web page. The said label will be assigned as the field caption and
+					the textbox will be bound to the data source table-field without writing any style
+					specific markup. Now, the developer is not at all required to worry about the placement
+					of controls and styling issues.</p>
+				<ol>
+					<li>Write &lt;phpa:LabelTextBox> or simply drag and drop the LabelTextBox custom control
+						from PhpaLibrary Components section of Toolbox. </li>
+					<li>Specifying "ID" and "runat" attributes is mandatory.</li>
+					<li>The two important attributes and their descriptions are listed below, along with
+						respective examples.
+						<ol class="style1">
+							<li><u><b>LableText:</b></u> To Get and Set the caption of the control.
+								<pre>e.g.- LabelText="Group"</pre>
+							</li>
+							<li><u><b>Text:</b></u> To Get and Set the field name of the datasource.<br />
+								<pre>e.g.- This can be done by writing following expression.<br />Text='&lt;%# Bind("GroupDescription") %>'</pre>
+							</li>
+							<li><u><b>Required:</b></u> To apply RequiredFieldValidator.<br />
+								<pre>e.g.- Giving "true" or "false" as a value to the attribute.<br />Required="True"</pre>
+							</li>
+							<li><u><b>DescriptionText:</b></u> To give some hints to the end-user about the purpose and usage of the given TextBox.<br />
+								<pre>
+e.g.- Writing the descriptive text as value of this attribute.<br />DescriptionText="Enter 6-10 characters."
+								</pre>
+							</li>
+						</ol>
+					</li>
+				</ol>
+			</li>
+		</ol>
+		<h3>*<u>Sample Code</u></h3>
+		<pre>
+			<code>
+	&lt;EditItemTemplate>
+	&lt;div class="PanelContainer">
+			&lt;phpajax:LabelTextBox runat="server" ID="tbUserName" LabelText="Login Name" Text='&lt;%# Bind("UserName") %>'
+			Required="false"
+			DescriptionText="Enter 6-10 characters name which will be used for your login in to the system.">
+			&lt;ajax:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" Enabled="True"
+			ServicePath="~/Services/SuggesterService.asmx" ServiceMethod="GetUserList"
+			MinimumPrefixLength="3" CompletionSetCount="100" FirstRowSelected="false">
+			&lt;/ajax:AutoCompleteExtender>
+			&lt;/phpajax:LabelTextBox>
+	&lt;/div>
+	&lt;/EditItemTemplate>
+			</code>
+		</pre>
+	</div>
+</body>
+</html>

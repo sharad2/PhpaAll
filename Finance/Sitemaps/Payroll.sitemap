@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode url=" ~/Payroll/Payroll.aspx" title="Payroll"  description="Payroll Package Home.First time user visit here">
+    <siteMapNode url="~/PIS/Employees.aspx" title="Employees"  description="Employee Search"></siteMapNode>
+    <siteMapNode url="~/Payroll/Reports/PaybillRegister.aspx" title="Pay Bill"  description="Pay Bill Register for any year">
+      <siteMapNode url="~/Doc/PaybillRegister.doc.aspx" title="Pay Bill Doc"  description="Documentation for Pay Bill" Visible="False"/>
+      <siteMapNode url="~/Payroll/Reports/TdsCertificate.aspx" title="TDS Certificate"  description="Shows all deduction summary">
+        <siteMapNode url="~/Doc/TdsCertificate.doc.aspx" title="TDS Certificate Doc"  description="Documentation for TDS Certificate" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Payroll/Reports/PaySlip.aspx" title="Pay Slip"  description="Pay Slip for a period" />
+      <siteMapNode url="~/Payroll/EmployeeAdjustments.aspx" title="Employee Adjustments"  description="Adjustments per Employee">
+        <siteMapNode url="~/Doc/EmployeeAdjustments.doc.aspx" title="Employee Adjustments Doc"  description="Documentation for Employee Adjustments" Visible="False"/>
+      </siteMapNode>
+    </siteMapNode>
+    <siteMapNode url="~/Payroll/Reports/RecoverySchedule.aspx" title="Recoveries" description="Displays Recovery Schedule of deputationist">
+      <siteMapNode url="~/Payroll/Reports/AdjustmentRecovery.aspx" title="Loan Recovery" description="Bank Loan Recovery or BDFC Loan Recovery" />
+      <siteMapNode url="~/Payroll/Reports/RMTDReport.aspx" title="RMTD Report" description="Displays all adjustments of deputationist">
+        <siteMapNode url="~/Doc/RMTDReport.doc.aspx" title="RMTD Report Doc"  description="Documentation for RMTD Report" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Payroll/Reports/GPF.aspx" title="NPPF" description="Displays Report of NPPF Recovery">
+        <siteMapNode url="~/Doc/GPF.doc.aspx" title="NPPF Doc"  description="Documentation for NPPF" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Payroll/Reports/STHC.aspx" title="STHC Report" description="Display Remittances of Personal income Tax and Health Contribution">
+        <siteMapNode url="~/Doc/STHC.doc.aspx" title="STHC Report Doc"  description="Documentation for STHC" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Payroll/Reports/GIS.aspx" title="GIS Recovery Report" description="Displays all GIS Recoveries for a given period" >
+        <siteMapNode url="~/Doc/GIS.doc.aspx" title="GIS Recovery Report Doc"  description="Documentation for GIS Recovery Report" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Payroll/Reports/SSS.aspx" title="SSS" description="Recovery of Life Insurance Premium">
+        <siteMapNode url="~/Doc/SSS.doc.aspx" title="SSS Doc"  description="Documentation for SSS" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Payroll/Reports/MiscRMT.aspx" title="Miscellaneous Recoveries" description="Displays Report of Miscellaneous Remittances" />
+    
+    </siteMapNode>
+
+    <siteMapNode url="~/Payroll/SalaryPeriods.aspx" title="Salary Period"  description="Salary Period" >
+      <siteMapNode url="~/Payroll/Adjustment.aspx" title="Adjustments"  description="View or edit allowances and deductions">
+        <siteMapNode url="~/Doc/Adjustment.doc.aspx" title="Adjustments Doc"  description="Documentation for Adjustments" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Payroll/ManageEmployeePeriod.aspx" title="Salary Remittances To Bank" description="Salary Remittances To Bank" >
+        <siteMapNode url="~/Doc/ManageEmployeePeriod.doc.aspx" title="Salary Remittances To Bank Doc"  description="Documentation for Salary Remittances To Bank" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Payroll/Reports/Paybill1.aspx" title="Pay Bill"  description="Pay Bill for a period">
+        <siteMapNode url="~/Doc/Paybill1.doc.aspx" title="Pay Bill Doc"  description="Documentation for Pay Bill" Visible="False"/>
+      </siteMapNode>
+
+      <siteMapNode url="~/Payroll/Reports/BankDraft.aspx" title="Bank Draft Form" description="Displays Bank Draft form of the total amount recovered from the salary of deputationist for an organisation" />
+      <!--<siteMapNode url="~/Payroll/Reports/MiscRMT.aspx" title="Miscellaneous Remittances" description="Displays Report of Miscellaneous Remittances" />-->
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>

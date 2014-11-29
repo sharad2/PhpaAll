@@ -1,0 +1,65 @@
+Author: Deepak Bhatt; 19 Jun 2008
+General
+=======
+Use the page as a user and make sure that you are comfortable with using the page.
+- Is the page clear about what its purpose is?
+- Is the information presented comprehensible?
+- Are data entry forms intuitive and well validated?
+
+Check List to be followed by developer
+======================================
+
+1.	Make sure that title of the page is given.
+2.	Make sure that GUI is consistent and follows the philosphy set for the project.
+3.	Every page must have a short discription at the top of the page and a detailed discription in the help contentplaceholder.
+4.	Check your GUI for spelling mistakes.
+5.	Provide proper link of your page in the home page.
+6.	Provide sorting wherever required and Check that  default sorting is provided in the appropiate column
+7.	Negative values should come in braces ()
+8.	Check that alignment is proper.
+9.	For PHPA project the refrance screen is Voucher screen. If you are not following the pattern of voucher make sure that you discuss it first.
+10.	Id is for internal use it should not be shown in the GUI.
+
+
+Guidelines for GUI development
+==============================
+
+1. Tolltips should be provided where necessary. They help in debugging also.
+2. Tab order should be specified in every data-entry form.
+3. Do not just dump screen with data, try to be descriptive. For example if you are developing a report 
+   then you should explain the purpose and usability of it.
+ 
+4. Heading should be in bold with clear distinction from rest of the text.
+
+Given below are some examples of User Reactions to GUIs. You should have a clear answer for these questions. Ask these questions to
+yourself before procedding for review.
+
+"Why is the screen taking so long to run?" 
+- Screen should not show huge data needlessly. Try to make your queries faster by optimising them
+  and provide indexes whenever necessary.
+
+"Which part am I supposed to be looking at?" 
+- Make your screen communicate by providing helpfull text.
+
+"Why is it showing this data?" 
+- Explain how the information on screen can be used in.
+
+5. (SS 22 Jun 2008) If no data is retrieved, a reasonable message should be shown. Ideally, the user should be told, what to do to
+get some data.
+ 
+
+
+Standards for PHPA Projects
+---------------------------------------------------------
+1. Money columns should be right justified
+2. Date columns should be right justified
+3. Description maxwidth 90.
+4. Code should be left justified.
+
+Security
+========
+1. Helpful Info must define the rights necessary for performing the operations available on the page.
+
+Reports
+=======
+1. (SS 21 Jun 2008) Helpful info should indicate whether it is best to print this report in landscape or portrait.

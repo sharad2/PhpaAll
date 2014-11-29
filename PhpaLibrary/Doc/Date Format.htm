@@ -1,0 +1,32 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title>Controlling Date Format</title>
+	    <style type="text/css">
+            .style1
+            {
+                text-align: left;
+            }
+        </style>
+	</head>
+	<body>
+	
+	    <h1 class="style1">
+            Controlling Date Format in the PHPA Application</h1>
+<p class="style1">
+            SS: 7 July 2008</p>
+        <p>
+            By default, the application displays all dates in the d/M/yyyy format. The end 
+            user has no control on this format. This format is hardwired in the 
+            InitializeCulture() override in the PageBase class. All pages must derive from 
+            this class. If you forget to derive from this class, you will not receive proper 
+            date formatting.</p>
+<p>
+            This class defines the ShortDatePattern to be d/M/yyyy. This means that whenever 
+            you use the string.Format(&quot;{0:d}&quot;, dateVariable) syntax, the output would be 
+            similar to 21/8/2008. No other behavior of date will change.</p>
+<p>
+            DateTextBox class has been designed to accept dates in the d/M/yyyy format.</p>
+	
+	</body>
+</html>

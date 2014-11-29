@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A29A1C9C-CB06-445A-A079-4311DC93F822}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Eclipse.PhpaLibrary</RootNamespace>
+    <AssemblyName>Eclipse.PhpaLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Database\AuthenticationDataContext.cs">
+      <DependentUpon>AuthenticationDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\AuthenticationDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AuthenticationDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DataContextBase.cs" />
+    <Compile Include="Database\FinanceDataContext.cs">
+      <DependentUpon>FinanceDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\FinanceDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FinanceDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\MISDataContext.cs">
+      <DependentUpon>MISDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\MISDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MISDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\PackageActivityDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackageActivityDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\PayrollDataContext.cs">
+      <DependentUpon>PayrollDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\PayrollDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PayrollDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\PISDataContext.cs">
+      <DependentUpon>PISDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\PISDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PISDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\StoreDataContext.cs">
+      <DependentUpon>StoreDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\StoreDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ValidationException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\IEmployee.cs" />
+    <Compile Include="Reporting\LevelSubtotals.cs" />
+    <Compile Include="Reporting\ReportingUtilities.cs" />
+    <Compile Include="Reporting\ReportingDataContext.cs">
+      <DependentUpon>ReportingDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\ReportingDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportingDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Web\Ajax\AuditTabPanel.cs" />
+    <Compile Include="Web\Ajax\AuditTemplate.cs" />
+    <Compile Include="Web\BoolField.cs" />
+    <Compile Include="Web\FormViewContextHeader.cs" />
+    <Compile Include="Web\FormViewStatusMessage.cs" />
+    <Compile Include="Web\FormViewUpdateInsertButton.cs" />
+    <Compile Include="Web\InfoImage.cs" />
+    <Compile Include="Web\Providers\PhpaRoleProvider.cs" />
+    <Compile Include="Web\Specialized\HeadsHierarchicalDataSource.cs" />
+    <Compile Include="Web\Specialized\HeadsHierarchicalDataSourceView.cs" />
+    <Compile Include="Web\Specialized\HeadsHierarchicalEnumerable.cs" />
+    <Compile Include="Web\Specialized\HeadsHierarchyData.cs" />
+    <Compile Include="Web\PageBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web\PhpaLinqDataSource.cs" />
+    <Compile Include="Web\Providers\PhpaMembershipProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Doc\Check List.txt" />
+    <Content Include="Doc\Date Format.htm" />
+    <Content Include="Doc\DisplayMasterDetailData.txt" />
+    <Content Include="Doc\OverrideenMoneyFiled .htm" />
+    <Content Include="Doc\Project Standards.txt" />
+    <Content Include="Doc\script.sql" />
+    <Content Include="Doc\Steps to create a new web page.htm" />
+    <Content Include="Doc\CodeSelector.htm" />
+    <Content Include="Doc\Steps to Create dynamic Header tool til of the Grid.htm" />
+    <Content Include="Doc\Tutorial.htm" />
+    <Content Include="Scripts\To Send Create Foreign Key Indexes.txt" />
+    <Content Include="Scripts\To Send Database Modification Scripts.txt" />
+    <Content Include="Scripts\To Send Index Rebuild Script.txt" />
+    <Content Include="Scripts\To Create Non Clusterd Indexes On Foreign Key.sql" />
+    <Content Include="Scripts\To Rebuild All Index In Database.sql" />
+    <None Include="Database\MISDataContext.dbml.layout">
+      <DependentUpon>MISDataContext.dbml</DependentUpon>
+    </None>
+    <None Include="Database\PISDataContext.dbml.layout">
+      <DependentUpon>PISDataContext.dbml</DependentUpon>
+    </None>
+    <None Include="Database\PackageActivityDataContext.dbml.layout">
+      <DependentUpon>PackageActivityDataContext.dbml</DependentUpon>
+    </None>
+    <EmbeddedResource Include="Database\StoreDataContext.dbml.views_def.layout">
+      <DependentUpon>StoreDataContext.dbml</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Database\StoreDataContext.dbml.layout">
+      <DependentUpon>StoreDataContext.dbml</DependentUpon>
+    </None>
+    <EmbeddedResource Include="Web\info.jpg" />
+    <None Include="Doc\phpa22102010.xls" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reporting\ReportingDataContext.dbml.layout">
+      <DependentUpon>ReportingDataContext.dbml</DependentUpon>
+    </None>
+    <None Include="Database\PayrollDataContext.dbml.layout">
+      <DependentUpon>PayrollDataContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Database\FinanceDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>FinanceDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Database\AuthenticationDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>AuthenticationDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Database\FinanceDataContext.dbml.layout">
+      <DependentUpon>FinanceDataContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Database\AuthenticationDataContext.dbml.layout">
+      <DependentUpon>AuthenticationDataContext.dbml</DependentUpon>
+    </None>
+    <None Include="Database\MISDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>MISDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Database\PackageActivityDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>PackageActivityDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Database\PayrollDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>PayrollDataContext.designer.cs</LastGenOutput>
+    </None>
+    <None Include="Database\PISDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>PISDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Database\StoreDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>StoreDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Doc\Modulo 10 check digit algorithm.mht" />
+    <None Include="Reporting\ReportingDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>ReportingDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EclipseLibrary.WebForms\EclipseLibrary.WebForms.csproj">
+      <Project>{9B52E8F7-82A8-4F2D-967B-7CDD5C25E255}</Project>
+      <Name>EclipseLibrary.WebForms</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

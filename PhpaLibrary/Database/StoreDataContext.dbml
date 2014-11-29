@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="phpa15october" EntityNamespace="Eclipse.PhpaLibrary.Database.Store" ContextNamespace="Eclipse.PhpaLibrary.Database.Store" Class="StoreDataContext" BaseType="Eclipse.PhpaLibrary.Database.DataContextBase" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Contractor" Member="RoContractors">
+    <Type Name="RoContractor">
+      <Column Name="ContractorId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="ContractorName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="ContractorCode" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Nationality" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Postal_Code" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Contact_person" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Phone1" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Phone2" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="RoContractor_GRN" Member="GRNs" ThisKey="ContractorId" OtherKey="ContractorId" Type="GRN" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Division" Member="RoDivisions">
+    <Type Name="RoDivision">
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="DivisionCode" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="DivisionGroup" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="DivisionName" Type="System.String" DbType="NVarChar(80) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="RoDivision_SRS" Member="SRs1" ThisKey="DivisionId" OtherKey="SRSFrom" Type="SRS" />
+      <Association Name="RoDivision_SRS1" Member="SRS2" ThisKey="DivisionId" OtherKey="SRSTo" Type="SRS" />
+    </Type>
+  </Table>
+  <Table Name="payroll.Employee" Member="RoEmployees">
+    <Type Name="RoEmployee">
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="EmployeeCode" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Designation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="RoEmployee_SRS" Member="SRs" ThisKey="EmployeeId" OtherKey="ApplyingOfficer" Type="SRS" />
+      <Association Name="RoEmployee_SRS1" Member="SRs1" ThisKey="EmployeeId" OtherKey="IntendingOfficer" Type="SRS" />
+      <Association Name="RoEmployee_SRS2" Member="SRs3" ThisKey="EmployeeId" OtherKey="IssuingOfficer" Type="SRS" />
+      <Association Name="RoEmployee_SRS3" Member="SRS4" ThisKey="EmployeeId" OtherKey="ReceivingOfficer" Type="SRS" />
+    </Type>
+  </Table>
+  <Table Name="store.GRN" Member="GRNs">
+    <Type Name="GRN">
+      <Column Name="GRNId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GRNCode" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TransportationMode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ConveyenceReceiptNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PONumber" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PODate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
+      <Column Name="DeliveryChallanNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DeliveryChallanDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OtherReferenceNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NameofCarrier" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AddressOfCarrier" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="OrderPlaced" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ContractorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="GRNReceiveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="GRNCreateDate" Storage="_GoodsReceiveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="InvoiceNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="InvoiceDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="AmendmentNo" Type="System.String" DbType="Nvarchar(100)" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="AmendmentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="GRN_GRNItem" Member="GRNItems" ThisKey="GRNId" OtherKey="GRNId" Type="GRNItem" />
+      <Association Name="RoContractor_GRN" Member="RoContractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="RoContractor" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="store.ItemCategory" Member="ItemCategories">
+    <Type Name="ItemCategory">
+      <Column Name="ItemCategoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ItemCategoryCode" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="ItemCategory_Item" Member="Items" ThisKey="ItemCategoryId" OtherKey="ItemCategoryId" Type="Item" />
+    </Type>
+  </Table>
+  <Table Name="Store.UOM" Member="UOMs">
+    <Type Name="UOM">
+      <Column Name="UOMId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UOMCode" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="UOM_Item" Member="Items" ThisKey="UOMId" OtherKey="UOMId" Type="Item" />
+    </Type>
+  </Table>
+  <Table Name="Store.SRSItems" Member="SRSItems">
+    <Type Name="SRSItem">
+      <Column Name="SRSItemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SRSId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QtyRequired" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="SRSItem_SRSIssueItem" Member="SRSIssueItems" ThisKey="SRSItemId" OtherKey="SRSItemId" Type="SRSIssueItem" />
+      <Association Name="SRS_SRSItem" Member="SRS" ThisKey="SRSId" OtherKey="SRSId" Type="SRS" IsForeignKey="true" />
+      <Association Name="Item_SRSItem" Member="Item" ThisKey="ItemId" OtherKey="ItemId" Type="Item" IsForeignKey="true" />
+      <Association Name="HeadOfAccount_SRSItem" Member="HeadOfAccount" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="HeadOfAccount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="Store.SRS" Member="SRS">
+    <Type Name="SRS">
+      <Column Name="SRSId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SRSCode" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SRSCreateDate" Storage="_SRSDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SRSFrom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SRSTo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IssuedTo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="VehicleNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ChargeableTo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApplyingOfficer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReceivingOfficer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IntendingOfficer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IssuingOfficer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarchar(250)" CanBeNull="true" />
+      <Association Name="SRS_SRSItem" Member="SRSItems" ThisKey="SRSId" OtherKey="SRSId" Type="SRSItem" />
+      <Association Name="RoEmployee_SRS" Member="RoEmployee" ThisKey="ApplyingOfficer" OtherKey="EmployeeId" Type="RoEmployee" IsForeignKey="true" />
+      <Association Name="RoDivision_SRS" Member="RoDivision1" ThisKey="SRSFrom" OtherKey="DivisionId" Type="RoDivision" IsForeignKey="true" />
+      <Association Name="RoEmployee_SRS1" Member="RoEmployee1" ThisKey="IntendingOfficer" OtherKey="EmployeeId" Type="RoEmployee" IsForeignKey="true" />
+      <Association Name="RoEmployee_SRS2" Member="RoEmployee3" ThisKey="IssuingOfficer" OtherKey="EmployeeId" Type="RoEmployee" IsForeignKey="true" />
+      <Association Name="RoEmployee_SRS3" Member="RoEmployee4" ThisKey="ReceivingOfficer" OtherKey="EmployeeId" Type="RoEmployee" IsForeignKey="true" />
+      <Association Name="RoDivision_SRS1" Member="RoDivision2" ThisKey="SRSTo" OtherKey="DivisionId" Type="RoDivision" IsForeignKey="true" />
+      <Association Name="HeadOfAccount_SRS" Member="HeadOfAccount" ThisKey="ChargeableTo" OtherKey="HeadOfAccountId" Type="HeadOfAccount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HeadOfAccount" Member="HeadOfAccounts">
+    <Type Name="HeadOfAccount">
+      <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ParentHeadOfAccountId" Type="System.Int32" DbType="Int" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="NameWithinParent" Type="System.Int16" DbType="SmallInt NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="DisplayName" Type="System.String" DbType="VarChar(50) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(150) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="HeadOfAccountType" Type="System.String" DbType="NVarChar(20)" IsReadOnly="true" CanBeNull="true" />
+      <Association Name="HeadOfAccount_SRSItem" Member="SRSItems" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="SRSItem" />
+      <Association Name="HeadOfAccount_SRS" Member="SRS" ThisKey="HeadOfAccountId" OtherKey="ChargeableTo" Type="SRS" />
+      <Association Name="HeadOfAccount_Item" Member="Items" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="Item" />
+    </Type>
+  </Table>
+  <Table Name="Store.GRNItems" Member="GRNItems">
+    <Type Name="GRNItem">
+      <Column Name="GRNItemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GRNId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderedQty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AcceptedQty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReceivedQty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LandedPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Association Name="GRNItem_SRSIssueItem" Member="SRSIssueItems" ThisKey="GRNItemId" OtherKey="GRNItemId" Type="SRSIssueItem" />
+      <Association Name="GRN_GRNItem" Member="GRN" ThisKey="GRNId" OtherKey="GRNId" Type="GRN" IsForeignKey="true" />
+      <Association Name="Item_GRNItem" Member="Item" ThisKey="ItemId" OtherKey="ItemId" Type="Item" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="Store.SRSIssueItems" Member="SRSIssueItems">
+    <Type Name="SRSIssueItem">
+      <Column Name="SRSIssueItemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GRNItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SRSItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QtyIssued" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IssueDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="GRNItem_SRSIssueItem" Member="GRNItem" ThisKey="GRNItemId" OtherKey="GRNItemId" Type="GRNItem" IsForeignKey="true" />
+      <Association Name="SRSItem_SRSIssueItem" Member="SRSItem" ThisKey="SRSItemId" OtherKey="SRSItemId" Type="SRSItem" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="Store.Item" Member="Items">
+    <Type Name="Item">
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ItemCode" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ItemCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="UOMId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int " CanBeNull="true" />
+      <Column Name="ReorderingLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="Brand" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Identifier" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Dimension" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Size" Type="System.String" DbType="NVarchar(50)" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="NVarchar(500)" CanBeNull="true" />
+      <Association Name="Item_SRSItem" Member="SRSItems" ThisKey="ItemId" OtherKey="ItemId" Type="SRSItem" />
+      <Association Name="Item_GRNItem" Member="GRNItems" ThisKey="ItemId" OtherKey="ItemId" Type="GRNItem" />
+      <Association Name="HeadOfAccount_Item" Member="HeadOfAccount" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="HeadOfAccount" IsForeignKey="true" />
+      <Association Name="ItemCategory_Item" Member="ItemCategory" ThisKey="ItemCategoryId" OtherKey="ItemCategoryId" Type="ItemCategory" IsForeignKey="true" />
+      <Association Name="UOM_Item" Member="UOM" ThisKey="UOMId" OtherKey="UOMId" Type="UOM" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

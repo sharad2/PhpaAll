@@ -1,0 +1,34 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+	<h1>
+			Overview</h1>
+		This document discusses how to use MoneyField for overriden feature. 
+	this feature is usefull for money value which have some default value and later user can override this amount.
+	if user changed default value then an image is dispalyed in read ony mode to indicate an default value has been overridden.
+	in the case of edit a check box is dispalyed. 
+    In edit mode a checked checkbox is shown. If OverrideDataField evaluates to false,
+    the checkbox is not shown in edit mode and info image is not shown in read mode.  
+		
+		<ol>
+			<li>• Add MoneyField in gridView. </li>
+			<li>• set OverrideDataField property to DataField which decide  its value is overriden or not.    </li>
+			<li>•Set OverrideToolTip which is the tooltip of image   </li>
+			<li>• Now add GridView and assign datasource created above to this gridview. Framework
+				asks you to regenerate gridview column fields and data keys when you press finish
+				button, do not regenerate them.Refresh schema.</li>
+			<li>Make sure that the DataKeyName of the grid has been set to the primary key of the
+				table you are selcting from.</li>
+			<li>• Set the default sort column of the grid and make sure that sorting is working.
+			</li>
+			<li>Enable paging if required. </li>
+			<li>• If you want to have a custom query then handle the Selecting event of the datasource.You
+				must select all the columns that the datagrid is showing. </li>
+		</ol>
+	<!--<phpa:MoneyField DataField="Amount" OverrideDataField="IsAmountOverridden"  HeaderText="Amount"  
+                    OverrideToolTip="You have explicitly changed the amount of this adjustment for this employee" /> -->
+	</body>
+</html>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+	<siteMapNode url="~/Default.aspx" title="PHPA Home"  description="">
+		<siteMapNode siteMapFile="Finance.sitemap" />
+		<siteMapNode siteMapFile="Payroll.sitemap" />
+		<siteMapNode siteMapFile="Store.sitemap"/>
+		<siteMapNode siteMapFile="MIS.sitemap" />
+		<siteMapNode siteMapFile="PIS.sitemap" />
+		<siteMapNode siteMapFile="Administration.sitemap" securityTrimmingEnabled="true" />
+	</siteMapNode>
+</siteMap>

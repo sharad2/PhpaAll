@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 22.75, 38.625" name="PISDataContext">
+  <DataContextMoniker Name="/PISDataContext" />
+  <nestedChildShapes>
+    <classShape Id="8899ae91-7b59-4b5f-82cc-e67d8c8c7ba0" absoluteBounds="6.25, 27.5, 2, 2.5401025390625023">
+      <DataClassMoniker Name="/PISDataContext/BloodGroup" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e50516e8-997a-46ef-83f1-6dc6a720103b" absoluteBounds="6.2650000005960464, 27.96000000089407, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e8121336-cf56-48a6-9eb1-2f4b94f2490b" absoluteBounds="6.25, 15.375, 2, 2.5401025390625023">
+      <DataClassMoniker Name="/PISDataContext/EmployeeStatus" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b38a498c-f44a-4ffb-b002-9a2a4b66adcc" absoluteBounds="6.2650000005960464, 15.83500000089407, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5bfc56eb-fab8-49ca-9ccf-4e940745eea1" absoluteBounds="6.25, 30.5, 2, 2.5401025390625023">
+      <DataClassMoniker Name="/PISDataContext/MaritalStatus" />
+      <nestedChildShapes>
+        <elementListCompartment Id="42f1b774-80a4-45d6-9521-02bff029efba" absoluteBounds="6.2650000005960464, 30.96000000089407, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8b6c0915-423d-408e-addd-597e44d80a30" absoluteBounds="17.75, 13.5, 2, 2.5401025390625023">
+      <DataClassMoniker Name="/PISDataContext/EntitlementType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4f2c77df-29f1-480e-b3dd-17defd469290" absoluteBounds="17.765000000596046, 13.96000000089407, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="96a5a5ea-696c-4296-8645-542a2da63257" absoluteBounds="0.75, 15.75, 2, 2.9247054036458344">
+      <DataClassMoniker Name="/PISDataContext/Division" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a5849fed-90c9-4fa1-8c08-8d719ecece70" absoluteBounds="0.76500000059604645, 16.21000000089407, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d6c995ad-7b5c-4814-898d-353f0f51a41b" absoluteBounds="14.75, 14.5, 2, 3.6939111328125023">
+      <DataClassMoniker Name="/PISDataContext/FamilyMember" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f0bc2644-6483-48b4-9c97-a0aabf07e6ec" absoluteBounds="14.765000000596046, 14.96000000089407, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="18716c8b-619a-4e9f-9169-8b429283c6f5" absoluteBounds="12, 12, 2, 2.5401025390625005">
+      <DataClassMoniker Name="/PISDataContext/QualificationDivision" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5d81df72-be55-4370-b43f-d596d6263223" absoluteBounds="12.015000000596046, 12.46000000089407, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6d524671-5f58-4464-b13b-99b65eb5e90e" absoluteBounds="14.75, 29, 2, 2.5401025390625023">
+      <DataClassMoniker Name="/PISDataContext/TrainingType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1ec0a17b-2166-4901-8524-46adc8b62483" absoluteBounds="14.765000000596046, 29.46000000089407, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5a2e3c01-278d-4580-aace-0b8bc443a3d1" absoluteBounds="11.75, 25, 2, 2.5401025390625023">
+      <DataClassMoniker Name="/PISDataContext/LeaveType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0314471a-4ae1-4924-9cbb-a539ae2b5e44" absoluteBounds="11.765, 25.46, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="bc1a2d49-fd18-4363-8024-eada30458c79" absoluteBounds="12, 15, 2, 2.5401025390625023">
+      <DataClassMoniker Name="/PISDataContext/Country" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c1cee8dc-6331-4237-a4ad-9748c5f57f78" absoluteBounds="12.015000000596046, 15.46000000089407, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(14 : 16.1232922363281); (14.2916666666667 : 16.1232922363281 : JumpStart); (14.4583333333333 : 16.1232922363281 : JumpEnd); (14.75 : 16.1232922363281)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/Country/Country_FamilyMember" />
+      <nodes>
+        <classShapeMoniker Id="bc1a2d49-fd18-4363-8024-eada30458c79" />
+        <classShapeMoniker Id="d6c995ad-7b5c-4814-898d-353f0f51a41b" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="667023c7-c085-4220-a7f5-2637c4c16c72" absoluteBounds="14.75, 19.125, 2, 4.46311686197917">
+      <DataClassMoniker Name="/PISDataContext/Qualification" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b8d8f3da-9bcd-43a2-8fd7-d45ee9531ffb" absoluteBounds="14.765000000596046, 19.58500000089407, 1.9700000000000002, 3.9031168619791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(14 : 14.2465844726563); (14.375 : 14.6215844726563); (14.375 : 20.1857593583984); (14.75 : 20.1857593583984)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/QualificationDivision/QualificationDivision_Qualification" />
+      <nodes>
+        <classShapeMoniker Id="18716c8b-619a-4e9f-9169-8b429283c6f5" />
+        <classShapeMoniker Id="667023c7-c085-4220-a7f5-2637c4c16c72" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="b1134d4c-6144-45f9-8d3c-bd2a312ebc76" absoluteBounds="6.25, 18.375, 2, 2.73240397135417">
+      <DataClassMoniker Name="/PISDataContext/EmployeeType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e0b47c29-37b3-4238-851b-6f05482d2260" absoluteBounds="6.2650000005960464, 18.83500000089407, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0957a861-5b8d-45dd-9d8e-3221db111228" absoluteBounds="17.5, 22.875, 2, 5.0400211588541666">
+      <DataClassMoniker Name="/PISDataContext/Training" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2d5d619d-a28f-439e-8293-39de97a148a9" absoluteBounds="17.515000000596046, 23.33500000089407, 1.9700000000000002, 4.4800211588541661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(13.90625 : 17.2465844726563); (13.90625 : 24.0792655436198); (14.5416666666667 : 24.0792655436198 : JumpStart); (14.7083333333333 : 24.0792655436198 : JumpEnd); (17.5 : 24.0792655436198)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/Country/Country_Training" />
+      <nodes>
+        <classShapeMoniker Id="bc1a2d49-fd18-4363-8024-eada30458c79" />
+        <classShapeMoniker Id="0957a861-5b8d-45dd-9d8e-3221db111228" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(16.75 : 30.1232922363281); (18.5 : 30.1232922363281); (18.5 : 27.2580997721354)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/TrainingType/TrainingType_Training" />
+      <nodes>
+        <classShapeMoniker Id="6d524671-5f58-4464-b13b-99b65eb5e90e" />
+        <classShapeMoniker Id="0957a861-5b8d-45dd-9d8e-3221db111228" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="15fbd17f-73c4-4fa0-b67f-167766b4ade5" absoluteBounds="17.5, 17.125, 2, 4.6554182942708344">
+      <DataClassMoniker Name="/PISDataContext/MedicalRecord" />
+      <nestedChildShapes>
+        <elementListCompartment Id="45c3198c-f06d-47b5-867c-1440196a9203" absoluteBounds="17.515000000596046, 17.58500000089407, 1.9700000000000002, 4.095418294270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(16.75 : 17.4288342285156); (17.5 : 17.4288342285156)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/FamilyMember/FamilyMember_MedicalRecord" />
+      <nodes>
+        <classShapeMoniker Id="d6c995ad-7b5c-4814-898d-353f0f51a41b" />
+        <classShapeMoniker Id="15fbd17f-73c4-4fa0-b67f-167766b4ade5" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(13.9375025 : 17.2465844726563); (13.9375025 : 18.0538342285156); (14.0416666666667 : 18.0538342285156 : JumpStart); (14.2083333333333 : 18.0538342285156 : JumpEnd); (14.2916666666667 : 18.0538342285156 : JumpStart); (14.4583333333333 : 18.0538342285156 : JumpEnd); (14.4791666666667 : 18.0538342285156 : JumpStart); (14.6458333333333 : 18.0538342285156 : JumpEnd); (17.5 : 18.0538342285156)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/Country/Country_MedicalRecord" />
+      <nodes>
+        <classShapeMoniker Id="bc1a2d49-fd18-4363-8024-eada30458c79" />
+        <classShapeMoniker Id="15fbd17f-73c4-4fa0-b67f-167766b4ade5" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="78967dac-df5a-4f91-a906-3ad94eaae25a" absoluteBounds="9, 17.375, 2, 11.193666992187502">
+      <DataClassMoniker Name="/PISDataContext/Employee" />
+      <nestedChildShapes>
+        <elementListCompartment Id="059fc1eb-e39f-4631-ad39-bd6981834e71" absoluteBounds="9.0150000005960464, 17.83500000089407, 1.9700000000000002, 10.6336669921875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(11 : 17.6763012695313); (14.75 : 17.6763012695313)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/Employee/Employee_FamilyMember" />
+      <nodes>
+        <classShapeMoniker Id="78967dac-df5a-4f91-a906-3ad94eaae25a" />
+        <classShapeMoniker Id="d6c995ad-7b5c-4814-898d-353f0f51a41b" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(10.3520850583286 : 17.375); (10.3520850583286 : 16.875); (11.25 : 16.875); (11.25 : 18.25); (14.25 : 18.25); (14.25 : 21.3090227167969); (14.75 : 21.3090227167969)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/Employee/Employee_Qualification" />
+      <nodes>
+        <classShapeMoniker Id="78967dac-df5a-4f91-a906-3ad94eaae25a" />
+        <classShapeMoniker Id="667023c7-c085-4220-a7f5-2637c4c16c72" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 28.0343334960938); (9 : 28.0343334960938)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/BloodGroup/BloodGroup_Employee" />
+      <nodes>
+        <classShapeMoniker Id="8899ae91-7b59-4b5f-82cc-e67d8c8c7ba0" />
+        <classShapeMoniker Id="78967dac-df5a-4f91-a906-3ad94eaae25a" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 17.6450512695313); (9 : 17.6450512695313)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/EmployeeStatus/EmployeeStatus_Employee" />
+      <nodes>
+        <classShapeMoniker Id="e8121336-cf56-48a6-9eb1-2f4b94f2490b" />
+        <classShapeMoniker Id="78967dac-df5a-4f91-a906-3ad94eaae25a" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 19.7412019856771); (9 : 19.7412019856771)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/EmployeeType/EmployeeType_Employee" />
+      <nodes>
+        <classShapeMoniker Id="b1134d4c-6144-45f9-8d3c-bd2a312ebc76" />
+        <classShapeMoniker Id="78967dac-df5a-4f91-a906-3ad94eaae25a" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 31.7700512695313); (9.68541863062025 : 31.7700512695313); (9.68541863062025 : 28.5686669921875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/MaritalStatus/MaritalStatus_Employee" />
+      <nodes>
+        <classShapeMoniker Id="5bfc56eb-fab8-49ca-9ccf-4e940745eea1" />
+        <classShapeMoniker Id="78967dac-df5a-4f91-a906-3ad94eaae25a" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 18.1450512695313); (9 : 18.1450512695313)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/Division/Division_Employee" />
+      <nodes>
+        <classShapeMoniker Id="96a5a5ea-696c-4296-8645-542a2da63257" />
+        <classShapeMoniker Id="78967dac-df5a-4f91-a906-3ad94eaae25a" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="6d689962-3020-4a5a-8808-58660d256435" absoluteBounds="14.5, 24.25, 2, 4.46311686197917">
+      <DataClassMoniker Name="/PISDataContext/LeaveRecord" />
+      <nestedChildShapes>
+        <elementListCompartment Id="36c39817-8626-47d4-a89d-ac8d13a6d641" absoluteBounds="14.515, 24.71, 1.9700000000000002, 3.9031168619791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(13.75 : 26.1232922363281); (14.5 : 26.1232922363281)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/LeaveType/LeaveType_LeaveRecord" />
+      <nodes>
+        <classShapeMoniker Id="5a2e3c01-278d-4580-aace-0b8bc443a3d1" />
+        <classShapeMoniker Id="6d689962-3020-4a5a-8808-58660d256435" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="d3cfa9ec-4607-480d-a4bd-16df40c038cd" absoluteBounds="11.75, 18.375, 2, 6.3861311848958344">
+      <DataClassMoniker Name="/PISDataContext/ServicePeriod" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e4afc0e1-3c4d-4934-a9c4-22d07cf4d7ed" absoluteBounds="11.765000000596046, 18.83500000089407, 1.9700000000000002, 5.826131184895833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(13.75 : 23.4930444335937); (17.5 : 23.4930444335937)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/ServicePeriod/ServicePeriod_Training" />
+      <nodes>
+        <classShapeMoniker Id="d3cfa9ec-4607-480d-a4bd-16df40c038cd" />
+        <classShapeMoniker Id="0957a861-5b8d-45dd-9d8e-3221db111228" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(13.75 : 18.71875); (13.8229166666667 : 18.71875 : JumpStart); (13.9895833333333 : 18.71875 : JumpEnd); (14.1666666666667 : 18.71875 : JumpStart); (14.4583333333333 : 18.71875 : JumpEnd); (14.4791666666667 : 18.71875 : JumpStart); (14.6458333333333 : 18.71875 : JumpEnd); (17.1666666666667 : 18.71875 : JumpStart); (17.3333333333333 : 18.71875 : JumpEnd); (17.5 : 18.71875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/ServicePeriod/ServicePeriod_MedicalRecord" />
+      <nodes>
+        <classShapeMoniker Id="d3cfa9ec-4607-480d-a4bd-16df40c038cd" />
+        <classShapeMoniker Id="15fbd17f-73c4-4fa0-b67f-167766b4ade5" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(13.75 : 23.7320402604166); (14.625 : 23.7320402604166); (14.625 : 24.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/ServicePeriod/ServicePeriod_LeaveRecord" />
+      <nodes>
+        <classShapeMoniker Id="d3cfa9ec-4607-480d-a4bd-16df40c038cd" />
+        <classShapeMoniker Id="6d689962-3020-4a5a-8808-58660d256435" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(11 : 21.5680655924479); (11.75 : 21.5680655924479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/Employee/Employee_ServicePeriod" />
+      <nodes>
+        <classShapeMoniker Id="78967dac-df5a-4f91-a906-3ad94eaae25a" />
+        <classShapeMoniker Id="d3cfa9ec-4607-480d-a4bd-16df40c038cd" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="44610028-b2c5-4973-b12d-71ca3b23dbc1" absoluteBounds="9, 14, 2, 2.5401025390625023">
+      <DataClassMoniker Name="/PISDataContext/PromotionType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="68946cbf-4e2f-461d-8cff-18d41cd50ab4" absoluteBounds="9.0150000005960464, 14.46000000089407, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(11 : 14.6232922363281); (11.84375 : 14.6232922363281); (11.84375 : 18.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/PromotionType/PromotionType_ServicePeriod" />
+      <nodes>
+        <classShapeMoniker Id="44610028-b2c5-4973-b12d-71ca3b23dbc1" />
+        <classShapeMoniker Id="d3cfa9ec-4607-480d-a4bd-16df40c038cd" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="ab5dc3ce-29ae-4643-84e5-8058d2ac1be7" absoluteBounds="20.5, 18.25, 2, 3.1170068359375023">
+      <DataClassMoniker Name="/PISDataContext/Nominee" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d5129bfe-4e55-40e4-bbfb-74605f54820b" absoluteBounds="20.515000000596046, 18.71000000089407, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(9.64479052916431 : 17.375); (9.64479052916431 : 17.125); (10.2687517249953 : 17.125 : JumpStart); (10.4354183916619 : 17.125 : JumpEnd); (11.1666666666667 : 17.125 : JumpStart); (11.3333333333333 : 17.125 : JumpEnd); (11.5 : 17.125); (11.5 : 17.875); (11.7604166666667 : 17.875 : JumpStart); (11.9270833333333 : 17.875 : JumpEnd); (13.8229166666667 : 17.875 : JumpStart); (13.9895833333333 : 17.875 : JumpEnd); (14.125 : 17.875); (14.125 : 18.4439111328125); (14.1666666666667 : 18.4439111328125 : JumpStart); (14.4583333333333 : 18.4439111328125 : JumpEnd); (14.4791666666667 : 18.4439111328125 : JumpStart); (14.6458333333333 : 18.4439111328125 : JumpEnd); (17.25 : 18.4439111328125); (17.25 : 22.0304182942708); (20.125 : 22.0304182942708); (20.125 : 19.8085034179688); (20.5 : 19.8085034179688)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/Employee/Employee_Nominee" />
+      <nodes>
+        <classShapeMoniker Id="78967dac-df5a-4f91-a906-3ad94eaae25a" />
+        <classShapeMoniker Id="ab5dc3ce-29ae-4643-84e5-8058d2ac1be7" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(19.75 : 14.6232922363281); (20.968748 : 14.6232922363281); (20.968748 : 18.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/EntitlementType/EntitlementType_Nominee" />
+      <nodes>
+        <classShapeMoniker Id="8b6c0915-423d-408e-addd-597e44d80a30" />
+        <classShapeMoniker Id="ab5dc3ce-29ae-4643-84e5-8058d2ac1be7" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(16.75 : 16.3420422363281); (21.5 : 16.3420422363281); (21.5 : 18.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/FamilyMember/FamilyMember_Nominee" />
+      <nodes>
+        <classShapeMoniker Id="d6c995ad-7b5c-4814-898d-353f0f51a41b" />
+        <classShapeMoniker Id="ab5dc3ce-29ae-4643-84e5-8058d2ac1be7" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="b732c043-d129-449c-82c5-87cca02ff874" absoluteBounds="11.75, 34.125, 2, 4.2708154296875023">
+      <DataClassMoniker Name="/PISDataContext/EmployeeGrant" />
+      <nestedChildShapes>
+        <elementListCompartment Id="276de8b7-b4c7-4322-bcc7-882d533bdaf0" absoluteBounds="11.765000000596046, 34.58500000089407, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(10.3739618153101 : 28.5686669921875); (10.3739618153101 : 36.2604077148438); (11.75 : 36.2604077148438)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/Employee/Employee_EmployeeGrant" />
+      <nodes>
+        <classShapeMoniker Id="78967dac-df5a-4f91-a906-3ad94eaae25a" />
+        <classShapeMoniker Id="b732c043-d129-449c-82c5-87cca02ff874" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(14 : 17.1835065495793); (14.3160744349011 : 17.4995809844804 : JumpStart); (14.4339255650989 : 17.6174321146782 : JumpEnd); (14.5625 : 17.7460065495793); (14.5625 : 21.3090227167969); (14.75 : 21.3090227167969)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/Country/Country_Qualification" />
+      <nodes>
+        <classShapeMoniker Id="bc1a2d49-fd18-4363-8024-eada30458c79" />
+        <classShapeMoniker Id="667023c7-c085-4220-a7f5-2637c4c16c72" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="2d657460-08eb-4977-816f-f5c697b0b2bb" absoluteBounds="3.5, 24, 2, 2.73240397135417">
+      <DataClassMoniker Name="/PISDataContext/SubDivision" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a7000570-436c-4e69-8ec6-b9fa91be04d9" absoluteBounds="3.5149999999999997, 24.46, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.5 : 26.7324039713542); (4.5 : 27.0849524856771); (9 : 27.0849524856771)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/SubDivision/SubDivision_Employee" />
+      <nodes>
+        <classShapeMoniker Id="2d657460-08eb-4977-816f-f5c697b0b2bb" />
+        <classShapeMoniker Id="78967dac-df5a-4f91-a906-3ad94eaae25a" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.40625 : 18.6747054036458); (1.40625 : 25.3662019856771); (3.5 : 25.3662019856771)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/Division/Division_SubDivision" />
+      <nodes>
+        <classShapeMoniker Id="96a5a5ea-696c-4296-8645-542a2da63257" />
+        <classShapeMoniker Id="2d657460-08eb-4977-816f-f5c697b0b2bb" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="5b66789b-a469-435f-bd8a-f8e76671aaf4" absoluteBounds="6.25, 24, 2, 2.73240397135417">
+      <DataClassMoniker Name="/PISDataContext/Office" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c970bc19-7f5d-43dc-9098-d33941d4650a" absoluteBounds="6.2650000000000006, 24.46, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.25 : 25.3662019856771); (9 : 25.3662019856771)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/Office/Office_Employee" />
+      <nodes>
+        <classShapeMoniker Id="5b66789b-a469-435f-bd8a-f8e76671aaf4" />
+        <classShapeMoniker Id="78967dac-df5a-4f91-a906-3ad94eaae25a" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 25.3662019856771); (6.25 : 25.3662019856771)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/SubDivision/SubDivision_Office" />
+      <nodes>
+        <classShapeMoniker Id="2d657460-08eb-4977-816f-f5c697b0b2bb" />
+        <classShapeMoniker Id="5b66789b-a469-435f-bd8a-f8e76671aaf4" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="1500ba68-12aa-486f-8d66-2cfd5d576118" absoluteBounds="2.125, 20.75, 2, 2.5401025390625">
+      <DataClassMoniker Name="/PISDataContext/Station" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1e2cad8b-daf1-45c4-a217-77e47ba82bb7" absoluteBounds="2.14, 21.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.125 : 22.2300032552083); (9 : 22.2300032552083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/Station/Station_Employee" />
+      <nodes>
+        <classShapeMoniker Id="1500ba68-12aa-486f-8d66-2cfd5d576118" />
+        <classShapeMoniker Id="78967dac-df5a-4f91-a906-3ad94eaae25a" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="2f996b4f-5afa-40b9-9f8b-9ef790401cfe" absoluteBounds="1.25, 26.25, 2, 2.9247054036458344">
+      <DataClassMoniker Name="/PISDataContext/Bank" />
+      <nestedChildShapes>
+        <elementListCompartment Id="72aa32d9-4476-4a7e-8e39-7fbff3c8ca8e" absoluteBounds="1.2650000000000001, 26.71, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.25 : 27.3237262428386); (9 : 27.3237262428386)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/Bank/Bank_Employee" />
+      <nodes>
+        <classShapeMoniker Id="2f996b4f-5afa-40b9-9f8b-9ef790401cfe" />
+        <classShapeMoniker Id="78967dac-df5a-4f91-a906-3ad94eaae25a" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.6875 : 23.2901025390625); (2.6875 : 26.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PISDataContext/Station/Station_Bank" />
+      <nodes>
+        <classShapeMoniker Id="1500ba68-12aa-486f-8d66-2cfd5d576118" />
+        <classShapeMoniker Id="2f996b4f-5afa-40b9-9f8b-9ef790401cfe" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

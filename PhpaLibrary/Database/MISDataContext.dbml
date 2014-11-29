@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Lobesa5Jan" EntityNamespace="Eclipse.PhpaLibrary.Database.MIS" ContextNamespace="Eclipse.PhpaLibrary.Database.MIS" Class="MISDataContext" BaseType="Eclipse.PhpaLibrary.Database.DataContextBase" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="MIS.Package" Member="Packages">
+    <Type Name="Package">
+      <Column Name="PackageId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PackageName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Package_ProgressFormat" Member="ProgressFormats" ThisKey="PackageId" OtherKey="PackageId" Type="ProgressFormat" />
+    </Type>
+  </Table>
+  <Table Name="MIS.FormatDetail" Member="FormatDetails">
+    <Type Name="FormatDetail">
+      <Column Name="FormatDetailId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProgressFormatId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProgressDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="FormatDetail_FormatActivityDetail" Member="FormatActivityDetails" ThisKey="FormatDetailId" OtherKey="FormatDetailId" Type="FormatActivityDetail" />
+      <Association Name="ProgressFormat_FormatDetail" Member="ProgressFormat" ThisKey="ProgressFormatId" OtherKey="ProgressFormatId" Type="ProgressFormat" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="MIS.FormatActivityDetail" Member="FormatActivityDetails">
+    <Type Name="FormatActivityDetail">
+      <Column Name="FormatActivityDetailId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FormatDetailId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ActivityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PhysicalProgressData" Storage="_ProgressData" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="ReasonForDeviation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="FinancialProgressData" Storage="_ProgressDataFinancial" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Association Name="FormatDetail_FormatActivityDetail" Member="FormatDetail" ThisKey="FormatDetailId" OtherKey="FormatDetailId" Type="FormatDetail" IsForeignKey="true" />
+      <Association Name="Activity_FormatActivityDetail" Member="Activity" ThisKey="ActivityId" OtherKey="ActivityId" Type="Activity" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="MIS.FormatCategory" Member="FormatCategories">
+    <Type Name="FormatCategory">
+      <Column Name="FormatCategoryId" Storage="_ActivityCategoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Association Name="FormatCategory_ProgressFormat" Member="ProgressFormats" ThisKey="FormatCategoryId" OtherKey="FormatCategoryId" Type="ProgressFormat" />
+    </Type>
+  </Table>
+  <Table Name="MIS.Activity" Member="Activities">
+    <Type Name="Activity">
+      <Column Name="ActivityId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ParentActivityId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProgressFormatId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UOM" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PhysicalTarget" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(764)" CanBeNull="true" />
+      <Column Name="ActivityCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="BoqRate" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="ProvisionalRate" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="FinalRate" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Activity_FormatActivityDetail" Member="FormatActivityDetails" ThisKey="ActivityId" OtherKey="ActivityId" Type="FormatActivityDetail" />
+      <Association Name="ProgressFormat_Activity" Member="ProgressFormat" ThisKey="ProgressFormatId" OtherKey="ProgressFormatId" Type="ProgressFormat" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="MIS.ProgressFormat" Member="ProgressFormats">
+    <Type Name="ProgressFormat">
+      <Column Name="ProgressFormatId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProgressFormatName" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="PackageId" Storage="_SubPackageId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProgressFormatType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FinancialFormatName" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="FormatCategoryId" Type="System.Int32" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" CanBeNull="true" />
+      <Association Name="ProgressFormat_FormatDetail" Member="FormatDetails" ThisKey="ProgressFormatId" OtherKey="ProgressFormatId" Type="FormatDetail" />
+      <Association Name="ProgressFormat_Activity" Member="Activities" ThisKey="ProgressFormatId" OtherKey="ProgressFormatId" Type="Activity" />
+      <Association Name="FormatCategory_ProgressFormat" Member="FormatCategory" ThisKey="FormatCategoryId" OtherKey="FormatCategoryId" Type="FormatCategory" IsForeignKey="true" />
+      <Association Name="Package_ProgressFormat" Member="Package" ThisKey="PackageId" OtherKey="PackageId" Type="Package" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

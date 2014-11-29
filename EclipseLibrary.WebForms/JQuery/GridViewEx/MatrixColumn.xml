@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MatrixColumn>
+  <doc name="class">
+    <remarks>
+      <para>
+        You will directly use this class only if you want to add columns to <see cref="MatrixField" /> manually,
+        or to set special properties for some specific columns.
+      </para>
+      <para>
+        To add all columns manually,
+        you can create <c>MatrixColumn</c>s using your own query and add them to the
+        <see cref="MatrixField.MatrixColumns" /> collection.
+        This must be done before <see cref="GridViewEx" /> is data bound,
+      </para>
+    </remarks>
+    <example>
+      <para>
+        For more column specific customization (e.g. displaying the heading Shelf when the area is SHL) please
+        refer <see cref="MatrixField.MatrixColumns" /> collection.
+
+      </para>
+      <para>
+        The code below is fetching all the areas from a master table in the database and adding them to
+        <see cref="MatrixField.MatrixColumns" />.
+        The values in the <see cref="MatrixField.DataValueFields" />
+        for areas which have already been fetched will be set in the column of the
+        corresponding areas.
+      </para>
+      <code>
+        <![CDATA[
+        protected void ds_PostSelected(object sender, PostSelectedEventArgs e)
+        {
+            if (e.Result != null)
+            {
+                MatrixField mf = gv.Columns.OfType<MatrixField>().First();
+                foreach (var row in dsArea.Select(DataSourceSelectArguments.Empty))
+                {
+                    string strArea = string.Empty;
+                    var column = new MatrixColumn();
+                    column.HeaderValue = DataBinder.Eval(row, "area");
+
+                    column.HeaderText = string.Format("{0}", column.HeaderValue);
+                    mf.MatrixColumns.Add(column);
+                }
+            }
+        } 
+      ]]>
+      </code>
+    </example>
+  </doc>
+  <doc name="HeaderText">
+    <remarks>
+      
+      <para>
+        You can include a pipe symbol within the header text to make it a two line header.
+        All columns which share the same text for the first row will show a spanned row for the
+        first header. These columns will also constitute a single group and each group will display
+        its own row total column. If there is no pipe symbol then the text before the pipe is
+        presumed to be <see cref="MatrixField.HeaderText"/>.
+      </para>
+      <para>
+        Adjacent columns which have the same text before the pipe symbol constitute a column
+        group as explained in more detail in <see cref="MatrixField.RowTotalHeaderText"/>.
+      </para>
+    </remarks>
+    <example>
+      <para>
+        Refer to the code below to assign <c>HeaderValue</c> and <c>HeaderText</c>. However to you can also 
+        refere to <see cref="MatrixField.MatrixColumns" /> to know, how the <c>HeaderText</c> can be assigned dynamically.
+    </para>
+    <code>
+      <![CDATA[
+          MatrixField mf = gv.Columns.OfType<MatrixField>().First();
+          foreach (var row in dsArea.Select(DataSourceSelectArguments.Empty))
+          {
+              var column = new MatrixColumn();
+              column.HeaderValue = DataBinder.Eval(row, "area");
+
+              column.HeaderText = string.Format("{0}", column.HeaderValue);
+              mf.MatrixColumns.Add(column);
+          }
+         ]]>
+    </code>
+    </example>
+
+  </doc>
+</MatrixColumn>

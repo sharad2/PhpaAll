@@ -1,0 +1,91 @@
+﻿[Obsolete. TODO: Document the way invented by Mayank]
+
+To Display Master Detail Info -
+
+The goal is to display multiple detail entry for each master entry.
+
+
+In this example Voucher table is a Master Table and Voucherdetail is a detail Table  
+1- select detail Table Into Collection for ex. n a List.
+
+ protected override void OnPreRender(EventArgs e)
+        {
+            ReportingDataContext db = (ReportingDataContext)dsVouchers.Database;
+            m_details = (from vd in db.RoVoucherDetails
+                         orderby vd.RoVoucher.VoucherDate descending, vd.VoucherId descending
+                         where vd.RoVoucher.VoucherDate >= new DateTime(2007, 3, 8) &&
+                             vd.RoVoucher.VoucherDate <= new DateTime(2007, 3, 9)
+                         select vd).ToList();
+
+            this.ListView1.DataSource = this.Vouchers;
+            ListView1.DataBind();
+            base.OnPreRender(e);
+        }
+        
+        
+2- Then  we will  show only one Master entery for all detail entries belonging to that master entry.
+for this ,for each detail entry show the master entry if it is not displayed, otherwiese ignored it.
+  
+  
+  protected IEnumerable<RoVoucher> Vouchers
+        {
+            get
+            {
+                for (int i = 0; i < m_details.Count; ++i)
+                {
+                    if (m_nCurrentVoucherIndex == -1 ||
+                        m_details[i].VoucherId != m_details[m_nCurrentVoucherIndex].VoucherId)
+                    {
+                        m_nCurrentVoucherIndex = i;
+                        yield return m_details[i].RoVoucher;
+                        // m_nCurrentVoucherIndex was incremented during data binding of nested grid
+                        i = m_nCurrentVoucherIndex;
+                    }
+                }
+            }
+        }
+    
+    
+  Step 3- now for each master entry Select detail entries
+    
+    
+     protected void ListView1_ItemDataBound(object sender, ListViewItemEventArgs e)
+        {
+            switch (e.Item.ItemType)
+            {
+                case ListViewItemType.DataItem:
+                    ListViewDataItem lvdi = (ListViewDataItem)e.Item;
+                    //RoVoucher voucher = (RoVoucher)lvdi.DataItem;
+                    GridView gvVoucherDetails = (GridView)lvdi.FindControl("gvVoucherDetails");
+                    gvVoucherDetails.DataSource = this.VoucherDetails;
+                    gvVoucherDetails.DataBind();
+                    break;
+            }
+        }
+        
+        
+ Step 4- show details entry for already displayed master entery
+        
+        
+         protected IEnumerable<RoVoucherDetail> VoucherDetails
+        {
+            get
+            {
+                int curVoucherId = m_details[m_nCurrentVoucherIndex].VoucherId;
+                while (true)
+                {
+                    if (m_nCurrentVoucherIndex < m_details.Count &&
+                        m_details[m_nCurrentVoucherIndex].VoucherId == curVoucherId)
+                    {
+                        yield return m_details[m_nCurrentVoucherIndex];
+                        ++m_nCurrentVoucherIndex;
+                    }
+                    else
+                    {
+                        break;      // out of the while
+                    }
+                }
+
+                yield break;
+            }
+        }

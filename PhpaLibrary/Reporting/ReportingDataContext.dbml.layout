@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 20.625" name="ReportingDataContext">
+  <DataContextMoniker Name="/ReportingDataContext" />
+  <nestedChildShapes>
+    <classShape Id="8801d004-6e31-444c-af3f-22adbfca1ef4" absoluteBounds="6.25, 7.875, 2, 2.3478011067708344">
+      <DataClassMoniker Name="/ReportingDataContext/RoVoucherDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0854e5b6-8470-4765-ba19-6ad3f741aeea" absoluteBounds="6.2650000005960464, 8.33500000089407, 1.9700000000000002, 1.7878011067708333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="bb997294-3307-4c3f-964b-d610905a5c1f" absoluteBounds="3.5, 11.25, 2, 2.9247054036458326">
+      <DataClassMoniker Name="/ReportingDataContext/RoVoucher" />
+      <nestedChildShapes>
+        <elementListCompartment Id="340fb3e2-6959-43b1-bf23-de5b6c815cfd" absoluteBounds="3.5150000005960464, 11.71000000089407, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 12.7123527018229); (7.25 : 12.7123527018229); (7.25 : 10.2228011067708)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ReportingDataContext/RoVoucher/RoVoucher_RoVoucherDetail" />
+      <nodes>
+        <classShapeMoniker Id="bb997294-3307-4c3f-964b-d610905a5c1f" />
+        <classShapeMoniker Id="8801d004-6e31-444c-af3f-22adbfca1ef4" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="ff49e315-4dd8-45a9-bd9b-730ec9e3827e" absoluteBounds="0.75, 8.125, 2, 3.6939111328125005">
+      <DataClassMoniker Name="/ReportingDataContext/RoHeadHierarchy" />
+      <nestedChildShapes>
+        <elementListCompartment Id="87e9f156-783f-4161-9978-6b088c7dca64" absoluteBounds="0.76500000059604645, 8.58500000089407, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 11.1690584309896); (3.04166666666667 : 11.1690584309896 : JumpStart); (3.20833333333333 : 11.1690584309896 : JumpEnd); (6.7187475 : 11.1690584309896); (6.7187475 : 10.2228011067708)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ReportingDataContext/RoHeadHierarchy/RoHeadHierarchy_RoVoucherDetail" />
+      <nodes>
+        <classShapeMoniker Id="ff49e315-4dd8-45a9-bd9b-730ec9e3827e" />
+        <classShapeMoniker Id="8801d004-6e31-444c-af3f-22adbfca1ef4" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="76fd5275-1556-45a0-bfae-4ba7d719bb76" absoluteBounds="3.5, 6.625, 2, 4.4631168619791666">
+      <DataClassMoniker Name="/ReportingDataContext/RoJob" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1fcc8896-838b-4ae5-bb22-b57fc17d46f6" absoluteBounds="3.5150000005960464, 7.08500000089407, 1.9700000000000002, 3.9031168619791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 8.91611857096354); (6.25 : 8.91611857096354)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ReportingDataContext/RoJob/RoJob_RoVoucherDetail" />
+      <nodes>
+        <classShapeMoniker Id="76fd5275-1556-45a0-bfae-4ba7d719bb76" />
+        <classShapeMoniker Id="8801d004-6e31-444c-af3f-22adbfca1ef4" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="141223f1-7d25-4f12-b81b-44773f2b6662" absoluteBounds="3.5, 4.125, 2, 1.9631982421874996">
+      <DataClassMoniker Name="/ReportingDataContext/RoEmployee" />
+      <nestedChildShapes>
+        <elementListCompartment Id="eeae8817-80cb-485f-859f-e1dbaaf2d201" absoluteBounds="3.5150000005960464, 4.58500000089407, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 5.00177124049515); (7.25 : 5.00177124049515); (7.25 : 7.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ReportingDataContext/RoEmployee/RoEmployee_RoVoucherDetail" />
+      <nodes>
+        <classShapeMoniker Id="141223f1-7d25-4f12-b81b-44773f2b6662" />
+        <classShapeMoniker Id="8801d004-6e31-444c-af3f-22adbfca1ef4" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="b86b017a-2a72-4adc-bbb8-3e8e7f8dc0c3" absoluteBounds="0.75, 2.875, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/ReportingDataContext/RoContractor" />
+      <nestedChildShapes>
+        <elementListCompartment Id="41ee9355-d37a-49fb-824f-5ec8c284416f" absoluteBounds="0.76500000059604645, 3.3350000008940697, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 9.60655843098958); (3.04166666666667 : 9.60655843098958 : JumpStart); (3.20833333333333 : 9.60655843098958 : JumpEnd); (3.5 : 9.60655843098958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ReportingDataContext/RoHeadHierarchy/RoHeadHierarchy_RoJob" />
+      <nodes>
+        <classShapeMoniker Id="ff49e315-4dd8-45a9-bd9b-730ec9e3827e" />
+        <classShapeMoniker Id="76fd5275-1556-45a0-bfae-4ba7d719bb76" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="d01edf0f-987d-4017-9375-b0452ca29971" absoluteBounds="0.75, 5.875, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/ReportingDataContext/RoDivision" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ea6ea7d0-8ea4-4311-aa4a-4fd7ee97a813" absoluteBounds="0.76500000059604645, 6.33500000089407, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 7.45359537760417); (3.125 : 7.82859537760417); (3.125 : 12.7123527018229); (3.5 : 12.7123527018229)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ReportingDataContext/RoDivision/RoDivision_RoVoucher" />
+      <nodes>
+        <classShapeMoniker Id="d01edf0f-987d-4017-9375-b0452ca29971" />
+        <classShapeMoniker Id="bb997294-3307-4c3f-964b-d610905a5c1f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 6.93117140945554); (3.22916666666667 : 6.93117140945554 : JumpStart); (3.39583333333333 : 6.93117140945554 : JumpEnd); (3.5 : 6.93117140945554)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ReportingDataContext/RoDivision/RoDivision_RoJob" />
+      <nodes>
+        <classShapeMoniker Id="d01edf0f-987d-4017-9375-b0452ca29971" />
+        <classShapeMoniker Id="76fd5275-1556-45a0-bfae-4ba7d719bb76" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 5.875); (3.125 : 5.5); (3.125 : 6.25354248099029); (3.5 : 5.87854248099029)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ReportingDataContext/RoDivision/RoDivision_RoEmployee" />
+      <nodes>
+        <classShapeMoniker Id="d01edf0f-987d-4017-9375-b0452ca29971" />
+        <classShapeMoniker Id="141223f1-7d25-4f12-b81b-44773f2b6662" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="7581aba1-57bd-4748-bf32-c9dde862badc" absoluteBounds="3.5, 17.25, 2, 3.1170068359375023">
+      <DataClassMoniker Name="/ReportingDataContext/RoBudget" />
+      <nestedChildShapes>
+        <elementListCompartment Id="47f6c445-74ee-43a8-9afe-84c8f3e0471b" absoluteBounds="3.5150000005960464, 17.71000000089407, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(1.09375 : 11.8189111328125); (1.09375 : 18.8085034179688); (3.5 : 18.8085034179688)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ReportingDataContext/RoHeadHierarchy/RoHeadHierarchy_RoBudget" />
+      <nodes>
+        <classShapeMoniker Id="ff49e315-4dd8-45a9-bd9b-730ec9e3827e" />
+        <classShapeMoniker Id="7581aba1-57bd-4748-bf32-c9dde862badc" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.39166486663662); (3.3125 : 4.95416486663662); (3.3125 : 8.85655843098958); (3.5 : 8.85655843098958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ReportingDataContext/RoContractor/RoContractor_RoJob" />
+      <nodes>
+        <classShapeMoniker Id="b86b017a-2a72-4adc-bbb8-3e8e7f8dc0c3" />
+        <classShapeMoniker Id="76fd5275-1556-45a0-bfae-4ba7d719bb76" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="7f8bb71b-58a2-4e2b-bcb7-fd3c15721b17" absoluteBounds="1.5, 15, 2, 1.3862939453125023">
+      <DataClassMoniker Name="/ReportingDataContext/RoAccountType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f835329f-89cd-414c-b2a6-def6c86efa8b" absoluteBounds="1.5150000005960465, 15.46000000089407, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.125 : 15); (2.125 : 11.8189111328125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ReportingDataContext/RoAccountType/RoAccountType_RoHeadHierarchy" />
+      <nodes>
+        <classShapeMoniker Id="7f8bb71b-58a2-4e2b-bcb7-fd3c15721b17" />
+        <classShapeMoniker Id="ff49e315-4dd8-45a9-bd9b-730ec9e3827e" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="fb7d7cf5-e3ad-4468-a3cf-5b3d454c876f" absoluteBounds="3.5, 0.75, 2, 2.9247054036458331">
+      <DataClassMoniker Name="/ReportingDataContext/HeadOfAccount" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e2fa52f4-175d-4e8c-975e-fe9bfef3ff1a" absoluteBounds="3.5150000005960464, 1.2100000008940697, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 0.96875); (6.46875 : 0.96875); (6.46875 : 7.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ReportingDataContext/HeadOfAccount/HeadOfAccount_RoVoucherDetail" />
+      <nodes>
+        <classShapeMoniker Id="fb7d7cf5-e3ad-4468-a3cf-5b3d454c876f" />
+        <classShapeMoniker Id="8801d004-6e31-444c-af3f-22adbfca1ef4" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.96875 : 15); (2.96875 : 1.78125); (3.5 : 1.78125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ReportingDataContext/RoAccountType/RoAccountType_HeadOfAccount" />
+      <nodes>
+        <classShapeMoniker Id="7f8bb71b-58a2-4e2b-bcb7-fd3c15721b17" />
+        <classShapeMoniker Id="fb7d7cf5-e3ad-4468-a3cf-5b3d454c876f" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="0ed18bbc-0f11-46e9-b9a6-97b5fd91d2a2" absoluteBounds="6.75, 1.25, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/ReportingDataContext/RoSalaryPeriod" />
+      <nestedChildShapes>
+        <elementListCompartment Id="902fa528-44bd-4e5d-9587-2e6b648666e3" absoluteBounds="6.765, 1.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 3.89985270182292); (2.88541666666667 : 3.89985270182292 : JumpStart); (3.05208333333333 : 3.89985270182292 : JumpEnd); (6.3281225 : 3.89985270182292); (6.3281225 : 7.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ReportingDataContext/RoContractor/RoContractor_RoVoucherDetail" />
+      <nodes>
+        <classShapeMoniker Id="b86b017a-2a72-4adc-bbb8-3e8e7f8dc0c3" />
+        <classShapeMoniker Id="8801d004-6e31-444c-af3f-22adbfca1ef4" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

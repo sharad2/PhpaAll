@@ -1,0 +1,38 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+	<div>
+	<h1>
+	Overview
+	</h1>
+	This document discuss, how to create Dynamic Header Tool tip in the grid with respect to the Date parameter passed.<br />
+	
+	<ol>
+	<li>
+	Code is best worked in <b>Row created event</b> of the grid.
+	</li>
+	<li>
+	First Create a <b>DateTime</b> variable using the date parameters passed.
+	</li>
+	<li>
+	Get the value of the Grid column index using <b>FindByAccessibleHeaderText</b> in Int type variable <b>i</b>.
+	</li>
+	<li>
+	Cast your grid column having index i in corresponding grid field. e.g.<b>MoneyField</b> and <b>MultiBound field</b> etc.
+	</li>
+	<li>
+	Now, you can access all the properties of the grid column having index <b>i</b>.
+	</li>
+	<li>
+	Set the HeaderToolTip of the grid column using string.Format and passed date variables accessed from the Enhanced Text box having DataType as Date.
+	</li>
+	<li>
+	Refer <b>gvExpenditure_RowCreated</b> event in <b>Expenditure.cs</b> report.
+	</li>
+	</ol>
+	</div>
+	</body>
+</html>

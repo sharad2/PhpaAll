@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode url="~/MIS/Default.aspx" title="MIS"  description="MIS Home Page">
+    <siteMapNode url="A#" title="Reports"  description="">
+      <siteMapNode url="~/MIS/DailyPhysical.aspx" title="Daily Physical Progress"  description="" />
+      <siteMapNode url="~/MIS/MonthlyPhysical.aspx" title="Monthly Physical Progress"  description="" />
+      <siteMapNode url="~/MIS/MonthlyFinancial.aspx" title="Monthly Financial Progress"  description="" />
+      <siteMapNode url="~/MIS/MonthlyConstruction.aspx" title="Monthly Construction Schedule"  description="" />
+      <siteMapNode url="~/MIS/AbstractFinancialProgress.aspx" title="Abstract Financial Progress"  description="" />
+      <siteMapNode url="~/MIS/AbstractFinancialDetail.aspx" title="Abstract Financial Detail"  description="" />
+    </siteMapNode>
+    <siteMapNode url="C#" title="Data Entry"  description="">
+      <siteMapNode url="~/MIS/DailyPhysical.aspx?IsEditMode=EM" title="Daily Physical Progress"  description="" />
+      <siteMapNode url="~/MIS/MonthlyPhysical.aspx?IsEditMode=EM" title="Monthly Physical Progress"  description="" />
+      <siteMapNode url="~/MIS/MonthlyFinancial.aspx?IsEditMode=EM" title="Monthly Financial Progress"  description="" />
+      <siteMapNode url="~/MIS/MonthlyConstruction.aspx?IsEditMode=EM" title="Monthly Construction Schedule"  description="" />
+    </siteMapNode>
+    <siteMapNode url="D#" title="Summary"  description="">
+      <siteMapNode url="~/MIS/SummaryofFinacialProgress/PackageActivitySummary.aspx" title="Summary Report"  description="" />
+      <siteMapNode url="~/MIS/SummaryofFinacialProgress/PackageActivityData.aspx" title="Summary Data Entry"  description="" />
+      <siteMapNode url="~/MIS/SummaryofFinacialProgress/PackageActivityList.aspx" title="Summary Activities"  description="" />
+    </siteMapNode>
+    <siteMapNode url="B#" title="Configuration"  description="">
+      <siteMapNode url="~/MIS/Packages.aspx" title="Packages"  description="" />
+      <siteMapNode url="~/MIS/ProgressFormatManager.aspx" title="Progress Formats"  description="" />
+      <siteMapNode url="~/MIS/ActivityList.aspx" title="Activities"  description="" />
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>

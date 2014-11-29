@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode url=" ~/Store/Store.aspx" title="Store"  description="Store Package Home Page">
+    <siteMapNode url="~/Doc/Store.doc.aspx" description="Documentation for Store Package Home Page" title="Store Doc" Visible="False" />
+    <siteMapNode url="~/Store/Receiving.aspx" title="Receiving" description="About Receiving Items">
+      <siteMapNode url="~/Store/CreateGRN.aspx" description="Create New Goods Receipt Notes" title="Create GRN">
+        <siteMapNode url="~/Doc/CreateGRN.doc.aspx" description="Documentation for Create New Goods Receipt Notes" title="Create GRN Doc" />
+      </siteMapNode>
+      <siteMapNode url="~/Store/RecieveGRN.aspx" description="Receive existing GRN" title="Receive GRN"></siteMapNode>
+      <siteMapNode url="~/Store/GrnList.aspx" description="View Unreceived or Received GRN for a given date range" title="GRN List"></siteMapNode>
+      <siteMapNode url="~/Store/Reports/MaterialReceipt.aspx" description="Material receipt summary against a GRN or in a time frame" title="Material Receipt"></siteMapNode>
+      <siteMapNode url="~/Store/Reports/MaterialReceipt.aspx?ReportName=Rejected" description="Material rejected summary against a GRN or in a time frame" title="Material Rejected"></siteMapNode>
+      <siteMapNode url="~/Store/Reports/GRNReport.aspx" description="Edit or Receive selected GRN" title="GRN Report"></siteMapNode>
+      <siteMapNode url="~/Store/Reports/POGRNs.aspx" description="Shows No. of Goods Reciept Note(GRN) for the given Purchase Order No." title="GRN's per Purchase Order"></siteMapNode>
+      <!--<siteMapNode url="~/Finance/Contractor.aspx" title="Contractors"  description="Manage Contractors"></siteMapNode>-->
+    </siteMapNode>
+    <siteMapNode url="~/Store/Issuing.aspx" title="Issuing" description="About Issuing Store Requisition Slip">
+      
+      <siteMapNode url="~/Store/CreateSRS.aspx" description="Create a new SRS or edit existing SRS" title="Create GIN"></siteMapNode>
+      <siteMapNode url="~/Store/Reports/SRSList.aspx" description="Shows list of SRS Created" title="GIN List"></siteMapNode>
+      <siteMapNode url="~/Store/Reports/SRSReport.aspx" description="Issue and Edit SRS" title="GIN Report"></siteMapNode>
+      <siteMapNode url="~/Store/Reports/IssueSRS.aspx" description="Issue Items for the given SRS" title="Issue Items">
+        <siteMapNode url="~/Doc/IssueSRS.doc.aspx" description="Documentation for Issue Items for the given SRS" title="Issue Items Doc" />
+      </siteMapNode>
+      
+      <siteMapNode url="~/Store/Reports/DivisionSRS.aspx" description="Shows list of Item issued for each Divsion." title="Issue Report"></siteMapNode>
+    </siteMapNode>
+    <siteMapNode url="#" description="Create a new item or edit an existing Item" title="Items">
+      <siteMapNode url="~/Store/InsertItem.aspx" description="Create a new item or edit an existing Item" title="Item List" >
+        <siteMapNode url="~/Doc/InsertItem.doc.aspx" description="Documentation for Create a new item or edit an existing Item" title="Item List Doc" />
+      </siteMapNode>
+      <siteMapNode url="~/Store/Reports/StockBalance.aspx" description="Show the current picture of the stock" title="Stock Balance"></siteMapNode>
+      <siteMapNode url="~/Store/Reports/ItemLedger.aspx" description="View Issue and Receipt Summary for an Item" title="Item Ledger">
+        <siteMapNode url="~/Doc/ItemLedger.doc.aspx" description="Documentation for View Issue and Receipt Summary for an Item" title="Item Ledger Doc" />
+      </siteMapNode>
+      <siteMapNode url="~/Store/ItemsCategory.aspx" description="Create a new item category or edit an existing item category"
+                   title="Item Categories">
+        <siteMapNode url="~/Doc/ItemsCategory.doc.aspx" description="Documentation for Create a new item category or edit an existing item category" title="Item Categories Doc" />
+      </siteMapNode>
+      <siteMapNode url="~/Store/InsertUOM.aspx" description="Create a new unit of measurement or edit an existing unit of measurement"
+                   title="Unit of Measures">
+        <siteMapNode url="~/Doc/InsertUOM.doc.aspx" description="Documentation for Create a new unit of measurement or edit an existing unit of measurement" title="Unit of Measures Doc" />
+      </siteMapNode>
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>

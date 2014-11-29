@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- Links are classified by functionality -->
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+  <siteMapNode url="~/Finance/Finance.aspx" title="Finance"  description="Finance Package Home Page">
+    <siteMapNode url="~/Finance/DayBook.aspx" title="Day Book"  description="Displays all vouchers for a specific date">
+      <siteMapNode url="~/Doc/DayBook.doc.aspx" title="DayBook Doc"  description="Documentation for Displays all vouchers for a specific date" Visible="False"/>
+      <siteMapNode url="~/Finance/InsertVoucher.aspx" title="Create Vouchers"  description="Create new vouchers">
+        <siteMapNode url="~/Doc/InsertVoucher.doc.aspx" title="InsertVoucher Doc"  description="Documentation for Create new vouchers" />
+      </siteMapNode>
+      <siteMapNode url="~/Reports/CashBook.aspx" title="Cash Book"  description="Lists all vouchers for a specific cash account for the selected date range">
+        <siteMapNode url="~/Doc/CashBook.doc.aspx" title="Cash Book Doc"  description="Documentation for Cash Book" />
+      </siteMapNode>
+      <siteMapNode url="~/Reports/BankBook.aspx" title="Bank Book"  description="Lists all vouchers for a specific bank account for the selected date range" >
+        <siteMapNode url="~/Doc/BankBook.doc.aspx" title="Bank Book Doc"  description="Documentation for Bank Book" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Reports/Ledger.aspx" title="Ledger" description="Displays vouchers for selected account heads for a specific date range">
+        <siteMapNode url="~/Doc/Ledger.doc.aspx" title="Ledger Doc"  description="Documentation for Ledger" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Reports/JournalBook.aspx" title="Journal Book"  description="Lists journal vouchers for a specific date range">
+        <siteMapNode url="~/Doc/JournalBook.doc.aspx" title="Journal Book Doc"  description="Documentation for Journal Book"/>
+      </siteMapNode>
+      <siteMapNode url="~/Finance/VoucherDiscrepancies.aspx?ReportName=DiscrepentVouchers" title="Incomplete vouchers" description="A voucher is considered to be incomplete if total debits do not match total credits" />
+      <siteMapNode url="~/Finance/VoucherSearch.aspx" title="Voucher Search" description="Provides several ways to locate a voucher which you may be looking for">
+        <siteMapNode url="~/Doc/VoucherSearch.doc.aspx" title="Voucher Search Doc"  description="Documentation for voucher search"/>
+      </siteMapNode>
+    </siteMapNode>
+
+    <siteMapNode url="~/Reports/PrintAccountHeads.aspx" title="Account Heads"  description="Print Account Heads along with Cost">
+      <siteMapNode url="~/Finance/AccountHeads.aspx" title="Manage Heads"  description="Manage Account Heads" />
+      <siteMapNode url="~/Reports/BalanceSheet.aspx" title="Balance Sheet"  description="Balance Sheet" >
+        <siteMapNode url="~/Doc/BalanceSheet.doc.aspx" title="Balance Sheet Doc"  description="Documentation for Balance Sheet" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Reports/TrialBalance.aspx" title="Trial Balance" description="Trial Balance">
+        <siteMapNode url="~/Doc/TrialBalance.doc.aspx" title="Trial Balance Doc"  description="Documentation for Trial Balance" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Reports/ReceiptandPayment.aspx" title="Receipts and Payments" description="Receipts and payments">
+        <siteMapNode url="~/Doc/ReceiptandPayment.doc.aspx" title="Receipt and Payment Doc"  description="Documentation for Receipt and Payment" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Reports/StockSuspense.aspx" title="Stock Suspense Statement"  description="Stock Suspense Statement">
+        <siteMapNode url="~/Doc/StockSuspense.doc.aspx" title="Stock Suspense Statement Doc"  description="Documentation for Stock Suspense Statement" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Reports/BalanceProjectCost.aspx" title="Balance Project Cost"  description="Monitor the amounts awarded against each project head and compare with sanctioned amount">
+        <siteMapNode url="~/Doc/BalanceProjectCost.doc.aspx" title="Balance Project Cost Doc"  description="Documentation for Balance Project Cost" Visible="False" />
+      </siteMapNode>
+      <siteMapNode url="~/Reports/SubLedger1.aspx" title="Sub Ledger"  description="Sub ledger" />
+      <siteMapNode url="~/Reports/CED.aspx?ReportName=ED" title="Central Excise Duty Report" description="Central Excise Duty Report" >
+        <siteMapNode url="~/Doc/CED.doc.aspx?ReportName=ED" title="Central Excise Duty Report Doc"  description="Documentation for Central Excise Duty" Visible="False" />
+      </siteMapNode>
+      <siteMapNode url="~/Reports/CED.aspx?ReportName=BST" title="Bhutan Sales Tax Report" description="Bhutan Sales Tax Report">
+        <siteMapNode url="~/Doc/CED.doc.aspx?ReportName=BST" title="Bhutan Sales Tax Report Doc"  description="Documentation for Bhutan Sales Tax" Visible="False" />
+      </siteMapNode>
+      <siteMapNode url="~/Reports/FundPositionReport.aspx" title="Fund Position Report" description="Fund Position Report">
+      </siteMapNode>
+    </siteMapNode>
+
+    <siteMapNode url="~/Finance/Jobs.aspx" title="Jobs"  description="Project Jobs">
+      <siteMapNode url="~/Doc/Jobs.doc.aspx" title="Jobs Doc"  description="Documentation for Project Jobs" Visible="False"/>
+      <siteMapNode url="~/Finance/Contractor.aspx" title="Contractors"  description="Manage Contractors" />
+      <siteMapNode url="~/Reports/ContractorPaymentReport.aspx" title="Contractor Payment Register"  description="Manage Contractors expenditures" />
+      <siteMapNode url="~/Reports/EarnedMoneyDeposit.aspx?ReportName=EMD" title="Earnest Money Deposit" description="Earnest Money Deposit">
+        <siteMapNode url="~/Doc/EarnedMoneyDeposit.doc.aspx" title="Earned Money Deposit Doc"  description="Documentation for Earned Money Deposit" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Reports/EarnedMoneyDeposit.aspx?ReportName=SD" title="Security Deposit" description="Security Deposit" />
+      <siteMapNode url="~/Reports/EmployeeAdvance.aspx" title="Employee Advances" description="Employee Advances" />
+      <siteMapNode url="~/Reports/ContractorPayment.aspx" title="Job Payment Register" description="Payment and recoveries details of a job">
+        <siteMapNode url="~/Doc/ContractorPayment.doc.aspx" title="Contractor Payment Doc"  description="Documentation for Contractor Payment" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Reports/PartyAdvances.aspx" title="Party Advances" description="Party Advances">
+        <siteMapNode url="~/Doc/PartyAdvances.doc.aspx" title="Party Advances Doc"  description="Documentation for Party Advances" Visible="False"/>
+      </siteMapNode>
+    </siteMapNode>
+
+    <siteMapNode url="~/Reports/Expenditure.aspx" title="Expenditure"  description="Monitor the amounts spent against each project head and compare with project cost">
+      <siteMapNode url="~/Doc/Expenditure.doc.aspx" title="Expenditure Doc"  description="Documentation for Expenditure" Visible="False"/>
+      <siteMapNode url="~/Reports/HeadExpenditure.aspx" title="Head Expenditure" description="Expenditure incured on each head during input year" />
+      <siteMapNode url="~/Reports/YearlyExpenditure.aspx" title="Yearly Expenditure" description="Expenditure incured during each year" />
+      <siteMapNode url="~/Reports/Exp_VariousHeads.aspx" title="Job Expenditure"  description="Job Expenditure in various head" >
+        <siteMapNode url="~/Doc/Exp_VariousHeads.doc.aspx" title="Job Expenditure Doc"  description="Documentation for Job Expenditure" Visible="False"/>
+      </siteMapNode>
+      <siteMapNode url="~/Reports/ExpenditureAgainstJobType.aspx?ReportName=C" title="Contract"  description="Expenditure against Contracts">
+        <siteMapNode url="~/Doc/ExpenditureAgainstJobType.doc.aspx?ReportName=C" title="Expenditure against Jobs Doc"  description="Documentation for Expenditure against Jobs" Visible="False" />
+      </siteMapNode>
+      <siteMapNode url="~/Reports/ExpenditureAgainstJobType.aspx?ReportName=W" title="Work Order"  description="Expenditure against Work  Order">
+        <siteMapNode url="~/Doc/ExpenditureAgainstJobType.doc.aspx?ReportName=W" title="Expenditure against Jobs Doc"  description="Documentation for Expenditure against Jobs" Visible="False" />
+      </siteMapNode>
+      <siteMapNode url="~/Reports/ExpenditureAgainstJobType.aspx?ReportName=D" title="Departmental Jobs"  description="Expenditure against Departmentally Executed Jobs">
+        <siteMapNode url="~/Doc/ExpenditureAgainstJobType.doc.aspx?ReportName=D" title="Expenditure against Jobs Doc"  description="Documentation for Expenditure against Jobs" Visible="False" />
+      </siteMapNode>
+      <siteMapNode url="~/Reports/TourExpenses.aspx" title="Tour Expenses" description="Tour Expenses" />
+      <siteMapNode url="~/Reports/CumulativeYearlyExpenditure.aspx" title="Cumulative Expenditure"  description="Cumulative Expenditure Report">
+        <siteMapNode url="~/Doc/CumulativeYearlyExpenditure.doc.aspx" title="Cumulative Expenditure Doc"  description="Documentation for Cumulative Expenditure" Visible="False"/>
+      </siteMapNode>
+    </siteMapNode>
+
+    <siteMapNode url="~/Finance/ManageDivisions.aspx" title="Divisions"  description="Manage Divisions">
+      <siteMapNode url="~/Doc/ManageDivisions.doc.aspx" title="Divisions Doc"  description="Documentation for Manage Divisions" Visible="False"/>
+      <siteMapNode url="~/Reports/PendingAdvance.aspx?ReportName=DivisionExpenditure" title="Divisional Expenses"  description="Expenditure of Division" />
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>

@@ -1,0 +1,36 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="NestedMIS.master.cs"
+    Inherits="Finance.MIS.NestedMIS" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">
+    <asp:ContentPlaceHolder ID="cphSideNavigation" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="Content4" ContentPlaceHolderID="cph" runat="server">
+<asp:Label runat="server" ID="lblAccess" Visible="false" EnableViewState="false" ForeColor="Red">
+To perform data entry, please login with valid credentials.
+</asp:Label>
+    <asp:ContentPlaceHolder ID="cph" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="Content5" ContentPlaceHolderID="cphNoForm" runat="server">
+    <asp:ContentPlaceHolder ID="cphNoForm" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content runat="server" ContentPlaceHolderID="contentRight">
+    <form method="post" action='<%= this.Page.Request.RawUrl %>'>
+    <div class="noprint">
+        Package:
+        <i:DropDownListEx ID="ddl" runat="server" OnClientChange="function(e) {
+    $('#btnPackage_nested').show();
+    }" QueryString="PackageId" FocusPriority="Low" />
+        <span id="btnPackage_nested" style="display: none">
+            <i:ButtonEx ID="btnPackage" runat="server" Icon="Refresh" Text="Set" CausesValidation="false" Action="Submit" />
+        </span>
+    </div>
+    </form>
+</asp:Content>

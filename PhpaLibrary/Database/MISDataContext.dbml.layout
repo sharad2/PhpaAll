@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.25, 10.25" name="MISDataContext">
+  <DataContextMoniker Name="/MISDataContext" />
+  <nestedChildShapes>
+    <classShape Id="54e98cbd-ee9c-4ba0-85d6-6a7634eebb8a" absoluteBounds="0.75, 0.75, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/MISDataContext/Package" />
+      <nestedChildShapes>
+        <elementListCompartment Id="942c41e7-69d9-436f-b965-09730cc89796" absoluteBounds="0.76500000059604645, 1.2100000008940697, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="636a93f5-8964-4c2f-ad32-b60dd6b364e1" absoluteBounds="6.25, 7.25, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/MISDataContext/FormatDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="16502608-82ae-4c2f-97fc-fdc9ff8472c8" absoluteBounds="6.2650000005960464, 7.71000000089407, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9e027a36-44a1-4eee-a66d-b92046ae4a88" absoluteBounds="9, 4.375, 2, 3.5016097005208326">
+      <DataClassMoniker Name="/MISDataContext/FormatActivityDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ea4e6fb4-9590-4259-9c3b-4c92566441da" absoluteBounds="9.0150000005960464, 4.83500000089407, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.25 : 7.56330485026042); (9 : 7.56330485026042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MISDataContext/FormatDetail/FormatDetail_FormatActivityDetail" />
+      <nodes>
+        <classShapeMoniker Id="636a93f5-8964-4c2f-ad32-b60dd6b364e1" />
+        <classShapeMoniker Id="9e027a36-44a1-4eee-a66d-b92046ae4a88" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="5832ee40-d406-4529-a737-22cdc3855b5e" absoluteBounds="0.75, 4.875, 2, 1.1939925130208327">
+      <DataClassMoniker Name="/MISDataContext/FormatCategory" />
+      <nestedChildShapes>
+        <elementListCompartment Id="37d79e71-8da3-4998-a0b8-b33aeb1bbe8e" absoluteBounds="0.76499999999999968, 5.3350000000000009, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="34b0097c-58b6-4b88-b352-f9fe70bc815a" absoluteBounds="6.25, 2.25, 2, 4.0785139973958326">
+      <DataClassMoniker Name="/MISDataContext/Activity" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ae636a59-9919-43a0-8e00-f7ac727e78fe" absoluteBounds="6.2650000005960464, 2.7100000008940697, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.25 : 5.35175699869792); (9 : 5.35175699869792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MISDataContext/Activity/Activity_FormatActivityDetail" />
+      <nodes>
+        <classShapeMoniker Id="34b0097c-58b6-4b88-b352-f9fe70bc815a" />
+        <classShapeMoniker Id="9e027a36-44a1-4eee-a66d-b92046ae4a88" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="d7cb3bc2-2e24-4e4e-8aab-245622e13c05" absoluteBounds="3.5, 4.375, 2, 3.5016097005208326">
+      <DataClassMoniker Name="/MISDataContext/ProgressFormat" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2cdc0422-2a13-4317-8983-84d64d0a6c73" absoluteBounds="3.5149999999999997, 4.835, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 7.56330485026042); (6.25 : 7.56330485026042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MISDataContext/ProgressFormat/ProgressFormat_FormatDetail" />
+      <nodes>
+        <classShapeMoniker Id="d7cb3bc2-2e24-4e4e-8aab-245622e13c05" />
+        <classShapeMoniker Id="636a93f5-8964-4c2f-ad32-b60dd6b364e1" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 5.35175699869792); (6.25 : 5.35175699869792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MISDataContext/ProgressFormat/ProgressFormat_Activity" />
+      <nodes>
+        <classShapeMoniker Id="d7cb3bc2-2e24-4e4e-8aab-245622e13c05" />
+        <classShapeMoniker Id="34b0097c-58b6-4b88-b352-f9fe70bc815a" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 5.47199625651042); (3.5 : 5.47199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MISDataContext/FormatCategory/FormatCategory_ProgressFormat" />
+      <nodes>
+        <classShapeMoniker Id="5832ee40-d406-4529-a737-22cdc3855b5e" />
+        <classShapeMoniker Id="d7cb3bc2-2e24-4e4e-8aab-245622e13c05" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.11620198567708); (4.5 : 2.11620198567708); (4.5 : 4.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MISDataContext/Package/Package_ProgressFormat" />
+      <nodes>
+        <classShapeMoniker Id="54e98cbd-ee9c-4ba0-85d6-6a7634eebb8a" />
+        <classShapeMoniker Id="d7cb3bc2-2e24-4e4e-8aab-245622e13c05" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

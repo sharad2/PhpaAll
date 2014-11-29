@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="AuthenticationDataContext">
+  <DataContextMoniker Name="/AuthenticationDataContext" />
+  <nestedChildShapes>
+    <classShape Id="2d437e41-fcc3-4de4-a16c-5ff45be12eb2" absoluteBounds="0.75, 0.75, 2, 3.6939111328124996">
+      <DataClassMoniker Name="/AuthenticationDataContext/PhpaUser" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a6579487-3b47-419d-b075-9176f2784489" absoluteBounds="0.76500000000000012, 1.21, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

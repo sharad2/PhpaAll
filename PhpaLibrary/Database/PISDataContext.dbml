@@ -1,0 +1,511 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PHPA2Fortest" EntityNamespace="Eclipse.PhpaLibrary.Database.PIS" ContextNamespace="Eclipse.PhpaLibrary.Database.PIS" Class="PISDataContext" BaseType="Eclipse.PhpaLibrary.Database.DataContextBase" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=SCOTLAND;Initial Catalog=PHPA2Fortest;User ID=sa" SettingsObjectName="Eclipse.PhpaLibrary.Properties.Settings" SettingsPropertyName="PHPA2FortestConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="PIS.BloodGroup" Member="BloodGroups">
+    <Type Name="BloodGroup">
+      <Column Name="BloodGroupId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BloodGroupType" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="BloodGroup_Employee" Member="Employees" ThisKey="BloodGroupId" OtherKey="BloodGroupId" Type="Employee" />
+    </Type>
+  </Table>
+  <Table Name="PIS.EmployeeStatus" Member="EmployeeStatus">
+    <Type Name="EmployeeStatus">
+      <Column Name="EmployeeStatusId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeStatusType" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="EmployeeStatus_Employee" Member="Employees" ThisKey="EmployeeStatusId" OtherKey="EmployeeStatusId" Type="Employee" />
+    </Type>
+  </Table>
+  <Table Name="PIS.MaritalStatus" Member="MaritalStatus">
+    <Type Name="MaritalStatus">
+      <Column Name="MaritalStatusId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MaritalStatusType" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="MaritalStatus_Employee" Member="Employees" ThisKey="MaritalStatusId" OtherKey="MaritalStatusId" Type="Employee" />
+    </Type>
+  </Table>
+  <Table Name="PIS.EntitlementType" Member="EntitlementTypes">
+    <Type Name="EntitlementType">
+      <Column Name="EntitlementTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EntitlementDescription" Storage="_EntitlementDesc" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="EntitlementType_Nominee" Member="Nominees" ThisKey="EntitlementTypeId" OtherKey="EntitlementTypeId" Type="Nominee" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Division" Member="Divisions">
+    <Type Name="Division">
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DivisionCode" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="DivisionGroup" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="DivisionName" Type="System.String" DbType="NVarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Division_Employee" Member="Employees" ThisKey="DivisionId" OtherKey="DivisionId" Type="Employee" />
+      <Association Name="Division_SubDivision" Member="SubDivisions" ThisKey="DivisionId" OtherKey="DivisionId" Type="SubDivision" />
+    </Type>
+  </Table>
+  <Table Name="PIS.FamilyMember" Member="FamilyMembers">
+    <Type Name="FamilyMember">
+      <Column Name="FamilyMemberId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Relationship" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CountryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Occupation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="FamilyMember_MedicalRecord" Member="MedicalRecords" ThisKey="FamilyMemberId" OtherKey="FamilyMemberId" Type="MedicalRecord" />
+      <Association Name="FamilyMember_Nominee" Member="Nominees" ThisKey="FamilyMemberId" OtherKey="FamilyMemberId" Type="Nominee" />
+      <Association Name="Country_FamilyMember" Member="Country" ThisKey="CountryId" OtherKey="CountryId" Type="Country" IsForeignKey="true" />
+      <Association Name="Employee_FamilyMember" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="PIS.QualificationDivision" Member="QualificationDivisions">
+    <Type Name="QualificationDivision">
+      <Column Name="QualificationDivisionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DivisionName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="QualificationDivision_Qualification" Member="Qualifications" ThisKey="QualificationDivisionId" OtherKey="QualificationDivisionId" Type="Qualification" />
+    </Type>
+  </Table>
+  <Table Name="PIS.TrainingType" Member="TrainingTypes">
+    <Type Name="TrainingType">
+      <Column Name="TrainingTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TrainingDescription" Storage="_TrainingDesc" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="TrainingType_Training" Member="Trainings" ThisKey="TrainingTypeId" OtherKey="TrainingTypeId" Type="Training" />
+    </Type>
+  </Table>
+  <Table Name="PIS.LeaveType" Member="LeaveTypes">
+    <Type Name="LeaveType">
+      <Column Name="LeaveTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LeaveDescription" Storage="_LeaveDesc" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="LeaveType_LeaveRecord" Member="LeaveRecords" ThisKey="LeaveTypeId" OtherKey="LeaveTypeId" Type="LeaveRecord" />
+    </Type>
+  </Table>
+  <Table Name="PIS.Country" Member="Countries">
+    <Type Name="Country">
+      <Column Name="CountryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CountryName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Country_FamilyMember" Member="FamilyMembers" ThisKey="CountryId" OtherKey="CountryId" Type="FamilyMember" />
+      <Association Name="Country_Qualification" Member="Qualifications" ThisKey="CountryId" OtherKey="CountryId" Type="Qualification" />
+      <Association Name="Country_Training" Member="Trainings" ThisKey="CountryId" OtherKey="CountryId" Type="Training" />
+      <Association Name="Country_MedicalRecord" Member="MedicalRecords" ThisKey="CountryId" OtherKey="CountryId" Type="MedicalRecord" />
+    </Type>
+  </Table>
+  <Table Name="PIS.Qualification" Member="Qualifications">
+    <Type Name="Qualification">
+      <Column Name="QualificationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Result" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Institute" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="InstituteAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StudyField" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CompletionYear" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QualificationDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QualificationType" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="QualificationDivision_Qualification" Member="QualificationDivision" ThisKey="QualificationDivisionId" OtherKey="QualificationDivisionId" Type="QualificationDivision" IsForeignKey="true" />
+      <Association Name="Employee_Qualification" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+      <Association Name="Country_Qualification" Member="Country" ThisKey="CountryId" OtherKey="CountryId" Type="Country" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="payroll.EmployeeType" Member="EmployeeTypes">
+    <Type Name="EmployeeType">
+      <Column Name="EmployeeTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeTypeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="EmployeeType_Employee" Member="Employees" ThisKey="EmployeeTypeId" OtherKey="EmployeeTypeId" Type="Employee" />
+    </Type>
+  </Table>
+  <Table Name="PIS.Training" Member="Trainings">
+    <Type Name="Training">
+      <Column Name="TrainingId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ServicePeriodId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TrainingTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InstituteName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="InstituteAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CountryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StudyField" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Subject" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TrainingStartFrom" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="TrainingEndTo" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
+      <Column Name="CourseLevel" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FundingAgency" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GovtApprovalNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Result" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Country_Training" Member="Country" ThisKey="CountryId" OtherKey="CountryId" Type="Country" IsForeignKey="true" />
+      <Association Name="TrainingType_Training" Member="TrainingType" ThisKey="TrainingTypeId" OtherKey="TrainingTypeId" Type="TrainingType" IsForeignKey="true" />
+      <Association Name="ServicePeriod_Training" Member="ServicePeriod" ThisKey="ServicePeriodId" OtherKey="ServicePeriodId" Type="ServicePeriod" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="PIS.MedicalRecord" Member="MedicalRecords">
+    <Type Name="MedicalRecord">
+      <Column Name="MedicalRecordId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ServicePeriodId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FamilyMemberId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReferalNo" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="GrantedAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="AdvanceAdjusted" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="HospitalName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="HospitalAddress" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CountryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OfficeOrderNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="OrderDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CashMemoNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Association Name="FamilyMember_MedicalRecord" Member="FamilyMember" ThisKey="FamilyMemberId" OtherKey="FamilyMemberId" Type="FamilyMember" IsForeignKey="true" />
+      <Association Name="Country_MedicalRecord" Member="Country" ThisKey="CountryId" OtherKey="CountryId" Type="Country" IsForeignKey="true" />
+      <Association Name="ServicePeriod_MedicalRecord" Member="ServicePeriod" ThisKey="ServicePeriodId" OtherKey="ServicePeriodId" Type="ServicePeriod" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="payroll.Employee" Member="Employees">
+    <Type Name="Employee">
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IsBhutanese" Storage="_IsForeigner" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="EmployeeTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EmployeeCode" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="JoiningDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="HomeTown" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="ParentOrganization" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Designation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CitizenCardNo" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="BasicSalary" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="BankName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BankPlace" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="IdentificationMark" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Height" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FileindexNo" Storage="_CadreNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="BloodGroupId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EmployeeStatusId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaritalStatusId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Religion" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="LeavingReason" Type="System.String" DbType="NVarChar(50)" CanBeNull="false" />
+      <Column Name="RelieveOrderNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="RelieveOrderDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="DateOfRelieve" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="OfficeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProbationEndDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ACRDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BankAccountNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="GISAccountNumber" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="GPFAccountNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="BankLoanAccountNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="NPPFPNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="Tpn" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="GISGroup" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="BDFCAccountNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="Grade" Type="System.Int32" DbType="int" CanBeNull="true" />
+      <Column Name="EmployeeNumber" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="NPPFType" Type="System.String" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="PostedAt" Type="System.String" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="StationId" Type="System.Int32" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="BankId" Type="System.Int32" CanBeNull="true" UpdateCheck="Always" />
+      <Association Name="Employee_FamilyMember" Member="FamilyMembers" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="FamilyMember" />
+      <Association Name="Employee_Qualification" Member="Qualifications" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Qualification" />
+      <Association Name="Employee_ServicePeriod" Member="ServicePeriods" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="ServicePeriod" />
+      <Association Name="Employee_Nominee" Member="Nominees" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Nominee" />
+      <Association Name="Employee_EmployeeGrant" Member="EmployeeGrants" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="EmployeeGrant" />
+      <Association Name="BloodGroup_Employee" Member="BloodGroup" ThisKey="BloodGroupId" OtherKey="BloodGroupId" Type="BloodGroup" IsForeignKey="true" />
+      <Association Name="EmployeeStatus_Employee" Member="EmployeeStatus" ThisKey="EmployeeStatusId" OtherKey="EmployeeStatusId" Type="EmployeeStatus" IsForeignKey="true" />
+      <Association Name="EmployeeType_Employee" Member="EmployeeType" ThisKey="EmployeeTypeId" OtherKey="EmployeeTypeId" Type="EmployeeType" IsForeignKey="true" />
+      <Association Name="MaritalStatus_Employee" Member="MaritalStatus" ThisKey="MaritalStatusId" OtherKey="MaritalStatusId" Type="MaritalStatus" IsForeignKey="true" />
+      <Association Name="Division_Employee" Member="Division" ThisKey="DivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+      <Association Name="SubDivision_Employee" Member="SubDivision" ThisKey="SubDivisionId" OtherKey="SubDivisionId" Type="SubDivision" IsForeignKey="true" />
+      <Association Name="Office_Employee" Member="Office" ThisKey="OfficeId" OtherKey="OfficeId" Type="Office" IsForeignKey="true" />
+      <Association Name="Station_Employee" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
+      <Association Name="Bank_Employee" Member="Bank" ThisKey="BankId" OtherKey="BankId" Type="Bank" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="PIS.LeaveRecord" Member="LeaveRecords">
+    <Type Name="LeaveRecord">
+      <Column Name="LeaveRecordId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ServicePeriodId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LeaveTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LeaveStartFrom" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LeaveEndTo" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
+      <Column Name="NoOfLeaves" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LeaveOrderNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="MedicalCertificateNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="CertificateIssuingAuthority" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LeavePurpose" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="LeaveOrderDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="LeaveType_LeaveRecord" Member="LeaveType" ThisKey="LeaveTypeId" OtherKey="LeaveTypeId" Type="LeaveType" IsForeignKey="true" />
+      <Association Name="ServicePeriod_LeaveRecord" Member="ServicePeriod" ThisKey="ServicePeriodId" OtherKey="ServicePeriodId" Type="ServicePeriod" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="PIS.ServicePeriod" Member="ServicePeriods">
+    <Type Name="ServicePeriod">
+      <Column Name="ServicePeriodId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PeriodStartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PeriodEndDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
+      <Column Name="Designation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Grade" Type="System.Int32" DbType="int" CanBeNull="true" />
+      <Column Name="BasicSalary" Storage="_BasicPay" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="MinPayScaleAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="MaxPayScaleAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="DateOfIncrement" Storage="_IncrementDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IncrementAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="PromotionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PromotionTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExtensionUpto" Storage="_ExtGrantedFor" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PostedAt" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GovtOrderNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="GovtOrderDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="InitialTerm" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="IsConsolidated" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfNextIncrement" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="NextPromotionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="ServicePeriod_Training" Member="Trainings" ThisKey="ServicePeriodId" OtherKey="ServicePeriodId" Type="Training" />
+      <Association Name="ServicePeriod_MedicalRecord" Member="MedicalRecords" ThisKey="ServicePeriodId" OtherKey="ServicePeriodId" Type="MedicalRecord" />
+      <Association Name="ServicePeriod_LeaveRecord" Member="LeaveRecords" ThisKey="ServicePeriodId" OtherKey="ServicePeriodId" Type="LeaveRecord" />
+      <Association Name="Employee_ServicePeriod" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+      <Association Name="PromotionType_ServicePeriod" Member="PromotionType" ThisKey="PromotionTypeId" OtherKey="PromotionTypeId" Type="PromotionType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="PIS.PromotionType" Member="PromotionTypes">
+    <Type Name="PromotionType">
+      <Column Name="PromotionTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PromotionDescription" Storage="_PromotionDesc" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="PromotionType_ServicePeriod" Member="ServicePeriods" ThisKey="PromotionTypeId" OtherKey="PromotionTypeId" Type="ServicePeriod" />
+    </Type>
+  </Table>
+  <Table Name="PIS.Nominee" Member="Nominees">
+    <Type Name="Nominee">
+      <Column Name="NomineeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FamilyMemberId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="EntitlementTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Employee_Nominee" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+      <Association Name="EntitlementType_Nominee" Member="EntitlementType" ThisKey="EntitlementTypeId" OtherKey="EntitlementTypeId" Type="EntitlementType" IsForeignKey="true" />
+      <Association Name="FamilyMember_Nominee" Member="FamilyMember" ThisKey="FamilyMemberId" OtherKey="FamilyMemberId" Type="FamilyMember" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="PIS.EmployeeGrant" Member="EmployeeGrants">
+    <Type Name="EmployeeGrant">
+      <Column Name="EmployeeGrantId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GrantType" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="MeritoriousService" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GrantName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="GrantReceivedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="GrantingAuthority" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PenalityImposed" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="EnquiryDetails" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="OrderNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Employee_EmployeeGrant" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="PIS.SubDivision" Member="SubDivisions">
+    <Type Name="SubDivision">
+      <Column Name="SubDivisionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SubDivisionName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="SubDivision_Employee" Member="Employees" ThisKey="SubDivisionId" OtherKey="SubDivisionId" Type="Employee" />
+      <Association Name="SubDivision_Office" Member="Offices" ThisKey="SubDivisionId" OtherKey="SubDivisionId" Type="Office" />
+      <Association Name="Division_SubDivision" Member="Division" ThisKey="DivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="PIS.Office" Member="Offices">
+    <Type Name="Office">
+      <Column Name="OfficeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OfficeName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SubDivisionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Office_Employee" Member="Employees" ThisKey="OfficeId" OtherKey="OfficeId" Type="Employee" />
+      <Association Name="SubDivision_Office" Member="SubDivision" ThisKey="SubDivisionId" OtherKey="SubDivisionId" Type="SubDivision" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="PIS.Station" Member="Stations">
+    <Type Name="Station">
+      <Column Name="StationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StationName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Station_Employee" Member="Employees" ThisKey="StationId" OtherKey="StationId" Type="Employee" />
+      <Association Name="Station_Bank" Member="Banks" ThisKey="StationId" OtherKey="StationId" Type="Bank" />
+    </Type>
+  </Table>
+  <Table Name="PIS.Bank" Member="Banks">
+    <Type Name="Bank">
+      <Column Name="BankId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BankName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="StationId" Type="System.Int32" CanBeNull="true" UpdateCheck="Always" />
+      <Association Name="Bank_Employee" Member="Employees" ThisKey="BankId" OtherKey="BankId" Type="Employee" />
+      <Association Name="Station_Bank" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

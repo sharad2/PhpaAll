@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Phpa2" Class="ReportingDataContext" BaseType="Eclipse.PhpaLibrary.Database.DataContextBase" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.VoucherDetail" Member="RoVoucherDetails">
+    <Type Name="RoVoucherDetail">
+      <Column Name="VoucherDetailId" Type="System.Int32" DbType="Int NOT NULL" IsReadOnly="true" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="VoucherId" Type="System.Int32" DbType="Int NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="JobId" Type="System.Int32" DbType="Int" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="DebitAmount" Type="System.Decimal" DbType="Money NOT NULL" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="CreditAmount" Type="System.Decimal" DbType="Money NOT NULL" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="ContractorId" Type="System.Int32" DbType="Int" IsReadOnly="true" CanBeNull="true" />
+      <Association Name="RoVoucher_RoVoucherDetail" Member="RoVoucher" ThisKey="VoucherId" OtherKey="VoucherId" Type="RoVoucher" IsForeignKey="true" />
+      <Association Name="RoHeadHierarchy_RoVoucherDetail" Member="RoHeadHierarchy" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="RoHeadHierarchy" IsForeignKey="true" />
+      <Association Name="RoJob_RoVoucherDetail" Member="RoJob" ThisKey="JobId" OtherKey="JobId" Type="RoJob" IsForeignKey="true" />
+      <Association Name="RoEmployee_RoVoucherDetail" Member="RoEmployee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="RoEmployee" IsForeignKey="true" />
+      <Association Name="HeadOfAccount_RoVoucherDetail" Member="HeadOfAccount" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="HeadOfAccount" IsForeignKey="true" />
+      <Association Name="RoContractor_RoVoucherDetail" Member="RoContractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="RoContractor" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Voucher" Member="RoVouchers">
+    <Type Name="RoVoucher">
+      <Column Name="VoucherId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="VoucherType" Type="System.Char" DbType="NVarChar(1) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="VoucherDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="VoucherCode" Type="System.String" DbType="NVARCHAR(50)" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="CheckNumber" Type="System.Int32" DbType="Int" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="PayeeName" Type="System.String" DbType="NVarChar(50)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="StationId" Type="System.Int32" CanBeNull="true" />
+      <Association Name="RoVoucher_RoVoucherDetail" Member="RoVoucherDetails" ThisKey="VoucherId" OtherKey="VoucherId" Type="RoVoucherDetail" />
+      <Association Name="RoDivision_RoVoucher" Member="RoDivision" ThisKey="DivisionId" OtherKey="DivisionId" Type="RoDivision" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HeadHierarchy" Member="RoHeadHierarchies">
+    <Type Name="RoHeadHierarchy">
+      <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int" IsReadOnly="true" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StoredDisplayName" Member="DisplayName" Storage="_StoredDisplayName" Type="System.String" DbType="VarChar(50)" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="NameWithinParent" Type="System.Int16" DbType="SmallInt" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="TopParentName" Type="System.Int16" DbType="SmallInt" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="SortableName" Type="System.Int64" DbType="BigInt" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(200)" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="HierarchyPath" Type="System.String" DbType="VarChar(256)" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="[Level]" Member="Level" Type="System.Int32" DbType="Int" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="ParentHeadOfAccountId" Type="System.Int32" DbType="int" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="CountChildren" Type="System.Int32" DbType="int" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="ProjectCost" Type="System.Decimal" DbType="money" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="HeadOfAccountType" Type="System.String" DbType="Varchar(20)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="RevisedProjectCost" Type="System.Decimal" DbType="money" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="TopParentId" Type="System.Int32" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="StationId" Type="System.Int32" CanBeNull="true" />
+      <Association Name="RoHeadHierarchy_RoVoucherDetail" Member="RoVoucherDetails" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="RoVoucherDetail" />
+      <Association Name="RoHeadHierarchy_RoJob" Member="RoJobs" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="RoJob" />
+      <Association Name="RoHeadHierarchy_RoBudget" Member="RoBudgets" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="RoBudget" />
+      <Association Name="RoAccountType_RoHeadHierarchy" Member="RoAccountType" ThisKey="HeadOfAccountType" OtherKey="HeadOfAccountType" Type="RoAccountType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Job" Member="RoJobs">
+    <Type Name="RoJob">
+      <Column Name="JobId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="JobCode" Type="System.String" DbType="NVarChar(50)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="nvarchar(200)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="TypeFlag" Type="System.String" DbType="nvarchar(1)" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="SanctionedAmount" Type="System.Decimal" DbType="money" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="HeadOfAccountId " Member="HeadOfAccountId" Type="System.Int32" DbType="int" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="DivisionId" Type="System.Int32" DbType="int" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="ContractAmount" Type="System.Decimal" DbType="money" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="ContractorId" Type="System.Int32" DbType="int" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="RevisedSanction" Type="System.Decimal" DbType="money" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="RevisedContract" AutoSync="Never" Type="System.Decimal" DbType="money" IsReadOnly="true" IsDbGenerated="true" CanBeNull="true" />
+      <Column Name="SanctionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="SanctionNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="WorkOrderNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="WorkOrderDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CommencementDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CompletionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="AwardDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PackageName" Type="System.String" DbType="nvarchar(60)" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="RoJob_RoVoucherDetail" Member="RoVoucherDetails" ThisKey="JobId" OtherKey="JobId" Type="RoVoucherDetail" />
+      <Association Name="RoHeadHierarchy_RoJob" Member="RoHeadHierarchy" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="RoHeadHierarchy" IsForeignKey="true" />
+      <Association Name="RoDivision_RoJob" Member="RoDivision" ThisKey="DivisionId" OtherKey="DivisionId" Type="RoDivision" IsForeignKey="true" />
+      <Association Name="RoContractor_RoJob" Member="RoContractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="RoContractor" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="payroll.Employee" Member="RoEmployees">
+    <Type Name="RoEmployee">
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="EmployeeCode" Type="System.String" DbType="NVarChar(20)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(25) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(25)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int " IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Designation" Type="System.String" DbType="nvarchar(50)" CanBeNull="false" />
+      <Association Name="RoEmployee_RoVoucherDetail" Member="RoVoucherDetails" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="RoVoucherDetail" />
+      <Association Name="RoDivision_RoEmployee" Member="RoDivision" ThisKey="DivisionId" OtherKey="DivisionId" Type="RoDivision" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contractor" Member="RoContractors">
+    <Type Name="RoContractor">
+      <Column Name="ContractorId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ContractorName" Type="System.String" DbType="NVarChar(50) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="ContractorCode" Type="System.String" DbType="NVarChar(50)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Nationality" Type="System.String" DbType="nvarchar(2)" IsReadOnly="true" CanBeNull="false" />
+      <Association Name="RoContractor_RoVoucherDetail" Member="RoVoucherDetails" ThisKey="ContractorId" OtherKey="ContractorId" Type="RoVoucherDetail" />
+      <Association Name="RoContractor_RoJob" Member="RoJobs" ThisKey="ContractorId" OtherKey="ContractorId" Type="RoJob" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Division" Member="RoDivisions">
+    <Type Name="RoDivision">
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DivisionCode" Type="System.String" DbType="NVarChar(25) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="DivisionGroup" Type="System.String" DbType="NVarChar(30) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="DivisionName" Type="System.String" DbType="NVarChar(80) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Association Name="RoDivision_RoVoucher" Member="RoVouchers" ThisKey="DivisionId" OtherKey="DivisionId" Type="RoVoucher" />
+      <Association Name="RoDivision_RoJob" Member="RoJobs" ThisKey="DivisionId" OtherKey="DivisionId" Type="RoJob" />
+      <Association Name="RoDivision_RoEmployee" Member="RoEmployees" ThisKey="DivisionId" OtherKey="DivisionId" Type="RoEmployee" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Budget" Member="RoBudgets">
+    <Type Name="RoBudget">
+      <Column Name="BudgetId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="Year_Begining" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Revised_amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="RoHeadHierarchy_RoBudget" Member="RoHeadHierarchy" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="RoHeadHierarchy" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AccountType" Member="RoAccountTypes">
+    <Type Name="RoAccountType">
+      <Column Name="HeadOfAccountType" Type="System.String" DbType="NVarChar(20) NOT NULL" IsReadOnly="true" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(250) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="Type" Member="Category" Storage="_Type" AutoSync="Never" Type="System.String" DbType="char" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="RoAccountType_RoHeadHierarchy" Member="RoHeadHierarchies" ThisKey="HeadOfAccountType" OtherKey="HeadOfAccountType" Type="RoHeadHierarchy" />
+      <Association Name="RoAccountType_HeadOfAccount" Member="HeadOfAccounts" ThisKey="HeadOfAccountType" OtherKey="HeadOfAccountType" Type="HeadOfAccount" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HeadOfAccount" Member="HeadOfAccounts">
+    <Type Name="HeadOfAccount">
+      <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ParentHeadOfAccountId" Type="System.Int32" DbType="Int" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="NameWithinParent" Type="System.Int16" DbType="SmallInt NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="DisplayName" Type="System.String" DbType="VarChar(50) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(200) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="ProjectCost" Type="System.Decimal" DbType="Money" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="RevisedProjectCost" Type="System.Decimal" DbType="Money" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="GroupDescription" Type="System.String" DbType="NVarChar(256)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="HeadOfAccountType" Type="System.String" DbType="NVarChar(20)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="StationId" Type="System.Int32" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" CanBeNull="false" />
+      <Association Name="HeadOfAccount_RoVoucherDetail" Member="RoVoucherDetails" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="RoVoucherDetail" />
+      <Association Name="RoAccountType_HeadOfAccount" Member="RoAccountType" ThisKey="HeadOfAccountType" OtherKey="HeadOfAccountType" Type="RoAccountType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="payroll.SalaryPeriod" Member="RoSalaryPeriods">
+    <Type Name="RoSalaryPeriod">
+      <Column Name="SalaryPeriodId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SalaryPeriodStart" Type="System.DateTime" DbType="SmallDateTime NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="SalaryPeriodEnd" Type="System.DateTime" DbType="SmallDateTime NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="PayableDate" Type="System.DateTime" DbType="SmallDateTime" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="PaidDate" Type="System.DateTime" DbType="SmallDateTime" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="SalaryperiodCode" Type="System.String" DbType="NVarChar(50) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50)" IsReadOnly="true" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

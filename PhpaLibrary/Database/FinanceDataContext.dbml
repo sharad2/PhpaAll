@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Phpa2-20012012" Class="FinanceDataContext" BaseType="DataContextBase" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=scotland;Initial Catalog=Phpa2-20012012;User ID=sa" SettingsObjectName="Eclipse.PhpaLibrary.Properties.Settings" SettingsPropertyName="Phpa2_20012012ConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.HeadOfAccount" Member="HeadOfAccounts">
+    <Type Name="HeadOfAccount">
+      <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ParentHeadOfAccountId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NameWithinParent" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="ProjectCost" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="RevisedProjectCost" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Created" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="DisplayName" Type="System.String" DbType="varchar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="GroupDescription" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="HeadOfAccountType" Type="System.String" DbType="nvarchar(20)" CanBeNull="true" />
+      <Column Name="StationId" Type="System.Int32" CanBeNull="true" UpdateCheck="Always" />
+      <Association Name="HeadOfAccount_HeadOfAccount" Member="ChildHeads" ThisKey="HeadOfAccountId" OtherKey="ParentHeadOfAccountId" Type="HeadOfAccount" />
+      <Association Name="HeadOfAccount_VoucherDetail" Member="VoucherDetails" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="VoucherDetail" />
+      <Association Name="HeadOfAccount_Job" Member="Jobs" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="Job" />
+      <Association Name="HeadOfAccount_Budget" Member="Budgets" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="Budget" />
+      <Association Name="HeadOfAccount_HeadOfAccount" Member="ParentHead" ThisKey="ParentHeadOfAccountId" OtherKey="HeadOfAccountId" Type="HeadOfAccount" IsForeignKey="true" />
+      <Association Name="AccountType_HeadOfAccount" Member="AccountType" ThisKey="HeadOfAccountType" OtherKey="HeadOfAccountType" Type="AccountType" IsForeignKey="true" />
+      <Association Name="Station_HeadOfAccount" Member="Station1" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Voucher" Member="Vouchers">
+    <Type Name="Voucher">
+      <Column Name="VoucherId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="VoucherType" Member="VoucherTypeCode" Storage="_VoucherType" Type="System.Char" DbType="NVarChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="VoucherDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="VoucherCode" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CheckNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PayeeName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Created" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="IsChequeReconcile" Type="System.Boolean" DbType="bit" CanBeNull="true" />
+      <Column Name="StationId" Type="System.Int32" CanBeNull="true" UpdateCheck="Always" />
+      <Association Name="Voucher_VoucherDetail" Member="VoucherDetails" ThisKey="VoucherId" OtherKey="VoucherId" Type="VoucherDetail" />
+      <Association Name="Division_Voucher" Member="Division" ThisKey="DivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+      <Association Name="Station_Voucher" Member="Station1" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VoucherDetail" Member="VoucherDetails">
+    <Type Name="VoucherDetail">
+      <Column Name="VoucherDetailId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="VoucherId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int" CanBeNull="false" />
+      <Column Name="JobId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DebitAmount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="true" />
+      <Column Name="CreditAmount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="true" />
+      <Column Name="Created" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ContractorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Voucher_VoucherDetail" Member="Voucher" ThisKey="VoucherId" OtherKey="VoucherId" Type="Voucher" IsForeignKey="true" />
+      <Association Name="HeadOfAccount_VoucherDetail" Member="HeadOfAccount" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="HeadOfAccount" IsForeignKey="true" />
+      <Association Name="Job_VoucherDetail" Member="Job" ThisKey="JobId" OtherKey="JobId" Type="Job" IsForeignKey="true" />
+      <Association Name="Employee_VoucherDetail" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+      <Association Name="Contractor_VoucherDetail" Member="Contractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="Contractor" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Division" Member="Divisions">
+    <Type Name="Division">
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DivisionGroup" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="DivisionName" Type="System.String" DbType="NVarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="DivisionCode" Storage="_DivisionShortName" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Association Name="Division_Voucher" Member="Vouchers" ThisKey="DivisionId" OtherKey="DivisionId" Type="Voucher" />
+      <Association Name="Division_Job" Member="Jobs" ThisKey="DivisionId" OtherKey="DivisionId" Type="Job" />
+      <Association Name="Division_BankGuarantee" Member="BankGuarantees" ThisKey="DivisionId" OtherKey="DivisionId" Type="BankGuarantee" />
+      <Association Name="Division_Employee" Member="Employees" ThisKey="DivisionId" OtherKey="DivisionId" Type="Employee" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Job" Member="Jobs">
+    <Type Name="Job">
+      <Column Name="JobId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TypeFlag" Member="JobTypeCode" Storage="_TypeFlag" Type="System.Char" DbType="NVarChar(1) " CanBeNull="true" />
+      <Column Name="SanctionNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SanctionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
+      <Column Name="SanctionedAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="WorkOrderNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="WorkOrderDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CommencementDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CompletionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="nvarchar(200)" CanBeNull="true" />
+      <Column Name="AwardDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ContractAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ContractorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RevisedSanction" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="RevisedContract" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Created" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="JobCode" Type="System.String" DbType="nvarchar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PackageName" Type="System.String" DbType="nvarchar(60)" CanBeNull="true" />
+      <Association Name="Job_VoucherDetail" Member="VoucherDetails" ThisKey="JobId" OtherKey="JobId" Type="VoucherDetail" />
+      <Association Name="Job_BankGuarantee" Member="BankGuarantees" ThisKey="JobId" OtherKey="JobId" Type="BankGuarantee" />
+      <Association Name="Division_Job" Member="Division" ThisKey="DivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+      <Association Name="HeadOfAccount_Job" Member="HeadOfAccount" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="HeadOfAccount" IsForeignKey="true" />
+      <Association Name="Contractor_Job" Member="Contractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="Contractor" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Budget" Member="Budgets">
+    <Type Name="Budget">
+      <Column Name="BudgetId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Year_Begining" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Revised_amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Created" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="HeadOfAccount_Budget" Member="HeadOfAccount" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="HeadOfAccount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contractor" Member="Contractors">
+    <Type Name="Contractor">
+      <Column Name="ContractorId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ContractorName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ContractorCode" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Postal_Code" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Contact_person" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone1" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Phone2" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Created" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="nVarchar(30)" CanBeNull="true" />
+      <Column Name="Nationality" Type="System.String" DbType="nvarchar(2)" CanBeNull="false" />
+      <Association Name="Contractor_VoucherDetail" Member="VoucherDetails" ThisKey="ContractorId" OtherKey="ContractorId" Type="VoucherDetail" />
+      <Association Name="Contractor_Job" Member="Jobs" ThisKey="ContractorId" OtherKey="ContractorId" Type="Job" />
+      <Association Name="Contractor_BankGuarantee" Member="BankGuarantees" ThisKey="ContractorId" OtherKey="ContractorId" Type="BankGuarantee" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BankGuarantee" Member="BankGuarantees">
+    <Type Name="BankGuarantee">
+      <Column Name="BankGuaranteeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BankGuaranteeNumber" Type="System.String" DbType="Char(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal NOT NULL" CanBeNull="false" />
+      <Column Name="JobId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ContractorId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IssueDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ReceiptDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ExpiryDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IssuingBank" Type="System.String" DbType="Char(50) NOT NULL" CanBeNull="false" />
+      <Column Name="BankAddress" Type="System.String" DbType="Char(50)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="Char(50)" CanBeNull="true" />
+      <Column Name="Reason" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="BasicEnteredBy" Type="System.String" DbType="Char(50) NOT NULL" CanBeNull="true" />
+      <Column Name="BasicVerifiedBy" Type="System.String" DbType="Char(50)" CanBeNull="true" />
+      <Column Name="ExtendedExpiryDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EncashmentSentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EncashmentReceiptDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ExtensionEnteredBy" Type="System.String" DbType="Char(50)" CanBeNull="true" />
+      <Column Name="Created" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Contractor_BankGuarantee" Member="Contractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="Contractor" IsForeignKey="true" />
+      <Association Name="Division_BankGuarantee" Member="Division" ThisKey="DivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+      <Association Name="Job_BankGuarantee" Member="Job" ThisKey="JobId" OtherKey="JobId" Type="Job" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AccountType" Member="AccountTypes">
+    <Type Name="AccountType">
+      <Column Name="HeadOfAccountType" Type="System.String" DbType="NVarChar(20) NOT NULL" IsReadOnly="true" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(250) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="Type" Member="Category" Type="System.String" DbType="VARCHAR(1)" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="AccountType_HeadOfAccount" Member="HeadOfAccounts" ThisKey="HeadOfAccountType" OtherKey="HeadOfAccountType" Type="HeadOfAccount" />
+    </Type>
+  </Table>
+  <Table Name="payroll.Employee" Member="Employees">
+    <Type Name="Employee">
+      <Column Name="EmployeeId" AutoSync="Never" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeCode" Type="System.String" DbType="NVarChar(20) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Designation" Type="System.String" IsReadOnly="true" CanBeNull="true" />
+      <Association Name="Employee_VoucherDetail" Member="VoucherDetails" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="VoucherDetail" />
+      <Association Name="Division_Employee" Member="Division" ThisKey="DivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="PIS.Station" Member="Stations">
+    <Type Name="Station">
+      <Column Name="StationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StationName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Station_HeadOfAccount" Member="HeadOfAccounts" ThisKey="StationId" OtherKey="StationId" Type="HeadOfAccount" />
+      <Association Name="Station_Voucher" Member="Vouchers" ThisKey="StationId" OtherKey="StationId" Type="Voucher" />
+    </Type>
+  </Table>
+</Database>

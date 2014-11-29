@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PHPA2Fortest" EntityNamespace="Eclipse.PhpaLibrary.Database.Payroll" ContextNamespace="Eclipse.PhpaLibrary.Database.Payroll" Class="PayrollDataContext" BaseType="Eclipse.PhpaLibrary.Database.DataContextBase" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=SCOTLAND;Initial Catalog=PHPA2Fortest;User ID=sa" SettingsObjectName="Eclipse.PhpaLibrary.Properties.Settings" SettingsPropertyName="PHPA2FortestConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="payroll.Employee" Member="Employees">
+    <Type Name="Employee">
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IsBhutanese" Storage="_IsForeigner" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="EmployeeTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EmployeeCode" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="JoiningDate" Type="System.DateTime" DbType="SmallDateTime " CanBeNull="true" />
+      <Column Name="Designation" Type="System.String" DbType="NVarChar(50)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CitizenCardNo" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="BasicSalary" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="HomeTown" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Created" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="SmallDateTime " CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="GISAccountNumber" Type="System.String" DbType="nvarchar(20)" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="Tpn" Type="System.String" DbType="nvarchar(15)" CanBeNull="true" />
+      <Column Name="ParentOrganization" Type="System.String" DbType="nvarchar(50)" CanBeNull="true" />
+      <Column Name="GPFAccountNo" Storage="_GPFNo" Type="System.String" DbType="nVarChar(30)" CanBeNull="true" />
+      <Column Name="BankAccountNo" Type="System.String" DbType="nVarChar(30)" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(10)" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="BDFCAccountNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="BankLoanAccountNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="NPPFPNo" Type="System.String" DbType="NVarChar(30)" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="BankName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BankPlace" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GISGroup" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="MaritalStatusId" Type="System.Int32" DbType="int " CanBeNull="true" />
+      <Column Name="Grade" Type="System.Int32" DbType="int" CanBeNull="true" />
+      <Column Name="DateOfRelieve" Type="System.DateTime" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="NPPFType" Type="System.String" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="StationId" Type="System.Int32" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="BankId" Type="System.Int32" CanBeNull="false" UpdateCheck="Always" />
+      <Association Name="Employee_EmployeeAdjustment" Member="EmployeeAdjustments" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="EmployeeAdjustment" />
+      <Association Name="Employee_EmployeePeriod" Member="EmployeePeriods" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="EmployeePeriod" />
+      <Association Name="Employee_ServicePeriod" Member="ServicePeriods" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="ServicePeriod" />
+      <Association Name="Division_Employee" Member="Division" ThisKey="DivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+      <Association Name="EmployeeType_Employee" Member="EmployeeType" ThisKey="EmployeeTypeId" OtherKey="EmployeeTypeId" Type="EmployeeType" IsForeignKey="true" />
+      <Association Name="MaritalStatus_Employee" Member="MaritalStatus" ThisKey="MaritalStatusId" OtherKey="MaritalStatusId" Type="MaritalStatus" IsForeignKey="true" />
+      <Association Name="Station_Employee" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
+      <Association Name="Bank_Employee" Member="Bank" ThisKey="BankId" OtherKey="BankId" Type="Bank" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Division" Member="Divisions">
+    <Type Name="Division">
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DivisionCode" Type="System.String" DbType="NVarChar(20) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="DivisionGroup" Type="System.String" DbType="NVarChar(30) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="DivisionName" Type="System.String" DbType="NVarChar(50) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Association Name="Division_Employee" Member="Employees" ThisKey="DivisionId" OtherKey="DivisionId" Type="Employee" />
+    </Type>
+  </Table>
+  <Table Name="payroll.Adjustment" Member="Adjustments">
+    <Type Name="Adjustment">
+      <Column Name="AdjustmentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdjustmentCode" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="EmployeeTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FractionOfBasic" Storage="_PercentageBasic" Type="System.Double" DbType="float" CanBeNull="true" />
+      <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="FlatAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="IsDeduction" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Created" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="IsDefault" Type="System.Boolean" DbType="bit" CanBeNull="false" />
+      <Column Name="AdjustmentCategoryId" Type="System.Int32" DbType="int" CanBeNull="true" />
+      <Column Name="ShortDescription" Type="System.String" DbType="nvarchar(30)" CanBeNull="true" />
+      <Association Name="Adjustment_EmployeeAdjustment" Member="EmployeeAdjustments" ThisKey="AdjustmentId" OtherKey="AdjustmentId" Type="EmployeeAdjustment" />
+      <Association Name="Adjustment_PeriodEmployeeAdjustment" Member="PeriodEmployeeAdjustments" ThisKey="AdjustmentId" OtherKey="AdjustmentId" Type="PeriodEmployeeAdjustment" />
+      <Association Name="HeadOfAccount_Adjustment" Member="HeadOfAccount" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="HeadOfAccount" IsForeignKey="true" />
+      <Association Name="EmployeeType_Adjustment" Member="EmployeeType" ThisKey="EmployeeTypeId" OtherKey="EmployeeTypeId" Type="EmployeeType" IsForeignKey="true" />
+      <Association Name="AdjustmentCategory_Adjustment" Member="AdjustmentCategory" ThisKey="AdjustmentCategoryId" OtherKey="AdjustmentCategoryId" Type="AdjustmentCategory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="payroll.EmployeeAdjustment" Member="EmployeeAdjustments">
+    <Type Name="EmployeeAdjustment">
+      <Column Name="EmployeeAdjustmentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AdjustmentId" Type="System.Int32" DbType="Int" CanBeNull="false" />
+      <Column Name="FractionOfBasic" Storage="_PercentageBasic" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IsFractionBasicOverridden" Storage="_IsPercentageBasicOverridden" Type="System.Boolean" DbType="Bit" CanBeNull="false" />
+      <Column Name="FlatAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="IsFlatAmountOverridden" Type="System.Boolean" DbType="Bit" CanBeNull="false" />
+      <Column Name="Created" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="Comment" Type="System.String" DbType="NvarChar(256)" CanBeNull="true" />
+      <Association Name="Adjustment_EmployeeAdjustment" Member="Adjustment" ThisKey="AdjustmentId" OtherKey="AdjustmentId" Type="Adjustment" IsForeignKey="true" />
+      <Association Name="Employee_EmployeeAdjustment" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="payroll.SalaryPeriod" Member="SalaryPeriods">
+    <Type Name="SalaryPeriod">
+      <Column Name="SalaryPeriodId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SalaryPeriodStart" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SalaryPeriodEnd" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PayableDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="PaidDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Created" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="SalaryPeriodCode" Type="System.String" DbType="NvarChar(50)" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="Description" Type="System.String" DbType="NvarChar(50)" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="BankName" Type="System.String" DbType="NvarChar(50)" CanBeNull="true" />
+      <Column Name="StationId" Type="System.Int32" CanBeNull="true" UpdateCheck="Always" />
+      <Association Name="SalaryPeriod_EmployeePeriod" Member="EmployeePeriods" ThisKey="SalaryPeriodId" OtherKey="SalaryPeriodId" Type="EmployeePeriod" />
+      <Association Name="Station_SalaryPeriod" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HeadOfAccount" Member="HeadOfAccounts">
+    <Type Name="HeadOfAccount">
+      <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ParentHeadOfAccountId" Type="System.Int32" DbType="Int" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="NameWithinParent" Type="System.Int16" DbType="SmallInt NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="DisplayName" Type="System.String" DbType="VarChar(50) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(150) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="HeadOfAccountType" Type="System.String" DbType="NVarChar(20)" IsReadOnly="true" CanBeNull="true" />
+      <Association Name="HeadOfAccount_Adjustment" Member="Adjustments" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="Adjustment" />
+    </Type>
+  </Table>
+  <Table Name="payroll.PeriodEmployeeAdjustment" Member="PeriodEmployeeAdjustments">
+    <Type Name="PeriodEmployeeAdjustment">
+      <Column Name="PeriodEmployeeAdjustmentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeePeriodId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AdjustmentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Created" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="IsAmountOverridden" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Comment" Type="System.String" DbType="NvarChar(256)" CanBeNull="true" />
+      <Association Name="Adjustment_PeriodEmployeeAdjustment" Member="Adjustment" ThisKey="AdjustmentId" OtherKey="AdjustmentId" Type="Adjustment" IsForeignKey="true" />
+      <Association Name="EmployeePeriod_PeriodEmployeeAdjustment" Member="EmployeePeriod" ThisKey="EmployeePeriodId" OtherKey="EmployeePeriodId" Type="EmployeePeriod" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="payroll.EmployeePeriod" Member="EmployeePeriods">
+    <Type Name="EmployeePeriod">
+      <Column Name="EmployeePeriodId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SalaryPeriodId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BasicPay" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="IsBasicPayOverridden" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Created" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Modified" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="VoucherId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="EmployeePeriod_PeriodEmployeeAdjustment" Member="PeriodEmployeeAdjustments" ThisKey="EmployeePeriodId" OtherKey="EmployeePeriodId" Type="PeriodEmployeeAdjustment" />
+      <Association Name="Employee_EmployeePeriod" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+      <Association Name="SalaryPeriod_EmployeePeriod" Member="SalaryPeriod" ThisKey="SalaryPeriodId" OtherKey="SalaryPeriodId" Type="SalaryPeriod" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="payroll.EmployeeType" Member="EmployeeTypes">
+    <Type Name="EmployeeType">
+      <Column Name="EmployeeTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeTypeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="EmployeeType_Employee" Member="Employees" ThisKey="EmployeeTypeId" OtherKey="EmployeeTypeId" Type="Employee" />
+      <Association Name="EmployeeType_Adjustment" Member="Adjustments" ThisKey="EmployeeTypeId" OtherKey="EmployeeTypeId" Type="Adjustment" />
+    </Type>
+  </Table>
+  <Table Name="payroll.ReportCategory" Member="ReportCategories">
+    <Type Name="ReportCategory">
+      <Column Name="ReportCategoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReportId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AdjustmentCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="AdjustmentCategory_ReportCategory" Member="AdjustmentCategory" ThisKey="AdjustmentCategoryId" OtherKey="AdjustmentCategoryId" Type="AdjustmentCategory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="payroll.AdjustmentCategory" Member="AdjustmentCategories">
+    <Type Name="AdjustmentCategory">
+      <Column Name="AdjustmentCategoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdjustmentCategoryCode" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IsDeduction" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="AdjustmentCategory_Adjustment" Member="Adjustments" ThisKey="AdjustmentCategoryId" OtherKey="AdjustmentCategoryId" Type="Adjustment" />
+      <Association Name="AdjustmentCategory_ReportCategory" Member="ReportCategories" ThisKey="AdjustmentCategoryId" OtherKey="AdjustmentCategoryId" Type="ReportCategory" />
+    </Type>
+  </Table>
+  <Table Name="PIS.MaritalStatus" Member="MaritalStatus">
+    <Type Name="MaritalStatus">
+      <Column Name="MaritalStatusId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MaritalStatusType" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="MaritalStatus_Employee" Member="Employees" ThisKey="MaritalStatusId" OtherKey="MaritalStatusId" Type="Employee" />
+    </Type>
+  </Table>
+  <Table Name="PIS.ServicePeriod" Member="ServicePeriods">
+    <Type Name="ServicePeriod">
+      <Column Name="ServicePeriodId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="PeriodStartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="PeriodEndDate" Type="System.DateTime" DbType="DateTime" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Designation" Type="System.String" DbType="NVarChar(50)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Grade" Type="System.Int32" DbType="Int" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="BasicSalary" Type="System.Decimal" DbType="Money" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="IsConsolidated" Type="System.Boolean" DbType="Bit NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="MinPayScaleAmount" Type="System.Decimal" DbType="Money" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="MaxPayScaleAmount" Type="System.Decimal" DbType="Money" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="DateOfIncrement" Type="System.DateTime" DbType="DateTime" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="IncrementAmount" Type="System.Decimal" DbType="Money" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="PostedAt" Type="System.String" DbType="NVarChar(50)" IsReadOnly="true" CanBeNull="true" />
+      <Association Name="Employee_ServicePeriod" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="PIS.Station" Member="Stations">
+    <Type Name="Station">
+      <Column Name="StationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StationName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Station_Employee" Member="Employees" ThisKey="StationId" OtherKey="StationId" Type="Employee" />
+      <Association Name="Station_SalaryPeriod" Member="SalaryPeriods" ThisKey="StationId" OtherKey="StationId" Type="SalaryPeriod" />
+      <Association Name="Station_Bank" Member="Banks" ThisKey="StationId" OtherKey="StationId" Type="Bank" />
+    </Type>
+  </Table>
+  <Table Name="PIS.Bank" Member="Banks">
+    <Type Name="Bank">
+      <Column Name="BankId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BankName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="StationId" Type="System.Int32" CanBeNull="true" UpdateCheck="Always" />
+      <Association Name="Bank_Employee" Member="Employees" ThisKey="BankId" OtherKey="BankId" Type="Employee" />
+      <Association Name="Station_Bank" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

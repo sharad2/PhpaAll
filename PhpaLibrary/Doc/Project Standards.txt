@@ -1,0 +1,8 @@
+﻿Author: SS; 19 Jun 2008
+
+Standards
+---------
+1. Money columns should be right justified
+2. Date columns should be right justified
+3. Description maxwidth 90.
+4. Code selectors should display empty message if list contains no entries.

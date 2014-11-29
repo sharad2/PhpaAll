@@ -1,0 +1,46 @@
+﻿<%--
+Default skin template. The following skins are provided as examples only.
+
+1. Named control skin. The SkinId should be uniquely defined because
+   duplicate SkinId's per control type are not allowed in the same theme.
+
+<asp:GridView runat="server" SkinId="gridviewSkin" BackColor="White" >
+   <AlternatingRowStyle BackColor="Blue" />
+</asp:GridView>
+
+2. Default skin. The SkinId is not defined. Only one default 
+   control skin per control type is allowed in the same theme.
+
+<asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
+--%>
+
+<asp:TreeView SkinID="Heads" runat="server" 
+    NodeWrap="True" ImageSet="Faq">
+    <ParentNodeStyle Font-Bold="False" />
+    <HoverNodeStyle CssClass="Phpa-TreeViewHoverNode_Head" />
+    <SelectedNodeStyle CssClass="Phpa-TreeViewSelectedNode_Head" />
+    <NodeStyle  NodeSpacing="0px" CssClass="Phpa-TreeViewNode_Head" />
+</asp:TreeView>
+
+<asp:GridView runat="server" CssClass="Phpa-GridViewStyle">
+    <FooterStyle CssClass="Phpa-GvFooter" />
+    <PagerStyle CssClass="Phpa-GvPagerStyle" />
+    <SelectedRowStyle CssClass="ui-selected" />
+    <AlternatingRowStyle CssClass="alternatingRow" />
+</asp:GridView>
+
+<asp:FormView runat="server">
+    <PagerStyle CssClass="Phpa-FvPagerStyle" />
+    <FooterStyle CssClass="Phpa-FvFooterStyle"  />
+    <HeaderStyle CssClass="Phpa-FvHeaderStyle"/>
+</asp:FormView>
+
+<%--<phpa:HybridDragVisiblePanel runat="server" Width="35em" />--%>
+
+<%-- Context menu --%>
+<asp:Panel runat="server"
+    SkinID="ContextMenuPanel"
+    style="display: none; visibility: hidden;"
+    CssClass="ContextMenuPanel" />
+
+<asp:Button runat="server" CssClass="ui-button ui-state-default ui-corner-all"/>

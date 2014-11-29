@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode url="~/PIS/Default.aspx" title="Personnel"  description="PIS Home">
+    <siteMapNode url="~/Doc/PISDefault.doc.aspx" title="PIS Doc"  description="Documentation for Personnel" Visible="False"/>
+    <siteMapNode url="~/PIS/Employees.aspx" title="Employees"  description="Employee Search">
+      <siteMapNode url="~/Doc/Employees.doc.aspx" title="Employee Doc"  description="Documentation for Employee" Visible="False"/>
+      <siteMapNode url="~/PIS/EmployeeDetails.aspx" title="Employee Details" Visible="false">
+        <siteMapNode url="~/Doc/EmployeeDetails.doc.aspx" title="Employee Details Doc"  description="Documentation for Employee Details" Visible="False"/>
+      </siteMapNode>
+    </siteMapNode>
+    <siteMapNode title="Masters" url="#">
+      <siteMapNode url="~/PIS/Masters/LeaveTypes.aspx" title="Leave Types" description="Leave Types" />
+      <siteMapNode url="~/PIS/Masters/TrainingTypes.aspx" title="Training Types" description="Training Types" />
+      <siteMapNode url="~/PIS/Masters/Countries.aspx" title="Countries" description="Countries" />
+      <siteMapNode url="~/PIS/Masters/PromotionTypes.aspx" title="Promotion Types" description="Promotion Types" />
+      <siteMapNode url="~/PIS/Masters/EmployeeStatus.aspx" title="Employee Status" description="Employee Status" />
+      <siteMapNode url="~/PIS/Masters/SubDivisions.aspx" title="Sub Divisions" description="Sub Divisions" />
+      <siteMapNode url="~/PIS/Masters/Offices.aspx" title="Offices" description="Offices" />
+      <siteMapNode url="~/PIS/Masters/Stations.aspx" title="Stations" description="Stations" />
+      <siteMapNode url="~/PIS/Masters/Banks.aspx" title="Banks" description="Banks" />
+    </siteMapNode>
+    <siteMapNode url="A#" title="Reports"  description="PIS Reports">
+      <siteMapNode url="~/PIS/Reports/StaffStrength.aspx" title="Staff Strength" description="Staff Strength"/>
+      <siteMapNode url="~/PIS/Reports/PersonnelInfo.aspx" title="Personnel Information"  description="" />
+      <siteMapNode url="~/PIS/Reports/ServiceStatus.aspx" title="Termination Status"  description="" />
+      <siteMapNode url="~/PIS/Reports/Promotion.aspx" title="Promotion"  description="" />
+      <siteMapNode url="~/PIS/Reports/Trainings.aspx" title="Trainings"  description="" />
+      <siteMapNode url="~/PIS/Reports/Leaves.aspx" title="Leaves"  description="" />
+      <siteMapNode url="~/PIS/Reports/MedicalAllowance.aspx" title="Medical Allowance"  description="" />
+      <siteMapNode url="~/PIS/Reports/StaffDivisions.aspx" title="Staff Divisions"  description="" />
+      <siteMapNode url="~/PIS/Reports/ProbationEnding.aspx" title="Probation Completion"  description="" />
+      <siteMapNode url="~/PIS/Reports/ContractEnding.aspx" title="Contract Completion"  description="" />
+      <siteMapNode url="~/PIS/Reports/NextIncrementDue.aspx" title="Next Increment Due"  description="" />
+      <siteMapNode url="~/PIS/Reports/NextPromotionDue.aspx" title="Next Promotion Due"  description="" />
+      <siteMapNode url="~/PIS/Reports/ACR.aspx" title="ACR"  description="" />
+    </siteMapNode>
+
+  </siteMapNode>
+</siteMap>

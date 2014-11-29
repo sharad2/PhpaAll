@@ -1,0 +1,95 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title>CodeSelector control</title>
+	</head>
+	<body>
+	<h1>CodeSelector control</h1>
+<p>
+CodeSelector control provides code selection capabilities.
+    As an example the list displayed shows the job descriptions. When the user 
+    chooses from the list, the value of the code is displayed in the textbox. The 
+    tooltip of the text box displays the code description. The id of the job is 
+    saved in the database. If the webservice returns a single row enclosed in square 
+    brackets, then the code selector control takes care to not automatically select 
+    that entry.
+</p>
+        <p>
+            You must add an AutoCompleteExtender which defines where the list of selection options are retrieved from.
+You must also handle the ValidateCode event. During that event, read the Text property and set the SelectedId property. 
+            If you do not set the value of SelectedId in this event, the entered code is 
+            considered to be invalid.
+</p>
+<p>
+Markup in the aspx file
+</p>
+<pre><code>
+&lt;phpa:CodeSelector ID="tbJob" runat="server" Text='&lt;%# Eval("Job.JobCode") %&gt;' SelectedId='&lt;%# Bind("JobId") %&gt;'
+    OnValidateCode="tb_ValidateCode" CodeFriendlyName="Job" MaxLength="10"&gt;
+    &lt;TextBoxExtenders&gt;
+        &lt;ajax:AutoCompleteExtender ID="tbContractor_AutoCompleteExtender" runat="server"
+            MinimumPrefixLength="1" ServicePath="~/Services/SuggesterService.asmx" ServiceMethod="GetJobList"
+            CompletionInterval="1500" FirstRowSelected="true" /&gt;
+    &lt;/TextBoxExtenders&gt;
+&lt;/phpa:CodeSelector&gt;
+</code></pre>
+
+<p>
+Code in the web service contained in the file 
+<code>
+    ~/Services/SuggesterService.asmx.</code></p>
+<pre><code>
+[WebMethod]
+[ScriptMethod]
+public string[] GetJobList(string prefixText, int count, string contextKey)
+{
+    var query = (from j in m_dbFinance.Jobs
+                where j.Description.ToLower().Contains(prefixText.ToLower()) &&
+                (string.IsNullOrEmpty(contextKey) || j.Division.DivisionCode == contextKey)
+                orderby j.JobCode
+                select j).Take(count);
+
+    List&lt;string&gt; list = new List&lt;string&gt;();
+    string str;
+    foreach (Job j in query)
+    {
+        str = string.Format("{0}: {1}", j.JobCode, j.Description);
+        str = AutoCompleteExtender.CreateAutoCompleteItem(str, j.JobCode);
+        list.Add(str);
+    }
+    if (list.Count == 0)
+    {
+	// If no suitable jobs found, insert a single entry explaining the reason. This entry must be enclosed in square brackets.
+        if (string.IsNullOrEmpty(contextKey))
+        {
+            str = string.Format("[No job found which contains {0}]", prefixText);
+        }
+        else
+        {
+            str = string.Format("[No job found in division {0} which contains {1}]", contextKey, prefixText);
+        }
+        list.Add(AutoCompleteExtender.CreateAutoCompleteItem(str, string.Empty));
+    }
+    return list.ToArray();
+}
+</code></pre>	
+	
+<p>
+The event handler in the code behind file which handles the event tb_ValidateCode
+</p>	
+<pre><code>
+protected void tb_ValidateCode(object sender, EventArgs e)
+{
+    CodeSelector codeSelector = (CodeSelector)sender;
+    FinanceDataContext db = (FinanceDataContext)this.dsEditVouchers.Database;
+    int id = (from j in db.Jobs
+                  where j.JobCode == selector.Text
+                  select j.JobId).SingleOrDefault();
+    if (id != 0)
+    {
+        selector.SelectedId = id;
+    }
+}
+</code></pre>	
+	</body>
+</html>

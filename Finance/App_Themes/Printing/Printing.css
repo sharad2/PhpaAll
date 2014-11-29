@@ -1,0 +1,151 @@
+﻿body
+{
+    font-family: Times New Roman;
+    font-size: 10pt;
+    width: 9in;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+#menurow
+{
+}
+
+
+/* SS 21 May 2008: How to prevent cursor change when link is hovered? */
+A, A:visited
+{
+    text-decoration: none;
+    color: Black;
+    cursor: pointer;
+}
+
+A:hover
+{
+    cursor: pointer;
+}
+
+.headerStyle
+{
+    font-family: Times New Roman;
+    font-size: 16pt;
+    font-style: italic;
+    font-weight: bolder;
+    text-align: center;
+    color: Gray;
+    width: 100%;
+}
+
+.CollapsibleHeading
+{
+    padding: 4mm 0 4mm 0;
+    font-family: Arial, Sans-Serif;
+    font-weight: bold;
+    font-size: small;
+}
+
+.PrintTitle
+{
+    width: 100%;
+    text-align: center;
+    font-size: large;
+}
+
+/* Prints header and footer on each page */
+thead
+{
+    display: table-header-group;
+}
+tfoot
+{
+    display: table-footer-group;
+}
+
+/* This is supposed to prevent rows from breaking across pages but it does not work */
+tr, td
+{
+    page-break-inside: auto;
+}
+
+/* Voucher Detail. Same styles must exist in Printing.css as well */
+table.vd-table
+{
+    width: 100%;
+}
+
+table.vd-table, table.vd-table td, table.vd-table th
+{
+    border-collapse: collapse;
+    border: solid 0.2mm black;
+    padding: 1mm;
+}
+
+.vd-datecol
+{
+    vertical-align: top;
+}
+
+.vd-namecol
+{
+    vertical-align: top;
+}
+
+.vd-vouchercol
+{
+    padding: 1mm;
+    vertical-align: top;
+}
+
+.vd-particularscol
+{
+    vertical-align: top;
+    min-width: 15em;
+}
+
+.vd-headcol
+{
+    vertical-align: top;
+    min-width: 15em;
+}
+
+.vd-empjobcol
+{
+    min-width: 8em;
+    overflow: visible;
+    vertical-align: top;
+}
+
+.vd-amountcol
+{
+    text-align: right;
+    vertical-align: top;
+}
+
+
+/* We want input types to render without border in printer friendly page*/
+
+input
+{
+    border: none;
+    background-color: inherit;
+}
+
+    
+#toprow, #footer, .noprint, .ParamInstructions, #SideNavigation,
+    .vd-voucher-ref, .menuex-outermost, .gvex-row-checkbox, 
+    .gvex-header-checkbox, .gvex-rowmenu, .ui-tabs, .ui-dialog
+{
+    display:none!important;
+}
+#divMargin
+{
+    margin-top:25em;
+}
+#divUserId
+{
+    display:block!important;
+    font-size: 10.5pt;
+    text-align:left;     
+}
+
+

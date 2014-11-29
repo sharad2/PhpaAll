@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+  <siteMapNode url="~/Admin/ManageUsers.aspx" title="Users"  description="Create/Edit/Delete users" roles="Administrator">
+    <siteMapNode url="~/Admin/Security.aspx" title="Security Help"  description="How to configure site security"  />
+  </siteMapNode>
+</siteMap>
