@@ -88,7 +88,7 @@
                         OnSelecting="dsStations_Selecting" RenderLogVisible="false">
                     </phpa:PhpaLinqDataSource>
                     <i:DropDownListEx ID="ddlStation" DataSourceID="dsStations" DataTextField="StationName" DataValueField="StationId" runat="server" FriendlyName="Station"
-                        Value='<%#Bind("StationId")%>'>
+                        Value='<%#Bind("StationId")%>' UseCookie="ReadWrite" QueryString="StationId" CookieExpiryDays="21">
                         <Items>
                             <eclipse:DropDownItem Text="(Not Set)" Persistent="Always" />
                         </Items>

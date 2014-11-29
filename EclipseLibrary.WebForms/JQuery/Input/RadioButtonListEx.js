@@ -8,7 +8,7 @@
         _create: function () {
             // Constructor
             var widget = this;
-            widget._allButtons = $('input:radio[name=' + widget.options.groupName + ']', widget.element.closest('form'));
+            widget._allButtons = $('input:radio[name=\'' + widget.options.groupName + '\']', widget.element.closest('form'));
             // For radio buttons which are not directly inside the widget element,
             // Raise the change event handler of the widget element
             widget._allButtons.not(widget.element.children('input:radio')).change(function (e) {

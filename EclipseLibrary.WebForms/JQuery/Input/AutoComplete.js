@@ -102,7 +102,7 @@
                 self.options.minLength = 0;
                 self.search();
                 self.options.minLength = oldMinLength;
-            }).keyup(function (e) {
+            }).change(function (e) {
                 // If value in text box changes, mark it as invalid
                 if ($(this).is('.ac-valid') && self.options._validText != $(this).val()) {
                     self.clearItem();

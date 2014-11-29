@@ -1,8 +1,8 @@
 ﻿# This make file is executed as part of the prebuild step. It concatenates all javascript files into a single file
 
 # Versions of JQuery being used. Used to generate script file names e.g. jquery-1.3.2.min.js
-JQUERYVER=1.5.1
-JQUERYUIVER=1.8.12
+JQUERYVER=1.8.2
+JQUERYUIVER=1.10.0
 
 SCRIPTFILES = $(ProjectDir)JQuery\Scripts\json2.js \
 	$(ProjectDir)JQuery\Scripts\jquery.validate.js \

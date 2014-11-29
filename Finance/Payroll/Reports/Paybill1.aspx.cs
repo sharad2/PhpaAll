@@ -49,7 +49,7 @@ namespace Finance.Payroll.Reports
                 return;
             }
 
-            this.Title += string.Format(" for {0:MMMM yyyy}", date);
+            this.Title += string.Format(" for {0:Y}", date);
             PayrollDataContext db = (PayrollDataContext)dsPaybill.Database;
 
             IQueryable<PeriodEmployeeAdjustment> listPea = db.PeriodEmployeeAdjustments
@@ -169,7 +169,7 @@ namespace Finance.Payroll.Reports
                 return;
             }
 
-            this.Title += string.Format(" for {0:MMMM yyyy}", date);
+            this.Title += string.Format("");
             PayrollDataContext db = (PayrollDataContext)dsPaybill.Database;
 
             IQueryable<PeriodEmployeeAdjustment> listPea = db.PeriodEmployeeAdjustments
@@ -187,7 +187,7 @@ namespace Finance.Payroll.Reports
                 listPea = listPea.Where(p => p.EmployeePeriod.Employee.Bank.BankId == Convert.ToInt32(ddlBankName.Value));
 
             }
-            gvPaybill.Caption += string.Format("{0} {1} Employees", rblNationality.SelectedItem.Text, ddlEmpType.SelectedItem.Text);
+            gvPaybill.Caption += string.Format("");
 
             if (!string.IsNullOrEmpty(rblNationality.Value))
             {
@@ -203,7 +203,7 @@ namespace Finance.Payroll.Reports
                         
                         select new
                         {
-                            Amount = g.Sum(p => p.Amount) + g.Select(p => p.EmployeePeriod).Distinct().Sum(p => p.BasicPay) ?? 0,
+                            Amount = g.Sum(p => Math.Round(p.Amount ?? 0, MidpointRounding.AwayFromZero)) + g.Select(p => p.EmployeePeriod).Distinct().Sum(p => p.BasicPay) ?? 0,
                             //BasicSalary = Math.Round(g.Select(p=>p.EmployeePeriod).Distinct().Sum(p=>p.BasicPay) ?? 0, MidpointRounding.AwayFromZero),
                             DivisonName = g.Key.Diviosn.DivisionName,
                             

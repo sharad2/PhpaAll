@@ -165,7 +165,7 @@
                                 OnClick="btnEdit_Click" />
                             <i:LinkButtonEx ID="LinkButtonEx1" runat="server" Text="Delete" OnClick="btnDelete_Click"
                                 Action="Submit" CausesValidation="false" OnClientClick="DeleteConfirmation" />
-                            <i:LinkButtonEx ID="btnNew" runat="server" Text="New" OnClick="btnNew_Click" Action="Submit"
+                            <i:LinkButtonEx ID="btnNewadj" runat="server" Text="New" OnClick="btnNew_Click" Action="Submit"
                                 CausesValidation="false" />
                         </LoggedInTemplate>
                         <AnonymousTemplate>

@@ -4,34 +4,34 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
-            var $grid = $('#gvEditSRSItems');
+            var $grid = $('#gvEditSRSItems').change(function (e) {
+                var $tr = $(e.target).closest('tr');
+                var $ddlStatus = $('select', $tr);
+                if (e.target != $ddlStatus[0]) {
+                    // Mark the row as modified
+                    $ddlStatus.val('I')
+                }
+                switch ($ddlStatus.val()) {
+                    case 'U':
+                        // New or unchanged
+                        $(this).gridViewEx('unselectRows', e, $tr);
+                        break;
+
+                    case 'I':
+                        // Modified row, or needs to be inserted
+                        $(this).gridViewEx('selectRows', e, $tr);
+                        break;
+
+                    case 'D':
+                        // Row to be deleted
+                        $(this).gridViewEx('selectRows', e, $tr);
+                        break;
+                }
+            });
             $('select[value=G]', $grid).closest('tr').one('keypress', function (e) {
                 $('select', this).val('I');
             });
-        }).change(function (e) {
-            var $tr = $(e.target).closest('tr');
-            var $ddlStatus = $('select', $tr);
-            if (e.target != $ddlStatus[0]) {
-                // Mark the row as modified
-                $ddlStatus.val('I')
-            }
-            switch ($ddlStatus.val()) {
-                case 'U':
-                    // New or unchanged
-                    $(this).gridViewEx('unselectRows', e, $tr);
-                    break;
-
-                case 'I':
-                    // Modified row, or needs to be inserted
-                    $(this).gridViewEx('selectRows', e, $tr);
-                    break;
-
-                case 'D':
-                    // Row to be deleted
-                    $(this).gridViewEx('selectRows', e, $tr);
-                    break;
-            }
-        }); 
+        });
     </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">
@@ -115,8 +115,7 @@
     <asp:FormView ID="fvSrs" runat="server" DataKeyNames="SRSId" DataSourceID="dsSRS"
         RenderOuterTable="False" OnItemCreated="fvSrs_ItemCreated" OnItemInserted="fvSrs_ItemInserted">
         <HeaderTemplate>
-            <h3>
-                Goods Issue Note(GIN):
+            <h3>Goods Issue Note(GIN):
                 <%# Eval("SRSId") ?? "New"%>
             </h3>
             <%-- <phpa:FormViewContextHeader ID="fvHeader" runat="server" CurrentEntity='<%# Eval("SRSId") %>'

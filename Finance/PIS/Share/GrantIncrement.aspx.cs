@@ -26,7 +26,7 @@ namespace Finance.PIS.Share
                     break;
 
                 case "E":
-                    fvGrantIncrement.DefaultMode = FormViewMode.Insert;
+                    fvGrantIncrement.DefaultMode = FormViewMode.Edit;
                     break;
 
                 default:

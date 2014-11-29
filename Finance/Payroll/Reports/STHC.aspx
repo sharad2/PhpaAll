@@ -51,13 +51,21 @@
         <i:ValidationSummary runat="server" />
     </eclipse:TwoColumnPanel>
     <phpa:PhpaLinqDataSource ID="ds" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.Payroll.PayrollDataContext"
-        RenderLogVisible="false" OnSelecting="ds_Selecting">
+        RenderLogVisible="false" OnSelecting="ds_Selecting" AutoPage="false">
     </phpa:PhpaLinqDataSource>
     <jquery:GridViewEx ID="gv" runat="server" DataSourceID="ds" AutoGenerateColumns="false"
         OnDataBound="gv_DataBound" PreSorted="true" ShowExpandCollapseButtons="false"
-        OnRowDataBound="gv_RowDataBound" ShowFooter="true" AllowPaging="true" PageSize="200">
+        OnRowDataBound="gv_RowDataBound" ShowFooter="true" AllowPaging="false">
+       <%-- <PagerTemplate>
+            Sharad
+        </PagerTemplate>--%>
+       <%-- <PagerSettings Mode="Numeric" Position="Top" Visible="false" />--%>
         <Columns>
-            <eclipse:SequenceField />
+            <asp:TemplateField HeaderText="Serial No.">
+                <ItemTemplate>
+                    <asp:Label runat="server" ID="lblSequence" OnPreRender="lblSequence_PreRender"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
             <eclipse:MultiBoundField DataFields="EmployeeCode" HeaderText="Employee|Code" />
             <eclipse:MultiBoundField DataFields="FullName" HeaderText="Employee|Name" />
             <eclipse:MultiBoundField DataFields="Designation" HeaderText="Employee|Desig." />

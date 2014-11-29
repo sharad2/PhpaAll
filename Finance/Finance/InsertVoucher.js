@@ -28,7 +28,7 @@ $(document).ready(function () {
         //                }
         //            }
         //        }
-    }).change(function (e) {
+    }).on('change autocompletechange', function (e) {
         var $tr = $(e.target).closest('tr');
         var $ddlStatus = $('select', $tr);
         if (e.target != $ddlStatus[0]) {

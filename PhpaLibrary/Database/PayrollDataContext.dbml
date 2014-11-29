@@ -39,7 +39,7 @@
       <Column Name="DateOfRelieve" Type="System.DateTime" CanBeNull="true" UpdateCheck="Always" />
       <Column Name="NPPFType" Type="System.String" CanBeNull="false" UpdateCheck="Always" />
       <Column Name="StationId" Type="System.Int32" CanBeNull="false" UpdateCheck="Always" />
-      <Column Name="BankId" Type="System.Int32" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="BankId" Type="System.Int32" CanBeNull="true" UpdateCheck="Always" />
       <Association Name="Employee_EmployeeAdjustment" Member="EmployeeAdjustments" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="EmployeeAdjustment" />
       <Association Name="Employee_EmployeePeriod" Member="EmployeePeriods" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="EmployeePeriod" />
       <Association Name="Employee_ServicePeriod" Member="ServicePeriods" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="ServicePeriod" />

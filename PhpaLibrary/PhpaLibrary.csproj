@@ -187,6 +187,7 @@
     <Content Include="Scripts\To Send Index Rebuild Script.txt" />
     <Content Include="Scripts\To Create Non Clusterd Indexes On Foreign Key.sql" />
     <Content Include="Scripts\To Rebuild All Index In Database.sql" />
+    <None Include="app.config" />
     <None Include="Database\MISDataContext.dbml.layout">
       <DependentUpon>MISDataContext.dbml</DependentUpon>
     </None>

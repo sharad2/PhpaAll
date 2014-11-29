@@ -180,10 +180,10 @@ namespace Finance.Finance
                 //fvEdit.ChangeMode(FormViewMode.Edit);
                 switch (fvEdit.CurrentMode)
                 {
-                    case FormViewMode.Edit:
+                    /*case FormViewMode.Edit:
                         fvEdit.ChangeMode(FormViewMode.ReadOnly);
                         ctlVoucherDetail.DataBind();
-                        break;
+                        break;*/
 
                     case FormViewMode.Insert:
                         //string url = Request.Url.AbsoluteUri;
@@ -195,6 +195,10 @@ namespace Finance.Finance
                             url[0] = string.Format("{0}?CheckNumber={1}&VoucherDate={2}", url[0], CheckNumber.ToString(), voucher.VoucherDate.ToShortDateString());
                         }
                         Response.Redirect(url[0]);
+                        break;
+                    default:
+                        // Hemant K. Singh 25 Apr 2014: Redirect so that the updated values show properly on the screen
+                        Response.Redirect(Request.RawUrl, true);
                         break;
                 }
             }

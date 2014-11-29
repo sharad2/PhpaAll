@@ -6,7 +6,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Strict//EN">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
     <title>Untitled Page</title>
     <jquery:JQueryScriptManager ID="JQueryScriptMgr" runat="server" />
     <link rel="Shortcut Icon" href="Images/favicon.ico" />

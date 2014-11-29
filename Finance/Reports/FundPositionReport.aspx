@@ -378,7 +378,7 @@
             <tbody>
             <tr>
                 <td>
-                    <asp:Label ID="lbltotfund" runat="server" Text="Total Fund 
+                    <asp:Label ID="lbltotfund" runat="server" Text="Total Fund Received from
 GOI"></asp:Label></td>
                 <td>
                     <asp:Label ID="Label2" runat="server"
@@ -388,7 +388,7 @@ GOI"></asp:Label></td>
             <tr>
                 <td>
                     <asp:Label ID="lblexp" runat="server"
-                        Text="Expenditure"></asp:Label></td>
+                        Text="Total Expenditure"></asp:Label></td>
                 <td>
                     <asp:Label ID="Label3" runat="server"
                         EnableViewState="false"
@@ -399,7 +399,7 @@ GOI"></asp:Label></td>
             <tr class="RowHeader ui-state-active ui-widget-header">
                 <td style="text-align: right"><b>
                     <asp:Label ID="lbldiff" runat="server"
-                        Text="DIFFERENCE"></asp:Label></b></td>
+                        Text="Balance Fund"></asp:Label></b></td>
                 <td>
                     <asp:Label ID="lblDifference" runat="server"
                         EnableViewState="false"

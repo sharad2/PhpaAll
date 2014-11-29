@@ -40,7 +40,7 @@ namespace Finance.Payroll.Reports
                 tbToDate.Text = DateTime.Today.AddMonths(-1).MonthEndDate().ToShortDateString();
             }
         }
-        protected void ds_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+       protected void ds_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
             int selectBank;
             if (!btnGo.IsPageValid())
@@ -58,23 +58,23 @@ namespace Finance.Payroll.Reports
             }
             PayrollDataContext db = (PayrollDataContext)ds.Database;
             var query = from pea in db.PeriodEmployeeAdjustments
-                       where cblEmployeeTypes.SelectedValues.Contains(pea.EmployeePeriod.Employee.EmployeeTypeId.ToString())
-                            && pea.EmployeePeriod.SalaryPeriod.PayableDate >= tbFromDate.ValueAsDate &&
-                            pea.EmployeePeriod.SalaryPeriod.PayableDate <= tbToDate.ValueAsDate
-                            && (pea.Amount !=0
-                            || db.ReportCategories.Where(p => p.ReportId == 101)
-                                    .Any(p => p.AdjustmentCategoryId == pea.Adjustment.AdjustmentCategoryId))
-                            && (selectBank == 0 || pea.EmployeePeriod.Employee.Bank.BankId == selectBank)
-                       group pea by new
-                       {
-                           CategoryId = pea.Adjustment.IsDeduction &&
-                               pea.Adjustment.AdjustmentCategory.ReportCategories.Any(p => p.ReportId == 101) ?
-                                   pea.Adjustment.AdjustmentCategoryId : 0,
-                           Employee = pea.EmployeePeriod.Employee
-                           
-                       } into g
-                       orderby
-                            g.Key.Employee.FirstName,g.Key.Employee.LastName
+                        where cblEmployeeTypes.SelectedValues.Contains(pea.EmployeePeriod.Employee.EmployeeTypeId.ToString())
+                             && pea.EmployeePeriod.SalaryPeriod.PayableDate >= tbFromDate.ValueAsDate &&
+                             pea.EmployeePeriod.SalaryPeriod.PayableDate <= tbToDate.ValueAsDate
+                             && (pea.Amount !=0
+                             || db.ReportCategories.Where(p => p.ReportId == 101)
+                                     .Any(p => p.AdjustmentCategoryId == pea.Adjustment.AdjustmentCategoryId))
+                             && (selectBank == 0 || pea.EmployeePeriod.Employee.Bank.BankId == selectBank)
+                        group pea by new
+                        {
+                            CategoryId = pea.Adjustment.IsDeduction &&
+                                pea.Adjustment.AdjustmentCategory.ReportCategories.Any(p => p.ReportId == 101) ?
+                                    pea.Adjustment.AdjustmentCategoryId : 0,
+                            Employee = pea.EmployeePeriod.Employee
+
+                        } into g
+                        orderby
+                             g.Key.Employee.FirstName, g.Key.Employee.LastName, g.Key.Employee.EmployeeId, g.Key.CategoryId
                         select new
                        {
                            EmployeeId = g.Key.Employee.EmployeeId,
@@ -92,8 +92,16 @@ namespace Finance.Payroll.Reports
                            CategoryId = g.Key.CategoryId,
                            BankId = g.Key.Employee.Bank.BankId
                        };
-           
+
             e.Result = query;
+        }
+
+
+        int _rowIndex;
+        protected void lblSequence_PreRender(object sender, EventArgs e)
+        {
+            _rowIndex++;
+            ((Label)sender).Text = _rowIndex.ToString();
         }
 
         protected void gv_DataBound(object sender, EventArgs e)
@@ -105,18 +113,19 @@ namespace Finance.Payroll.Reports
                 col.Visible = false;
             }
         }
+
         int _index = -1;
         protected void gv_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            gv.Caption = string.Format("<b>{1}</b></br><b>SCHEDULE FOR RECOVERY OF SALARY TAX AND HEALTH CONTRIBUTION</b><br/><b> FOR THE MONTH OF {0:dd MMMM yyyy}</b>", tbFromDate.ValueAsDate,ConfigurationManager.AppSettings["PrintTitle"]);
+            gv.Caption = string.Format("<b>{1}</b></br><b>SCHEDULE FOR RECOVERY OF SALARY TAX AND HEALTH CONTRIBUTION</b><br/><b> FOR THE MONTH OF {0:dd MMMM yyyy}</b>", tbFromDate.ValueAsDate, ConfigurationManager.AppSettings["PrintTitle"]);
             switch (e.Row.RowType)
             {
                 case DataControlRowType.Header:
-                     _index = gv.Columns.Cast<DataControlField>()
-                            .Select((p, i) => p.AccessibleHeaderText == "TableAmount" ? i : -1).Single(p => p >= 0);
+                    _index = gv.Columns.Cast<DataControlField>()
+                           .Select((p, i) => p.AccessibleHeaderText == "TableAmount" ? i : -1).Single(p => p >= 0);
                     break;
                 case DataControlRowType.DataRow:
-                    decimal dBasicSalary = Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem,"BasicSalary")??0);
+                    decimal dBasicSalary = Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "BasicSalary") ?? 0);
                     decimal dTotalAllowance = Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "TotalAllowance") ?? 0);
                     decimal dTotalDeduction = Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "DeductionAmount") ?? 0);
                     string name = Convert.ToString(DataBinder.Eval(e.Row.DataItem, "FullName") ?? 0);
@@ -137,7 +146,7 @@ namespace Finance.Payroll.Reports
                     {
                         e.Row.Cells[_index].Text = string.Format("{0:C0}", dBasicSalary + dTotalAllowance);
                     }
-                    break;    
+                    break;
                 default:
                     break;
             }

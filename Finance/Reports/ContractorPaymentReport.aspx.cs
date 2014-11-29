@@ -4,9 +4,9 @@
  *  E-mail: support@eclsys.com
  *
  *  $Workfile:   FundPositionReport.aspx.cs  $
- *  $Revision: 536 $
- *  $Author: rverma $
- *  $Date: 2013-06-17 10:43:50 +0530 (Mon, 17 Jun 2013) $
+ *  $Revision: 626 $
+ *  $Author: hsingh $
+ *  $Date: 2013-10-18 17:44:25 +0530 (Fri, 18 Oct 2013) $
  *  $Modtime:   Jul 21 2008 15:02:00  $
  *
  *  $Log:   S:/Projects/PHPA2/archives/Finance/Reports/ReceiptandPayment.aspx.cs-arc  $
@@ -47,7 +47,7 @@ namespace Finance.Reports
             }
         }
 
-        private IQueryable<RoVoucher> m_query;
+        //private IQueryable<RoVoucher> m_query;
         protected override void OnLoad(EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -107,9 +107,9 @@ namespace Finance.Reports
         /// based on Rajesh Pant's feedback.
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<ContractorRecoverdPayment> QueryIterator(int jobId)
+        private IEnumerable<ContractorRecoverdPayment> QueryIterator(IQueryable<RoVoucher> query, int jobId)
         {
-            foreach (RoVoucher v in m_query)
+            foreach (RoVoucher v in query)
             {
                 ContractorRecoverdPayment crp = new ContractorRecoverdPayment();
                 crp.Particulars = v.Particulars;
@@ -165,11 +165,13 @@ namespace Finance.Reports
             GridView gridView = new GridView();
             Label lblOpeiningBalance = new Label();
             Label lblClosingBalance = new Label();
+            Label lblopenbalamt = new Label();
             gridView = ((GridView)(e.Item.FindControl("gvContractorPayment")));
             FormView formView2 = new FormView();
             formView2 = ((FormView)(e.Item.FindControl("fvContractorJob")));
             lblOpeiningBalance = ((Label)(e.Item.FindControl("lblOpeningBalance")));
             lblClosingBalance = ((Label)(e.Item.FindControl("lbldiffrence")));
+            lblopenbalamt = ((Label)(e.Item.FindControl("lblbaldates")));
             //lblAmount = ((Label)(e.Item.FindControl("lblAmount")));
             switch (e.Item.ItemType)
             {
@@ -186,7 +188,7 @@ namespace Finance.Reports
                     if (!(gridView == null))
                     {
                         //Calling method to fill GriDview
-                        FillGridView(Convert.ToInt32(jobId), gridView, lblOpeiningBalance, lblClosingBalance);
+                        FillGridView(Convert.ToInt32(jobId), gridView, lblOpeiningBalance, lblClosingBalance, lblopenbalamt);
                     }
                     break;
             }
@@ -200,7 +202,7 @@ namespace Finance.Reports
             lblOthers.Text = string.Format("{0:N2}", _others);
             lblTotalRecovery.Text = string.Format("{0:N2}", _totalRecovery);
             lblNetPayment.Text = string.Format("{0:N2}", _netPayment);
-           
+
         }
         /// <summary>
         /// Get jobs of passed contactor
@@ -287,7 +289,7 @@ namespace Finance.Reports
         /// <param name="gridView"></param>
         /// <param name="lblOpeningBalance"></param>
         /// <param name="lblDifference"></param>
-        protected void FillGridView(int jobId, GridView gridView, Label lblOpeningBalance, Label lblDifference)
+        protected void FillGridView(int jobId, GridView gridView, Label lblOpeningBalance, Label lblDifference, Label lblbaldates)
         {
             DateTime fromDate = Convert.ToDateTime(tbFromDate.ValueAsDate);
             DateTime toDate = Convert.ToDateTime(tbToDate.ValueAsDate);
@@ -303,18 +305,29 @@ namespace Finance.Reports
                 dlo.LoadWith<RoVoucherDetail>(vd => vd.RoHeadHierarchy);
                 dlo.LoadWith<RoJob>(job => job.RoContractor);
                 db.LoadOptions = dlo;
-                m_query = (from vd in db.RoVoucherDetails
-                           where vd.JobId == jobId &&
-                           vd.RoHeadHierarchy.HeadOfAccountType != "EDGOI" &&
-                           vd.RoHeadHierarchy.HeadOfAccountType != "EDRGOB" &&
-                           (vd.RoVoucher.VoucherDate >= fromDate &&
-                           vd.RoVoucher.VoucherDate <= toDate) &&
-                           vd.RoJob.ContractorId != null
-                           group vd by vd.RoVoucher into grp
-                           select grp.Key);
-                var list = this.QueryIterator(jobId).ToList();
+
+                var query = (from vd in db.RoVoucherDetails
+                             where vd.JobId == jobId &&
+                             vd.RoHeadHierarchy.HeadOfAccountType != "EDGOI" &&
+                             vd.RoHeadHierarchy.HeadOfAccountType != "EDRGOB" &&
+                             vd.RoVoucher.VoucherDate < fromDate &&
+                             vd.RoJob.ContractorId != null
+                             group vd by vd.RoVoucher into grp
+                             select grp.Key);
+                lblOpeningBalance.Text = string.Format("Opening Balance : {0:N2}", this.QueryIterator(query, jobId).Sum(p => p.NetPayment));
+                lblbaldates.Text = string.Format("<span style='font-size:medium; font-weight:bold'>Payment to Contractor from {0:dd MMMM yyyy} {1}</span>", tbFromDate.ValueAsDate, tbToDate.ValueAsDate.HasValue ? " to " + tbToDate.ValueAsDate.Value.ToString("dd MMMM yyyy") : null);
+                query = (from vd in db.RoVoucherDetails
+                         where vd.JobId == jobId &&
+                         vd.RoHeadHierarchy.HeadOfAccountType != "EDGOI" &&
+                         vd.RoHeadHierarchy.HeadOfAccountType != "EDRGOB" &&
+                         (vd.RoVoucher.VoucherDate >= fromDate &&
+                         vd.RoVoucher.VoucherDate <= toDate) &&
+                         vd.RoJob.ContractorId != null
+                         group vd by vd.RoVoucher into grp
+                         select grp.Key);
+                var list = this.QueryIterator(query, jobId).ToList();
                 gridView.DataSource = list;
-                lblOpeningBalance.Text = "Opening Balance :" + string.Format("{0:N2}", list.Sum(p => p.NetPayment));
+
                 _amount = _amount + list.Sum(p => p.AdmittedAmount);
                 _advance = _advance + list.Sum(p => p.AdvancePaid);
                 _adjustment = _adjustment + list.Sum(p => p.AdvanceAdjusted);
@@ -338,8 +351,16 @@ namespace Finance.Reports
 
                     decimal? adv = Convert.ToDecimal(advancePaid.SummaryValues[0].Value);
                     decimal? adj = Convert.ToDecimal(advanceAdjusted.SummaryValues[0].Value);
-                    decimal balance = Math.Abs((decimal)(adv - adj));
-                    lblDifference.Text += balance.ToString("C");
+                    decimal balance;
+                    if ((adv - adj) >= 0)
+                    {
+                        balance = Math.Abs((decimal)(adv - adj));
+                    }
+                    else
+                    {
+                        balance = (decimal)(adv - adj);
+                    }
+                    lblDifference.Text += balance.ToString("#,0.00;(-)#,#.00");
                     lblDifference.Visible = true;
                 }
             }

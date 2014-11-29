@@ -54,11 +54,11 @@
   </Table>
   <Table Name="dbo.VoucherDetail" Member="VoucherDetails">
     <Type Name="VoucherDetail">
-      <Column Name="VoucherDetailId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="VoucherDetailId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="WhenChanged" />
       <Column Name="VoucherId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int" CanBeNull="false" />
-      <Column Name="JobId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="EmployeeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int" CanBeNull="false" UpdateCheck="WhenChanged" />
+      <Column Name="JobId" Type="System.Int32" DbType="Int" CanBeNull="true" UpdateCheck="WhenChanged" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int" CanBeNull="true" UpdateCheck="WhenChanged" />
       <Column Name="DebitAmount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="true" />
       <Column Name="CreditAmount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="true" />
       <Column Name="Created" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
@@ -66,7 +66,7 @@
       <Column Name="CreatedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="Modified" AutoSync="Always" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" UpdateCheck="WhenChanged" IsVersion="true" />
       <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="ContractorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Voucher_VoucherDetail" Member="Voucher" ThisKey="VoucherId" OtherKey="VoucherId" Type="Voucher" IsForeignKey="true" />

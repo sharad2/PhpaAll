@@ -220,7 +220,8 @@
             <div style="font-size: large; margin-bottom: 1mm">
                 <asp:Label ID="lblOpenBal" runat="server" Text="Opening Balance:" Visible="false" />
                 <asp:Label ID="lblOpeningBalance" ToolTip="Opening balance of Job" runat="server"
-                    Width="40%" />
+                    Width="40%" /><br /><br />
+                <asp:Label ID="lblbaldates" runat="server" EnableViewState="true" Visible="true"></asp:Label>
             </div>
             <jquery:GridViewEx ID="gvContractorPayment" runat="server" GridLines="Both" AutoGenerateColumns="false"
                 ShowFooter="true" AllowPaging="false">

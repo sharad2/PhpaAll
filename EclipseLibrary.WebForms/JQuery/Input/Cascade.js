@@ -137,7 +137,9 @@ Order is important. The topmost parent should be listed first.
             // jquery object (in jquery 1.4.2). We break the loop in this case.
             while (curAncestor && curAncestor.parent) {
                 parentKeys.push(curAncestor.value);
-                if ($.data(curAncestor.parent[0], 'cascade')) {
+                // Hemant K. Singh 25 Apr 2014: jquery ui 1.8.12 requires us to test for ui-cascade, and not for cascade
+                if ($(curAncestor.parent[0]).is(":data('ui-cascade')")) {
+                    //if ($.data(curAncestor.parent[0], 'cascade')) {
                     curAncestor = curAncestor.parent.cascade('cascadeParent', false);
                 } else {
                     // parent is not cascadable

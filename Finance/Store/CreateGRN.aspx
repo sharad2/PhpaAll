@@ -18,32 +18,32 @@
                 tr.find('span[id$=lblTotal]').html(total);
                 UpdateGrandTotalNu();
                 $(e.target).is(':text[name$=tbOrdered]') && $('input:text[name$=tbReceived]', tr).val($(e.target).val());
+            }).change(function (e) {
+                var $tr = $(e.target).closest('tr');
+                var $ddlStatus = $('select', $tr);
+                if (e.target != $ddlStatus[0]) {
+                    // Mark the row as modified
+                    $ddlStatus.val('I')
+                }
+                switch ($ddlStatus.val()) {
+                    case 'U':
+                        // New or unchanged
+                        $(this).gridViewEx('unselectRows', e, $tr);
+                        break;
+
+                    case 'I':
+                        // Modified row, or needs to be inserted
+                        $(this).gridViewEx('selectRows', e, $tr);
+                        break;
+
+                    case 'D':
+                        // Row to be deleted
+                        $(this).gridViewEx('selectRows', e, $tr);
+                        break;
+                }
+                UpdateGrandTotalNu(this);
             });
-            UpdateGrandTotalNu(this);
-        }).change(function (e) {
-        var $tr = $(e.target).closest('tr');
-        var $ddlStatus = $('select', $tr);
-        if (e.target != $ddlStatus[0]) {
-            // Mark the row as modified
-            $ddlStatus.val('I')
-        }
-        switch ($ddlStatus.val()) {
-            case 'U':
-                // New or unchanged
-                $(this).gridViewEx('unselectRows', e, $tr);
-                break;
-
-            case 'I':
-                // Modified row, or needs to be inserted
-                $(this).gridViewEx('selectRows', e, $tr);
-                break;
-
-            case 'D':
-                // Row to be deleted
-                $(this).gridViewEx('selectRows', e, $tr);
-                break;
-        }
-    });
+        });
 
         function addCommas(nStr) {
             nStr += '';
@@ -170,8 +170,7 @@
     <asp:FormView ID="fvEdit" runat="server" DataSourceID="dsGRN" DataKeyNames="GRNId"
         OnItemCreated="fvEdit_ItemCreated" OnItemInserted="fvEdit_ItemInserted" RenderOuterTable="false">
         <HeaderTemplate>
-            <h3>
-                Goods Receipt Note(GRN):
+            <h3>Goods Receipt Note(GRN):
                 <%# Eval("GRNCode") ?? "New"%></h3>
             <%--<phpa:FormViewContextHeader ID="fvHeader" runat="server" CurrentEntity='<%# Eval("GRNCode") %>'
                 EntityName="Goods Receipt Note(GRN)" />--%>

@@ -105,7 +105,7 @@
     <Content Include="App_Themes\Start\images\ui-icons_f5e175_256x240.png" />
     <Content Include="App_Themes\Start\images\ui-icons_f7a50d_256x240.png" />
     <Content Include="App_Themes\Start\images\ui-icons_fcd113_256x240.png" />
-    <Content Include="App_Themes\Start\jquery-ui-1.8.8.custom.css" />
+    <Content Include="App_Themes\Start\jquery-ui.min.css" />
     <Content Include="App_Themes\Sunny\Default.css" />
     <Content Include="App_Themes\Sunny\EclipseLibrary.css" />
     <Content Include="App_Themes\Sunny\images\ui-bg_diagonals-medium_20_d34d17_40x40.png" />
@@ -1833,10 +1833,10 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
-          <AutoAssignPort>False</AutoAssignPort>
-          <DevelopmentServerPort>80</DevelopmentServerPort>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>54053</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:8080/</IISUrl>
+          <IISUrl>http://localhost:54053/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

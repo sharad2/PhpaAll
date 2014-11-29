@@ -3,9 +3,9 @@
  *  E-mail: support@eclsys.com
  *
  *  $Workfile:   FundPositionReport.aspx.cs  $
- *  $Revision: 595 $
+ *  $Revision: 704 $
  *  $Author: hsingh $
- *  $Date: 2013-09-21 13:33:40 +0530 (Sat, 21 Sep 2013) $
+ *  $Date: 2014-05-13 16:35:26 +0530 (Tue, 13 May 2014) $
  *  $Modtime:   Jul 21 2008 15:02:00  $
  *
  *  $Log:   S:/Projects/PHPA2/archives/Finance/Reports/ReceiptandPayment.aspx.cs-arc  $
@@ -222,7 +222,7 @@ namespace Finance.Reports
                     // Calculating Non-Budgetary Heads.
                     case 800:
                         // Calculating on the basis of either mobilisation/secured Advance Estt and service tax and Employees Advance of establishment expenditure.
-                        if (grp.Key.HeadOfAccountId == 1373 || grp.Key.HeadOfAccountId == 1374 || grp.Key.HeadOfAccountId == 1375 || grp.Key.HeadOfAccountId == 1376 || grp.Key.HeadOfAccountId == 1377 || grp.Key.HeadOfAccountId == 1378 || grp.Key.HeadOfAccountId == 1379 || grp.Key.HeadOfAccountId == 1534 || grp.Key.HeadOfAccountId == 1610)
+                        if (grp.Key.HeadOfAccountId == 1382 || grp.Key.HeadOfAccountType == "SVCTAX" || grp.Key.HeadOfAccountType == "EMPLOYEE_ADVANCE")
                         {
                             SetAdditiveHyperLinkProperties(hplnkEstablishExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                             SetAdditiveHyperLinkProperties(hplnkEstablishExpenditureUptoMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
@@ -230,7 +230,7 @@ namespace Finance.Reports
                             SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
                         }
                         // Adding Mobilisation/Secured Advance (E&M Packages)  of Electrical expenditure.
-                        if (grp.Key.HeadOfAccountId == 1607)
+                        if (grp.Key.HeadOfAccountId == 1593)
                         {
                             SetAdditiveHyperLinkProperties(hplnkElectricalExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                             SetAdditiveHyperLinkProperties(hplnkElectricalExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
@@ -238,7 +238,7 @@ namespace Finance.Reports
                             SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
                         }
                         // Adding Mobilisation/Secured Advance of Transmission.
-                        if (grp.Key.HeadOfAccountId == 1608)
+                        if (grp.Key.HeadOfAccountId == 1594)
                         {
                             SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                             SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
@@ -246,7 +246,7 @@ namespace Finance.Reports
                             SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
                         }
                         // Adding Mobilisation Advance Civil and Mobilisation Advance (HRT) and Green Tax (RGoB) and Mobilisation Advance (PH) and Mobilisation Advance (DAM) and Stock Suspense and BST and Excise Duty and for Material_Advance head of account type.
-                        if (grp.Key.HeadOfAccountId == 1381 || grp.Key.HeadOfAccountId == 1382 || grp.Key.HeadOfAccountId == 1384 || grp.Key.HeadOfAccountId == 1385 || grp.Key.HeadOfAccountId == 1386 || grp.Key.HeadOfAccountId == 1387 || grp.Key.HeadOfAccountId == 1388 || grp.Key.HeadOfAccountId == 1389 || grp.Key.HeadOfAccountId == 1397 || grp.Key.HeadOfAccountId == 1398 || grp.Key.HeadOfAccountId == 1395)
+                        if (grp.Key.HeadOfAccountId == 1381 || grp.Key.HeadOfAccountId == 1686 || grp.Key.HeadOfAccountId == 1687 || grp.Key.HeadOfAccountId == 1691 || grp.Key.HeadOfAccountId == 1383 || grp.Key.HeadOfAccountId == 1395 || grp.Key.HeadOfAccountId == 1397 || grp.Key.HeadOfAccountType == "MATERIAL_ADVANCE" || grp.Key.HeadOfAccountId == 1384 || grp.Key.HeadOfAccountId == 1385 || grp.Key.HeadOfAccountId == 1386 || grp.Key.HeadOfAccountId == 1387 || grp.Key.HeadOfAccountId == 1388 || grp.Key.HeadOfAccountId == 1389 || grp.Key.HeadOfAccountId == 1769)
                         {
                             SetAdditiveHyperLinkProperties(hplnkCivilExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                             SetAdditiveHyperLinkProperties(hplnkCivilExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
@@ -283,7 +283,8 @@ namespace Finance.Reports
             var query3 = (from vd in m_db.RoVoucherDetails
                           join hh in m_db.RoHeadHierarchies on vd.HeadOfAccountId equals hh.HeadOfAccountId
                           where hh.DisplayName.StartsWith("900.04.") && vd.HeadOfAccount.Created <= Convert.ToDateTime(dttbreceiptpayment.Text)
-                          && vd.HeadOfAccountId != 1415
+                          //Comment out this Code as now We are showing the BOB Thimphu 
+                          //&& vd.HeadOfAccountId != 1415
                           group vd by vd.HeadOfAccountId into grouping
                           select new
                           {

@@ -117,11 +117,10 @@
                 <ItemStyle HorizontalAlign="Right" />
                    <FooterStyle HorizontalAlign="Right"/>
             </eclipse:MultiBoundField>   --%>
-             <eclipse:MultiBoundField DataFields="Amount" HeaderText="Amount" DataFormatString="{0:C2}" DataSummaryCalculation="ValueSummation">
+             <eclipse:MultiBoundField DataFields="Amount" HeaderText="Amount" DataFormatString="{0:N0}" DataSummaryCalculation="ValueSummation">
                 <ItemStyle HorizontalAlign="Right" />
                  <ItemStyle HorizontalAlign="Right" />
             </eclipse:MultiBoundField>   
-                   
         </Columns>
         <EmptyDataTemplate>
             <b>Paybill not found for given month and year.</b>

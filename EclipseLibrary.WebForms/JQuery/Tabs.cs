@@ -229,15 +229,16 @@ namespace EclipseLibrary.Web.JQuery
         protected override void RenderChildren(HtmlTextWriter writer)
         {
             writer.RenderBeginTag(HtmlTextWriterTag.Ul);
-            int i = 0;
+            //int i = 0;
             foreach (JPanel panel in this.Controls.OfType<JPanel>().Where(p => p.Visible))
             {
+                // Hemant K. Singh 25 Apr 2014: ui-tabs-hide does not work with jquery 1.8.2
                 // Hide the tab in advance to prevent flicker
-                if (i != this.Selected)
-                {
-                    panel.AddCssClass("ui-tabs-hide");
-                }
-                ++i;
+                //if (i != this.Selected)
+                //{
+                //    panel.AddCssClass("ui-tabs-hide");
+                //}
+                //++i;
                 writer.RenderBeginTag(HtmlTextWriterTag.Li);
 #if DEBUG
                 if (JQueryScriptManager.IsAjaxCall)
