@@ -545,7 +545,7 @@ namespace Finance.Finance
                              select station).Distinct().ToList();
                 if (stations != null)
                 {
-                    query = query.Where(p => p.StationId == null || stations.Contains(p.StationId)).ToList();
+                    query = query.Where(p => stations.Contains(p.StationId)).ToList();
                 }
                 e.Result = query;
             }

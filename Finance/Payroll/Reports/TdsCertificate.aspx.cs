@@ -85,7 +85,7 @@ namespace Finance.Payroll.Reports
                        };
         }
 
-        decimal _dTotalNetPay = 0;
+        //decimal _dTotalNetPay = 0;
         //protected void gv_MatrixRowDataBound(object sender, MatrixRowEventArgs e)
         //{
         //    MatrixField mf = (MatrixField)sender;

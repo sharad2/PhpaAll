@@ -3,9 +3,9 @@
  *  E-mail: support@eclsys.com
  *
  *  $Workfile:   FundPositionReport.aspx.cs  $
- *  $Revision: 704 $
- *  $Author: hsingh $
- *  $Date: 2014-05-13 16:35:26 +0530 (Tue, 13 May 2014) $
+ *  $Revision: 727 $
+ *  $Author: ssinghal $
+ *  $Date: 2014-11-28 11:07:19 +0530 (Fri, 28 Nov 2014) $
  *  $Modtime:   Jul 21 2008 15:02:00  $
  *
  *  $Log:   S:/Projects/PHPA2/archives/Finance/Reports/ReceiptandPayment.aspx.cs-arc  $
@@ -29,7 +29,7 @@ namespace Finance.Reports
         protected DateTime m_dtMonthEnd;
         decimal _otherBankAmount = 0;
         protected string valdate = string.Empty;
-        private IQueryable<ResultItem> m_query;
+        //private IQueryable<ResultItem> m_query;
         string otherBankAmount = string.Empty;
 
         protected override void OnLoad(EventArgs e)

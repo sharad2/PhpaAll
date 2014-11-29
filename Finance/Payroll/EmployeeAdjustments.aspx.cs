@@ -9,16 +9,15 @@
  *  $Id: EmployeeAdjustments.aspx.cs 38609 2010-12-07 05:08:52Z skumar $
  * 
  */
+
+using Eclipse.PhpaLibrary.Database.Payroll;
+using Eclipse.PhpaLibrary.Web;
+using EclipseLibrary.Web.JQuery.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Eclipse.PhpaLibrary.Database.Payroll;
-using Eclipse.PhpaLibrary.Web;
-using EclipseLibrary.Web.JQuery.Input;
-using System.Collections.Generic;
-using System.Web.Security;
 
 namespace Finance.Payroll
 {

@@ -1,4 +1,9 @@
-﻿/*
+﻿using Eclipse.PhpaLibrary.Database.Payroll;
+using Eclipse.PhpaLibrary.Reporting;
+using Eclipse.PhpaLibrary.Web;
+using EclipseLibrary.Web.JQuery.Input;
+using EclipseLibrary.Web.UI;
+/*
  *  Programming: Eclipse Systems (P) Ltd., NOIDA, INDIA
  *  E-mail: support@eclsys.com
  *
@@ -12,19 +17,12 @@ using System.Data.Linq;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Eclipse.PhpaLibrary.Database.Payroll;
-using Eclipse.PhpaLibrary.Reporting;
-using Eclipse.PhpaLibrary.Web;
-using EclipseLibrary.Web.JQuery.Input;
-using EclipseLibrary.Web.UI;
-using System.Collections.Generic;
-using System.Web.Security;
 
 namespace Finance.Payroll
 {
     public partial class SalaryPeriods : PageBase
     {
-        private int _salaryPeriod; 
+        //private int _salaryPeriod; 
 
         /// <summary>
         /// The default filter for tbToDate had to be increased by three months ahead else
