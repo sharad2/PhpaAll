@@ -26,7 +26,7 @@ namespace Finance.Reports
         protected DateTime m_dtPreviousYear;
         protected DateTime m_dtPreviousYearEnd;
         protected DateTime m_dtMonthStart;
-        protected DateTime m_dtMonthEnd;
+        protected DateTime m_dtPassed;
         decimal _otherBankAmount = 0;
         protected string valdate = string.Empty;
         //private IQueryable<ResultItem> m_query;
@@ -81,7 +81,7 @@ namespace Finance.Reports
             m_dtPreviousYear = dt.FinancialYearStartDate();         // {0}  1 Apr 2008
             m_dtPreviousYearEnd = dt.FinancialYearStartDate().AddDays(-1); //{3} 31 March 2008
             m_dtMonthStart = dt.MonthStartDate();                   // {1}  1 Jun 2008
-            m_dtMonthEnd = dt.MonthEndDate();                       // {2}  30 Jun 2008
+            m_dtPassed = dt;
 
             m_db = (ReportingDataContext)dsQueries.Database;
 
@@ -99,7 +99,7 @@ namespace Finance.Reports
                              {
                                  grouping.Key,
                                  PreviousYearSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate < m_dtPreviousYear ? (hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0) : 0),
-                                 ForMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtMonthEnd ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0),
+                                 ForMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtPassed ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0),
                                  UptoMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0)
                              });
 
@@ -110,7 +110,7 @@ namespace Finance.Reports
                           {
                               grouping.Key,
                               PreviousYearSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate < m_dtPreviousYear ? (hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0) : 0),
-                              ForMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtMonthEnd ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0),
+                              ForMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtPassed ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0),
                               UptoMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0)
                           });
             foreach (var grp in query)
@@ -289,7 +289,7 @@ namespace Finance.Reports
                           select new
                           {
                               BankName = grouping.Max(p => p.HeadOfAccount.Description),
-                              Balance = (-(grouping.Sum(hoa => hoa.RoVoucher.VoucherDate < m_dtPreviousYear ? (hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0) : 0) + grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtMonthEnd ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0) + grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0))),
+                              Balance = (-(grouping.Sum(hoa => hoa.RoVoucher.VoucherDate < m_dtPreviousYear ? (hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0) : 0) + grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtPassed ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0) + grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0))),
                               BankHead = grouping.Max(p => p.HeadOfAccountId)
                           });
             // Get total of Balance fund in banks other than Bank at wangdue
@@ -326,7 +326,7 @@ namespace Finance.Reports
                     else
                     {
                         hl.NavigateUrl = string.Format(hl.NavigateUrl, m_dtPreviousYear,
-                            m_dtMonthStart, m_dtMonthEnd, m_dtPreviousYearEnd, m_dtMonthStart.AddDays(-1));
+                            m_dtMonthStart, m_dtPassed, m_dtPreviousYearEnd, m_dtMonthStart.AddDays(-1));
                     }
                 }
             }

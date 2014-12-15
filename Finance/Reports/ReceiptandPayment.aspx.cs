@@ -26,7 +26,7 @@ namespace Finance.Reports
         protected DateTime m_dtPreviousYear;
         protected DateTime m_dtPreviousYearEnd;
         protected DateTime m_dtMonthStart;
-        protected DateTime m_dtMonthEnd;
+        protected DateTime m_passeddate;
 
         protected override void OnLoad(EventArgs e)
         {
@@ -71,8 +71,7 @@ namespace Finance.Reports
             m_dtPreviousYear = dt.FinancialYearStartDate();         // {0}  1 Apr 2008
             m_dtPreviousYearEnd = dt.FinancialYearStartDate().AddDays(-1); //{3} 31 March 2008
             m_dtMonthStart = dt.MonthStartDate();                   // {1}  1 Jun 2008
-            m_dtMonthEnd = dt.MonthEndDate();                       // {2}  30 Jun 2008
-
+            m_passeddate = dt;
             m_db = (ReportingDataContext)dsQueries.Database;
 
             var query = (from vd in m_db.RoVoucherDetails
@@ -87,7 +86,7 @@ namespace Finance.Reports
                              {
                                  grouping.Key,
                                  PreviousYearSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate < m_dtPreviousYear ? (hoa.CreditAmount?? 0 - hoa.DebitAmount?? 0) : 0),
-                                 ForMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtMonthEnd ? hoa.CreditAmount?? 0 - hoa.DebitAmount?? 0 : 0),
+                                 ForMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_passeddate ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0),
                                  UptoMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount?? 0 - hoa.DebitAmount?? 0 : 0)
                              });
 
@@ -335,7 +334,7 @@ namespace Finance.Reports
                     else
                     {
                         hl.NavigateUrl = string.Format(hl.NavigateUrl, m_dtPreviousYear,
-                            m_dtMonthStart, m_dtMonthEnd,m_dtPreviousYearEnd,m_dtMonthStart.AddDays(-1));
+                            m_dtMonthStart, m_passeddate, m_dtPreviousYearEnd, m_dtMonthStart.AddDays(-1));
                     }
                 }
             }
