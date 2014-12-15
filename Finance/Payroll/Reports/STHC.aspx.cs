@@ -64,7 +64,7 @@ namespace Finance.Payroll.Reports
                              && (pea.Amount !=0
                              || db.ReportCategories.Where(p => p.ReportId == 101)
                                      .Any(p => p.AdjustmentCategoryId == pea.Adjustment.AdjustmentCategoryId))
-                             && (selectBank == 0 || pea.EmployeePeriod.Employee.Bank.BankId == selectBank)
+                             && (selectBank == 0 || pea.EmployeePeriod.BankId == selectBank)
                         group pea by new
                         {
                             CategoryId = pea.Adjustment.IsDeduction &&

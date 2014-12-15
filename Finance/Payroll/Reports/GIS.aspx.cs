@@ -46,7 +46,7 @@ namespace Finance.Payroll.Reports
                            Amount = string.Format("{0:N0}", pea.Amount),
                            GISGroup = pea.EmployeePeriod.Employee.GISGroup,
                            DateOfBirth = pea.EmployeePeriod.Employee.DateOfBirth,
-                           BankId = pea.EmployeePeriod.Employee.Bank.BankId
+                           BankId = pea.EmployeePeriod.BankId
                        };
             if (!string.IsNullOrEmpty(ddlBankName.Value))
             {

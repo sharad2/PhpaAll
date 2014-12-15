@@ -45,12 +45,12 @@ namespace Finance.Payroll.Reports
         {
 
         }
-       /// <summary>
-       /// <remarks>
-       /// Ritesh 20 Dec 2011
-       /// Calling ItemDataBound event of Repeater to fill Grid View and Form View with Employee Detail and Salary detail for an employee id 
-       /// </remarks>
-       /// <summary>
+        /// <summary>
+        /// <remarks>
+        /// Ritesh 20 Dec 2011
+        /// Calling ItemDataBound event of Repeater to fill Grid View and Form View with Employee Detail and Salary detail for an employee id 
+        /// </remarks>
+        /// <summary>
         protected void rpt1_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             _gridView = new GridView();
@@ -71,7 +71,7 @@ namespace Finance.Payroll.Reports
                 GetSalaryDetails(empId, _gridView);
 
             }
-            
+
 
         }
         protected void GetEmlpoyeeDetails(string empId, FormView frmView)
@@ -80,24 +80,27 @@ namespace Finance.Payroll.Reports
             using (PayrollDataContext db = new PayrollDataContext(ReportingUtilities.DefaultConnectString))
             {
                 var query = from emp in db.Employees
-                            where emp.EmployeeId == Convert.ToInt32(empId)
+                            join empp in db.EmployeePeriods on emp.EmployeeId equals empp.EmployeeId
+                            join empsal in db.SalaryPeriods on empp.SalaryPeriodId equals empsal.SalaryPeriodId
+                            where emp.EmployeeId == Convert.ToInt32(empId) && empsal.SalaryPeriodStart >= tbDate.ValueAsDate.Value.MonthStartDate() &&
+                                empsal.SalaryPeriodStart <= tbDate.ValueAsDate.Value.MonthEndDate()
                             select new
                             {
                                 EmployeeId = emp.EmployeeId,
                                 FullName = emp.FullName,
                                 EmployeeCode = emp.EmployeeCode,
                                 CitizenCardNo = emp.CitizenCardNo,
-                                Designation = emp.Designation,
+                                Designation = empp.Designation,
                                 ParentOrganization = emp.ParentOrganization,
-                                BankAccountNo = emp.BankAccountNo,
-                                BankName = emp.Bank.BankName,
+                                BankAccountNo = empp.BankAccountNo,
+                                BankName = empp.Bank.BankName,
                                 BankPlace = emp.BankPlace,
                                 GPFAccountNumber = emp.GPFAccountNo,
                                 NPPFNumber = emp.NPPFPNo
                             };
                 frmView.DataSource = query;
                 frmView.DataBind();
-                if (rpt1.Items.Count >=0)
+                if (rpt1.Items.Count >= 0)
                 {
                     frmView.Caption = string.Format("<b>{1}<br/> Pay Slip for the month of {0: MMMM, yyyy} </b>", tbDate.ValueAsDate, ConfigurationManager.AppSettings["PrintTitle"]);
                 }
@@ -140,53 +143,56 @@ namespace Finance.Payroll.Reports
         /// </summary>
         protected void GetEmployees()
         {
-        
-            
-             int selectEmloyee,selectDiviosn;
-             int selectBank;
-             if (!string.IsNullOrEmpty(tbEmployee.Value))
-                {
-                    selectEmloyee =Convert.ToInt32(tbEmployee.Value);
-                }
-                else
-                {
-                    selectEmloyee=0;
-                }
-            if(!string.IsNullOrEmpty(ddlDivision.Value))
+
+
+            int selectEmloyee, selectDiviosn;
+            int selectBank;
+            if (!string.IsNullOrEmpty(tbEmployee.Value))
             {
-                selectDiviosn=Convert.ToInt32(ddlDivision.Value);
+                selectEmloyee = Convert.ToInt32(tbEmployee.Value);
             }
             else
             {
-                selectDiviosn=0;
+                selectEmloyee = 0;
             }
-            if(!string.IsNullOrEmpty(ddlBankName.Value))
+            if (!string.IsNullOrEmpty(ddlDivision.Value))
             {
-                selectBank=Convert.ToInt32(ddlBankName.Value);
+                selectDiviosn = Convert.ToInt32(ddlDivision.Value);
             }
             else
             {
-                selectBank=0;
+                selectDiviosn = 0;
+            }
+            if (!string.IsNullOrEmpty(ddlBankName.Value))
+            {
+                selectBank = Convert.ToInt32(ddlBankName.Value);
+            }
+            else
+            {
+                selectBank = 0;
             }
             using (PayrollDataContext db = new PayrollDataContext(ReportingUtilities.DefaultConnectString))
-            
             {
-               
-                    var empId = (from emp in db.Employees
-                                  where (selectEmloyee == 0 || emp.EmployeeId == selectEmloyee)
-                                  && (selectDiviosn==0 || emp.DivisionId==selectDiviosn)
-                                  && (selectBank==0 || emp.Bank.BankId==selectBank)
-                                  select
-                                     emp.EmployeeId
-                             ).ToList();
-                    rpt1.DataSource = empId;
-                    rpt1.DataBind();
-                }             
-               
+
+                var empId = (from emp in db.Employees
+                             join empp in db.EmployeePeriods on emp.EmployeeId equals empp.EmployeeId
+                             join empsal in db.SalaryPeriods on empp.SalaryPeriodId equals empsal.SalaryPeriodId
+                             where empsal.SalaryPeriodStart >= tbDate.ValueAsDate.Value.MonthStartDate()
+                              && empsal.SalaryPeriodEnd <= tbDate.ValueAsDate.Value.MonthEndDate()
+                              && (selectEmloyee == 0 || empp.EmployeeId == selectEmloyee)
+                              && (selectDiviosn == 0 || emp.DivisionId == selectDiviosn)
+                              && (selectBank == 0 || empp.BankId == selectBank)
+                             select
+                                emp.EmployeeId
+                         ).ToList();
+                rpt1.DataSource = empId;
+                rpt1.DataBind();
             }
+
         }
-
-
     }
+
+
+}
 
 

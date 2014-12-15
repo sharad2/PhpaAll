@@ -57,7 +57,7 @@ namespace Finance.Payroll.Reports
                              Amount = pea.Amount ?? 0,
                              AccountNumber =pea.Comment,
                              HeadOfAccountId = pea.Adjustment.HeadOfAccountId,
-                             BankId=pea.EmployeePeriod.Employee.Bank.BankId
+                             BankId=pea.EmployeePeriod.BankId
                          });
             if (!string.IsNullOrEmpty(tbAccountNo.Text))
             {

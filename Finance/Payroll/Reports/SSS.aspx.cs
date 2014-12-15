@@ -93,7 +93,7 @@ namespace Finance.Payroll.Reports
                            Designation = pea.EmployeePeriod.Employee.Designation,
                            PolicyNo = pea.Comment,
                            Amount = pea.Amount ?? 0,
-                           BankId = pea.EmployeePeriod.Employee.Bank.BankId
+                           BankId = pea.EmployeePeriod.BankId
                        };
             if (!string.IsNullOrEmpty(ddlBankName.Value))
             {

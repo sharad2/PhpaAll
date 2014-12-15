@@ -155,6 +155,7 @@ namespace Finance.Payroll
 
             e.Values["EmployeeId"] = emp.EmployeeId;
             e.Values["BasicPay"] = emp.BasicSalary;
+            e.Values["Designation"] = emp.Designation;
         }
 
         /// <summary>
@@ -412,12 +413,12 @@ namespace Finance.Payroll
                 MultiBoundField bank = (MultiBoundField)(from DataControlField col in gvEmployeesForperiod.Columns
                                         where col.AccessibleHeaderText == "Bank"
                                         select col).Single();
-                if (bank.CommonCellText == null)
-                {
+                //if (bank.CommonCellText == null)
+                //{
 
                     gvEmployeesForperiod.Caption = string.Format(@"<br/><b>This is a list of employees  who will be paid a salary during the period from
                 {0:d} To {1:d}", m_sp.SalaryPeriodStart, m_sp.SalaryPeriodEnd);
-                }
+                /*}
                 else
                 {
                     bank.Visible = false;
@@ -433,7 +434,7 @@ namespace Finance.Payroll
                 {0:d} To {1:d} through {2}</b>", m_sp.SalaryPeriodStart, m_sp.SalaryPeriodEnd, bank.CommonCellText, m_sp.Station.StationName);
                     }
                     gvEmployeesForperiod.Caption = caption;
-                }
+                }*/
                 pnlMessage.Visible = true;
                 lblamount.Text = string.Format("{0:N0}", m_Netpay);
                 NumberToEnglish number = new NumberToEnglish();

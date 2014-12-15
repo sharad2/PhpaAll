@@ -371,8 +371,8 @@ namespace Finance.Payroll.Reports
                             sumLblText += item.NetBCA;
                         }
                     }
-                        lbl.Text = (sumLblText.HasValue ? sumLblText.Value : 0).ToString("N2");
-                    
+                    lbl.Text = (sumLblText.HasValue ? sumLblText.Value : 0).ToString("N2");
+
                 }
             }
         }
@@ -387,34 +387,40 @@ namespace Finance.Payroll.Reports
             PayrollDataContext db = (PayrollDataContext)dsEmployee.Database;
             ServicePeriod sp = db.ServicePeriods.Where(p => p.EmployeeId == Convert.ToInt32(tbEmployee.Value))
                             .OrderByDescending(p => p.PeriodStartDate).FirstOrDefault() ?? new ServicePeriod();
-            e.Result = from emp in db.Employees
-                       where emp.EmployeeId == Convert.ToInt32(tbEmployee.Value)
-                       select new
-                       {
-                           FullName = emp.FullName,
-                           EmployeeCode = emp.EmployeeCode,
-                           Designation = emp.Designation,
-                           Grade = sp.Grade,
-                           EmpTypeDescription = emp.EmployeeType.Description,
-                           PayScale = sp.PayScale,
-                           JoiningDate = emp.JoiningDate,
-                           DateOfIncrement = sp.DateOfIncrement,
-                           IncrementAmount = sp.IncrementAmount,
-                           Gender = emp.Gender,
-                           DateOfBirth = emp.DateOfBirth,
-                           MaritalStatusType = emp.MaritalStatus.MaritalStatusType,
-                           PostedAt = emp.Station.StationName,
-                           DivisionName = emp.Division.DivisionName,
-                           BankAccountNo = emp.BankAccountNo,
-                           BankName = emp.BankName,
-                           GPFAccountNo = emp.GPFAccountNo,
-                           GISAccountNumber = emp.GISAccountNumber,
-                           CitizenCardNo = emp.CitizenCardNo,
-                           Tpn = emp.Tpn,
-                           IsBhutanese = emp.IsBhutanese ? "Bhutanese" : "Non Bhutanese",
-                           ParentOrganization = emp.ParentOrganization,
-                           EmployeeId = emp.EmployeeId
-                       };
+
+            e.Result =
+                  from emp in db.Employees
+                  join empp in db.EmployeePeriods on emp.EmployeeId equals empp.EmployeeId
+                  join empsal in db.SalaryPeriods on empp.SalaryPeriodId equals empsal.SalaryPeriodId
+                  where emp.EmployeeId == Convert.ToInt32(tbEmployee.Value) && empsal.SalaryPeriodStart >= tbFromDate.ValueAsDate.Value.MonthStartDate() &&
+                                empsal.SalaryPeriodStart <= tbToDate.ValueAsDate.Value.MonthEndDate()
+
+                  select new
+                  {
+                      FullName = emp.FullName,
+                      EmployeeCode = emp.EmployeeCode,
+                      Designation = empp.Designation,
+                      Grade = sp.Grade,
+                      EmpTypeDescription = emp.EmployeeType.Description,
+                      PayScale = sp.PayScale,
+                      JoiningDate = emp.JoiningDate,
+                      DateOfIncrement = sp.DateOfIncrement,
+                      IncrementAmount = sp.IncrementAmount,
+                      Gender = emp.Gender,
+                      DateOfBirth = emp.DateOfBirth,
+                      MaritalStatusType = emp.MaritalStatus.MaritalStatusType,
+                      PostedAt = emp.Station.StationName,
+                      DivisionName = emp.Division.DivisionName,
+                      BankAccountNo = empp.BankAccountNo,
+                      BankName = empp.Bank.BankName,
+                      GPFAccountNo = emp.GPFAccountNo,
+                      GISAccountNumber = emp.GISAccountNumber,
+                      CitizenCardNo = emp.CitizenCardNo,
+                      Tpn = emp.Tpn,
+                      IsBhutanese = emp.IsBhutanese ? "Bhutanese" : "Non Bhutanese",
+                      ParentOrganization = emp.ParentOrganization,
+                      EmployeeId = emp.EmployeeId
+                  };
         }
 
     }

@@ -141,9 +141,9 @@
                 SortExpression="Employee.EmployeeCode" />
             <eclipse:MultiBoundField DataFields="Employee.FullName" HeaderText="Employee|Name"
                 AccessibleHeaderText="Employee" SortExpression="Employee.FirstName" />
-            <eclipse:MultiBoundField DataFields="Employee.Designation" HeaderText="Designation" />
+            <eclipse:MultiBoundField DataFields="Designation" HeaderText="Designation" />
             <eclipse:MultiBoundField DataFields="Employee.CitizenCardNo" HeaderText="Citizen Card No." />
-            <eclipse:MultiBoundField DataFields="Employee.Bank.BankName" HeaderText="Bank" AccessibleHeaderText="Bank"
+            <eclipse:MultiBoundField DataFields="Bank.BankName" HeaderText="Bank" AccessibleHeaderText="Bank"
                 FooterText="Total" />
             <eclipse:MultiBoundField SortExpression="BasicPay" AccessibleHeaderText="BasicPay"
                 DataFields="BasicPay" HeaderText="Basic Salary" DataFormatString="{0:N0}">
@@ -187,8 +187,8 @@
                 </FooterTemplate>
                 <FooterStyle HorizontalAlign="Right" />
             </asp:TemplateField>
-            <eclipse:MultiBoundField DataFields="Employee.BankAccountNo" HeaderText="Bank A/C No."
-                SortExpression="Employee.BankAccountNo" ItemStyle-HorizontalAlign="Center" />
+            <eclipse:MultiBoundField DataFields="BankAccountNo" HeaderText="Bank A/C No."
+                SortExpression="BankAccountNo" ItemStyle-HorizontalAlign="Center" />
         </Columns>
     </jquery:GridViewEx>
     <br /><br />

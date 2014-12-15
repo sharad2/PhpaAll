@@ -95,7 +95,7 @@ namespace Finance.Payroll.Reports
                             EmployeeId = g.Key.Employee.EmployeeId,
                             EmployeeCode = g.Key.Employee.EmployeeCode,
                             FullName = g.Key.Employee.FullName,
-                            Designation = g.Key.Employee.Designation,
+                            Designation = g.Key.EmployeePeriod.Designation,
                             CitizenCardNo = g.Key.Employee.CitizenCardNo,
                             Grade = g.Key.Employee.Grade,
                             BasicPay = g.Key.EmployeePeriod.BasicPay,

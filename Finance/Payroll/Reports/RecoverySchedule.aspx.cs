@@ -73,7 +73,7 @@ namespace Finance.Payroll.Reports
                            BLAccNo = pea.EmployeePeriod.Employee.BankLoanAccountNo,
                            Amount = string.Format("{0:N0}", pea.Amount ?? 0),
                            Department = pea.EmployeePeriod.Employee.ParentOrganization,
-                           BankId=pea.EmployeePeriod.Employee.Bank.BankId,
+                           BankId=pea.EmployeePeriod.BankId,
                            PolicyNumber=pea.Comment
                        };
             if (!string.IsNullOrEmpty(ddlBankName.Value))
