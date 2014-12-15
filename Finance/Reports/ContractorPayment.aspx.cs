@@ -174,11 +174,11 @@ namespace Finance.Reports
                     // Footer prints on last page only
                     e.Row.TableSection = TableRowSection.TableBody;
                     MultiBoundField advancePaid = (MultiBoundField)(from DataControlField col in gvContractorPayment.Columns
-                                                                   where col.AccessibleHeaderText == "AdvancePaid"
-                                                         select col).Single();
+                                                                    where col.AccessibleHeaderText == "AdvancePaid"
+                                                                    select col).Single();
                     MultiBoundField advanceAdjusted = (MultiBoundField)(from DataControlField col in gvContractorPayment.Columns
-                                                                    where col.AccessibleHeaderText == "ContractorAdvanceAdjusted"
-                                                          select col).Single();
+                                                                        where col.AccessibleHeaderText == "ContractorAdvanceAdjusted"
+                                                                        select col).Single();
                     decimal? adv = Convert.ToDecimal(advancePaid.SummaryValues[0].Value);
                     decimal? adj = Convert.ToDecimal(advanceAdjusted.SummaryValues[0].Value);
 
@@ -203,11 +203,33 @@ namespace Finance.Reports
                 crp.VoucherDate = v.VoucherDate;
                 crp.VoucherCode = v.VoucherCode;
                 crp.VoucherId = v.VoucherId;
-                crp.AdmittedAmount = (decimal?)v.RoVoucherDetails
+                // In case of job code 44 45 and 60 we have to calculate recoveries seperately
+                if (Convert.ToInt32(tbJob.Value) != 91484 && Convert.ToInt32(tbJob.Value) != 91464 && Convert.ToInt32(tbJob.Value) != 91465)
+                {
+                    crp.AdmittedAmount = (decimal?)v.RoVoucherDetails
                     .Where(p => (p.RoHeadHierarchy.HeadOfAccountType == "EXPENDITURE" ||
                                         p.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES")
                                         && p.JobId == Convert.ToInt32(tbJob.Value))
                     .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0);
+                }
+                else
+                {
+
+                    crp.AdmittedAmount = (decimal?)v.RoVoucherDetails
+               .Where(p => (p.RoHeadHierarchy.HeadOfAccountType == "EXPENDITURE" ||
+                                   p.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES")
+                                   && p.JobId == Convert.ToInt32(tbJob.Value))
+               .Sum(p => p.DebitAmount ?? 0) -
+
+               //Calculating recoveries seperately as we have to exclude all heads which are starting with 200.03 and 200.04
+                    (decimal?)v.RoVoucherDetails
+               .Where(p => (p.RoHeadHierarchy.DisplayName.ToString().StartsWith("200.03") || p.RoHeadHierarchy.DisplayName.ToString().StartsWith("200.04"))
+                                   && p.JobId == Convert.ToInt32(tbJob.Value))
+               .Sum(p => p.CreditAmount ?? 0);
+
+
+                }
+
                 crp.AdvancePaid = (decimal?)v.RoVoucherDetails.Sum(p => (((p.RoHeadHierarchy.HeadOfAccountType == "PARTY_ADVANCE" ||
                                         p.RoHeadHierarchy.HeadOfAccountType == "MATERIAL_ADVANCE") && p.JobId == Convert.ToInt32(tbJob.Value))
                                         ? p.DebitAmount ?? 0 : 0));
@@ -225,20 +247,50 @@ namespace Finance.Reports
                 crp.InterestRecoverd = (decimal?)v.RoVoucherDetails.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "INTEREST"
                                             && p.JobId == Convert.ToInt32(tbJob.Value))
                                             ? p.CreditAmount ?? 0 : 0));
-                crp.OtherRecovery = (decimal?)v.RoVoucherDetails.Sum(p => (p.RoHeadHierarchy.HeadOfAccountType != "BIT" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "SD" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "PARTY_ADVANCE" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "MATERIAL_ADVANCE" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "INTEREST" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "BANKNU" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "BANKFE" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "EXPENDITURE" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "TOUR_EXPENSES" &&
-                                            p.JobId == Convert.ToInt32(tbJob.Value))
-                                            ?
-                                            (p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
-                                            :
-                                            0);
+                
+                if (Convert.ToInt32(tbJob.Value) != 91484 && Convert.ToInt32(tbJob.Value) != 91464 && Convert.ToInt32(tbJob.Value) != 91465)
+                {
+                    crp.OtherRecovery = (decimal?)v.RoVoucherDetails.Sum(p => (p.RoHeadHierarchy.HeadOfAccountType != "BIT" &&
+                                       p.RoHeadHierarchy.HeadOfAccountType != "SD" &&
+                                       p.RoHeadHierarchy.HeadOfAccountType != "PARTY_ADVANCE" &&
+                                       p.RoHeadHierarchy.HeadOfAccountType != "MATERIAL_ADVANCE" &&
+                                       p.RoHeadHierarchy.HeadOfAccountType != "INTEREST" &&
+                                       p.RoHeadHierarchy.HeadOfAccountType != "BANKNU" &&
+                                       p.RoHeadHierarchy.HeadOfAccountType != "BANKFE" &&
+                                       p.RoHeadHierarchy.HeadOfAccountType != "EXPENDITURE" &&
+                                       p.RoHeadHierarchy.HeadOfAccountType != "TOUR_EXPENSES" &&
+                                       p.JobId == Convert.ToInt32(tbJob.Value))
+                                       ?
+                                       (p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
+                                       :
+                                       0);
+                }
+                //When job code is 44, 45 or 60 then all expenditure recoveries except 200.03 amd 200.04 will be shown under other recoveries.
+                else
+                {
+                    crp.OtherRecovery = (decimal?)v.RoVoucherDetails.Sum(p => (p.RoHeadHierarchy.HeadOfAccountType != "BIT" &&
+                                    p.RoHeadHierarchy.HeadOfAccountType != "SD" &&
+                                    p.RoHeadHierarchy.HeadOfAccountType != "PARTY_ADVANCE" &&
+                                    p.RoHeadHierarchy.HeadOfAccountType != "MATERIAL_ADVANCE" &&
+                                    p.RoHeadHierarchy.HeadOfAccountType != "INTEREST" &&
+                                    p.RoHeadHierarchy.HeadOfAccountType != "BANKNU" &&
+                                    p.RoHeadHierarchy.HeadOfAccountType != "BANKFE" &&
+                                    p.RoHeadHierarchy.HeadOfAccountType != "EXPENDITURE" &&
+                                    p.RoHeadHierarchy.HeadOfAccountType != "TOUR_EXPENSES" &&
+                                    p.JobId == Convert.ToInt32(tbJob.Value))
+                                    ?
+                                    (p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
+                                    :
+                                    0) +
+
+                                     (decimal?)v.RoVoucherDetails
+           .Where(p => (!p.RoHeadHierarchy.DisplayName.ToString().StartsWith("200.03") && !p.RoHeadHierarchy.DisplayName.ToString().StartsWith("200.04")
+                               && p.JobId == Convert.ToInt32(tbJob.Value) && (p.RoHeadHierarchy.HeadOfAccountType == "EXPENDITURE" ||
+                                    p.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES"))
+                               )
+           .Sum(p => p.CreditAmount ?? 0);
+                }
+
                 yield return crp;
             }
         }
