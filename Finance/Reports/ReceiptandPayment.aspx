@@ -641,11 +641,11 @@
                     class="vd-amountcol">
                     <asp:HyperLink ID="hplnkClBalPreviousYear" runat="server" EnableViewState="false" />
                 </td>
-                <td title="Closing balances as of <%# m_dtMonthEnd.ToString("d MMM'&nbsp;'yyyy")%> for local currency Cash & Bank accounts. Click to see opening balances of individual accounts."
+                <td title="Closing balances as of <%# m_dtPassed.ToString("d MMM'&nbsp;'yyyy")%> for local currency Cash & Bank accounts. Click to see opening balances of individual accounts."
                     class="vd-amountcol">
                     <asp:HyperLink ID="hplnkClBalForMonth" runat="server" EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=CASH,BANKNU,INVESTMENT&DateTo={2:d}" />
                 </td>
-                <td title="Closing balances as of <%# m_dtMonthEnd.ToString("d MMM'&nbsp;'yyyy")%> for local currency Cash & Bank accounts. Click to see opening balances of individual accounts."
+                <td title="Closing balances as of <%# m_dtPassed.ToString("d MMM'&nbsp;'yyyy")%> for local currency Cash & Bank accounts. Click to see opening balances of individual accounts."
                     class="vd-amountcol">
                     <asp:HyperLink ID="hplnkClBalUptoMonth" runat="server" EnableViewState="false" />
                 </td>
@@ -662,11 +662,11 @@
                     <asp:HyperLink ID="hplnkClBalPreviousYearFE" runat="server" EnableViewState="false"
                         NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=BANKFE&FromDate={0:d}&ToDate={1:d}" />
                 </td>
-                <td title="Closing balances as of <%# m_dtMonthEnd.ToString("d MMM'&nbsp;'yyyy")%> for Foreign Currency Bank accounts. Click to see closing balances of individual accounts."
+                <td title="Closing balances as of <%# m_dtPassed.ToString("d MMM'&nbsp;'yyyy")%> for Foreign Currency Bank accounts. Click to see closing balances of individual accounts."
                     class="vd-amountcol">
                     <asp:HyperLink ID="hplnkClBalForMonthFE" runat="server" EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=BANKFE&ToDate={0:d}" />
                 </td>
-                <td title="Closing balance as of <%# m_dtMonthEnd.ToString("d MMM'&nbsp;'yyyy")%> for Foreign Currency Bank accounts. Click to see closing balances of individual accounts."
+                <td title="Closing balance as of <%# m_dtPassed.ToString("d MMM'&nbsp;'yyyy")%> for Foreign Currency Bank accounts. Click to see closing balances of individual accounts."
                     class="vd-amountcol">
                     <asp:HyperLink ID="hplnkClBalUptoMonthFE" runat="server" EnableViewState="false"
                         NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=BANKFE&FromDate={0:d}&ToDate={1:d}" />
