@@ -179,6 +179,8 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
             this.FractionOfBasic = adj.FractionOfBasic;
             this.IsFlatAmountOverridden = false;
             this.IsFractionBasicOverridden = false;
+            this.FractionOfGross = adj.FractionOfGross;
+            this.IsFractionGrossOverridden = false;
         }
     }
 

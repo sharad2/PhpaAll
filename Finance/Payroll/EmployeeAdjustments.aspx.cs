@@ -28,26 +28,27 @@ namespace Finance.Payroll
         {
             PayrollDataContext db = (PayrollDataContext)dsDivision.Database;
             var query = (from d in db.Divisions
-                            orderby d.DivisionName
-                            select new
-                            {
-                                Division = d,
-                                EmployeeCount = d.Employees.Count(emp => emp.BasicSalary != null && !emp.EmployeeAdjustments.Any() &&
-                                db.Adjustments.Any(
-                                    adj => adj.IsDefault && (adj.EmployeeTypeId == null ||
-                                        adj.EmployeeTypeId == emp.EmployeeTypeId)))
-                            }
+                         orderby d.DivisionName
+                         select new
+                         {
+                             Division = d,
+                             EmployeeCount = d.Employees.Count(emp => emp.BasicSalary != null && !emp.EmployeeAdjustments.Any() &&
+                             db.Adjustments.Any(
+                                 adj => adj.IsDefault && (adj.EmployeeTypeId == null ||
+                                     adj.EmployeeTypeId == emp.EmployeeTypeId)))
+                         }
                             ).Where(q => q.EmployeeCount > 0).Take(20);
 
-            e.Result  = (from q in query
-                    select new {
-                        Description = string.Format("{0} ({1} employees)", q.Division.DivisionName, q.EmployeeCount),
-                      //Description = string.Format("{0}: {1} ({2} employees)", q.Division.DivisionId, q.Division.DivisionName, q.EmployeeCount),
-                      DivisionId =  q.Division.DivisionId.ToString()
-                    }).Take(20).ToArray();
+            e.Result = (from q in query
+                        select new
+                        {
+                            Description = string.Format("{0} ({1} employees)", q.Division.DivisionName, q.EmployeeCount),
+                            //Description = string.Format("{0}: {1} ({2} employees)", q.Division.DivisionId, q.Division.DivisionName, q.EmployeeCount),
+                            DivisionId = q.Division.DivisionId.ToString()
+                        }).Take(20).ToArray();
         }
-        
-       
+
+
         protected override void OnInit(EventArgs e)
         {
             ctlEditor.ItemChanged += new EventHandler<EventArgs>(ctlEditor_ItemChanged);
@@ -84,28 +85,38 @@ namespace Finance.Payroll
             }
 
             var query = from empad in db.EmployeeAdjustments
-                       //where ((Session["Roles"].ToString() != "Administrator") ? stations.Contains(empad.Employee.Station.StationName) : stations.Any())
-                       group empad by empad.Employee into grouping
-                       orderby grouping.Key.FirstName ascending
-                       select new
-                       {
-                           DivisionName = grouping.Key.Division.DivisionName,
-                           DivisionCode = grouping.Key.Division.DivisionCode,
-                           EmployeeAdjustmentId = grouping.Min(p => p.EmployeeAdjustmentId),
-                           EmployeeId = grouping.Key.EmployeeId,
-                           EmployeeCode = grouping.Key.EmployeeCode,
-                           EmployeeName = grouping.Key.FullName,
-                           Designation = grouping.Key.Designation,
-                           Grade = grouping.Key.ServicePeriods.OrderByDescending(p => p.PeriodStartDate).Take(1).Max(p => p.Grade), 
-                           Basic = grouping.Key.BasicSalary,
-                           Deduction = grouping.Sum(p => p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0),
-                           Allowance = grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0),
-                           GrossSalary = (grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)),
-                           NetPay = ((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)))
-                           - (grouping.Sum(p => p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)),
-                           StationId=grouping.Key.StationId,
-                           StationName=grouping.Key.Station.StationName
-                       };
+                        //where ((Session["Roles"].ToString() != "Administrator") ? stations.Contains(empad.Employee.Station.StationName) : stations.Any())
+                        group empad by empad.Employee into grouping
+                        orderby grouping.Key.FirstName ascending
+                        select new
+                                   {
+                                       DivisionName = grouping.Key.Division.DivisionName,
+                                       DivisionCode = grouping.Key.Division.DivisionCode,
+                                       EmployeeAdjustmentId = grouping.Min(p => p.EmployeeAdjustmentId),
+                                       EmployeeId = grouping.Key.EmployeeId,
+                                       EmployeeCode = grouping.Key.EmployeeCode,
+                                       EmployeeName = grouping.Key.FullName,
+                                       Designation = grouping.Key.Designation,
+                                       Grade = grouping.Key.ServicePeriods.OrderByDescending(p => p.PeriodStartDate).Take(1).Max(p => p.Grade),
+                                       Basic = grouping.Key.BasicSalary,
+                                       Deduction = (grouping.Sum(p => p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0))
+                                                   +
+                                                  (((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0))) 
+                                                  *
+                                                  (grouping.Max(q => q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0))),
+
+                                       Allowance = grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0),
+                                       GrossSalary = (grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)),
+                                       NetPay = ((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)))
+                                       - ((grouping.Sum(p => p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0))
+                                                   +
+                                                  (((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)))
+                                                  *
+                                                  (grouping.Max(q => q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0)))),
+                                       StationId = grouping.Key.StationId,
+                                       StationName = grouping.Key.Station.StationName
+                                   };
+
             if (stations != null)
             {
                 query = query.Where(p => stations.Contains(p.StationId));
@@ -219,17 +230,17 @@ namespace Finance.Payroll
             // All employees of selected division whose basic pay is defined will be selected
             // Employees for whom adjustments already exist are excluded
             var employeeInfo = (from emp in dbPayroll.Employees
-                               where emp.BasicSalary != null &&
-                               emp.DivisionId == Convert.ToInt32(ddlDivision.Value) &&
-                               !emp.EmployeeAdjustments.Any()
-                               select new
-                               {
-                                   Employee = emp,
-                                   Adjustments = from adj in dbPayroll.Adjustments
-                                                 where adj.IsDefault &&
-                                                 (adj.EmployeeTypeId == null || adj.EmployeeTypeId == emp.EmployeeTypeId)
-                                                 select adj
-                               }).Where(info => info.Adjustments.Any());
+                                where emp.BasicSalary != null &&
+                                emp.DivisionId == Convert.ToInt32(ddlDivision.Value) &&
+                                !emp.EmployeeAdjustments.Any()
+                                select new
+                                {
+                                    Employee = emp,
+                                    Adjustments = from adj in dbPayroll.Adjustments
+                                                  where adj.IsDefault &&
+                                                  (adj.EmployeeTypeId == null || adj.EmployeeTypeId == emp.EmployeeTypeId)
+                                                  select adj
+                                }).Where(info => info.Adjustments.Any());
 
             m_addedEmployees = new List<int>();
             foreach (var employee in employeeInfo)
@@ -270,7 +281,7 @@ namespace Finance.Payroll
             }
         }
 
-       
+
         /// <summary>
         /// Delete Employee from Employee Adjustment along with all its adjustments.
         /// </summary>
@@ -283,7 +294,7 @@ namespace Finance.Payroll
             var query = from empadj in db.EmployeeAdjustments
                         where empadj.EmployeeId == empId
                         select empadj;
-            
+
 
             foreach (EmployeeAdjustment empadj in query)
             {
@@ -291,7 +302,7 @@ namespace Finance.Payroll
             }
             db.SubmitChanges();
             gvEmployeeAdjustments.DataBind();
-            ctlEditor.SetCurrentEmployee(null,string.Empty);
+            ctlEditor.SetCurrentEmployee(null, string.Empty);
             e.Cancel = true;
         }
     }
