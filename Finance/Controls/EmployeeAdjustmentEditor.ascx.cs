@@ -105,6 +105,15 @@ namespace Finance.Controls
             }
         }
 
+        protected void tbFractionOfGross_DataBinding(object sender, EventArgs e)
+        {
+            TextBoxEx tb = (TextBoxEx)sender;
+            if (!string.IsNullOrEmpty(tb.Text))
+            {
+                decimal? val = Convert.ToDecimal(tb.Text);
+                tb.Text = string.Format("{0}", val * 100);
+            }
+        }
         
         /// <summary>
         /// Make sure the Grid displays the updated Employee Adjustments.
@@ -202,8 +211,8 @@ namespace Finance.Controls
             if (x == null)
             {
                 // User wants default
-                PayrollDataContext db = (PayrollDataContext)this.dsEditEmpAdjustments.Database;
-                e.NewValues["FractionOfBasic"] = (from empadj in db.EmployeeAdjustments
+                PayrollDataContext dbFractionOfBasic = (PayrollDataContext)this.dsEditEmpAdjustments.Database;
+                e.NewValues["FractionOfBasic"] = (from empadj in dbFractionOfBasic.EmployeeAdjustments
                             where empadj.EmployeeAdjustmentId == Convert.ToInt32(e.Keys["EmployeeAdjustmentId"])
                             select empadj.Adjustment.FractionOfBasic).Single();
             }
@@ -212,6 +221,23 @@ namespace Finance.Controls
                 // User has specified a value
                 decimal pct = Convert.ToDecimal(x) / 100;
                 e.NewValues["FractionOfBasic"] = pct;
+            }
+
+
+            var y = e.NewValues["FractionOfGross"];
+            if (y == null)
+            {
+                // User wants default
+                PayrollDataContext dbFractionOfGross = (PayrollDataContext)this.dsEditEmpAdjustments.Database;
+                e.NewValues["FractionOfGross"] = (from empadj in dbFractionOfGross.EmployeeAdjustments
+                                                  where empadj.EmployeeAdjustmentId == Convert.ToInt32(e.Keys["EmployeeAdjustmentId"])
+                                                  select empadj.Adjustment.FractionOfGross).Single();
+            }
+            else
+            {
+                // User has specified a value
+                decimal pct = Convert.ToDecimal(y) / 100;
+                e.NewValues["FractionOfGross"] = pct;
             }
 
             var flatAmt = e.NewValues["FlatAmount"];

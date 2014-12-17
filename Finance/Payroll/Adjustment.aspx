@@ -56,6 +56,10 @@
                 DataFormatString="{0:#0.##%}">
                 <ItemStyle HorizontalAlign="Right" Wrap="false" />
             </eclipse:MultiBoundField>
+            <eclipse:MultiBoundField DataFields="FractionOfGross" HeaderText="% Gross" SortExpression="FractionOfGross"
+                DataFormatString="{0:#0.##%}">
+                <ItemStyle HorizontalAlign="Right" Wrap="false" />
+            </eclipse:MultiBoundField>
             <eclipse:MultiBoundField DataFields="FlatAmount" HeaderText="Flat Amount" SortExpression="FlatAmount"
                 DataFormatString="{0:N0}">
                 <FooterStyle HorizontalAlign="Right"></FooterStyle>
@@ -87,6 +91,7 @@
                     <asp:Parameter Name="IsDefault" Type="Boolean" />
                     <asp:Parameter Name="EmployeeTypeId" Type="Int32" />
                     <asp:Parameter Name="FractionOfBasic" Type="Double" />
+                    <asp:Parameter Name="FractionOfGross" Type="Double" />
                     <asp:Parameter Name="HeadOfAccountId" Type="Int32" />
                     <asp:Parameter Name="Description" Type="String" />
                     <asp:Parameter Name="FlatAmount" Type="Decimal" />
@@ -99,6 +104,7 @@
                     <asp:Parameter Name="IsDefault" Type="Boolean" />
                     <asp:Parameter Name="EmployeeTypeId" Type="Int32" />
                     <asp:Parameter Name="FractionOfBasic" Type="Double" />
+                    <asp:Parameter Name="FractionOfGross" Type="Double" />
                     <asp:Parameter Name="HeadOfAccountId" Type="Int32" />
                     <asp:Parameter Name="Description" Type="String" />
                     <asp:Parameter Name="FlatAmount" Type="Decimal" />
@@ -151,7 +157,9 @@
                                 <eclipse:LeftLabel runat="server" Text="Amount" />
                                 <asp:Label runat="server" />
                                 <%# Eval("FractionOfBasic", "{0:p} of basic salary")%>
-                                <%# Eval("FractionOfBasic") != null && Eval("FlatAmount") != null ? "plus" : ""%>
+                                     <%# Eval("FractionOfBasic") != null && Eval("FractionOfGross") != null ? "plus" : ""%>
+                                <%# Eval("FractionOfGross"," {0:p} of gross salary") %>
+                                <%# Eval("FractionOfBasic") != null ||  Eval("FractionOfGross") != null && Eval("FlatAmount") != null ? "plus" : ""%>
                                 <%# Eval("FlatAmount","Nu {0:N2}") %>
                             </eclipse:TwoColumnPanel>
                         </jquery:JPanel>
@@ -251,6 +259,15 @@
                         </i:TextBoxEx>
                         <br />
                         Its an amount which is fixed and not based on % of basic salary.
+                        <eclipse:LeftLabel runat="server" Text="% of Gross" />
+                        <i:TextBoxEx ID="tbPercentageGross"  runat="server" Value='<%# Bind("FractionOfGross") %>'
+                            MaxLength="5" OnDataBinding="tbPercentageGross_DataBinding" FriendlyName="Percentage Gross">
+                            <Validators>
+                                <i:Value ValueType="Decimal" Max="100" Min="0" />
+                            </Validators>
+                        </i:TextBoxEx>
+                        <br />
+                        % of gross salary.
                     </eclipse:TwoColumnPanel>
                     <br />
                     <i:ButtonEx runat="server" ID="btnSave" Text="Save" CausesValidation="true" Action="Submit"

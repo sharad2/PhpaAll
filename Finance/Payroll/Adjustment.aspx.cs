@@ -127,6 +127,16 @@ namespace Finance.Payroll
                 {
                     adj.FractionOfBasic = null;
                 }
+                TextBoxEx tbFractionOfGross = (TextBoxEx)frmAdjustment.FindControl("tbPercentageGross");
+                if (!string.IsNullOrEmpty(tbFractionOfGross.Text))
+                {
+                    double? fractionGross = Convert.ToDouble(tbFractionOfGross.Value);
+                    adj.FractionOfGross = fractionGross / 100;
+                }
+                else
+                {
+                    adj.FractionOfGross = null;
+                }
             }
         }
 
@@ -145,6 +155,17 @@ namespace Finance.Payroll
                 {
                     adj.FractionOfBasic = null;
                 }
+                TextBoxEx tbFractionOfGross = (TextBoxEx)frmAdjustment.FindControl("tbPercentageGross");
+                if (!string.IsNullOrEmpty(tbFractionOfGross.Text))
+                {
+                    double? fractionGross= Convert.ToDouble(tbFractionOfGross.Value);
+                    adj.FractionOfGross = fractionGross / 100;
+                }
+                else
+                {
+                    adj.FractionOfGross = null;
+                }
+
             }
         }
 
@@ -157,8 +178,16 @@ namespace Finance.Payroll
                 tb.Value = Convert.ToString(val * 100);
             }
         }
-        
 
+        protected void tbPercentageGross_DataBinding(object sender, EventArgs e)
+        {
+            TextBoxEx tb = (TextBoxEx)sender;
+            if (!string.IsNullOrEmpty(tb.Text))
+            {
+                decimal? val = Convert.ToDecimal(tb.Value);
+                tb.Value = Convert.ToString(val * 100);
+            }
+        }
         /// <summary>
         /// Binding Gridview when an item is deleted to refresh it.
         /// </summary>
