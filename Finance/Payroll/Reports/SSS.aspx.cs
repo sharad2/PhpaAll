@@ -90,10 +90,10 @@ namespace Finance.Payroll.Reports
                            EmployeeCode = pea.EmployeePeriod.Employee.EmployeeCode,
                            FirstName = pea.EmployeePeriod.Employee.FirstName,
                            EmployeeName = pea.EmployeePeriod.Employee.FullName,
-                           Designation = pea.EmployeePeriod.Employee.Designation,
+                           Designation = pea.EmployeePeriod.Designation ?? pea.EmployeePeriod.Employee.Designation,
                            PolicyNo = pea.Comment,
                            Amount = pea.Amount ?? 0,
-                           BankId = pea.EmployeePeriod.BankId
+                           BankId = pea.EmployeePeriod.BankId ?? pea.EmployeePeriod.Employee.BankId
                        };
             if (!string.IsNullOrEmpty(ddlBankName.Value))
             {

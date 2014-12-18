@@ -413,28 +413,28 @@ namespace Finance.Payroll
                 MultiBoundField bank = (MultiBoundField)(from DataControlField col in gvEmployeesForperiod.Columns
                                         where col.AccessibleHeaderText == "Bank"
                                         select col).Single();
-                //if (bank.CommonCellText == null)
-                //{
+                if (bank.CommonCellText == null)
+                {
 
                     gvEmployeesForperiod.Caption = string.Format(@"<br/><b>This is a list of employees  who will be paid a salary during the period from
                 {0:d} To {1:d}", m_sp.SalaryPeriodStart, m_sp.SalaryPeriodEnd);
-                /*}
-                else
-                {
-                    bank.Visible = false;
-                    string caption = string.Empty;
-                    if (m_sp.StationId == null)
+                    }
+                    else
                     {
-                        caption = string.Format(@"<br/><b>This is a list of employees  who will be paid a salary during the period from
-                {0:d} To {1:d} through {2}</b>", m_sp.SalaryPeriodStart, m_sp.SalaryPeriodEnd, bank.CommonCellText);
+                        bank.Visible = false;
+                        string caption = string.Empty;
+                        if (m_sp.StationId == null)
+                        {
+                            caption = string.Format(@"<br/><b>This is a list of employees  who will be paid a salary during the period from
+                    {0:d} To {1:d} through {2}</b>", m_sp.SalaryPeriodStart, m_sp.SalaryPeriodEnd, bank.CommonCellText);
 
+                        }
+                        else {
+                            caption = string.Format(@"<br/><b>This is a list of employees of {3} who will be paid a salary during the period from
+                    {0:d} To {1:d} through {2}</b>", m_sp.SalaryPeriodStart, m_sp.SalaryPeriodEnd, bank.CommonCellText, m_sp.Station.StationName);
+                        }
+                        gvEmployeesForperiod.Caption = caption;
                     }
-                    else {
-                        caption = string.Format(@"<br/><b>This is a list of employees of {3} who will be paid a salary during the period from
-                {0:d} To {1:d} through {2}</b>", m_sp.SalaryPeriodStart, m_sp.SalaryPeriodEnd, bank.CommonCellText, m_sp.Station.StationName);
-                    }
-                    gvEmployeesForperiod.Caption = caption;
-                }*/
                 pnlMessage.Visible = true;
                 lblamount.Text = string.Format("{0:N0}", m_Netpay);
                 NumberToEnglish number = new NumberToEnglish();

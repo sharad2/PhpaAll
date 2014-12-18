@@ -40,13 +40,13 @@ namespace Finance.Payroll.Reports
                            GISNo = pea.EmployeePeriod.Employee.GISAccountNumber,
                            Name = pea.EmployeePeriod.Employee.FullName,
                            FirstName = pea.EmployeePeriod.Employee.FirstName,
-                           Grade = pea.EmployeePeriod.Employee.ServicePeriods.OrderByDescending(p => p.PeriodStartDate).Take(1).Max(p => p.Grade), 
-                           Designation = pea.EmployeePeriod.Employee.Designation,                           
+                           Grade = pea.EmployeePeriod.Employee.ServicePeriods.OrderByDescending(p => p.PeriodStartDate).Take(1).Max(p => p.Grade),
+                           Designation = pea.EmployeePeriod.Designation ?? pea.EmployeePeriod.Employee.Designation,                           
                            CitizenId = pea.EmployeePeriod.Employee.CitizenCardNo,
                            Amount = string.Format("{0:N0}", pea.Amount),
                            GISGroup = pea.EmployeePeriod.Employee.GISGroup,
                            DateOfBirth = pea.EmployeePeriod.Employee.DateOfBirth,
-                           BankId = pea.EmployeePeriod.BankId
+                           BankId = pea.EmployeePeriod.BankId ?? pea.EmployeePeriod.Employee.BankId
                        };
             if (!string.IsNullOrEmpty(ddlBankName.Value))
             {

@@ -52,12 +52,12 @@ namespace Finance.Payroll.Reports
                          {
                              EmployeeCode = pea.EmployeePeriod.Employee.EmployeeCode,
                              EmployeeName = pea.EmployeePeriod.Employee.FullName,
-                             Designation = pea.EmployeePeriod.Employee.Designation,
+                             Designation = pea.EmployeePeriod.Designation ?? pea.EmployeePeriod.Employee.Designation,
                              DivisionName = pea.EmployeePeriod.Employee.Division.DivisionName,
                              Amount = pea.Amount ?? 0,
-                             AccountNumber =pea.Comment,
+                             AccountNumber = pea.EmployeePeriod.BankAccountNo ?? pea.Comment,
                              HeadOfAccountId = pea.Adjustment.HeadOfAccountId,
-                             BankId=pea.EmployeePeriod.BankId
+                             BankId= pea.EmployeePeriod.BankId ?? pea.EmployeePeriod.Employee.BankId
                          });
             if (!string.IsNullOrEmpty(tbAccountNo.Text))
             {

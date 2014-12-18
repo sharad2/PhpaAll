@@ -90,10 +90,10 @@ namespace Finance.Payroll.Reports
                                 FullName = emp.FullName,
                                 EmployeeCode = emp.EmployeeCode,
                                 CitizenCardNo = emp.CitizenCardNo,
-                                Designation = empp.Designation,
+                                Designation = empp.Designation ?? emp.Designation,
                                 ParentOrganization = emp.ParentOrganization,
-                                BankAccountNo = empp.BankAccountNo,
-                                BankName = empp.Bank.BankName,
+                                BankAccountNo = empp.BankAccountNo ?? emp.BankAccountNo,
+                                BankName = empp.Bank.BankName ?? emp.Bank.BankName,
                                 BankPlace = emp.BankPlace,
                                 GPFAccountNumber = emp.GPFAccountNo,
                                 NPPFNumber = emp.NPPFPNo
@@ -181,7 +181,7 @@ namespace Finance.Payroll.Reports
                               && empsal.SalaryPeriodEnd <= tbDate.ValueAsDate.Value.MonthEndDate()
                               && (selectEmloyee == 0 || empp.EmployeeId == selectEmloyee)
                               && (selectDiviosn == 0 || emp.DivisionId == selectDiviosn)
-                              && (selectBank == 0 || empp.BankId == selectBank)
+                              && (selectBank == 0 || ((empp.BankId ?? emp.BankId) == selectBank))
                              select
                                 emp.EmployeeId
                          ).ToList();

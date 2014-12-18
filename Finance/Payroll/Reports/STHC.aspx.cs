@@ -64,7 +64,7 @@ namespace Finance.Payroll.Reports
                              && (pea.Amount !=0
                              || db.ReportCategories.Where(p => p.ReportId == 101)
                                      .Any(p => p.AdjustmentCategoryId == pea.Adjustment.AdjustmentCategoryId))
-                             && (selectBank == 0 || pea.EmployeePeriod.BankId == selectBank)
+                             && (selectBank == 0 || ((pea.EmployeePeriod.BankId ?? pea.EmployeePeriod.Employee.BankId) == selectBank))
                         group pea by new
                         {
                             CategoryId = pea.Adjustment.IsDeduction &&
@@ -80,7 +80,7 @@ namespace Finance.Payroll.Reports
                            EmployeeId = g.Key.Employee.EmployeeId,
                            EmployeeCode = g.Key.Employee.EmployeeCode,
                            FullName = g.Key.Employee.FullName,
-                           Designation = g.Key.Employee.Designation,
+                           Designation = g.Max(p => p.EmployeePeriod.Designation ?? p.EmployeePeriod.Employee.Designation),
                            CitizenCardNo = g.Key.Employee.CitizenCardNo,
                            TpnNo = g.Key.Employee.Tpn,
                            ServiceStatus = g.Key.Employee.EmployeeType.Description,
@@ -90,7 +90,7 @@ namespace Finance.Payroll.Reports
                            DeductionCategoryCode = db.AdjustmentCategories
                                 .SingleOrDefault(p => p.AdjustmentCategoryId == g.Key.CategoryId).AdjustmentCategoryCode,
                            CategoryId = g.Key.CategoryId,
-                           BankId = g.Key.Employee.Bank.BankId
+                           BankId = g.Max(p => p.EmployeePeriod.BankId ?? p.EmployeePeriod.Employee.Bank.BankId)
                        };
 
             e.Result = query;

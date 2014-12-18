@@ -10,7 +10,7 @@ The salary period already generated should be freezed. At present, when we chang
 
 ===============================
 Impacted Files:-
-We are now keeping BankId, Designation and BankAccountNo in table EmployeePeriod so in place of seeing table employee we are now considering table EmployeePeriod for this.
+MBisht :- We are now keeping BankId, Designation and BankAccountNo in table EmployeePeriod so in place of seeing table employee we are now considering table EmployeePeriod for this.
 
 
 Finance/Payroll/ManageEmployeePeriod.aspx                   	
@@ -28,7 +28,27 @@ Finance/Payroll/Reports/STHC.aspx.cs
 PhpaLibrary/Database/PayrollDataContext.cs                   	
 PhpaLibrary/Database/PayrollDataContext.dbml	
 PhpaLibrary/Database/PayrollDataContext.dbml.layout	
-PhpaLibrary/Database/PayrollDataContext.designer.cs	
+PhpaLibrary/Database/PayrollDataContext.designer.cs
+
+
+
+MBisht :- On 18/12/2014 In the scenario where BankId or BankAccountNo or Designation is not available in the table EmployeePeriod we will consider table employee for getting these values. 
+
+
+Finance\Payroll\ManageEmployeePeriod.aspx
+Finance\Payroll\ManageEmployeePeriod.aspx.cs
+Finance\Payroll\Reports\AdjustmentRecovery.aspx.cs
+Finance\Payroll\Reports\GIS.aspx.cs
+Finance\Payroll\Reports\GPF.aspx.cs
+Finance\Payroll\Reports\MiscRMT.aspx.cs
+Finance\Payroll\Reports\PaySlip.aspx.cs
+Finance\Payroll\Reports\Paybill1.aspx.cs
+Finance\Payroll\Reports\PaybillRegister.aspx.cs
+Finance\Payroll\Reports\RMTDReport.aspx.cs
+Finance\Payroll\Reports\RecoverySchedule.aspx.cs
+Finance\Payroll\Reports\SSS.aspx.cs
+Finance\Payroll\Reports\STHC.aspx.cs
+	
 
 ===================================================================
 
