@@ -16,6 +16,8 @@ Finance/Reports/FundPositionReport.aspx.cs
 Finance/Reports/ReceiptandPayment.aspx	
 Finance/Reports/ReceiptandPayment.aspx.cs	
 
+There is a single date filter in these reports which contols transactions being displayed in the report. 
+In place of calculating month end date of the selected date in this filter we are directly passing the selected date for retreiving the report.
 
 ===================================================================
 
