@@ -48,6 +48,7 @@
       <Column Name="CountChildren" Type="System.Int32" DbType="int" IsReadOnly="true" CanBeNull="false" />
       <Column Name="ProjectCost" Type="System.Decimal" DbType="money" IsReadOnly="true" CanBeNull="true" />
       <Column Name="HeadOfAccountType" Type="System.String" DbType="Varchar(20)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="RecoveryType" Type="System.String" DbType="Varchar(20)" IsReadOnly="true" CanBeNull="true" />
       <Column Name="RevisedProjectCost" Type="System.Decimal" DbType="money" IsReadOnly="true" CanBeNull="true" />
       <Column Name="TopParentId" Type="System.Int32" IsReadOnly="true" CanBeNull="false" />
       <Column Name="StationId" Type="System.Int32" CanBeNull="true" />
