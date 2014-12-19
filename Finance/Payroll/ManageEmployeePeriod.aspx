@@ -141,7 +141,12 @@
                 SortExpression="Employee.EmployeeCode" />
             <eclipse:MultiBoundField DataFields="Employee.FullName" HeaderText="Employee|Name"
                 AccessibleHeaderText="Employee" SortExpression="Employee.FirstName" />
-            <eclipse:MultiBoundField DataFields="Designation" HeaderText="Designation" />
+            <asp:TemplateField HeaderText="Designation">
+            <ItemStyle HorizontalAlign="Left" />
+            <ItemTemplate>
+                <asp:Label runat="server" Text='<%# Eval("Designation") != null ? Eval("Designation") : Eval("Employee.Designation")%>' />
+            </ItemTemplate>
+        </asp:TemplateField>
             <eclipse:MultiBoundField DataFields="Employee.CitizenCardNo" HeaderText="Citizen Card No." />
             <eclipse:MultiBoundField DataFields="Bank.BankName" HeaderText="Bank" AccessibleHeaderText="Bank"
                  />
@@ -187,8 +192,12 @@
                 </FooterTemplate>
                 <FooterStyle HorizontalAlign="Right" />
             </asp:TemplateField>
-            <eclipse:MultiBoundField DataFields="BankAccountNo" HeaderText="Bank A/C No."
-                SortExpression="BankAccountNo" ItemStyle-HorizontalAlign="Center" />
+             <asp:TemplateField HeaderText="Bank A/C No.">
+            <ItemStyle HorizontalAlign="Left" />
+            <ItemTemplate>
+                <asp:Label runat="server" Text='<%# Eval("BankAccountNo") != null ? Eval("BankAccountNo") : Eval("Employee.BankAccountNo")%>' />
+            </ItemTemplate>
+        </asp:TemplateField>
         </Columns>
     </jquery:GridViewEx>
     <br /><br />
