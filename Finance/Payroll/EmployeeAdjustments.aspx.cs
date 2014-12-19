@@ -101,24 +101,61 @@ namespace Finance.Payroll
                                        Basic = grouping.Key.BasicSalary,
                                        Deduction = (grouping.Sum(p => p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0))
                                                    +
-                                                  (((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0))) 
+                                                  (((grouping.Key.BasicSalary ?? 0) + grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)
+                                                   +
+                                                  (((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)))
+                                                  *
+                                                  (grouping.Max(q => !q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0)))
+                                                  +
+                                                  (((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)))
+                                                  *
+                                                  (grouping.Max(q => q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0)))) 
                                                   *
                                                   (grouping.Max(q => q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0))),
 
                                        Allowance = grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)
                                                    +
-                                                  (((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0))) 
+                                                  (((grouping.Key.BasicSalary ?? 0) + grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)
+                                                   +
+                                                  (((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)))
                                                   *
-                                                  (grouping.Max(q => q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0))),
+                                                  (grouping.Max(q => !q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0)))
+                                                  +
+                                                  (((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)))
+                                                  *
+                                                  (grouping.Max(q => q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0)))) 
+                                                  *
+                                                  (grouping.Max(q => !q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0))),
                                        GrossSalary = (grouping.Key.BasicSalary ?? 0) + grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)
                                                    +
                                                   (((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)))
                                                   *
+                                                  (grouping.Max(q => !q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0)))
+                                                  +
+                                                  (((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)))
+                                                  *
                                                   (grouping.Max(q => q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0))),
-                                       NetPay = ((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)))
-                                       - ((grouping.Sum(p => p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0))
+                                       NetPay = ((grouping.Key.BasicSalary ?? 0) + grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)
                                                    +
                                                   (((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)))
+                                                  *
+                                                  (grouping.Max(q => !q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0)))
+                                                  +
+                                                  (((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)))
+                                                  *
+                                                  (grouping.Max(q => q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0))))
+                                                  -
+                                                  ((grouping.Sum(p => p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0))
+                                                   +
+                                                  (((grouping.Key.BasicSalary ?? 0) + grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)
+                                                   +
+                                                  (((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)))
+                                                  *
+                                                  (grouping.Max(q => !q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0)))
+                                                  +
+                                                  (((grouping.Key.BasicSalary ?? 0) + (grouping.Sum(p => !p.Adjustment.IsDeduction ? (p.FlatAmount ?? 0) + (Convert.ToDecimal(p.FractionOfBasic ?? 0) * (grouping.Key.BasicSalary ?? 0)) : 0)))
+                                                  *
+                                                  (grouping.Max(q => q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0)))) 
                                                   *
                                                   (grouping.Max(q => q.Adjustment.IsDeduction ? ((Convert.ToDecimal(q.FractionOfGross ?? 0))) : 0)))),
                                        StationId = grouping.Key.StationId,

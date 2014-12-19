@@ -13,13 +13,31 @@ The recovery of Health Contribution should always be 1% of total sanction.  At p
 Impacted Files:-
 We have implemented this feature in the same way as the feature currently avaliable for % Basic
 
-Finance/Controls/EmployeeAdjustmentEditor.ascx	
-Finance/Controls/EmployeeAdjustmentEditor.ascx.cs	
-Finance/Payroll/Adjustment.aspx	
-Finance/Payroll/Adjustment.aspx.cs	
-Finance/Payroll/EmployeeAdjustments.aspx.cs	
-PhpaLibrary/Database/PayrollDataContext.cs	
-PhpaLibrary/Database/PayrollDataContext.designer.cs	
+# Finance/Payroll/Adjustment.aspx	
+In the create new adjustment process we have now introduced the option of configuring % of Gross. 
+# Finance/Payroll/Adjustment.aspx.cs	
+A new column FractionOfGross is being added in the table Adjustment. Configured value will get store in this column.
+
+# Finance/Controls/EmployeeAdjustmentEditor.ascx
+Addded a new column % Gross in the EmploymentAdjustment Editor dialog.
+Provided option to override the set default for % Gross. A checkbox Fraction Of Gross is given for this. Added a jQuery function
+cbFractionGrossOverrriden_Click which is for making Fractoin Of Gross check box read only or selectable.
+Added new columns IsFractionGrossOverridden and FractionOfGross in the table EmployeeAdjustment. Populating and updating these new columns. 
+
+# Finance/Controls/EmployeeAdjustmentEditor.ascx.cs	
+Added function tbFractionOfGross_DataBinding for data binding in the column FractionOfGross
+
+# Finance/Payroll/EmployeeAdjustments.aspx.cs
+Changed formula for adding the set % of Gross with the other deductions. In the same way formula has been changed for adding % of Gross set for allawances. 
+With this change gross salary and the net pay are also getting changed. This is because we are calulating each value individually.
+Deductions = all current deductions + (formula of gross) * (fraction of gross)
+Allowances = all current allounces + (formula of gross) * (fraction of gross)
+Gross = Current Gross formula + Deduction + Allowance
+Net = Gross - Deductions
+
+#PhpaLibrary/Database/PayrollDataContext.cs	
+Populating columns FractionOfGros and FractionGrossOverridden
+
 
 ===================================================================
 
