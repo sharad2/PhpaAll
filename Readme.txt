@@ -13,22 +13,34 @@ Impacted Files:-
 MBisht :- We are now keeping BankId, Designation and BankAccountNo in table EmployeePeriod so in place of seeing table employee we are now considering table EmployeePeriod for this.
 
 
-Finance/Payroll/ManageEmployeePeriod.aspx                   	
+Finance/Payroll/ManageEmployeePeriod.aspx.                    	
 Finance/Payroll/ManageEmployeePeriod.aspx.cs	
 Finance/Payroll/Reports/AdjustmentRecovery.aspx.cs	
 Finance/Payroll/Reports/GIS.aspx.cs	
 Finance/Payroll/Reports/MiscRMT.aspx.cs	
 Finance/Payroll/Reports/PaySlip.aspx.cs	
+
+
 Finance/Payroll/Reports/Paybill1.aspx.cs	
-Finance/Payroll/Reports/PaybillRegister.aspx.cs	
+It provides a filter for the bank from which recoveries should be listed. This filter now applies
+to the bank in employee period.
+Displaying Designation from table employee period in place of employee
+
+Finance/Payroll/Reports/PaybillRegister.aspx.cs
+Displaying BankName, Designation and account number from table employee period in place of employee
+
 Finance/Payroll/Reports/RMTDReport.aspx.cs	
 Finance/Payroll/Reports/RecoverySchedule.aspx.cs	
 Finance/Payroll/Reports/SSS.aspx.cs	
-Finance/Payroll/Reports/STHC.aspx.cs		
-PhpaLibrary/Database/PayrollDataContext.cs                   	
-PhpaLibrary/Database/PayrollDataContext.dbml	
-PhpaLibrary/Database/PayrollDataContext.dbml.layout	
-PhpaLibrary/Database/PayrollDataContext.designer.cs
+Finance/Payroll/Reports/STHC.aspx.cs.
+   Displays recoveries made from employee salaries. It provides a filter for the bank from which recoveries should be listed. This filter now applies
+  to the bank in employee period. The designation listed on report now comes from employee period.
+
+PhpaLibrary/Database/PayrollDataContext.cs. When a new employee period is created, copy bank information from employee table.   
+               	
+PhpaLibrary/Database/PayrollDataContext.dbml. Added columns bank id, designation and bank account number in employee period table.	
+
+
 
 
 
