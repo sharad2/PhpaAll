@@ -223,7 +223,7 @@ namespace Finance.Reports
 
                //Calculating recoveries seperately as we have to exclude all heads which are starting with 200.03 and 200.04
                     (decimal?)v.RoVoucherDetails
-               .Where(p => (p.RoHeadHierarchy.RecoveryType == "Test")
+               .Where(p => (p.RoHeadHierarchy.RecoveryType == "NoWork")
                                    && p.JobId == Convert.ToInt32(tbJob.Value))
                .Sum(p => p.CreditAmount ?? 0);
 
@@ -281,11 +281,11 @@ namespace Finance.Reports
                                     ?
                                     (p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
                                     :
-                                    0) +
+                                    0)+
 
                                      (decimal?)v.RoVoucherDetails
            .Where(p => (p.JobId == Convert.ToInt32(tbJob.Value) && (p.RoHeadHierarchy.HeadOfAccountType == "EXPENDITURE" ||
-                                    p.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES") && p.RoHeadHierarchy.RecoveryType != "Test")
+                                    p.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES") && p.RoHeadHierarchy.RecoveryType != "NoWork")
                                )
            .Sum(p => p.CreditAmount ?? 0);
                 }

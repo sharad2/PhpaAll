@@ -12,11 +12,14 @@ While feeding vouchers with Job code especially for Job Codes  44/45/and 60 spec
 ===============================
 Impacted Files:-
 
-In case of job code 44 45 and 60 we have to calculate recoveries seperately. Currently we have achieved this by hard wiring job codes. We are now getting rid of these hard wirings.
-
-WIP
-
 Finance/Reports/ContractorPayment.aspx.cs	
+
+If JobType of the passed Job is MainCivil then
+
+1. While calculating Amount column, considering only those recoveries of those heads where RecoveryType is set to "NoWork."
+2. While calculating Others Recovery column, Adding all recoveries of Expenditure Heads except where RecoveryType is "NoWork"
+
+
 
 
 
@@ -24,4 +27,12 @@ Finance/Reports/ContractorPayment.aspx.cs
 
 Database Modifications:-
 
-NA
+1. Added 2 new tables
+  a. RecoveryType : Stores possible values for RecoveryType
+  b. JobType : Stores possible values for JobType
+
+2. Added 2 new columns :
+  a. RecoveryType in HeadOfAccount table : will store the Recovery type of each Head of Account
+  b. Jobtype in Job table : will store th type of job
+
+3. Added RecoveryType column in HeadHierarchy view.
