@@ -159,7 +159,7 @@
                                 <%# Eval("FractionOfBasic", "{0:p} of basic salary")%>
                                      <%# Eval("FractionOfBasic") != null && Eval("FractionOfGross") != null ? "plus" : ""%>
                                 <%# Eval("FractionOfGross"," {0:p} of gross salary") %>
-                                <%# Eval("FractionOfBasic") != null ||  Eval("FractionOfGross") != null && Eval("FlatAmount") != null ? "plus" : ""%>
+                                <%# (Eval("FractionOfBasic") != null ||  Eval("FractionOfGross") != null) && Eval("FlatAmount") != null ? "plus" : ""%>
                                 <%# Eval("FlatAmount","Nu {0:N2}") %>
                             </eclipse:TwoColumnPanel>
                         </jquery:JPanel>
