@@ -101,6 +101,7 @@
                 <%--  <phpa:PhpaLinqDataSource ID="ds" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.Payroll.PayrollDataContext"
                 RenderLogVisible="false" OnSelecting="ds_Selecting">
             </phpa:PhpaLinqDataSource>--%>
+                
                 <jquery:GridViewEx ID="gv" runat="server" AutoGenerateColumns="false" ShowExpandCollapseButtons="false">
                     <Columns>
                         <eclipse:MultiBoundField DataFields="BasicSalary" HeaderText="Basic" DataFormatString="{0:C2}">
@@ -120,6 +121,10 @@
             </b>
             <div id="divMargin">
             </div>
-        </ItemTemplate>
+         <br />
+        <i><b>This is computer generated document no signature is required.</i></b>
+        <br />  
+            <br />  
+        </ItemTemplate> 
     </asp:Repeater>
 </asp:Content>
