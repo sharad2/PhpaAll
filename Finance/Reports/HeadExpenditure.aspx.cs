@@ -72,7 +72,8 @@ namespace Finance.Reports
                                              vd.RoHeadHierarchy.HeadOfAccountId == 1690 ||
                                              vd.RoHeadHierarchy.HeadOfAccountId == 1691 ||
                                              vd.RoHeadHierarchy.HeadOfAccountId == 1769 ||
-                                             vd.RoHeadHierarchy.HeadOfAccountId == 1846) &&
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1846 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1387) &&
                                             vd.RoVoucher.VoucherDate >= dt.Value.FinancialYearStartDate().AddYears(-1) &&
                                             vd.RoVoucher.VoucherDate <= dt.Value.FinancialYearEndDate().AddYears(-1)
                                     group vd by vd.RoHeadHierarchy.TopParentName into grouping
@@ -111,7 +112,8 @@ namespace Finance.Reports
                                              vd.RoHeadHierarchy.HeadOfAccountId == 1690 ||
                                              vd.RoHeadHierarchy.HeadOfAccountId == 1691 ||
                                              vd.RoHeadHierarchy.HeadOfAccountId == 1769 ||
-                                             vd.RoHeadHierarchy.HeadOfAccountId == 1846) &&
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1846 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1387) &&
                                              vd.RoVoucher.VoucherDate >= dt.Value.FinancialYearStartDate() &&
                                              vd.RoVoucher.VoucherDate <= tbDate.ValueAsDate
                                      group vd by vd.RoHeadHierarchy.TopParentName into grouping
