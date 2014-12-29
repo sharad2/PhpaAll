@@ -14,14 +14,12 @@
  * PVCS Template Added.
  */
 using System;
-using System.Web.UI;
 using System.Web.Security;
 using Eclipse.PhpaLibrary.Web;
 using System.Web;
-using System.Linq;
-using Eclipse.PhpaLibrary.Database;
 using Eclipse.PhpaLibrary.Reporting;
-using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace Finance
 {
@@ -74,6 +72,68 @@ namespace Finance
                 valSummary.ErrorMessages.Add("Your login request was not successful. Please try again.");
             }
         }
+        
+        protected void BtnChangePass_Click(object sender, EventArgs e)
+        {
+            SqlConnection connection = new SqlConnection(ReportingUtilities.DefaultConnectString);
+            try
+            {
+                connection.Open();
+                SqlDataAdapter da = new SqlDataAdapter("select * from PhpaUser where username='" + tbCPUserName.Text + "'", connection);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                connection.Close();
+                string username = ds.Tables[0].Rows[0][1].ToString();
+                string currentpassword = ds.Tables[0].Rows[0][2].ToString();
+                if (string.IsNullOrEmpty(username)) 
+                {
+                    lblMsg.ForeColor = System.Drawing.Color.Red;
+                    lblMsg.Text = "Please enter a valid user name.";
+                    tbCPUserName.Focus();
+                    return;
+                
+                }
+                if (currentpassword.CompareTo(tbCurrentpassword.Text) == 0)
+                {
+                    if (tbNewPassword.Text.CompareTo(tbConfirmPassword.Text) == 0)
+                    {
+                        connection.Open();
+                        SqlCommand cmd = new SqlCommand("update PhpaUser set password='" + tbNewPassword.Text + "' where username='" + tbCPUserName.Text + "'");
+                        cmd.Connection = connection;
+                        int querystatus = cmd.ExecuteNonQuery();
+                        if (querystatus > 0)
+                        {
+                            lblMsg.ForeColor = System.Drawing.Color.Green;
+                            lblMsg.Text = "Password updated successfully";
+                        }
+                        else
+                        {
+                            lblMsg.ForeColor = System.Drawing.Color.Red;
+                            lblMsg.Text = "Password updation faliure. Please try again.";
+                        }
+                    }
+                    else
+                    {
+                        lblMsg.ForeColor = System.Drawing.Color.Red;
+                        lblMsg.Text = "Failed Password Confirmation";
+                    }
+                }
+                else
+                {
+                    lblMsg.ForeColor = System.Drawing.Color.Red;
+                    lblMsg.Text = "Current password is incorrect";
+                    tbCurrentpassword.Focus();
+                }
+                connection.Close();
+            }
+            // TODO: 
+            catch {
+                connection.Close();
+                lblMsg.ForeColor = System.Drawing.Color.Red;
+                lblMsg.Text = "Some problem occur. Please start again.";
+            }
+        }
+
 
     }
 }

@@ -2,9 +2,11 @@
 
 <%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="Login.aspx.cs"
     Inherits="Finance.Login" Title="PHPA Login" EnableViewState="false" %>
-    <asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">
-       <br /><asp:HyperLink ID="HyperLink2" runat="server" Text="Help" NavigateUrl="~/Doc/Login.doc.aspx" /><br/> 
-    </asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">
+    <br />
+    <asp:HyperLink ID="HyperLink2" runat="server" Text="Help" NavigateUrl="~/Doc/Login.doc.aspx" /><br />
+</asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph" runat="server">
     <asp:Label runat="server" ID="lblWelcome" CssClass="ui-state-highlight" Visible="false">
 You are not authorized to view the page <em>{0}</em>. 
@@ -18,19 +20,58 @@ Please login with valid credentials.
             </Validators>
         </i:TextBoxEx>
         <eclipse:LeftLabel runat="server" Text="Password" />
-        <i:TextBoxEx ID="tbPassword" runat="server" CaseConversion="Password" MaxLength="15"
+        <i:TextBoxEx ID="tbPassword" runat="server"  CaseConversion="Password" MaxLength="15"
             FriendlyName="Password">
             <Validators>
                 <i:Required />
             </Validators>
-        </i:TextBoxEx><br />
+        </i:TextBoxEx>
+        <br />
         <eclipse:LeftPanel runat="server">
-            <i:CheckBoxEx runat="server" ID="cbRememberMe" Text="Remember me on this computer" Visible="true"  />
+            <i:CheckBoxEx runat="server" ID="cbRememberMe" Text="Remember me on this computer" Visible="true" />
         </eclipse:LeftPanel>
         <i:ButtonEx ID="btnLogin" runat="server" Text="Log In" Action="Submit" CausesValidation="true"
             OnClick="btnLogin_Click" />
     </eclipse:TwoColumnPanel>
     <i:ValidationSummary runat="server" ID="valSummary" />
+    <asp:Label runat="server" ID="lblMsg" Font-Italic="true"></asp:Label>
+      <jquery:Accordion runat="server" Collapsible="true" SelectedIndex="-1" Width="325" >
+        <jquery:JPanel runat="server" HeaderText="Change Password">
+        <br />
+        <table class="style1">
+             <tr>
+                <td class="style2">Current Password</td>
+                <td>
+                    <asp:TextBox ID="tbCPUserName" runat="server" MaxLength="15"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="style2">Current Password</td>
+                <td>
+                    <asp:TextBox ID="tbCurrentpassword" runat="server" TextMode="Password" MaxLength="15"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="style2">New Password</td>
+                <td>
+                    <asp:TextBox ID="tbNewPassword" runat="server" TextMode="Password" MaxLength="15"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="style2">Confirm New Password</td>
+                <td>
+                    <asp:TextBox ID="tbConfirmPassword" runat="server" TextMode="Password" MaxLength="15"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="style2"></td>
+                <td>
+                    <asp:Button ID="Button1" runat="server" Text="Save Password" OnClick="BtnChangePass_Click" />
+                </td>
+            </tr>
+        </table>
+        </jquery:JPanel>
+        </jquery:Accordion>
     <br />
     If you are a new visitor and do not have a login Id contact one of the administrators
     to create one. You can make changes or modify data only if you are authorized to
