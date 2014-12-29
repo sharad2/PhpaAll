@@ -66,7 +66,7 @@ Please login with valid credentials.
             <tr>
                 <td class="style2"></td>
                 <td>
-                    <asp:Button ID="Button1" runat="server" Text="Save Password" OnClick="BtnChangePass_Click" />
+                    <asp:Button ID="Button1" runat="server" Text="Save Password" OnClick="btnSavePassword_Click" />
                 </td>
             </tr>
         </table>
