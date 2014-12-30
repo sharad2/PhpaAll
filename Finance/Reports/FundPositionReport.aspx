@@ -97,7 +97,7 @@
         <tbody>
             <tr class="AlternatingRow">
                 <td></td>
-                <td>Funds Received From GOI(Rs./NU.)
+                <td>Funds Received From GOI (Grant) Rs./NU.
                 </td>
                 <td class="vd-amountcol">
                     <asp:HyperLink ID="hplnkGOIAidPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
@@ -113,23 +113,59 @@
                     <asp:Label ID="lblGOIAidsum" runat="server" ToolTip="Funds Received from Government of India in local currency till date" EnableViewState="false" />
                 </td>
             </tr>
+            <tr class="AlternatingRow">
+                <td></td>
+                <td>Funds Received From GOI (Grant) F.E.
+                </td>
+                <td class="vd-amountcol">
+                    <asp:HyperLink ID="hplnkGOIAidFEPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
+                        NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=GRANT_RECEIVED_GOIFE&DateTo={3:d}"
+                        EnableViewState="false" />
+                </td>
+
+                <td class="vd-amountcol">
+                    <asp:HyperLink ID="hplnkGOIAidFEUptoMonth" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency from financial year start till input month"
+                        EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=GRANT_RECEIVED_GOIFE&DateFrom={0:d}&DateTo={2:d}" />
+                </td>
+                <td class="vd-amountcol">
+                    <asp:Label ID="lblGOIAidFEsum" runat="server" ToolTip="Funds Received from Government of India in local currency till date" EnableViewState="false" />
+                </td>
+            </tr>
+            <tr class="AlternatingRow">
+                <td></td>
+                <td>Funds Received From GOI (Loan) Rs. / Nu.
+                </td>
+                <td class="vd-amountcol">
+                    <asp:HyperLink ID="hplnkGOILoanPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
+                        NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=LOAN_RECEIVED_GOINU&DateTo={3:d}"
+                        EnableViewState="false" />
+                </td>
+
+                <td class="vd-amountcol">
+                    <asp:HyperLink ID="hplnkGOILoanUptoMonth" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency from financial year start till input month"
+                        EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=LOAN_RECEIVED_GOINU&DateFrom={0:d}&DateTo={2:d}" />
+                </td>
+                <td class="vd-amountcol">
+                    <asp:Label ID="lblGOILoansum" runat="server" ToolTip="Funds Received from Government of India in local currency till date" EnableViewState="false" />
+                </td>
+            </tr>
             <tr>
                 <td></td>
-                <td>Funds Received From GOI (F.E.)
+                <td>Funds Received From GOI (Loan) F.E.
                 </td>
                 <td class="vd-amountcol">
 
-                    <asp:HyperLink ID="hplnkGOIFEPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in Foreign Exchange prior to Financial Year"
-                        EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=GRANT_RECEIVED_GOIFE,LOAN_RECEIVED_GOIFE&DateTo={3:d}" />
+                    <asp:HyperLink ID="hplnkGOILoanFEPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in Foreign Exchange prior to Financial Year"
+                        EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=LOAN_RECEIVED_GOIFE&DateTo={3:d}" />
                 </td>
 
                 <td class="vd-amountcol">
 
-                    <asp:HyperLink ID="hplnkGOIFEUptoMonth" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in Foreign Exchange from financial year start till input month"
-                        EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=GRANT_RECEIVED_GOIFE,LOAN_RECEIVED_GOIFE&DateFrom={0:d}&DateTo={2:d}" />
+                    <asp:HyperLink ID="hplnkGOILoanFEUptoMonth" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in Foreign Exchange from financial year start till input month"
+                        EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=LOAN_RECEIVED_GOIFE&DateFrom={0:d}&DateTo={2:d}" />
                 </td>
                 <td class="vd-amountcol">
-                    <asp:Label ID="lblGOIFEsum" runat="server" ToolTip="Funds received from Government of India in Foreign Exchange till date"
+                    <asp:Label ID="lblGOILoanFEsum" runat="server" ToolTip="Funds received from Government of India in Foreign Exchange till date"
                         EnableViewState="false" />
                 </td>
             </tr>
@@ -378,8 +414,7 @@
             <tbody>
             <tr>
                 <td>
-                    <asp:Label ID="lbltotfund" runat="server" Text="Total Fund Received from
-GOI"></asp:Label></td>
+                    <asp:Label ID="lbltotfund" runat="server" Text="Total Fund Received from GOI"></asp:Label></td>
                 <td>
                     <asp:Label ID="Label2" runat="server"
                         EnableViewState="false" SumType="FundSum"
@@ -397,7 +432,7 @@ GOI"></asp:Label></td>
             </tr></tbody>
             <tfoot>
             <tr class="RowHeader ui-state-active ui-widget-header">
-                <td style="text-align: right"><b>
+                <td><b>
                     <asp:Label ID="lbldiff" runat="server"
                         Text="Balance Fund"></asp:Label></b></td>
                 <td>

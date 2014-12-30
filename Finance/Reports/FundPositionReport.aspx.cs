@@ -117,9 +117,9 @@ namespace Finance.Reports
             {
                 switch (grp.Key.RoAccountType.HeadOfAccountType)
                 {
-                    // Funds received from the Govt. of india. 
+                    // Grant received from the Govt. of India in Rs./Nu.
                     case "GRANT_RECEIVED_GOINU":
-                    case "LOAN_RECEIVED_GOINU":
+                    //case "LOAN_RECEIVED_GOINU":
                         SetAdditiveHyperLinkProperties(hplnkGOIAidPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                         SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
                         SetAdditiveHyperLinkProperties(hplnkGOIAidUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
@@ -127,14 +127,33 @@ namespace Finance.Reports
                         SetAdditiveLabelProperties(lblGOIAidsum, grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.ReceiptsSum);
                         SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
                         break;
-                    // Funds received from the Govt. of India in foreign exchange.
+                    // Grant received from the Govt. of India in foreign exchange.
                     case "GRANT_RECEIVED_GOIFE":
-                    case "LOAN_RECEIVED_GOIFE":
-                        SetAdditiveHyperLinkProperties(hplnkGOIFEPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                    //case "LOAN_RECEIVED_GOIFE":
+                        SetAdditiveHyperLinkProperties(hplnkGOIAidFEPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                         SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
-                        SetAdditiveHyperLinkProperties(hplnkGOIFEUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
+                        SetAdditiveHyperLinkProperties(hplnkGOIAidFEUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
                         SetAdditivePropertiesFund((grp.UptoMonthSum + grp.ForMonthSum), SumType.FundReceivedUptoMonth);
-                        SetAdditiveLabelProperties(lblGOIFEsum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
+                        SetAdditiveLabelProperties(lblGOIAidFEsum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
+                        SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
+                        break;
+
+                    // Loan received from the Govt. of India in Rs./Nu.
+                    case "LOAN_RECEIVED_GOINU":
+                        SetAdditiveHyperLinkProperties(hplnkGOILoanPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                        SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
+                        SetAdditiveHyperLinkProperties(hplnkGOILoanUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
+                        SetAdditivePropertiesFund((grp.UptoMonthSum + grp.ForMonthSum), SumType.FundReceivedUptoMonth);
+                        SetAdditiveLabelProperties(lblGOILoansum, grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.ReceiptsSum);
+                        SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
+                        break;
+                    // Loan received from the Govt. of India in foreign exchange.
+                    case "LOAN_RECEIVED_GOIFE":
+                        SetAdditiveHyperLinkProperties(hplnkGOILoanFEPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                        SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
+                        SetAdditiveHyperLinkProperties(hplnkGOILoanFEUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
+                        SetAdditivePropertiesFund((grp.UptoMonthSum + grp.ForMonthSum), SumType.FundReceivedUptoMonth);
+                        SetAdditiveLabelProperties(lblGOILoanFEsum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
                         SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
                         break;
                     //  Funds received from Other Receipts.
