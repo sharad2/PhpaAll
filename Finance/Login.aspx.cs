@@ -76,6 +76,8 @@ namespace Finance
         protected void btnSavePassword_Click(object sender, EventArgs e)
         {
             SqlConnection connection = new SqlConnection(ReportingUtilities.DefaultConnectString);
+            string strUserName = null;
+            string strCurrentPassword = null;  
             try
             {
                 connection.Open();
@@ -83,17 +85,10 @@ namespace Finance
                 DataSet ds = new DataSet();
                 da.Fill(ds);
                 connection.Close();
-                string username = ds.Tables[0].Rows[0][1].ToString();
-                string currentpassword = ds.Tables[0].Rows[0][2].ToString();
-                if (string.IsNullOrEmpty(username)) 
-                {
-                    lblMsg.ForeColor = System.Drawing.Color.Red;
-                    lblMsg.Text = "Please enter a valid user name.";
-                    tbCPUserName.Focus();
-                    return;
-                
-                }
-                if (currentpassword.CompareTo(tbCurrentpassword.Text) == 0)
+                strUserName = ds.Tables[0].Rows[0][1].ToString();
+                strCurrentPassword = ds.Tables[0].Rows[0][2].ToString();
+               
+                if (strCurrentPassword.CompareTo(tbCurrentpassword.Text) == 0)
                 {
                     if (tbNewPassword.Text.CompareTo(tbConfirmPassword.Text) == 0)
                     {
@@ -130,6 +125,12 @@ namespace Finance
             catch {
                 connection.Close();
                 lblMsg.ForeColor = System.Drawing.Color.Red;
+                if (string.IsNullOrEmpty(strUserName))
+                {
+                    lblMsg.Text = "Please enter a valid user name.";
+                    tbCPUserName.Focus();
+                    return;
+                }
                 lblMsg.Text = "Some problem occur. Please start again.";
             }
         }
