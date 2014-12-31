@@ -69,3 +69,15 @@ Addded following three columns in the table EmployeePeriod  :-
 
 
 Applied a new foreign key "Bank_EmployeePeriod"  on table EmployeePeriod referring to column Bank.BankId  
+
+
+
+==========================================================================
+
+This change has been demonstrated to the end users and they have given their approval.
+
+As we are now displaying BankName, Designation and account number from table employee in the case where these information are not avaliable in the table employeeperiod. This is creating confusions to end users.
+
+
+
+
