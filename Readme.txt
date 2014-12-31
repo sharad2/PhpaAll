@@ -40,7 +40,8 @@ Database Modifications:-
 
 ============================================================
 
-This feature has been approved by the end user. We are ready to merge this change in the master.
+This feature has been approved by the end user. We have to give feature of populating new job type and head of account type in the 
+interfaces where we are creating a new job or new head.
 
 
 
