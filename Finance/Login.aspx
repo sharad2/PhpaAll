@@ -40,7 +40,7 @@ Please login with valid credentials.
         <br />
         <table class="style1">
              <tr>
-                <td class="style2">Current Password</td>
+                <td class="style2">User Name</td>
                 <td>
                     <asp:TextBox ID="tbCPUserName" runat="server" MaxLength="15"></asp:TextBox>
                 </td>
