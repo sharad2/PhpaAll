@@ -28,12 +28,8 @@ Added new columns IsFractionGrossOverridden and FractionOfGross in the table Emp
 Added function tbFractionOfGross_DataBinding for data binding in the column FractionOfGross
 
 # Finance/Payroll/EmployeeAdjustments.aspx.cs
-Changed formula for adding the set % of Gross with the other deductions. In the same way formula has been changed for adding % of Gross set for allawances. 
-With this change gross salary and the net pay are also getting changed. This is because we are calulating each value individually.
-Deductions = all current deductions + (formula of gross) * (fraction of gross)
-Allowances = all current allounces + (formula of gross) * (fraction of gross)
-Gross = Current Gross formula + Deduction + Allowance
-Net = Gross - Deductions
+Changed formula for adding the set % of Gross with the other deductions. In the same way formula has been changed for adding % of 
+
 
 #PhpaLibrary/Database/PayrollDataContext.cs	
 Populating columns FractionOfGros and FractionGrossOverridden
@@ -53,3 +49,22 @@ B. Table (EmployeeAdjustment)
 
         1. IsFractionGrossOverridden   (bit)
         2. FractionOfGross             (float)
+
+
+
+====================================================================
+
+Identified changes :-
+
+We have noticed that we will have to change some more pages for incorporating % of Gross feature.
+Following are the pages:-
+
+1. PaybillRegister (/Payroll/Reports/PaybillRegister.aspx)
+2. PaySlip (/Payroll/Reports/PaySlip.aspx)
+3. TdsCertificate (/Payroll/Reports/TdsCertificate.aspx)
+4. Paybill1 (/Payroll/Reports/Paybill1.aspx)
+
+
+
+
+
