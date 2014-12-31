@@ -36,3 +36,12 @@ Database Modifications:-
   b. Jobtype in Job table : will store th type of job
 
 3. Added RecoveryType column in HeadHierarchy view.
+
+
+============================================================
+
+This feature has been approved by the end user. We are ready to merge this change in the master.
+
+
+
+
