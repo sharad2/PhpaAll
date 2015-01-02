@@ -72,7 +72,7 @@ Following are the pages:-
 3. PaySlip (/Payroll/Reports/PaySlip.aspx)
 4. TdsCertificate (/Payroll/Reports/TdsCertificate.aspx)
 5. Paybill1 (/Payroll/Reports/Paybill1.aspx)
-
+6. % of gross should be configurable for Deductions. In case of Allounces this option should not come.  Adjustment screen and Emp Adjustment screens should be impacted.
 
 
 
