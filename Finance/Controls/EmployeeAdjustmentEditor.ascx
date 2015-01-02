@@ -76,8 +76,7 @@
         </eclipse:MultiBoundField>
         <asp:TemplateField>
             <HeaderTemplate>
-                <span title="Display Flat amount which is defined explicitly or default for Adjustment.">
-                    Amount </span>
+                <span title="Display Flat amount which is defined explicitly or default for Adjustment.">Amount </span>
             </HeaderTemplate>
             <ItemTemplate>
                 <div style="text-align: right">
@@ -92,10 +91,9 @@
                     Checked='<%# Bind("IsFlatAmountOverridden") %>' OnClientClick="cbFractionBasicOverrriden_Click" />
                 <div style="text-align: left; white-space: nowrap">
                     <i:TextBoxEx ID="tbFlatAmount" runat="server" QueryStringValue='<%# Bind("FlatAmount", "{0}") %>'
-                        FriendlyName="Flat Amount" ReadOnly='<%# !((bool)Eval("IsFlatAmountOverridden")) %>' CssClasses='<%# new string[] { ((bool)Eval("IsFlatAmountOverridden")) ? "val-ignore" : "" } %>'>
+                        FriendlyName="Flat Amount" ReadOnly='<%# !((bool)Eval("IsFlatAmountOverridden")) %>'>
                         <Validators>
-                            <i:Filter DependsOn="cbFlatAmountOverridden" DependsOnState="Checked" />
-                            <i:Required />
+                            <i:Required DependsOn="cbFlatAmountOverridden" DependsOnState="Checked" />
                             <i:Value ValueType="Decimal" Min="0" />
                         </Validators>
                     </i:TextBoxEx>
@@ -104,8 +102,7 @@
         </asp:TemplateField>
         <asp:TemplateField>
             <HeaderTemplate>
-                <span title="Display percentage of basic which is defined explicitly or default for Adjustment">
-                    % Basic</span>
+                <span title="Display percentage of basic which is defined explicitly or default for Adjustment">% Basic</span>
             </HeaderTemplate>
             <ItemTemplate>
                 <div style="text-align: right">
@@ -123,19 +120,18 @@
                         FriendlyName="Fraction Of Basic" MaxLength="6" ReadOnly='<%# !((bool)Eval("IsFractionBasicOverridden")) %>'
                         OnDataBinding="tbFractionOfBasic_DataBinding">
                         <Validators>
-                            <i:Filter DependsOn="cbFractionBasicOverrriden" DependsOnState="Checked" />
-                            <i:Required />
+                            <i:Required DependsOn="cbFractionBasicOverrriden" DependsOnState="Checked" />
                             <i:Value ValueType="Decimal" Max="100" Min="0" />
                         </Validators>
                     </i:TextBoxEx>
                     %
+               
                 </div>
             </EditItemTemplate>
         </asp:TemplateField>
-              <asp:TemplateField>
+        <asp:TemplateField>
             <HeaderTemplate>
-                <span title="Display percentage of basic which is defined explicitly or default for Adjustment">
-                    % Gross</span>
+                <span title="Display percentage of basic which is defined explicitly or default for Adjustment">% Gross</span>
             </HeaderTemplate>
             <ItemTemplate>
                 <div style="text-align: right">
@@ -151,18 +147,18 @@
                 <div style="text-align: left; white-space: nowrap">
                     <i:TextBoxEx ID="tbFractionOfGross" runat="server" QueryStringValue='<%# Bind("FractionOfGross", "{0}") %>'
                         FriendlyName="Fraction Of Basic" MaxLength="6" ReadOnly='<%# !((bool)Eval("IsFractionGrossOverridden")) %>'
-                        OnDataBinding="tbFractionOfGross_DataBinding" >
+                        OnDataBinding="tbFractionOfGross_DataBinding">
                         <Validators>
-                            <i:Filter DependsOn="cbFractionGrossOverrriden" DependsOnState="Checked" />
-                            <i:Required />
+                            <i:Required DependsOn="cbFractionGrossOverrriden" DependsOnState="Checked" />
                             <i:Value ValueType="Decimal" Max="100" Min="0" />
                         </Validators>
                     </i:TextBoxEx>
                     %
+               
                 </div>
             </EditItemTemplate>
         </asp:TemplateField>
-    
+
         <phpa:BoolField HeaderText="Type" DataField="Adjustment.IsDeduction" TrueValue="Deduction"
             FalseValue="Allowance" />
         <asp:TemplateField HeaderText="Remarks">
@@ -178,6 +174,7 @@
     </Columns>
     <EmptyDataTemplate>
         Select Employee from the Grid.
+   
     </EmptyDataTemplate>
 </jquery:GridViewExInsert>
 
