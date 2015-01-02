@@ -1,12 +1,18 @@
-Feature :- Job Payment Register
+Feature :- Health Contribution 
 
 
 ===============================
 Customer Requirement :-
 
-The recovery of Health Contribution should always be 1% of total sanction.  At present whenever the total sanction changes, we r calculating this manually n feeding. Please make this 1 % at back end itself for all Contract employees n secondment employees.  NOT FOR DEPUTATIONISTS
+The recovery of Health Contribution should always be 1% of total sanction.  At present whenever the total sanction changes, we are calculating this manually and feeding. Please make this 1 % at back end itself for all Contract employees n secondment employees.  NOT FOR DEPUTATIONISTS
 
 =======================================================
+
+Proposed Solution:-
+
+While creating an adjustment you can specify whether is % of gross. This is in addition to current possible values flat amount and % of basic.
+You will still be able to override percentages for specific employees.
+All reports which show adjustments will show this new type of adjustment properly.
 
 
 ===============================

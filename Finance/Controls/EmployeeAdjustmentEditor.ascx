@@ -21,7 +21,7 @@
     }
 </script>
 <phpa:PhpaLinqDataSource ID="dsEditEmpAdjustments" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.Payroll.PayrollDataContext"
-    TableName="EmployeeAdjustments" AutoGenerateWhereClause="True" OnSelecting="dsEditEmpAdjustments_Selecting"
+    TableName="EmployeeAdjustments" AutoGenerateWhereClause="True" OnSelecting="dsEditEmpAdjustments_Selecting" OnContextCreated="dsEditEmpAdjustments_ContextCreated"
     RenderLogVisible="False" EnableUpdate="True" EnableDelete="True" EnableInsert="True">
     <UpdateParameters>
         <asp:Parameter Type="Decimal" Name="Deductions" />
@@ -92,7 +92,7 @@
                     Checked='<%# Bind("IsFlatAmountOverridden") %>' OnClientClick="cbFractionBasicOverrriden_Click" />
                 <div style="text-align: left; white-space: nowrap">
                     <i:TextBoxEx ID="tbFlatAmount" runat="server" QueryStringValue='<%# Bind("FlatAmount", "{0}") %>'
-                        FriendlyName="Flat Amount" ReadOnly='<%# !((bool)Eval("IsFlatAmountOverridden")) %>'>
+                        FriendlyName="Flat Amount" ReadOnly='<%# !((bool)Eval("IsFlatAmountOverridden")) %>' CssClasses='<%# new string[] { ((bool)Eval("IsFlatAmountOverridden")) ? "val-ignore" : "" } %>'>
                         <Validators>
                             <i:Filter DependsOn="cbFlatAmountOverridden" DependsOnState="Checked" />
                             <i:Required />
@@ -147,11 +147,11 @@
             </ItemTemplate>
             <EditItemTemplate>
                 <i:CheckBoxEx ID="cbFractionGrossOverrriden" runat="server" Text="Override Default"
-                    Checked='<%# Bind("IsFractionBasicOverridden") %>' OnClientClick="cbFractionGrossOverrriden_Click" />
+                    Checked='<%# Bind("IsFractionGrossOverridden") %>' OnClientClick="cbFractionGrossOverrriden_Click" />
                 <div style="text-align: left; white-space: nowrap">
                     <i:TextBoxEx ID="tbFractionOfGross" runat="server" QueryStringValue='<%# Bind("FractionOfGross", "{0}") %>'
                         FriendlyName="Fraction Of Basic" MaxLength="6" ReadOnly='<%# !((bool)Eval("IsFractionGrossOverridden")) %>'
-                        OnDataBinding="tbFractionOfGross_DataBinding">
+                        OnDataBinding="tbFractionOfGross_DataBinding" >
                         <Validators>
                             <i:Filter DependsOn="cbFractionGrossOverrriden" DependsOnState="Checked" />
                             <i:Required />

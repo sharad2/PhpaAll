@@ -15,6 +15,8 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Database.Payroll;
 using EclipseLibrary.Web.JQuery;
 using EclipseLibrary.Web.JQuery.Input;
+using System.Data.Linq;
+using Finance.Payroll;
 
 namespace Finance.Controls
 {
@@ -327,6 +329,20 @@ namespace Finance.Controls
         protected void btnNew_Click(object sender, EventArgs e)
         {
             gvEditEmpAdjustments.InsertRowsCount = 1;
+        }
+
+        /// <summary>
+        /// Optimization. Load adjustment along with each employee adjustment
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void dsEditEmpAdjustments_ContextCreated(object sender, LinqDataSourceStatusEventArgs e)
+        {
+            var db = (PayrollDataContext)e.Result;
+            DataLoadOptions lo = new DataLoadOptions();
+            lo.AssociateWith<EmployeePeriod>(ep => ep.PeriodEmployeeAdjustments.Where(pea => pea.Amount != null));
+            lo.LoadWith<EmployeeAdjustment>(ep => ep.Adjustment);
+            db.LoadOptions = lo;
         }
     }
 }
