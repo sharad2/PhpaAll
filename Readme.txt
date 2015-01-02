@@ -59,10 +59,14 @@ Identified changes :-
 We have noticed that we will have to change some more pages for incorporating % of Gross feature.
 Following are the pages:-
 
-1. PaybillRegister (/Payroll/Reports/PaybillRegister.aspx)
-2. PaySlip (/Payroll/Reports/PaySlip.aspx)
-3. TdsCertificate (/Payroll/Reports/TdsCertificate.aspx)
-4. Paybill1 (/Payroll/Reports/Paybill1.aspx)
+1. SalaryRemittancesToBank (/PHPA2/Payroll/SalaryPeriods.aspx)
+   In the "PayrollDataContext.cs" we need to correct the fucntion AddDefaultAdjustments and add gross rule here so that it can be inserted in the  table payroll.PeriodEmployeeAdjustment
+   in column Amount.
+2. PaybillRegister (/Payroll/Reports/PaybillRegister.aspx)
+3. PaySlip (/Payroll/Reports/PaySlip.aspx)
+4. TdsCertificate (/Payroll/Reports/TdsCertificate.aspx)
+5. Paybill1 (/Payroll/Reports/Paybill1.aspx)
+
 
 
 
