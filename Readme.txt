@@ -67,13 +67,21 @@ Following are the pages:-
 
 1. SalaryRemittancesToBank (/PHPA2/Payroll/SalaryPeriods.aspx)
    In the "PayrollDataContext.cs" we need to correct the fucntion AddDefaultAdjustments and add gross rule here so that it can be inserted in the  table payroll.PeriodEmployeeAdjustment
-   in column Amount.
-2. PaybillRegister (/Payroll/Reports/PaybillRegister.aspx)
-3. PaySlip (/Payroll/Reports/PaySlip.aspx)
-4. TdsCertificate (/Payroll/Reports/TdsCertificate.aspx)
-5. Paybill1 (/Payroll/Reports/Paybill1.aspx)
+   in column Amount.    => Done
+2. PaybillRegister (/Payroll/Reports/PaybillRegister.aspx) => Done
+3. PaySlip (/Payroll/Reports/PaySlip.aspx) => Done
+4. TdsCertificate (/Payroll/Reports/TdsCertificate.aspx) => Done
+5. Paybill1 (/Payroll/Reports/Paybill1.aspx) => Done
 6. % of gross should be configurable for Deductions. In case of Allounces this option should not come.  Adjustment screen and Emp Adjustment screens should be impacted.
+   ISSUES
+   A. While creating an adjustment if user toggles between Deduction and Adjustment then we are not able to hide the % Gross option.
+   B. In EmployeeAdustment page when user is trying to add a new adjustment at that time we are not able to hide the Override % Gross. This is 
+   because we do not able to know whether the selected adjustment type is Allounce or Deduction.
 
+   In rest scenarios we are able to fix this. We have fixed this issue through .aspx file in the following files 
+   # Finance/Payroll/Adjustment.aspx
+   # Finance/Controls/EmployeeAdjustmentEditor.ascx.cs
+    
 
 
 
