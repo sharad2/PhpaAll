@@ -145,13 +145,13 @@
                     <jquery:Tabs ID="tabAdjustment" runat="server">
                         <jquery:JPanel runat="server" HeaderText="Adjustment Details" ID="panelDetails">
                             <eclipse:TwoColumnPanel runat="server">
-                                <eclipse:LeftLabel runat="server" Text="Adjustment Code" />
+                                <eclipse:LeftLabel runat="server" Text="Code" />
                                 <asp:Label runat="server" Text='<%# Eval("AdjustmentCode") %>' /><br />
-                                <asp:Label runat="server" Text='<%# (bool)Eval("IsDeduction")? "&darr;" : "&uarr;"%>'
+                               <%-- <asp:Label runat="server" Text='<%# (bool)Eval("IsDeduction")? "&darr;" : "&uarr;"%>'
                                     ForeColor='<%# (bool)Eval("IsDeduction") ? System.Drawing.Color.Red : System.Drawing.Color.Empty %>' />
                                 <asp:Label runat="server" Text='<%# (bool)Eval("IsDeduction")? "Deduction" :"Allowance"%>'
-                                    ForeColor='<%# (bool)Eval("IsDeduction") ? System.Drawing.Color.Red : System.Drawing.Color.Empty %>' />
-                                <eclipse:LeftLabel runat="server" Text="Adjustment Category" />
+                                    ForeColor='<%# (bool)Eval("IsDeduction") ? System.Drawing.Color.Red : System.Drawing.Color.Empty %>' />--%>
+                                <eclipse:LeftLabel runat="server" Text="Category" />
                                 <asp:Label runat="server" Text='<%# Eval("AdjustmentCategory.AdjustmentCategoryCode") %>' />
                                 <eclipse:LeftLabel runat="server" Text="Description" />
                                 <asp:Label runat="server" Text='<%# Eval("Description") %>' />

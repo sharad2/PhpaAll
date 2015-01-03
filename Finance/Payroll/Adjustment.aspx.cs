@@ -279,31 +279,6 @@ namespace Finance.Payroll
             }
         }
 
-        private bool? m_IsDeduction;
-
-        protected void btnNewAllowance_Click(object sender, EventArgs e)
-        {
-            frmAdjustment.ChangeMode(FormViewMode.Insert);
-            dlgEditor.Visible = true;
-            m_IsDeduction = false;
-        }
-
-        protected void btnNewDeduction_Click(object sender, EventArgs e)
-        {
-            frmAdjustment.ChangeMode(FormViewMode.Insert);
-            dlgEditor.Visible = true;
-            m_IsDeduction = true;
-        }
-
-        protected void llPctGross_PreRender(object sender, EventArgs e)
-        {
-            if (m_IsDeduction.HasValue)
-            {
-                var ll = (LeftLabel)sender;
-                ll.RowVisible = m_IsDeduction.Value;
-            }
-        }
-
         protected void litAdjType_PreRender(object sender, EventArgs e)
         {
             var adj = (Adjustment)frmAdjustment.DataItem;
@@ -355,6 +330,36 @@ namespace Finance.Payroll
             }
         }
 
+        #region Gross Pct Handling
+
+        /// <summary>
+        /// This code is needed to hide the gross pct text box for alloances
+        /// </summary>
+        private bool? m_IsDeduction;
+
+        protected void btnNewAllowance_Click(object sender, EventArgs e)
+        {
+            frmAdjustment.ChangeMode(FormViewMode.Insert);
+            dlgEditor.Visible = true;
+            m_IsDeduction = false;
+        }
+
+        protected void btnNewDeduction_Click(object sender, EventArgs e)
+        {
+            frmAdjustment.ChangeMode(FormViewMode.Insert);
+            dlgEditor.Visible = true;
+            m_IsDeduction = true;
+        }
+
+        protected void llPctGross_PreRender(object sender, EventArgs e)
+        {
+            if (m_IsDeduction.HasValue)
+            {
+                var ll = (LeftLabel)sender;
+                ll.RowVisible = m_IsDeduction.Value;
+            }
+        }
+
         protected void hfIsDeduction_PreRender(object sender, EventArgs e)
         {
             if (m_IsDeduction.HasValue)
@@ -363,6 +368,7 @@ namespace Finance.Payroll
                 hf.Value = m_IsDeduction.Value.ToString();
             }
         }
+        #endregion
 
     }
 }
