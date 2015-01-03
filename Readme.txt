@@ -73,7 +73,7 @@ Following are the pages:-
 4. TdsCertificate (/Payroll/Reports/TdsCertificate.aspx) => Done
 5. Paybill1 (/Payroll/Reports/Paybill1.aspx) => Done
 6. % of gross should be configurable for Deductions. In case of Allounces this option should not come.  Adjustment screen and Emp Adjustment screens should be impacted.
-   ISSUES
+   ISSUES =>
    A. While creating an adjustment if user toggles between Deduction and Adjustment then we are not able to hide the % Gross option.
    B. In EmployeeAdustment page when user is trying to add a new adjustment at that time we are not able to hide the Override % Gross. This is 
    because we do not able to know whether the selected adjustment type is Allounce or Deduction.

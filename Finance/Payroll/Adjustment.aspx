@@ -16,13 +16,17 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="cph" runat="server">
     <br />
-    <i:ButtonEx ID="btnNew" runat="server" Text="Create New Adjustment" ToolTip="Click to enter new ajustment's details."
-        OnClick="btnNew_Click" Action="Submit" CausesValidation="false" RolesRequired="*"
+    <i:ButtonEx ID="btnNewAllowance" runat="server" Text="Create New Allowance" ToolTip="Click to enter new ajustment's details."
+        OnClick="btnNewAllowance_Click" Action="Submit" CausesValidation="false" RolesRequired="*"
+        Icon="PlusThick" />
+    <i:ButtonEx ID="btnNewDeduction" runat="server" Text="Create New Deduction" ToolTip="Click to enter new ajustment's details."
+        OnClick="btnNewDeduction_Click" Action="Submit" CausesValidation="false" RolesRequired="*"
         Icon="PlusThick" />
     <p>
         This is a list of all adjustments, i.e. allowances and deductions, which can be
         applied to the basic pay of any employee. Select an adjustment to view more details
         and to edit it.
+   
     </p>
     <phpa:PhpaLinqDataSource ID="dsAdjustment" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.Payroll.PayrollDataContext"
         TableName="Adjustments" RenderLogVisible="False" OrderBy="AdjustmentCode">
@@ -72,6 +76,7 @@
         </Columns>
         <EmptyDataTemplate>
             No Adjustment exists.
+       
         </EmptyDataTemplate>
     </jquery:GridViewEx>
     <jquery:Dialog ID="dlgEditor" runat="server" Title="Adjustment Editor" Position="RightTop"
@@ -119,8 +124,12 @@
                     <asp:LoginView ID="restrictUser" runat="server">
                         <LoggedInTemplate>
                             Click on the following link to enter new adjustment details.<br />
-                            <i:LinkButtonEx ID="btnNewAdjustment" runat="server" Text="New Adjustment" ToolTip="Click to enter new ajustment's details."
-                                OnClick="btnNew_Click" Action="Submit" CausesValidation="false" />
+                            <i:ButtonEx runat="server" Text="Create New Allowance" ToolTip="Click to enter new ajustment's details."
+                                OnClick="btnNewAllowance_Click" Action="Submit" CausesValidation="false" RolesRequired="*"
+                                Icon="PlusThick" />
+                            <i:ButtonEx runat="server" Text="Create New Deduction" ToolTip="Click to enter new ajustment's details."
+                                OnClick="btnNewDeduction_Click" Action="Submit" CausesValidation="false" RolesRequired="*"
+                                Icon="PlusThick" />
                         </LoggedInTemplate>
                         <AnonymousTemplate>
                             <b>Please login, if you want to create or manage employee details.</b>
@@ -157,7 +166,7 @@
                                 <eclipse:LeftLabel runat="server" Text="Amount" />
                                 <asp:Label runat="server" />
                                 <%# Eval("FractionOfBasic", "{0:p} of basic salary")%>
-                                     <%# Eval("FractionOfBasic") != null && Eval("FractionOfGross") != null ? "plus" : ""%>
+                                <%# Eval("FractionOfBasic") != null && Eval("FractionOfGross") != null ? "plus" : ""%>
                                 <%# Eval("FractionOfGross"," {0:p} of gross salary") %>
                                 <%# (Eval("FractionOfBasic") != null ||  Eval("FractionOfGross") != null) && Eval("FlatAmount") != null ? "plus" : ""%>
                                 <%# Eval("FlatAmount","Nu {0:N2}") %>
@@ -173,8 +182,6 @@
                                 OnClick="btnEdit_Click" />
                             <i:LinkButtonEx ID="LinkButtonEx1" runat="server" Text="Delete" OnClick="btnDelete_Click"
                                 Action="Submit" CausesValidation="false" OnClientClick="DeleteConfirmation" />
-                            <i:LinkButtonEx ID="btnNewadj" runat="server" Text="New" OnClick="btnNew_Click" Action="Submit"
-                                CausesValidation="false" />
                         </LoggedInTemplate>
                         <AnonymousTemplate>
                             <b>Please login, if you want to create or manage adjustment details.</b>
@@ -185,7 +192,7 @@
                     <eclipse:TwoColumnPanel runat="server">
                         <eclipse:LeftLabel ID="ctlAdjustmentType" runat="server" Text="Adjustment Type" />
                         <i:RadioButtonListEx ID="rblIsDeduction" runat="server" Value='<%# Bind("IsDeduction") %>'
-                            Orientation="Horizontal">
+                            Orientation="Horizontal" OnPreRender="rblIsDeduction_PreRender">
                             <Items>
                                 <i:RadioItem Text="&darr; Deduction" Value="True" Enabled="true" />
                                 <i:RadioItem Text="&uarr; Allowance" Value="False" />
@@ -199,6 +206,7 @@
                             </Validators>
                         </i:TextBoxEx>
                         An easy to remember short code which you will use to refer to this adjustment.
+                       
                         <eclipse:LeftLabel runat="server" Text="Adjustment Category" />
                         <phpa:PhpaLinqDataSource ID="dsAdjustmentCategory" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.Payroll.PayrollDataContext"
                             TableName="AdjustmentCategories" RenderLogVisible="false" OrderBy="ShortDescription" />
@@ -220,6 +228,7 @@
                         </i:TextBoxEx>
                         <br />
                         Short Desription will reflect in Pay Bill header text.
+                       
                         <eclipse:LeftLabel ID="lblEmpType" runat="server" Text="Applicable to" />
                         <phpa:PhpaLinqDataSource ID="dsEmpType" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.Payroll.PayrollDataContext"
                             Select="new (EmployeeTypeId, Description)" TableName="EmployeeTypes" RenderLogVisible="false">
@@ -241,6 +250,7 @@
                         <br />
                         When a voucher is created, the amount will be debited/credited against this head.
                         It must be entered before the salary is actually paid.
+                       
                         <eclipse:LeftLabel runat="server" Text="% of Basic" />
                         <i:TextBoxEx ID="tbPercentageBasic" runat="server" Value='<%# Bind("FractionOfBasic") %>'
                             MaxLength="5" OnDataBinding="tbPercentageBasic_DataBinding" FriendlyName="Percentage Basic">
@@ -250,6 +260,7 @@
                         </i:TextBoxEx>
                         <br />
                         % of basic salary.
+                       
                         <eclipse:LeftLabel runat="server" Text="Flat Amount" />
                         <i:TextBoxEx ID="tbFlatAmount" runat="server" Text='<%# Bind("FlatAmount", "{0:C2}") %>'
                             FriendlyName="Flat Amount">
@@ -259,16 +270,18 @@
                         </i:TextBoxEx>
                         <br />
                         Its an amount which is fixed and not based on % of basic salary.
-                        <eclipse:LeftLabel runat="server" Text="% of Gross" />
-                        <i:TextBoxEx ID="tbPercentageGross"  runat="server" Value='<%# Bind("FractionOfGross") %>'
-                            MaxLength="5" OnDataBinding="tbPercentageGross_DataBinding" FriendlyName="Percentage Gross" 
-                            Visible='<%# Eval("IsDeduction")?? true%>'>
+                       
+                        <eclipse:LeftLabel ID="llPctGross" runat="server" Text="% of Gross" RowVisible='<%# Eval("IsDeduction") ?? true %>'
+                            OnPreRender="llPctGross_PreRender" />
+                        <i:TextBoxEx ID="tbPercentageGross" runat="server" Value='<%# Bind("FractionOfGross") %>'
+                            MaxLength="5" OnDataBinding="tbPercentageGross_DataBinding" FriendlyName="Percentage Gross">
                             <Validators>
                                 <i:Value ValueType="Decimal" Max="100" Min="0" />
                             </Validators>
                         </i:TextBoxEx>
                         <br />
                         % of gross salary.
+                   
                     </eclipse:TwoColumnPanel>
                     <br />
                     <i:ButtonEx runat="server" ID="btnSave" Text="Save" CausesValidation="true" Action="Submit"

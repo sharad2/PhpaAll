@@ -17,6 +17,7 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Database.Payroll;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
+using EclipseLibrary.Web.UI;
 
 namespace Finance.Payroll
 {
@@ -158,7 +159,7 @@ namespace Finance.Payroll
                 TextBoxEx tbFractionOfGross = (TextBoxEx)frmAdjustment.FindControl("tbPercentageGross");
                 if (!string.IsNullOrEmpty(tbFractionOfGross.Text))
                 {
-                    double? fractionGross= Convert.ToDouble(tbFractionOfGross.Value);
+                    double? fractionGross = Convert.ToDouble(tbFractionOfGross.Value);
                     adj.FractionOfGross = fractionGross / 100;
                 }
                 else
@@ -188,6 +189,7 @@ namespace Finance.Payroll
                 tb.Value = Convert.ToString(val * 100);
             }
         }
+
         /// <summary>
         /// Binding Gridview when an item is deleted to refresh it.
         /// </summary>
@@ -216,7 +218,7 @@ namespace Finance.Payroll
                 case DataControlRowType.DataRow:
                     if (_adjustmentID != -1)
                     {
-                        Adjustment adj=(Adjustment)e.Row.DataItem;
+                        Adjustment adj = (Adjustment)e.Row.DataItem;
 
                         if (adj.AdjustmentId == _adjustmentID)
                         {
@@ -239,7 +241,7 @@ namespace Finance.Payroll
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             frmAdjustment.DeleteItem();
-            
+
         }
 
         protected void btnEdit_Click(object sender, EventArgs e)
@@ -261,17 +263,6 @@ namespace Finance.Payroll
             }
         }
 
-        /// <summary>
-        /// Change the mode of the form view from default mode to Insert mode.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnNew_Click(object sender, EventArgs e)
-        {
-            frmAdjustment.ChangeMode(FormViewMode.Insert);
-            dlgEditor.Visible = true;
-        }
-
         protected void btnSave_Click(object sender, EventArgs e)
         {
             switch (frmAdjustment.CurrentMode)
@@ -284,5 +275,42 @@ namespace Finance.Payroll
                     break;
             }
         }
+
+        private bool? m_IsDeduction;
+
+        protected void btnNewAllowance_Click(object sender, EventArgs e)
+        {
+            frmAdjustment.ChangeMode(FormViewMode.Insert);
+            dlgEditor.Visible = true;
+            m_IsDeduction = false;
+        }
+
+        protected void btnNewDeduction_Click(object sender, EventArgs e)
+        {
+            frmAdjustment.ChangeMode(FormViewMode.Insert);
+            dlgEditor.Visible = true;
+            m_IsDeduction = true;
+        }
+
+        protected void rblIsDeduction_PreRender(object sender, EventArgs e)
+        {
+            if (m_IsDeduction.HasValue)
+            {
+                var rbl = (RadioButtonListEx)sender;
+                rbl.Value = m_IsDeduction.Value.ToString();
+            }
+        }
+
+        protected void llPctGross_PreRender(object sender, EventArgs e)
+        {
+            if (m_IsDeduction.HasValue)
+            {
+                var ll = (LeftLabel)sender;
+                ll.RowVisible = m_IsDeduction.Value;
+            }
+        }
+
+
+
     }
 }
