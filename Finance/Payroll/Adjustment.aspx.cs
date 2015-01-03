@@ -234,7 +234,10 @@ namespace Finance.Payroll
         {
             dsSpecificAdjustment.WhereParameters["AdjustmentId"].DefaultValue = gvAdjustments.SelectedDataKey["AdjustmentId"].ToString();
             if (frmAdjustment.CurrentMode == FormViewMode.Insert)
+            {
                 frmAdjustment.ChangeMode(FormViewMode.ReadOnly);
+            }
+            frmAdjustment.DataBind();
             dlgEditor.Visible = true;
         }
 
