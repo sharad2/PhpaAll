@@ -137,8 +137,9 @@
                     </asp:LoginView>
                 </EmptyDataTemplate>
                 <HeaderTemplate>
-                    <phpa:FormViewContextHeader ID="FormViewContextHeader1" runat="server" CurrentEntity='<%# Eval("AdjustmentCode") %>'
-                        EntityName="Adjustment" />
+                    <asp:Literal runat="server" ID="litOperation" OnPreRender="litOperation_PreRender" />
+                    <asp:Literal runat="server" ID="litAdjType" OnPreRender="litAdjType_PreRender">
+                    </asp:Literal>
                 </HeaderTemplate>
                 <ItemTemplate>
                     <jquery:Tabs ID="tabAdjustment" runat="server">
@@ -189,16 +190,17 @@
                     </asp:LoginView>
                 </ItemTemplate>
                 <EditItemTemplate>
+                    <asp:HiddenField runat="server" Value='<%# Bind("IsDeduction") %>' ID="hfIsDeduction" OnPreRender="hfIsDeduction_PreRender" />
                     <eclipse:TwoColumnPanel runat="server">
-                        <eclipse:LeftLabel ID="ctlAdjustmentType" runat="server" Text="Adjustment Type" />
+<%--                        <eclipse:LeftLabel ID="ctlAdjustmentType" runat="server" Text="Adjustment Type" />
                         <i:RadioButtonListEx ID="rblIsDeduction" runat="server" Value='<%# Bind("IsDeduction") %>'
                             Orientation="Horizontal" OnPreRender="rblIsDeduction_PreRender">
                             <Items>
                                 <i:RadioItem Text="&darr; Deduction" Value="True" Enabled="true" />
                                 <i:RadioItem Text="&uarr; Allowance" Value="False" />
                             </Items>
-                        </i:RadioButtonListEx>
-                        <eclipse:LeftLabel runat="server" Text="Adjustment Code" />
+                        </i:RadioButtonListEx>--%>
+                        <eclipse:LeftLabel runat="server" Text="Code" />
                         <i:TextBoxEx ID="tbAdjustmentCode" runat="server" MaxLength="15" Text='<%# Bind("AdjustmentCode") %>'
                             CaseConversion="UpperCase">
                             <Validators>
@@ -207,7 +209,7 @@
                         </i:TextBoxEx>
                         An easy to remember short code which you will use to refer to this adjustment.
                        
-                        <eclipse:LeftLabel runat="server" Text="Adjustment Category" />
+                        <eclipse:LeftLabel runat="server" Text="Category" />
                         <phpa:PhpaLinqDataSource ID="dsAdjustmentCategory" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.Payroll.PayrollDataContext"
                             TableName="AdjustmentCategories" RenderLogVisible="false" OrderBy="ShortDescription" />
                         <i:DropDownListEx runat="server" ID="ddlCategories" Value='<%# Bind("AdjustmentCategoryId") %>'

@@ -292,15 +292,6 @@ namespace Finance.Payroll
             m_IsDeduction = true;
         }
 
-        protected void rblIsDeduction_PreRender(object sender, EventArgs e)
-        {
-            if (m_IsDeduction.HasValue)
-            {
-                var rbl = (RadioButtonListEx)sender;
-                rbl.Value = m_IsDeduction.Value.ToString();
-            }
-        }
-
         protected void llPctGross_PreRender(object sender, EventArgs e)
         {
             if (m_IsDeduction.HasValue)
@@ -310,7 +301,65 @@ namespace Finance.Payroll
             }
         }
 
+        protected void litAdjType_PreRender(object sender, EventArgs e)
+        {
+            var adj = (Adjustment)frmAdjustment.DataItem;
+            if (adj == null && m_IsDeduction == null)
+            {
+                // Nothing to do. Values will be retrieved from view state
+                return;
+            }
+            bool isDed;
+            if (adj == null)
+            {
+                isDed = m_IsDeduction.Value;
+            }
+            else
+            {
+                isDed = adj.IsDeduction;
+            }
+            var lit = (Literal)sender;
+            if (isDed)
+            {
+                lit.Text = "Deduction";
+            }
+            else
+            {
+                lit.Text = "Allowance";
+            }
+        }
 
+        protected void litOperation_PreRender(object sender, EventArgs e)
+        {
+            var lit = (Literal)sender;
+            switch (frmAdjustment.CurrentMode)
+            {
+                case FormViewMode.ReadOnly:
+                    lit.Text = "View";
+                    break;
+
+                case FormViewMode.Edit:
+                    lit.Text = "Edit";
+                    break;
+
+                case FormViewMode.Insert:
+                    lit.Text = "Create";
+                    break;
+
+                default:
+                    throw new NotSupportedException("Form view mode must be in edit, insert or read only");
+
+            }
+        }
+
+        protected void hfIsDeduction_PreRender(object sender, EventArgs e)
+        {
+            if (m_IsDeduction.HasValue)
+            {
+                var hf = (HiddenField)sender;
+                hf.Value = m_IsDeduction.Value.ToString();
+            }
+        }
 
     }
 }
