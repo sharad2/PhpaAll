@@ -80,7 +80,7 @@ Following are the pages:-
 
    In rest scenarios we are able to fix this. We have fixed this issue through .aspx file in the following files 
    # Finance/Payroll/Adjustment.aspx
-   # Finance/Controls/EmployeeAdjustmentEditor.ascx.cs
+   # Finance/Controls/EmployeeAdjustmentEditor.ascx
     
 
 
