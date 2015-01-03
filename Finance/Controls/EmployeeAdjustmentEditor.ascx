@@ -154,7 +154,6 @@
                         </Validators>
                     </i:TextBoxEx>
                     <asp:Label runat="server" Text='<%# (bool)Eval("Adjustment.IsDeduction")? "%" : "Not Allowed"%>'> </asp:Label>
-       
                 </div>
             </EditItemTemplate>
         </asp:TemplateField>
