@@ -261,7 +261,8 @@
                         Its an amount which is fixed and not based on % of basic salary.
                         <eclipse:LeftLabel runat="server" Text="% of Gross" />
                         <i:TextBoxEx ID="tbPercentageGross"  runat="server" Value='<%# Bind("FractionOfGross") %>'
-                            MaxLength="5" OnDataBinding="tbPercentageGross_DataBinding" FriendlyName="Percentage Gross">
+                            MaxLength="5" OnDataBinding="tbPercentageGross_DataBinding" FriendlyName="Percentage Gross" 
+                            Visible='<%# Eval("IsDeduction")?? true%>'>
                             <Validators>
                                 <i:Value ValueType="Decimal" Max="100" Min="0" />
                             </Validators>
