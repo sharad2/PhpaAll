@@ -143,9 +143,9 @@
             </ItemTemplate>
             <EditItemTemplate>
                 <i:CheckBoxEx ID="cbFractionGrossOverrriden" runat="server" Text="Override Default"
-                    Checked='<%# Bind("IsFractionGrossOverridden") %>' OnClientClick="cbFractionGrossOverrriden_Click" />
+                    Checked='<%# Bind("IsFractionGrossOverridden") %>' OnClientClick="cbFractionGrossOverrriden_Click" Visible='<%# Eval("Adjustment.IsDeduction")?? true%>'/>
                 <div style="text-align: left; white-space: nowrap">
-                    <i:TextBoxEx ID="tbFractionOfGross" runat="server" QueryStringValue='<%# Bind("FractionOfGross", "{0}") %>'
+                    <i:TextBoxEx ID="tbFractionOfGross" runat="server" QueryStringValue='<%# Bind("FractionOfGross", "{0}") %>' Visible='<%# Eval("Adjustment.IsDeduction")?? true%>'
                         FriendlyName="Fraction Of Basic" MaxLength="6" ReadOnly='<%# !((bool)Eval("IsFractionGrossOverridden")) %>'
                         OnDataBinding="tbFractionOfGross_DataBinding">
                         <Validators>
@@ -153,8 +153,8 @@
                             <i:Value ValueType="Decimal" Max="100" Min="0" />
                         </Validators>
                     </i:TextBoxEx>
-                    %
-               
+                    <asp:Label runat="server" Text='<%# (bool)Eval("Adjustment.IsDeduction")? "%" : "Not Allowed"%>'> </asp:Label>
+       
                 </div>
             </EditItemTemplate>
         </asp:TemplateField>
