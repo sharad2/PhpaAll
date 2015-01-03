@@ -267,24 +267,24 @@ namespace Finance.Controls
             }
         }
 
-        /// <summary>
-        /// Event will make the textbox readonly as per requirement
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void gvEditEmpAdjustments_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            switch (e.Row.RowState)
-            {
-                case DataControlRowState.Insert:
-                    TextBoxEx tbFlatAmount = (TextBoxEx)e.Row.FindControl("tbFlatAmount");
-                    TextBoxEx tbFractionOfBasic = (TextBoxEx)e.Row.FindControl("tbFractionOfBasic");
-                    tbFlatAmount.ReadOnly = true;
-                    tbFractionOfBasic.ReadOnly = true;
-                    break;
+        ///// <summary>
+        ///// Event will make the textbox readonly as per requirement
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //protected void gvEditEmpAdjustments_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    switch (e.Row.RowState)
+        //    {
+        //        case DataControlRowState.Insert:
+        //            TextBoxEx tbFlatAmount = (TextBoxEx)e.Row.FindControl("tbFlatAmount");
+        //            TextBoxEx tbFractionOfBasic = (TextBoxEx)e.Row.FindControl("tbFractionOfBasic");
+        //            tbFlatAmount.ReadOnly = true;
+        //            tbFractionOfBasic.ReadOnly = true;
+        //            break;
                 
-            }
-        }
+        //    }
+        //}
        
         /// <summary>
         /// Name of the employee for whom we are inserting the first adjustment

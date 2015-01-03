@@ -22,7 +22,7 @@
 </script>
 <phpa:PhpaLinqDataSource ID="dsEditEmpAdjustments" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.Payroll.PayrollDataContext"
     TableName="EmployeeAdjustments" AutoGenerateWhereClause="True" OnSelecting="dsEditEmpAdjustments_Selecting" OnContextCreated="dsEditEmpAdjustments_ContextCreated"
-    RenderLogVisible="False" EnableUpdate="True" EnableDelete="True" EnableInsert="True">
+    RenderLogVisible="False" EnableUpdate="True" EnableDelete="True" EnableInsert="True" OrderBy="Created desc">
     <UpdateParameters>
         <asp:Parameter Type="Decimal" Name="Deductions" />
         <asp:Parameter Type="Boolean" Name="IsFlatAmountOverridden" />
@@ -53,7 +53,7 @@
 <asp:HiddenField runat="server" ID="hdemployeeid" ClientIDMode="Static" />
 <jquery:GridViewExInsert ID="gvEditEmpAdjustments" runat="server" AutoGenerateColumns="False"
     ClientIDMode="Static" EnableViewState="true" DataKeyNames="EmployeeAdjustmentId"
-    OnRowDataBound="gvEditEmpAdjustments_RowDataBound" DataSourceID="dsEditEmpAdjustments"
+    DataSourceID="dsEditEmpAdjustments"
     ShowFooter="false" OnRowUpdated="gvEditEmpAdjustments_RowUpdated" OnRowUpdating="gvEditEmpAdjustments_RowUpdating"
     Width="100%" OnRowDeleted="gvEditEmpAdjustments_RowDeleted" InsertRowsAtBottom="false"
     OnRowInserting="gvEditEmpAdjustments_RowInserting" OnRowInserted="gvEditEmpAdjustments_RowInserted">
@@ -99,6 +99,8 @@
                     </i:TextBoxEx>
                 </div>
             </EditItemTemplate>
+            <InsertItemTemplate>
+            </InsertItemTemplate>
         </asp:TemplateField>
         <asp:TemplateField>
             <HeaderTemplate>
@@ -128,6 +130,8 @@
                
                 </div>
             </EditItemTemplate>
+            <InsertItemTemplate>
+            </InsertItemTemplate>
         </asp:TemplateField>
         <asp:TemplateField>
             <HeaderTemplate>
@@ -143,19 +147,21 @@
             </ItemTemplate>
             <EditItemTemplate>
                 <i:CheckBoxEx ID="cbFractionGrossOverrriden" runat="server" Text="Override Default"
-                    Checked='<%# Bind("IsFractionGrossOverridden") %>' OnClientClick="cbFractionGrossOverrriden_Click" Visible='<%# (bool)Eval("Adjustment.IsDeduction")%>'/>
+                    Checked='<%# Bind("IsFractionGrossOverridden") %>' OnClientClick="cbFractionGrossOverrriden_Click" Visible='<%# (bool)Eval("Adjustment.IsDeduction")%>' />
                 <div style="text-align: left; white-space: nowrap">
                     <i:TextBoxEx ID="tbFractionOfGross" runat="server" QueryStringValue='<%# Bind("FractionOfGross", "{0}") %>' Visible='<%# (bool)Eval("Adjustment.IsDeduction")%>'
-                        FriendlyName="Fraction Of Basic" MaxLength="6" ReadOnly='<%# !((bool)Eval("IsFractionGrossOverridden")) %>'
+                        FriendlyName="Fraction Of Gross" MaxLength="6" ReadOnly='<%# !((bool)Eval("IsFractionGrossOverridden")) %>'
                         OnDataBinding="tbFractionOfGross_DataBinding">
                         <Validators>
                             <i:Required DependsOn="cbFractionGrossOverrriden" DependsOnState="Checked" />
                             <i:Value ValueType="Decimal" Max="100" Min="0" />
                         </Validators>
                     </i:TextBoxEx>
-                    <asp:Label runat="server" Text='<%# (bool)Eval("Adjustment.IsDeduction")? "%" : "Not Allowed"%>'> </asp:Label>
+                    <asp:Label runat="server" Text="%" Visible='<%# (bool)Eval("Adjustment.IsDeduction")%>'> </asp:Label>
                 </div>
             </EditItemTemplate>
+            <InsertItemTemplate>
+            </InsertItemTemplate>
         </asp:TemplateField>
 
         <phpa:BoolField HeaderText="Type" DataField="Adjustment.IsDeduction" TrueValue="Deduction"
@@ -169,6 +175,8 @@
                 <i:TextBoxEx ID="tbComment" runat="server" Text='<%# Bind("Comment")%>' MaxLength="20"
                     Size="10" />
             </EditItemTemplate>
+            <InsertItemTemplate>
+            </InsertItemTemplate>
         </asp:TemplateField>
     </Columns>
     <EmptyDataTemplate>
