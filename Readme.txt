@@ -20,7 +20,7 @@ Need analysis
 
 Database Modifications:-
 =========================
-
+Added a new column MRNumber in the table Payroll.SalaryPeriod of type nvarchar length 50.
 
 ==========================================================================
 
