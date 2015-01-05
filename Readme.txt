@@ -14,12 +14,24 @@ They need this MR number to be entered one time while creating a salary period. 
 
 Impacted Files:-
 ====================
-Need analysis
+#TdsCertificate.aspx
+Populating MR Number column from salaryperiod table.
+
+#TdsCertificate.aspx.cs
+Retreiving MRNumber
+
+#SalaryPeriods.aspx
+Added option to enter MR Number for the salary periods. 
+Made MRNumber option hidden in the case when a new salaryperiod is being created. MRNumber will never get inserted it will always get updated.
+
+#PayrollDataContext.dbml
+Added new column MRNumber in the table SalaryPeriod
 
 ===================================================================
 
 Database Modifications:-
 =========================
+
 Added a new column MRNumber in the table Payroll.SalaryPeriod of type nvarchar length 50.
 
 ==========================================================================
