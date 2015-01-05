@@ -120,11 +120,13 @@ namespace Finance.PIS
                 FirstName = p.FirstName,
                 LastName = p.LastName,
                 FullName = p.FullName,
+                JoiningDate = p.JoiningDate,
                 DateOfNextIncrement = p.ServicePeriods.Max(q => q.DateOfNextIncrement),
                 DateOfRelieve = p.DateOfRelieve
-            }).Where(p => p.DateOfNextIncrement == null && p.DateOfRelieve == null ||( p.DateOfNextIncrement >= DateTime.Today.AddDays(-3) 
-                && p.DateOfNextIncrement < DateTime.Today.AddMonths(2)))
-                        .OrderBy(p => p.DateOfNextIncrement)
+            }).Where(p => p.DateOfRelieve == null && p.JoiningDate.Value.Month == DateTime.Today.Month && p.JoiningDate.Value.Year < DateTime.Today.Year)
+            //}).Where(p => p.DateOfNextIncrement == null && p.DateOfRelieve == null ||( p.DateOfNextIncrement >= DateTime.Today.AddDays(-3) 
+            //    && p.DateOfNextIncrement < DateTime.Today.AddMonths(2)))
+                        .OrderBy(p => p.DateOfNextIncrement ?? p.JoiningDate)
                         .ThenBy(p=> p.FirstName).ThenBy(p=>p.LastName);
             e.Result = queryPromotion;
         }
