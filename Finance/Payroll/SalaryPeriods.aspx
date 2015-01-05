@@ -185,7 +185,7 @@
                                 <asp:Label ID="Label6" runat="server" Text='<%# Eval("PayableDate","{0:d}") %>' />
                                 <eclipse:LeftLabel ID="LeftLabel8" runat="server" Text="Paid Date:" />
                                 <asp:Label runat="server" ID="lblPaidDate" Text='<%# Eval("PaidDate","{0:d}") %>' />
-                                <eclipse:LeftLabel ID="LeftLabel19" runat="server" Text="MR Number:" />
+                                <eclipse:LeftLabel ID="LeftLabel19" runat="server" Text="M.R. Number:" />
                                 <asp:Label runat="server" ID="tbMRNumber" Text='<%# Eval("MRNumber") %>' />
                             </eclipse:TwoColumnPanel>
                         </jquery:JPanel>
@@ -296,9 +296,9 @@
                         <br />
                         List displays only those stations for which you are authorized.
                         <br />
-                        <eclipse:LeftLabel ID="LeftLabel6" runat="server" Text="MR Number" />
+                        <eclipse:LeftLabel ID="LeftLabel6" runat="server" Text="M.R. Number" />
                          <i:TextBoxEx ID="tbMRNumber" runat="server" Text='<%# Bind("MRNumber") %>'
-                            CaseConversion="UpperCase" MaxLength="50" Size="25">
+                            MaxLength="50" Size="25">
                         </i:TextBoxEx>
                     </eclipse:TwoColumnPanel>
                     <i:ButtonEx runat="server" ID="btnSave" Text="Save" CausesValidation="true" Action="Submit"
