@@ -163,12 +163,12 @@ $('#dlgAddEmployee').ajaxDialog('load');
                     <br />
                     Check this to see a list of employees their promotion due in the next 30 days.
                 </eclipse:LeftPanel>
-                <eclipse:LeftPanel runat="server" Span="true">
+<%--                <eclipse:LeftPanel runat="server" Span="true">
                     <i:CheckBoxEx runat="server" ID="cbIncrementdue" Text="Increment due" CheckedValue="1"
                         QueryString="Incrementdue" />
                     <br />
                     Check this to see a list of employees their increment due in the next 30 days.
-                </eclipse:LeftPanel>
+                </eclipse:LeftPanel>--%>
             </eclipse:TwoColumnPanel>
         </jquery:JPanel>
     </jquery:Tabs>

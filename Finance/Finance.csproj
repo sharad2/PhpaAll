@@ -869,13 +869,6 @@
     <Compile Include="PIS\Reports\MedicalAllowance.aspx.designer.cs">
       <DependentUpon>MedicalAllowance.aspx</DependentUpon>
     </Compile>
-    <Compile Include="PIS\Reports\NextIncrementDue.aspx.cs">
-      <DependentUpon>NextIncrementDue.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="PIS\Reports\NextIncrementDue.aspx.designer.cs">
-      <DependentUpon>NextIncrementDue.aspx</DependentUpon>
-    </Compile>
     <Compile Include="PIS\Reports\NextPromotionDue.aspx.cs">
       <DependentUpon>NextPromotionDue.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -945,13 +938,6 @@
     </Compile>
     <Compile Include="PIS\Share\GrantDetails.aspx.designer.cs">
       <DependentUpon>GrantDetails.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="PIS\Share\GrantIncrement.aspx.cs">
-      <DependentUpon>GrantIncrement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="PIS\Share\GrantIncrement.aspx.designer.cs">
-      <DependentUpon>GrantIncrement.aspx</DependentUpon>
     </Compile>
     <Compile Include="PIS\Share\LeaveDetails.aspx.cs">
       <DependentUpon>LeaveDetails.aspx</DependentUpon>
@@ -1785,12 +1771,10 @@
     <Content Include="PIS\Share\GrantPromotion.aspx" />
     <Content Include="PIS\Reports\ACR.aspx" />
     <Content Include="PIS\Reports\ContractEnding.aspx" />
-    <Content Include="PIS\Reports\NextIncrementDue.aspx" />
     <Content Include="PIS\Reports\NextPromotionDue.aspx" />
     <Content Include="PIS\Reports\ProbationEnding.aspx" />
     <Content Include="PIS\Reports\StaffDivisions.aspx" />
     <Content Include="PIS\Share\GrantDetails.aspx" />
-    <Content Include="PIS\Share\GrantIncrement.aspx" />
     <Content Include="PIS\Share\LeaveDetails.aspx" />
     <Content Include="PIS\Share\MedicalDetails.aspx" />
     <Content Include="PIS\Share\QualificationDetails.aspx" />
@@ -1839,7 +1823,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54053</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
