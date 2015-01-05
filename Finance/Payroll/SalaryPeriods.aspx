@@ -296,7 +296,7 @@
                         <br />
                         List displays only those stations for which you are authorized.
                         <br />
-                        <eclipse:LeftLabel ID="LeftLabel6" runat="server" Text="M.R. Number" />
+                        <eclipse:LeftLabel ID="LeftLabel6" runat="server" Text="M.R. Number" RowVisible='<%# Eval("SalaryPeriodCode") ?? false%>' />
                          <i:TextBoxEx ID="tbMRNumber" runat="server" Text='<%# Bind("MRNumber") %>'
                             MaxLength="50" Size="25">
                         </i:TextBoxEx>
