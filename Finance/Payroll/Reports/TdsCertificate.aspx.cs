@@ -59,7 +59,8 @@ namespace Finance.Payroll.Reports
                            IsDeduction = g.Key.IsDeduction,
                            Amount = g.Sum(p => Math.Round(p.Amount ?? 0, MidpointRounding.AwayFromZero)),
                            Date = g.Key.EmployeePeriod.Created,
-                           HeaderSortExpression = g.Key.CategoryId == 0 ? "Z" : catdesc
+                           HeaderSortExpression = g.Key.CategoryId == 0 ? "Z" : catdesc,
+                           MRNumber = g.Key.EmployeePeriod.SalaryPeriod.MRNumber
                        };
             this.Title += string.Format(" From {0:d MMMM yyyy} To {1:d MMMM yyyy}",tbFromDate.ValueAsDate,tbToDate.ValueAsDate);
         }

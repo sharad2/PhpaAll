@@ -125,6 +125,7 @@
       <Column Name="Description" Type="System.String" DbType="NvarChar(50)" CanBeNull="false" UpdateCheck="Always" />
       <Column Name="BankName" Type="System.String" DbType="NvarChar(50)" CanBeNull="true" />
       <Column Name="StationId" Type="System.Int32" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="MRNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Always"/>
       <Association Name="SalaryPeriod_EmployeePeriod" Member="EmployeePeriods" ThisKey="SalaryPeriodId" OtherKey="SalaryPeriodId" Type="EmployeePeriod" />
       <Association Name="Station_SalaryPeriod" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
     </Type>

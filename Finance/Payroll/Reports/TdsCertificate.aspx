@@ -93,7 +93,7 @@
                 <ItemStyle HorizontalAlign="Right" />
                 <FooterStyle HorizontalAlign="Right" />
             </eclipse:MultiBoundField>
-            <eclipse:MultiBoundField HeaderText="M.R. Number / Date" DataFormatString="" />
+            <eclipse:MultiBoundField DataFields="MRNumber" HeaderText="M.R. Number / Date" DataFormatString="{0:N0}"/>
         </Columns>
     </jquery:GridViewEx>
 </asp:Content>
