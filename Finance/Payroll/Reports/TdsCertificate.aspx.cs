@@ -46,7 +46,7 @@ namespace Finance.Payroll.Reports
                                 pea.Adjustment.AdjustmentCategoryId : 0,
                            IsDeduction = pea.Adjustment.IsDeduction
                        } into g
-                       orderby g.Key.EmployeePeriod.SalaryPeriod.SalaryPeriodStart, g.Key.IsDeduction, g.Key.CategoryId
+                       orderby g.Key.EmployeePeriod.SalaryPeriod.SalaryPeriodStart,g.Key.EmployeePeriod.SalaryPeriod.SalaryPeriodCode, g.Key.IsDeduction, g.Key.CategoryId
                        let catdesc = g.Where(p => p.Adjustment.AdjustmentCategoryId == g.Key.CategoryId)
                             .Select(p => p.Adjustment.AdjustmentCategory.ShortDescription).First()
                        select new
