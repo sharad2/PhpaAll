@@ -4,7 +4,6 @@ using System.Configuration;
 using System.Linq;
 using System.Web.Security;
 using Eclipse.PhpaLibrary.Database;
-using System.Web.SessionState;
 
 namespace Eclipse.PhpaLibrary.Web.Providers
 {
@@ -32,12 +31,22 @@ namespace Eclipse.PhpaLibrary.Web.Providers
         {
             using (AuthenticationDataContext ctx = new AuthenticationDataContext(_connectString))
             {
-                var query = (from user in ctx.PhpaUsers
-                             where user.UserName == username &&
-                             user.Password == oldPassword
-                             select user).Single();
-                query.Password = newPassword;
-                ctx.SubmitChanges();
+                try
+                {
+                    var query = (from user in ctx.PhpaUsers
+                                 where user.UserName == username &&
+                                 user.Password == oldPassword
+                                 select user).Single();
+                    query.Password = newPassword;
+                    ctx.SubmitChanges();
+                }
+                catch (InvalidOperationException)
+                {
+                    return false;
+                }
+
+                
+               
                 return true;
             }
         }
@@ -130,12 +139,12 @@ namespace Eclipse.PhpaLibrary.Web.Providers
 
         public override int MinRequiredNonAlphanumericCharacters
         {
-            get { throw new NotImplementedException(); }
+            get { throw new NotImplementedException("MinRequiredNonAlphanumericCharacters"); }
         }
 
         public override int MinRequiredPasswordLength
         {
-            get { throw new NotImplementedException("MinRequiredNonAlphanumericCharacters"); }
+            get { throw new NotImplementedException("MinRequiredPasswordLength"); }
         }
 
         public override int PasswordAttemptWindow
