@@ -50,7 +50,7 @@ Please login with valid credentials.
     <phpa:PhpaLinqDataSource ID="dsAdmins" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.AuthenticationDataContext"
         TableName="PhpaUsers" Where="Roles == @Roles" RenderLogVisible="false">
         <WhereParameters>
-            <asp:Parameter DefaultValue="Executive" Name="Roles" Type="String" />
+            <asp:Parameter DefaultValue="Administrator" Name="Roles" Type="String" />
         </WhereParameters>
     </phpa:PhpaLinqDataSource>
 </asp:Content>
