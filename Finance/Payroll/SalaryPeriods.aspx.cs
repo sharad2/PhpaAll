@@ -60,9 +60,11 @@ namespace Finance.Payroll
         protected void gvSalaryPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
             dsSpecificSalaryPeriod.WhereParameters["SalaryPeriodId"].DefaultValue = gvSalaryPeriod.SelectedDataKey["SalaryPeriodId"].ToString();
-            if (frmSalaryPeriod.CurrentMode == FormViewMode.Insert)
+            if (frmSalaryPeriod.CurrentMode == FormViewMode.Insert) { 
                 frmSalaryPeriod.ChangeMode(FormViewMode.ReadOnly);
+            }
             dlgEditor.Visible = true;
+            frmSalaryPeriod.DataBind();
         }
 
         /// <summary>

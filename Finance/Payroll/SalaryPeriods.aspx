@@ -8,7 +8,7 @@
         function OnSalaryPeriodUpdate(e) {
             var paidDate = $('#tbPaidDate').val();
             if (paidDate != '') {
-                return confirm("Since you are entering Paid Date, furter modifications to this Salary Period will not be Allowed.");
+                return confirm("Since Paid Date has been entered, you will not be able to delete this Salary Period");
             }
             return true;
         }
@@ -296,7 +296,7 @@
                         <br />
                         List displays only those stations for which you are authorized.
                         <br />
-                        <eclipse:LeftLabel ID="LeftLabel6" runat="server" Text="M.R. Number" RowVisible='<%# Eval("SalaryPeriodCode") != null%>' />
+                        <eclipse:LeftLabel ID="LeftLabel6" runat="server" Text="M.R. Number" />
                          <i:TextBoxEx ID="tbMRNumber" runat="server" Text='<%# Bind("MRNumber") %>'
                             MaxLength="50" Size="25">
                         </i:TextBoxEx>

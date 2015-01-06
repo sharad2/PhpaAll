@@ -37,5 +37,10 @@ Added a new column MRNumber in the table Payroll.SalaryPeriod of type nvarchar l
 ==========================================================================
 
 
+Meeting Notes:-
+Display MR Number in the main screen of SalaryPeriod.
+Explain MR Number in the UI.
+
+
 
 
