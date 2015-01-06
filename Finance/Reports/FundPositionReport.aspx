@@ -51,7 +51,7 @@
         }
 
         .lblExpenditureCurrentMonth {
-            padding-left: 100mm;
+            padding-left: 50mm;
         }
     </style>
 </asp:Content>
@@ -79,8 +79,8 @@
     <br />
     <br />
     <br />
-    <table rules="all" cellpadding="4mm" class="MainTable" width="1000px" height="100px">
-        <caption align="right">All Figures in Million Rs/Nu</caption>
+    <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
+        <caption style="text-align: right; font-weight: bold; font-size: 1.2em">All Figures in Million Rs/Nu</caption>
         <thead class="ui-state-default">
             <tr class="RowHeader">
                 <th align="center" rowspan="3" width="50px"><strong>I</strong></th>
@@ -101,13 +101,13 @@
                 </td>
                 <td class="vd-amountcol">
                     <asp:HyperLink ID="hplnkGOIAidPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
-                        NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=GRANT_RECEIVED_GOINU,LOAN_RECEIVED_GOINU&DateTo={3:d}"
+                        NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=GRANT_RECEIVED_GOINU&DateTo={3:d}"
                         EnableViewState="false" />
                 </td>
 
                 <td class="vd-amountcol">
                     <asp:HyperLink ID="hplnkGOIAidUptoMonth" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency from financial year start till input month"
-                        EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=GRANT_RECEIVED_GOINU,LOAN_RECEIVED_GOINU&DateFrom={0:d}&DateTo={2:d}" />
+                        EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=GRANT_RECEIVED_GOINU&DateFrom={0:d}&DateTo={2:d}" />
                 </td>
                 <td class="vd-amountcol">
                     <asp:Label ID="lblGOIAidsum" runat="server" ToolTip="Funds Received from Government of India in local currency till date" EnableViewState="false" />
@@ -259,7 +259,7 @@
     <br />
     <br />
     <span style="font-weight: bold;">VII Detail of Expenditure</span>
-    <table rules="all" cellpadding="4mm" class="MainTable" width="1000px" height="100px">
+    <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
         <thead class="ui-state-default">
             <tr class="RowHeader">
                 <th align="center" rowspan="2" width="50px"><strong></strong></th>
@@ -378,7 +378,7 @@
     <br />
     <br />
     <br />
-    <span style="font-weight: bold;">
+    <span style="font-weight: bolder; font-size: 1.2em; width: 1000px">
         <asp:Literal ID="ltrlCurrentMonth" runat="server"></asp:Literal>
         <asp:Label ID="lblExpenditureCurrentmonth" runat="server" EnableViewState="false" SumType="PaymentsForMonth" CssClass="lblExpenditureCurrentMonth"
             OnPreRender="lblExpenditureCurrentmonth_PreRenderShowSum" /></span>
@@ -387,7 +387,7 @@
     <br />
     <span style="font-weight: bold;">VIII Detail of Balance Fund(Including Other receipts fund)</span>
     <div id="divBankAccount" runat="server">
-        <jquery:GridViewEx ID="grvBankAccount" runat="server" AutoGenerateColumns="false" OnRowDataBound="grvBankAccount_RowDataBound" ShowFooter="true" Width="1000px" Height="100px">
+        <jquery:GridViewEx ID="grvBankAccount" runat="server" AutoGenerateColumns="false" OnRowDataBound="grvBankAccount_RowDataBound" ShowFooter="true" Width="1000px">
             <Columns>
                 <eclipse:MultiBoundField DataFields="BankHead" HeaderText="Bank Head" AccessibleHeaderText="AccountHead" Visible="false"></eclipse:MultiBoundField>
                 <eclipse:MultiBoundField DataFields="BankName" HeaderText="Name Of The Account" AccessibleHeaderText="AccountName" ItemStyle-Width="800px">
@@ -404,7 +404,7 @@
     <br />
     <div id="divdiff" runat="server">
         <table rules="all" cellpadding="4mm" class="MainTable" width="1000px"
-            height="100px">
+            >
             <thead class="ui-state-default">
                 <tr class="RowHeader">
                     <th align="center"><strong>Name of the receipts</strong></th>
@@ -412,10 +412,10 @@
                 </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr class="AlternatingRow">
                 <td>
                     <asp:Label ID="lbltotfund" runat="server" Text="Total Fund Received from GOI"></asp:Label></td>
-                <td>
+                <td class="vd-amountcol">
                     <asp:Label ID="Label2" runat="server"
                         EnableViewState="false" SumType="FundSum"
                         OnPreRender="lbl_PreRenderShowSum" /></td>
@@ -424,7 +424,7 @@
                 <td>
                     <asp:Label ID="lblexp" runat="server"
                         Text="Total Expenditure"></asp:Label></td>
-                <td>
+                <td class="vd-amountcol">
                     <asp:Label ID="Label3" runat="server"
                         EnableViewState="false"
                         OnPreRender="lbl_PreRenderShowSum"
@@ -432,10 +432,10 @@
             </tr></tbody>
             <tfoot>
             <tr class="RowHeader ui-state-active ui-widget-header">
-                <td><b>
+                <td align="right"><b>
                     <asp:Label ID="lbldiff" runat="server"
                         Text="Balance Fund"></asp:Label></b></td>
-                <td>
+                <td class="vd-amountcol">
                     <asp:Label ID="lblDifference" runat="server"
                         EnableViewState="false"
                         OnPreRender="lblDifference_PreRender" /></td>
