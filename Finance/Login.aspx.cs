@@ -62,6 +62,7 @@ namespace Finance
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
+
             if (Membership.ValidateUser(tbUserName.Text, tbPassword.Text))
             {
                
@@ -75,64 +76,71 @@ namespace Finance
         
         protected void btnSavePassword_Click(object sender, EventArgs e)
         {
-            SqlConnection connection = new SqlConnection(ReportingUtilities.DefaultConnectString);
-            string strUserName = null;
-            string strCurrentPassword = null;  
-            try
+            // The user must be logged in
+            var user = Membership.GetUser(tbCPUserName.Text);
+            var success = user.ChangePassword(tbCurrentpassword.Text, tbNewPassword.Text);
+            if (!success)
             {
-                connection.Open();
-                SqlDataAdapter da = new SqlDataAdapter("select * from PhpaUser where username='" + tbCPUserName.Text + "'", connection);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
-                connection.Close();
-                strUserName = ds.Tables[0].Rows[0][1].ToString();
-                strCurrentPassword = ds.Tables[0].Rows[0][2].ToString();
+                throw new NotImplementedException("Password change failed. Please re-enter your values and try again.");
+            }
+            //SqlConnection connection = new SqlConnection(ReportingUtilities.DefaultConnectString);
+            //string strUserName = null;
+            //string strCurrentPassword = null;  
+            //try
+            //{
+            //    connection.Open();
+            //    SqlDataAdapter da = new SqlDataAdapter("select * from PhpaUser where username='" + tbCPUserName.Text + "'", connection);
+            //    DataSet ds = new DataSet();
+            //    da.Fill(ds);
+            //    connection.Close();
+            //    strUserName = ds.Tables[0].Rows[0][1].ToString();
+            //    strCurrentPassword = ds.Tables[0].Rows[0][2].ToString();
                
-                if (strCurrentPassword.CompareTo(tbCurrentpassword.Text) == 0)
-                {
-                    if (tbNewPassword.Text.CompareTo(tbConfirmPassword.Text) == 0)
-                    {
-                        connection.Open();
-                        SqlCommand cmd = new SqlCommand("update PhpaUser set password='" + tbNewPassword.Text + "' where username='" + tbCPUserName.Text + "'");
-                        cmd.Connection = connection;
-                        int querystatus = cmd.ExecuteNonQuery();
-                        if (querystatus > 0)
-                        {
-                            lblMsg.ForeColor = System.Drawing.Color.Green;
-                            lblMsg.Text = "Password updated successfully";
-                        }
-                        else
-                        {
-                            lblMsg.ForeColor = System.Drawing.Color.Red;
-                            lblMsg.Text = "Password updation faliure. Please try again.";
-                        }
-                    }
-                    else
-                    {
-                        lblMsg.ForeColor = System.Drawing.Color.Red;
-                        lblMsg.Text = "Failed Password Confirmation";
-                    }
-                }
-                else
-                {
-                    lblMsg.ForeColor = System.Drawing.Color.Red;
-                    lblMsg.Text = "Current password is incorrect";
-                    tbCurrentpassword.Focus();
-                }
-                connection.Close();
-            }
-            // TODO: 
-            catch {
-                connection.Close();
-                lblMsg.ForeColor = System.Drawing.Color.Red;
-                if (string.IsNullOrEmpty(strUserName))
-                {
-                    lblMsg.Text = "Please enter a valid user name.";
-                    tbCPUserName.Focus();
-                    return;
-                }
-                lblMsg.Text = "Some problem occur. Please start again.";
-            }
+            //    if (strCurrentPassword.CompareTo(tbCurrentpassword.Text) == 0)
+            //    {
+            //        if (tbNewPassword.Text.CompareTo(tbConfirmPassword.Text) == 0)
+            //        {
+            //            connection.Open();
+            //            SqlCommand cmd = new SqlCommand("update PhpaUser set password='" + tbNewPassword.Text + "' where username='" + tbCPUserName.Text + "'");
+            //            cmd.Connection = connection;
+            //            int querystatus = cmd.ExecuteNonQuery();
+            //            if (querystatus > 0)
+            //            {
+            //                lblMsg.ForeColor = System.Drawing.Color.Green;
+            //                lblMsg.Text = "Password updated successfully";
+            //            }
+            //            else
+            //            {
+            //                lblMsg.ForeColor = System.Drawing.Color.Red;
+            //                lblMsg.Text = "Password updation faliure. Please try again.";
+            //            }
+            //        }
+            //        else
+            //        {
+            //            lblMsg.ForeColor = System.Drawing.Color.Red;
+            //            lblMsg.Text = "Failed Password Confirmation";
+            //        }
+            //    }
+            //    else
+            //    {
+            //        lblMsg.ForeColor = System.Drawing.Color.Red;
+            //        lblMsg.Text = "Current password is incorrect";
+            //        tbCurrentpassword.Focus();
+            //    }
+            //    connection.Close();
+            //}
+            //// TODO: 
+            //catch {
+            //    connection.Close();
+            //    lblMsg.ForeColor = System.Drawing.Color.Red;
+            //    if (string.IsNullOrEmpty(strUserName))
+            //    {
+            //        lblMsg.Text = "Please enter a valid user name.";
+            //        tbCPUserName.Focus();
+            //        return;
+            //    }
+            //    lblMsg.Text = "Some problem occur. Please start again.";
+            //}
         }
 
 

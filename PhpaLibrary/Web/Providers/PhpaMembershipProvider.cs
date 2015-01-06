@@ -8,7 +8,7 @@ using System.Web.SessionState;
 
 namespace Eclipse.PhpaLibrary.Web.Providers
 {
-    public class PhpaMembershipProvider:MembershipProvider
+    public class PhpaMembershipProvider : MembershipProvider
     {
         public PhpaMembershipProvider()
         {
@@ -30,7 +30,16 @@ namespace Eclipse.PhpaLibrary.Web.Providers
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            throw new NotImplementedException("ChangePassword");
+            using (AuthenticationDataContext ctx = new AuthenticationDataContext(_connectString))
+            {
+                var query = (from user in ctx.PhpaUsers
+                             where user.UserName == username &&
+                             user.Password == oldPassword
+                             select user).Single();
+                query.Password = newPassword;
+                ctx.SubmitChanges();
+                return true;
+            }
         }
 
         public override bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion, string newPasswordAnswer)
@@ -83,8 +92,24 @@ namespace Eclipse.PhpaLibrary.Web.Providers
             throw new NotImplementedException("GetPassword");
         }
 
+        /// <summary>
+        /// Implemented this for Change password feature
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="userIsOnline"></param>
+        /// <returns></returns>
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
+            using (AuthenticationDataContext ctx = new AuthenticationDataContext(_connectString))
+            {
+                var query = (from user in ctx.PhpaUsers
+                             where user.UserName == username
+                             select new MembershipUser(this.Name, username, user.UserId, null, null, user.AdminComment, true, false,
+                                 user.Created ?? DateTime.Today, DateTime.Today, DateTime.Today, DateTime.Today, DateTime.Today)).SingleOrDefault();
+                return query;
+            }
+
+
             throw new NotImplementedException("GetUser");
         }
 
