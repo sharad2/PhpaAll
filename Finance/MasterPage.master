@@ -30,8 +30,11 @@
                         </asp:HyperLink>
                     </AnonymousTemplate>
                     <LoggedInTemplate>
+                        <asp:HyperLink runat="server" NavigateUrl="~/Admin/ChangePassword.aspx">
                         Welcome
                         <%= this.Page.User.Identity.Name %>
+
+                        </asp:HyperLink>
                         <b>|</b>
                         <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect" LogoutPageUrl="~/default.aspx" />
                     </LoggedInTemplate>
@@ -93,19 +96,21 @@
                 <div class="ui-helper-clearfix">
                 </div>
                 <form id="form1" runat="server">
-                <div>
-                    <asp:ContentPlaceHolder ID="cph" runat="server" />
-                </div>
+                    <div>
+                        <asp:ContentPlaceHolder ID="cph" runat="server" />
+                    </div>
                 </form>
                 <asp:ContentPlaceHolder ID="cphNoForm" runat="server" />
             </div>
         </div>
-        
+
         <div id="divUserId" class="ui-helper-hidden">
-            <b>Printed By=<%=this.Page.User.Identity.Name %></b></div>
+            <b>Printed By=<%=this.Page.User.Identity.Name %></b>
+        </div>
         <div id="footer" runat="server" class="footer">
             Copyright &#169; 2012 <a href="http://www.eclsys.com">Eclipse Systems Private Limited</a>.
-            All Rights Reserved.</div>
+            All Rights Reserved.
+        </div>
     </div>
 </body>
 </html>

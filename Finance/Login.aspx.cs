@@ -14,14 +14,12 @@
  * PVCS Template Added.
  */
 using System;
-using System.Web.UI;
 using System.Web.Security;
 using Eclipse.PhpaLibrary.Web;
 using System.Web;
-using System.Linq;
-using Eclipse.PhpaLibrary.Database;
 using Eclipse.PhpaLibrary.Reporting;
-using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace Finance
 {
@@ -64,6 +62,7 @@ namespace Finance
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
+
             if (Membership.ValidateUser(tbUserName.Text, tbPassword.Text))
             {
                
@@ -74,6 +73,5 @@ namespace Finance
                 valSummary.ErrorMessages.Add("Your login request was not successful. Please try again.");
             }
         }
-
     }
 }

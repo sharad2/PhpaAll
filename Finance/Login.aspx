@@ -2,9 +2,11 @@
 
 <%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="Login.aspx.cs"
     Inherits="Finance.Login" Title="PHPA Login" EnableViewState="false" %>
-    <asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">
-       <br /><asp:HyperLink ID="HyperLink2" runat="server" Text="Help" NavigateUrl="~/Doc/Login.doc.aspx" /><br/> 
-    </asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">
+    <br />
+    <asp:HyperLink ID="HyperLink2" runat="server" Text="Help" NavigateUrl="~/Doc/Login.doc.aspx" /><br />
+</asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph" runat="server">
     <asp:Label runat="server" ID="lblWelcome" CssClass="ui-state-highlight" Visible="false">
 You are not authorized to view the page <em>{0}</em>. 
@@ -18,14 +20,15 @@ Please login with valid credentials.
             </Validators>
         </i:TextBoxEx>
         <eclipse:LeftLabel runat="server" Text="Password" />
-        <i:TextBoxEx ID="tbPassword" runat="server" CaseConversion="Password" MaxLength="15"
+        <i:TextBoxEx ID="tbPassword" runat="server"  CaseConversion="Password" MaxLength="15"
             FriendlyName="Password">
             <Validators>
                 <i:Required />
             </Validators>
-        </i:TextBoxEx><br />
+        </i:TextBoxEx>
+        <br />
         <eclipse:LeftPanel runat="server">
-            <i:CheckBoxEx runat="server" ID="cbRememberMe" Text="Remember me on this computer" Visible="true"  />
+            <i:CheckBoxEx runat="server" ID="cbRememberMe" Text="Remember me on this computer" Visible="true" />
         </eclipse:LeftPanel>
         <i:ButtonEx ID="btnLogin" runat="server" Text="Log In" Action="Submit" CausesValidation="true"
             OnClick="btnLogin_Click" />
