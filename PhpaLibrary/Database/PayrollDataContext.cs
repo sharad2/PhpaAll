@@ -196,6 +196,10 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
             //EmployeePeriod ep = new EmployeePeriod();
             this.BasicPay = emp.BasicSalary;
             this.EmployeeId = emp.EmployeeId;
+            this.BankId = emp.BankId;
+            this.BankAccountNo = emp.BankAccountNo;
+            this.Designation = emp.Designation;
+
             foreach (EmployeeAdjustment empadj in emp.EmployeeAdjustments)
             {
                 PeriodEmployeeAdjustment pea = new PeriodEmployeeAdjustment();

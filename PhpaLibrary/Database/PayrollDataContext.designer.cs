@@ -3807,6 +3807,8 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 		private int _EmployeeId;
 		
 		private int _SalaryPeriodId;
+
+        private string _Designation;
 		
 		private System.Nullable<decimal> _BasicPay;
 		
@@ -3828,11 +3830,17 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 		
 		private System.Nullable<int> _VoucherId;
 		
+		private System.Nullable<int> _BankId;
+		
+		private string _BankAccountNo;
+		
 		private EntitySet<PeriodEmployeeAdjustment> _PeriodEmployeeAdjustments;
 		
 		private EntityRef<Employee> _Employee;
 		
 		private EntityRef<SalaryPeriod> _SalaryPeriod;
+		
+		private EntityRef<Bank> _Bank;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -3864,6 +3872,13 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
     partial void OnVersionChanged();
     partial void OnVoucherIdChanging(System.Nullable<int> value);
     partial void OnVoucherIdChanged();
+    partial void OnBankIdChanging(System.Nullable<int> value);
+    partial void OnBankIdChanged();
+    partial void OnBankAccountNoChanging(string value);
+    partial void OnBankAccountNoChanged();
+    partial void OnDesignationChanging(string value);
+    partial void OnDesignationChanged();
+
     #endregion
 		
 		public EmployeePeriod()
@@ -3871,6 +3886,7 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 			this._PeriodEmployeeAdjustments = new EntitySet<PeriodEmployeeAdjustment>(new Action<PeriodEmployeeAdjustment>(this.attach_PeriodEmployeeAdjustments), new Action<PeriodEmployeeAdjustment>(this.detach_PeriodEmployeeAdjustments));
 			this._Employee = default(EntityRef<Employee>);
 			this._SalaryPeriod = default(EntityRef<SalaryPeriod>);
+			this._Bank = default(EntityRef<Bank>);
 			OnCreated();
 		}
 		
@@ -4142,6 +4158,70 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BankId")]
+		public System.Nullable<int> BankId
+		{
+			get
+			{
+				return this._BankId;
+			}
+			set
+			{
+				if ((this._BankId != value))
+				{
+					if (this._Bank.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnBankIdChanging(value);
+					this.SendPropertyChanging();
+					this._BankId = value;
+					this.SendPropertyChanged("BankId");
+					this.OnBankIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BankAccountNo")]
+		public string BankAccountNo
+		{
+			get
+			{
+				return this._BankAccountNo;
+			}
+			set
+			{
+				if ((this._BankAccountNo != value))
+				{
+					this.OnBankAccountNoChanging(value);
+					this.SendPropertyChanging();
+					this._BankAccountNo = value;
+					this.SendPropertyChanged("BankAccountNo");
+					this.OnBankAccountNoChanged();
+				}
+			}
+		}
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Designation")]
+        public string Designation
+        {
+            get
+            {
+                return this._Designation;
+            }
+            set
+            {
+                if ((this._Designation != value))
+                {
+                    this.OnDesignationChanging(value);
+                    this.SendPropertyChanging();
+                    this._Designation = value;
+                    this.SendPropertyChanged("Designation");
+                    this.OnDesignationChanged();
+                }
+            }
+        }
+
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="EmployeePeriod_PeriodEmployeeAdjustment", Storage="_PeriodEmployeeAdjustments", ThisKey="EmployeePeriodId", OtherKey="EmployeePeriodId")]
 		public EntitySet<PeriodEmployeeAdjustment> PeriodEmployeeAdjustments
 		{
@@ -4219,6 +4299,40 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 						this._SalaryPeriodId = default(int);
 					}
 					this.SendPropertyChanged("SalaryPeriod");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Bank_EmployeePeriod", Storage="_Bank", ThisKey="BankId", OtherKey="BankId", IsForeignKey=true)]
+		public Bank Bank
+		{
+			get
+			{
+				return this._Bank.Entity;
+			}
+			set
+			{
+				Bank previousValue = this._Bank.Entity;
+				if (((previousValue != value) 
+							|| (this._Bank.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Bank.Entity = null;
+						previousValue.EmployeePeriods.Remove(this);
+					}
+					this._Bank.Entity = value;
+					if ((value != null))
+					{
+						value.EmployeePeriods.Add(this);
+						this._BankId = value.BankId;
+					}
+					else
+					{
+						this._BankId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Bank");
 				}
 			}
 		}
@@ -5836,6 +5950,8 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 		
 		private EntitySet<Employee> _Employees;
 		
+		private EntitySet<EmployeePeriod> _EmployeePeriods;
+		
 		private EntityRef<Station> _Station;
 		
     #region Extensibility Method Definitions
@@ -5869,6 +5985,7 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 		public Bank()
 		{
 			this._Employees = new EntitySet<Employee>(new Action<Employee>(this.attach_Employees), new Action<Employee>(this.detach_Employees));
+			this._EmployeePeriods = new EntitySet<EmployeePeriod>(new Action<EmployeePeriod>(this.attach_EmployeePeriods), new Action<EmployeePeriod>(this.detach_EmployeePeriods));
 			this._Station = default(EntityRef<Station>);
 			OnCreated();
 		}
@@ -6110,6 +6227,19 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Bank_EmployeePeriod", Storage="_EmployeePeriods", ThisKey="BankId", OtherKey="BankId")]
+		public EntitySet<EmployeePeriod> EmployeePeriods
+		{
+			get
+			{
+				return this._EmployeePeriods;
+			}
+			set
+			{
+				this._EmployeePeriods.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_Bank", Storage="_Station", ThisKey="StationId", OtherKey="StationId", IsForeignKey=true)]
 		public Station Station
 		{
@@ -6171,6 +6301,18 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 		}
 		
 		private void detach_Employees(Employee entity)
+		{
+			this.SendPropertyChanging();
+			entity.Bank = null;
+		}
+		
+		private void attach_EmployeePeriods(EmployeePeriod entity)
+		{
+			this.SendPropertyChanging();
+			entity.Bank = this;
+		}
+		
+		private void detach_EmployeePeriods(EmployeePeriod entity)
 		{
 			this.SendPropertyChanging();
 			entity.Bank = null;

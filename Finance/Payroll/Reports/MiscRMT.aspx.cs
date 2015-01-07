@@ -58,11 +58,11 @@ namespace Finance.Payroll.Reports
                             AdjustmentCode = g.Key.Adjustment.AdjustmentCode,
                             EmpCode = g.Key.Employee.EmployeeCode,
                             Name = g.Key.Employee.FullName,
-                            Designation = g.Key.Employee.Designation,
+                            Designation = g.Max(p => p.EmployeePeriod.Designation ?? p.EmployeePeriod.Employee.Designation),
                             FromDate = g.Min(p => p.EmployeePeriod.SalaryPeriod.SalaryPeriodStart),
                             ToDate = g.Max(p => p.EmployeePeriod.SalaryPeriod.SalaryPeriodEnd),
                             Amount = g.Sum(p => p.Amount),
-                            BankId = g.Max(p => p.EmployeePeriod.Employee.Bank.BankId)
+                            BankId = g.Max(p => p.EmployeePeriod.BankId ?? p.EmployeePeriod.Employee.BankId)
                         };
             query = query.Where(p=>p.AdjustmentCode=="FFCLUB");
             if (!string.IsNullOrEmpty(ddlBankName.Value))

@@ -176,9 +176,12 @@
       <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
       <Column Name="VoucherId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BankId" Type="System.Int32" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="BankAccountNo" Type="System.String" CanBeNull="true" UpdateCheck="Always" />
       <Association Name="EmployeePeriod_PeriodEmployeeAdjustment" Member="PeriodEmployeeAdjustments" ThisKey="EmployeePeriodId" OtherKey="EmployeePeriodId" Type="PeriodEmployeeAdjustment" />
       <Association Name="Employee_EmployeePeriod" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
       <Association Name="SalaryPeriod_EmployeePeriod" Member="SalaryPeriod" ThisKey="SalaryPeriodId" OtherKey="SalaryPeriodId" Type="SalaryPeriod" IsForeignKey="true" />
+      <Association Name="Bank_EmployeePeriod" Member="Bank" ThisKey="BankId" OtherKey="BankId" Type="Bank" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="payroll.EmployeeType" Member="EmployeeTypes">
@@ -278,6 +281,7 @@
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
       <Column Name="StationId" Type="System.Int32" CanBeNull="true" UpdateCheck="Always" />
       <Association Name="Bank_Employee" Member="Employees" ThisKey="BankId" OtherKey="BankId" Type="Employee" />
+      <Association Name="Bank_EmployeePeriod" Member="EmployeePeriods" ThisKey="BankId" OtherKey="BankId" Type="EmployeePeriod" />
       <Association Name="Station_Bank" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
     </Type>
   </Table>

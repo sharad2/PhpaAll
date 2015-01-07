@@ -141,10 +141,15 @@
                 SortExpression="Employee.EmployeeCode" />
             <eclipse:MultiBoundField DataFields="Employee.FullName" HeaderText="Employee|Name"
                 AccessibleHeaderText="Employee" SortExpression="Employee.FirstName" />
-            <eclipse:MultiBoundField DataFields="Employee.Designation" HeaderText="Designation" />
+            <asp:TemplateField HeaderText="Designation">
+            <ItemStyle HorizontalAlign="Left" />
+            <ItemTemplate>
+                <asp:Label runat="server" Text='<%# Eval("Designation") != null ? Eval("Designation") : Eval("Employee.Designation")%>' />
+            </ItemTemplate>
+        </asp:TemplateField>
             <eclipse:MultiBoundField DataFields="Employee.CitizenCardNo" HeaderText="Citizen Card No." />
-            <eclipse:MultiBoundField DataFields="Employee.Bank.BankName" HeaderText="Bank" AccessibleHeaderText="Bank"
-                FooterText="Total" />
+            <eclipse:MultiBoundField DataFields="Bank.BankName" HeaderText="Bank" AccessibleHeaderText="Bank"
+                 />
             <eclipse:MultiBoundField SortExpression="BasicPay" AccessibleHeaderText="BasicPay"
                 DataFields="BasicPay" HeaderText="Basic Salary" DataFormatString="{0:N0}">
                 <FooterStyle HorizontalAlign="Right" CssClass="noprint"></FooterStyle>
@@ -187,8 +192,12 @@
                 </FooterTemplate>
                 <FooterStyle HorizontalAlign="Right" />
             </asp:TemplateField>
-            <eclipse:MultiBoundField DataFields="Employee.BankAccountNo" HeaderText="Bank A/C No."
-                SortExpression="Employee.BankAccountNo" ItemStyle-HorizontalAlign="Center" />
+             <asp:TemplateField HeaderText="Bank A/C No.">
+            <ItemStyle HorizontalAlign="Left" />
+            <ItemTemplate>
+                <asp:Label runat="server" Text='<%# Eval("BankAccountNo") != null ? Eval("BankAccountNo") : Eval("Employee.BankAccountNo")%>' />
+            </ItemTemplate>
+        </asp:TemplateField>
         </Columns>
     </jquery:GridViewEx>
     <br /><br />
