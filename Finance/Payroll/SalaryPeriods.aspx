@@ -131,6 +131,7 @@
                     <asp:Parameter Name="PaidDate" Type="DateTime" />
                     <asp:Parameter Name="StationId" Type="Int32" ConvertEmptyStringToNull="true" />
                     <asp:Parameter Name="MRNumber" Type="String" ConvertEmptyStringToNull="true" />
+                    <asp:Parameter Name="MRNumberDate" Type="DateTime" />
                 </InsertParameters>
                 <WhereParameters>
                     <asp:Parameter Name="SalaryPeriodId" Type="Int32" />
