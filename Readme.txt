@@ -32,14 +32,14 @@ Added new column MRNumber in the table SalaryPeriod
 Database Modifications:-
 =========================
 
-Added a new column MRNumber in the table Payroll.SalaryPeriod of type nvarchar length 50.
+Added a new columns MRNumber and MRNumberDate in the table Payroll.SalaryPeriod of type nvarchar length 50.
 
 ==========================================================================
 
 
 Meeting Notes:-
-Display MR Number in the main screen of SalaryPeriod.
-Explain MR Number in the UI.
+Display MR Number in the main screen of SalaryPeriod. => Done
+Explain MR Number in the UI. => Done
 
 
 

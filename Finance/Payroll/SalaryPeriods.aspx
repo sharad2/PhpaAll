@@ -308,6 +308,8 @@
                          <i:TextBoxEx ID="tbMRNumber" runat="server" Text='<%# Bind("MRNumber") %>'
                             MaxLength="50" Size="25">
                         </i:TextBoxEx>
+                        <br />
+                        Enter M. R. Number received from the Bank.
                         <eclipse:LeftLabel ID="LeftLabel17" runat="server" Text="M.R. Number Date" />
                         <i:TextBoxEx ID="tbMRNumberDate" runat="server" FriendlyName="M.R. Number Date" QueryStringValue='<%# Bind("MRNumberDate", "{0:d}") %>'
                             ClientIDMode="Static">
@@ -315,6 +317,8 @@
                                 <i:Date DateType="ToDate" AssociatedControlID="tbFromDateEdit" />
                             </Validators>
                         </i:TextBoxEx>
+                        <br />
+                        Enter date on which you have received the M. R. Number.
                     </eclipse:TwoColumnPanel>
                     <i:ButtonEx runat="server" ID="btnSave" Text="Save" CausesValidation="true" Action="Submit"
                         Icon="Disk" OnClick="btnSave_Click" OnClientClick="OnSalaryPeriodUpdate" />
