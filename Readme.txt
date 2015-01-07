@@ -1,3 +1,11 @@
+Following Features have been incorporated in the master:-
+1.  1% Health Contribution 
+2.  Reset Password
+3.  Assign M.R. Number and Date
+4.  Bank Freeze
+5.  Reset end date
+
+
 #1 Feature :- auto_assign_mr_number
 =======================
 
