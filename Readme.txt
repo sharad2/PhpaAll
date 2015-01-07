@@ -1,4 +1,4 @@
-Feature :- auto_assign_mr_number
+#1 Feature :- auto_assign_mr_number
 =======================
 
 
@@ -42,11 +42,9 @@ Display MR Number in the main screen of SalaryPeriod. => Done
 Explain MR Number in the UI. => Done
 
 
+#################################################################################################
 
-
-Feature :- Reset_End_date
-
-
+#2 Feature :- Reset_End_date
 ===============================
 Customer Requirement :-
 
@@ -76,7 +74,11 @@ NA
 This feature has been tested and approved by the end user. Currently we have given this feature in the PHPA test server so that users can regress test this change.
 
 Feature is Done and ready to merge in the master.
-Feature :- Bank Freeze
+
+################################################################################################
+
+
+# 3 Feature :- Bank Freeze
 =======================
 
 
@@ -156,13 +158,12 @@ This change has been demonstrated to the end users and they have given their app
 
 As we are now displaying BankName, Designation and account number from table employee in the case where these information are not avaliable in the table employeeperiod. This is creating confusions to end users.
 
+#########################################################################################
 
 
+# 4 Feature :- Health Contribution 
+==================================
 
-Feature :- Health Contribution 
-
-
-===============================
 Customer Requirement :-
 
 The recovery of Health Contribution should always be 1% of total sanction.  At present whenever the total sanction changes, we are calculating this manually and feeding. Please make this 1 % at back end itself for all Contract employees n secondment employees.  NOT FOR DEPUTATIONISTS
@@ -244,10 +245,10 @@ Following are the pages:-
    # Finance/Controls/EmployeeAdjustmentEditor.ascx
     
 
+####################################################################################################
 
 
-
-Feature :- Reset Password
+#5 Feature :- Reset Password
 =======================
 
 
