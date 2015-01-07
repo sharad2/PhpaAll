@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ChangePassword.aspx.cs" Title="Change Password" Inherits="Finance.Admin.ChangePassword" MasterPageFile="~/MasterPage.master" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="cph" runat="server">
- 
     <asp:ChangePassword 
         runat="server" 
         BackColor="WhiteSmoke"
@@ -19,6 +18,9 @@
         FailureTextStyle-ForeColor="Red" 
         FailureTextStyle-Font-Bold="true" 
         FailureTextStyle-Font-Italic="true" 
-        BorderPadding="10" >
+        BorderPadding="10"
+        >
     </asp:ChangePassword>
+    <br />
+    New password must be at least 7 charactor long.
 </asp:Content>
