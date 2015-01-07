@@ -2733,6 +2733,8 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 		
 		private string _MRNumber;
 		
+		private System.Nullable<System.DateTime> _MRNumberDate;
+		
 		private EntitySet<EmployeePeriod> _EmployeePeriods;
 		
 		private EntityRef<Station> _Station;
@@ -2775,6 +2777,8 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
     partial void OnStationIdChanged();
     partial void OnMRNumberChanging(string value);
     partial void OnMRNumberChanged();
+    partial void OnMRNumberDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnMRNumberDateChanged();
     #endregion
 		
 		public SalaryPeriod()
@@ -3124,6 +3128,26 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 					this._MRNumber = value;
 					this.SendPropertyChanged("MRNumber");
 					this.OnMRNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MRNumberDate", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> MRNumberDate
+		{
+			get
+			{
+				return this._MRNumberDate;
+			}
+			set
+			{
+				if ((this._MRNumberDate != value))
+				{
+					this.OnMRNumberDateChanging(value);
+					this.SendPropertyChanging();
+					this._MRNumberDate = value;
+					this.SendPropertyChanged("MRNumberDate");
+					this.OnMRNumberDateChanged();
 				}
 			}
 		}

@@ -60,7 +60,8 @@ namespace Finance.Payroll.Reports
                            Amount = g.Sum(p => Math.Round(p.Amount ?? 0, MidpointRounding.AwayFromZero)),
                            Date = g.Key.EmployeePeriod.Created,
                            HeaderSortExpression = g.Key.CategoryId == 0 ? "Z" : catdesc,
-                           MRNumber = g.Key.EmployeePeriod.SalaryPeriod.MRNumber
+                           MRNumber = g.Key.EmployeePeriod.SalaryPeriod.MRNumber,
+                           MRNumberDate = g.Key.EmployeePeriod.SalaryPeriod.MRNumberDate
                        };
             this.Title += string.Format(" From {0:d MMMM yyyy} To {1:d MMMM yyyy}",tbFromDate.ValueAsDate,tbToDate.ValueAsDate);
         }

@@ -104,6 +104,10 @@
                         Text='<%#Eval("TotalEmployees") %>'></asp:HyperLink>
                 </ItemTemplate>
             </asp:TemplateField>
+             <eclipse:MultiBoundField DataFields="MRNumber" SortExpression="MRNumber"
+                HeaderText="MR Number" HeaderToolTip="MR Number received by bank" />
+            <eclipse:MultiBoundField DataFields="MRNumberDate" SortExpression="MRNumberDate" DataFormatString="{0:d}" HeaderToolTip="Date when M.R. number has been received."
+                HeaderText="M.R. Number Date" />
             <eclipse:MultiBoundField DataFields="StationName" HeaderText="Station" SortExpression="StationName"
                 ItemStyle-CssClass="noprint" HeaderStyle-CssClass="noprint" />
         </Columns>
@@ -126,6 +130,7 @@
                     <asp:Parameter Name="PayableDate" Type="DateTime" />
                     <asp:Parameter Name="PaidDate" Type="DateTime" />
                     <asp:Parameter Name="StationId" Type="Int32" ConvertEmptyStringToNull="true" />
+                    <asp:Parameter Name="MRNumber" Type="String" ConvertEmptyStringToNull="true" />
                 </InsertParameters>
                 <WhereParameters>
                     <asp:Parameter Name="SalaryPeriodId" Type="Int32" />
@@ -137,6 +142,7 @@
                     <asp:Parameter Name="PayableDate" Type="DateTime" />
                     <asp:Parameter Name="StationId" Type="Int32" ConvertEmptyStringToNull="true" />
                     <asp:Parameter Name="MRNumber" Type="String" ConvertEmptyStringToNull="true" />
+                    <asp:Parameter Name="MRNumberDate" Type="DateTime" />
                 </UpdateParameters>
             </phpa:PhpaLinqDataSource>
             <asp:FormView ID="frmSalaryPeriod" runat="server" DataKeyNames="SalaryPeriodId" DataSourceID="dsSpecificSalaryPeriod"
@@ -187,6 +193,8 @@
                                 <asp:Label runat="server" ID="lblPaidDate" Text='<%# Eval("PaidDate","{0:d}") %>' />
                                 <eclipse:LeftLabel ID="LeftLabel19" runat="server" Text="M.R. Number:" />
                                 <asp:Label runat="server" ID="tbMRNumber" Text='<%# Eval("MRNumber") %>' />
+                                <eclipse:LeftLabel ID="LeftLabel20" runat="server" Text="M.R. Number Date:" />
+                                <asp:Label ID="Label5" runat="server" Text='<%# Eval("MRNumberDate","{0:d}") %>' />
                             </eclipse:TwoColumnPanel>
                         </jquery:JPanel>
                         <phpa:AuditTabPanel ID="panelAudit" runat="server" />
@@ -300,6 +308,13 @@
                          <i:TextBoxEx ID="tbMRNumber" runat="server" Text='<%# Bind("MRNumber") %>'
                             MaxLength="50" Size="25">
                         </i:TextBoxEx>
+                        <eclipse:LeftLabel ID="LeftLabel17" runat="server" Text="M.R. Number Date" />
+                        <i:TextBoxEx ID="tbMRNumberDate" runat="server" FriendlyName="M.R. Number Date" QueryStringValue='<%# Bind("MRNumberDate", "{0:d}") %>'
+                            ClientIDMode="Static">
+                              <Validators>
+                                <i:Date DateType="ToDate" AssociatedControlID="tbFromDateEdit" />
+                            </Validators>
+                        </i:TextBoxEx>
                     </eclipse:TwoColumnPanel>
                     <i:ButtonEx runat="server" ID="btnSave" Text="Save" CausesValidation="true" Action="Submit"
                         Icon="Disk" OnClick="btnSave_Click" OnClientClick="OnSalaryPeriodUpdate" />
@@ -315,3 +330,4 @@
         </ContentTemplate>
     </jquery:Dialog>
 </asp:Content>
+

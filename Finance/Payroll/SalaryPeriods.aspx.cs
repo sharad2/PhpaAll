@@ -248,7 +248,9 @@ namespace Finance.Payroll
                                  ep.BasicPay +
                                  ep.PeriodEmployeeAdjustments.Sum(pea => pea.Adjustment.IsDeduction ? -pea.Amount : pea.Amount)
                                 ),
-                               StationName=sp.Station.StationName
+                             StationName=sp.Station.StationName,
+                             MRNumber = sp.MRNumber,
+                             MRNumberDate = sp.MRNumberDate
                          };
 
             e.Result = query2.ToList();
