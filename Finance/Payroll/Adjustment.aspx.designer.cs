@@ -31,13 +31,22 @@ namespace Finance.Payroll {
         protected global::Finance.Controls.PrinterFriendlyButton PrinterFriendlyButton1;
         
         /// <summary>
-        /// btnNew control.
+        /// btnNewAllowance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::EclipseLibrary.Web.JQuery.Input.ButtonEx btnNew;
+        protected global::EclipseLibrary.Web.JQuery.Input.ButtonEx btnNewAllowance;
+        
+        /// <summary>
+        /// btnNewDeduction control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::EclipseLibrary.Web.JQuery.Input.ButtonEx btnNewDeduction;
         
         /// <summary>
         /// dsAdjustment control.

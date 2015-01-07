@@ -15,6 +15,8 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Database.Payroll;
 using EclipseLibrary.Web.JQuery;
 using EclipseLibrary.Web.JQuery.Input;
+using System.Data.Linq;
+using Finance.Payroll;
 
 namespace Finance.Controls
 {
@@ -105,6 +107,15 @@ namespace Finance.Controls
             }
         }
 
+        protected void tbFractionOfGross_DataBinding(object sender, EventArgs e)
+        {
+            TextBoxEx tb = (TextBoxEx)sender;
+            if (!string.IsNullOrEmpty(tb.Text))
+            {
+                decimal? val = Convert.ToDecimal(tb.Text);
+                tb.Text = string.Format("{0}", val * 100);
+            }
+        }
         
         /// <summary>
         /// Make sure the Grid displays the updated Employee Adjustments.
@@ -202,8 +213,8 @@ namespace Finance.Controls
             if (x == null)
             {
                 // User wants default
-                PayrollDataContext db = (PayrollDataContext)this.dsEditEmpAdjustments.Database;
-                e.NewValues["FractionOfBasic"] = (from empadj in db.EmployeeAdjustments
+                PayrollDataContext dbFractionOfBasic = (PayrollDataContext)this.dsEditEmpAdjustments.Database;
+                e.NewValues["FractionOfBasic"] = (from empadj in dbFractionOfBasic.EmployeeAdjustments
                             where empadj.EmployeeAdjustmentId == Convert.ToInt32(e.Keys["EmployeeAdjustmentId"])
                             select empadj.Adjustment.FractionOfBasic).Single();
             }
@@ -212,6 +223,23 @@ namespace Finance.Controls
                 // User has specified a value
                 decimal pct = Convert.ToDecimal(x) / 100;
                 e.NewValues["FractionOfBasic"] = pct;
+            }
+
+
+            var y = e.NewValues["FractionOfGross"];
+            if (y == null)
+            {
+                // User wants default
+                PayrollDataContext dbFractionOfGross = (PayrollDataContext)this.dsEditEmpAdjustments.Database;
+                e.NewValues["FractionOfGross"] = (from empadj in dbFractionOfGross.EmployeeAdjustments
+                                                  where empadj.EmployeeAdjustmentId == Convert.ToInt32(e.Keys["EmployeeAdjustmentId"])
+                                                  select empadj.Adjustment.FractionOfGross).Single();
+            }
+            else
+            {
+                // User has specified a value
+                decimal pct = Convert.ToDecimal(y) / 100;
+                e.NewValues["FractionOfGross"] = pct;
             }
 
             var flatAmt = e.NewValues["FlatAmount"];
@@ -239,24 +267,24 @@ namespace Finance.Controls
             }
         }
 
-        /// <summary>
-        /// Event will make the textbox readonly as per requirement
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void gvEditEmpAdjustments_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            switch (e.Row.RowState)
-            {
-                case DataControlRowState.Insert:
-                    TextBoxEx tbFlatAmount = (TextBoxEx)e.Row.FindControl("tbFlatAmount");
-                    TextBoxEx tbFractionOfBasic = (TextBoxEx)e.Row.FindControl("tbFractionOfBasic");
-                    tbFlatAmount.ReadOnly = true;
-                    tbFractionOfBasic.ReadOnly = true;
-                    break;
+        ///// <summary>
+        ///// Event will make the textbox readonly as per requirement
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //protected void gvEditEmpAdjustments_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    switch (e.Row.RowState)
+        //    {
+        //        case DataControlRowState.Insert:
+        //            TextBoxEx tbFlatAmount = (TextBoxEx)e.Row.FindControl("tbFlatAmount");
+        //            TextBoxEx tbFractionOfBasic = (TextBoxEx)e.Row.FindControl("tbFractionOfBasic");
+        //            tbFlatAmount.ReadOnly = true;
+        //            tbFractionOfBasic.ReadOnly = true;
+        //            break;
                 
-            }
-        }
+        //    }
+        //}
        
         /// <summary>
         /// Name of the employee for whom we are inserting the first adjustment
@@ -301,6 +329,20 @@ namespace Finance.Controls
         protected void btnNew_Click(object sender, EventArgs e)
         {
             gvEditEmpAdjustments.InsertRowsCount = 1;
+        }
+
+        /// <summary>
+        /// Optimization. Load adjustment along with each employee adjustment
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void dsEditEmpAdjustments_ContextCreated(object sender, LinqDataSourceStatusEventArgs e)
+        {
+            var db = (PayrollDataContext)e.Result;
+            DataLoadOptions lo = new DataLoadOptions();
+            lo.AssociateWith<EmployeePeriod>(ep => ep.PeriodEmployeeAdjustments.Where(pea => pea.Amount != null));
+            lo.LoadWith<EmployeeAdjustment>(ep => ep.Adjustment);
+            db.LoadOptions = lo;
         }
     }
 }

@@ -17,6 +17,7 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Database.Payroll;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
+using EclipseLibrary.Web.UI;
 
 namespace Finance.Payroll
 {
@@ -127,6 +128,16 @@ namespace Finance.Payroll
                 {
                     adj.FractionOfBasic = null;
                 }
+                TextBoxEx tbFractionOfGross = (TextBoxEx)frmAdjustment.FindControl("tbPercentageGross");
+                if (!string.IsNullOrEmpty(tbFractionOfGross.Text))
+                {
+                    double? fractionGross = Convert.ToDouble(tbFractionOfGross.Value);
+                    adj.FractionOfGross = fractionGross / 100;
+                }
+                else
+                {
+                    adj.FractionOfGross = null;
+                }
             }
         }
 
@@ -145,6 +156,17 @@ namespace Finance.Payroll
                 {
                     adj.FractionOfBasic = null;
                 }
+                TextBoxEx tbFractionOfGross = (TextBoxEx)frmAdjustment.FindControl("tbPercentageGross");
+                if (!string.IsNullOrEmpty(tbFractionOfGross.Text))
+                {
+                    double? fractionGross = Convert.ToDouble(tbFractionOfGross.Value);
+                    adj.FractionOfGross = fractionGross / 100;
+                }
+                else
+                {
+                    adj.FractionOfGross = null;
+                }
+
             }
         }
 
@@ -157,7 +179,16 @@ namespace Finance.Payroll
                 tb.Value = Convert.ToString(val * 100);
             }
         }
-        
+
+        protected void tbPercentageGross_DataBinding(object sender, EventArgs e)
+        {
+            TextBoxEx tb = (TextBoxEx)sender;
+            if (!string.IsNullOrEmpty(tb.Text))
+            {
+                decimal? val = Convert.ToDecimal(tb.Value);
+                tb.Value = Convert.ToString(val * 100);
+            }
+        }
 
         /// <summary>
         /// Binding Gridview when an item is deleted to refresh it.
@@ -187,7 +218,7 @@ namespace Finance.Payroll
                 case DataControlRowType.DataRow:
                     if (_adjustmentID != -1)
                     {
-                        Adjustment adj=(Adjustment)e.Row.DataItem;
+                        Adjustment adj = (Adjustment)e.Row.DataItem;
 
                         if (adj.AdjustmentId == _adjustmentID)
                         {
@@ -203,14 +234,17 @@ namespace Finance.Payroll
         {
             dsSpecificAdjustment.WhereParameters["AdjustmentId"].DefaultValue = gvAdjustments.SelectedDataKey["AdjustmentId"].ToString();
             if (frmAdjustment.CurrentMode == FormViewMode.Insert)
+            {
                 frmAdjustment.ChangeMode(FormViewMode.ReadOnly);
+            }
+            frmAdjustment.DataBind();
             dlgEditor.Visible = true;
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             frmAdjustment.DeleteItem();
-            
+
         }
 
         protected void btnEdit_Click(object sender, EventArgs e)
@@ -232,17 +266,6 @@ namespace Finance.Payroll
             }
         }
 
-        /// <summary>
-        /// Change the mode of the form view from default mode to Insert mode.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnNew_Click(object sender, EventArgs e)
-        {
-            frmAdjustment.ChangeMode(FormViewMode.Insert);
-            dlgEditor.Visible = true;
-        }
-
         protected void btnSave_Click(object sender, EventArgs e)
         {
             switch (frmAdjustment.CurrentMode)
@@ -255,5 +278,97 @@ namespace Finance.Payroll
                     break;
             }
         }
+
+        protected void litAdjType_PreRender(object sender, EventArgs e)
+        {
+            var adj = (Adjustment)frmAdjustment.DataItem;
+            if (adj == null && m_IsDeduction == null)
+            {
+                // Nothing to do. Values will be retrieved from view state
+                return;
+            }
+            bool isDed;
+            if (adj == null)
+            {
+                isDed = m_IsDeduction.Value;
+            }
+            else
+            {
+                isDed = adj.IsDeduction;
+            }
+            var lit = (Literal)sender;
+            if (isDed)
+            {
+                lit.Text = "Deduction";
+            }
+            else
+            {
+                lit.Text = "Allowance";
+            }
+        }
+
+        protected void litOperation_PreRender(object sender, EventArgs e)
+        {
+            var lit = (Literal)sender;
+            switch (frmAdjustment.CurrentMode)
+            {
+                case FormViewMode.ReadOnly:
+                    lit.Text = "View";
+                    break;
+
+                case FormViewMode.Edit:
+                    lit.Text = "Edit";
+                    break;
+
+                case FormViewMode.Insert:
+                    lit.Text = "Create";
+                    break;
+
+                default:
+                    throw new NotSupportedException("Form view mode must be in edit, insert or read only");
+
+            }
+        }
+
+        #region Gross Pct Handling
+
+        /// <summary>
+        /// This code is needed to hide the gross pct text box for alloances
+        /// </summary>
+        private bool? m_IsDeduction;
+
+        protected void btnNewAllowance_Click(object sender, EventArgs e)
+        {
+            frmAdjustment.ChangeMode(FormViewMode.Insert);
+            dlgEditor.Visible = true;
+            m_IsDeduction = false;
+        }
+
+        protected void btnNewDeduction_Click(object sender, EventArgs e)
+        {
+            frmAdjustment.ChangeMode(FormViewMode.Insert);
+            dlgEditor.Visible = true;
+            m_IsDeduction = true;
+        }
+
+        protected void llPctGross_PreRender(object sender, EventArgs e)
+        {
+            if (m_IsDeduction.HasValue)
+            {
+                var ll = (LeftLabel)sender;
+                ll.RowVisible = m_IsDeduction.Value;
+            }
+        }
+
+        protected void hfIsDeduction_PreRender(object sender, EventArgs e)
+        {
+            if (m_IsDeduction.HasValue)
+            {
+                var hf = (HiddenField)sender;
+                hf.Value = m_IsDeduction.Value.ToString();
+            }
+        }
+        #endregion
+
     }
 }

@@ -1577,6 +1577,8 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 		private System.Nullable<int> _EmployeeTypeId;
 		
 		private System.Nullable<double> _PercentageBasic;
+
+        private System.Nullable<double> _PercentageGross;
 		
 		private System.Nullable<int> _HeadOfAccountId;
 		
@@ -1628,6 +1630,8 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
     partial void OnEmployeeTypeIdChanged();
     partial void OnFractionOfBasicChanging(System.Nullable<double> value);
     partial void OnFractionOfBasicChanged();
+    partial void OnFractionOfGrossChanging(System.Nullable<double> value);
+    partial void OnFractionOfGrossChanged();
     partial void OnHeadOfAccountIdChanging(System.Nullable<int> value);
     partial void OnHeadOfAccountIdChanged();
     partial void OnDescriptionChanging(string value);
@@ -1751,7 +1755,29 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 				}
 			}
 		}
+
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_PercentageGross", DbType = "float", UpdateCheck = UpdateCheck.Never)]
+        public System.Nullable<double> FractionOfGross
+        {
+            get
+            {
+                return this._PercentageGross;
+            }
+            set
+            {
+                if ((this._PercentageGross != value))
+                {
+                    this.OnFractionOfGrossChanging(value);
+                    this.SendPropertyChanging();
+                    this._PercentageGross = value;
+                    this.SendPropertyChanged("FractionOfGross");
+                    this.OnFractionOfGrossChanged();
+                }
+            }
+        }
 		
+
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HeadOfAccountId", DbType="Int", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<int> HeadOfAccountId
 		{
@@ -2226,8 +2252,12 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 		private int _AdjustmentId;
 		
 		private System.Nullable<double> _PercentageBasic;
+
+        private System.Nullable<double> _PercentageGross;
 		
 		private bool _IsPercentageBasicOverridden;
+
+        private bool _IsPercentageGrossOverridden;
 		
 		private System.Nullable<decimal> _FlatAmount;
 		
@@ -2265,8 +2295,12 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
     partial void OnAdjustmentIdChanged();
     partial void OnFractionOfBasicChanging(System.Nullable<double> value);
     partial void OnFractionOfBasicChanged();
+    partial void OnFractionOfGrossChanging(System.Nullable<double> value);
+    partial void OnFractionOfGrossChanged();
     partial void OnIsFractionBasicOverriddenChanging(bool value);
     partial void OnIsFractionBasicOverriddenChanged();
+    partial void OnIsFractionGrossOverriddenChanging(bool value);
+    partial void OnIsFractionGrossOverriddenChanged();
     partial void OnFlatAmountChanging(System.Nullable<decimal> value);
     partial void OnFlatAmountChanged();
     partial void OnIsFlatAmountOverriddenChanging(bool value);
@@ -2383,6 +2417,26 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 				}
 			}
 		}
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_PercentageGross", DbType = "Float", UpdateCheck = UpdateCheck.Never)]
+        public System.Nullable<double> FractionOfGross
+        {
+            get
+            {
+                return this._PercentageGross;
+            }
+            set
+            {
+                if ((this._PercentageGross != value))
+                {
+                    this.OnFractionOfGrossChanging(value);
+                    this.SendPropertyChanging();
+                    this._PercentageGross = value;
+                    this.SendPropertyChanged("FractionOfGross");
+                    this.OnFractionOfGrossChanged();
+                }
+            }
+        }
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPercentageBasicOverridden", DbType="Bit", UpdateCheck=UpdateCheck.Never)]
 		public bool IsFractionBasicOverridden
@@ -2403,6 +2457,26 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 				}
 			}
 		}
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_IsPercentageGrossOverridden", DbType = "Bit", UpdateCheck = UpdateCheck.Never)]
+        public bool IsFractionGrossOverridden
+        {
+            get
+            {
+                return this._IsPercentageGrossOverridden;
+            }
+            set
+            {
+                if ((this._IsPercentageGrossOverridden != value))
+                {
+                    this.OnIsFractionGrossOverriddenChanging(value);
+                    this.SendPropertyChanging();
+                    this._IsPercentageGrossOverridden = value;
+                    this.SendPropertyChanged("IsFractionGrossOverridden");
+                    this.OnIsFractionGrossOverriddenChanged();
+                }
+            }
+        }
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlatAmount", DbType="Money", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<decimal> FlatAmount

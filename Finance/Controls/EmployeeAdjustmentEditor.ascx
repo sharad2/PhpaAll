@@ -10,16 +10,27 @@
             $tb.attr('readOnly', 'true');
         }
     }
+    function cbFractionGrossOverrriden_Click(e) {
+        var $tb = $(this).closest('td').find('input:text');
+        if ($(this).is(':checked')) {
+            $tb.removeAttr('readOnly');
+        }
+        else {
+            $tb.attr('readOnly', 'true');
+        }
+    }
 </script>
 <phpa:PhpaLinqDataSource ID="dsEditEmpAdjustments" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.Payroll.PayrollDataContext"
-    TableName="EmployeeAdjustments" AutoGenerateWhereClause="True" OnSelecting="dsEditEmpAdjustments_Selecting"
-    RenderLogVisible="False" EnableUpdate="True" EnableDelete="True" EnableInsert="True">
+    TableName="EmployeeAdjustments" AutoGenerateWhereClause="True" OnSelecting="dsEditEmpAdjustments_Selecting" OnContextCreated="dsEditEmpAdjustments_ContextCreated"
+    RenderLogVisible="False" EnableUpdate="True" EnableDelete="True" EnableInsert="True" OrderBy="Created desc">
     <UpdateParameters>
         <asp:Parameter Type="Decimal" Name="Deductions" />
         <asp:Parameter Type="Boolean" Name="IsFlatAmountOverridden" />
+        <asp:Parameter Type="Boolean" Name="IsFractionGrossOverridden" />
         <asp:Parameter Type="Boolean" Name="IsFractionBasicOverridden" />
         <asp:Parameter Type="Decimal" Name="FlatAmount" />
         <asp:Parameter Type="Double" Name="FractionOfBasic" />
+        <asp:Parameter Type="Double" Name="FractionOfGross" />
     </UpdateParameters>
     <WhereParameters>
         <asp:Parameter Name="EmployeeId" Type="Int32" />
@@ -30,8 +41,10 @@
         <asp:Parameter Type="Decimal" Name="Deductions" />
         <asp:Parameter Type="Boolean" Name="IsFlatAmountOverridden" />
         <asp:Parameter Type="Boolean" Name="IsFractionBasicOverridden" />
+        <asp:Parameter Type="Boolean" Name="IsFractionGrossOverridden" />
         <asp:Parameter Type="Decimal" Name="FlatAmount" />
         <asp:Parameter Type="Double" Name="FractionOfBasic" />
+        <asp:Parameter Type="Double" Name="FractionOfGross" />
     </InsertParameters>
 </phpa:PhpaLinqDataSource>
 <i:LinkButtonEx ID="btnNew" runat="server" OnClick="btnNew_Click" Text="Add New Adjustment"
@@ -40,7 +53,7 @@
 <asp:HiddenField runat="server" ID="hdemployeeid" ClientIDMode="Static" />
 <jquery:GridViewExInsert ID="gvEditEmpAdjustments" runat="server" AutoGenerateColumns="False"
     ClientIDMode="Static" EnableViewState="true" DataKeyNames="EmployeeAdjustmentId"
-    OnRowDataBound="gvEditEmpAdjustments_RowDataBound" DataSourceID="dsEditEmpAdjustments"
+    DataSourceID="dsEditEmpAdjustments"
     ShowFooter="false" OnRowUpdated="gvEditEmpAdjustments_RowUpdated" OnRowUpdating="gvEditEmpAdjustments_RowUpdating"
     Width="100%" OnRowDeleted="gvEditEmpAdjustments_RowDeleted" InsertRowsAtBottom="false"
     OnRowInserting="gvEditEmpAdjustments_RowInserting" OnRowInserted="gvEditEmpAdjustments_RowInserted">
@@ -63,8 +76,7 @@
         </eclipse:MultiBoundField>
         <asp:TemplateField>
             <HeaderTemplate>
-                <span title="Display Flat amount which is defined explicitly or default for Adjustment.">
-                    Amount </span>
+                <span title="Display Flat amount which is defined explicitly or default for Adjustment.">Amount </span>
             </HeaderTemplate>
             <ItemTemplate>
                 <div style="text-align: right">
@@ -81,18 +93,18 @@
                     <i:TextBoxEx ID="tbFlatAmount" runat="server" QueryStringValue='<%# Bind("FlatAmount", "{0}") %>'
                         FriendlyName="Flat Amount" ReadOnly='<%# !((bool)Eval("IsFlatAmountOverridden")) %>'>
                         <Validators>
-                            <i:Filter DependsOn="cbFlatAmountOverridden" DependsOnState="Checked" />
-                            <i:Required />
+                            <i:Required DependsOn="cbFlatAmountOverridden" DependsOnState="Checked" />
                             <i:Value ValueType="Decimal" Min="0" />
                         </Validators>
                     </i:TextBoxEx>
                 </div>
             </EditItemTemplate>
+            <InsertItemTemplate>
+            </InsertItemTemplate>
         </asp:TemplateField>
         <asp:TemplateField>
             <HeaderTemplate>
-                <span title="Display percentage of basic which is defined explicitly or default for Adjustment">
-                    % Basic</span>
+                <span title="Display percentage of basic which is defined explicitly or default for Adjustment">% Basic</span>
             </HeaderTemplate>
             <ItemTemplate>
                 <div style="text-align: right">
@@ -110,15 +122,48 @@
                         FriendlyName="Fraction Of Basic" MaxLength="6" ReadOnly='<%# !((bool)Eval("IsFractionBasicOverridden")) %>'
                         OnDataBinding="tbFractionOfBasic_DataBinding">
                         <Validators>
-                            <i:Filter DependsOn="cbFractionBasicOverrriden" DependsOnState="Checked" />
-                            <i:Required />
+                            <i:Required DependsOn="cbFractionBasicOverrriden" DependsOnState="Checked" />
                             <i:Value ValueType="Decimal" Max="100" Min="0" />
                         </Validators>
                     </i:TextBoxEx>
                     %
+               
                 </div>
             </EditItemTemplate>
+            <InsertItemTemplate>
+            </InsertItemTemplate>
         </asp:TemplateField>
+        <asp:TemplateField>
+            <HeaderTemplate>
+                <span title="Display percentage of basic which is defined explicitly or default for Adjustment">% Gross</span>
+            </HeaderTemplate>
+            <ItemTemplate>
+                <div style="text-align: right">
+                    <phpa:InfoImage runat="server" ID="infoImg1" Visible='<%# Eval("IsFractionGrossOverridden") %>'
+                        ToolTip="You have explicitly changed the amount of this adjustment for this employee"
+                        EnableViewState="true" />
+                    <asp:Label runat="server" Text='<%# Eval("FractionOfGross", "{0:#0.##%}") %>' />
+                </div>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <i:CheckBoxEx ID="cbFractionGrossOverrriden" runat="server" Text="Override Default"
+                    Checked='<%# Bind("IsFractionGrossOverridden") %>' OnClientClick="cbFractionGrossOverrriden_Click" Visible='<%# (bool)Eval("Adjustment.IsDeduction")%>' />
+                <div style="text-align: left; white-space: nowrap">
+                    <i:TextBoxEx ID="tbFractionOfGross" runat="server" QueryStringValue='<%# Bind("FractionOfGross", "{0}") %>' Visible='<%# (bool)Eval("Adjustment.IsDeduction")%>'
+                        FriendlyName="Fraction Of Gross" MaxLength="6" ReadOnly='<%# !((bool)Eval("IsFractionGrossOverridden")) %>'
+                        OnDataBinding="tbFractionOfGross_DataBinding">
+                        <Validators>
+                            <i:Required DependsOn="cbFractionGrossOverrriden" DependsOnState="Checked" />
+                            <i:Value ValueType="Decimal" Max="100" Min="0" />
+                        </Validators>
+                    </i:TextBoxEx>
+                    <asp:Label runat="server" Text="%" Visible='<%# (bool)Eval("Adjustment.IsDeduction")%>'> </asp:Label>
+                </div>
+            </EditItemTemplate>
+            <InsertItemTemplate>
+            </InsertItemTemplate>
+        </asp:TemplateField>
+
         <phpa:BoolField HeaderText="Type" DataField="Adjustment.IsDeduction" TrueValue="Deduction"
             FalseValue="Allowance" />
         <asp:TemplateField HeaderText="Remarks">
@@ -130,9 +175,13 @@
                 <i:TextBoxEx ID="tbComment" runat="server" Text='<%# Bind("Comment")%>' MaxLength="20"
                     Size="10" />
             </EditItemTemplate>
+            <InsertItemTemplate>
+            </InsertItemTemplate>
         </asp:TemplateField>
     </Columns>
     <EmptyDataTemplate>
         Select Employee from the Grid.
+   
     </EmptyDataTemplate>
 </jquery:GridViewExInsert>
+
