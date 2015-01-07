@@ -29,6 +29,10 @@ namespace Eclipse.PhpaLibrary.Web.Providers
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
+            if (newPassword == null || newPassword.Length < this.MinRequiredPasswordLength)
+            {
+                return false;
+            }
             using (AuthenticationDataContext ctx = new AuthenticationDataContext(_connectString))
             {
                 try
@@ -118,8 +122,6 @@ namespace Eclipse.PhpaLibrary.Web.Providers
                 return query;
             }
 
-
-            throw new NotImplementedException("GetUser");
         }
 
         public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
@@ -139,12 +141,18 @@ namespace Eclipse.PhpaLibrary.Web.Providers
 
         public override int MinRequiredNonAlphanumericCharacters
         {
-            get { throw new NotImplementedException("MinRequiredNonAlphanumericCharacters"); }
+            get
+            {
+                return 0;
+            }
         }
 
         public override int MinRequiredPasswordLength
         {
-            get { throw new NotImplementedException("MinRequiredPasswordLength"); }
+            get 
+            {
+                return 7;
+            }
         }
 
         public override int PasswordAttemptWindow
