@@ -63,9 +63,9 @@ namespace Finance.Reports
         {
 
             // List of Account head which are used as a filter in 'DivisionalExpences' report.
-            string[] divisionExpencesAccountHead = { "EXPENDITURE", "TOUR_EXPENSES" };
+            //string[] divisionExpencesAccountHead = { "EXPENDITURE", "TOUR_EXPENSES" };
             // List of Account head which are used as a filter in 'PendingAdvance' report.
-            string[] divisionAdvanceAccountHead = { "EMPLOYEE_ADVANCE", "PARTY_ADVANCE", "MATERIAL_ADVANCE" };
+            //string[] divisionAdvanceAccountHead = { "EMPLOYEE_ADVANCE", "PARTY_ADVANCE", "MATERIAL_ADVANCE" };
             List<string> headOfAccountList = new List<string>();
 
 
@@ -90,7 +90,7 @@ namespace Finance.Reports
                         case "DivisionExpenditure":
                             //grdPendingAdv.Columns[columnIndex].HeaderText = "Expenditure (Nu.)";
                             columnIndex.HeaderText = "Expenditure (Nu.)";
-                            headOfAccountList.AddRange(divisionExpencesAccountHead);
+                            headOfAccountList.AddRange(HeadOfAccountHelpers.JobExpenses);
                             //lblHelp.Text = "Displays ependitures in each division.";
                             this.Title = "Divisional Expenses";
                             lblReportDescription.Text = "Displays ependitures in each division.";
@@ -99,7 +99,7 @@ namespace Finance.Reports
                         case "PendingAdvances":
                             //grdPendingAdv.Columns[columnIndex].HeaderText = "Outstanding Advances (Nu.)";
                             columnIndex.HeaderText = "Outstanding Advances (Nu.)";
-                            headOfAccountList.AddRange(divisionAdvanceAccountHead);
+                            headOfAccountList.AddRange(HeadOfAccountHelpers.JobAdvances.Concat(HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance));
                             //lblHelp.Text = "Displays outstanding Advance amount of All Employees and Contractors in each division.";
                             this.Title = "Pending Advances";
                             lblReportDescription.Text = "Displays outstanding Advance amount of All Employees and Contractors in each division.";

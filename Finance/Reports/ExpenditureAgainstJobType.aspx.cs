@@ -80,7 +80,7 @@ namespace Finance.Reports
                                                             where HeadOfAccountHelpers.JobAdvances.Contains(p.RoHeadHierarchy.HeadOfAccountType)
                                                             select p.DebitAmount).Sum()
                             let advanceOutstandingCredits = (from p in grouping
-                                                            where HeadOfAccountHelpers.JobAdvanceSubTypes.PartyAdvance.Contains(p.RoHeadHierarchy.HeadOfAccountType)
+                                                            where HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.Contains(p.RoHeadHierarchy.HeadOfAccountType)
                                                             select p.CreditAmount).Sum()
                             select new
                             {

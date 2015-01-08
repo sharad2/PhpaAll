@@ -9,13 +9,14 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public readonly static IEnumerable<string> JobExpenses = new string[] { "EXPENDITURE", "TOUR_EXPENSES" };
 
-        public static class JobAdvanceSubTypes
+        public static class AdvanceSubTypes
         {
             public readonly static IEnumerable<string> PartyAdvance = new string[] { "PARTY_ADVANCE" };
             public readonly static IEnumerable<string> MaterialAdvance = new string[] { "MATERIAL_ADVANCE" };
+            public readonly static IEnumerable<string> EmployeeAdvance = new string[] { "EMPLOYEE_ADVANCE" };
         }
 
-        public readonly static IEnumerable<string> JobAdvances = JobAdvanceSubTypes.PartyAdvance.Concat(JobAdvanceSubTypes.MaterialAdvance); //new string[] { "PARTY_ADVANCE", "MATERIAL_ADVANCE" };
+        public readonly static IEnumerable<string> JobAdvances = AdvanceSubTypes.PartyAdvance.Concat(AdvanceSubTypes.MaterialAdvance);
         public readonly static IEnumerable<string> Grants = new string[] { "GRANT_RECEIVED_GOINU", "GRANT_RECEIVED_GOIFE" };
         public readonly static IEnumerable<string> Loans = new string[] { "LOAN_RECEIVED_GOINU", "LOAN_RECEIVED_GOIFE" };
         public readonly static IEnumerable<string> GreenTaxes = new string[] { "GREEN_TAX" };
