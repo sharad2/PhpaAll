@@ -96,7 +96,8 @@ namespace Finance.Finance
                            //    - job.VoucherDetails.Sum(p => (p.HeadOfAccount.HeadOfAccountType == "PARTY_ADVANCE" ||
                            //        p.HeadOfAccount.HeadOfAccountType == "MATERIAL_ADVANCE")
                            //        && p.Voucher.VoucherDate <= _date ? p.CreditAmount ?? 0 : 0)
-                           Total = job.VoucherDetails.Where(p => p.Voucher.VoucherDate <= _date && HeadOfAccountHelpers.JobExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
+                           Total = job.VoucherDetails.Where(p => p.Voucher.VoucherDate <= _date && 
+                               HeadOfAccountHelpers.JobExpenses.Concat(HeadOfAccountHelpers.JobAdvances).Contains(p.HeadOfAccount.HeadOfAccountType))
                                     .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0)
                               
                        };
