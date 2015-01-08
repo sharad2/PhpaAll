@@ -378,7 +378,6 @@
       <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
       <Column Name="IsConsolidated" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="DateOfNextIncrement" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="NextPromotionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="ServicePeriod_Training" Member="Trainings" ThisKey="ServicePeriodId" OtherKey="ServicePeriodId" Type="Training" />
       <Association Name="ServicePeriod_MedicalRecord" Member="MedicalRecords" ThisKey="ServicePeriodId" OtherKey="ServicePeriodId" Type="MedicalRecord" />

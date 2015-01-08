@@ -238,15 +238,6 @@ namespace Finance.Finance {
         protected global::EclipseLibrary.Web.JQuery.Input.CheckBoxEx cbPromotiondue;
         
         /// <summary>
-        /// cbIncrementdue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::EclipseLibrary.Web.JQuery.Input.CheckBoxEx cbIncrementdue;
-        
-        /// <summary>
         /// af control.
         /// </summary>
         /// <remarks>
