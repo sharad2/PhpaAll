@@ -78,11 +78,9 @@ namespace Finance.Reports
                             group vd by vd.RoJob into grouping
                             let advanceOutstandingDebits = (from p in grouping
                                                             where HeadOfAccountHelpers.JobAdvances.Contains(p.RoHeadHierarchy.HeadOfAccountType)
-                                                            //&& p.RoVoucher.VoucherDate >= tbFromDate.ValueAsDate && p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate
                                                             select p.DebitAmount).Sum()
                             let advanceOutstandingCredits = (from p in grouping
                                                             where HeadOfAccountHelpers.JobAdvanceSubTypes.PartyAdvance.Contains(p.RoHeadHierarchy.HeadOfAccountType)
-                                                            // && p.RoVoucher.VoucherDate >= tbFromDate.ValueAsDate && p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate
                                                             select p.CreditAmount).Sum()
                             select new
                             {
@@ -100,7 +98,6 @@ namespace Finance.Reports
                                 AmountMonth = (decimal?)grouping
                                     .Where(p => HeadOfAccountHelpers.JobExpenses.Contains(p.RoHeadHierarchy.HeadOfAccountType) &&
                                         p.RoVoucher.VoucherDate >= dateMonthStart
-                                        //&& p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate
                                         )
                                     .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
                                 //AmountMonth = grouping.Key.RoVoucherDetails.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "EXPENDITURE" ||
@@ -108,31 +105,30 @@ namespace Finance.Reports
                                 //    && p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate ? p.DebitAmount ?? 0 - p.CreditAmount ?? 0 : 0)),
 
                                 AmountProgressive = (decimal?)grouping
-                                    .Where(p => HeadOfAccountHelpers.JobExpenses.Contains(p.RoHeadHierarchy.HeadOfAccountType)
-                                        //&& p.RoVoucher.VoucherDate >= tbFromDate.ValueAsDate && p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate
-                                        
-                                        )
+                                    .Where(p => HeadOfAccountHelpers.JobExpenses.Contains(p.RoHeadHierarchy.HeadOfAccountType))
                                     .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
 
                                 //AmountProgressive = grouping.Key.RoVoucherDetails.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "EXPENDITURE" ||
                                 //    p.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES") && p.RoVoucher.VoucherDate >= tbFromDate.ValueAsDate && p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate
                                 //    ? p.DebitAmount ?? 0 - p.CreditAmount ?? 0 : 0)),
 
-                                AdvanceOutstanding = advanceOutstandingDebits ?? 0 - advanceOutstandingCredits ?? 0,
+                                AdvanceOutstanding = (advanceOutstandingDebits ?? 0) - (advanceOutstandingCredits ?? 0),
 
                                 //AdvanceOutstanding = grouping.Key.RoVoucherDetails.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "PARTY_ADVANCE" ||
                                 //    p.RoHeadHierarchy.HeadOfAccountType == "MATERIAL_ADVANCE") && p.RoVoucher.VoucherDate >= tbFromDate.ValueAsDate && p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate ? p.DebitAmount ?? 0 : 0)) -
                                 //    grouping.Key.RoVoucherDetails.Sum(p => p.RoHeadHierarchy.HeadOfAccountType == "PARTY_ADVANCE" && p.RoVoucher.VoucherDate >= tbFromDate.ValueAsDate && p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate
                                 //    ? p.CreditAmount ?? 0 : 0),
 
-                                //Total2 = 
-                                Total = grouping.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "EXPENDITURE" ||
-                                    p.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES") && p.RoVoucher.VoucherDate >= tbFromDate.ValueAsDate && p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate
-                                    ? p.DebitAmount ?? 0 - p.CreditAmount ?? 0 : 0))
-                                    + grouping.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "PARTY_ADVANCE" ||
-                                    p.RoHeadHierarchy.HeadOfAccountType == "MATERIAL_ADVANCE") && p.RoVoucher.VoucherDate >= tbFromDate.ValueAsDate && p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate ? p.DebitAmount ?? 0 : 0)) -
-                                    grouping.Sum(p => p.RoHeadHierarchy.HeadOfAccountType == "PARTY_ADVANCE" && p.RoVoucher.VoucherDate >= tbFromDate.ValueAsDate && p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate
-                                    ? p.CreditAmount ?? 0 : 0)
+                                Total = grouping.Sum(p => HeadOfAccountHelpers.JobExpenses.Contains(p.RoHeadHierarchy.HeadOfAccountType) 
+                                    ? p.DebitAmount ?? 0 - p.CreditAmount ?? 0 : 0)
+                                    + (advanceOutstandingDebits ?? 0) - (advanceOutstandingCredits ?? 0),
+                                //Total3 = grouping.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "EXPENDITURE" ||
+                                //    p.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES") && p.RoVoucher.VoucherDate >= tbFromDate.ValueAsDate && p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate
+                                //    ? p.DebitAmount ?? 0 - p.CreditAmount ?? 0 : 0))
+                                //    + grouping.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "PARTY_ADVANCE" ||
+                                //    p.RoHeadHierarchy.HeadOfAccountType == "MATERIAL_ADVANCE") && p.RoVoucher.VoucherDate >= tbFromDate.ValueAsDate && p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate ? p.DebitAmount ?? 0 : 0)) -
+                                //    grouping.Sum(p => p.RoHeadHierarchy.HeadOfAccountType == "PARTY_ADVANCE" && p.RoVoucher.VoucherDate >= tbFromDate.ValueAsDate && p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate
+                                //    ? p.CreditAmount ?? 0 : 0)
                             }).ToLookup(p => new { DivisionId = p.DivisionId, DivisionName = p.DivisionName });
                 return;
             }
