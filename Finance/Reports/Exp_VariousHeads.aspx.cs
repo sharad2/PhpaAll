@@ -38,7 +38,7 @@ namespace Finance.Reports
         private const string HOA_EXPENDITURE = "EXPENDITURE";
         private const string HOA_TOUR_EXPENSEs = "TOUR_EXPENSES";
         //private ReportingDataContext m_db;
-        DateTime dt = new DateTime();
+        //DateTime dt = new DateTime();
 
         //protected override void OnLoad(EventArgs e)
         //{
@@ -123,14 +123,14 @@ namespace Finance.Reports
                 e.Cancel = true;
                 return;
             }         
-            dt = System.DateTime.Now.Date;
+            //dt = System.DateTime.Now.Date;
             ReportingDataContext db = (ReportingDataContext)ds.Database;
 
             var query = (from vd in db.RoVoucherDetails
                          where (vd.RoHeadHierarchy.HeadOfAccountType == HOA_EXPENDITURE ||
                          vd.RoHeadHierarchy.HeadOfAccountType == HOA_TOUR_EXPENSEs) &&
                          vd.RoJob.DivisionId == Convert.ToInt32(ddlDivisionCode.Value)
-                         && vd.RoVoucher.VoucherDate >= tbDate.ValueAsDate && vd.RoVoucher.VoucherDate <= txtToDate.ValueAsDate
+                         && vd.RoVoucher.VoucherDate >= (tbDate.ValueAsDate ?? DateTime.Today.AddYears(-100)) && vd.RoVoucher.VoucherDate <= (txtToDate.ValueAsDate ?? DateTime.Today)
                          //&& (date.HasValue ? (vd.RoVoucher.VoucherDate >= date && vd.RoVoucher.VoucherDate <= date): date==null)
 
                          group vd by new
@@ -149,7 +149,7 @@ namespace Finance.Reports
                              DisplayName = grouping.Max(p => p.RoHeadHierarchy.DisplayName),
                              Description = grouping.Max(p => p.RoHeadHierarchy.Description),
                              HeadType = grouping.Max(p => p.RoHeadHierarchy.HeadOfAccountType),
-                             Expenditure = (decimal?)(grouping.Where(p => p.RoVoucher.VoucherDate >= dt.FinancialYearStartDate()).Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0)),
+                             Expenditure = (decimal?)(grouping.Where(p => p.RoVoucher.VoucherDate >= DateTime.Today.FinancialYearStartDate()).Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0)),
                              ExpenditureOld = grouping.Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0)
                          });
 
