@@ -35,8 +35,8 @@ namespace Finance.Reports
 {
     public partial class Exp_VariousHeads : PageBase
     {
-        private const string HOA_EXPENDITURE = "EXPENDITURE";
-        private const string HOA_TOUR_EXPENSEs = "TOUR_EXPENSES";
+        //private const string HOA_EXPENDITURE = "EXPENDITURE";
+        //private const string HOA_TOUR_EXPENSEs = "TOUR_EXPENSES";
         //private ReportingDataContext m_db;
         //DateTime dt = new DateTime();
 
@@ -127,8 +127,9 @@ namespace Finance.Reports
             ReportingDataContext db = (ReportingDataContext)ds.Database;
 
             var query = (from vd in db.RoVoucherDetails
-                         where (vd.RoHeadHierarchy.HeadOfAccountType == HOA_EXPENDITURE ||
-                         vd.RoHeadHierarchy.HeadOfAccountType == HOA_TOUR_EXPENSEs) &&
+                         where HeadOfAccountHelpers.JobExpenses.Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
+                         //where (vd.RoHeadHierarchy.HeadOfAccountType == HOA_EXPENDITURE ||
+                         //vd.RoHeadHierarchy.HeadOfAccountType == HOA_TOUR_EXPENSEs) &&
                          vd.RoJob.DivisionId == Convert.ToInt32(ddlDivisionCode.Value)
                          && vd.RoVoucher.VoucherDate >= (tbDate.ValueAsDate ?? DateTime.Today.AddYears(-100)) && vd.RoVoucher.VoucherDate <= (txtToDate.ValueAsDate ?? DateTime.Today)
                          //&& (date.HasValue ? (vd.RoVoucher.VoucherDate >= date && vd.RoVoucher.VoucherDate <= date): date==null)
