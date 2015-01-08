@@ -60,9 +60,11 @@ namespace Finance.Payroll
         protected void gvSalaryPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
             dsSpecificSalaryPeriod.WhereParameters["SalaryPeriodId"].DefaultValue = gvSalaryPeriod.SelectedDataKey["SalaryPeriodId"].ToString();
-            if (frmSalaryPeriod.CurrentMode == FormViewMode.Insert)
+            if (frmSalaryPeriod.CurrentMode == FormViewMode.Insert) { 
                 frmSalaryPeriod.ChangeMode(FormViewMode.ReadOnly);
+            }
             dlgEditor.Visible = true;
+            frmSalaryPeriod.DataBind();
         }
 
         /// <summary>
@@ -246,7 +248,9 @@ namespace Finance.Payroll
                                  ep.BasicPay +
                                  ep.PeriodEmployeeAdjustments.Sum(pea => pea.Adjustment.IsDeduction ? -pea.Amount : pea.Amount)
                                 ),
-                               StationName=sp.Station.StationName
+                             StationName=sp.Station.StationName,
+                             MRNumber = sp.MRNumber,
+                             MRNumberDate = sp.MRNumberDate
                          };
 
             e.Result = query2.ToList();

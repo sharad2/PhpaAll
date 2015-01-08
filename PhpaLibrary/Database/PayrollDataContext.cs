@@ -2,6 +2,7 @@
 using System;
 using System.Data.Linq;
 using Eclipse.PhpaLibrary.Reporting;
+using System.Linq;
 
 namespace Eclipse.PhpaLibrary.Database.Payroll
 {
@@ -179,6 +180,8 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
             this.FractionOfBasic = adj.FractionOfBasic;
             this.IsFlatAmountOverridden = false;
             this.IsFractionBasicOverridden = false;
+            this.FractionOfGross = adj.FractionOfGross;
+            this.IsFractionGrossOverridden = false;
         }
     }
 
@@ -196,13 +199,34 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
             //EmployeePeriod ep = new EmployeePeriod();
             this.BasicPay = emp.BasicSalary;
             this.EmployeeId = emp.EmployeeId;
-            foreach (EmployeeAdjustment empadj in emp.EmployeeAdjustments)
+            this.BankId = emp.BankId;
+            this.BankAccountNo = emp.BankAccountNo;
+
+            decimal grossSalary = emp.BasicSalary ?? 0;
+            this.Designation = emp.Designation;
+            foreach (EmployeeAdjustment empadj in emp.EmployeeAdjustments.Where(p => !p.Adjustment.IsDeduction))
             {
+                // First insert allowances
                 PeriodEmployeeAdjustment pea = new PeriodEmployeeAdjustment();
                 this.PeriodEmployeeAdjustments.Add(pea);
 
                 pea.AdjustmentId = empadj.AdjustmentId;
                 pea.Amount = (empadj.FlatAmount ?? 0) + (Convert.ToDecimal((empadj.FractionOfBasic ?? 0))) * ((empadj.Employee.BasicSalary ?? 0));
+                grossSalary += pea.Amount ?? 0;
+
+                pea.Comment = empadj.Comment;
+            }
+
+            // Now insert deductions
+            foreach (EmployeeAdjustment empadj in emp.EmployeeAdjustments.Where(p => p.Adjustment.IsDeduction))
+            {
+                PeriodEmployeeAdjustment pea = new PeriodEmployeeAdjustment();
+                this.PeriodEmployeeAdjustments.Add(pea);
+
+                pea.AdjustmentId = empadj.AdjustmentId;
+                pea.Amount = (empadj.FlatAmount ?? 0) + (Convert.ToDecimal((empadj.FractionOfBasic ?? 0))) * ((empadj.Employee.BasicSalary ?? 0)) +
+                    (Convert.ToDecimal((empadj.FractionOfGross ?? 0))) * grossSalary;
+
                 pea.Comment = empadj.Comment;
             }
             return;

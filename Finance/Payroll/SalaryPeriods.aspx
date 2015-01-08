@@ -8,7 +8,7 @@
         function OnSalaryPeriodUpdate(e) {
             var paidDate = $('#tbPaidDate').val();
             if (paidDate != '') {
-                return confirm("Since you are entering Paid Date, furter modifications to this Salary Period will not be Allowed.");
+                return confirm("Since Paid Date has been entered, you will not be able to delete this Salary Period");
             }
             return true;
         }
@@ -104,6 +104,10 @@
                         Text='<%#Eval("TotalEmployees") %>'></asp:HyperLink>
                 </ItemTemplate>
             </asp:TemplateField>
+             <eclipse:MultiBoundField DataFields="MRNumber" SortExpression="MRNumber"
+                HeaderText="MR Number" HeaderToolTip="MR Number received by bank" />
+            <eclipse:MultiBoundField DataFields="MRNumberDate" SortExpression="MRNumberDate" DataFormatString="{0:d}" HeaderToolTip="Date when M.R. number has been received."
+                HeaderText="M.R. Number Date" />
             <eclipse:MultiBoundField DataFields="StationName" HeaderText="Station" SortExpression="StationName"
                 ItemStyle-CssClass="noprint" HeaderStyle-CssClass="noprint" />
         </Columns>
@@ -126,6 +130,8 @@
                     <asp:Parameter Name="PayableDate" Type="DateTime" />
                     <asp:Parameter Name="PaidDate" Type="DateTime" />
                     <asp:Parameter Name="StationId" Type="Int32" ConvertEmptyStringToNull="true" />
+                    <asp:Parameter Name="MRNumber" Type="String" ConvertEmptyStringToNull="true" />
+                    <asp:Parameter Name="MRNumberDate" Type="DateTime" />
                 </InsertParameters>
                 <WhereParameters>
                     <asp:Parameter Name="SalaryPeriodId" Type="Int32" />
@@ -136,6 +142,8 @@
                     <asp:Parameter Name="SalaryPeriodEnd" Type="DateTime" />
                     <asp:Parameter Name="PayableDate" Type="DateTime" />
                     <asp:Parameter Name="StationId" Type="Int32" ConvertEmptyStringToNull="true" />
+                    <asp:Parameter Name="MRNumber" Type="String" ConvertEmptyStringToNull="true" />
+                    <asp:Parameter Name="MRNumberDate" Type="DateTime" />
                 </UpdateParameters>
             </phpa:PhpaLinqDataSource>
             <asp:FormView ID="frmSalaryPeriod" runat="server" DataKeyNames="SalaryPeriodId" DataSourceID="dsSpecificSalaryPeriod"
@@ -184,6 +192,10 @@
                                 <asp:Label ID="Label6" runat="server" Text='<%# Eval("PayableDate","{0:d}") %>' />
                                 <eclipse:LeftLabel ID="LeftLabel8" runat="server" Text="Paid Date:" />
                                 <asp:Label runat="server" ID="lblPaidDate" Text='<%# Eval("PaidDate","{0:d}") %>' />
+                                <eclipse:LeftLabel ID="LeftLabel19" runat="server" Text="M.R. Number:" />
+                                <asp:Label runat="server" ID="tbMRNumber" Text='<%# Eval("MRNumber") %>' />
+                                <eclipse:LeftLabel ID="LeftLabel20" runat="server" Text="M.R. Number Date:" />
+                                <asp:Label ID="Label5" runat="server" Text='<%# Eval("MRNumberDate","{0:d}") %>' />
                             </eclipse:TwoColumnPanel>
                         </jquery:JPanel>
                         <phpa:AuditTabPanel ID="panelAudit" runat="server" />
@@ -292,6 +304,22 @@
                         </i:DropDownListEx>
                         <br />
                         List displays only those stations for which you are authorized.
+                        <br />
+                        <eclipse:LeftLabel ID="LeftLabel6" runat="server" Text="M.R. Number" />
+                         <i:TextBoxEx ID="tbMRNumber" runat="server" Text='<%# Bind("MRNumber") %>'
+                            MaxLength="50" Size="25">
+                        </i:TextBoxEx>
+                        <br />
+                        Enter M. R. Number received from the Bank.
+                        <eclipse:LeftLabel ID="LeftLabel17" runat="server" Text="M.R. Number Date" />
+                        <i:TextBoxEx ID="tbMRNumberDate" runat="server" FriendlyName="M.R. Number Date" QueryStringValue='<%# Bind("MRNumberDate", "{0:d}") %>'
+                            ClientIDMode="Static">
+                              <Validators>
+                                <i:Date DateType="ToDate" AssociatedControlID="tbFromDateEdit" />
+                            </Validators>
+                        </i:TextBoxEx>
+                        <br />
+                        Enter date on which you have received the M. R. Number.
                     </eclipse:TwoColumnPanel>
                     <i:ButtonEx runat="server" ID="btnSave" Text="Save" CausesValidation="true" Action="Submit"
                         Icon="Disk" OnClick="btnSave_Click" OnClientClick="OnSalaryPeriodUpdate" />
@@ -307,3 +335,4 @@
         </ContentTemplate>
     </jquery:Dialog>
 </asp:Content>
+

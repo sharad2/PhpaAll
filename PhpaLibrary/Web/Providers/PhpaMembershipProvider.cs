@@ -4,11 +4,10 @@ using System.Configuration;
 using System.Linq;
 using System.Web.Security;
 using Eclipse.PhpaLibrary.Database;
-using System.Web.SessionState;
 
 namespace Eclipse.PhpaLibrary.Web.Providers
 {
-    public class PhpaMembershipProvider:MembershipProvider
+    public class PhpaMembershipProvider : MembershipProvider
     {
         public PhpaMembershipProvider()
         {
@@ -30,7 +29,30 @@ namespace Eclipse.PhpaLibrary.Web.Providers
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            throw new NotImplementedException("ChangePassword");
+            if (newPassword == null || newPassword.Length < this.MinRequiredPasswordLength)
+            {
+                return false;
+            }
+            using (AuthenticationDataContext ctx = new AuthenticationDataContext(_connectString))
+            {
+                try
+                {
+                    var query = (from user in ctx.PhpaUsers
+                                 where user.UserName == username &&
+                                 user.Password == oldPassword
+                                 select user).Single();
+                    query.Password = newPassword;
+                    ctx.SubmitChanges();
+                }
+                catch (InvalidOperationException)
+                {
+                    return false;
+                }
+
+                
+               
+                return true;
+            }
         }
 
         public override bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion, string newPasswordAnswer)
@@ -83,9 +105,23 @@ namespace Eclipse.PhpaLibrary.Web.Providers
             throw new NotImplementedException("GetPassword");
         }
 
+        /// <summary>
+        /// Implemented this for Change password feature
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="userIsOnline"></param>
+        /// <returns></returns>
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            throw new NotImplementedException("GetUser");
+            using (AuthenticationDataContext ctx = new AuthenticationDataContext(_connectString))
+            {
+                var query = (from user in ctx.PhpaUsers
+                             where user.UserName == username
+                             select new MembershipUser(this.Name, username, user.UserId, null, null, user.AdminComment, true, false,
+                                 user.Created ?? DateTime.Today, DateTime.Today, DateTime.Today, DateTime.Today, DateTime.Today)).SingleOrDefault();
+                return query;
+            }
+
         }
 
         public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
@@ -105,12 +141,18 @@ namespace Eclipse.PhpaLibrary.Web.Providers
 
         public override int MinRequiredNonAlphanumericCharacters
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return 0;
+            }
         }
 
         public override int MinRequiredPasswordLength
         {
-            get { throw new NotImplementedException("MinRequiredNonAlphanumericCharacters"); }
+            get 
+            {
+                return 7;
+            }
         }
 
         public override int PasswordAttemptWindow

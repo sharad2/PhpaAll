@@ -64,7 +64,7 @@ namespace Finance.Payroll.Reports
              
             if (!string.IsNullOrEmpty(ddlBankName.Value))
             {
-                listPea=listPea.Where(p=>p.EmployeePeriod.Employee.Bank.BankId== Convert.ToInt32(ddlBankName.Value));
+                listPea=listPea.Where(p=> ( p.EmployeePeriod.BankId ?? p.EmployeePeriod.Employee.Bank.BankId )== Convert.ToInt32(ddlBankName.Value));
              
             }
             gvPaybill.Caption += string.Format("{0} {1} Employees", rblNationality.SelectedItem.Text, ddlEmpType.SelectedItem.Text);
@@ -95,7 +95,7 @@ namespace Finance.Payroll.Reports
                             EmployeeId = g.Key.Employee.EmployeeId,
                             EmployeeCode = g.Key.Employee.EmployeeCode,
                             FullName = g.Key.Employee.FullName,
-                            Designation = g.Key.Employee.Designation,
+                            Designation = g.Key.EmployeePeriod.Designation ?? g.Key.EmployeePeriod.Employee.Designation,
                             CitizenCardNo = g.Key.Employee.CitizenCardNo,
                             Grade = g.Key.Employee.Grade,
                             BasicPay = g.Key.EmployeePeriod.BasicPay,
@@ -184,7 +184,7 @@ namespace Finance.Payroll.Reports
 
             if (!string.IsNullOrEmpty(ddlBankName.Value))
             {
-                listPea = listPea.Where(p => p.EmployeePeriod.Employee.Bank.BankId == Convert.ToInt32(ddlBankName.Value));
+                listPea = listPea.Where(p => (p.EmployeePeriod.BankId ?? p.EmployeePeriod.Employee.Bank.BankId) == Convert.ToInt32(ddlBankName.Value));
 
             }
             gvPaybill.Caption += string.Format("");

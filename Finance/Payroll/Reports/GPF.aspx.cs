@@ -33,7 +33,7 @@ namespace Finance.Payroll.Reports
                        {                           
                            NPPFPNo = pea.EmployeePeriod.Employee.NPPFPNo,
                            MembersName = pea.EmployeePeriod.Employee.FullName,
-                           Designation = pea.EmployeePeriod.Employee.Designation,
+                           Designation = pea.EmployeePeriod.Designation ?? pea.EmployeePeriod.Employee.Designation,
                            CitizenId = pea.EmployeePeriod.Employee.CitizenCardNo,
                            EmployeeIDNo=pea.EmployeePeriod.Employee.EmployeeId,
                            BasicPay = pea.EmployeePeriod.Employee.BasicSalary,
@@ -42,8 +42,8 @@ namespace Finance.Payroll.Reports
                            TotalNu = Math.Round(pea.Amount ?? 0, MidpointRounding.AwayFromZero) * 2,
                            GPFAccountNo = pea.EmployeePeriod.Employee.GPFAccountNo,
                            Date = pea.EmployeePeriod.SalaryPeriod.SalaryPeriodStart,
-                           BankAccountNo = pea.EmployeePeriod.Employee.BankAccountNo,
-                           BankId = pea.EmployeePeriod.Employee.Bank.BankId
+                           BankAccountNo = pea.EmployeePeriod.BankAccountNo ?? pea.EmployeePeriod.Employee.BankAccountNo,
+                           BankId = pea.EmployeePeriod.BankId ?? pea.EmployeePeriod.Employee.Bank.BankId
                        };
             if (!string.IsNullOrEmpty(ddlBankName.Value))
             {

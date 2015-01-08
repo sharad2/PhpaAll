@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.WebForms", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Core", "EclipseLibrary.Core\EclipseLibrary.Core.csproj", "{0D51CE18-5EAD-41F7-9EEB-EB85FD85E93E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{8FEC7FB2-46BF-42A2-8293-83E3857AB077}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{F504E6DE-4AEE-4E03-92E0-8D749DF0CFA2}"
 	ProjectSection(SolutionItems) = preProject
 		Readme.txt = Readme.txt
 	EndProjectSection

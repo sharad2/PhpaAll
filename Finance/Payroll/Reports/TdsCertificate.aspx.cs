@@ -46,7 +46,7 @@ namespace Finance.Payroll.Reports
                                 pea.Adjustment.AdjustmentCategoryId : 0,
                            IsDeduction = pea.Adjustment.IsDeduction
                        } into g
-                       orderby g.Key.EmployeePeriod.SalaryPeriod.SalaryPeriodStart, g.Key.IsDeduction, g.Key.CategoryId
+                       orderby g.Key.EmployeePeriod.SalaryPeriod.SalaryPeriodStart,g.Key.EmployeePeriod.SalaryPeriod.SalaryPeriodCode, g.Key.IsDeduction, g.Key.CategoryId
                        let catdesc = g.Where(p => p.Adjustment.AdjustmentCategoryId == g.Key.CategoryId)
                             .Select(p => p.Adjustment.AdjustmentCategory.ShortDescription).First()
                        select new
@@ -59,7 +59,9 @@ namespace Finance.Payroll.Reports
                            IsDeduction = g.Key.IsDeduction,
                            Amount = g.Sum(p => Math.Round(p.Amount ?? 0, MidpointRounding.AwayFromZero)),
                            Date = g.Key.EmployeePeriod.Created,
-                           HeaderSortExpression = g.Key.CategoryId == 0 ? "Z" : catdesc
+                           HeaderSortExpression = g.Key.CategoryId == 0 ? "Z" : catdesc,
+                           MRNumber = g.Key.EmployeePeriod.SalaryPeriod.MRNumber,
+                           MRNumberDate = g.Key.EmployeePeriod.SalaryPeriod.MRNumberDate
                        };
             this.Title += string.Format(" From {0:d MMMM yyyy} To {1:d MMMM yyyy}",tbFromDate.ValueAsDate,tbToDate.ValueAsDate);
         }
