@@ -46,8 +46,9 @@ namespace Finance.Reports
             ReportingDataContext db = (ReportingDataContext)dsHeadsExp.Database;
 
             gvHeadsExp.DataSource = from vd in db.RoVoucherDetails
-                                    where (vd.RoHeadHierarchy.HeadOfAccountType == "Expenditure" ||
-                                            vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES") &&
+                                    where HeadOfAccountHelpers.JobExpenses.Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
+                                    //where (vd.RoHeadHierarchy.HeadOfAccountType == "Expenditure" ||
+                                    //        vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES") &&
                                             vd.RoVoucher.VoucherDate >= dt.Value.FinancialYearStartDate().AddYears(-1) &&
                                             vd.RoVoucher.VoucherDate <= dt.Value.FinancialYearEndDate().AddYears(-1)
                                     group vd by vd.RoHeadHierarchy.TopParentName into grouping
@@ -60,8 +61,9 @@ namespace Finance.Reports
                                     };
             gvHeadsExp.DataBind();
             gvHeadsExpTillDate.DataSource = from vd in db.RoVoucherDetails
-                                     where (vd.RoHeadHierarchy.HeadOfAccountType == "Expenditure" ||
-                                             vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES") &&
+                                      where HeadOfAccountHelpers.JobExpenses.Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
+                                     //where (vd.RoHeadHierarchy.HeadOfAccountType == "Expenditure" ||
+                                     //        vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES") &&
                                              vd.RoVoucher.VoucherDate >= dt.Value.FinancialYearStartDate() &&
                                              vd.RoVoucher.VoucherDate <= tbDate.ValueAsDate
                                      group vd by vd.RoHeadHierarchy.TopParentName into grouping
