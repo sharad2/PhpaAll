@@ -138,6 +138,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Reporting\HeadOfAccountHelpers.cs" />
     <Compile Include="Reporting\IEmployee.cs" />
     <Compile Include="Reporting\LevelSubtotals.cs" />
     <Compile Include="Reporting\ReportingUtilities.cs" />

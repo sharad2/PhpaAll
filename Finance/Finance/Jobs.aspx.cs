@@ -22,6 +22,7 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Database;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery;
+using Eclipse.PhpaLibrary.Reporting;
 
 namespace Finance.Finance
 {
@@ -86,15 +87,18 @@ namespace Finance.Finance
                            Nationality = job.Contractor.Nationality,
                            RevisedContract = (decimal?)(job.RevisedContract ?? job.SanctionedAmount),
                            CompletionDate = job.CompletionDate,
-                           Total = job.VoucherDetails.Sum(p => ((p.HeadOfAccount.HeadOfAccountType == "EXPENDITURE" ||
-                               p.HeadOfAccount.HeadOfAccountType == "TOUR_EXPENSES") && p.Voucher.VoucherDate <= _date
-                               ? p.DebitAmount ?? 0 - p.CreditAmount ?? 0 : 0))
-                               + job.VoucherDetails.Sum(p => ((p.HeadOfAccount.HeadOfAccountType == "PARTY_ADVANCE" ||
-                                   p.HeadOfAccount.HeadOfAccountType == "MATERIAL_ADVANCE") && p.Voucher.VoucherDate <= _date ?
-                                   p.DebitAmount ?? 0 : 0))
-                               - job.VoucherDetails.Sum(p => (p.HeadOfAccount.HeadOfAccountType == "PARTY_ADVANCE" ||
-                                   p.HeadOfAccount.HeadOfAccountType == "MATERIAL_ADVANCE")
-                                   && p.Voucher.VoucherDate <= _date ? p.CreditAmount ?? 0 : 0)
+                           //Total = job.VoucherDetails.Sum(p => ((p.HeadOfAccount.HeadOfAccountType == "EXPENDITURE" ||
+                           //    p.HeadOfAccount.HeadOfAccountType == "TOUR_EXPENSES") && p.Voucher.VoucherDate <= _date
+                           //    ? p.DebitAmount ?? 0 - p.CreditAmount ?? 0 : 0))
+                           //    + job.VoucherDetails.Sum(p => ((p.HeadOfAccount.HeadOfAccountType == "PARTY_ADVANCE" ||
+                           //        p.HeadOfAccount.HeadOfAccountType == "MATERIAL_ADVANCE") && p.Voucher.VoucherDate <= _date ?
+                           //        p.DebitAmount ?? 0 : 0))
+                           //    - job.VoucherDetails.Sum(p => (p.HeadOfAccount.HeadOfAccountType == "PARTY_ADVANCE" ||
+                           //        p.HeadOfAccount.HeadOfAccountType == "MATERIAL_ADVANCE")
+                           //        && p.Voucher.VoucherDate <= _date ? p.CreditAmount ?? 0 : 0)
+                           Total = job.VoucherDetails.Where(p => p.Voucher.VoucherDate <= _date && HeadOfAccountHelpers.JobExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                    .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0)
+                              
                        };
         }
 

@@ -37,8 +37,8 @@ namespace Finance.Reports
 {
     public partial class BalanceProjectCost : PageBase
     {
-        private const string HOA_EXPENDITURE = "EXPENDITURE";
-        private const string HOA_TOUR_EXPENSES = "TOUR_EXPENSES";
+       // private const string HOA_EXPENDITURE = "EXPENDITURE";
+      //  private const string HOA_TOUR_EXPENSES = "TOUR_EXPENSES";
 
         /// <summary>
         /// Display Balance Project Cost fields from Head of Account and Job table.
@@ -52,8 +52,9 @@ namespace Finance.Reports
         {
             ReportingDataContext db = (ReportingDataContext)this.dsBalanceProjectCost.Database;
             m_query = from job in db.RoJobs
-                      where job.RoHeadHierarchy.HeadOfAccountType == HOA_EXPENDITURE
-                            || job.RoHeadHierarchy.HeadOfAccountType == HOA_TOUR_EXPENSES
+                      //where job.RoHeadHierarchy.HeadOfAccountType == HOA_EXPENDITURE
+                      //      || job.RoHeadHierarchy.HeadOfAccountType == HOA_TOUR_EXPENSES
+                      where HeadOfAccountHelpers.TourExpenses.Contains(job.RoHeadHierarchy.HeadOfAccountType)
                       group job by job.RoHeadHierarchy into grouping
                       orderby grouping.Key.SortableName
                       select new ResultItem(grouping.Key, false)
