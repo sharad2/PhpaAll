@@ -113,20 +113,40 @@ namespace Finance.PIS
         protected void dsIncrementDue_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
             PISDataContext db = (PISDataContext)dsIncrementDue.Database;
+            // Sharad 5 Jan 2015: DateOfNextIncrement is calculated based on joining date
+            var query = from p in db.Employees
+                        where p.JoiningDate.HasValue && p.DateOfRelieve == null
+                        let dateNextIncrement = p.JoiningDate.Value.AddYears(DateTime.Today.Year - p.JoiningDate.Value.Year)
+                        where dateNextIncrement.Month == DateTime.Today.Month && dateNextIncrement.Year == DateTime.Today.Year
+                        orderby dateNextIncrement, p.FirstName, p.LastName
+                        select new
+                        {
+                            EmployeeId = p.EmployeeId,
+                            FirstName = p.FirstName,
+                            LastName = p.LastName,
+                            FullName = p.FullName,
+                            JoiningDate = p.JoiningDate,
+                            DateOfNextIncrement = dateNextIncrement,
+                            DateOfRelieve = p.DateOfRelieve
+                        };
 
-            var queryPromotion = db.Employees.Select(p => new
-            {
-                EmployeeId = p.EmployeeId,
-                FirstName = p.FirstName,
-                LastName = p.LastName,
-                FullName = p.FullName,
-                DateOfNextIncrement = p.ServicePeriods.Max(q => q.DateOfNextIncrement),
-                DateOfRelieve = p.DateOfRelieve
-            }).Where(p => p.DateOfNextIncrement == null && p.DateOfRelieve == null ||( p.DateOfNextIncrement >= DateTime.Today.AddDays(-3) 
-                && p.DateOfNextIncrement < DateTime.Today.AddMonths(2)))
-                        .OrderBy(p => p.DateOfNextIncrement)
-                        .ThenBy(p=> p.FirstName).ThenBy(p=>p.LastName);
-            e.Result = queryPromotion;
+            e.Result = query;
+            //return;
+            //var queryPromotion = db.Employees.Select(p => new
+            //{
+            //    EmployeeId = p.EmployeeId,
+            //    FirstName = p.FirstName,
+            //    LastName = p.LastName,
+            //    FullName = p.FullName,
+            //    JoiningDate = p.JoiningDate,
+            //    DateOfNextIncrement = p.ServicePeriods.Max(q => q.DateOfNextIncrement),
+            //    DateOfRelieve = p.DateOfRelieve
+            //}).Where(p => p.DateOfRelieve == null && p.JoiningDate.Value.Month == DateTime.Today.Month && p.JoiningDate.Value.Year < DateTime.Today.Year)
+            ////}).Where(p => p.DateOfNextIncrement == null && p.DateOfRelieve == null ||( p.DateOfNextIncrement >= DateTime.Today.AddDays(-3) 
+            ////    && p.DateOfNextIncrement < DateTime.Today.AddMonths(2)))
+            //            .OrderBy(p => p.DateOfNextIncrement ?? p.JoiningDate)
+            //            .ThenBy(p=> p.FirstName).ThenBy(p=>p.LastName);
+            //e.Result = queryPromotion;
         }
 
         protected void dsUpcomingBirthdays_Selecting(object sender, LinqDataSourceSelectEventArgs e)

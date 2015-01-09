@@ -234,7 +234,7 @@ return false;
     <asp:Repeater ID="Repeater5" runat="server" DataSourceID="dsIncrementDue" OnItemDataBound="rep_DataBound">
         <HeaderTemplate>
             <fieldset class="container">
-                <legend class="containerLegend ui-state-default">Increment Due</legend>
+                <legend class="containerLegend ui-state-default">Increment Due This Month</legend>
         </HeaderTemplate>
         <ItemTemplate>
             <asp:MultiView runat="server" ID="mv">

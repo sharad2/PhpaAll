@@ -192,16 +192,16 @@ namespace Finance.Finance
                          && sp.NextPromotionDate < DateTime.Now.AddDays(30))
                          select emp).Distinct();
             }
-            if (cbIncrementdue.Checked)
-            {
-                query = (from emp in db.Employees
-                         join sp in db.ServicePeriods
-                         on emp.EmployeeId equals sp.EmployeeId
-                         where sp.DateOfNextIncrement != null
-                         && (sp.DateOfNextIncrement > DateTime.Now
-                         && sp.DateOfNextIncrement < DateTime.Now.AddDays(30))
-                         select emp).Distinct();
-            }
+            //if (cbIncrementdue.Checked)
+            //{
+            //    query = (from emp in db.Employees
+            //             join sp in db.ServicePeriods
+            //             on emp.EmployeeId equals sp.EmployeeId
+            //             where sp.DateOfNextIncrement != null
+            //             && (sp.DateOfNextIncrement > DateTime.Now
+            //             && sp.DateOfNextIncrement < DateTime.Now.AddDays(30))
+            //             select emp).Distinct();
+            //}
             e.Result = query;
 
 

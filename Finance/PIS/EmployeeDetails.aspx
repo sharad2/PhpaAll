@@ -196,7 +196,7 @@ $('#dlgAddEmployee')
                         <asp:Label ID="Label13" runat="server" Text='<%# Eval("IncrementAmount","{0:N2}") %>' />
                     </eclipse:TwoColumnPanel>
                 </fieldset>
-                <fieldset>
+<%--                <fieldset>
                     <legend>Increment</legend>
                     <eclipse:TwoColumnPanel ID="TwoColumnPanel3" runat="server">
                         <eclipse:LeftLabel ID="LeftLabel14" runat="server" Text="Increment Date" />
@@ -205,11 +205,11 @@ $('#dlgAddEmployee')
                         <asp:Label ID="Label15" runat="server" Text='<%# Eval("DateOfNextIncrement","{0:d}") %>' />
                     </eclipse:TwoColumnPanel>
                     <div class="ui-helper-clearfix">
-                       <%-- <i:ButtonEx runat="server" ID="btnIncrement" Text="Increment..." OnClientClick="function(e){
+                        <i:ButtonEx runat="server" ID="btnIncrement" Text="Increment..." OnClientClick="function(e){
 $('#dlgIncrement')
 .ajaxDialog('option','data',{Type:'I'})
 .ajaxDialog('load');
-                }" />--%>
+                }" />
                         <i:ButtonEx runat="server" ID="btnEditIncrement" Text="Edit Increment..." OnClientClick="function(e){
 $('#dlgIncrement')
 .ajaxDialog('option','data',{Type:'E'})
@@ -227,7 +227,7 @@ $('form:first').submit();
                             </Buttons>
                         </jquery:Dialog>
                     </div>
-                </fieldset>
+                </fieldset>--%>
                 <fieldset>
                     <legend>Promotion</legend>
                     <eclipse:TwoColumnPanel ID="TwoColumnPanel4" runat="server">

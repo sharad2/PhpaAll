@@ -47,7 +47,33 @@ namespace Finance.Reports
 
             gvHeadsExp.DataSource = from vd in db.RoVoucherDetails
                                     where (vd.RoHeadHierarchy.HeadOfAccountType == "Expenditure" ||
-                                            vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES") &&
+                                             vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES" ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1373 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1374 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1375 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1376 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1377 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1379 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1381 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1382 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1385 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1395 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1397 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1534 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1593 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1594 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1595 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1596 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1597 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1686 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1687 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1688 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1689 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1690 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1691 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1769 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1846 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1387) &&
                                             vd.RoVoucher.VoucherDate >= dt.Value.FinancialYearStartDate().AddYears(-1) &&
                                             vd.RoVoucher.VoucherDate <= dt.Value.FinancialYearEndDate().AddYears(-1)
                                     group vd by vd.RoHeadHierarchy.TopParentName into grouping
@@ -61,7 +87,33 @@ namespace Finance.Reports
             gvHeadsExp.DataBind();
             gvHeadsExpTillDate.DataSource = from vd in db.RoVoucherDetails
                                      where (vd.RoHeadHierarchy.HeadOfAccountType == "Expenditure" ||
-                                             vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES") &&
+                                             vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES" ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1373 || 
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1374 || 
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1375 || 
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1376 || 
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1377 || 
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1379 || 
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1381 || 
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1382 || 
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1385 || 
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1395 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1397 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1534 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1593 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1594 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1595 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1596 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1597 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1686 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1687 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1688 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1689 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1690 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1691 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1769 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1846 ||
+                                             vd.RoHeadHierarchy.HeadOfAccountId == 1387) &&
                                              vd.RoVoucher.VoucherDate >= dt.Value.FinancialYearStartDate() &&
                                              vd.RoVoucher.VoucherDate <= tbDate.ValueAsDate
                                      group vd by vd.RoHeadHierarchy.TopParentName into grouping

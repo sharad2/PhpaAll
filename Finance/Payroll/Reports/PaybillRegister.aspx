@@ -81,6 +81,7 @@
                     <eclipse:LeftLabel runat="server" Text="<b>Posted at" />
                     <asp:Label runat="server" Text='<%# Eval("PostedAt") %>' />
                 </eclipse:TwoColumnPanel>
+
             </div>
             <div style="float: left; width: 50%">
                 <eclipse:TwoColumnPanel ID="TwoColumnPanel1" WidthLeft="30%" WidthRight="70%" runat="server"
@@ -111,7 +112,9 @@
                     <asp:Label runat="server" Text='<%# Eval("ParentOrganization") %>' />
                 </eclipse:TwoColumnPanel>
             </div>
+    
         </ItemTemplate>
+
     </asp:ListView>
     <phpa:PhpaLinqDataSource ID="dsPayBillDtl" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.Payroll.PayrollDataContext"
         TableName="PeriodEmployeeAdjustments" RenderLogVisible="false">
@@ -134,6 +137,10 @@
             No salary provided to the employee during the given period.
         </EmptyDataTemplate>
     </jquery:GridViewEx>
+             <br />
+        <i><b>This is computer generated document no signature is required.</i></b>
+        <br />  
+            <br /> 
     <phpa:PhpaLinqDataSource ID="dsRepCat" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.Payroll.PayrollDataContext"
         TableName="ReportCategories" RenderLogVisible="false" />
 </asp:Content>
