@@ -94,6 +94,8 @@
                                 <asp:Label ID="Label9" runat="server" Text='<%# Eval("GPFAccountNumber") %>' />
                                 <eclipse:LeftLabel ID="LeftLabel10" runat="server" Text="<b>NPPF Number" />
                                 <asp:Label ID="Label10" runat="server" Text='<%# Eval("NPPFNumber") %>' />
+                                <eclipse:LeftLabel runat="server" Text="<b>GIS Account Number" />
+                                <asp:Label runat="server" Text='<%# Eval("GISAccountNumber") %>' />
                             </eclipse:TwoColumnPanel>
                         </div>
                     </ItemTemplate>
