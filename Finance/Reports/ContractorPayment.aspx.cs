@@ -173,8 +173,10 @@ namespace Finance.Reports
                                                   where !otherRecoveryHeadExclusion.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                   select vd.DebitAmount).Sum()
                         let otherRecoveryCredit = (from vd in grp
-                                                  where !otherRecoveryHeadExclusion.Contains(vd.HeadOfAccount.HeadOfAccountType) ||
-                                                  HeadOfAccountHelpers.ExpenditureSubTypes.CivilExpenditure.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                  where 
+                                                  (!otherRecoveryHeadExclusion.Contains(vd.HeadOfAccount.HeadOfAccountType) ||
+                                                  (HeadOfAccountHelpers.JobExpenses.Contains(vd.HeadOfAccount.HeadOfAccountType) &&
+                                                  !HeadOfAccountHelpers.ExpenditureSubTypes.CivilExpenditure.Contains(vd.HeadOfAccount.HeadOfAccountType) && vd.RoJob.TypeFlag == "X"))
                                                   select vd.CreditAmount).Sum()
                         let otherRecovery = otherRecoveryDebit.HasValue || otherRecoveryCredit.HasValue ? (otherRecoveryCredit ?? 0) - (otherRecoveryDebit ?? 0) : (decimal?)null
                         let anyRecovery = materialRecovered.HasValue || advanceAdjusted.HasValue || contractorTax.HasValue || securityDeposit.HasValue ||
@@ -187,7 +189,8 @@ namespace Finance.Reports
                                                    where HeadOfAccountHelpers.JobExpenses.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                    select vd.DebitAmount).Sum()
                         let admittedAmountCredit = (from vd in grp
-                                                    where HeadOfAccountHelpers.ExpenditureSubTypes.CivilExpenditure.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                    where ((HeadOfAccountHelpers.ExpenditureSubTypes.CivilExpenditure.Contains(vd.HeadOfAccount.HeadOfAccountType) && vd.RoJob.TypeFlag == "X") ||
+                                                    (HeadOfAccountHelpers.JobExpenses.Contains(vd.HeadOfAccount.HeadOfAccountType) && vd.RoJob.TypeFlag != "X"))
                                                     select vd.CreditAmount).Sum()
                         let admittedAmount = admittedAmountDebit.HasValue || admittedAmountCredit.HasValue ? (admittedAmountDebit ?? 0) - (admittedAmountCredit ?? 0) : (decimal?)null
                         let advancePaid = (decimal?)(from vd in grp
