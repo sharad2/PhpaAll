@@ -162,6 +162,7 @@ namespace Finance.Reports
                         let advanceAdjusted = (decimal?)(from vd in grp
                                                          where HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                          select vd.CreditAmount).Sum()
+                        //let contractorAdvanceAdjusted = (advanceAdjusted ?? 0) + (materialRecovered ?? 0)
                         let otherRecovery = (decimal?)(from vd in grp
                                                        where !HeadOfAccountHelpers.SecurityDeposits
                                                        .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanTax)
@@ -171,10 +172,10 @@ namespace Finance.Reports
                                                        .Concat(HeadOfAccountHelpers.CashInBank)
                                                        .Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                        select vd.CreditAmount ?? 0 - vd.DebitAmount ?? 0).Sum()
-                        let anyRecovery = contractorTax.HasValue || securityDeposit.HasValue || materialRecovered.HasValue || interestRecovered.HasValue ||
-                                            advanceAdjusted.HasValue || otherRecovery.HasValue
-                        let totalRecovery1 = (contractorTax ?? 0) + (securityDeposit ?? 0) + (materialRecovered ?? 0) + (interestRecovered ?? 0) +
-                                (advanceAdjusted ?? 0) + (otherRecovery ?? 0)
+                        let anyRecovery = materialRecovered.HasValue || advanceAdjusted.HasValue || contractorTax.HasValue || securityDeposit.HasValue ||
+                                            interestRecovered.HasValue || otherRecovery.HasValue
+                        let totalRecovery1 = (materialRecovered ?? 0) + (advanceAdjusted ?? 0) + (contractorTax ?? 0) + (securityDeposit ?? 0) + (interestRecovered ?? 0) 
+                                 + (otherRecovery ?? 0)
                         let totalRecovery = anyRecovery ? totalRecovery1 : (decimal?)null
                         let admittedAmount = (decimal?)(from vd in grp
                                                         where HeadOfAccountHelpers.JobExpenses.Contains(vd.HeadOfAccount.HeadOfAccountType)
@@ -182,26 +183,24 @@ namespace Finance.Reports
                         let advancePaid = (decimal?)(from vd in grp
                                                      where HeadOfAccountHelpers.JobAdvances.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                      select vd.DebitAmount).Sum()
-                        select new 
+                        select new
                         {
                             Particulars = grp.Key.Particulars,
                             VoucherDate = grp.Key.VoucherDate,
                             VoucherCode = grp.Key.VoucherCode,
                             VoucherId = grp.Key.VoucherId,
-                            AdmittedAmount = admittedAmount,
+                            AdmittedAmount = admittedAmount,  // Col 3
                             AdvancePaid = (from vd in grp
                                            where HeadOfAccountHelpers.JobAdvances.Contains(vd.HeadOfAccount.HeadOfAccountType)
-                                           select vd.DebitAmount).Sum(),
-                            ContractorTax = contractorTax,
-                            SecurityDeposit = securityDeposit,
-                            AdvanceAdjusted = advanceAdjusted,
-                            MaterialRecoverd = materialRecovered,
-
-                            InterestRecoverd = interestRecovered,
-                            OtherRecovery = otherRecovery,
-                            ContractorAdvanceAdjusted = (advanceAdjusted ?? 0) + (materialRecovered ?? 0),
-                            TotalRecovery = totalRecovery,
-                            NetPayment = (admittedAmount ?? 0) + (advancePaid ?? 0) - (totalRecovery ?? 0)
+                                           select vd.DebitAmount).Sum(),  // Col 5
+                            ContractorAdvanceAdjusted = advanceAdjusted.HasValue || materialRecovered.HasValue ?
+                                (advanceAdjusted ?? 0) + (materialRecovered ?? 0) : (decimal?)null,  // Col 6
+                            ContractorTax = contractorTax,  // Col 7
+                            SecurityDeposit = securityDeposit,  // Col 8
+                            InterestRecoverd = interestRecovered,  // Col 9
+                            OtherRecovery = otherRecovery,  // Col 10
+                            TotalRecovery = totalRecovery,  // Col 11
+                            NetPayment = (admittedAmount ?? 0) + (advancePaid ?? 0) - (totalRecovery ?? 0) // Col 12
                         };
 
 
@@ -243,22 +242,22 @@ namespace Finance.Reports
                     lblOpenBal.Visible = true;
                     break;
 
-                //case DataControlRowType.Footer:
-                //    // Footer prints on last page only
-                //    e.Row.TableSection = TableRowSection.TableBody;
-                //    MultiBoundField advancePaid = (MultiBoundField)(from DataControlField col in gvContractorPayment.Columns
-                //                                                    where col.AccessibleHeaderText == "AdvancePaid"
-                //                                                    select col).Single();
-                //    MultiBoundField advanceAdjusted = (MultiBoundField)(from DataControlField col in gvContractorPayment.Columns
-                //                                                        where col.AccessibleHeaderText == "ContractorAdvanceAdjusted"
-                //                                                        select col).Single();
-                //    decimal? adv = Convert.ToDecimal(advancePaid.SummaryValues[0].Value);
-                //    decimal? adj = Convert.ToDecimal(advanceAdjusted.SummaryValues[0].Value);
+                case DataControlRowType.Footer:
+                    // Footer prints on last page only
+                    e.Row.TableSection = TableRowSection.TableBody;
+                    MultiBoundField advancePaid = (MultiBoundField)(from DataControlField col in gvContractorPayment.Columns
+                                                                    where col.AccessibleHeaderText == "AdvancePaid"
+                                                                    select col).Single();
+                    MultiBoundField advanceAdjusted = (MultiBoundField)(from DataControlField col in gvContractorPayment.Columns
+                                                                        where col.AccessibleHeaderText == "ContractorAdvanceAdjusted"
+                                                                        select col).Single();
+                    decimal? adv = Convert.ToDecimal(advancePaid.SummaryValues[0].Value);
+                    decimal? adj = Convert.ToDecimal(advanceAdjusted.SummaryValues[0].Value);
 
-                //    decimal balance = Math.Abs((decimal)(adv - adj));
-                //    lbldiffrence.Text += balance.ToString("C");
-                //    lbldiffrence.Visible = true;
-                //    break;
+                    decimal balance = Math.Abs((decimal)(adv - adj));
+                    lbldiffrence.Text += balance.ToString("C");
+                    lbldiffrence.Visible = true;
+                    break;
             }
         }
 
