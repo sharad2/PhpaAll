@@ -141,6 +141,13 @@ namespace Finance.Reports
             //dlo.LoadWith<RoJob>(job => job.RoContractor);
             //db.LoadOptions = dlo;
 
+            var otherRecoveryHeadExclusion = HeadOfAccountHelpers.SecurityDeposits
+                                                       .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanTax)
+                                                       .Concat(HeadOfAccountHelpers.JobAdvances)
+                                                       .Concat(HeadOfAccountHelpers.InterestReceipts)
+                                                       .Concat(HeadOfAccountHelpers.JobExpenses)
+                                                       .Concat(HeadOfAccountHelpers.CashInBank);
+
             var query = from vd in db.RoVoucherDetails
                         where vd.JobId == jobId &&
                         !HeadOfAccountHelpers.ExciseDuties.Contains(vd.HeadOfAccount.HeadOfAccountType) &&
@@ -162,24 +169,27 @@ namespace Finance.Reports
                         let advanceAdjusted = (decimal?)(from vd in grp
                                                          where HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                          select vd.CreditAmount).Sum()
-                        //let contractorAdvanceAdjusted = (advanceAdjusted ?? 0) + (materialRecovered ?? 0)
-                        let otherRecovery = (decimal?)(from vd in grp
-                                                       where !HeadOfAccountHelpers.SecurityDeposits
-                                                       .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanTax)
-                                                       .Concat(HeadOfAccountHelpers.JobAdvances)
-                                                       .Concat(HeadOfAccountHelpers.InterestReceipts)
-                                                       .Concat(HeadOfAccountHelpers.JobExpenses)
-                                                       .Concat(HeadOfAccountHelpers.CashInBank)
-                                                       .Contains(vd.HeadOfAccount.HeadOfAccountType)
-                                                       select vd.CreditAmount ?? 0 - vd.DebitAmount ?? 0).Sum()
+                        let otherRecoveryDebit = (from vd in grp
+                                                  where !otherRecoveryHeadExclusion.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                  select vd.DebitAmount).Sum()
+                        let otherRecoveryCredit = (from vd in grp
+                                                  where !otherRecoveryHeadExclusion.Contains(vd.HeadOfAccount.HeadOfAccountType) ||
+                                                  HeadOfAccountHelpers.ExpenditureSubTypes.CivilExpenditure.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                  select vd.CreditAmount).Sum()
+                        let otherRecovery = otherRecoveryDebit.HasValue || otherRecoveryCredit.HasValue ? (otherRecoveryCredit ?? 0) - (otherRecoveryDebit ?? 0) : (decimal?)null
                         let anyRecovery = materialRecovered.HasValue || advanceAdjusted.HasValue || contractorTax.HasValue || securityDeposit.HasValue ||
                                             interestRecovered.HasValue || otherRecovery.HasValue
-                        let totalRecovery1 = (materialRecovered ?? 0) + (advanceAdjusted ?? 0) + (contractorTax ?? 0) + (securityDeposit ?? 0) + (interestRecovered ?? 0) 
+                        let totalRecovery1 = (materialRecovered ?? 0) + (advanceAdjusted ?? 0) + (contractorTax ?? 0) + (securityDeposit ?? 0) + (interestRecovered ?? 0)
                                  + (otherRecovery ?? 0)
                         let totalRecovery = anyRecovery ? totalRecovery1 : (decimal?)null
-                        let admittedAmount = (decimal?)(from vd in grp
-                                                        where HeadOfAccountHelpers.JobExpenses.Contains(vd.HeadOfAccount.HeadOfAccountType)
-                                                        select vd.DebitAmount ?? 0 - vd.CreditAmount ?? 0).Sum()
+
+                        let admittedAmountDebit = (from vd in grp
+                                                   where HeadOfAccountHelpers.JobExpenses.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                   select vd.DebitAmount).Sum()
+                        let admittedAmountCredit = (from vd in grp
+                                                    where HeadOfAccountHelpers.ExpenditureSubTypes.CivilExpenditure.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                    select vd.CreditAmount).Sum()
+                        let admittedAmount = admittedAmountDebit.HasValue || admittedAmountCredit.HasValue ? (admittedAmountDebit ?? 0) - (admittedAmountCredit ?? 0) : (decimal?)null
                         let advancePaid = (decimal?)(from vd in grp
                                                      where HeadOfAccountHelpers.JobAdvances.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                      select vd.DebitAmount).Sum()

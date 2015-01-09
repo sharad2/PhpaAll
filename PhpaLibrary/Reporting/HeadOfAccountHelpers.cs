@@ -7,7 +7,12 @@ namespace Eclipse.PhpaLibrary.Reporting
     public static class HeadOfAccountHelpers
     {
 
-        public readonly static IEnumerable<string> JobExpenses = new string[] { "EXPENDITURE", "TOUR_EXPENSES" };
+        public static class ExpenditureSubTypes
+        {
+            public readonly static IEnumerable<string> CivilExpenditure = new string[] { "CIVIL_EXPENSES" };
+        }
+
+        public readonly static IEnumerable<string> JobExpenses = (new string[] { "EXPENDITURE", "TOUR_EXPENSES" }).Concat(ExpenditureSubTypes.CivilExpenditure);
 
         public static class AdvanceSubTypes
         {
