@@ -16,10 +16,25 @@ namespace Eclipse.PhpaLibrary.Reporting
             public readonly static IEnumerable<string> EmployeeAdvance = new string[] { "EMPLOYEE_ADVANCE" };
         }
 
+        public static class TaxSubTypes
+        {
+            public readonly static IEnumerable<string> GreenTax = new string[] { "GREEN_TAX" };
+            public readonly static IEnumerable<string> BhutanTax = new string[] { "BIT" };
+        }
+
         public readonly static IEnumerable<string> JobAdvances = AdvanceSubTypes.PartyAdvance.Concat(AdvanceSubTypes.MaterialAdvance);
         public readonly static IEnumerable<string> Grants = new string[] { "GRANT_RECEIVED_GOINU", "GRANT_RECEIVED_GOIFE" };
         public readonly static IEnumerable<string> Loans = new string[] { "LOAN_RECEIVED_GOINU", "LOAN_RECEIVED_GOIFE" };
-        public readonly static IEnumerable<string> GreenTaxes = new string[] { "GREEN_TAX" };
+
         public readonly static IEnumerable<string> AccumulatedReceipts = new string[] { "ACCUMULATED_RECEIPTS", "TENDER_SALE" };
+
+        public readonly static IEnumerable<string> SecurityDeposits = new string[] { "SD" };
+
+        public readonly static IEnumerable<string> InterestReceipts = new string[] { "INTEREST" };
+
+        public readonly static IEnumerable<string> CashInBank = new string[] { "BANKNU", "BANKFE" };
+
+        public readonly static IEnumerable<string> ExciseDuties = new string[] { "EDGOI", "EDRGOB" };
+
     }
 }

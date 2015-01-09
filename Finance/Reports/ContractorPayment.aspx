@@ -40,7 +40,7 @@
         <i:ValidationSummary ID="ValidationSummary1" runat="server" />
     </eclipse:TwoColumnPanel>
     <phpa:PhpaLinqDataSource ID="dsContractorPayment" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Reporting.ReportingDataContext"
-        TableName="RoJobs" RenderLogVisible="false" OnSelecting="dsContractorPayment_Selecting" />
+        TableName="RoJobs" RenderLogVisible="true" OnSelecting="dsContractorPayment_Selecting" />
     <phpa:PhpaLinqDataSource ID="dsSpecificJob" RenderLogVisible="false" runat="server"
         ContextTypeName="Eclipse.PhpaLibrary.Reporting.ReportingDataContext" TableName="RoJobs"
         AutoGenerateWhereClause="true" OnSelecting="dsSpecificJob_Selecting">

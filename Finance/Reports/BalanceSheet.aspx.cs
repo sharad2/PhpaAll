@@ -119,13 +119,13 @@ namespace Finance.Reports
                     hplnkloanreceived.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}",
                         string.Join(",", HeadOfAccountHelpers.Loans), dt);
                 }
-                else if (HeadOfAccountHelpers.GreenTaxes.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (HeadOfAccountHelpers.TaxSubTypes.GreenTax.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     greenTaxSum += Convert.ToDouble(-grp.Amount);
                     hplnkgtax.Text = greenTaxSum.ToString(fmt);
                     sumAssets += Convert.ToDouble(-grp.Amount);
                     hplnkgtax.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}",
-                        string.Join(",", HeadOfAccountHelpers.GreenTaxes), dt);
+                        string.Join(",", HeadOfAccountHelpers.TaxSubTypes.GreenTax), dt);
                 }
                 else if (HeadOfAccountHelpers.AccumulatedReceipts.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
