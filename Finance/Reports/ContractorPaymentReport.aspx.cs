@@ -121,31 +121,73 @@ namespace Finance.Reports
                                         p.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES")
                                         && p.JobId == jobId)
                     .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0);
-                crp.AdvancePaid = (decimal?)v.RoVoucherDetails.Sum(p => (((p.RoHeadHierarchy.HeadOfAccountType == "PARTY_ADVANCE" ||
-                                        p.RoHeadHierarchy.HeadOfAccountType == "MATERIAL_ADVANCE") && p.JobId == jobId)
+                //crp.AdvancePaid = (decimal?)v.RoVoucherDetails.Sum(p => (((p.RoHeadHierarchy.HeadOfAccountType == "PARTY_ADVANCE" ||
+                //                        p.RoHeadHierarchy.HeadOfAccountType == "MATERIAL_ADVANCE") && p.JobId == jobId)
+                //                        ? p.DebitAmount ?? 0 : 0));
+
+                crp.AdvancePaid = (decimal?)v.RoVoucherDetails.Sum(p => (((HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.Contains(p.RoHeadHierarchy.HeadOfAccountType) ||
+                                        HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(p.RoHeadHierarchy.HeadOfAccountType)) && p.JobId == jobId)
                                         ? p.DebitAmount ?? 0 : 0));
-                crp.ContractorTax = (decimal?)v.RoVoucherDetails.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "BIT" && p.JobId == jobId)
+
+                //crp.ContractorTax = (decimal?)v.RoVoucherDetails.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "BIT" && p.JobId == jobId)
+                //                        ? (p.CreditAmount ?? 0 - p.DebitAmount ?? 0) : 0));
+                //crp.SecurityDeposit = (decimal?)v.RoVoucherDetails.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "SD"
+                //                            && p.JobId == jobId) ? (p.CreditAmount ?? 0 - p.DebitAmount ?? 0) : 0));
+
+
+                crp.ContractorTax = (decimal?)v.RoVoucherDetails.Sum(p => ((HeadOfAccountHelpers.TaxSubTypes.BhutanTax.Contains(p.RoHeadHierarchy.HeadOfAccountType) && p.JobId == jobId)
                                         ? (p.CreditAmount ?? 0 - p.DebitAmount ?? 0) : 0));
-                crp.SecurityDeposit = (decimal?)v.RoVoucherDetails.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "SD"
+                crp.SecurityDeposit = (decimal?)v.RoVoucherDetails.Sum(p => ((HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits.Contains(p.RoHeadHierarchy.HeadOfAccountType)
                                             && p.JobId == jobId) ? (p.CreditAmount ?? 0 - p.DebitAmount ?? 0) : 0));
-                crp.AdvanceAdjusted = (decimal?)v.RoVoucherDetails.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "PARTY_ADVANCE"
+
+                //crp.AdvanceAdjusted = (decimal?)v.RoVoucherDetails.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "PARTY_ADVANCE"
+                //                            && p.JobId == jobId)
+                //                            ? p.CreditAmount ?? 0 : 0));
+
+                crp.AdvanceAdjusted = (decimal?)v.RoVoucherDetails.Sum(p => ((HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.Contains(p.RoHeadHierarchy.HeadOfAccountType)
                                             && p.JobId == jobId)
                                             ? p.CreditAmount ?? 0 : 0));
-                crp.MaterialRecoverd = (decimal?)v.RoVoucherDetails.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "MATERIAL_ADVANCE"
+
+                //crp.MaterialRecoverd = (decimal?)v.RoVoucherDetails.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "MATERIAL_ADVANCE"
+                //                            && p.JobId == jobId)
+                //                            ? p.CreditAmount ?? 0 : 0));
+                crp.MaterialRecoverd = (decimal?)v.RoVoucherDetails.Sum(p => ((HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(p.RoHeadHierarchy.HeadOfAccountType)
                                             && p.JobId == jobId)
                                             ? p.CreditAmount ?? 0 : 0));
-                crp.InterestRecoverd = (decimal?)v.RoVoucherDetails.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "INTEREST"
-                                            && p.JobId == jobId)
-                                            ? p.CreditAmount ?? 0 : 0));
-                crp.OtherRecovery = (decimal?)v.RoVoucherDetails.Sum(p => (p.RoHeadHierarchy.HeadOfAccountType != "BIT" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "SD" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "PARTY_ADVANCE" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "MATERIAL_ADVANCE" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "INTEREST" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "BANKNU" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "BANKFE" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "EXPENDITURE" &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != "TOUR_EXPENSES" &&
+                //crp.InterestRecoverd = (decimal?)v.RoVoucherDetails.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "INTEREST"
+                //                            && p.JobId == jobId)
+                //                            ? p.CreditAmount ?? 0 : 0));
+
+                crp.InterestRecoverd = (decimal?)v.RoVoucherDetails.Sum(p => ((HeadOfAccountHelpers.InterestReceipts.Contains(p.RoHeadHierarchy.HeadOfAccountType)
+                                           && p.JobId == jobId)
+                                           ? p.CreditAmount ?? 0 : 0));
+                crp.OtherRecovery = (decimal?)v.RoVoucherDetails.Sum(p => (
+
+                                            //p.RoHeadHierarchy.HeadOfAccountType != "BIT"
+
+                                            p.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.TaxSubTypes.BhutanTax.ToString() &&
+
+                                            //p.RoHeadHierarchy.HeadOfAccountType != "SD" &&
+                                            //p.RoHeadHierarchy.HeadOfAccountType != "PARTY_ADVANCE" &&
+                                            //p.RoHeadHierarchy.HeadOfAccountType != "MATERIAL_ADVANCE" 
+
+                                            p.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits.ToString() &&
+                                            p.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.ToString() &&
+                                            p.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.ToString() &&
+
+                                            //p.RoHeadHierarchy.HeadOfAccountType != "INTEREST"
+
+                                            p.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.InterestReceipts.ToString() &&
+
+                                            //p.RoHeadHierarchy.HeadOfAccountType != "BANKNU" &&
+                                            //p.RoHeadHierarchy.HeadOfAccountType != "BANKFE"
+
+                                            p.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.CashSubType.CashInBank.ToString() && 
+
+                                            //p.RoHeadHierarchy.HeadOfAccountType != "EXPENDITURE" &&
+                                            //p.RoHeadHierarchy.HeadOfAccountType != "TOUR_EXPENSES" 
+
+                                            p.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.JobExpenses.ToString() &&
                                             p.JobId == jobId)
                                             ?
                                             (p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
@@ -308,8 +350,9 @@ namespace Finance.Reports
 
                 var query = (from vd in db.RoVoucherDetails
                              where vd.JobId == jobId &&
-                             vd.RoHeadHierarchy.HeadOfAccountType != "EDGOI" &&
-                             vd.RoHeadHierarchy.HeadOfAccountType != "EDRGOB" &&
+                             // vd.RoHeadHierarchy.HeadOfAccountType != "EDGOI" &&
+                             //vd.RoHeadHierarchy.HeadOfAccountType != "EDRGOB"
+                             vd.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.ExciseDuties.ToString() &&
                              vd.RoVoucher.VoucherDate < fromDate &&
                              vd.RoJob.ContractorId != null
                              group vd by vd.RoVoucher into grp
@@ -318,8 +361,9 @@ namespace Finance.Reports
                 lblbaldates.Text = string.Format("<span style='font-size:medium; font-weight:bold'>Payment to Contractor from {0:dd MMMM yyyy} {1}</span>", tbFromDate.ValueAsDate, tbToDate.ValueAsDate.HasValue ? " to " + tbToDate.ValueAsDate.Value.ToString("dd MMMM yyyy") : null);
                 query = (from vd in db.RoVoucherDetails
                          where vd.JobId == jobId &&
-                         vd.RoHeadHierarchy.HeadOfAccountType != "EDGOI" &&
-                         vd.RoHeadHierarchy.HeadOfAccountType != "EDRGOB" &&
+                         //vd.RoHeadHierarchy.HeadOfAccountType != "EDGOI" &&
+                         //vd.RoHeadHierarchy.HeadOfAccountType != "EDRGOB"
+                         vd.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.ExciseDuties.ToString() &&
                          (vd.RoVoucher.VoucherDate >= fromDate &&
                          vd.RoVoucher.VoucherDate <= toDate) &&
                          vd.RoJob.ContractorId != null

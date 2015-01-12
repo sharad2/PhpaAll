@@ -222,7 +222,7 @@ namespace Finance.Reports
                     // Calculating Non-Budgetary Heads.
                     case 800:
                         // Calculating on the basis of either mobilisation/secured Advance Estt and service tax and Employees Advance of establishment expenditure.
-                        if (grp.Key.HeadOfAccountId == 1382 || grp.Key.HeadOfAccountType == "SVCTAX" || grp.Key.HeadOfAccountType == "EMPLOYEE_ADVANCE")
+                        if (grp.Key.HeadOfAccountId == 1382 || grp.Key.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.ServiceTax.ToString()|| grp.Key.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance.ToString())
                         {
                             SetAdditiveHyperLinkProperties(hplnkEstablishExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                             SetAdditiveHyperLinkProperties(hplnkEstablishExpenditureUptoMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);

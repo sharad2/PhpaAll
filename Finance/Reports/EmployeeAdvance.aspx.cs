@@ -44,7 +44,9 @@ namespace Finance.Reports
             ReportingDataContext db = (ReportingDataContext)dsEmpAdv.Database;
             this.Page.Title = string.Format("Employee Advance Outstanding Report as on {0:dd/MM/yyyy}", toDate);
             var voucherDetails = db.RoVoucherDetails.Where(p => p.RoVoucher.VoucherDate <= toDate &&
-                p.RoHeadHierarchy.HeadOfAccountType == "EMPLOYEE_ADVANCE" && p.EmployeeId != null);
+                //p.RoHeadHierarchy.HeadOfAccountType == "EMPLOYEE_ADVANCE" && p.EmployeeId != null
+                p.RoHeadHierarchy.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance.ToString() && p.EmployeeId != null
+                );
 
             if (!string.IsNullOrEmpty(tbDivisionCode.Value))
             {

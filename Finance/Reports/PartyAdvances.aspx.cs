@@ -35,8 +35,8 @@ namespace Finance.Reports
 {
     public partial class PartyAdvances : PageBase
     {
-        const string partyAdvance = "PARTY_ADVANCE";
-        const string materialAdvance = "MATERIAL_ADVANCE";
+        //const string partyAdvance = "PARTY_ADVANCE";
+        //const string materialAdvance = "MATERIAL_ADVANCE";
         /// <summary>
         /// This class is created to calculate  TotalAdvaceAmout.
         /// </summary>
@@ -75,8 +75,10 @@ namespace Finance.Reports
             }
                 ReportingDataContext db = (ReportingDataContext)dsPartyAdv.Database;
                 e.Result = (from vd in db.RoVoucherDetails
-                            where (vd.HeadOfAccount.HeadOfAccountType == partyAdvance ||
-                                   vd.HeadOfAccount.HeadOfAccountType == materialAdvance) &&
+                            //where (vd.HeadOfAccount.HeadOfAccountType == partyAdvance ||
+                            //       vd.HeadOfAccount.HeadOfAccountType == materialAdvance)
+                            where (HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.Contains(vd.HeadOfAccount.HeadOfAccountType) ||
+                                   HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(vd.HeadOfAccount.HeadOfAccountType)) &&
                             vd.RoVoucher.VoucherDate <= tbDate.ValueAsDate
                             group vd by vd.ContractorId ?? vd.RoJob.ContractorId into grp
                             orderby grp.Min(p=>p.RoJob.RoContractor.ContractorCode ?? p.RoContractor.ContractorCode)
@@ -85,10 +87,14 @@ namespace Finance.Reports
                                 PartyId = grp.Key,
                                 PartyCode = grp.Min(p=>p.RoJob.RoContractor.ContractorCode ?? p.RoContractor.ContractorCode),
                                 PartyName = grp.Min(p=>p.RoJob.RoContractor.ContractorName ?? p.RoContractor.ContractorName),
-                                Advance = (decimal?)grp.Sum(p => p.HeadOfAccount.HeadOfAccountType == partyAdvance ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0),
-                                MaterialAdvance = (decimal?)grp.Sum(p => p.HeadOfAccount.HeadOfAccountType == materialAdvance ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0),
-                                TotalAdvance = (decimal?)grp.Sum(p => p.HeadOfAccount.HeadOfAccountType == partyAdvance ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0) +
-                                (decimal?)grp.Sum(p => p.HeadOfAccount.HeadOfAccountType == materialAdvance ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0),
+                                //Advance = (decimal?)grp.Sum(p => p.HeadOfAccount.HeadOfAccountType == partyAdvance ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0)
+                                Advance = (decimal?)grp.Sum(p => HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.Contains(p.HeadOfAccount.HeadOfAccountType) ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0),
+                                //MaterialAdvance = (decimal?)grp.Sum(p => p.HeadOfAccount.HeadOfAccountType == materialAdvance ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0)
+                                MaterialAdvance = (decimal?)grp.Sum(p => HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(p.HeadOfAccount.HeadOfAccountType) ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0),
+                                //TotalAdvance = (decimal?)grp.Sum(p => p.HeadOfAccount.HeadOfAccountType == partyAdvance ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0) +
+                                //(decimal?)grp.Sum(p => p.HeadOfAccount.HeadOfAccountType == materialAdvance ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0)
+                                TotalAdvance = (decimal?)grp.Sum(p => HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.Contains(p.HeadOfAccount.HeadOfAccountType) ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0) +
+                                (decimal?)grp.Sum(p => HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(p.HeadOfAccount.HeadOfAccountType) ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0),
                                 EarliestDate = (DateTime?)grp.Min(p => p.RoVoucher.VoucherDate)
                             }).Where(p => p.TotalAdvance != 0);
         }
@@ -106,7 +112,7 @@ namespace Finance.Reports
                     Party pt = (Party)e.Row.DataItem;
                     HyperLink hlAdvanceAmount = (HyperLink)e.Row.FindControl("hlAdvanceAmount");
                     HyperLink hlMaterialAdvance = (HyperLink)e.Row.FindControl("hlMaterialAdvance");
-                    if (!string.IsNullOrEmpty(partyAdvance))
+                    if (!string.IsNullOrEmpty(HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.ToString()))
                     {
                         if (pt.PartyId == null)
                         {
@@ -118,9 +124,9 @@ namespace Finance.Reports
                             hlAdvanceAmount.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes=PARTY_ADVANCE&ContractorId={0}", pt.PartyId);
                         }
                     }
-                    
 
-                    if (!string.IsNullOrEmpty(materialAdvance))
+
+                    if (!string.IsNullOrEmpty(HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.ToString()))
                     {
                         if (pt.PartyId == null)
                         {

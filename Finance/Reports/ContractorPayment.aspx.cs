@@ -141,12 +141,12 @@ namespace Finance.Reports
             //dlo.LoadWith<RoJob>(job => job.RoContractor);
             //db.LoadOptions = dlo;
 
-            var otherRecoveryHeadExclusion = HeadOfAccountHelpers.SecurityDeposits
+            var otherRecoveryHeadExclusion = HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits
                                                        .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanTax)
                                                        .Concat(HeadOfAccountHelpers.JobAdvances)
                                                        .Concat(HeadOfAccountHelpers.InterestReceipts)
                                                        .Concat(HeadOfAccountHelpers.JobExpenses)
-                                                       .Concat(HeadOfAccountHelpers.CashInBank);
+                                                       .Concat(HeadOfAccountHelpers.CashSubType.CashInBank);
 
             var query = from vd in db.RoVoucherDetails
                         where vd.JobId == jobId &&
@@ -158,7 +158,7 @@ namespace Finance.Reports
                                                        where HeadOfAccountHelpers.TaxSubTypes.BhutanTax.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                        select vd.CreditAmount ?? 0 - vd.DebitAmount ?? 0).Sum()
                         let securityDeposit = (decimal?)(from vd in grp
-                                                         where HeadOfAccountHelpers.SecurityDeposits.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                         where HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                          select vd.CreditAmount ?? 0 - vd.DebitAmount ?? 0).Sum()
                         let materialRecovered = (decimal?)(from vd in grp
                                                            where HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(vd.HeadOfAccount.HeadOfAccountType)
