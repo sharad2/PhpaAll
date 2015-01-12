@@ -5,8 +5,6 @@ JQUERYVER=1.8.2
 JQUERYUIVER=1.10.0
 
 SCRIPTFILES = $(ProjectDir)JQuery\Scripts\json2.js \
-	$(ProjectDir)JQuery\Scripts\jquery.validate.js \
-	$(ProjectDir)JQuery\Scripts\jquery.hoverIntent.js \
 	$(ProjectDir)JQuery\Scripts\CommonScripts.js \
 	$(ProjectDir)JQuery\Dialog\AjaxDialog.js \
 	$(ProjectDir)JQuery\GridViewEx\GridViewEx.js \
@@ -24,18 +22,12 @@ Release::
 	del $(ProjectDir)\JQuery\Scripts\CommonScripts.min.js
 
 Release:: $(SCRIPTFILES)
-	type $(ProjectDir)JQuery\Scripts\jquery-$(JQUERYVER).min.js > $(ProjectDir)JQuery\Scripts\CommonScripts.min.js
-	type $(ProjectDir)JQuery\Scripts\jquery-ui-$(JQUERYUIVER).min.js >> $(ProjectDir)JQuery\Scripts\CommonScripts.min.js
 	!$(ProjectDir)Tools\jsmin.exe < $** >> $(ProjectDir)\JQuery\Scripts\CommonScripts.min.js
-
 
 # In debug mode we simply concat the script files
 Debug: $(ProjectDir)JQuery\Scripts\CommonScripts.min.js
 
-$(ProjectDir)JQuery\Scripts\CommonScripts.min.js: \
-    $(ProjectDir)JQuery\Scripts\jquery-$(JQUERYVER).js \
-	$(ProjectDir)JQuery\Scripts\jquery-ui-$(JQUERYUIVER).js \
-	$(SCRIPTFILES)
+$(ProjectDir)JQuery\Scripts\CommonScripts.min.js: $(SCRIPTFILES)
 	del $@
 	!type $** >> $@
 

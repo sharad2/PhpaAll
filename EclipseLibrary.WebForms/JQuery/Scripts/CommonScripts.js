@@ -1,7 +1,7 @@
 ﻿/* SS 14 Jul 2010: Touch this file to forice rebuild of all scripts. */
 
-/*
-Utility function to create cookies
+/* 
+Utility function to create cookies  
 */
 
 function createCookie(name, value, days) {

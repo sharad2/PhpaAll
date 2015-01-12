@@ -186,10 +186,7 @@
     </EmbeddedResource>
     <Content Include="Doc\HTMLPage1.htm" />
     <Content Include="Doc\jquery-1.4.1-vsdoc.js" />
-    <Content Include="JQuery\Scripts\jquery-1.8.2.js" />
-    <Content Include="JQuery\Scripts\jquery-1.8.2.min.js" />
-    <Content Include="JQuery\Scripts\jquery-ui-1.10.0.js" />
-    <Content Include="JQuery\Scripts\jquery-ui-1.10.0.min.js" />
+    <EmbeddedResource Include="JQuery\Scripts\CommonScripts.min.js" />
     <Content Include="Tools\jsmin.html" />
     <Content Include="Tools\Makefile.mak" />
     <Content Include="JQuery\Dialog\AjaxDialog.js" />
@@ -217,9 +214,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="JQuery\Scripts\CommonScripts.js" />
-    <EmbeddedResource Include="JQuery\Scripts\CommonScripts.min.js" />
-    <Content Include="JQuery\Scripts\jquery.hoverIntent.js" />
-    <Content Include="JQuery\Scripts\jquery.validate.js" />
     <Content Include="JQuery\GridViewEx\SortColumnsChooserScript.js" />
     <Content Include="JQuery\Input\TextBoxEx.js" />
     <EmbeddedResource Include="JQuery\Scripts\CommonStyles.css" />
@@ -244,7 +238,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PreBuildEvent>echo "$(DevEnvDir)..\..\VC\bin\nmake"  ProjectDir=$(ProjectDir)  /f $(ProjectDir)Tools\makefile.mak /R $(ConfigurationName)
+    <PreBuildEvent>echo "$(DevEnvDir)..\..\VC\bin\nmake"  ProjectDir=$(ProjectDir) /a /f $(ProjectDir)Tools\makefile.mak /R $(ConfigurationName)
 "$(DevEnvDir)..\..\VC\bin\nmake"  ProjectDir=$(ProjectDir)  /f $(ProjectDir)Tools\makefile.mak /R $(ConfigurationName)</PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
