@@ -146,7 +146,8 @@ namespace Finance.Reports
                                                        .Concat(HeadOfAccountHelpers.JobAdvances)
                                                        .Concat(HeadOfAccountHelpers.InterestReceipts)
                                                        .Concat(HeadOfAccountHelpers.JobExpenses)
-                                                       .Concat(HeadOfAccountHelpers.CashSubType.CashInBank);
+                                                       .Concat(HeadOfAccountHelpers.CashSubType.CashInBankNu)
+                                                       .Concat(HeadOfAccountHelpers.CashSubType.CashInBankFE);
 
             var query = from vd in db.RoVoucherDetails
                         where vd.JobId == jobId &&

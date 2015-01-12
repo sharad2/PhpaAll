@@ -41,10 +41,9 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public static class CashSubType
         {
-            public readonly static IEnumerable<string> CashInBank = new string[] { "BANKNU", "BANKFE" };
-            public readonly static IEnumerable<string> BankNu = new string[] { "BANKNU" };
-            public readonly static IEnumerable<string> BankFE = new string[] { "BANKFE" };
-            public readonly static IEnumerable<string> Cash = new string[] { "CASH" };
+            public readonly static IEnumerable<string> CashInBankNu = new string[] { "BANKNU" };
+            public readonly static IEnumerable<string> CashInBankFE = new string[] { "BANKFE" };
+            public readonly static IEnumerable<string> CashInHand = new string[] { "CASH" };
             public readonly static IEnumerable<string> Investment = new string[] { "INVESTMENT" };
         }
         

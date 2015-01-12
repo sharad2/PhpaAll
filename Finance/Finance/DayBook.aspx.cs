@@ -85,9 +85,10 @@ namespace Finance.Reports
             //Excute the  query for opening and closing balance of bank and cash accounts
             DateTime voucherDate = DateTime.Parse(tbVoucherDate.Text);
             gvClosingBalance.DataSource = from hoa in db.RoHeadHierarchies
-                                          where hoa.HeadOfAccountType == "BANKNU" ||
-                                          hoa.HeadOfAccountType == "BANKFE" ||
-                                          hoa.HeadOfAccountType == "CASH"
+                                          where HeadOfAccountHelpers.CashSubType.CashInBankNu.Concat(HeadOfAccountHelpers.CashSubType.CashInBankFE).Concat(HeadOfAccountHelpers.CashSubType.CashInHand).Contains(hoa.HeadOfAccountType)
+                                          //hoa.HeadOfAccountType == "BANKNU" ||
+                                          //hoa.HeadOfAccountType == "BANKFE" ||
+                                          //hoa.HeadOfAccountType == "CASH"
                                           orderby hoa.DisplayName
                                           select new
                                           {
