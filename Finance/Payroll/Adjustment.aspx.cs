@@ -18,6 +18,7 @@ using Eclipse.PhpaLibrary.Database.Payroll;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
 using EclipseLibrary.Web.UI;
+using System.Collections.Generic;
 
 namespace Finance.Payroll
 {
@@ -59,6 +60,21 @@ namespace Finance.Payroll
             }
         }
 
+        /// <summary>
+        /// Sets Where clause for retreiving either Allowance or Deduction based on the users choice. Users UI choice can be retreived by m_IsDeduction.
+        /// If value of this variable is true that means user is creating a Deduction. If false then user is creating an Allowance.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void dsAdjustmentCategory_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+        {
+            List<string> whereClauses = new List<string>();
+            e.WhereParameters["IsDeduction"] = m_IsDeduction;
+            if (e.WhereParameters["IsDeduction"] != null)
+            {
+                whereClauses.Add(string.Format("IsDeduction==@IsDeduction"));
+            }
+        }
 
         # region InsertUpdate&Delete
 

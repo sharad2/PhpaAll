@@ -52,6 +52,7 @@ Following Features have been incorporated in the master:-
 3.  Assign M.R. Number and Date
 4.  Bank Freeze
 5.  Reset end date
+6.  display_bank_name
 
 
 #1 Feature :- auto_assign_mr_number
@@ -348,3 +349,26 @@ NA
 
 
 
+Feature :- display_bank_name
+=======================
+
+
+Customer Requirement :-
+===========================
+
+Currently when user ran the report Loan Recovery for a particular head of account at that time there is no provision to print the loan bank name in the printouts. They are entering the loan bank name manually. So they have asked us to add the loan bank name in the report header comment so that it would get printed automatically with the report output.
+=======================================================
+
+
+
+Impacted Files:-
+====================
+AdjustmentRecovery.aspx
+Showing Loan bank name in the report heading 
+===================================================================
+
+Database Modifications:-
+=========================
+NA
+
+==========================================================================
