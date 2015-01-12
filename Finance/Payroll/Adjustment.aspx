@@ -147,7 +147,7 @@
                             <eclipse:TwoColumnPanel runat="server">
                                 <eclipse:LeftLabel runat="server" Text="Code" />
                                 <asp:Label runat="server" Text='<%# Eval("AdjustmentCode") %>' /><br />
-                               <%-- <asp:Label runat="server" Text='<%# (bool)Eval("IsDeduction")? "&darr;" : "&uarr;"%>'
+                                <%-- <asp:Label runat="server" Text='<%# (bool)Eval("IsDeduction")? "&darr;" : "&uarr;"%>'
                                     ForeColor='<%# (bool)Eval("IsDeduction") ? System.Drawing.Color.Red : System.Drawing.Color.Empty %>' />
                                 <asp:Label runat="server" Text='<%# (bool)Eval("IsDeduction")? "Deduction" :"Allowance"%>'
                                     ForeColor='<%# (bool)Eval("IsDeduction") ? System.Drawing.Color.Red : System.Drawing.Color.Empty %>' />--%>
@@ -192,7 +192,7 @@
                 <EditItemTemplate>
                     <asp:HiddenField runat="server" Value='<%# Bind("IsDeduction") %>' ID="hfIsDeduction" OnPreRender="hfIsDeduction_PreRender" />
                     <eclipse:TwoColumnPanel runat="server">
-<%--                        <eclipse:LeftLabel ID="ctlAdjustmentType" runat="server" Text="Adjustment Type" />
+                        <%--                        <eclipse:LeftLabel ID="ctlAdjustmentType" runat="server" Text="Adjustment Type" />
                         <i:RadioButtonListEx ID="rblIsDeduction" runat="server" Value='<%# Bind("IsDeduction") %>'
                             Orientation="Horizontal" OnPreRender="rblIsDeduction_PreRender">
                             <Items>
@@ -211,10 +211,13 @@
                        
                         <eclipse:LeftLabel runat="server" Text="Category" />
                         <phpa:PhpaLinqDataSource ID="dsAdjustmentCategory" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.Payroll.PayrollDataContext"
-                            TableName="AdjustmentCategories" RenderLogVisible="false" OrderBy="ShortDescription" />
+                            TableName="AdjustmentCategories" OnSelecting="dsAdjustmentCategory_Selecting" RenderLogVisible="false" OrderBy="ShortDescription" AutoGenerateWhereClause="true">
+                            <WhereParameters>
+                                <asp:Parameter Name="IsDeduction" Type="Boolean" />
+                            </WhereParameters>
+                        </phpa:PhpaLinqDataSource>
                         <i:DropDownListEx runat="server" ID="ddlCategories" Value='<%# Bind("AdjustmentCategoryId") %>'
-                            DataSourceID="dsAdjustmentCategory" DataTextField="ShortDescription" DataValueField="AdjustmentCategoryId"
-                            DataOptionGroupField="CategoryTypeDescription">
+                            DataSourceID="dsAdjustmentCategory" DataTextField="ShortDescription" DataValueField="AdjustmentCategoryId">
                             <Items>
                                 <eclipse:DropDownItem Text="(Not set)" Persistent="Always" />
                             </Items>
