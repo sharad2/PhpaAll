@@ -14,7 +14,7 @@
     <script src="/Scripts/jquery-ui-1.11.2.js"></script>
     <jquery:JQueryScriptManager ID="JQueryScriptMgr" runat="server" />
     <link rel="Shortcut Icon" href="Images/favicon.ico" />
-    <link href="/Content/themes/base/all.css" rel="stylesheet" />
+    <%--<link href="/Content/themes/base/all.css" rel="stylesheet" />--%>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
