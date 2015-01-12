@@ -113,7 +113,6 @@
     <Content Include="App_Themes\Start\images\ui-icons_f5e175_256x240.png" />
     <Content Include="App_Themes\Start\images\ui-icons_f7a50d_256x240.png" />
     <Content Include="App_Themes\Start\images\ui-icons_fcd113_256x240.png" />
-    <Content Include="App_Themes\Start\jquery-ui.min.css" />
     <Content Include="App_Themes\Sunny\Default.css" />
     <Content Include="App_Themes\Sunny\EclipseLibrary.css" />
     <Content Include="App_Themes\Sunny\images\ui-bg_diagonals-medium_20_d34d17_40x40.png" />
@@ -133,6 +132,39 @@
     <Content Include="App_Themes\Sunny\images\ui-icons_fadc7a_256x240.png" />
     <Content Include="App_Themes\Sunny\images\ui-icons_ffe180_256x240.png" />
     <Content Include="App_Themes\Sunny\jquery-ui-1.8.6.custom.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Default.aspx" />
     <Content Include="Doc\Adjustment.doc.aspx" />
     <Content Include="Doc\BalanceProjectCost.doc.aspx" />
@@ -189,6 +221,18 @@
     <Content Include="PIS\Masters\Stations.aspx" />
     <Content Include="Reports\ContractorPaymentReport.aspx" />
     <Content Include="Reports\FundPositionReport.aspx" />
+    <Content Include="packages.config" />
+    <None Include="Scripts\jquery-1.11.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.11.2.js" />
+    <Content Include="Scripts\jquery-1.11.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.11.2.js" />
+    <Content Include="Scripts\jquery-ui-1.11.2.min.js" />
+    <Content Include="Scripts\jquery.hoverIntent.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\json2.js" />
+    <Content Include="Scripts\json2.min.js" />
     <Content Include="Services\Adjustments.asmx" />
     <Content Include="Services\Contractors.asmx" />
     <Content Include="Services\Divisions.asmx" />
@@ -202,6 +246,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\jquery-1.11.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">

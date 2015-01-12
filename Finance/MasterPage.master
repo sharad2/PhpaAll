@@ -8,12 +8,18 @@
 <head runat="server">
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
     <title>Untitled Page</title>
+    <script src="/Scripts/jquery-1.11.2.js"></script>
+    <script src="/Scripts/jquery.hoverIntent.js"></script>
+    <script src="/Scripts/jquery.validate.js"></script>
+    <script src="/Scripts/jquery-ui-1.11.2.js"></script>
     <jquery:JQueryScriptManager ID="JQueryScriptMgr" runat="server" />
     <link rel="Shortcut Icon" href="Images/favicon.ico" />
+    <link href="/Content/themes/base/all.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
+
     <div id="page-wrap" class="ui-widget">
         <div id="toprow" runat="server" class="ui-widget-header">
             <div style="float: left">
