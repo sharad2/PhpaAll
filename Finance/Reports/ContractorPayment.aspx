@@ -189,7 +189,7 @@
     </div>
     <jquery:GridViewEx ID="gvContractorPayment" runat="server" GridLines="Both" AutoGenerateColumns="false"
         ShowFooter="true" OnRowDataBound="gvContractorPayment_RowDataBound" AllowPaging="false"
-        DataSourceID="dsContractorPayment" OnDataBound="gvContractorPayment_DataBound">
+        DataSourceID="dsContractorPayment">
         <Columns>
             <eclipse:SequenceField />
             <eclipse:MultiBoundField HeaderText="<br/><br/>1<br/> Date" HeaderStyle-HorizontalAlign="Center"

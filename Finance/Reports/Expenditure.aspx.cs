@@ -40,8 +40,8 @@ namespace Finance.Reports
         /// Setting string for HeadOfAccountType.
         /// </summary>
 
-        private const string HOA_EXPENDITURE = "EXPENDITURE";
-        private const string HOA_TOUR_EXPENSES = "TOUR_EXPENSES";
+        //private const string HOA_EXPENDITURE = "EXPENDITURE";
+        //private const string HOA_TOUR_EXPENSES = "TOUR_EXPENSES";
 
         /// <summary>
         /// Display the Expenditure for each Head of Account.
@@ -84,8 +84,9 @@ namespace Finance.Reports
 
                ReportingDataContext db = (ReportingDataContext)this.dsExpenditure.Database;
                m_query = from vd in db.RoVoucherDetails
-                           where (vd.RoHeadHierarchy.HeadOfAccountType == HOA_EXPENDITURE  ||
-                                  vd.RoHeadHierarchy.HeadOfAccountType == HOA_TOUR_EXPENSES) &&
+                         where HeadOfAccountHelpers.JobExpenses.Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
+                           //where (vd.RoHeadHierarchy.HeadOfAccountType == HOA_EXPENDITURE  ||
+                           //       vd.RoHeadHierarchy.HeadOfAccountType == HOA_TOUR_EXPENSES) &&
                            vd.RoVoucher.VoucherDate <= _tbMonthValue
                            group vd by vd.RoHeadHierarchy
                            into grouping

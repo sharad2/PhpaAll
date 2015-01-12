@@ -41,8 +41,9 @@ namespace Finance.Reports
             //db.LoadOptions = dlo;
 
             m_query = (from vd in db.RoVoucherDetails
-                       where vd.RoHeadHierarchy.HeadOfAccountType == HOA_EXPENDITURE
-                             || vd.RoHeadHierarchy.HeadOfAccountType == HOA_TOUR_EXPENSES
+                       where HeadOfAccountHelpers.JobExpenses.Contains(vd.RoHeadHierarchy.HeadOfAccountType)
+                       //where vd.RoHeadHierarchy.HeadOfAccountType == HOA_EXPENDITURE
+                       //      || vd.RoHeadHierarchy.HeadOfAccountType == HOA_TOUR_EXPENSES
                        let yearStart = new DateTime(vd.RoVoucher.VoucherDate.Year, 4, 1)
                        group vd by new
                        {
@@ -59,8 +60,8 @@ namespace Finance.Reports
             e.Result = this.QueryIterator();
         }
 
-        private const string HOA_EXPENDITURE = "EXPENDITURE";
-        private const string HOA_TOUR_EXPENSES = "TOUR_EXPENSES";
+        //private const string HOA_EXPENDITURE = "EXPENDITURE";
+        //private const string HOA_TOUR_EXPENSES = "TOUR_EXPENSES";
 
         private LevelSubtotals m_levelSubtotals;
         protected IEnumerable<SubTotalItem> QueryIterator()

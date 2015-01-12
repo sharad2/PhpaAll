@@ -9,7 +9,7 @@
     </phpa:PhpaLinqDataSource>
     <br />
     <asp:ListView ID="lvPendingAdv" OnItemCreated="lvPendingAdv_ItemCreated" runat="server"
-        OnDataBound="lvPendingAdv_DataBound">
+        OnDataBound="lvPendingAdv_DataBound" EnableViewState="false">
         <LayoutTemplate>
             <div id="itemPlaceholderContainer" runat="server">
                 <div id="itemPlaceholder" runat="server" />
