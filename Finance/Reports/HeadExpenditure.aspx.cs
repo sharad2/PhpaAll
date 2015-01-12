@@ -46,7 +46,7 @@ namespace Finance.Reports
             ReportingDataContext db = (ReportingDataContext)dsHeadsExp.Database;
 
             gvHeadsExp.DataSource = from vd in db.RoVoucherDetails
-                                    where HeadOfAccountHelpers.JobExpenses.Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
+                                    where (HeadOfAccountHelpers.JobExpenses.Contains(vd.RoHeadHierarchy.HeadOfAccountType) ||
                                     //where (vd.RoHeadHierarchy.HeadOfAccountType == "Expenditure" ||
                                              vd.RoHeadHierarchy.HeadOfAccountId == 1373 ||
                                              vd.RoHeadHierarchy.HeadOfAccountId == 1374 ||
@@ -86,7 +86,7 @@ namespace Finance.Reports
                                     };
             gvHeadsExp.DataBind();
             gvHeadsExpTillDate.DataSource = from vd in db.RoVoucherDetails
-                                      where HeadOfAccountHelpers.JobExpenses.Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
+                                      where (HeadOfAccountHelpers.JobExpenses.Contains(vd.RoHeadHierarchy.HeadOfAccountType) ||
                                      //where (vd.RoHeadHierarchy.HeadOfAccountType == "Expenditure" ||
                                              vd.RoHeadHierarchy.HeadOfAccountId == 1373 || 
                                              vd.RoHeadHierarchy.HeadOfAccountId == 1374 || 
