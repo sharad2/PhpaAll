@@ -158,7 +158,7 @@ namespace Finance.Reports
                 //                            && p.JobId == jobId)
                 //                            ? p.CreditAmount ?? 0 : 0));
 
-                crp.InterestRecoverd = (decimal?)v.RoVoucherDetails.Sum(p => ((HeadOfAccountHelpers.InterestReceipts.Contains(p.RoHeadHierarchy.HeadOfAccountType)
+                crp.InterestRecoverd = (decimal?)v.RoVoucherDetails.Sum(p => ((HeadOfAccountHelpers.ReceiptSubType.InterestReceipts.Contains(p.RoHeadHierarchy.HeadOfAccountType)
                                            && p.JobId == jobId)
                                            ? p.CreditAmount ?? 0 : 0));
                 crp.OtherRecovery = (decimal?)v.RoVoucherDetails.Sum(p => (
@@ -177,12 +177,12 @@ namespace Finance.Reports
 
                                             //p.RoHeadHierarchy.HeadOfAccountType != "INTEREST"
 
-                                            p.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.InterestReceipts.ToString() &&
+                                            p.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.ReceiptSubType.InterestReceipts.ToString() &&
 
                                             //p.RoHeadHierarchy.HeadOfAccountType != "BANKNU" &&
                                             //p.RoHeadHierarchy.HeadOfAccountType != "BANKFE"
 
-                                            p.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.CashSubType.CashInBank.ToString() && 
+                                            p.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.CashSubType.CashInHand.ToString() && 
 
                                             //p.RoHeadHierarchy.HeadOfAccountType != "EXPENDITURE" &&
                                             //p.RoHeadHierarchy.HeadOfAccountType != "TOUR_EXPENSES" 

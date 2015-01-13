@@ -32,23 +32,50 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public readonly static IEnumerable<string> SalaryRemitances = new string[] { "SALARY_REMITANCES" };
         public readonly static IEnumerable<string> JobAdvances = AdvanceSubTypes.PartyAdvance.Concat(AdvanceSubTypes.MaterialAdvance);
-        public readonly static IEnumerable<string> Grants = new string[] { "GRANT_RECEIVED_GOINU", "GRANT_RECEIVED_GOIFE" };
-        public readonly static IEnumerable<string> Loans = new string[] { "LOAN_RECEIVED_GOINU", "LOAN_RECEIVED_GOIFE" };
+        public readonly static IEnumerable<string> Grants = GrantSubType.GrantNu.Concat(GrantSubType.GrantFe);
 
-        public readonly static IEnumerable<string> AccumulatedReceipts = new string[] { "ACCUMULATED_RECEIPTS", "TENDER_SALE" };
+        public static class GrantSubType
+        {
+            public readonly static IEnumerable<string> GrantNu = new string[] {"GRANT_RECEIVED_GOINU"};
+            public readonly static IEnumerable<string> GrantFe = new string[] { "GRANT_RECEIVED_GOIFE" };
+        }
 
-        public readonly static IEnumerable<string> InterestReceipts = new string[] { "INTEREST" };
+        public static class LoanSubType
+        {
+            public readonly static IEnumerable<string> LoanNu = new string[] { "LOAN_RECEIVED_GOINU" };
+            public readonly static IEnumerable<string> LoanFe = new string[] { "LOAN_RECEIVED_GOIFE" };
+        }
+
+        public readonly static IEnumerable<string> Loans = LoanSubType.LoanNu.Concat(LoanSubType.LoanFe);
+
+
+        public static class ReceiptSubType
+        {
+            public readonly static IEnumerable<string> InterestReceipts = new string[] { "INTEREST" };
+            public readonly static IEnumerable<string> AccumulatedReceipts = new string[] { "ACCUMULATED_RECEIPTS" };
+            public readonly static IEnumerable<string> TenderSale = new string[] { "TENDER_SALE" };
+        }
 
         public static class CashSubType
         {
-            public readonly static IEnumerable<string> CashInBankNu = new string[] { "BANKNU" };
-            public readonly static IEnumerable<string> CashInBankFE = new string[] { "BANKFE" };
+            public readonly static IEnumerable<string> CashInBankNu = new string[] { "BANKNU"};
+            public readonly static IEnumerable<string> CashInBankFe = new string[] { "BANKFE" };
             public readonly static IEnumerable<string> CashInHand = new string[] { "CASH" };
             public readonly static IEnumerable<string> Investment = new string[] { "INVESTMENT" };
         }
-        
+        public static class DutySubType
+        {
+            public readonly static IEnumerable<string> ExciseDutiesGOI = new string[] { "EDGOI" };
+            public readonly static IEnumerable<string> ExciseDutiesRGOB = new string[] { "EDRGOB" };
+        }
 
-        public readonly static IEnumerable<string> ExciseDuties = new string[] { "EDGOI", "EDRGOB" };
+        public readonly static IEnumerable<string> ExciseDuties = DutySubType.ExciseDutiesGOI.Concat(DutySubType.ExciseDutiesRGOB);
+        
+        public readonly static IEnumerable<string> Assets = new string[] { "ASSETS" };
+
+        public readonly static IEnumerable<string> StockSuspense = new string[] { "STOCK_SUSPENSE" };
+
+        public readonly static IEnumerable<string> FundTransit = new string[] { "FUNDS_TRANSIT" };
 
         public static class DepositSubTypes
         {

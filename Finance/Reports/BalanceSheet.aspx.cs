@@ -127,20 +127,20 @@ namespace Finance.Reports
                     hplnkgtax.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}",
                         string.Join(",", HeadOfAccountHelpers.TaxSubTypes.GreenTax), dt);
                 }
-                else if (HeadOfAccountHelpers.AccumulatedReceipts.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (HeadOfAccountHelpers.ReceiptSubType.AccumulatedReceipts.Concat(HeadOfAccountHelpers.ReceiptSubType.TenderSale).Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     accsum += Convert.ToDouble(grp.Amount);
                     hplnkAcc_Rec.Text = accsum.ToString(fmt);
                     sumLiability += Convert.ToDouble(grp.Amount);
                     hplnkAcc_Rec.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", 
-                        string.Join(",", HeadOfAccountHelpers.AccumulatedReceipts), dt);
+                        string.Join(",", HeadOfAccountHelpers.ReceiptSubType.AccumulatedReceipts.Concat(HeadOfAccountHelpers.ReceiptSubType.TenderSale)), dt);
                 }
                 else
                 {
                     HyperLink hplnk = (HyperLink)this.plhTable.FindControl(grp.Key.RoAccountType.HeadOfAccountType);
                     if (grp.Key.RoAccountType.Category == "A" || grp.Key.RoAccountType.Category == "B" || grp.Key.RoAccountType.Category == "E" || grp.Key.RoAccountType.Category == "C")
                     {
-                        if (hplnk == null || hplnk.ID == "ASSETS")
+                        if (hplnk == null || hplnk.ID == HeadOfAccountHelpers.Assets.ToString())
                         {
                             hplnk = ASSETS;
                             otherAssets += Convert.ToDouble(-grp.Amount);
