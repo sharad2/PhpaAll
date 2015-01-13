@@ -10,9 +10,10 @@ namespace Eclipse.PhpaLibrary.Reporting
         public static class ExpenditureSubTypes
         {
             public readonly static IEnumerable<string> CivilExpenditure = new string[] { "CIVIL_EXPENDITURE" };
+            public readonly static IEnumerable<string> TourExpenditure = new string[] { "TOUR_EXPENSES" };
         }
 
-        public readonly static IEnumerable<string> JobExpenses = (new string[] { "EXPENDITURE", "TOUR_EXPENSES" }).Concat(ExpenditureSubTypes.CivilExpenditure);
+        public readonly static IEnumerable<string> JobExpenses = (new string[] { "EXPENDITURE" }).Concat(ExpenditureSubTypes.TourExpenditure).Concat(ExpenditureSubTypes.CivilExpenditure);
 
         public static class AdvanceSubTypes
         {
@@ -72,6 +73,8 @@ namespace Eclipse.PhpaLibrary.Reporting
         public readonly static IEnumerable<string> ExciseDuties = DutySubType.ExciseDutiesGOI.Concat(DutySubType.ExciseDutiesRGOB);
         
         public readonly static IEnumerable<string> Assets = new string[] { "ASSETS" };
+
+        public readonly static IEnumerable<string> Liabilities = new string[] { "LIABILITY" };
 
         public readonly static IEnumerable<string> StockSuspense = new string[] { "STOCK_SUSPENSE" };
 
