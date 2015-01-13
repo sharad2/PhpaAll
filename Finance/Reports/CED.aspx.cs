@@ -29,13 +29,13 @@ namespace Finance.Reports
             {
                 case "ED":
                     //HeadTypeFlag = "EDGOI,EDRGOB";
-                    HeadTypeFlag = HeadOfAccountHelpers.ExciseDuties.ToString();
+                    HeadTypeFlag = HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI.FirstOrDefault().ToString() +","  + HeadOfAccountHelpers.DutySubType.ExciseDutiesRGOB.FirstOrDefault().ToString();
                     Page.Title=string.Format("Central Excise Duty Report as on {0:dd/MM/yyyy}", tbMonth.ValueAsDate);
                     break;
 
                 case "BST":
                     //HeadTypeFlag = "BST";
-                    HeadTypeFlag =  HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax.ToString();
+                    HeadTypeFlag =  HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax.FirstOrDefault().ToString();
                     Page.Title = string.Format("Bhutan Sales Tax Report as on {0:dd/MM/yyyy}", tbMonth.ValueAsDate);
                     break;
             }
