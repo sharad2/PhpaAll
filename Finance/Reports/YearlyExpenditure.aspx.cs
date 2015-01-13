@@ -35,8 +35,9 @@ namespace Finance.Reports
 
 
             List<MonthYear> l = (from vd in db.RoVoucherDetails
-                                 where vd.RoHeadHierarchy.HeadOfAccountType == "Expenditure"
-                                          || vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES"
+                                 where (HeadOfAccountHelpers.JobExpenses.Contains(vd.RoHeadHierarchy.HeadOfAccountType))
+                                 //where vd.RoHeadHierarchy.HeadOfAccountType == "Expenditure"
+                                 //         || vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES"
                                  group vd by new
                                  {
                                      vd.RoVoucher.VoucherDate.Year,
