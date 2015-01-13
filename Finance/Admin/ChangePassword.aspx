@@ -22,5 +22,5 @@
         >
     </asp:ChangePassword>
     <br />
-    New password must be at least 7 charactor long.
+    New password must be at least 7 character long.
 </asp:Content>
