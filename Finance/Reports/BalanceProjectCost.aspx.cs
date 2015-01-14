@@ -54,7 +54,7 @@ namespace Finance.Reports
             m_query = from job in db.RoJobs
                       //where job.RoHeadHierarchy.HeadOfAccountType == HOA_EXPENDITURE
                       //      || job.RoHeadHierarchy.HeadOfAccountType == HOA_TOUR_EXPENSES
-                      where HeadOfAccountHelpers.JobExpenses.Contains(job.RoHeadHierarchy.HeadOfAccountType)
+                      where HeadOfAccountHelpers.AllExpenditures.Contains(job.RoHeadHierarchy.HeadOfAccountType)
                       group job by job.RoHeadHierarchy into grouping
                       orderby grouping.Key.SortableName
                       select new ResultItem(grouping.Key, false)

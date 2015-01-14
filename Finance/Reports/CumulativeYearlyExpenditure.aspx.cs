@@ -41,17 +41,11 @@ namespace Finance.Reports
             //db.LoadOptions = dlo;
 
             m_query = (from vd in db.RoVoucherDetails
-                       where HeadOfAccountHelpers.JobExpenses
-                                .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
+                       where HeadOfAccountHelpers.AllExpenditures
                                 .Concat(HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI)
-                                .Concat(HeadOfAccountHelpers.TaxSubTypes.GreenTax)
-                                .Concat(HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
-                                .Concat(HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance)
-                                .Concat(HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance)
-                                .Concat(HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance)
+                                .Concat(HeadOfAccountHelpers.ContractorTaxes)
+                                .Concat(HeadOfAccountHelpers.AllAdvances)
                                 .Concat(HeadOfAccountHelpers.StockSuspense).Contains(vd.RoHeadHierarchy.HeadOfAccountType)
-                       //where vd.RoHeadHierarchy.HeadOfAccountType == HOA_EXPENDITURE
-                       //      || vd.RoHeadHierarchy.HeadOfAccountType == HOA_TOUR_EXPENSES
                        let yearStart = new DateTime(vd.RoVoucher.VoucherDate.Year, 4, 1)
                        group vd by new
                        {

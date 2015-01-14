@@ -90,7 +90,7 @@ namespace Finance.Reports
                         case "DivisionExpenditure":
                             //grdPendingAdv.Columns[columnIndex].HeaderText = "Expenditure (Nu.)";
                             columnIndex.HeaderText = "Expenditure (Nu.)";
-                            headOfAccountList.AddRange(HeadOfAccountHelpers.JobExpenses);
+                            headOfAccountList.AddRange(HeadOfAccountHelpers.AllExpenditures);
                             //lblHelp.Text = "Displays ependitures in each division.";
                             this.Title = "Divisional Expenses";
                             lblReportDescription.Text = "Displays ependitures in each division.";

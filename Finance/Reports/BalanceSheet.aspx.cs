@@ -87,13 +87,13 @@ namespace Finance.Reports
             foreach (var grp in query)
             {
                 //string fmt = "##.##;(##.##)";
-                if (HeadOfAccountHelpers.JobExpenses.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                if (HeadOfAccountHelpers.AllExpenditures.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     expsum += Convert.ToDouble(-grp.Amount);
                     hlExpenditure.Text = expsum.ToString(fmt);
                     sumAssets += Convert.ToDouble(-grp.Amount);
                     hlExpenditure.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}",
-                        string.Join(",", HeadOfAccountHelpers.JobExpenses), dt);
+                        string.Join(",", HeadOfAccountHelpers.AllExpenditures), dt);
                 }
                 else if (HeadOfAccountHelpers.JobAdvances.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
@@ -111,13 +111,13 @@ namespace Finance.Reports
                     hplnkgrantreceived.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}",
                         string.Join(",", HeadOfAccountHelpers.Grants), dt);
                 }
-                else if (HeadOfAccountHelpers.Loans.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (HeadOfAccountHelpers.AllLoans.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     loansSum += Convert.ToDouble(grp.Amount);
                     hplnkloanreceived.Text = loansSum.ToString(fmt);
                     sumLiability += Convert.ToDouble(grp.Amount);
                     hplnkloanreceived.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}",
-                        string.Join(",", HeadOfAccountHelpers.Loans), dt);
+                        string.Join(",", HeadOfAccountHelpers.AllLoans), dt);
                 }
                 else if (HeadOfAccountHelpers.TaxSubTypes.GreenTax.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {

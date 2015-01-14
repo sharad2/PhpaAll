@@ -134,11 +134,11 @@ namespace Finance.Reports
                     SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
                 }
                 else if (HeadOfAccountHelpers.ReceiptSubType.InterestReceipts
-                             .Concat(HeadOfAccountHelpers.SalaryRemitances)
+                             .Concat(HeadOfAccountHelpers.SalaryRemittances)
                              .Concat(HeadOfAccountHelpers.ReceiptSubType.TenderSale)
                              .Concat(HeadOfAccountHelpers.DepositSubTypes.EarnestMoneyDeposit)
                              .Concat(HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits)
-                             .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanTax).Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                             .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax).Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     SetAdditiveHyperLinkProperties(hplnkReceiptsPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkReceiptsUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
@@ -150,7 +150,7 @@ namespace Finance.Reports
                         .Concat(HeadOfAccountHelpers.StockSuspense)
                         .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
                         .Concat(HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
-                        .Concat(HeadOfAccountHelpers.ExciseDuties)
+                        .Concat(HeadOfAccountHelpers.AllExciseDuties)
                         .Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
 

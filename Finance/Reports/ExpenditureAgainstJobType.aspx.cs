@@ -67,7 +67,7 @@ namespace Finance.Reports
                 this.Title += string.Format(" From {0:d MMMM yyyy} to {1:d MMMM yyyy}", tbFromDate.ValueAsDate, tbToDate.ValueAsDate);
 
                 e.Result = (from vd in db.RoVoucherDetails
-                            where HeadOfAccountHelpers.JobExpenses.Concat(HeadOfAccountHelpers.JobAdvances).Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
+                            where HeadOfAccountHelpers.AllExpenditures.Concat(HeadOfAccountHelpers.JobAdvances).Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
                                 //where (vd.RoHeadHierarchy.HeadOfAccountType == "EXPENDITURE" ||
                                 //        vd.RoHeadHierarchy.HeadOfAccountType == "PARTY_ADVANCE" ||
                                 //        vd.RoHeadHierarchy.HeadOfAccountType == "MATERIAL_ADVANCE" ||
@@ -96,7 +96,7 @@ namespace Finance.Reports
                                 RevisedContract = grouping.Key.RevisedContract,
                                 AwardAmount = grouping.Key.RevisedContract ?? grouping.Key.SanctionedAmount,
                                 AmountMonth = (decimal?)grouping
-                                    .Where(p => HeadOfAccountHelpers.JobExpenses.Contains(p.RoHeadHierarchy.HeadOfAccountType) &&
+                                    .Where(p => HeadOfAccountHelpers.AllExpenditures.Contains(p.RoHeadHierarchy.HeadOfAccountType) &&
                                         p.RoVoucher.VoucherDate >= dateMonthStart
                                         )
                                     .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
@@ -105,7 +105,7 @@ namespace Finance.Reports
                                 //    && p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate ? p.DebitAmount ?? 0 - p.CreditAmount ?? 0 : 0)),
 
                                 AmountProgressive = (decimal?)grouping
-                                    .Where(p => HeadOfAccountHelpers.JobExpenses.Contains(p.RoHeadHierarchy.HeadOfAccountType))
+                                    .Where(p => HeadOfAccountHelpers.AllExpenditures.Contains(p.RoHeadHierarchy.HeadOfAccountType))
                                     .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
 
                                 //AmountProgressive = grouping.Key.RoVoucherDetails.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "EXPENDITURE" ||
@@ -119,7 +119,7 @@ namespace Finance.Reports
                                 //    grouping.Key.RoVoucherDetails.Sum(p => p.RoHeadHierarchy.HeadOfAccountType == "PARTY_ADVANCE" && p.RoVoucher.VoucherDate >= tbFromDate.ValueAsDate && p.RoVoucher.VoucherDate <= tbToDate.ValueAsDate
                                 //    ? p.CreditAmount ?? 0 : 0),
 
-                                Total = grouping.Sum(p => HeadOfAccountHelpers.JobExpenses.Contains(p.RoHeadHierarchy.HeadOfAccountType) 
+                                Total = grouping.Sum(p => HeadOfAccountHelpers.AllExpenditures.Contains(p.RoHeadHierarchy.HeadOfAccountType) 
                                     ? p.DebitAmount ?? 0 - p.CreditAmount ?? 0 : 0)
                                     + (advanceOutstandingDebits ?? 0) - (advanceOutstandingCredits ?? 0),
                                 //Total3 = grouping.Sum(p => ((p.RoHeadHierarchy.HeadOfAccountType == "EXPENDITURE" ||
