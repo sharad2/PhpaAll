@@ -299,23 +299,28 @@ namespace EclipseLibrary.Web.JQuery
                         case DialogPosition.Right:
                         case DialogPosition.Top:
                         case DialogPosition.Bottom:
-                            this.ClientOptions.Set("position", value.ToString().ToLower());
+                            //this.ClientOptions.Set("position", value.ToString().ToLower());
+                            this.ClientOptions.Set("position", new
+                            {
+                                my=value.ToString().ToLower(),
+                                at = value.ToString().ToLower()
+                            });
                             break;
 
                         case DialogPosition.LeftTop:
-                            this.ClientOptions.AddRaw("position", "['left', 'top']");
+                            this.ClientOptions.AddRaw("position", "{my: 'left top', at: 'left top'}");
                             break;
 
                         case DialogPosition.LeftBottom:
-                            this.ClientOptions.AddRaw("position", "['left', 'bottom']");
+                            this.ClientOptions.AddRaw("position", "{my: 'left bottom', at: 'left bottom'}");
                             break;
 
                         case DialogPosition.RightBottom:
-                            this.ClientOptions.AddRaw("position", "['right', 'bottom']");
+                            this.ClientOptions.AddRaw("position", "{my: 'right bottom', at: 'right bottom'}");
                             break;
 
                         case DialogPosition.RightTop:
-                            this.ClientOptions.AddRaw("position", "['right', 'top']");
+                            this.ClientOptions.AddRaw("position", "{my: 'right top', at: 'right top'}");
                             break;
 
                         default:

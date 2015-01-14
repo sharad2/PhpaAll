@@ -8,8 +8,8 @@ using EclipseLibrary.Web.Extensions;
 using EclipseLibrary.Web.JQuery.Input;
 using EclipseLibrary.Web.JQuery.Scripts;
 
-[assembly: WebResource("EclipseLibrary.Web.JQuery.Scripts.CommonScripts.min.js", "text/javascript")]
-[assembly: WebResource("EclipseLibrary.Web.JQuery.Scripts.CommonStyles.css", "text/css")]
+[assembly: WebResource("EclipseLibrary.Web.JQuery.Scripts.ScriptResource.min.js", "text/javascript")]
+[assembly: WebResource("EclipseLibrary.Web.JQuery.Scripts.CommonStyles.min.css", "text/css")]
 namespace EclipseLibrary.Web.JQuery
 {
     /// <summary>
@@ -228,7 +228,7 @@ namespace EclipseLibrary.Web.JQuery
             {
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, "common_js");
                 url = this.Page.ClientScript.GetWebResourceUrl(typeof(JQueryScriptManager),
-                    "EclipseLibrary.Web.JQuery.Scripts.CommonScripts.min.js");
+                    "EclipseLibrary.Web.JQuery.Scripts.ScriptResource.min.js");
                 writer.AddAttribute(HtmlTextWriterAttribute.Src, url);
                 writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
                 writer.RenderBeginTag(HtmlTextWriterTag.Script);
@@ -270,7 +270,7 @@ namespace EclipseLibrary.Web.JQuery
         {
             writer.AddAttribute(HtmlTextWriterAttribute.Id, "commonStyles");
             string url = this.Page.ClientScript.GetWebResourceUrl(typeof(JQueryScriptManager),
-                "EclipseLibrary.Web.JQuery.Scripts.CommonStyles.css");
+                "EclipseLibrary.Web.JQuery.Scripts.CommonStyles.min.css");
             writer.AddAttribute(HtmlTextWriterAttribute.Href, url);
             writer.AddAttribute(HtmlTextWriterAttribute.Rel, "stylesheet");
             writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/css");

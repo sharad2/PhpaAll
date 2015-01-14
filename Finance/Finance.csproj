@@ -78,23 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\ChangePassword.aspx" />
-    <Content Include="App_Themes\Default\images\ui-bg_flat_55_999999_40x100.png" />
-    <Content Include="App_Themes\Default\images\ui-bg_flat_75_aaaaaa_40x100.png" />
-    <Content Include="App_Themes\Default\images\ui-bg_glass_45_0078ae_1x400.png" />
-    <Content Include="App_Themes\Default\images\ui-bg_glass_55_f8da4e_1x400.png" />
-    <Content Include="App_Themes\Default\images\ui-bg_glass_75_79c9ec_1x400.png" />
-    <Content Include="App_Themes\Default\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
-    <Content Include="App_Themes\Default\images\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
-    <Content Include="App_Themes\Default\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
-    <Content Include="App_Themes\Default\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
-    <Content Include="App_Themes\Default\images\ui-icons_0078ae_256x240.png" />
-    <Content Include="App_Themes\Default\images\ui-icons_056b93_256x240.png" />
-    <Content Include="App_Themes\Default\images\ui-icons_d8e7f3_256x240.png" />
-    <Content Include="App_Themes\Default\images\ui-icons_e0fdff_256x240.png" />
-    <Content Include="App_Themes\Default\images\ui-icons_f5e175_256x240.png" />
-    <Content Include="App_Themes\Default\images\ui-icons_f7a50d_256x240.png" />
-    <Content Include="App_Themes\Default\images\ui-icons_fcd113_256x240.png" />
-    <Content Include="App_Themes\Default\jquery-ui-1.8.4.custom.css" />
     <Content Include="App_Themes\Start\Default.css" />
     <Content Include="App_Themes\Start\EclipseLibrary.css" />
     <Content Include="App_Themes\Start\images\ui-bg_flat_55_999999_40x100.png" />
@@ -113,7 +96,7 @@
     <Content Include="App_Themes\Start\images\ui-icons_f5e175_256x240.png" />
     <Content Include="App_Themes\Start\images\ui-icons_f7a50d_256x240.png" />
     <Content Include="App_Themes\Start\images\ui-icons_fcd113_256x240.png" />
-    <Content Include="App_Themes\Start\jquery-ui.min.css" />
+    <Content Include="App_Themes\Start\jquery-ui.css" />
     <Content Include="App_Themes\Sunny\Default.css" />
     <Content Include="App_Themes\Sunny\EclipseLibrary.css" />
     <Content Include="App_Themes\Sunny\images\ui-bg_diagonals-medium_20_d34d17_40x40.png" />
@@ -133,6 +116,39 @@
     <Content Include="App_Themes\Sunny\images\ui-icons_fadc7a_256x240.png" />
     <Content Include="App_Themes\Sunny\images\ui-icons_ffe180_256x240.png" />
     <Content Include="App_Themes\Sunny\jquery-ui-1.8.6.custom.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Default.aspx" />
     <Content Include="Doc\Adjustment.doc.aspx" />
     <Content Include="Doc\BalanceProjectCost.doc.aspx" />
@@ -189,6 +205,28 @@
     <Content Include="PIS\Masters\Stations.aspx" />
     <Content Include="Reports\ContractorPaymentReport.aspx" />
     <Content Include="Reports\FundPositionReport.aspx" />
+    <Content Include="packages.config" />
+    <None Include="Scripts\jquery-1.11.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.11.2.js" />
+    <Content Include="Scripts\jquery-1.11.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.11.2.js" />
+    <Content Include="Scripts\jquery-ui-1.11.2.min.js" />
+    <Content Include="Scripts\jquery.hoverIntent.js" />
+    <Content Include="Scripts\jquery.js">
+      <DependentUpon>jquery.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.js.bundle" />
+    <Content Include="Scripts\jquery.min.js.map">
+      <DependentUpon>jquery.min.js</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.min.js">
+      <DependentUpon>jquery.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\json2.js" />
+    <Content Include="Scripts\json2.min.js" />
     <Content Include="Services\Adjustments.asmx" />
     <Content Include="Services\Contractors.asmx" />
     <Content Include="Services\Divisions.asmx" />
@@ -202,6 +240,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\jquery-1.11.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">
@@ -1612,8 +1651,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\Default.skin" />
-    <Content Include="App_Themes\Default\Default.css" />
     <Content Include="Images\PHPALogo1.png" />
     <Content Include="Reports\BalanceProjectCost.aspx" />
     <Content Include="Reports\CashBook.aspx" />
@@ -1663,7 +1700,6 @@
     <Content Include="Payroll\SalaryPeriods.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\EclipseLibrary.css" />
     <Content Include="Images\info.jpg" />
     <Content Include="Images\new.gif" />
     <Content Include="Payroll\PaySalary.aspx" />

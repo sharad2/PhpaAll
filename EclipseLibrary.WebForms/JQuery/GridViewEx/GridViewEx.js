@@ -193,7 +193,7 @@ Added public function keyIndex.
         _onClick: function (e) {
             var widget = this;
             widget._hideRowMenu();
-            $tr = $(e.target).closest('tr');
+            var $tr = $(e.target).closest('tr');
             if ($(e.target).is('.gvex-sort-link')) {
                 // Sort link clicked. Postback the form along with the sort expression
                 $(e.target).html('Sorting...').closest('th')
