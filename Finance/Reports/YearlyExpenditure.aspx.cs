@@ -35,7 +35,15 @@ namespace Finance.Reports
 
 
             List<MonthYear> l = (from vd in db.RoVoucherDetails
-                                 where (HeadOfAccountHelpers.JobExpenses.Contains(vd.RoHeadHierarchy.HeadOfAccountType))
+                                 where (HeadOfAccountHelpers.JobExpenses
+                                            .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
+                                            .Concat(HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI)
+                                            .Concat(HeadOfAccountHelpers.TaxSubTypes.GreenTax)
+                                            .Concat(HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
+                                            .Concat(HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance)
+                                            .Concat(HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance)
+                                            .Concat(HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance)
+                                            .Concat(HeadOfAccountHelpers.StockSuspense).Contains(vd.RoHeadHierarchy.HeadOfAccountType))
                                  //where vd.RoHeadHierarchy.HeadOfAccountType == "Expenditure"
                                  //         || vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES"
                                  group vd by new
