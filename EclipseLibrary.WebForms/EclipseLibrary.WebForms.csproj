@@ -162,6 +162,10 @@
     <Compile Include="UI\WebControls\UserParameter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="JQuery\Scripts\ScriptResource.js.bundle" />
+    <None Include="JQuery\Scripts\ScriptResource.min.js.map">
+      <DependentUpon>ScriptResource.min.js</DependentUpon>
+    </None>
     <None Include="UI\Matrix\Matrix.cd" />
     <None Include="Doc\Conceptual\Adding Theme Selector.aml" />
     <None Include="Doc\Conceptual\Ajax Overview.aml" />
@@ -172,7 +176,6 @@
     <None Include="Doc\Conceptual\Enabling Authentication.aml" />
     <None Include="Doc\Conceptual\GridViewExWidget.aml" />
     <None Include="Doc\Conceptual\Welcome.aml" />
-    <None Include="Tools\jsmin.exe" />
     <Content Include="Doc\EclipseLibrary.shfbproj" />
     <Content Include="Doc\GridViewEx.htm" />
     <None Include="Doc\InputControls.cd" />
@@ -186,9 +189,15 @@
     </EmbeddedResource>
     <Content Include="Doc\HTMLPage1.htm" />
     <Content Include="Doc\jquery-1.4.1-vsdoc.js" />
-    <EmbeddedResource Include="JQuery\Scripts\CommonScripts.min.js" />
-    <Content Include="Tools\jsmin.html" />
-    <Content Include="Tools\Makefile.mak" />
+    <EmbeddedResource Include="JQuery\Scripts\CommonStyles.min.css">
+      <DependentUpon>CommonStyles.css</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="JQuery\Scripts\ScriptResource.js">
+      <DependentUpon>ScriptResource.js.bundle</DependentUpon>
+    </Content>
+    <EmbeddedResource Include="JQuery\Scripts\ScriptResource.min.js">
+      <DependentUpon>ScriptResource.js</DependentUpon>
+    </EmbeddedResource>
     <Content Include="JQuery\Dialog\AjaxDialog.js" />
     <None Include="JQuery\GridViewEx\GridViewEx.js" />
     <Content Include="JQuery\Dialog\Dialog.xml">
@@ -216,8 +225,7 @@
     <Content Include="JQuery\Scripts\CommonScripts.js" />
     <Content Include="JQuery\GridViewEx\SortColumnsChooserScript.js" />
     <Content Include="JQuery\Input\TextBoxEx.js" />
-    <EmbeddedResource Include="JQuery\Scripts\CommonStyles.css" />
-    <Content Include="JQuery\Scripts\json2.js" />
+    <None Include="JQuery\Scripts\CommonStyles.css" />
     <Content Include="SiteStructure\AutoSiteMapProvider.xml" />
     <Content Include="UI\WebControls\AppliedFilters.js" />
     <Content Include="JQuery\Input\Cascade.js" />
@@ -238,8 +246,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PreBuildEvent>echo "$(DevEnvDir)..\..\VC\bin\nmake"  ProjectDir=$(ProjectDir) /a /f $(ProjectDir)Tools\makefile.mak /R $(ConfigurationName)
-"$(DevEnvDir)..\..\VC\bin\nmake"  ProjectDir=$(ProjectDir)  /f $(ProjectDir)Tools\makefile.mak /R $(ConfigurationName)</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
