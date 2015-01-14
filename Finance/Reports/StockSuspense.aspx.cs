@@ -55,7 +55,8 @@ namespace Finance.Reports
                 m_db = (ReportingDataContext)dsStockSuspense.Database;
 
                 var oldstock = (from vd in m_db.RoVoucherDetails
-                                where vd.RoHeadHierarchy.HeadOfAccountType == "STOCK_SUSPENSE" &&
+                                where HeadOfAccountHelpers.StockSuspense.Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
+                                //vd.RoHeadHierarchy.HeadOfAccountType == "STOCK_SUSPENSE" &&
                                         vd.RoVoucher.VoucherDate < dt.Value.FinancialYearStartDate()
                                 group vd by vd.RoHeadHierarchy.Description into grouping
                                 select new
@@ -69,7 +70,8 @@ namespace Finance.Reports
                 var stock = (from v in m_db.RoVouchers
                              where v.VoucherDate >= dtPreviousYear &&
                                    v.VoucherDate < dtNextMonthStart &&
-                                   v.RoVoucherDetails.Max(p => p.RoHeadHierarchy.HeadOfAccountType == "STOCK_SUSPENSE")
+                                   v.RoVoucherDetails.Max(p => HeadOfAccountHelpers.StockSuspense.Contains(p.RoHeadHierarchy.HeadOfAccountType))
+                                       //p.RoHeadHierarchy.HeadOfAccountType == "STOCK_SUSPENSE")
                              select new StockMonth()
                              {
                                  Month = v.VoucherDate.Date.Month,

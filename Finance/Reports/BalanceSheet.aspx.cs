@@ -87,13 +87,13 @@ namespace Finance.Reports
             foreach (var grp in query)
             {
                 //string fmt = "##.##;(##.##)";
-                if (HeadOfAccountHelpers.JobExpenses.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                if (HeadOfAccountHelpers.AllExpenditures.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     expsum += Convert.ToDouble(-grp.Amount);
                     hlExpenditure.Text = expsum.ToString(fmt);
                     sumAssets += Convert.ToDouble(-grp.Amount);
                     hlExpenditure.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}",
-                        string.Join(",", HeadOfAccountHelpers.JobExpenses), dt);
+                        string.Join(",", HeadOfAccountHelpers.AllExpenditures), dt);
                 }
                 else if (HeadOfAccountHelpers.JobAdvances.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
@@ -111,13 +111,13 @@ namespace Finance.Reports
                     hplnkgrantreceived.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}",
                         string.Join(",", HeadOfAccountHelpers.Grants), dt);
                 }
-                else if (HeadOfAccountHelpers.Loans.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (HeadOfAccountHelpers.AllLoans.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     loansSum += Convert.ToDouble(grp.Amount);
                     hplnkloanreceived.Text = loansSum.ToString(fmt);
                     sumLiability += Convert.ToDouble(grp.Amount);
                     hplnkloanreceived.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}",
-                        string.Join(",", HeadOfAccountHelpers.Loans), dt);
+                        string.Join(",", HeadOfAccountHelpers.AllLoans), dt);
                 }
                 else if (HeadOfAccountHelpers.TaxSubTypes.GreenTax.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
@@ -127,20 +127,20 @@ namespace Finance.Reports
                     hplnkgtax.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}",
                         string.Join(",", HeadOfAccountHelpers.TaxSubTypes.GreenTax), dt);
                 }
-                else if (HeadOfAccountHelpers.AccumulatedReceipts.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (HeadOfAccountHelpers.ReceiptSubType.AccumulatedReceipts.Concat(HeadOfAccountHelpers.ReceiptSubType.TenderSale).Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     accsum += Convert.ToDouble(grp.Amount);
                     hplnkAcc_Rec.Text = accsum.ToString(fmt);
                     sumLiability += Convert.ToDouble(grp.Amount);
                     hplnkAcc_Rec.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", 
-                        string.Join(",", HeadOfAccountHelpers.AccumulatedReceipts), dt);
+                        string.Join(",", HeadOfAccountHelpers.ReceiptSubType.AccumulatedReceipts.Concat(HeadOfAccountHelpers.ReceiptSubType.TenderSale)), dt);
                 }
                 else
                 {
                     HyperLink hplnk = (HyperLink)this.plhTable.FindControl(grp.Key.RoAccountType.HeadOfAccountType);
                     if (grp.Key.RoAccountType.Category == "A" || grp.Key.RoAccountType.Category == "B" || grp.Key.RoAccountType.Category == "E" || grp.Key.RoAccountType.Category == "C")
                     {
-                        if (hplnk == null || hplnk.ID == "ASSETS")
+                        if (hplnk == null ||  (HeadOfAccountHelpers.Assets.Contains(hplnk.ID)))
                         {
                             hplnk = ASSETS;
                             otherAssets += Convert.ToDouble(-grp.Amount);
@@ -157,7 +157,7 @@ namespace Finance.Reports
                     }
                     else if (grp.Key.RoAccountType.Category == "L" || grp.Key.RoAccountType.Category == "R")
                     {
-                        if (hplnk == null || hplnk.ID == "LIABILITY")
+                        if (hplnk == null || (HeadOfAccountHelpers.Liabilities.Contains(hplnk.ID)))
                         {
                             hplnk = LIABILITY;
                             otherLiability += Convert.ToDouble(grp.Amount);

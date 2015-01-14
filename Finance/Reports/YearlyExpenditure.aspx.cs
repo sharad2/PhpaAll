@@ -34,9 +34,14 @@ namespace Finance.Reports
             DateTime curDate = DateTime.Today;
 
 
-            List<MonthYear> l = (from vd in db.RoVoucherDetails
-                                 where vd.RoHeadHierarchy.HeadOfAccountType == "Expenditure"
-                                          || vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES"
+            var l = (from vd in db.RoVoucherDetails
+                     where (HeadOfAccountHelpers.AllExpenditures
+                                            .Concat(HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI)
+                                            .Concat(HeadOfAccountHelpers.ContractorTaxes)
+                                            .Concat(HeadOfAccountHelpers.AllAdvances)
+                                            .Concat(HeadOfAccountHelpers.StockSuspense).Contains(vd.RoHeadHierarchy.HeadOfAccountType))
+                                 //where vd.RoHeadHierarchy.HeadOfAccountType == "Expenditure"
+                                 //         || vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES"
                                  group vd by new
                                  {
                                      vd.RoVoucher.VoucherDate.Year,
@@ -56,7 +61,8 @@ namespace Finance.Reports
                                        select new
                                        {
                                            Year = grp.Key,
-                                           Amount = grp.Sum(p => p.Amount)
+                                           Amount = grp.Sum(p => p.Amount),
+                                           NextYear = (grp.Key + 1) % 100
                                        };
             gvExpenditure.DataBind();
 

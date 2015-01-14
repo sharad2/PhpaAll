@@ -141,30 +141,32 @@ namespace Finance.Reports
             //dlo.LoadWith<RoJob>(job => job.RoContractor);
             //db.LoadOptions = dlo;
 
-            var otherRecoveryHeadExclusion = HeadOfAccountHelpers.SecurityDeposits
-                                                       .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanTax)
+            var otherRecoveryHeadExclusion = HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits
+                                                       .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax)
                                                        .Concat(HeadOfAccountHelpers.JobAdvances)
-                                                       .Concat(HeadOfAccountHelpers.InterestReceipts)
-                                                       .Concat(HeadOfAccountHelpers.JobExpenses)
-                                                       .Concat(HeadOfAccountHelpers.CashInBank);
+                                                       .Concat(HeadOfAccountHelpers.ReceiptSubType.InterestReceipts)
+                                                       .Concat(HeadOfAccountHelpers.AllExpenditures)
+                                                       .Concat(HeadOfAccountHelpers.CashSubType.CashInBankNu)
+                                                       .Concat(HeadOfAccountHelpers.CashSubType.CashInBankFe);
+                                                       
 
             var query = from vd in db.RoVoucherDetails
-                       where vd.JobId == jobId &&
-                        !HeadOfAccountHelpers.ExciseDuties.Contains(vd.HeadOfAccount.HeadOfAccountType) &&
+                        where vd.JobId == jobId &&
+                        !HeadOfAccountHelpers.AllExciseDuties.Contains(vd.HeadOfAccount.HeadOfAccountType) &&
                             //(vd.RoVoucher.VoucherDate >= fromDate && vd.RoVoucher.VoucherDate <= toDate) &&
-                       vd.RoJob.ContractorId != null
-                       group vd by vd.RoVoucher into grp
+                        vd.RoJob.ContractorId != null
+                        group vd by vd.RoVoucher into grp
                         let contractorTax = (decimal?)(from vd in grp
-                                                       where HeadOfAccountHelpers.TaxSubTypes.BhutanTax.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                       where HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                        select vd.CreditAmount ?? 0 - vd.DebitAmount ?? 0).Sum()
                         let securityDeposit = (decimal?)(from vd in grp
-                                                         where HeadOfAccountHelpers.SecurityDeposits.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                         where HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                          select vd.CreditAmount ?? 0 - vd.DebitAmount ?? 0).Sum()
                         let materialRecovered = (decimal?)(from vd in grp
                                                            where HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                            select vd.CreditAmount).Sum()
                         let interestRecovered = (decimal?)(from vd in grp
-                                                           where HeadOfAccountHelpers.InterestReceipts.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                           where HeadOfAccountHelpers.ReceiptSubType.InterestReceipts.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                            select vd.CreditAmount).Sum()
                         let advanceAdjusted = (decimal?)(from vd in grp
                                                          where HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.Contains(vd.HeadOfAccount.HeadOfAccountType)
@@ -175,7 +177,7 @@ namespace Finance.Reports
                         let otherRecoveryCredit = (from vd in grp
                                                   where 
                                                   (!otherRecoveryHeadExclusion.Contains(vd.HeadOfAccount.HeadOfAccountType) ||
-                                                  (HeadOfAccountHelpers.JobExpenses.Contains(vd.HeadOfAccount.HeadOfAccountType) &&
+                                                  (HeadOfAccountHelpers.AllExpenditures.Contains(vd.HeadOfAccount.HeadOfAccountType) &&
                                                   !HeadOfAccountHelpers.ExpenditureSubTypes.CivilExpenditure.Contains(vd.HeadOfAccount.HeadOfAccountType) && vd.RoJob.TypeFlag == "X"))
                                                   select vd.CreditAmount).Sum()
                         let otherRecovery = otherRecoveryDebit.HasValue || otherRecoveryCredit.HasValue ? (otherRecoveryCredit ?? 0) - (otherRecoveryDebit ?? 0) : (decimal?)null
@@ -186,18 +188,18 @@ namespace Finance.Reports
                         let totalRecovery = anyRecovery ? totalRecovery1 : (decimal?)null
 
                         let admittedAmountDebit = (from vd in grp
-                                                   where HeadOfAccountHelpers.JobExpenses.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                   where HeadOfAccountHelpers.AllExpenditures.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                    select vd.DebitAmount).Sum()
                         let admittedAmountCredit = (from vd in grp
                                                     where ((HeadOfAccountHelpers.ExpenditureSubTypes.CivilExpenditure.Contains(vd.HeadOfAccount.HeadOfAccountType) && vd.RoJob.TypeFlag == "X") ||
-                                                    (HeadOfAccountHelpers.JobExpenses.Contains(vd.HeadOfAccount.HeadOfAccountType) && vd.RoJob.TypeFlag != "X"))
+                                                    (HeadOfAccountHelpers.AllExpenditures.Contains(vd.HeadOfAccount.HeadOfAccountType) && vd.RoJob.TypeFlag != "X"))
                                                     select vd.CreditAmount).Sum()
                         let admittedAmount = admittedAmountDebit.HasValue || admittedAmountCredit.HasValue ? (admittedAmountDebit ?? 0) - (admittedAmountCredit ?? 0) : (decimal?)null
                         let advancePaid = (decimal?)(from vd in grp
                                                      where HeadOfAccountHelpers.JobAdvances.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                      select vd.DebitAmount).Sum()
                         select new
-        {
+                        {
                             Particulars = grp.Key.Particulars,
                             VoucherDate = grp.Key.VoucherDate,
                             VoucherCode = grp.Key.VoucherCode,
@@ -221,7 +223,7 @@ namespace Finance.Reports
 
             lblOpeningBalance.Text = string.Format("{0:N2}", query.Where(p => p.VoucherDate < fromDate)
                 .Sum(p => p.NetPayment));
-            }
+        }
 
 
         //protected void gvContractorPayment_DataBound(object sender, EventArgs e)
@@ -259,15 +261,15 @@ namespace Finance.Reports
                     // Footer prints on last page only
                     e.Row.TableSection = TableRowSection.TableBody;
                     MultiBoundField advancePaid = (MultiBoundField)(from DataControlField col in gvContractorPayment.Columns
-                                                                   where col.AccessibleHeaderText == "AdvancePaid"
-                                                         select col).Single();
+                                                                    where col.AccessibleHeaderText == "AdvancePaid"
+                                                                    select col).Single();
                     MultiBoundField advanceAdjusted = (MultiBoundField)(from DataControlField col in gvContractorPayment.Columns
-                                                                    where col.AccessibleHeaderText == "ContractorAdvanceAdjusted"
-                                                          select col).Single();
+                                                                        where col.AccessibleHeaderText == "ContractorAdvanceAdjusted"
+                                                                        select col).Single();
                     decimal? adv = Convert.ToDecimal(advancePaid.SummaryValues[0].Value);
                     decimal? adj = Convert.ToDecimal(advanceAdjusted.SummaryValues[0].Value);
 
-                    decimal balance = ((decimal)(adv - adj));
+                    decimal balance = Math.Abs((decimal)(adv - adj));
                     lbldiffrence.Text += balance.ToString("C");
                     lbldiffrence.Visible = true;
                     break;
@@ -327,5 +329,5 @@ namespace Finance.Reports
         //        yield return crp;
         //    }
         //}
-            }
-        }
+    }
+}

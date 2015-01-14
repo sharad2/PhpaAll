@@ -19,7 +19,7 @@
         ShowFooter="true" OnRowDataBound="gvExpenditure_RowDataBound">
         <Columns>
             <eclipse:SequenceField />
-            <eclipse:MultiBoundField DataFields="Year" HeaderText="Year" FooterText="Total" ItemStyle-Width="2in" />
+            <eclipse:MultiBoundField DataFields="Year,NextYear" HeaderText="Year" FooterText="Total" ItemStyle-Width="2in" DataFormatString="{0}-{1}" />
             <eclipse:MultiBoundField DataFields="Amount" HeaderText="Amount" DataSummaryCalculation="ValueSummation"
                 DataFormatString="{0:N2}">
                 <ItemStyle HorizontalAlign="Right" Width="2in" />

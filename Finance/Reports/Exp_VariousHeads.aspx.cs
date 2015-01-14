@@ -127,7 +127,7 @@ namespace Finance.Reports
             ReportingDataContext db = (ReportingDataContext)ds.Database;
 
             var query = (from vd in db.RoVoucherDetails
-                         where HeadOfAccountHelpers.JobExpenses.Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
+                         where HeadOfAccountHelpers.AllExpenditures.Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
                          //where (vd.RoHeadHierarchy.HeadOfAccountType == HOA_EXPENDITURE ||
                          //vd.RoHeadHierarchy.HeadOfAccountType == HOA_TOUR_EXPENSEs) &&
                          vd.RoJob.DivisionId == Convert.ToInt32(ddlDivisionCode.Value)

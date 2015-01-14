@@ -84,7 +84,7 @@ namespace Finance.Reports
 
                ReportingDataContext db = (ReportingDataContext)this.dsExpenditure.Database;
                m_query = from vd in db.RoVoucherDetails
-                         where HeadOfAccountHelpers.JobExpenses.Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
+                         where HeadOfAccountHelpers.AllExpenditures.Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
                            //where (vd.RoHeadHierarchy.HeadOfAccountType == HOA_EXPENDITURE  ||
                            //       vd.RoHeadHierarchy.HeadOfAccountType == HOA_TOUR_EXPENSES) &&
                            vd.RoVoucher.VoucherDate <= _tbMonthValue
