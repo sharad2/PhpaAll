@@ -115,96 +115,176 @@ namespace Finance.Reports
                           });
             foreach (var grp in query)
             {
-                switch (grp.Key.RoAccountType.HeadOfAccountType)
+                // Grant received from the Govt. of India in Rs./Nu.
+                if (HeadOfAccountHelpers.GrantSubType.GrantNu.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
-                    // Grant received from the Govt. of India in Rs./Nu.
-                    case "GRANT_RECEIVED_GOINU":
-                        //case "LOAN_RECEIVED_GOINU":
-                        SetAdditiveHyperLinkProperties(hplnkGOIAidPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
-                        SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
-                        SetAdditiveHyperLinkProperties(hplnkGOIAidUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
-                        SetAdditivePropertiesFund((grp.UptoMonthSum + grp.ForMonthSum), SumType.FundReceivedUptoMonth);
-                        SetAdditiveLabelProperties(lblGOIAidsum, grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.ReceiptsSum);
-                        SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
-                        break;
-                    // Grant received from the Govt. of India in foreign exchange.
-                    case "GRANT_RECEIVED_GOIFE":
-                        //case "LOAN_RECEIVED_GOIFE":
-                        SetAdditiveHyperLinkProperties(hplnkGOIAidFEPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
-                        SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
-                        SetAdditiveHyperLinkProperties(hplnkGOIAidFEUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
-                        SetAdditivePropertiesFund((grp.UptoMonthSum + grp.ForMonthSum), SumType.FundReceivedUptoMonth);
-                        SetAdditiveLabelProperties(lblGOIAidFEsum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
-                        SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
-                        break;
+                    SetAdditiveHyperLinkProperties(hplnkGOIAidPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                    SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
+                    SetAdditiveHyperLinkProperties(hplnkGOIAidUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
+                    SetAdditivePropertiesFund((grp.UptoMonthSum + grp.ForMonthSum), SumType.FundReceivedUptoMonth);
+                    SetAdditiveLabelProperties(lblGOIAidsum, grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.ReceiptsSum);
+                    SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
+                }
+                // Grant received from the Govt. of India in foreign exchange.
+                else if(HeadOfAccountHelpers.GrantSubType.GrantFe.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                {
+                    SetAdditiveHyperLinkProperties(hplnkGOIAidFEPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                    SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
+                    SetAdditiveHyperLinkProperties(hplnkGOIAidFEUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
+                    SetAdditivePropertiesFund((grp.UptoMonthSum + grp.ForMonthSum), SumType.FundReceivedUptoMonth);
+                    SetAdditiveLabelProperties(lblGOIAidFEsum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
+                    SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
+                }
+                // Loan received from the Govt. of India in Rs./Nu.
+                else if(HeadOfAccountHelpers.LoanSubType.LoanNu.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                {
+                    SetAdditiveHyperLinkProperties(hplnkGOILoanPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                    SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
+                    SetAdditiveHyperLinkProperties(hplnkGOILoanUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
+                    SetAdditivePropertiesFund((grp.UptoMonthSum + grp.ForMonthSum), SumType.FundReceivedUptoMonth);
+                    SetAdditiveLabelProperties(lblGOILoansum, grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.ReceiptsSum);
+                    SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
+                }
+                // Loan received from the Govt. of India in foreign exchange.
+                else if (HeadOfAccountHelpers.LoanSubType.LoanFe.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                {
+                    SetAdditiveHyperLinkProperties(hplnkGOILoanFEPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                    SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
+                    SetAdditiveHyperLinkProperties(hplnkGOILoanFEUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
+                    SetAdditivePropertiesFund((grp.UptoMonthSum + grp.ForMonthSum), SumType.FundReceivedUptoMonth);
+                    SetAdditiveLabelProperties(lblGOILoanFEsum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
+                    SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
+                }
+                //  Funds received from Other Receipts.
+                else if(HeadOfAccountHelpers.ReceiptSubType.InterestReceipts
+                            .Concat(HeadOfAccountHelpers.SalaryRemittances)
+                            .Concat(HeadOfAccountHelpers.ReceiptSubType.TenderSale)
+                            .Concat(HeadOfAccountHelpers.DepositSubTypes.EarnestMoneyDeposit)
+                            .Concat(HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits)
+                            .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax)
+                            .Contains(grp.Key.RoAccountType.HeadOfAccountType)
+                    )
+                {
+                    SetAdditiveHyperLinkProperties(hplnkReceiptsPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                    SetAdditiveHyperLinkProperties(hplnkReceiptsUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
+                    SetAdditiveLabelProperties(lblReceiptssum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
+                }
+                // Payments Groups Starts Here
+                // Need to handle these cases and do nothing otherwise amount of these accountypes is added in others repeipts(default case).
+                else if (HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance
+                            .Concat(HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance)
+                            .Concat(HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance)
+                            .Concat(HeadOfAccountHelpers.StockSuspense)
+                            .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
+                            .Concat(HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
+                            .Concat(HeadOfAccountHelpers.AllExciseDuties)
+                            .Concat(HeadOfAccountHelpers.TaxSubTypes.GreenTax)
+                            .Concat(HeadOfAccountHelpers.FundTransit)
+                            .Contains(grp.Key.RoAccountType.HeadOfAccountType)
+                    )
+                {
 
-                    // Loan received from the Govt. of India in Rs./Nu.
-                    case "LOAN_RECEIVED_GOINU":
-                        SetAdditiveHyperLinkProperties(hplnkGOILoanPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
-                        SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
-                        SetAdditiveHyperLinkProperties(hplnkGOILoanUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
-                        SetAdditivePropertiesFund((grp.UptoMonthSum + grp.ForMonthSum), SumType.FundReceivedUptoMonth);
-                        SetAdditiveLabelProperties(lblGOILoansum, grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.ReceiptsSum);
-                        SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
-                        break;
-                    // Loan received from the Govt. of India in foreign exchange.
-                    case "LOAN_RECEIVED_GOIFE":
-                        SetAdditiveHyperLinkProperties(hplnkGOILoanFEPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
-                        SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
-                        SetAdditiveHyperLinkProperties(hplnkGOILoanFEUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
-                        SetAdditivePropertiesFund((grp.UptoMonthSum + grp.ForMonthSum), SumType.FundReceivedUptoMonth);
-                        SetAdditiveLabelProperties(lblGOILoanFEsum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
-                        SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
-                        break;
-                    //  Funds received from Other Receipts.
-                    case "INTEREST":
-                    case "SALARY_REMITANCES":
-                    case "TENDER_SALE":
-                    case "EMD":
-                    case "SD":
-                    case "BIT":
-                        SetAdditiveHyperLinkProperties(hplnkReceiptsPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
-                        SetAdditiveHyperLinkProperties(hplnkReceiptsUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
-                        SetAdditiveLabelProperties(lblReceiptssum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
-                        break;
-                    // Payments Groups Starts Here
-                    // Need to handle these cases and do nothing otherwise amount of these accountypes is added in others repeipts(default case).
-                    case "EMPLOYEE_ADVANCE":
-                        break;
-
-                    case "PARTY_ADVANCE":
-
-                        break;
-                    case "MATERIAL_ADVANCE":
-                        break;
-
-                    case "STOCK_SUSPENSE":
-                        break;
-
-                    case "BST":
-                        break;
-
-                    case "SVCTAX":
-                        break;
-
-                    case "EDGOI":
-                        break;
-
-                    case "EDRGOB":
-                        break;
-                    case "FUNDS_TRANSIT":
-                        break;
-                    case "GREEN_TAX":
-                        break;
-                    default:
-                        if (grp.Key.RoAccountType.Category == "R" || grp.Key.RoAccountType.Category == "A" || grp.Key.RoAccountType.Category == "L")
+                }
+                else
+                {
+                    if (grp.Key.RoAccountType.Category == "R" || grp.Key.RoAccountType.Category == "A" || grp.Key.RoAccountType.Category == "L")
                         {
                             SetAdditiveHyperLinkProperties(hplnkReceiptsPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                             SetAdditiveHyperLinkProperties(hplnkReceiptsUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
                             SetAdditiveLabelProperties(lblReceiptssum, grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum, SumType.ReceiptsSum);
                         }
-                        break;
                 }
+
+                //switch (grp.Key.RoAccountType.HeadOfAccountType)
+                //{
+                //    // Grant received from the Govt. of India in Rs./Nu.
+                //    case "GRANT_RECEIVED_GOINU":
+                //        //case "LOAN_RECEIVED_GOINU":
+                //        SetAdditiveHyperLinkProperties(hplnkGOIAidPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                //        SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
+                //        SetAdditiveHyperLinkProperties(hplnkGOIAidUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
+                //        SetAdditivePropertiesFund((grp.UptoMonthSum + grp.ForMonthSum), SumType.FundReceivedUptoMonth);
+                //        SetAdditiveLabelProperties(lblGOIAidsum, grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.ReceiptsSum);
+                //        SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
+                //        break;
+                //    // Grant received from the Govt. of India in foreign exchange.
+                //    case "GRANT_RECEIVED_GOIFE":
+                //        //case "LOAN_RECEIVED_GOIFE":
+                //        SetAdditiveHyperLinkProperties(hplnkGOIAidFEPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                //        SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
+                //        SetAdditiveHyperLinkProperties(hplnkGOIAidFEUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
+                //        SetAdditivePropertiesFund((grp.UptoMonthSum + grp.ForMonthSum), SumType.FundReceivedUptoMonth);
+                //        SetAdditiveLabelProperties(lblGOIAidFEsum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
+                //        SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
+                //        break;
+
+                //    // Loan received from the Govt. of India in Rs./Nu.
+                //    case "LOAN_RECEIVED_GOINU":
+                //        SetAdditiveHyperLinkProperties(hplnkGOILoanPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                //        SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
+                //        SetAdditiveHyperLinkProperties(hplnkGOILoanUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
+                //        SetAdditivePropertiesFund((grp.UptoMonthSum + grp.ForMonthSum), SumType.FundReceivedUptoMonth);
+                //        SetAdditiveLabelProperties(lblGOILoansum, grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.ReceiptsSum);
+                //        SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
+                //        break;
+                //    // Loan received from the Govt. of India in foreign exchange.
+                //    case "LOAN_RECEIVED_GOIFE":
+                //        SetAdditiveHyperLinkProperties(hplnkGOILoanFEPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                //        SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
+                //        SetAdditiveHyperLinkProperties(hplnkGOILoanFEUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
+                //        SetAdditivePropertiesFund((grp.UptoMonthSum + grp.ForMonthSum), SumType.FundReceivedUptoMonth);
+                //        SetAdditiveLabelProperties(lblGOILoanFEsum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
+                //        SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
+                //        break;
+                //    //  Funds received from Other Receipts.
+                //    case "INTEREST":
+                //    case "SALARY_REMITANCES":
+                //    case "TENDER_SALE":
+                //    case "EMD":
+                //    case "SD":
+                //    case "BIT":
+                //        SetAdditiveHyperLinkProperties(hplnkReceiptsPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                //        SetAdditiveHyperLinkProperties(hplnkReceiptsUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
+                //        SetAdditiveLabelProperties(lblReceiptssum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
+                //        break;
+                //    // Payments Groups Starts Here
+                //    // Need to handle these cases and do nothing otherwise amount of these accountypes is added in others repeipts(default case).
+                //    case "EMPLOYEE_ADVANCE":
+                //        break;
+
+                //    case "PARTY_ADVANCE":
+
+                //        break;
+                //    case "MATERIAL_ADVANCE":
+                //        break;
+
+                //    case "STOCK_SUSPENSE":
+                //        break;
+
+                //    case "BST":
+                //        break;
+
+                //    case "SVCTAX":
+                //        break;
+
+                //    case "EDGOI":
+                //        break;
+
+                //    case "EDRGOB":
+                //        break;
+                //    case "FUNDS_TRANSIT":
+                //        break;
+                //    case "GREEN_TAX":
+                //        break;
+                //    default:
+                //        if (grp.Key.RoAccountType.Category == "R" || grp.Key.RoAccountType.Category == "A" || grp.Key.RoAccountType.Category == "L")
+                //        {
+                //            SetAdditiveHyperLinkProperties(hplnkReceiptsPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                //            SetAdditiveHyperLinkProperties(hplnkReceiptsUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
+                //            SetAdditiveLabelProperties(lblReceiptssum, grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum, SumType.ReceiptsSum);
+                //        }
+                //        break;
+                //}
             }
             foreach (var grp in query1)
             {
