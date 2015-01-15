@@ -9,11 +9,11 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public static class ExpenditureSubTypes
         {
-            public readonly static IEnumerable<string> CivilExpenditure = new string[] { "CIVIL_EXPENDITURE" };
+            public readonly static IEnumerable<string> MainCivilExpenditure = new string[] { "CIVIL_MAIN_EXPENSES" };
             public readonly static IEnumerable<string> TourExpenditure = new string[] { "TOUR_EXPENSES" };
         }
 
-        public readonly static IEnumerable<string> AllExpenditures = (new string[] { "EXPENDITURE" }).Concat(ExpenditureSubTypes.TourExpenditure).Concat(ExpenditureSubTypes.CivilExpenditure);
+        public readonly static IEnumerable<string> AllExpenditures = (new string[] { "EXPENDITURE" }).Concat(ExpenditureSubTypes.TourExpenditure).Concat(ExpenditureSubTypes.MainCivilExpenditure);
 
         public static class AdvanceSubTypes
         {
