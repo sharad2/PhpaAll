@@ -381,7 +381,8 @@ namespace Finance.Reports
             // Getting fund in banks as on date
             var query3 = (from vd in m_db.RoVoucherDetails
                           join hh in m_db.RoHeadHierarchies on vd.HeadOfAccountId equals hh.HeadOfAccountId
-                          where hh.DisplayName.StartsWith("900.04.") && vd.HeadOfAccount.Created <= Convert.ToDateTime(dttbreceiptpayment.Text)
+                          where HeadOfAccountHelpers.AllBanks.Contains(hh.HeadOfAccountType)
+                          //hh.DisplayName.StartsWith("900.04.") &&
                           //Comment out this Code as now We are showing the BOB Thimphu 
                           //&& vd.HeadOfAccountId != 1415
                           group vd by vd.HeadOfAccountId into grouping

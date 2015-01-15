@@ -9,11 +9,34 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public static class ExpenditureSubTypes
         {
+            public readonly static IEnumerable<string> EstablishmentExpenditure = new string[] { "ESTABL_EXPENDITURE" };
+            public readonly static IEnumerable<string> EstablishmentTourExpenditure = new string[] { "ESTABLISHMENT_TOUR" };
+
+            public readonly static IEnumerable<string> CivilExpenditure = new string[] { "CIVIL_EXPENDITURE" };
+            public readonly static IEnumerable<string> CivilTourExpenditure = new string[] { "CIVIL_TOUR" };
             public readonly static IEnumerable<string> MainCivilExpenditure = new string[] { "CIVIL_MAIN_EXPENSES" };
+
+            public readonly static IEnumerable<string> ElectricalExpenditure = new string[] { "ELECTR_EXPENDITURE" };
+            public readonly static IEnumerable<string> ElectricalTourExpenditure = new string[] { "ELECTRICAL_TOUR" };
+
+            public readonly static IEnumerable<string> TransmissionExpenditure = new string[] { "TRANS_EXPENDITURE" };
+            public readonly static IEnumerable<string> TransmissionTourExpenditure = new string[] { "TRANS_TOUR" };
+                 
             public readonly static IEnumerable<string> TourExpenditure = new string[] { "TOUR_EXPENSES" };
         }
 
-        public readonly static IEnumerable<string> AllExpenditures = (new string[] { "EXPENDITURE" }).Concat(ExpenditureSubTypes.TourExpenditure).Concat(ExpenditureSubTypes.MainCivilExpenditure);
+        public readonly static IEnumerable<string> TourExpenditure = ExpenditureSubTypes.CivilTourExpenditure
+                                                                        .Concat(ExpenditureSubTypes.ElectricalTourExpenditure)
+                                                                        .Concat(ExpenditureSubTypes.EstablishmentTourExpenditure)
+                                                                        .Concat(ExpenditureSubTypes.TransmissionTourExpenditure);
+        public readonly static IEnumerable<string> Expenditure = ExpenditureSubTypes.EstablishmentExpenditure
+                                                                    .Concat(ExpenditureSubTypes.CivilExpenditure)
+                                                                    .Concat(ExpenditureSubTypes.MainCivilExpenditure)
+                                                                    .Concat(ExpenditureSubTypes.ElectricalExpenditure)
+                                                                    .Concat(ExpenditureSubTypes.TransmissionExpenditure);
+        
+        public readonly static IEnumerable<string> AllExpenditures = TourExpenditure.Concat(Expenditure);
+        
 
         public static class AdvanceSubTypes
         {
@@ -71,6 +94,8 @@ namespace Eclipse.PhpaLibrary.Reporting
             public readonly static IEnumerable<string> CashInHand = new string[] { "CASH" };
             public readonly static IEnumerable<string> Investment = new string[] { "INVESTMENT" };
         }
+
+        public readonly static IEnumerable<string> AllBanks = CashSubType.CashInBankNu.Concat(CashSubType.CashInBankFe);
 
         public static class DutySubType
         {
