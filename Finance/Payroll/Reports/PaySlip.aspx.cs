@@ -96,7 +96,8 @@ namespace Finance.Payroll.Reports
                                 BankName = empp.Bank.BankName ?? emp.Bank.BankName,
                                 BankPlace = emp.BankPlace,
                                 GPFAccountNumber = emp.GPFAccountNo,
-                                NPPFNumber = emp.NPPFPNo
+                                NPPFNumber = emp.NPPFPNo,
+                                GISAccountNumber = emp.GISAccountNumber
                             };
                 frmView.DataSource = query;
                 frmView.DataBind();

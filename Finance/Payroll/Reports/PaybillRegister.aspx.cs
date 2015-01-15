@@ -415,6 +415,7 @@ namespace Finance.Payroll.Reports
                       BankName = empp.Bank.BankName ?? emp.Bank.BankName,
                       GPFAccountNo = emp.GPFAccountNo,
                       GISAccountNumber = emp.GISAccountNumber,
+                      NPPFNumber =emp.NPPFPNo,
                       CitizenCardNo = emp.CitizenCardNo,
                       Tpn = emp.Tpn,
                       IsBhutanese = emp.IsBhutanese ? "Bhutanese" : "Non Bhutanese",

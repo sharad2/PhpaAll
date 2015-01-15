@@ -96,6 +96,8 @@
                     <asp:Label runat="server" Text='<%# Eval("GPFAccountNo") %>' />
                     <eclipse:LeftLabel runat="server" Text="<b>GIS A/c No." />
                     <asp:Label runat="server" Text='<%# Eval("GISAccountNumber") %>' />
+                    <eclipse:LeftLabel runat="server" Text="<b>NPPF Number" />
+                    <asp:Label runat="server" Text='<%# Eval("NPPFNumber") %>' />
                     <eclipse:LeftLabel runat="server" Text="<b>Citizen I/D No." />
                     <asp:Label runat="server" Text='<%# Eval("CitizenCardNo") %>' />
                     <eclipse:LeftLabel runat="server" Text="<b>TPN No." />
