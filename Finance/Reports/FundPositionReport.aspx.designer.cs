@@ -112,31 +112,85 @@ namespace Finance.Reports {
         protected global::System.Web.UI.WebControls.Label lblGOIAidsum;
         
         /// <summary>
-        /// hplnkGOIFEPreviousYear control.
+        /// hplnkGOIAidFEPreviousYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hplnkGOIFEPreviousYear;
+        protected global::System.Web.UI.WebControls.HyperLink hplnkGOIAidFEPreviousYear;
         
         /// <summary>
-        /// hplnkGOIFEUptoMonth control.
+        /// hplnkGOIAidFEUptoMonth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hplnkGOIFEUptoMonth;
+        protected global::System.Web.UI.WebControls.HyperLink hplnkGOIAidFEUptoMonth;
         
         /// <summary>
-        /// lblGOIFEsum control.
+        /// lblGOIAidFEsum control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGOIFEsum;
+        protected global::System.Web.UI.WebControls.Label lblGOIAidFEsum;
+        
+        /// <summary>
+        /// hplnkGOILoanPreviousYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hplnkGOILoanPreviousYear;
+        
+        /// <summary>
+        /// hplnkGOILoanUptoMonth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hplnkGOILoanUptoMonth;
+        
+        /// <summary>
+        /// lblGOILoansum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGOILoansum;
+        
+        /// <summary>
+        /// hplnkGOILoanFEPreviousYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hplnkGOILoanFEPreviousYear;
+        
+        /// <summary>
+        /// hplnkGOILoanFEUptoMonth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hplnkGOILoanFEUptoMonth;
+        
+        /// <summary>
+        /// lblGOILoanFEsum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGOILoanFEsum;
         
         /// <summary>
         /// lblFundReceivedPreviousYear control.
