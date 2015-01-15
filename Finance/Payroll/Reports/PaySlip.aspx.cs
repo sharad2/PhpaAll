@@ -79,25 +79,25 @@ namespace Finance.Payroll.Reports
             DataSet ds = new DataSet();
             using (PayrollDataContext db = new PayrollDataContext(ReportingUtilities.DefaultConnectString))
             {
-                var query = from emp in db.Employees
-                            join empp in db.EmployeePeriods on emp.EmployeeId equals empp.EmployeeId
-                            join empsal in db.SalaryPeriods on empp.SalaryPeriodId equals empsal.SalaryPeriodId
-                            where emp.EmployeeId == Convert.ToInt32(empId) && empsal.SalaryPeriodStart >= tbDate.ValueAsDate.Value.MonthStartDate() &&
-                                empsal.SalaryPeriodStart <= tbDate.ValueAsDate.Value.MonthEndDate()
+                var query = from empp in db.EmployeePeriods 
+                            where empp.Employee.EmployeeId == Convert.ToInt32(tbEmployee.Value) && empp.SalaryPeriod.SalaryPeriodStart >= tbDate.ValueAsDate.Value.MonthStartDate() &&
+                              empp.SalaryPeriod.SalaryPeriodEnd <= tbDate.ValueAsDate.Value.MonthEndDate()
+                            group new { empp } by new { empp.Employee } into g
+                           
                             select new
                             {
-                                EmployeeId = emp.EmployeeId,
-                                FullName = emp.FullName,
-                                EmployeeCode = emp.EmployeeCode,
-                                CitizenCardNo = emp.CitizenCardNo,
-                                Designation = empp.Designation ?? emp.Designation,
-                                ParentOrganization = emp.ParentOrganization,
-                                BankAccountNo = empp.BankAccountNo ?? emp.BankAccountNo,
-                                BankName = empp.Bank.BankName ?? emp.Bank.BankName,
-                                BankPlace = emp.BankPlace,
-                                GPFAccountNumber = emp.GPFAccountNo,
-                                NPPFNumber = emp.NPPFPNo,
-                                GISAccountNumber = emp.GISAccountNumber
+                                EmployeeId = g.Key.Employee.EmployeeId,
+                                FullName = g.Key.Employee.FullName,
+                                EmployeeCode = g.Key.Employee.EmployeeCode,
+                                CitizenCardNo = g.Key.Employee.CitizenCardNo,
+                                Designation = g.Max(p => p.empp.Designation)?? g.Key.Employee.Designation,
+                                ParentOrganization = g.Key.Employee.ParentOrganization,
+                                BankAccountNo = g.Max(p => p.empp.BankAccountNo) ?? g.Key.Employee.BankAccountNo,
+                                BankName = g.Max(p => p.empp.Bank.BankName) ?? g.Key.Employee.Bank.BankName,
+                                BankPlace = g.Key.Employee.BankPlace,
+                                GPFAccountNumber = g.Key.Employee.GPFAccountNo,
+                                NPPFNumber = g.Key.Employee.NPPFPNo,
+                                GISAccountNumber = g.Key.Employee.GISAccountNumber
                             };
                 frmView.DataSource = query;
                 frmView.DataBind();
@@ -175,16 +175,15 @@ namespace Finance.Payroll.Reports
             using (PayrollDataContext db = new PayrollDataContext(ReportingUtilities.DefaultConnectString))
             {
 
-                var empId = (from emp in db.Employees
-                             join empp in db.EmployeePeriods on emp.EmployeeId equals empp.EmployeeId
-                             join empsal in db.SalaryPeriods on empp.SalaryPeriodId equals empsal.SalaryPeriodId
-                             where empsal.SalaryPeriodStart >= tbDate.ValueAsDate.Value.MonthStartDate()
-                              && empsal.SalaryPeriodEnd <= tbDate.ValueAsDate.Value.MonthEndDate()
+                var empId = (from empp in db.EmployeePeriods
+                             where empp.SalaryPeriod.SalaryPeriodStart >= tbDate.ValueAsDate.Value.MonthStartDate()
+                              && empp.SalaryPeriod.SalaryPeriodEnd <= tbDate.ValueAsDate.Value.MonthEndDate()
                               && (selectEmloyee == 0 || empp.EmployeeId == selectEmloyee)
-                              && (selectDiviosn == 0 || emp.DivisionId == selectDiviosn)
-                              && (selectBank == 0 || ((empp.BankId ?? emp.BankId) == selectBank))
+                              && (selectDiviosn == 0 || empp.Employee.DivisionId == selectDiviosn)
+                              && (selectBank == 0 || ((empp.BankId ?? empp.Employee.BankId) == selectBank))
+                             group new { empp } by new { empp.Employee } into g
                              select
-                                emp.EmployeeId
+                                g.Key.Employee.EmployeeId
                          ).ToList();
                 rpt1.DataSource = empId;
                 rpt1.DataBind();
