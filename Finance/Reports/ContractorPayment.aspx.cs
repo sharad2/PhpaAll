@@ -222,7 +222,7 @@ namespace Finance.Reports
             e.Result = query.Where(p => p.VoucherDate >= fromDate && p.VoucherDate <= toDate);
 
             lblOpeningBalance.Text = string.Format("{0:N2}", query.Where(p => p.VoucherDate < fromDate)
-                .Sum(p => p.NetPayment));
+                .Sum(p => (decimal?)p.NetPayment));
         }
 
 
@@ -269,7 +269,7 @@ namespace Finance.Reports
                     decimal? adv = Convert.ToDecimal(advancePaid.SummaryValues[0].Value);
                     decimal? adj = Convert.ToDecimal(advanceAdjusted.SummaryValues[0].Value);
 
-                    decimal balance = Math.Abs((decimal)(adv - adj));
+                    decimal balance = (decimal)(adv - adj);
                     lbldiffrence.Text += balance.ToString("C");
                     lbldiffrence.Visible = true;
                     break;
