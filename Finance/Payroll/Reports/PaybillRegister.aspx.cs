@@ -389,38 +389,36 @@ namespace Finance.Payroll.Reports
                             .OrderByDescending(p => p.PeriodStartDate).FirstOrDefault() ?? new ServicePeriod();
 
             e.Result =
-                  from emp in db.Employees
-                  join empp in db.EmployeePeriods on emp.EmployeeId equals empp.EmployeeId
-                  join empsal in db.SalaryPeriods on empp.SalaryPeriodId equals empsal.SalaryPeriodId
-                  where emp.EmployeeId == Convert.ToInt32(tbEmployee.Value) && empsal.SalaryPeriodStart >= tbFromDate.ValueAsDate.Value.MonthStartDate() &&
-                                empsal.SalaryPeriodStart <= tbToDate.ValueAsDate.Value.MonthEndDate()
-
+                  from empp in db.EmployeePeriods
+                  where empp.Employee.EmployeeId == Convert.ToInt32(tbEmployee.Value) && empp.SalaryPeriod.SalaryPeriodStart >= tbFromDate.ValueAsDate.Value.MonthStartDate() &&
+                        empp.SalaryPeriod.SalaryPeriodEnd <= tbToDate.ValueAsDate.Value.MonthEndDate()
+                   group new {empp} by new {empp.Employee} into g
                   select new
                   {
-                      FullName = emp.FullName,
-                      EmployeeCode = emp.EmployeeCode,
-                      Designation = empp.Designation ?? emp.Designation,
-                      Grade = sp.Grade,
-                      EmpTypeDescription = emp.EmployeeType.Description,
+                      FullName = g.Key.Employee.FullName,
+                      EmployeeCode = g.Key.Employee.EmployeeCode,
+                      Designation = g.Max(p => p.empp.Designation) ?? g.Key.Employee.Designation,
+                      Grade = g.Key.Employee.Grade,
+                      EmpTypeDescription = g.Key.Employee.EmployeeType.EmployeeTypeCode,
                       PayScale = sp.PayScale,
-                      JoiningDate = emp.JoiningDate,
+                      JoiningDate = g.Key.Employee.JoiningDate,
                       DateOfIncrement = sp.DateOfIncrement,
                       IncrementAmount = sp.IncrementAmount,
-                      Gender = emp.Gender,
-                      DateOfBirth = emp.DateOfBirth,
-                      MaritalStatusType = emp.MaritalStatus.MaritalStatusType,
-                      PostedAt = emp.Station.StationName,
-                      DivisionName = emp.Division.DivisionName,
-                      BankAccountNo = empp.BankAccountNo ?? emp.BankAccountNo,
-                      BankName = empp.Bank.BankName ?? emp.Bank.BankName,
-                      GPFAccountNo = emp.GPFAccountNo,
-                      GISAccountNumber = emp.GISAccountNumber,
-                      NPPFNumber =emp.NPPFPNo,
-                      CitizenCardNo = emp.CitizenCardNo,
-                      Tpn = emp.Tpn,
-                      IsBhutanese = emp.IsBhutanese ? "Bhutanese" : "Non Bhutanese",
-                      ParentOrganization = emp.ParentOrganization,
-                      EmployeeId = emp.EmployeeId
+                      Gender = g.Key.Employee.Gender,
+                      DateOfBirth = g.Key.Employee.DateOfBirth,
+                      MaritalStatusType = g.Key.Employee.MaritalStatus.MaritalStatusType,
+                      PostedAt = g.Key.Employee.Station.StationName,
+                      DivisionName = g.Key.Employee.Division.DivisionName,
+                      BankAccountNo = g.Max(p => p.empp.BankAccountNo) ?? g.Key.Employee.BankAccountNo,
+                      BankName = g.Max(p => p.empp.Bank.BankName) ?? g.Key.Employee.Bank.BankName,
+                      GPFAccountNo =g.Key.Employee.GPFAccountNo,
+                      GISAccountNumber = g.Key.Employee.GISAccountNumber,
+                      NPPFNumber = g.Key.Employee.NPPFPNo,
+                      CitizenCardNo = g.Key.Employee.CitizenCardNo,
+                      Tpn = g.Key.Employee.Tpn,
+                      IsBhutanese = g.Key.Employee.IsBhutanese ? "Bhutanese" : "Non Bhutanese",
+                      ParentOrganization = g.Key.Employee.ParentOrganization,
+                      EmployeeId = g.Key.Employee.EmployeeId
                   };
         }
 
