@@ -147,14 +147,14 @@ namespace Finance.Reports
                     SetHyperLinkProperties(hplnkTenderSaleUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
                     SetLabelProperties(lblTenderSalesum, grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum, SumType.ReceiptsSum);
                 }
-                else if(HeadOfAccountHelpers.DepositSubTypes.EarnestMoneyDeposit.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.DepositSubTypes.EarnestMoneyDeposit)
                 {
                     SetHyperLinkProperties(hplnkEMDPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                     SetHyperLinkProperties(hplnkEMDForMonth, grp.ForMonthSum, SumType.ReceiptsForMonth);
                     SetHyperLinkProperties(hplnkEMDUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
                     SetLabelProperties(lblEMDsum, grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum, SumType.ReceiptsSum);
                 }
-                else if(HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.DepositSubTypes.SecurityDeposit)
                 {
                     SetHyperLinkProperties(hplnkSecurityDepositPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                     SetHyperLinkProperties(hplnkSecurityDepositForMonth, grp.ForMonthSum, SumType.ReceiptsForMonth);

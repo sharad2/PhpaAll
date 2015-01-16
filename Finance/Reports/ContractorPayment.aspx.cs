@@ -141,8 +141,8 @@ namespace Finance.Reports
             //dlo.LoadWith<RoJob>(job => job.RoContractor);
             //db.LoadOptions = dlo;
 
-            var otherRecoveryHeadExclusion = HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits
-                                                       .Concat(new[] { HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax, HeadOfAccountHelpers.ReceiptSubType.InterestReceipt })
+            var otherRecoveryHeadExclusion = new[] { HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax, HeadOfAccountHelpers.ReceiptSubType.InterestReceipt,
+                HeadOfAccountHelpers.DepositSubTypes.SecurityDeposit}
                                                        .Concat(HeadOfAccountHelpers.JobAdvances)
                                                        //.Concat(HeadOfAccountHelpers.ReceiptSubType.InterestReceipts)
                                                        .Concat(HeadOfAccountHelpers.AllExpenditures)
@@ -160,7 +160,7 @@ namespace Finance.Reports
                                                        where vd.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax
                                                        select vd.CreditAmount ?? 0 - vd.DebitAmount ?? 0).Sum()
                         let securityDeposit = (decimal?)(from vd in grp
-                                                         where HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                         where vd.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.DepositSubTypes.SecurityDeposit
                                                          select vd.CreditAmount ?? 0 - vd.DebitAmount ?? 0).Sum()
                         let materialRecovered = (decimal?)(from vd in grp
                                                            where HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(vd.HeadOfAccount.HeadOfAccountType)

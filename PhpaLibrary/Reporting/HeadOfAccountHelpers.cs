@@ -132,8 +132,8 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public static class DepositSubTypes
         {
-            public readonly static IEnumerable<string> EarnestMoneyDeposit = new string[] { "EMD" };
-            public readonly static IEnumerable<string> SecurityDeposits = new string[] { "SD" };
+            public const string EarnestMoneyDeposit =  "EMD";
+            public const string SecurityDeposit =  "SD";
         }
 
     }

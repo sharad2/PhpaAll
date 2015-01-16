@@ -157,11 +157,13 @@ namespace Finance.Reports
                 }
                 //  Funds received from Other Receipts.
                 else if(HeadOfAccountHelpers.SalaryRemittances
-                            .Concat(HeadOfAccountHelpers.DepositSubTypes.EarnestMoneyDeposit)
-                            .Concat(HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits)
+                            //.Concat(HeadOfAccountHelpers.DepositSubTypes.EarnestMoneyDeposit)
+                            //.Concat(HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits)
                             .Contains(grp.Key.RoAccountType.HeadOfAccountType) || grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax ||
                     grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.ReceiptSubType.InterestReceipt ||
-                    grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.ReceiptSubType.TenderSale
+                    grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.ReceiptSubType.TenderSale ||
+                    grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.DepositSubTypes.EarnestMoneyDeposit ||
+                    grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.DepositSubTypes.SecurityDeposit
                     )
                 {
                     SetAdditiveHyperLinkProperties(hplnkReceiptsPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
