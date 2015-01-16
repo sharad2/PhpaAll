@@ -1,4 +1,7 @@
-﻿/*
+﻿using Eclipse.PhpaLibrary.Reporting;
+using Eclipse.PhpaLibrary.Web;
+using EclipseLibrary.Web.JQuery.Input;
+/*
  *  Programming: Eclipse Systems (P) Ltd., NOIDA, INDIA
  *  E-mail: support@eclsys.com
  *
@@ -26,9 +29,6 @@ using System;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Eclipse.PhpaLibrary.Reporting;
-using Eclipse.PhpaLibrary.Web;
-using EclipseLibrary.Web.JQuery.Input;
 
 //Code reviewed by Mayank Sharma on 7th April 2008 
 namespace Finance.Reports
@@ -98,7 +98,7 @@ namespace Finance.Reports
                                 MaterialAdvance = materialAdvance,
                                 MaterialAdvanceAccountTypes = string.Join(",", HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance),
                                 TotalAdvance = (advance ?? 0) + (materialAdvance ?? 0),
-                                EarliestDate = (DateTime?)grp.Min(p => p.RoVoucher.VoucherDate)
+                                //EarliestDate = (DateTime?)grp.Min(p => p.RoVoucher.VoucherDate)
                             }).Where(p => p.TotalAdvance != 0);
         }
 
