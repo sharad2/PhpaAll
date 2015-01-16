@@ -161,8 +161,8 @@ namespace Finance.Reports
                             .Concat(HeadOfAccountHelpers.ReceiptSubType.TenderSale)
                             .Concat(HeadOfAccountHelpers.DepositSubTypes.EarnestMoneyDeposit)
                             .Concat(HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits)
-                            .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax)
-                            .Contains(grp.Key.RoAccountType.HeadOfAccountType)
+                            //.Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax)
+                            .Contains(grp.Key.RoAccountType.HeadOfAccountType) || grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax
                     )
                 {
                     SetAdditiveHyperLinkProperties(hplnkReceiptsPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
@@ -172,12 +172,14 @@ namespace Finance.Reports
                 // Payments Groups Starts Here
                 // Need to handle these cases and do nothing otherwise amount of these accountypes is added in others repeipts(default case).
                 else if (HeadOfAccountHelpers.JobAdvances.Concat(HeadOfAccountHelpers.StockSuspense)
-                            .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
-                            .Concat(HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
+                            //.Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
+                            //.Concat(HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
                             .Concat(HeadOfAccountHelpers.AllExciseDuties)
-                            .Concat(HeadOfAccountHelpers.TaxSubTypes.GreenTax)
+                            //.Concat(HeadOfAccountHelpers.TaxSubTypes.GreenTax)
                             .Concat(HeadOfAccountHelpers.FundTransit)
                             .Contains(grp.Key.RoAccountType.HeadOfAccountType) || grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance
+                    || grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.GreenTax || grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.ServiceTax ||
+                    grp.Key.RoAccountType.HeadOfAccountType  == HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax
                     )
                 {
 
@@ -289,9 +291,9 @@ namespace Finance.Reports
                 //if (HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentExpenditure.Concat(HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentTourExpenditure).Contains(grp.AccountType))
                 if (HeadOfAccountHelpers.EstablishmentExpenditures
                         //.Concat(HeadOfAccountHelpers.AdvanceSubTypes.EstablishmentPartyAdvance)
-                        .Concat(HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
+                        //.Concat(HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
                         .Contains(grp.AccountType) || grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance ||
-                    grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.EstablishmentPartyAdvance)
+                    grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.EstablishmentPartyAdvance || grp.AccountType == HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
                 {
                     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditureUptoMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
@@ -302,11 +304,12 @@ namespace Finance.Reports
                 else if(HeadOfAccountHelpers.CivilExpenditures
                             //.Concat(HeadOfAccountHelpers.AdvanceSubTypes.CivilPartyAdance)
                             .Concat(HeadOfAccountHelpers.StockSuspense)
-                            .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
-                            .Concat(HeadOfAccountHelpers.TaxSubTypes.GreenTax)
+                            //.Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
+                            //.Concat(HeadOfAccountHelpers.TaxSubTypes.GreenTax)
                             .Concat(HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI)
                             .Contains(grp.AccountType) || grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance ||
-                    grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.CivilPartyAdance)
+                    grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.CivilPartyAdance || grp.AccountType == HeadOfAccountHelpers.TaxSubTypes.GreenTax ||
+                    grp.AccountType == HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
                 {
                     SetAdditiveHyperLinkProperties(hplnkCivilExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkCivilExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);

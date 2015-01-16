@@ -192,14 +192,14 @@ namespace Finance.Reports
                     SetHyperLinkProperties(hplnkStockSuspenseUptoMonth, (-(grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsUptoMonth);
                     SetLabelProperties(lblStockSuspensesum, (-(grp.UptoMonthSum + grp.ForMonthSum + grp.PreviousYearSum)), SumType.PaymentsSum);
                 }
-                else if (HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
                 {
                     SetHyperLinkProperties(hplnkBSTPreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetHyperLinkProperties(hplnkBSTForMonth, -grp.ForMonthSum, SumType.PaymentsForMonth);
                     SetHyperLinkProperties(hplnkBSTUptoMonth, (-(grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsUptoMonth);
                     SetLabelProperties(lblBSTsum, (-(grp.UptoMonthSum + grp.ForMonthSum + grp.PreviousYearSum)), SumType.PaymentsSum);
                 }
-                else if(HeadOfAccountHelpers.TaxSubTypes.ServiceTax.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
                 {
                     SetHyperLinkProperties(hplnksvctaxPreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetHyperLinkProperties(hplnksvctaxForMonth, -grp.ForMonthSum, SumType.PaymentsForMonth);

@@ -67,16 +67,16 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public static class TaxSubTypes
         {
-            public readonly static IEnumerable<string> GreenTax = new string[] { "GREEN_TAX" };
-            public readonly static IEnumerable<string> BhutanIncomeTax = new string[] { "BIT" };
-            public readonly static IEnumerable<string> ServiceTax = new string[] { "SVCTAX" };
-            public readonly static IEnumerable<string> BhutanSalesTax = new string[] { "BST" };
+            public const string GreenTax =  "GREEN_TAX";
+            public const string BhutanIncomeTax =  "BIT";
+            public const string ServiceTax =  "SVCTAX" ;
+            public const string BhutanSalesTax = "BST";
         }
 
         /// <summary>
         /// Government taxes levied on contractor activities
         /// </summary>
-        public readonly static IEnumerable<string> ContractorTaxes = TaxSubTypes.GreenTax.Concat(TaxSubTypes.ServiceTax).Concat(TaxSubTypes.BhutanSalesTax);
+        public readonly static IEnumerable<string> ContractorTaxes = new[] { TaxSubTypes.GreenTax, TaxSubTypes.ServiceTax, TaxSubTypes.BhutanSalesTax };
 
         public readonly static IEnumerable<string> SalaryRemittances = new string[] { "SALARY_REMITANCES" };
 

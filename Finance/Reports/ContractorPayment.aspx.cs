@@ -142,7 +142,7 @@ namespace Finance.Reports
             //db.LoadOptions = dlo;
 
             var otherRecoveryHeadExclusion = HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits
-                                                       .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax)
+                                                       .Concat(new[] {HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax})
                                                        .Concat(HeadOfAccountHelpers.JobAdvances)
                                                        .Concat(HeadOfAccountHelpers.ReceiptSubType.InterestReceipts)
                                                        .Concat(HeadOfAccountHelpers.AllExpenditures)
@@ -157,7 +157,7 @@ namespace Finance.Reports
                         vd.RoJob.ContractorId != null
                         group vd by vd.RoVoucher into grp
                         let contractorTax = (decimal?)(from vd in grp
-                                                       where HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                       where vd.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax
                                                        select vd.CreditAmount ?? 0 - vd.DebitAmount ?? 0).Sum()
                         let securityDeposit = (decimal?)(from vd in grp
                                                          where HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits.Contains(vd.HeadOfAccount.HeadOfAccountType)

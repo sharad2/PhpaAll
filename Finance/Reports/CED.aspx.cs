@@ -35,7 +35,7 @@ namespace Finance.Reports
 
                 case "BST":
                     //HeadTypeFlag = "BST";
-                    HeadTypeFlag =  HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax.FirstOrDefault().ToString();
+                    HeadTypeFlag =  HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax;
                     Page.Title = string.Format("Bhutan Sales Tax Report as on {0:dd/MM/yyyy}", tbMonth.ValueAsDate);
                     break;
             }
