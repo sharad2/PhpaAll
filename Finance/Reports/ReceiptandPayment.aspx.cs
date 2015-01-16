@@ -178,7 +178,7 @@ namespace Finance.Reports
                     SetHyperLinkProperties(hplnkEmpAdvUptoMonth, (-(grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsUptoMonth);
                     SetLabelProperties(lblEmpAdvsum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
                 }
-                else if(HeadOfAccountHelpers.PartyAdvances.Concat(HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance).Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if(HeadOfAccountHelpers.JobAdvances.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     SetAdditiveHyperLinkProperties(hplnkContAdvPreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkContAdvForMonth, -grp.ForMonthSum, SumType.PaymentsForMonth);

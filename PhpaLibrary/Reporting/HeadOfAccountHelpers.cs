@@ -14,6 +14,8 @@ namespace Eclipse.PhpaLibrary.Reporting
 
             internal const string CivilExpenditure = "CIVIL_EXPENDITURE";
             internal const string CivilTourExpenditure =  "CIVIL_TOUR";
+
+            // Used by Job Payment Register
             public const string MainCivilExpenditure = "CIVIL_MAIN_EXPENSES";
 
             internal const string ElectricalExpenditure =  "ELECTR_EXPENDITURE";
@@ -48,7 +50,7 @@ namespace Eclipse.PhpaLibrary.Reporting
         public static class AdvanceSubTypes
         {
             //public readonly static IEnumerable<string> PartyAdvance = new string[] { "PARTY_ADVANCE" };
-            public readonly static IEnumerable<string> MaterialAdvance = new string[] { "MATERIAL_ADVANCE" };
+            public const string MaterialAdvance =  "MATERIAL_ADVANCE";
             public readonly static IEnumerable<string> EmployeeAdvance = new string[] { "EMPLOYEE_ADVANCE" };
             public readonly static IEnumerable<string> EstablishmentPartyAdvance = new string[] { "ESTB_PARTY_ADVANCE" };
             public readonly static IEnumerable<string> CivilPartyAdance = new string[] { "CIVIL_PARTY_ADVANCE" };
@@ -60,7 +62,9 @@ namespace Eclipse.PhpaLibrary.Reporting
             .Concat(AdvanceSubTypes.CivilPartyAdance)
             .Concat(AdvanceSubTypes.ElectricalPartyAdvance)
             .Concat(AdvanceSubTypes.TransmissionPartyAdance);
-        public readonly static IEnumerable<string> JobAdvances = PartyAdvances.Concat(AdvanceSubTypes.MaterialAdvance);
+
+        public readonly static IEnumerable<string> JobAdvances = new[] {AdvanceSubTypes.MaterialAdvance}.Concat(PartyAdvances);
+
         public readonly static IEnumerable<string> AllAdvances = JobAdvances.Concat(AdvanceSubTypes.EmployeeAdvance);
 
 

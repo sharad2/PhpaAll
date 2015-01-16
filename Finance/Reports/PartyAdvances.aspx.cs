@@ -77,14 +77,13 @@ namespace Finance.Reports
                 e.Result = (from vd in db.RoVoucherDetails
                             //where (vd.HeadOfAccount.HeadOfAccountType == partyAdvance ||
                             //       vd.HeadOfAccount.HeadOfAccountType == materialAdvance)
-                            where (HeadOfAccountHelpers.PartyAdvances
-                                    .Concat(HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance).Contains(vd.HeadOfAccount.HeadOfAccountType)) &&
+                            where (HeadOfAccountHelpers.JobAdvances.Contains(vd.HeadOfAccount.HeadOfAccountType)) &&
                             vd.RoVoucher.VoucherDate <= tbDate.ValueAsDate
                             group vd by vd.ContractorId ?? vd.RoJob.ContractorId into grp
                             orderby grp.Min(p=>p.RoJob.RoContractor.ContractorCode ?? p.RoContractor.ContractorCode)
                             let advance = (decimal?)grp.Where(p => HeadOfAccountHelpers.PartyAdvances.Contains(p.HeadOfAccount.HeadOfAccountType))
                                 .Sum(p => (p.DebitAmount ?? 0) - (p.CreditAmount ?? 0))
-                            let materialAdvance = (decimal?)grp.Where(p => HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(p.HeadOfAccount.HeadOfAccountType))
+                            let materialAdvance = (decimal?)grp.Where(p => p.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance)
                                 .Sum(p => (p.DebitAmount ?? 0) - (p.CreditAmount ?? 0))
                             select new 
                             {
@@ -96,7 +95,7 @@ namespace Finance.Reports
                                 AdvanceAccountTypes = string.Join(",", HeadOfAccountHelpers.PartyAdvances),
                                 //MaterialAdvance = (decimal?)grp.Sum(p => HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(p.HeadOfAccount.HeadOfAccountType) ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0),
                                 MaterialAdvance = materialAdvance,
-                                MaterialAdvanceAccountTypes = string.Join(",", HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance),
+                                MaterialAdvanceAccountType = HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance,
                                 TotalAdvance = (advance ?? 0) + (materialAdvance ?? 0),
                                 //EarliestDate = (DateTime?)grp.Min(p => p.RoVoucher.VoucherDate)
                             }).Where(p => p.TotalAdvance != 0);

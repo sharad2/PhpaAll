@@ -172,8 +172,7 @@ namespace Finance.Reports
                 // Payments Groups Starts Here
                 // Need to handle these cases and do nothing otherwise amount of these accountypes is added in others repeipts(default case).
                 else if (HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance
-                            .Concat(HeadOfAccountHelpers.PartyAdvances)
-                            .Concat(HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance)
+                            .Concat(HeadOfAccountHelpers.JobAdvances)
                             .Concat(HeadOfAccountHelpers.StockSuspense)
                             .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
                             .Concat(HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
@@ -351,12 +350,12 @@ namespace Finance.Reports
                 }
                 // Adding Mobilisation Advance Civil and Mobilisation Advance (HRT) and Green Tax (RGoB) and Mobilisation Advance (PH) and Mobilisation Advance (DAM) and Stock Suspense and BST and Excise Duty and for Material_Advance head of account type.
                 else if(HeadOfAccountHelpers.AdvanceSubTypes.CivilPartyAdance
-                            .Concat(HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance)
+                            //.Concat(HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance)
                             .Concat(HeadOfAccountHelpers.StockSuspense)
                             .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
                             .Concat(HeadOfAccountHelpers.TaxSubTypes.GreenTax)
                             .Concat(HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI)
-                            .Contains(grp.AccountType))
+                            .Contains(grp.AccountType) || grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance)
                 {
                     SetAdditiveHyperLinkProperties(hplnkCivilExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkCivilExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);

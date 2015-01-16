@@ -53,7 +53,7 @@
             </asp:TemplateField>--%>
 
             <eclipse:HyperLinkFieldEx runat="server" DataTextField="MaterialAdvance" DataTextFormatString="{0:C}" HeaderText="Material/ Tools & Plant Advance(Nu.)"
-                DataNavigateUrlFields="MaterialAdvanceAccountTypes,PartyId" DataNavigateUrlFormatString="~/Finance/VoucherSearch.aspx?AccountTypes={0}&ContractorId={1}"
+                DataNavigateUrlFields="MaterialAdvanceAccountType,PartyId" DataNavigateUrlFormatString="~/Finance/VoucherSearch.aspx?AccountTypes={0}&ContractorId={1}"
                 DataSummaryCalculation="ValueSummation" DataFooterFormatString="{0:C}">
                 <ItemStyle HorizontalAlign="Right" />
             </eclipse:HyperLinkFieldEx>
