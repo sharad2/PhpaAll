@@ -51,16 +51,14 @@ namespace Eclipse.PhpaLibrary.Reporting
         {
             public const string MaterialAdvance =  "MATERIAL_ADVANCE";
             public const string EmployeeAdvance =  "EMPLOYEE_ADVANCE";
-            public readonly static IEnumerable<string> EstablishmentPartyAdvance = new string[] { "ESTB_PARTY_ADVANCE" };
-            public readonly static IEnumerable<string> CivilPartyAdance = new string[] { "CIVIL_PARTY_ADVANCE" };
-            public readonly static IEnumerable<string> ElectricalPartyAdvance = new string[] { "ELEC_PARTY_ADVANCE" };
-            public readonly static IEnumerable<string> TransmissionPartyAdance = new string[] { "TRAN_PARTY_ADVANCE" };
+            public const string EstablishmentPartyAdvance = "ESTB_PARTY_ADVANCE";
+            public const string CivilPartyAdance =  "CIVIL_PARTY_ADVANCE";
+            public const string ElectricalPartyAdvance =  "ELEC_PARTY_ADVANCE";
+            public const string TransmissionPartyAdance = "TRAN_PARTY_ADVANCE";
 
         }
-        public readonly static IEnumerable<string> PartyAdvances = AdvanceSubTypes.EstablishmentPartyAdvance
-            .Concat(AdvanceSubTypes.CivilPartyAdance)
-            .Concat(AdvanceSubTypes.ElectricalPartyAdvance)
-            .Concat(AdvanceSubTypes.TransmissionPartyAdance);
+        public readonly static IEnumerable<string> PartyAdvances = new[] { 
+            AdvanceSubTypes.EstablishmentPartyAdvance, AdvanceSubTypes.CivilPartyAdance, AdvanceSubTypes.ElectricalPartyAdvance, AdvanceSubTypes.TransmissionPartyAdance };
 
         public readonly static IEnumerable<string> JobAdvances = new[] {AdvanceSubTypes.MaterialAdvance}.Concat(PartyAdvances);
 

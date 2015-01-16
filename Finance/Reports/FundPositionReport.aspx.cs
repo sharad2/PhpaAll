@@ -288,9 +288,10 @@ namespace Finance.Reports
                 // Calculating expenditure for project establishment cost(Including WAPCOS) 100 heads.
                 //if (HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentExpenditure.Concat(HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentTourExpenditure).Contains(grp.AccountType))
                 if (HeadOfAccountHelpers.EstablishmentExpenditures
-                        .Concat(HeadOfAccountHelpers.AdvanceSubTypes.EstablishmentPartyAdvance)
+                        //.Concat(HeadOfAccountHelpers.AdvanceSubTypes.EstablishmentPartyAdvance)
                         .Concat(HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
-                        .Contains(grp.AccountType) || grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance)
+                        .Contains(grp.AccountType) || grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance ||
+                    grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.EstablishmentPartyAdvance)
                 {
                     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditureUptoMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
@@ -299,12 +300,13 @@ namespace Finance.Reports
                 }
                 // Calculating expenditure for Civil works (200 Heads).
                 else if(HeadOfAccountHelpers.CivilExpenditures
-                            .Concat(HeadOfAccountHelpers.AdvanceSubTypes.CivilPartyAdance)
+                            //.Concat(HeadOfAccountHelpers.AdvanceSubTypes.CivilPartyAdance)
                             .Concat(HeadOfAccountHelpers.StockSuspense)
                             .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
                             .Concat(HeadOfAccountHelpers.TaxSubTypes.GreenTax)
                             .Concat(HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI)
-                            .Contains(grp.AccountType) || grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance)
+                            .Contains(grp.AccountType) || grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance ||
+                    grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.CivilPartyAdance)
                 {
                     SetAdditiveHyperLinkProperties(hplnkCivilExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkCivilExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
@@ -312,9 +314,9 @@ namespace Finance.Reports
                     SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
                 }
                 // Calculating expenditure for Electrical works (300 Heads)
-                else if(HeadOfAccountHelpers.ElectricalExpenditures
-                        .Concat(HeadOfAccountHelpers.AdvanceSubTypes.ElectricalPartyAdvance)
-                        .Contains(grp.AccountType))
+                else if (HeadOfAccountHelpers.ElectricalExpenditures
+                        //.Concat(HeadOfAccountHelpers.AdvanceSubTypes.ElectricalPartyAdvance)
+                        .Contains(grp.AccountType) || grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.ElectricalPartyAdvance)
                 {
                     SetAdditiveHyperLinkProperties(hplnkElectricalExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkElectricalExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
@@ -323,8 +325,8 @@ namespace Finance.Reports
                 }
                 // Calculating expenditure for Transmission works (400 heads)
                 else if (HeadOfAccountHelpers.TransmissionExpenditures
-                            .Concat(HeadOfAccountHelpers.AdvanceSubTypes.TransmissionPartyAdance)
-                            .Contains(grp.AccountType))
+                            //.Concat(HeadOfAccountHelpers.AdvanceSubTypes.TransmissionPartyAdance)
+                            .Contains(grp.AccountType) || grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.TransmissionPartyAdance)
                 {
                     SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
