@@ -98,18 +98,6 @@ namespace Finance.Reports
                              UptoMonthSum = g.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0)
                          });
 
-            //Getting sum of amount against headofaccountId 
-            //var query1 = (from vd in m_db.RoVoucherDetails
-            //              where  vd.HeadOfAccount.HeadOfAccountId != null
-            //                     && vd.HeadOfAccount.RoAccountType != null
-            //              group vd by vd.HeadOfAccount.RoAccountType into grouping
-            //              select new
-            //              {
-            //                  RoAccountType = grouping.Key,
-            //                  PreviousYearSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate < m_dtPreviousYear ? (hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0) : 0),
-            //                  ForMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtPassed ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0),
-            //                  UptoMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0)
-            //              });
             foreach (var grp in query)
             {
                 // Grant received from the Govt. of India in Rs./Nu.
@@ -165,36 +153,7 @@ namespace Finance.Reports
                     SetAdditiveHyperLinkProperties(hplnkReceiptsUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
                     SetAdditiveLabelProperties(lblReceiptssum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
                 }
-                // Payments Groups Starts Here
-                // Need to handle these cases and do nothing otherwise amount of these accountypes is added in others repeipts(default case).
-                else if (HeadOfAccountHelpers.JobAdvances.Concat(HeadOfAccountHelpers.StockSuspense)
-                            .Concat(HeadOfAccountHelpers.AllExciseDuties)
-                            .Concat(HeadOfAccountHelpers.FundTransit)
-                            .Contains(grp.RoAccountType.HeadOfAccountType) || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance
-                    || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.GreenTax || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.ServiceTax ||
-                    grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax
-                    )
-                {
-
-                }
-                else
-                {
-                    if (grp.RoAccountType.Category == "R" || grp.RoAccountType.Category == "A" || grp.RoAccountType.Category == "L")
-                    {
-                        SetAdditiveHyperLinkProperties(hplnkReceiptsPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
-                        SetAdditiveHyperLinkProperties(hplnkReceiptsUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
-                        SetAdditiveLabelProperties(lblReceiptssum, grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum, SumType.ReceiptsSum);
-                    }
-                }
-            }
-
-            foreach (var grp in query)
-            {
-                // Calculating expenditure for project establishment cost(Including WAPCOS) 100 heads.
-                //if (HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentExpenditure.Concat(HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentTourExpenditure).Contains(grp.AccountType))
-                if (HeadOfAccountHelpers.EstablishmentExpenditures
-                    //.Concat(HeadOfAccountHelpers.AdvanceSubTypes.EstablishmentPartyAdvance)
-                    //.Concat(HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
+                else if (HeadOfAccountHelpers.EstablishmentExpenditures
                         .Contains(grp.RoAccountType.HeadOfAccountType) || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance ||
                     grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.EstablishmentPartyAdvance || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
                 {
@@ -205,10 +164,7 @@ namespace Finance.Reports
                 }
                 // Calculating expenditure for Civil works (200 Heads).
                 else if (HeadOfAccountHelpers.CivilExpenditures
-                    //.Concat(HeadOfAccountHelpers.AdvanceSubTypes.CivilPartyAdance)
                             .Concat(HeadOfAccountHelpers.StockSuspense)
-                    //.Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
-                    //.Concat(HeadOfAccountHelpers.TaxSubTypes.GreenTax)
                             .Concat(new[] { HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyGOI })
                             .Contains(grp.RoAccountType.HeadOfAccountType) || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance ||
                     grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.CivilPartyAdance || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.GreenTax ||
@@ -231,7 +187,6 @@ namespace Finance.Reports
                 }
                 // Calculating expenditure for Transmission works (400 heads)
                 else if (HeadOfAccountHelpers.TransmissionExpenditures
-                    //.Concat(HeadOfAccountHelpers.AdvanceSubTypes.TransmissionPartyAdance)
                             .Contains(grp.RoAccountType.HeadOfAccountType) || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.TransmissionPartyAdance)
                 {
                     SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
@@ -239,11 +194,27 @@ namespace Finance.Reports
                     SetAdditiveLabelProperties(lblTransmissionExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
                     SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
                 }
+                // Payments Groups Starts Here
+                // Need to handle these cases and do nothing otherwise amount of these accountypes is added in others repeipts(default case).
+                else if (HeadOfAccountHelpers.JobAdvances.Concat(HeadOfAccountHelpers.StockSuspense)
+                            .Concat(HeadOfAccountHelpers.AllExciseDuties)
+                            .Concat(HeadOfAccountHelpers.FundTransit)
+                            .Contains(grp.RoAccountType.HeadOfAccountType) || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance
+                    || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.GreenTax || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.ServiceTax ||
+                    grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax
+                    )
+                {
+                    throw new NotImplementedException(grp.RoAccountType.HeadOfAccountType);
+                }
                 else
                 {
-                    //throw new NotImplementedException();
+                    if (grp.RoAccountType.Category == "R" || grp.RoAccountType.Category == "A" || grp.RoAccountType.Category == "L")
+                    {
+                        SetAdditiveHyperLinkProperties(hplnkReceiptsPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                        SetAdditiveHyperLinkProperties(hplnkReceiptsUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
+                        SetAdditiveLabelProperties(lblReceiptssum, grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum, SumType.ReceiptsSum);
+                    }
                 }
-
             }
 
             // Update hyperlink and label amounts
@@ -272,9 +243,6 @@ namespace Finance.Reports
             var query3 = (from vd in m_db.RoVoucherDetails
                           join hh in m_db.RoHeadHierarchies on vd.HeadOfAccountId equals hh.HeadOfAccountId
                           where HeadOfAccountHelpers.AllBanks.Contains(hh.HeadOfAccountType)
-                          //hh.DisplayName.StartsWith("900.04.") &&
-                          //Comment out this Code as now We are showing the BOB Thimphu 
-                          //&& vd.HeadOfAccountId != 1415
                           group vd by vd.HeadOfAccountId into grouping
                           select new
                           {
@@ -286,11 +254,8 @@ namespace Finance.Reports
             // We keep tottal of balance in million format.
             foreach (var bank in query3)
             {
-                //if (bank.BankHead != 1415)
-                //{
                 _otherBankAmount = _otherBankAmount + bank.Balance;
                 otherBankAmount = DisplayInMillion(_otherBankAmount);
-                // }
             }
             grvBankAccount.DataSource = query3;
             grvBankAccount.DataBind();
