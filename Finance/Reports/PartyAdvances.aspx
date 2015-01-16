@@ -29,8 +29,7 @@
         TableName="RoContractors" RenderLogVisible="false" OnSelecting="dsPartyAdv_Selecting">
     </phpa:PhpaLinqDataSource>
     <jquery:GridViewEx ID="grdPartyAdv" AutoGenerateColumns="False" ShowFooter="True"
-        runat="server" AllowSorting="True" DataSourceID="dsPartyAdv" OnRowDataBound="grdPartyAdv_RowDataBound"
-        EnableViewState="false">
+        runat="server" AllowSorting="True" DataSourceID="dsPartyAdv" EnableViewState="false">
         <EmptyDataTemplate>
             No advances taken by any party in the specified date.
         </EmptyDataTemplate>
@@ -39,19 +38,32 @@
             </eclipse:SequenceField>
             <eclipse:MultiBoundField HeaderText="Contractor|Code" DataFields="PartyCode" />
             <eclipse:MultiBoundField HeaderText="Contractor|Name" DataFields="PartyName" />
+
+            <eclipse:HyperLinkFieldEx runat="server" DataTextField="Advance" DataTextFormatString="{0:C}" HeaderText="Advance Amount(Nu.)"
+                DataNavigateUrlFields="AdvanceAccountTypes,PartyId" DataNavigateUrlFormatString="~/Finance/VoucherSearch.aspx?AccountTypes={0}&ContractorId={1}"
+                DataSummaryCalculation="ValueSummation" DataFooterFormatString="{0:C}">
+                <ItemStyle HorizontalAlign="Right" />
+            </eclipse:HyperLinkFieldEx>
             
-            <asp:TemplateField HeaderText="Advance Amount(Nu.)" AccessibleHeaderText="advance">
+<%--            <asp:TemplateField HeaderText="Advance Amount(Nu.)_o" AccessibleHeaderText="advance">
                 <ItemStyle HorizontalAlign="Right" />
                 <ItemTemplate>
                     <asp:HyperLink ID="hlAdvanceAmount" runat="server" Text='<%# Eval("Advance","{0:C}") %>' />
                 </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText="Material/ Tools & Plant Advance(Nu.)" AccessibleHeaderText="MaterialAdvance">
+            </asp:TemplateField>--%>
+
+            <eclipse:HyperLinkFieldEx runat="server" DataTextField="MaterialAdvance" DataTextFormatString="{0:C}" HeaderText="Material/ Tools & Plant Advance(Nu.)"
+                DataNavigateUrlFields="MaterialAdvanceAccountTypes,PartyId" DataNavigateUrlFormatString="~/Finance/VoucherSearch.aspx?AccountTypes={0}&ContractorId={1}"
+                DataSummaryCalculation="ValueSummation" DataFooterFormatString="{0:C}">
+                <ItemStyle HorizontalAlign="Right" />
+            </eclipse:HyperLinkFieldEx>
+
+<%--            <asp:TemplateField HeaderText="Material/ Tools & Plant Advance(Nu.)_o" AccessibleHeaderText="MaterialAdvance">
                 <ItemStyle HorizontalAlign="Right" />
                 <ItemTemplate>
                     <asp:HyperLink ID="hlMaterialAdvance" runat="server" Text='<%# Eval("MaterialAdvance","{0:C}") %>' />
                 </ItemTemplate>
-            </asp:TemplateField>
+            </asp:TemplateField>--%>
             <eclipse:MultiBoundField HeaderText="Total Advance (Nu.)" HeaderToolTip="Advance Amount+Material Advance"
                 DataFields="TotalAdvance" DataSummaryCalculation="ValueSummation" DataFormatString="{0:C2}">
                 <ItemStyle HorizontalAlign="Right" />

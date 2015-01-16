@@ -203,7 +203,6 @@
     <Content Include="Payroll\ManageEmployeePeriod.aspx" />
     <Content Include="PIS\Masters\Banks.aspx" />
     <Content Include="PIS\Masters\Stations.aspx" />
-    <Content Include="Reports\ContractorPaymentReport.aspx" />
     <Content Include="Reports\FundPositionReport.aspx" />
     <Content Include="packages.config" />
     <None Include="Scripts\jquery-1.11.2.intellisense.js" />
@@ -1163,13 +1162,6 @@
     </Compile>
     <Compile Include="Reports\CED.aspx.designer.cs">
       <DependentUpon>CED.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\ContractorPaymentReport.aspx.cs">
-      <DependentUpon>ContractorPaymentReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports\ContractorPaymentReport.aspx.designer.cs">
-      <DependentUpon>ContractorPaymentReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\Drill\BalanceProjectCostJobs.aspx.cs">
       <DependentUpon>BalanceProjectCostJobs.aspx</DependentUpon>

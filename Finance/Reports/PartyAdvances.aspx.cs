@@ -37,20 +37,20 @@ namespace Finance.Reports
     {
         //const string partyAdvance = "PARTY_ADVANCE";
         //const string materialAdvance = "MATERIAL_ADVANCE";
-        /// <summary>
-        /// This class is created to calculate  TotalAdvaceAmout.
-        /// </summary>
-        class Party
-        {
-            public RoJob Job { get; set; }
-            public int? PartyId { get; set; }
-            public string PartyCode { get; set; }
-            public string PartyName { get; set; }
-            public decimal? Advance { get; set; }
-            public decimal? MaterialAdvance { get; set; }
-            public decimal? TotalAdvance { get; set; }
-            public DateTime? EarliestDate { get; set; }
-        }
+        ///// <summary>
+        ///// This class is created to calculate  TotalAdvaceAmout.
+        ///// </summary>
+        //class Party
+        //{
+        //    public RoJob Job { get; set; }
+        //    public int? PartyId { get; set; }
+        //    public string PartyCode { get; set; }
+        //    public string PartyName { get; set; }
+        //    public decimal? Advance { get; set; }
+        //    public decimal? MaterialAdvance { get; set; }
+        //    public decimal? TotalAdvance { get; set; }
+        //    public DateTime? EarliestDate { get; set; }
+        //}
 
        
         protected override void OnLoad(EventArgs e)
@@ -82,78 +82,81 @@ namespace Finance.Reports
                             vd.RoVoucher.VoucherDate <= tbDate.ValueAsDate
                             group vd by vd.ContractorId ?? vd.RoJob.ContractorId into grp
                             orderby grp.Min(p=>p.RoJob.RoContractor.ContractorCode ?? p.RoContractor.ContractorCode)
-                            select new Party()
+                            let advance = (decimal?)grp.Where(p => HeadOfAccountHelpers.PartyAdvances.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                .Sum(p => (p.DebitAmount ?? 0) - (p.CreditAmount ?? 0))
+                            let materialAdvance = (decimal?)grp.Where(p => HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                .Sum(p => (p.DebitAmount ?? 0) - (p.CreditAmount ?? 0))
+                            select new 
                             {
                                 PartyId = grp.Key,
                                 PartyCode = grp.Min(p=>p.RoJob.RoContractor.ContractorCode ?? p.RoContractor.ContractorCode),
                                 PartyName = grp.Min(p=>p.RoJob.RoContractor.ContractorName ?? p.RoContractor.ContractorName),
                                 //Advance = (decimal?)grp.Sum(p => p.HeadOfAccount.HeadOfAccountType == partyAdvance ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0)
-                                Advance = (decimal?)grp.Sum(p => HeadOfAccountHelpers.PartyAdvances.Contains(p.HeadOfAccount.HeadOfAccountType) ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0),
-                                //MaterialAdvance = (decimal?)grp.Sum(p => p.HeadOfAccount.HeadOfAccountType == materialAdvance ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0)
-                                MaterialAdvance = (decimal?)grp.Sum(p => HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(p.HeadOfAccount.HeadOfAccountType) ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0),
-                                //TotalAdvance = (decimal?)grp.Sum(p => p.HeadOfAccount.HeadOfAccountType == partyAdvance ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0) +
-                                //(decimal?)grp.Sum(p => p.HeadOfAccount.HeadOfAccountType == materialAdvance ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0)
-                                TotalAdvance = (decimal?)grp.Sum(p => HeadOfAccountHelpers.PartyAdvances.Contains(p.HeadOfAccount.HeadOfAccountType) ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0) +
-                                (decimal?)grp.Sum(p => HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(p.HeadOfAccount.HeadOfAccountType) ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0),
+                                Advance = advance,
+                                AdvanceAccountTypes = string.Join(",", HeadOfAccountHelpers.PartyAdvances),
+                                //MaterialAdvance = (decimal?)grp.Sum(p => HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(p.HeadOfAccount.HeadOfAccountType) ? (p.DebitAmount ?? 0 - p.CreditAmount ?? 0) : 0),
+                                MaterialAdvance = materialAdvance,
+                                MaterialAdvanceAccountTypes = string.Join(",", HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance),
+                                TotalAdvance = (advance ?? 0) + (materialAdvance ?? 0),
                                 EarliestDate = (DateTime?)grp.Min(p => p.RoVoucher.VoucherDate)
                             }).Where(p => p.TotalAdvance != 0);
         }
 
-        decimal? sumAdvance = 0.0M;
-        decimal? sumMaterialAdvance = 0.0M;
-        protected void grdPartyAdv_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            switch (e.Row.RowType)
-            {
-                case DataControlRowType.Header:
-                    //grdPartyAdv.Caption = string.Format("<b>List of outstanding Party Advance as on {0:dd/MM/yyyy}</b>", tbDate.Value);
-                    break;
-                case DataControlRowType.DataRow:
-                    Party pt = (Party)e.Row.DataItem;
-                    HyperLink hlAdvanceAmount = (HyperLink)e.Row.FindControl("hlAdvanceAmount");
-                    HyperLink hlMaterialAdvance = (HyperLink)e.Row.FindControl("hlMaterialAdvance");
-                    if (!string.IsNullOrEmpty(HeadOfAccountHelpers.PartyAdvances.ToString()))
-                    {
-                        if (pt.PartyId == null)
-                        {
-                            hlAdvanceAmount.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes=PARTY_ADVANCE&ContractorId=0");
+        //decimal? sumAdvance = 0.0M;
+        //decimal? sumMaterialAdvance = 0.0M;
+        //protected void grdPartyAdv_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    switch (e.Row.RowType)
+        //    {
+        //        case DataControlRowType.Header:
+        //            //grdPartyAdv.Caption = string.Format("<b>List of outstanding Party Advance as on {0:dd/MM/yyyy}</b>", tbDate.Value);
+        //            break;
+        //        case DataControlRowType.DataRow:
+        //            //Party pt = (Party)e.Row.DataItem;
+        //            //HyperLink hlAdvanceAmount = (HyperLink)e.Row.FindControl("hlAdvanceAmount");
+        //            //HyperLink hlMaterialAdvance = (HyperLink)e.Row.FindControl("hlMaterialAdvance");
+        //            //if (!string.IsNullOrEmpty(HeadOfAccountHelpers.PartyAdvances.ToString()))
+        //            //{
+        //            //    if (pt.PartyId == null)
+        //            //    {
+        //            //        hlAdvanceAmount.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes=PARTY_ADVANCE&ContractorId=0");
 
-                        }
-                        else
-                        {
-                            hlAdvanceAmount.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes=PARTY_ADVANCE&ContractorId={0}", pt.PartyId);
-                        }
-                    }
+        //            //    }
+        //            //    else
+        //            //    {
+        //            //        hlAdvanceAmount.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes=PARTY_ADVANCE&ContractorId={0}", pt.PartyId);
+        //            //    }
+        //            //}
 
 
-                    if (!string.IsNullOrEmpty(HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.ToString()))
-                    {
-                        if (pt.PartyId == null)
-                        {
-                            hlMaterialAdvance.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes=MATERIAL_ADVANCE&ContractorId=0");
-                        }
-                        else
-                        {
-                            hlMaterialAdvance.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes=MATERIAL_ADVANCE&ContractorId={0}", pt.PartyId);
-                        }
-                    }
+        //            //if (!string.IsNullOrEmpty(HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.ToString()))
+        //            //{
+        //            //    if (pt.PartyId == null)
+        //            //    {
+        //            //        hlMaterialAdvance.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes=MATERIAL_ADVANCE&ContractorId=0");
+        //            //    }
+        //            //    else
+        //            //    {
+        //            //        hlMaterialAdvance.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes=MATERIAL_ADVANCE&ContractorId={0}", pt.PartyId);
+        //            //    }
+        //            //}
 
-                    sumAdvance += pt.Advance;
-                    sumMaterialAdvance += pt.MaterialAdvance;
-                    break;
+        //            //sumAdvance += pt.Advance;
+        //            //sumMaterialAdvance += pt.MaterialAdvance;
+        //            break;
 
-                case DataControlRowType.Footer:
-                    DataControlFieldCell cellAdv = (from DataControlFieldCell c in e.Row.Cells
-                                                    where c.ContainingField.AccessibleHeaderText == "advance"
-                                                    select c).Single();
-                    cellAdv.Text = string.Format("{0:C}", sumAdvance);
-                    DataControlFieldCell cellMatAdv = (from DataControlFieldCell c in e.Row.Cells
-                                                       where c.ContainingField.AccessibleHeaderText == "MaterialAdvance"
-                                                       select c).Single();
-                    cellMatAdv.Text = string.Format("{0:C}", sumMaterialAdvance);
-                    break;
-            }
-        }
+        //        case DataControlRowType.Footer:
+        //            DataControlFieldCell cellAdv = (from DataControlFieldCell c in e.Row.Cells
+        //                                            where c.ContainingField.AccessibleHeaderText == "advance"
+        //                                            select c).Single();
+        //            cellAdv.Text = string.Format("{0:C}", sumAdvance);
+        //            DataControlFieldCell cellMatAdv = (from DataControlFieldCell c in e.Row.Cells
+        //                                               where c.ContainingField.AccessibleHeaderText == "MaterialAdvance"
+        //                                               select c).Single();
+        //            cellMatAdv.Text = string.Format("{0:C}", sumMaterialAdvance);
+        //            break;
+        //    }
+        //}
 
         protected void btnShowPartyAdvances_Click(object sender, EventArgs e)
         {
