@@ -116,7 +116,7 @@ namespace Finance.Reports
             foreach (var grp in query)
             {
                 // Grant received from the Govt. of India in Rs./Nu.
-                if (HeadOfAccountHelpers.GrantSubType.GrantNu.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.GrantSubType.GrantNu)
                 {
                     SetAdditiveHyperLinkProperties(hplnkGOIAidPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                     SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
@@ -126,7 +126,7 @@ namespace Finance.Reports
                     SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
                 }
                 // Grant received from the Govt. of India in foreign exchange.
-                else if(HeadOfAccountHelpers.GrantSubType.GrantFe.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.GrantSubType.GrantFe)
                 {
                     SetAdditiveHyperLinkProperties(hplnkGOIAidFEPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                     SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);

@@ -80,13 +80,13 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public readonly static IEnumerable<string> SalaryRemittances = new string[] { "SALARY_REMITANCES" };
 
-        public readonly static IEnumerable<string> Grants = GrantSubType.GrantNu.Concat(GrantSubType.GrantFe);
-
         public static class GrantSubType
         {
-            public readonly static IEnumerable<string> GrantNu = new string[] { "GRANT_RECEIVED_GOINU" };
-            public readonly static IEnumerable<string> GrantFe = new string[] { "GRANT_RECEIVED_GOIFE" };
+            public const string GrantNu =  "GRANT_RECEIVED_GOINU";
+            public const string GrantFe = "GRANT_RECEIVED_GOIFE";
         }
+
+        public readonly static IEnumerable<string> Grants = new[] {GrantSubType.GrantNu, GrantSubType.GrantFe};
 
         public static class LoanSubType
         {
