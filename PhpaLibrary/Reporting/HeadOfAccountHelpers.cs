@@ -9,8 +9,8 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public static class ExpenditureSubTypes
         {
-            public const string EstablishmentExpenditure = "ESTABL_EXPENDITURE";
-            public const string EstablishmentTourExpenditure = "ESTABLISHMENT_TOUR";
+            internal const string EstablishmentExpenditure = "ESTABL_EXPENDITURE";
+            internal const string EstablishmentTourExpenditure = "ESTABLISHMENT_TOUR";
 
             internal const string CivilExpenditure = "CIVIL_EXPENDITURE";
             internal const string CivilTourExpenditure =  "CIVIL_TOUR";
@@ -19,23 +19,28 @@ namespace Eclipse.PhpaLibrary.Reporting
             internal const string ElectricalExpenditure =  "ELECTR_EXPENDITURE";
             internal const string ElectricalTourExpenditure = "ELECTRICAL_TOUR";
 
-            public readonly static IEnumerable<string> TransmissionExpenditure = new string[] { "TRANS_EXPENDITURE" };
-            public readonly static IEnumerable<string> TransmissionTourExpenditure = new string[] { "TRANS_TOUR" };
+            internal const string TransmissionExpenditure =  "TRANS_EXPENDITURE";
+            internal const string TransmissionTourExpenditure =  "TRANS_TOUR";
 
         }
 
-        public readonly static IEnumerable<string> TourExpenditures = new[] { ExpenditureSubTypes.CivilTourExpenditure, ExpenditureSubTypes.ElectricalTourExpenditure }
-                                                                        .Concat(new[] { ExpenditureSubTypes.EstablishmentTourExpenditure })
-                                                                        .Concat(ExpenditureSubTypes.TransmissionTourExpenditure);
+        public readonly static IEnumerable<string> TourExpenditures = new[] { ExpenditureSubTypes.CivilTourExpenditure, ExpenditureSubTypes.ElectricalTourExpenditure,
+                ExpenditureSubTypes.EstablishmentTourExpenditure, ExpenditureSubTypes.TransmissionTourExpenditure
+            };
+
+        public readonly static IEnumerable<string> EstablishmentExpenditures = new[] { ExpenditureSubTypes.EstablishmentExpenditure, ExpenditureSubTypes.EstablishmentTourExpenditure };
 
         public readonly static IEnumerable<string> ElectricalExpenditures = new[] { ExpenditureSubTypes.ElectricalExpenditure, ExpenditureSubTypes.ElectricalTourExpenditure };
+
+        public readonly static IEnumerable<string> TransmissionExpenditures = new[] { ExpenditureSubTypes.TransmissionExpenditure, ExpenditureSubTypes.TransmissionTourExpenditure };
 
         public readonly static IEnumerable<string> CivilExpenditures = new[] { 
             ExpenditureSubTypes.CivilTourExpenditure, ExpenditureSubTypes.CivilExpenditure, ExpenditureSubTypes.MainCivilExpenditure };
 
         private readonly static IEnumerable<string> ProjectExpenditures = new[] {
-                ExpenditureSubTypes.EstablishmentExpenditure, ExpenditureSubTypes.CivilExpenditure,ExpenditureSubTypes.MainCivilExpenditure, ExpenditureSubTypes.ElectricalExpenditure
-            }.Concat(ExpenditureSubTypes.TransmissionExpenditure);
+                ExpenditureSubTypes.EstablishmentExpenditure, ExpenditureSubTypes.CivilExpenditure,ExpenditureSubTypes.MainCivilExpenditure, ExpenditureSubTypes.ElectricalExpenditure,
+                ExpenditureSubTypes.TransmissionExpenditure
+            };
 
         public readonly static IEnumerable<string> AllExpenditures = TourExpenditures.Concat(ProjectExpenditures);
 

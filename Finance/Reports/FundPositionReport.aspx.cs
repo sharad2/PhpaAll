@@ -290,7 +290,7 @@ namespace Finance.Reports
             {
                 // Calculating expenditure for project establishment cost(Including WAPCOS) 100 heads.
                 //if (HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentExpenditure.Concat(HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentTourExpenditure).Contains(grp.AccountType))
-                if (grp.AccountType == HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentExpenditure || grp.AccountType == HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentTourExpenditure)
+                if (HeadOfAccountHelpers.EstablishmentExpenditures.Contains(grp.AccountType))
                 {
                     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditureUptoMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
@@ -314,9 +314,7 @@ namespace Finance.Reports
                     SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
                 }
                 // Calculating expenditure for Transmission works (400 heads)
-                else if (HeadOfAccountHelpers.ExpenditureSubTypes.TransmissionExpenditure
-                            .Concat(HeadOfAccountHelpers.ExpenditureSubTypes.TransmissionTourExpenditure)
-                            .Contains(grp.AccountType))
+                else if (HeadOfAccountHelpers.TransmissionExpenditures.Contains(grp.AccountType))
                 {
                     SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
