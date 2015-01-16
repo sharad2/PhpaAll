@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PHPA2" Class="FiscalDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=w12obama;Initial Catalog=PHPA2;Persist Security Info=True;User ID=sa;MultipleActiveResultSets=True" SettingsObjectName="Eclipse.PhpaLibrary.Properties.Settings" SettingsPropertyName="PHPA2ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.FinancialYear" Member="FinancialYears">
+    <Type Name="FinancialYear">
+      <Column Name="YearId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Freeze" Type="System.String" DbType="VarChar(1)" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+</Database>

@@ -1646,7 +1646,7 @@
       <Name>EclipseLibrary.WebForms</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhpaLibrary\PhpaLibrary.csproj">
-      <Project>{A29A1C9C-CB06-445A-A079-4311DC93F822}</Project>
+      <Project>{a29a1c9c-cb06-445a-a079-4311dc93f822}</Project>
       <Name>PhpaLibrary</Name>
     </ProjectReference>
   </ItemGroup>

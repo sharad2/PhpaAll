@@ -94,6 +94,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FinanceDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Database\FinancialYearDataContext.cs">
+      <DependentUpon>FinancialYearDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\FinancialYearDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FinancialYearDataContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Database\MISDataContext.cs">
       <DependentUpon>MISDataContext.dbml</DependentUpon>
     </Compile>
@@ -188,7 +196,17 @@
     <Content Include="Scripts\To Send Index Rebuild Script.txt" />
     <Content Include="Scripts\To Create Non Clusterd Indexes On Foreign Key.sql" />
     <Content Include="Scripts\To Rebuild All Index In Database.sql" />
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Database\FinancialYearDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>FinancialYearDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Database\FinancialYearDataContext.dbml.layout">
+      <DependentUpon>FinancialYearDataContext.dbml</DependentUpon>
+    </None>
     <None Include="Database\MISDataContext.dbml.layout">
       <DependentUpon>MISDataContext.dbml</DependentUpon>
     </None>

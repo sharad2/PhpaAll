@@ -187,9 +187,9 @@ namespace Finance.Finance
 
                     case FormViewMode.Insert:
                         //string url = Request.Url.AbsoluteUri;
-                        string [] url = Request.Url.AbsoluteUri.Split('?');
+                        string[] url = Request.Url.AbsoluteUri.Split('?');
 
-                        if(!string.IsNullOrEmpty(voucher.CheckNumber.ToString()))
+                        if (!string.IsNullOrEmpty(voucher.CheckNumber.ToString()))
                         {
                             int? CheckNumber = voucher.CheckNumber + 1;
                             url[0] = string.Format("{0}?CheckNumber={1}&VoucherDate={2}", url[0], CheckNumber.ToString(), voucher.VoucherDate.ToShortDateString());
@@ -222,7 +222,7 @@ namespace Finance.Finance
 
             if (bSuccess)
             {
-               fvEdit.ChangeMode(FormViewMode.Edit);
+                fvEdit.ChangeMode(FormViewMode.Edit);
             }
         }
 
@@ -232,12 +232,12 @@ namespace Finance.Finance
         /// <returns></returns>
         private bool SaveVoucher()
         {
-           
+
             SqlConnection conn = null;
             SqlTransaction trans = null;
             bool bSuccess = false;
             try
-            {                
+            {
                 conn = new SqlConnection(ReportingUtilities.DefaultConnectString);
                 conn.Open();
                 trans = conn.BeginTransaction();
@@ -253,7 +253,7 @@ namespace Finance.Finance
                 {
                     trans.Rollback();
                 }
-                
+
                 EclipseLibrary.Web.JQuery.Input.ValidationSummary valSummary = (EclipseLibrary.Web.JQuery.Input.ValidationSummary)fvEdit.FindControl("valSummary");
                 valSummary.ErrorMessages.Add(ex.Message);
             }
@@ -282,16 +282,16 @@ namespace Finance.Finance
             switch (fvEdit.CurrentMode)
             {
                 case FormViewMode.Edit:
-                    
+
                     //dsEditVouchers.UpdateParameters["Station"].DefaultValue = Session["station"].ToString();
                     dsEditVouchers.UpdateParameters["StationId"].DefaultValue = ddlStation.Value;
                     fvEdit.UpdateItem(false);
                     break;
 
                 case FormViewMode.Insert:
-                    
+
                     //dsEditVouchers.InsertParameters["Station"].DefaultValue = Session["station"].ToString();
-                    dsEditVouchers.InsertParameters["StationId"].DefaultValue =ddlStation.Value;
+                    dsEditVouchers.InsertParameters["StationId"].DefaultValue = ddlStation.Value;
                     fvEdit.InsertItem(false);
                     break;
 
@@ -321,7 +321,7 @@ namespace Finance.Finance
                 }
 
             }
-        }       
+        }
 
         /// <summary>
         /// If form view insert fails, cancel the grid view insert
@@ -361,7 +361,7 @@ namespace Finance.Finance
             {
                 voucher = (Voucher)e.Result;
 
-                dsEditVoucherDetail.InsertParameters["VoucherId"].DefaultValue = voucher.VoucherId.ToString();               
+                dsEditVoucherDetail.InsertParameters["VoucherId"].DefaultValue = voucher.VoucherId.ToString();
                 dsEditVouchers.WhereParameters["VoucherId"].DefaultValue = voucher.VoucherId.ToString();
                 dsEditVoucherDetail.WhereParameters["VoucherId"].DefaultValue = voucher.VoucherId.ToString();
             }
@@ -381,7 +381,7 @@ namespace Finance.Finance
                 voucher = (Voucher)e.Result;
                 dsEditVoucherDetail.InsertParameters["VoucherId"].DefaultValue = voucher.VoucherId.ToString();
                 dsEditVoucherDetail.UpdateParameters["VoucherId"].DefaultValue = voucher.VoucherId.ToString();
-                
+
 
             }
         }
@@ -403,8 +403,8 @@ namespace Finance.Finance
             {
                 e.NeedsToBeValdiated = false;
             }
-        }       
-     
+        }
+
         protected void val_DebitOrCredit(object sender, EclipseLibrary.Web.JQuery.Input.ServerValidateEventArgs e)
         {
             TextBoxEx tbCredit = (TextBoxEx)e.ControlToValidate;
@@ -451,7 +451,7 @@ namespace Finance.Finance
                 e.ControlToValidate.IsValid = true;
             }
         }
-       
+
         #endregion
 
         protected void dlgVoucher_PreRender(object sender, EventArgs e)
@@ -461,7 +461,8 @@ namespace Finance.Finance
             if (!string.IsNullOrEmpty(this.Request.QueryString["VoucherId"]))
             {
                 dlgVoucher.Ajax.Url += string.Format("?VoucherId={0}", this.Request.QueryString["VoucherId"].ToString());
-            }else if (voucher.VoucherId != 0)
+            }
+            else if (voucher.VoucherId != 0)
             {
                 dlgVoucher.Ajax.Url += string.Format("?VoucherId={0}", voucher.VoucherId.ToString());
             }
@@ -495,7 +496,7 @@ namespace Finance.Finance
         {
             fvEdit.ChangeMode(FormViewMode.Edit);
         }
-        
+
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             fvEdit.ChangeMode(FormViewMode.ReadOnly);
@@ -553,7 +554,96 @@ namespace Finance.Finance
         }
 
         #endregion
-  
-       
+
+        /// <summary>
+        /// This event is used to verify that no voucher should be editable of the freezed financial year.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnEdit_PreRender(object sender, EventArgs e)
+        {
+
+            using (FiscalDataContext db = new FiscalDataContext(ReportingUtilities.DefaultConnectString))
+            {
+                //This query is used to get the start and end date for the freezed financial year.
+                var voucher = (Voucher)fvEdit.DataItem;
+                var query = (from fdc in db.FinancialYears
+                             where fdc.Freeze == "Y"
+                             select new
+                             {
+                                 startdate = fdc.StartDate,
+                                 enddate = fdc.EndDate
+                             });
+                foreach (var date in query)
+                {
+                    if (voucher.VoucherDate >= date.startdate && voucher.VoucherDate <= date.enddate)
+                    {
+                        var btn = (LinkButtonEx)sender;
+                        btn.Enabled = false;
+                        LinkButtonEx btn2 = (LinkButtonEx)fvEdit.FindControl("btnDelete");
+                        btn2.Enabled = false;
+                    }
+                }
+
+
+            };
+        }
+
+        /// <summary>
+        /// This event is used to validate the voucher date that it should lies within the unfreezed financial year.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void tbVoucherDate_OnLoad(object sender, EventArgs e)
+        {
+            using (FiscalDataContext db = new FiscalDataContext(ReportingUtilities.DefaultConnectString))
+            {
+                //This query is used to get the start and end date for the unfreezed financial year.
+                var qry = (from qr in db.FinancialYears
+                           where (qr.Freeze ?? "N") != "Y"
+                           orderby qr.StartDate descending
+                           select new { sdate = qr.StartDate, edate = qr.EndDate }).FirstOrDefault();
+                var sdate = qry.sdate;
+                var edate = qry.edate;
+                TextBoxEx tb = (TextBoxEx)fvEdit.FindControl("tbVoucherDate");
+                TimeSpan minspan = sdate - DateTime.Today;
+                var val = tb.Validators.OfType<Date>().Single();
+                val.Min = minspan.Days;
+                //If the financial year have end date we must incorporate the validation for the max date.
+                if (edate != null)
+                {
+                    TimeSpan? maxspan = edate - DateTime.Today;
+                    val.Max = maxspan.Value.Days;
+                }
+
+            };
+        }
+        /// <summary>
+        /// This event is used to verify that no voucher should be deletable of the freezed financial year.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //protected void btnDelete_PreRender(object sender, EventArgs e)
+        //{
+        //    using (FinancialYearDataContext db = new FinancialYearDataContext(ReportingUtilities.DefaultConnectString))
+        //    {
+        //        var voucher = (Voucher)fvEdit.DataItem;
+        //        var query = (from fdc in db.FinancialYears
+        //                     where fdc.Freeze == "Y"
+        //                     select new
+        //                     {
+        //                         startdate = fdc.StartDate,
+        //                         enddate = fdc.EndDate
+        //                     });
+        //        foreach (var date in query)
+        //        {
+        //            if (voucher.VoucherDate >= date.startdate && voucher.VoucherDate <= date.enddate)
+        //            {
+        //                var btn = (LinkButtonEx)sender;
+        //                btn.Enabled = false;
+        //            }
+        //        }
+        //    };
+        //} 
     }
 }

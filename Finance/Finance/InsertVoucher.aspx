@@ -99,7 +99,8 @@
                     List displays only those stations for which you are authorized
                     <eclipse:LeftLabel runat="server" Text="Voucher Date" />
                     <i:TextBoxEx ID="tbVoucherDate" runat="server" Text='<%# Bind("VoucherDate", "{0:d}") %>'
-                        FriendlyName="Voucher Date" QueryString="VoucherDate">
+                        FriendlyName="Voucher Date" QueryString="VoucherDate"
+                        OnLoad="tbVoucherDate_OnLoad">
                         <Validators>
                             <i:Required />
                             <i:Date />
@@ -281,7 +282,8 @@
                 <Ajax Url="VoucherDetails.aspx" UseDialog="false" />
             </jquery:Dialog>
             <i:LinkButtonEx ID="btnEdit" runat="server" Text="Edit" CausesValidation="false"
-                Action="Submit" OnClick="btnEdit_Click" RolesRequired="FinanceManager" />
+                Action="Submit" OnClick="btnEdit_Click" RolesRequired="FinanceManager"
+                OnPreRender="btnEdit_PreRender" />
             <i:LinkButtonEx ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click"
                 RolesRequired="FinanceManager" Action="Submit" CausesValidation="false" OnClientClick="
 function(e) {
