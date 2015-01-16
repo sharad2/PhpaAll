@@ -79,8 +79,8 @@ namespace Finance.Payroll.Reports
             DataSet ds = new DataSet();
             using (PayrollDataContext db = new PayrollDataContext(ReportingUtilities.DefaultConnectString))
             {
-                var query = from empp in db.EmployeePeriods 
-                            where empp.Employee.EmployeeId == Convert.ToInt32(tbEmployee.Value) && empp.SalaryPeriod.SalaryPeriodStart >= tbDate.ValueAsDate.Value.MonthStartDate() &&
+                var query = from empp in db.EmployeePeriods
+                            where empp.Employee.EmployeeId == Convert.ToInt32(empId) && empp.SalaryPeriod.SalaryPeriodStart >= tbDate.ValueAsDate.Value.MonthStartDate() &&
                               empp.SalaryPeriod.SalaryPeriodEnd <= tbDate.ValueAsDate.Value.MonthEndDate()
                             group new { empp } by new { empp.Employee } into g
                            
