@@ -67,7 +67,7 @@ namespace Finance.Reports
                 this.Title += string.Format(" From {0:d MMMM yyyy} to {1:d MMMM yyyy}", tbFromDate.ValueAsDate, tbToDate.ValueAsDate);
 
                 e.Result = (from vd in db.RoVoucherDetails
-                            where HeadOfAccountHelpers.AllExpenditures.Concat(HeadOfAccountHelpers.JobAdvances).Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
+                            where HeadOfAccountHelpers.AllExpenditures.Concat(HeadOfAccountHelpers.AllAdvances).Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
                                 //where (vd.RoHeadHierarchy.HeadOfAccountType == "EXPENDITURE" ||
                                 //        vd.RoHeadHierarchy.HeadOfAccountType == "PARTY_ADVANCE" ||
                                 //        vd.RoHeadHierarchy.HeadOfAccountType == "MATERIAL_ADVANCE" ||
@@ -80,7 +80,7 @@ namespace Finance.Reports
                                                             where HeadOfAccountHelpers.JobAdvances.Contains(p.RoHeadHierarchy.HeadOfAccountType)
                                                             select p.DebitAmount).Sum()
                             let advanceOutstandingCredits = (from p in grouping
-                                                            where HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.Contains(p.RoHeadHierarchy.HeadOfAccountType)
+                                                            where HeadOfAccountHelpers.PartyAdvances.Contains(p.RoHeadHierarchy.HeadOfAccountType)
                                                             select p.CreditAmount).Sum()
                             select new
                             {

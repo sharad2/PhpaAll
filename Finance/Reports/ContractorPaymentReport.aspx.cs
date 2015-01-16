@@ -125,7 +125,7 @@ namespace Finance.Reports
                 //                        p.RoHeadHierarchy.HeadOfAccountType == "MATERIAL_ADVANCE") && p.JobId == jobId)
                 //                        ? p.DebitAmount ?? 0 : 0));
 
-                crp.AdvancePaid = (decimal?)v.RoVoucherDetails.Sum(p => (((HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.Contains(p.RoHeadHierarchy.HeadOfAccountType) ||
+                crp.AdvancePaid = (decimal?)v.RoVoucherDetails.Sum(p => (((HeadOfAccountHelpers.PartyAdvances.Contains(p.RoHeadHierarchy.HeadOfAccountType) ||
                                         HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(p.RoHeadHierarchy.HeadOfAccountType)) && p.JobId == jobId)
                                         ? p.DebitAmount ?? 0 : 0));
 
@@ -144,7 +144,7 @@ namespace Finance.Reports
                 //                            && p.JobId == jobId)
                 //                            ? p.CreditAmount ?? 0 : 0));
 
-                crp.AdvanceAdjusted = (decimal?)v.RoVoucherDetails.Sum(p => ((HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.Contains(p.RoHeadHierarchy.HeadOfAccountType)
+                crp.AdvanceAdjusted = (decimal?)v.RoVoucherDetails.Sum(p => ((HeadOfAccountHelpers.PartyAdvances.Contains(p.RoHeadHierarchy.HeadOfAccountType)
                                             && p.JobId == jobId)
                                             ? p.CreditAmount ?? 0 : 0));
 
@@ -172,7 +172,7 @@ namespace Finance.Reports
                                             //p.RoHeadHierarchy.HeadOfAccountType != "MATERIAL_ADVANCE" 
 
                                             p.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits.ToString() &&
-                                            p.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.ToString() &&
+                                            p.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.PartyAdvances.ToString() &&
                                             p.RoHeadHierarchy.HeadOfAccountType != HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.ToString() &&
 
                                             //p.RoHeadHierarchy.HeadOfAccountType != "INTEREST"

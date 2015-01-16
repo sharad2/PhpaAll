@@ -22,13 +22,13 @@ namespace Eclipse.PhpaLibrary.Reporting
             public readonly static IEnumerable<string> TransmissionExpenditure = new string[] { "TRANS_EXPENDITURE" };
             public readonly static IEnumerable<string> TransmissionTourExpenditure = new string[] { "TRANS_TOUR" };
                  
-            public readonly static IEnumerable<string> TourExpenditure = new string[] { "TOUR_EXPENSES" };
         }
 
         public readonly static IEnumerable<string> TourExpenditure = ExpenditureSubTypes.CivilTourExpenditure
                                                                         .Concat(ExpenditureSubTypes.ElectricalTourExpenditure)
                                                                         .Concat(ExpenditureSubTypes.EstablishmentTourExpenditure)
                                                                         .Concat(ExpenditureSubTypes.TransmissionTourExpenditure);
+
         public readonly static IEnumerable<string> Expenditure = ExpenditureSubTypes.EstablishmentExpenditure
                                                                     .Concat(ExpenditureSubTypes.CivilExpenditure)
                                                                     .Concat(ExpenditureSubTypes.MainCivilExpenditure)
@@ -40,7 +40,7 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public static class AdvanceSubTypes
         {
-            public readonly static IEnumerable<string> PartyAdvance = new string[] { "PARTY_ADVANCE" };
+            //public readonly static IEnumerable<string> PartyAdvance = new string[] { "PARTY_ADVANCE" };
             public readonly static IEnumerable<string> MaterialAdvance = new string[] { "MATERIAL_ADVANCE" };
             public readonly static IEnumerable<string> EmployeeAdvance = new string[] { "EMPLOYEE_ADVANCE" };
             public readonly static IEnumerable<string> EstablishmentPartyAdvance = new string[] { "ESTB_PARTY_ADVANCE" };
@@ -49,8 +49,8 @@ namespace Eclipse.PhpaLibrary.Reporting
             public readonly static IEnumerable<string> TransmissionPartyAdance = new string[] { "TRAN_PARTY_ADVANCE" };
 
         }
-        public readonly static IEnumerable<string> PartyAdances = AdvanceSubTypes.EstablishmentPartyAdvance.Concat(AdvanceSubTypes.CivilPartyAdance).Concat(AdvanceSubTypes.ElectricalPartyAdvance).Concat(AdvanceSubTypes.TransmissionPartyAdance);
-        public readonly static IEnumerable<string> JobAdvances = AdvanceSubTypes.PartyAdvance.Concat(AdvanceSubTypes.MaterialAdvance);
+        public readonly static IEnumerable<string> PartyAdvances = AdvanceSubTypes.EstablishmentPartyAdvance.Concat(AdvanceSubTypes.CivilPartyAdance).Concat(AdvanceSubTypes.ElectricalPartyAdvance).Concat(AdvanceSubTypes.TransmissionPartyAdance);
+        public readonly static IEnumerable<string> JobAdvances = PartyAdvances.Concat(AdvanceSubTypes.MaterialAdvance);
         public readonly static IEnumerable<string> AllAdvances = JobAdvances.Concat(AdvanceSubTypes.EmployeeAdvance);
 
 

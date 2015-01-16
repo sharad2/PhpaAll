@@ -172,7 +172,7 @@ namespace Finance.Reports
                 // Payments Groups Starts Here
                 // Need to handle these cases and do nothing otherwise amount of these accountypes is added in others repeipts(default case).
                 else if (HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance
-                            .Concat(HeadOfAccountHelpers.PartyAdances)
+                            .Concat(HeadOfAccountHelpers.PartyAdvances)
                             .Concat(HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance)
                             .Concat(HeadOfAccountHelpers.StockSuspense)
                             .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)

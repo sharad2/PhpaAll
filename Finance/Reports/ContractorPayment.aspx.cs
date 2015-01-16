@@ -169,7 +169,7 @@ namespace Finance.Reports
                                                            where HeadOfAccountHelpers.ReceiptSubType.InterestReceipts.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                            select vd.CreditAmount).Sum()
                         let advanceAdjusted = (decimal?)(from vd in grp
-                                                         where HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                         where HeadOfAccountHelpers.PartyAdvances.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                          select vd.CreditAmount).Sum()
                         let otherRecoveryDebit = (from vd in grp
                                                   where !otherRecoveryHeadExclusion.Contains(vd.HeadOfAccount.HeadOfAccountType)

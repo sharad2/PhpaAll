@@ -47,7 +47,7 @@ namespace Finance.Reports
         {
             ReportingDataContext db = (ReportingDataContext)dsTourExp.Database;
             var allDetails = from vd in db.RoVoucherDetails
-                             where HeadOfAccountHelpers.ExpenditureSubTypes.TourExpenditure.Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
+                             where HeadOfAccountHelpers.TourExpenditure.Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
                              //vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES" &&
                                      vd.EmployeeId != null
                              select vd;
@@ -112,11 +112,11 @@ namespace Finance.Reports
                     RoEmployee emp = (RoEmployee)DataBinder.Eval(e.Row.DataItem, "Employee");
                     if (emp == null)
                     {
-                        hl.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&EmployeeId=0",HeadOfAccountHelpers.ExpenditureSubTypes.TourExpenditure.FirstOrDefault().ToString());
+                        hl.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&EmployeeId=0",HeadOfAccountHelpers.TourExpenditure.FirstOrDefault().ToString());
                     }
                     else
                     {
-                        hl.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&EmployeeId={1}",HeadOfAccountHelpers.ExpenditureSubTypes.TourExpenditure.FirstOrDefault().ToString(), emp.EmployeeId);
+                        hl.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&EmployeeId={1}",HeadOfAccountHelpers.TourExpenditure.FirstOrDefault().ToString(), emp.EmployeeId);
                     }
                     m_sumExpense += (decimal?)DataBinder.Eval(e.Row.DataItem, "TourExpense");
                     break;

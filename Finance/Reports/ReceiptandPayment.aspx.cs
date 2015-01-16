@@ -26,7 +26,7 @@ namespace Finance.Reports
         protected DateTime m_dtPreviousYear;
         protected DateTime m_dtPreviousYearEnd;
         protected DateTime m_dtMonthStart;
-        protected DateTime m_dtMonthEnd;
+        protected DateTime m_dtPassed;
 
         protected override void OnLoad(EventArgs e)
         {
@@ -41,7 +41,7 @@ namespace Finance.Reports
             {
                 date = (DateTime?)(dttbreceiptpayment.ValueAsDate);
                 CalculateReceiptandPayment(date.Value);
-                this.Title = string.Format("Receipts & Payments Statement for the month ending - {0:dd/MM/yyyy}", date.Value);
+                this.Title = string.Format("Receipts & Payments Statement until {0:dd/MM/yyyy}", date.Value);
                 this.DataBind();
             }
             base.OnLoad(e);
@@ -71,7 +71,7 @@ namespace Finance.Reports
             m_dtPreviousYear = dt.FinancialYearStartDate();         // {0}  1 Apr 2008
             m_dtPreviousYearEnd = dt.FinancialYearStartDate().AddDays(-1); //{3} 31 March 2008
             m_dtMonthStart = dt.MonthStartDate();                   // {1}  1 Jun 2008
-            m_dtMonthEnd = dt.MonthEndDate();                       // {2}  30 Jun 2008
+            m_dtPassed = dt;                       // {2}  30 Jun 2008
 
             m_db = (ReportingDataContext)dsQueries.Database;
 
@@ -87,12 +87,13 @@ namespace Finance.Reports
                              {
                                  grouping.Key,
                                  PreviousYearSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate < m_dtPreviousYear ? (hoa.CreditAmount?? 0 - hoa.DebitAmount?? 0) : 0),
-                                 ForMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtMonthEnd ? hoa.CreditAmount?? 0 - hoa.DebitAmount?? 0 : 0),
+                                 ForMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtPassed ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0),
                                  UptoMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount?? 0 - hoa.DebitAmount?? 0 : 0)
                              });
 
             foreach (var grp in query)
             {
+                //Opening Balances
                 if (HeadOfAccountHelpers.CashSubType.CashInBankNu
                     .Concat(HeadOfAccountHelpers.CashSubType.CashInHand)
                     .Concat(HeadOfAccountHelpers.CashSubType.Investment)
@@ -108,6 +109,7 @@ namespace Finance.Reports
                     SetHyperLinkProperties(hplnkOpBalUptoTheMonthFE, -grp.PreviousYearSum, SumType.ReceiptsUptoMonth);
                     SetHyperLinkProperties(hplnkClBalForMonthFE, -(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.test);
                 }
+                //Receipts Group Starts Here
                 else if (HeadOfAccountHelpers.GrantSubType.GrantNu
                     .Concat(HeadOfAccountHelpers.LoanSubType.LoanNu)
                     .Contains(grp.Key.RoAccountType.HeadOfAccountType))
@@ -168,6 +170,7 @@ namespace Finance.Reports
                     SetHyperLinkProperties(hplnkBITUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
                     SetLabelProperties(lblBITsum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
                 }
+                // Payments Groups Starts Here
                 else if (HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     SetHyperLinkProperties(hplnkEmpAdvPreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
@@ -175,7 +178,7 @@ namespace Finance.Reports
                     SetHyperLinkProperties(hplnkEmpAdvUptoMonth, (-(grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsUptoMonth);
                     SetLabelProperties(lblEmpAdvsum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
                 }
-                else if(HeadOfAccountHelpers.AdvanceSubTypes.PartyAdvance.Concat(HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance).Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if(HeadOfAccountHelpers.PartyAdvances.Concat(HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance).Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     SetAdditiveHyperLinkProperties(hplnkContAdvPreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkContAdvForMonth, -grp.ForMonthSum, SumType.PaymentsForMonth);
@@ -224,6 +227,7 @@ namespace Finance.Reports
                     SetHyperLinkProperties(hplnkGreenTaxUptoMonth, (-(grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsUptoMonth);
                     SetLabelProperties(lblGreenTaxRGOBsum, (-(grp.UptoMonthSum + grp.ForMonthSum + grp.PreviousYearSum)), SumType.PaymentsSum);
                 }
+                //Funds Transit Group
                 else if(HeadOfAccountHelpers.FundTransit.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     hplnkFundTransitPreviousYear.Text = grp.PreviousYearSum.ToString(MONEY_FORMAT_SPECIFIER);
@@ -492,7 +496,7 @@ namespace Finance.Reports
                     else
                     {
                         hl.NavigateUrl = string.Format(hl.NavigateUrl, m_dtPreviousYear,
-                            m_dtMonthStart, m_dtMonthEnd,m_dtPreviousYearEnd,m_dtMonthStart.AddDays(-1));
+                            m_dtMonthStart, m_dtPassed, m_dtPreviousYearEnd, m_dtMonthStart.AddDays(-1));
                     }
                 }
             }
