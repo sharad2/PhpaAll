@@ -43,7 +43,13 @@ namespace Eclipse.PhpaLibrary.Reporting
             public readonly static IEnumerable<string> PartyAdvance = new string[] { "PARTY_ADVANCE" };
             public readonly static IEnumerable<string> MaterialAdvance = new string[] { "MATERIAL_ADVANCE" };
             public readonly static IEnumerable<string> EmployeeAdvance = new string[] { "EMPLOYEE_ADVANCE" };
+            public readonly static IEnumerable<string> EstablishmentPartyAdvance = new string[] { "ESTB_PARTY_ADVANCE" };
+            public readonly static IEnumerable<string> CivilPartyAdance = new string[] { "CIVIL_PARTY_ADVANCE" };
+            public readonly static IEnumerable<string> ElectricalPartyAdvance = new string[] { "ELEC_PARTY_ADVANCE" };
+            public readonly static IEnumerable<string> TransmissionPartyAdance = new string[] { "TRAN_PARTY_ADVANCE" };
+
         }
+        public readonly static IEnumerable<string> PartyAdances = AdvanceSubTypes.EstablishmentPartyAdvance.Concat(AdvanceSubTypes.CivilPartyAdance).Concat(AdvanceSubTypes.ElectricalPartyAdvance).Concat(AdvanceSubTypes.TransmissionPartyAdance);
         public readonly static IEnumerable<string> JobAdvances = AdvanceSubTypes.PartyAdvance.Concat(AdvanceSubTypes.MaterialAdvance);
         public readonly static IEnumerable<string> AllAdvances = JobAdvances.Concat(AdvanceSubTypes.EmployeeAdvance);
 
