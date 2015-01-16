@@ -36,10 +36,11 @@ namespace Finance.Reports
 
             var l = (from vd in db.RoVoucherDetails
                      where (HeadOfAccountHelpers.AllExpenditures
-                                            .Concat(HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI)
+                                            //.Concat(HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI)
                                             .Concat(HeadOfAccountHelpers.ContractorTaxes)
                                             .Concat(HeadOfAccountHelpers.AllAdvances)
-                                            .Concat(HeadOfAccountHelpers.StockSuspense).Contains(vd.RoHeadHierarchy.HeadOfAccountType))
+                                            .Concat(HeadOfAccountHelpers.StockSuspense).Contains(vd.RoHeadHierarchy.HeadOfAccountType)) ||
+                                            vd.RoHeadHierarchy.HeadOfAccountType == HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyGOI
                                  //where vd.RoHeadHierarchy.HeadOfAccountType == "Expenditure"
                                  //         || vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES"
                                  group vd by new

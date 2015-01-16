@@ -307,7 +307,7 @@ namespace Finance.Reports
                             .Concat(HeadOfAccountHelpers.StockSuspense)
                             //.Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
                             //.Concat(HeadOfAccountHelpers.TaxSubTypes.GreenTax)
-                            .Concat(HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI)
+                            .Concat(new[] {HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyGOI})
                             .Contains(grp.AccountType) || grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance ||
                     grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.CivilPartyAdance || grp.AccountType == HeadOfAccountHelpers.TaxSubTypes.GreenTax ||
                     grp.AccountType == HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)

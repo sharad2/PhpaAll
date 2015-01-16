@@ -29,7 +29,7 @@ namespace Finance.Reports
             {
                 case "ED":
                     //HeadTypeFlag = "EDGOI,EDRGOB";
-                    HeadTypeFlag = HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI.FirstOrDefault().ToString() +","  + HeadOfAccountHelpers.DutySubType.ExciseDutiesRGOB.FirstOrDefault().ToString();
+                    HeadTypeFlag = string.Join(",", HeadOfAccountHelpers.AllExciseDuties);
                     Page.Title=string.Format("Central Excise Duty Report as on {0:dd/MM/yyyy}", tbMonth.ValueAsDate);
                     break;
 

@@ -204,14 +204,14 @@ namespace Finance.Reports
                     SetHyperLinkProperties(hplnksvctaxUptoMonth, (-(grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsUptoMonth);
                     SetLabelProperties(lblsvctaxsum, (-(grp.UptoMonthSum + grp.ForMonthSum + grp.PreviousYearSum)), SumType.PaymentsSum);
                 }
-                else if (HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyGOI)
                 {
                     SetHyperLinkProperties(hplnkExciseDutyGOIPreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetHyperLinkProperties(hplnkExciseDutyGOIForMonth, -grp.ForMonthSum, SumType.PaymentsForMonth);
                     SetHyperLinkProperties(hplnkExciseDutyGOIUptoMonth, (-(grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsUptoMonth);
                     SetLabelProperties(lblExciseDutyGOIsum, (-(grp.UptoMonthSum + grp.ForMonthSum + grp.PreviousYearSum)), SumType.PaymentsSum);
                 }
-                else if(HeadOfAccountHelpers.DutySubType.ExciseDutiesRGOB.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyRGOB)
                 {
                     SetHyperLinkProperties(hplnkExciseDutyRGOBPreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetHyperLinkProperties(hplnkExciseDutyRGOBForMonth, -grp.ForMonthSum, SumType.PaymentsForMonth);

@@ -42,10 +42,11 @@ namespace Finance.Reports
 
             m_query = (from vd in db.RoVoucherDetails
                        where HeadOfAccountHelpers.AllExpenditures
-                                .Concat(HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI)
+                                //.Concat(HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI)
                                 .Concat(HeadOfAccountHelpers.ContractorTaxes)
                                 .Concat(HeadOfAccountHelpers.AllAdvances)
-                                .Concat(HeadOfAccountHelpers.StockSuspense).Contains(vd.RoHeadHierarchy.HeadOfAccountType)
+                                .Concat(HeadOfAccountHelpers.StockSuspense).Contains(vd.RoHeadHierarchy.HeadOfAccountType) ||
+                                vd.RoHeadHierarchy.HeadOfAccountType == HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyGOI
                        let yearStart = new DateTime(vd.RoVoucher.VoucherDate.Year, 4, 1)
                        group vd by new
                        {

@@ -46,13 +46,14 @@ namespace Finance.Reports
             ReportingDataContext db = (ReportingDataContext)dsHeadsExp.Database;
 
             gvHeadsExp.DataSource = from vd in db.RoVoucherDetails
-                                    where HeadOfAccountHelpers.AllExpenditures
-                                            .Concat(HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI)
+                                    where (HeadOfAccountHelpers.AllExpenditures
+                                            //.Concat(HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI)
                                             .Concat(HeadOfAccountHelpers.ContractorTaxes)
                                             .Concat(HeadOfAccountHelpers.AllAdvances)
-                                            .Concat(HeadOfAccountHelpers.StockSuspense).Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
-                                    //where (vd.RoHeadHierarchy.HeadOfAccountType == "Expenditure" ||
-                                    //        vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES") &&
+                                            .Concat(HeadOfAccountHelpers.StockSuspense).Contains(vd.RoHeadHierarchy.HeadOfAccountType) ||
+                                            vd.RoHeadHierarchy.HeadOfAccountType == HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyGOI
+                                            ) &&
+
                                             vd.RoVoucher.VoucherDate >= dt.Value.FinancialYearStartDate().AddYears(-1) &&
                                             vd.RoVoucher.VoucherDate <= dt.Value.FinancialYearEndDate().AddYears(-1)
                                     group vd by vd.RoHeadHierarchy.TopParentName into grouping
@@ -66,7 +67,7 @@ namespace Finance.Reports
             gvHeadsExp.DataBind();
             gvHeadsExpTillDate.DataSource = from vd in db.RoVoucherDetails
                                             where HeadOfAccountHelpers.AllExpenditures
-                                            .Concat(HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI)
+                                            .Concat(new[] {HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyGOI})
                                             .Concat(HeadOfAccountHelpers.ContractorTaxes)
                                             .Concat(HeadOfAccountHelpers.AllAdvances)
                                             .Concat(HeadOfAccountHelpers.StockSuspense).Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&

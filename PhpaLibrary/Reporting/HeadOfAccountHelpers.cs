@@ -114,13 +114,13 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public readonly static IEnumerable<string> AllBanks = CashSubType.CashInBankNu.Concat(CashSubType.CashInBankFe);
 
-        public static class DutySubType
+        public static class ExciseDutySubTypes
         {
-            public readonly static IEnumerable<string> ExciseDutiesGOI = new string[] { "EDGOI" };
-            public readonly static IEnumerable<string> ExciseDutiesRGOB = new string[] { "EDRGOB" };
+            public const string ExciseDutyGOI =  "EDGOI";
+            public const string ExciseDutyRGOB =  "EDRGOB" ;
         }
 
-        public readonly static IEnumerable<string> AllExciseDuties = DutySubType.ExciseDutiesGOI.Concat(DutySubType.ExciseDutiesRGOB);
+        public readonly static IEnumerable<string> AllExciseDuties = new[] { ExciseDutySubTypes.ExciseDutyGOI, ExciseDutySubTypes.ExciseDutyRGOB };
 
         public readonly static IEnumerable<string> Assets = new string[] { "ASSETS" };
 
