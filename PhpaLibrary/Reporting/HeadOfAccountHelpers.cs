@@ -24,18 +24,18 @@ namespace Eclipse.PhpaLibrary.Reporting
                  
         }
 
-        public readonly static IEnumerable<string> TourExpenditure = ExpenditureSubTypes.CivilTourExpenditure
+        public readonly static IEnumerable<string> TourExpenditures = ExpenditureSubTypes.CivilTourExpenditure
                                                                         .Concat(ExpenditureSubTypes.ElectricalTourExpenditure)
                                                                         .Concat(ExpenditureSubTypes.EstablishmentTourExpenditure)
                                                                         .Concat(ExpenditureSubTypes.TransmissionTourExpenditure);
 
-        public readonly static IEnumerable<string> Expenditure = ExpenditureSubTypes.EstablishmentExpenditure
+        private readonly static IEnumerable<string> ProjectExpenditures = ExpenditureSubTypes.EstablishmentExpenditure
                                                                     .Concat(ExpenditureSubTypes.CivilExpenditure)
                                                                     .Concat(ExpenditureSubTypes.MainCivilExpenditure)
                                                                     .Concat(ExpenditureSubTypes.ElectricalExpenditure)
                                                                     .Concat(ExpenditureSubTypes.TransmissionExpenditure);
-        
-        public readonly static IEnumerable<string> AllExpenditures = TourExpenditure.Concat(Expenditure);
+
+        public readonly static IEnumerable<string> AllExpenditures = TourExpenditures.Concat(ProjectExpenditures);
         
 
         public static class AdvanceSubTypes
@@ -49,7 +49,10 @@ namespace Eclipse.PhpaLibrary.Reporting
             public readonly static IEnumerable<string> TransmissionPartyAdance = new string[] { "TRAN_PARTY_ADVANCE" };
 
         }
-        public readonly static IEnumerable<string> PartyAdvances = AdvanceSubTypes.EstablishmentPartyAdvance.Concat(AdvanceSubTypes.CivilPartyAdance).Concat(AdvanceSubTypes.ElectricalPartyAdvance).Concat(AdvanceSubTypes.TransmissionPartyAdance);
+        public readonly static IEnumerable<string> PartyAdvances = AdvanceSubTypes.EstablishmentPartyAdvance
+            .Concat(AdvanceSubTypes.CivilPartyAdance)
+            .Concat(AdvanceSubTypes.ElectricalPartyAdvance)
+            .Concat(AdvanceSubTypes.TransmissionPartyAdance);
         public readonly static IEnumerable<string> JobAdvances = PartyAdvances.Concat(AdvanceSubTypes.MaterialAdvance);
         public readonly static IEnumerable<string> AllAdvances = JobAdvances.Concat(AdvanceSubTypes.EmployeeAdvance);
 
