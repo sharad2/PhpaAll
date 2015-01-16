@@ -110,16 +110,16 @@ namespace Finance.Reports
                     SetHyperLinkProperties(hplnkClBalForMonthFE, -(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.test);
                 }
                 //Receipts Group Starts Here
-                else if (HeadOfAccountHelpers.LoanSubType.LoanNu
-                    .Contains(grp.Key.RoAccountType.HeadOfAccountType) || grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.GrantSubType.GrantNu)
+                else if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.LoanSubType.LoanNu
+                     || grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.GrantSubType.GrantNu)
                 {
                     SetAdditiveHyperLinkProperties(hplnkGOIAidPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkGOIAidForMonth, grp.ForMonthSum, SumType.ReceiptsForMonth);
                     SetAdditiveHyperLinkProperties(hplnkGOIAidUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
                     SetAdditiveLabelProperties(lblGOIAidsum, grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.ReceiptsSum);
                 }
-                else if (HeadOfAccountHelpers.LoanSubType.LoanFe
-                    .Contains(grp.Key.RoAccountType.HeadOfAccountType) || grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.GrantSubType.GrantFe)
+                else if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.LoanSubType.LoanFe
+                     || grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.GrantSubType.GrantFe)
                 {
                     SetAdditiveHyperLinkProperties(hplnkGOIFEPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkGOIFEForMonth, grp.ForMonthSum, SumType.ReceiptsForMonth);

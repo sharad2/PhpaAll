@@ -90,11 +90,11 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public static class LoanSubType
         {
-            public readonly static IEnumerable<string> LoanNu = new string[] { "LOAN_RECEIVED_GOINU" };
-            public readonly static IEnumerable<string> LoanFe = new string[] { "LOAN_RECEIVED_GOIFE" };
+            public const string LoanNu = "LOAN_RECEIVED_GOINU" ;
+            public const string LoanFe =  "LOAN_RECEIVED_GOIFE";
         }
 
-        public readonly static IEnumerable<string> AllLoans = LoanSubType.LoanNu.Concat(LoanSubType.LoanFe);
+        public readonly static IEnumerable<string> AllLoans = new[] {LoanSubType.LoanNu, LoanSubType.LoanFe};
 
 
         public static class ReceiptSubType

@@ -136,7 +136,7 @@ namespace Finance.Reports
                     SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
                 }
                 // Loan received from the Govt. of India in Rs./Nu.
-                else if(HeadOfAccountHelpers.LoanSubType.LoanNu.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.LoanSubType.LoanNu)
                 {
                     SetAdditiveHyperLinkProperties(hplnkGOILoanPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                     SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
@@ -146,7 +146,7 @@ namespace Finance.Reports
                     SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
                 }
                 // Loan received from the Govt. of India in foreign exchange.
-                else if (HeadOfAccountHelpers.LoanSubType.LoanFe.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.LoanSubType.LoanFe)
                 {
                     SetAdditiveHyperLinkProperties(hplnkGOILoanFEPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                     SetAdditivePropertiesFund(grp.PreviousYearSum, SumType.FundReceivedPreviousYear);
