@@ -289,7 +289,8 @@ namespace Finance.Reports
             foreach (var grp in query1)
             {
                 // Calculating expenditure for project establishment cost(Including WAPCOS) 100 heads.
-                if (HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentExpenditure.Concat(HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentTourExpenditure).Contains(grp.AccountType))
+                //if (HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentExpenditure.Concat(HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentTourExpenditure).Contains(grp.AccountType))
+                if (grp.AccountType == HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentExpenditure || grp.AccountType == HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentTourExpenditure)
                 {
                     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditureUptoMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
@@ -297,10 +298,7 @@ namespace Finance.Reports
                     SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
                 }
                 // Calculating expenditure for Civil works (200 Heads).
-                else if(HeadOfAccountHelpers.ExpenditureSubTypes.CivilExpenditure
-                            .Concat(HeadOfAccountHelpers.ExpenditureSubTypes.CivilTourExpenditure)
-                            .Concat(HeadOfAccountHelpers.ExpenditureSubTypes.MainCivilExpenditure)
-                            .Contains(grp.AccountType))
+                else if(HeadOfAccountHelpers.CivilExpenditures.Contains(grp.AccountType))
                 {
                     SetAdditiveHyperLinkProperties(hplnkCivilExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkCivilExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
@@ -308,9 +306,7 @@ namespace Finance.Reports
                     SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
                 }
                 // Calculating expenditure for Electrical works (300 Heads)
-                else if(HeadOfAccountHelpers.ExpenditureSubTypes.ElectricalExpenditure
-                            .Concat(HeadOfAccountHelpers.ExpenditureSubTypes.ElectricalTourExpenditure)
-                            .Contains(grp.AccountType))
+                else if(HeadOfAccountHelpers.ElectricalExpenditures.Contains(grp.AccountType))
                 {
                     SetAdditiveHyperLinkProperties(hplnkElectricalExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkElectricalExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
