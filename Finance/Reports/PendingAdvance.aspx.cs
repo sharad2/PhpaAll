@@ -99,7 +99,7 @@ namespace Finance.Reports
                         case "PendingAdvances":
                             //grdPendingAdv.Columns[columnIndex].HeaderText = "Outstanding Advances (Nu.)";
                             columnIndex.HeaderText = "Outstanding Advances (Nu.)";
-                            headOfAccountList.AddRange(HeadOfAccountHelpers.JobAdvances.Concat(HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance));
+                            headOfAccountList.AddRange(HeadOfAccountHelpers.AllAdvances);
                             //lblHelp.Text = "Displays outstanding Advance amount of All Employees and Contractors in each division.";
                             this.Title = "Pending Advances";
                             lblReportDescription.Text = "Displays outstanding Advance amount of All Employees and Contractors in each division.";

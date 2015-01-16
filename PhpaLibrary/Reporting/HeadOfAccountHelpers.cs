@@ -49,9 +49,8 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public static class AdvanceSubTypes
         {
-            //public readonly static IEnumerable<string> PartyAdvance = new string[] { "PARTY_ADVANCE" };
             public const string MaterialAdvance =  "MATERIAL_ADVANCE";
-            public readonly static IEnumerable<string> EmployeeAdvance = new string[] { "EMPLOYEE_ADVANCE" };
+            public const string EmployeeAdvance =  "EMPLOYEE_ADVANCE";
             public readonly static IEnumerable<string> EstablishmentPartyAdvance = new string[] { "ESTB_PARTY_ADVANCE" };
             public readonly static IEnumerable<string> CivilPartyAdance = new string[] { "CIVIL_PARTY_ADVANCE" };
             public readonly static IEnumerable<string> ElectricalPartyAdvance = new string[] { "ELEC_PARTY_ADVANCE" };
@@ -65,7 +64,7 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public readonly static IEnumerable<string> JobAdvances = new[] {AdvanceSubTypes.MaterialAdvance}.Concat(PartyAdvances);
 
-        public readonly static IEnumerable<string> AllAdvances = JobAdvances.Concat(AdvanceSubTypes.EmployeeAdvance);
+        public readonly static IEnumerable<string> AllAdvances = new[] {AdvanceSubTypes.EmployeeAdvance}.Concat(JobAdvances);
 
 
         public static class TaxSubTypes

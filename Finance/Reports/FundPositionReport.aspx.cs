@@ -171,15 +171,13 @@ namespace Finance.Reports
                 }
                 // Payments Groups Starts Here
                 // Need to handle these cases and do nothing otherwise amount of these accountypes is added in others repeipts(default case).
-                else if (HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance
-                            .Concat(HeadOfAccountHelpers.JobAdvances)
-                            .Concat(HeadOfAccountHelpers.StockSuspense)
+                else if (HeadOfAccountHelpers.JobAdvances.Concat(HeadOfAccountHelpers.StockSuspense)
                             .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
                             .Concat(HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
                             .Concat(HeadOfAccountHelpers.AllExciseDuties)
                             .Concat(HeadOfAccountHelpers.TaxSubTypes.GreenTax)
                             .Concat(HeadOfAccountHelpers.FundTransit)
-                            .Contains(grp.Key.RoAccountType.HeadOfAccountType)
+                            .Contains(grp.Key.RoAccountType.HeadOfAccountType) || grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance
                     )
                 {
 
@@ -289,7 +287,10 @@ namespace Finance.Reports
             {
                 // Calculating expenditure for project establishment cost(Including WAPCOS) 100 heads.
                 //if (HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentExpenditure.Concat(HeadOfAccountHelpers.ExpenditureSubTypes.EstablishmentTourExpenditure).Contains(grp.AccountType))
-                if (HeadOfAccountHelpers.EstablishmentExpenditures.Contains(grp.AccountType))
+                if (HeadOfAccountHelpers.EstablishmentExpenditures
+                        .Concat(HeadOfAccountHelpers.AdvanceSubTypes.EstablishmentPartyAdvance)
+                        .Concat(HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
+                        .Contains(grp.AccountType) || grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance)
                 {
                     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditureUptoMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
@@ -297,60 +298,8 @@ namespace Finance.Reports
                     SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
                 }
                 // Calculating expenditure for Civil works (200 Heads).
-                else if(HeadOfAccountHelpers.CivilExpenditures.Contains(grp.AccountType))
-                {
-                    SetAdditiveHyperLinkProperties(hplnkCivilExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
-                    SetAdditiveHyperLinkProperties(hplnkCivilExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
-                    SetAdditiveLabelProperties(lblCivilExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
-                    SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
-                }
-                // Calculating expenditure for Electrical works (300 Heads)
-                else if(HeadOfAccountHelpers.ElectricalExpenditures.Contains(grp.AccountType))
-                {
-                    SetAdditiveHyperLinkProperties(hplnkElectricalExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
-                    SetAdditiveHyperLinkProperties(hplnkElectricalExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
-                    SetAdditiveLabelProperties(lblElectricalExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
-                    SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
-                }
-                // Calculating expenditure for Transmission works (400 heads)
-                else if (HeadOfAccountHelpers.TransmissionExpenditures.Contains(grp.AccountType))
-                {
-                    SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
-                    SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
-                    SetAdditiveLabelProperties(lblTransmissionExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
-                    SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
-                }
-                // Calculating Non-Budgetary Heads (800 Heads).
-                // Calculating on the basis of either mobilisation/secured Advance Estt and service tax and Employees Advance of establishment expenditure.
-                else if (HeadOfAccountHelpers.AdvanceSubTypes.EstablishmentPartyAdvance
-                            .Concat(HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
-                            .Concat(HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance)
-                            .Contains(grp.AccountType))
-                {
-                     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
-                     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditureUptoMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
-                     SetAdditiveLabelProperties(lblEstablishExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
-                     SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
-                }
-                    // Adding Mobilisation/Secured Advance (E&M Packages)  of Electrical expenditure.
-                else if(HeadOfAccountHelpers.AdvanceSubTypes.ElectricalPartyAdvance.Contains(grp.AccountType))
-                {
-                    SetAdditiveHyperLinkProperties(hplnkElectricalExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
-                    SetAdditiveHyperLinkProperties(hplnkElectricalExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
-                    SetAdditiveLabelProperties(lblElectricalExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
-                    SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
-                }
-                    // Adding Mobilisation/Secured Advance of Transmission.
-                else if(HeadOfAccountHelpers.AdvanceSubTypes.TransmissionPartyAdance.Contains(grp.AccountType))
-                {
-                    SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
-                    SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
-                    SetAdditiveLabelProperties(lblTransmissionExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
-                    SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
-                }
-                // Adding Mobilisation Advance Civil and Mobilisation Advance (HRT) and Green Tax (RGoB) and Mobilisation Advance (PH) and Mobilisation Advance (DAM) and Stock Suspense and BST and Excise Duty and for Material_Advance head of account type.
-                else if(HeadOfAccountHelpers.AdvanceSubTypes.CivilPartyAdance
-                            //.Concat(HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance)
+                else if(HeadOfAccountHelpers.CivilExpenditures
+                            .Concat(HeadOfAccountHelpers.AdvanceSubTypes.CivilPartyAdance)
                             .Concat(HeadOfAccountHelpers.StockSuspense)
                             .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
                             .Concat(HeadOfAccountHelpers.TaxSubTypes.GreenTax)
@@ -362,6 +311,71 @@ namespace Finance.Reports
                     SetAdditiveLabelProperties(lblCivilExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
                     SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
                 }
+                // Calculating expenditure for Electrical works (300 Heads)
+                else if(HeadOfAccountHelpers.ElectricalExpenditures
+                        .Concat(HeadOfAccountHelpers.AdvanceSubTypes.ElectricalPartyAdvance)
+                        .Contains(grp.AccountType))
+                {
+                    SetAdditiveHyperLinkProperties(hplnkElectricalExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
+                    SetAdditiveHyperLinkProperties(hplnkElectricalExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
+                    SetAdditiveLabelProperties(lblElectricalExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
+                    SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
+                }
+                // Calculating expenditure for Transmission works (400 heads)
+                else if (HeadOfAccountHelpers.TransmissionExpenditures
+                            .Concat(HeadOfAccountHelpers.AdvanceSubTypes.TransmissionPartyAdance)
+                            .Contains(grp.AccountType))
+                {
+                    SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
+                    SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
+                    SetAdditiveLabelProperties(lblTransmissionExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
+                    SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
+                }
+                else
+                {
+                    //throw new NotImplementedException();
+                }
+                // Calculating Non-Budgetary Heads (800 Heads).
+                // Calculating on the basis of either mobilisation/secured Advance Estt and service tax and Employees Advance of establishment expenditure.
+                //else if (HeadOfAccountHelpers.AdvanceSubTypes.EstablishmentPartyAdvance
+                //            .Concat(HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
+                //            .Concat(HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance)
+                //            .Contains(grp.AccountType))
+                //{
+                //     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
+                //     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditureUptoMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
+                //     SetAdditiveLabelProperties(lblEstablishExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
+                //     SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
+                //}
+                    // Adding Mobilisation/Secured Advance (E&M Packages)  of Electrical expenditure.
+                //else if(HeadOfAccountHelpers.AdvanceSubTypes.ElectricalPartyAdvance.Contains(grp.AccountType))
+                //{
+                //    SetAdditiveHyperLinkProperties(hplnkElectricalExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
+                //    SetAdditiveHyperLinkProperties(hplnkElectricalExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
+                //    SetAdditiveLabelProperties(lblElectricalExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
+                //    SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
+                //}
+                    // Adding Mobilisation/Secured Advance of Transmission.
+                //else if(HeadOfAccountHelpers.AdvanceSubTypes.TransmissionPartyAdance.Contains(grp.AccountType))
+                //{
+                //    SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
+                //    SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
+                //    SetAdditiveLabelProperties(lblTransmissionExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
+                //    SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
+                //}
+                // Adding Mobilisation Advance Civil and Mobilisation Advance (HRT) and Green Tax (RGoB) and Mobilisation Advance (PH) and Mobilisation Advance (DAM) and Stock Suspense and BST and Excise Duty and for Material_Advance head of account type.
+                //else if(HeadOfAccountHelpers.AdvanceSubTypes.CivilPartyAdance
+                //            .Concat(HeadOfAccountHelpers.StockSuspense)
+                //            .Concat(HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
+                //            .Concat(HeadOfAccountHelpers.TaxSubTypes.GreenTax)
+                //            .Concat(HeadOfAccountHelpers.DutySubType.ExciseDutiesGOI)
+                //            .Contains(grp.AccountType) || grp.AccountType == HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance)
+                //{
+                //    SetAdditiveHyperLinkProperties(hplnkCivilExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
+                //    SetAdditiveHyperLinkProperties(hplnkCivilExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
+                //    SetAdditiveLabelProperties(lblCivilExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
+                //    SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
+                //}
                     
                 //switch (grp.Key.TopParentName)
                 //{
