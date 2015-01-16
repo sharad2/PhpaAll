@@ -99,9 +99,9 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public static class ReceiptSubType
         {
-            public readonly static IEnumerable<string> InterestReceipts = new string[] { "INTEREST" };
-            public readonly static IEnumerable<string> AccumulatedReceipts = new string[] { "ACCUMULATED_RECEIPTS" };
-            public readonly static IEnumerable<string> TenderSale = new string[] { "TENDER_SALE" };
+            public const string InterestReceipt =  "INTEREST" ;
+            public const string AccumulatedReceipt =  "ACCUMULATED_RECEIPTS";
+            public const string TenderSale =  "TENDER_SALE" ;
         }
 
         public static class CashSubType

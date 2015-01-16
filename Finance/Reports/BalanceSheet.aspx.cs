@@ -127,13 +127,14 @@ namespace Finance.Reports
                     hplnkgtax.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}",
                         HeadOfAccountHelpers.TaxSubTypes.GreenTax, dt);
                 }
-                else if (HeadOfAccountHelpers.ReceiptSubType.AccumulatedReceipts.Concat(HeadOfAccountHelpers.ReceiptSubType.TenderSale).Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.ReceiptSubType.AccumulatedReceipt ||
+                    grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.ReceiptSubType.TenderSale)
                 {
                     accsum += Convert.ToDouble(grp.Amount);
                     hplnkAcc_Rec.Text = accsum.ToString(fmt);
                     sumLiability += Convert.ToDouble(grp.Amount);
-                    hplnkAcc_Rec.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", 
-                        string.Join(",", HeadOfAccountHelpers.ReceiptSubType.AccumulatedReceipts.Concat(HeadOfAccountHelpers.ReceiptSubType.TenderSale)), dt);
+                    hplnkAcc_Rec.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={1},{2}&DateTo={0:d}", 
+                       dt, HeadOfAccountHelpers.ReceiptSubType.AccumulatedReceipt,HeadOfAccountHelpers.ReceiptSubType.TenderSale);
                 }
                 else
                 {

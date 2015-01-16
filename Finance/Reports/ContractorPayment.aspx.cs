@@ -142,9 +142,9 @@ namespace Finance.Reports
             //db.LoadOptions = dlo;
 
             var otherRecoveryHeadExclusion = HeadOfAccountHelpers.DepositSubTypes.SecurityDeposits
-                                                       .Concat(new[] {HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax})
+                                                       .Concat(new[] { HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax, HeadOfAccountHelpers.ReceiptSubType.InterestReceipt })
                                                        .Concat(HeadOfAccountHelpers.JobAdvances)
-                                                       .Concat(HeadOfAccountHelpers.ReceiptSubType.InterestReceipts)
+                                                       //.Concat(HeadOfAccountHelpers.ReceiptSubType.InterestReceipts)
                                                        .Concat(HeadOfAccountHelpers.AllExpenditures)
                                                        .Concat(HeadOfAccountHelpers.CashSubType.CashInBankNu)
                                                        .Concat(HeadOfAccountHelpers.CashSubType.CashInBankFe);
@@ -166,7 +166,7 @@ namespace Finance.Reports
                                                            where HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                            select vd.CreditAmount).Sum()
                         let interestRecovered = (decimal?)(from vd in grp
-                                                           where HeadOfAccountHelpers.ReceiptSubType.InterestReceipts.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                           where vd.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.ReceiptSubType.InterestReceipt
                                                            select vd.CreditAmount).Sum()
                         let advanceAdjusted = (decimal?)(from vd in grp
                                                          where HeadOfAccountHelpers.PartyAdvances.Contains(vd.HeadOfAccount.HeadOfAccountType)

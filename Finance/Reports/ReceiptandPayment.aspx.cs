@@ -126,7 +126,7 @@ namespace Finance.Reports
                     SetAdditiveHyperLinkProperties(hplnkGOIFEUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
                     SetAdditiveLabelProperties(lblGOIFEsum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
                 }
-                else if (HeadOfAccountHelpers.ReceiptSubType.InterestReceipts.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.ReceiptSubType.InterestReceipt)
                 {
                     SetHyperLinkProperties(hplnkInterestPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                     SetHyperLinkProperties(hplnkInterestForMonth, grp.ForMonthSum, SumType.ReceiptsForMonth);
@@ -140,7 +140,7 @@ namespace Finance.Reports
                     SetHyperLinkProperties(hplnkRecoveryUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
                     SetLabelProperties(lblRecoverysum, grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.ReceiptsSum);
                 }
-                else if (HeadOfAccountHelpers.ReceiptSubType.TenderSale.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.ReceiptSubType.TenderSale)
                 {
                     SetHyperLinkProperties(hplnkTenderSalePreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                     SetHyperLinkProperties(hplnkTenderSaleForMonth, grp.ForMonthSum, SumType.ReceiptsForMonth);
