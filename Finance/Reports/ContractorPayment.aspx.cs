@@ -144,10 +144,8 @@ namespace Finance.Reports
             var otherRecoveryHeadExclusion = new[] { HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax, HeadOfAccountHelpers.ReceiptSubType.InterestReceipt,
                 HeadOfAccountHelpers.DepositSubTypes.SecurityDeposit}
                                                        .Concat(HeadOfAccountHelpers.JobAdvances)
-                                                       //.Concat(HeadOfAccountHelpers.ReceiptSubType.InterestReceipts)
                                                        .Concat(HeadOfAccountHelpers.AllExpenditures)
-                                                       .Concat(HeadOfAccountHelpers.CashSubType.CashInBankNu)
-                                                       .Concat(HeadOfAccountHelpers.CashSubType.CashInBankFe);
+                                                       .Concat(HeadOfAccountHelpers.AllBanks);
                                                        
 
             var query = from vd in db.RoVoucherDetails

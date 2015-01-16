@@ -104,15 +104,15 @@ namespace Eclipse.PhpaLibrary.Reporting
             public const string TenderSale =  "TENDER_SALE" ;
         }
 
-        public static class CashSubType
+        public static class CashSubTypes
         {
-            public readonly static IEnumerable<string> CashInBankNu = new string[] { "BANKNU" };
-            public readonly static IEnumerable<string> CashInBankFe = new string[] { "BANKFE" };
-            public readonly static IEnumerable<string> CashInHand = new string[] { "CASH" };
-            public readonly static IEnumerable<string> Investment = new string[] { "INVESTMENT" };
+            public const string CashInBankNu =  "BANKNU";
+            public const string CashInBankFe =  "BANKFE" ;
+            public const string CashInHand =  "CASH";
+            public const string Investment = "INVESTMENT";
         }
 
-        public readonly static IEnumerable<string> AllBanks = CashSubType.CashInBankNu.Concat(CashSubType.CashInBankFe);
+        public readonly static IEnumerable<string> AllBanks = new[] { CashSubTypes.CashInBankNu, CashSubTypes.CashInBankFe };
 
         public static class ExciseDutySubTypes
         {

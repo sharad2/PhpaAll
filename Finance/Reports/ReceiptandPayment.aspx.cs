@@ -94,16 +94,16 @@ namespace Finance.Reports
             foreach (var grp in query)
             {
                 //Opening Balances
-                if (HeadOfAccountHelpers.CashSubType.CashInBankNu
-                    .Concat(HeadOfAccountHelpers.CashSubType.CashInHand)
-                    .Concat(HeadOfAccountHelpers.CashSubType.Investment)
+                if (new[] { HeadOfAccountHelpers.CashSubTypes.CashInBankNu, HeadOfAccountHelpers.CashSubTypes.CashInHand, HeadOfAccountHelpers.CashSubTypes.Investment }
+                    //.Concat(HeadOfAccountHelpers.CashSubTypes.CashInHand)
+                    //.Concat(HeadOfAccountHelpers.CashSubTypes.Investment)
                     .Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     SetAdditiveHyperLinkProperties(hplnkOpBalForTheMonth, -(grp.PreviousYearSum + grp.UptoMonthSum), SumType.ReceiptsForMonth);
                     SetAdditiveHyperLinkProperties(hplnkOpBalUptoTheMonth, -grp.PreviousYearSum, SumType.ReceiptsUptoMonth);
                     SetAdditiveHyperLinkProperties(hplnkClBalForMonth, -(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.test);
                 }
-                else if (HeadOfAccountHelpers.CashSubType.CashInBankFe.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (grp.Key.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.CashSubTypes.CashInBankFe)
                 {
                     SetHyperLinkProperties(hplnkOpBalForTheMonthFE, -(grp.PreviousYearSum + grp.UptoMonthSum), SumType.ReceiptsForMonth);
                     SetHyperLinkProperties(hplnkOpBalUptoTheMonthFE, -grp.PreviousYearSum, SumType.ReceiptsUptoMonth);
