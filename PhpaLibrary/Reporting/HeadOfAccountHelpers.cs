@@ -30,8 +30,6 @@ namespace Eclipse.PhpaLibrary.Reporting
                 ExpenditureSubTypes.EstablishmentTourExpenditure, ExpenditureSubTypes.TransmissionTourExpenditure
             };
 
-        public readonly static IEnumerable<string> EstablishmentExpenditures = new[] { ExpenditureSubTypes.EstablishmentExpenditure, ExpenditureSubTypes.EstablishmentTourExpenditure };
-
         public readonly static IEnumerable<string> ElectricalExpenditures = new[] { ExpenditureSubTypes.ElectricalExpenditure, ExpenditureSubTypes.ElectricalTourExpenditure };
 
         public readonly static IEnumerable<string> TransmissionExpenditures = new[] { ExpenditureSubTypes.TransmissionExpenditure, ExpenditureSubTypes.TransmissionTourExpenditure };
@@ -141,6 +139,11 @@ namespace Eclipse.PhpaLibrary.Reporting
                 ExciseDutySubTypes.ExciseDutyGOI, AdvanceSubTypes.MaterialAdvance, AdvanceSubTypes.CivilPartyAdance, TaxSubTypes.GreenTax,
                 TaxSubTypes.BhutanSalesTax
             }.Concat(StockSuspense);
+
+        public readonly static IEnumerable<string> EstablishmentExpenditures = new[] {
+            ExpenditureSubTypes.EstablishmentExpenditure, ExpenditureSubTypes.EstablishmentTourExpenditure, AdvanceSubTypes.EmployeeAdvance,
+            AdvanceSubTypes.EstablishmentPartyAdvance, TaxSubTypes.ServiceTax
+        };
 
     }
 }

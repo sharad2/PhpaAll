@@ -156,9 +156,7 @@ namespace Finance.Reports
                     SetAdditiveLabelProperties(lblReceiptssum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
                 }
                 // VII a)
-                else if (HeadOfAccountHelpers.EstablishmentExpenditures
-                        .Contains(grp.RoAccountType.HeadOfAccountType) || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.EmployeeAdvance ||
-                    grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.EstablishmentPartyAdvance || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.ServiceTax)
+                else if (HeadOfAccountHelpers.EstablishmentExpenditures.Contains(grp.RoAccountType.HeadOfAccountType))
                 {
                     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkEstablishExpenditureUptoMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
