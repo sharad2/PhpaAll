@@ -24,15 +24,30 @@ namespace Finance.Reports
     {
         public DateTime DateTo { get; set; }
 
+        /// <summary>
+        /// I - a
+        /// </summary>
         public decimal? FundsReceivedGOIGrantNuUpToPrev { get; set; }
 
         public decimal? FundsReceivedGOIGrantNuCurr { get; set; }
 
-        public decimal FundsReceivedGOIGrantNuCum { get; set; }
+        public decimal? FundsReceivedGOIGrantNuCum { get; set; }
 
         public string FundsReceivedGOIGrantNuHeads { get; set; }
 
+        /// <summary>
+        /// I - b
+        /// </summary>
+        public decimal? FundsReceivedGOIGrantFeUpToPrev { get; set; }
 
+        public decimal? FundsReceivedGOIGrantFeCurr { get; set; }
+
+        public decimal? FundsReceivedGOIGrantFeCum { get; set; }
+
+        public string FundsReceivedGOIGrantFeHeads { get; set; }
+
+
+        public DateTime DateFrom { get; set; }
     }
 
     public partial class FundPositionReport : PageBase
@@ -47,6 +62,7 @@ namespace Finance.Reports
         //private IQueryable<ResultItem> m_query;
         string otherBankAmount = string.Empty;
 
+        #region Old Code
         protected override void OnLoad(EventArgs e)
         {
             DateTime? date;
@@ -581,6 +597,8 @@ namespace Finance.Reports
             return string.Empty;
         }
 
+        #endregion
+
         // The id parameter should match the DataKeyNames value set on the control
         // or be decorated with a value provider attribute, e.g. [QueryString]int id
         public FundPositionReportData Unnamed_GetItem(int? id)
@@ -598,24 +616,36 @@ namespace Finance.Reports
                                  .Concat(new[] { HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyRGOB, HeadOfAccountHelpers.CashSubTypes.CashInHand })
                                  .Contains(vd.HeadOfAccount.RoAccountType.HeadOfAccountType)
                          group vd by 1 into g
+                         let prevYearVouchers = g.Where(p => p.RoVoucher.VoucherDate <= m_dtPreviousYear)
+                         let currYearVouchers = g.Where(p => p.RoVoucher.VoucherDate > m_dtPreviousYear)
                          // I - a
                          let fundsReceivedGOIGrantNuHeads = HeadOfAccountHelpers.GrantSubType.GrantNu
-                         let fundsReceivedGOIGrantNuUpToPrev = g.Where(p => p.HeadOfAccount.HeadOfAccountType == fundsReceivedGOIGrantNuHeads && p.RoVoucher.VoucherDate <= m_dtPreviousYear)
+                         let fundsReceivedGOIGrantNuUpToPrev = prevYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == fundsReceivedGOIGrantNuHeads)
                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
-                         let fundsReceivedGOIGrantNuCurr = g.Where(p => p.HeadOfAccount.HeadOfAccountType == fundsReceivedGOIGrantNuHeads && p.RoVoucher.VoucherDate > m_dtPreviousYear)
+                         let fundsReceivedGOIGrantNuCurr = currYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == fundsReceivedGOIGrantNuHeads)
                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
+
+                         // I - b
+                         let fundsReceivedGOIGrantFeHeads = HeadOfAccountHelpers.GrantSubType.GrantFe
+                         let fundsReceivedGOIGrantFeUpToPrev = prevYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == fundsReceivedGOIGrantFeHeads)
+                                                        .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
+                         let fundsReceivedGOIGrantFeCurr = currYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == fundsReceivedGOIGrantFeHeads)
+                                                        .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
+
                          select new FundPositionReportData
                          {
+                             DateFrom = m_dtPreviousYear,
                              DateTo = m_dtPassed,
                              // I - a
                              FundsReceivedGOIGrantNuUpToPrev = fundsReceivedGOIGrantNuUpToPrev,
                              FundsReceivedGOIGrantNuCurr = fundsReceivedGOIGrantNuCurr,
                              FundsReceivedGOIGrantNuCum = fundsReceivedGOIGrantNuUpToPrev + fundsReceivedGOIGrantNuCurr,
-                             FundsReceivedGOIGrantNuHeads = fundsReceivedGOIGrantNuHeads
-                             //RoAccountType = g.Key,
-                             //PreviousYearSum = g.Sum(hoa => hoa.RoVoucher.VoucherDate < m_dtPreviousYear ? (hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0) : 0),
-                             //ForMonthSum = g.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtPassed ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0),
-                             //UptoMonthSum = g.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0)
+                             FundsReceivedGOIGrantNuHeads = fundsReceivedGOIGrantNuHeads,
+
+                             //I - b
+                             FundsReceivedGOIGrantFeUpToPrev = fundsReceivedGOIGrantFeUpToPrev,
+                             FundsReceivedGOIGrantFeCurr = fundsReceivedGOIGrantFeCurr
+
                          });
             //throw new NotImplementedException();
             return query.FirstOrDefault();

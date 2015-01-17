@@ -108,13 +108,13 @@
 
                         <td class="vd-amountcol">
                             <asp:HyperLink runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency from financial year start till input month"
-                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOIGrantNuHeads, Item.DateTo) %>'
+                                EnableViewState="false"
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.FundsReceivedGOIGrantNuHeads, Item.DateFrom, Item.DateTo) %>'
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantNuCurr) %>' />
                         </td>
                         <td class="vd-amountcol">
-                            <asp:Literal runat="server"  EnableViewState="false" 
-                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantNuCum) %>'
-                                />
+                            <asp:Literal runat="server" EnableViewState="false"
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantNuCum) %>' />
                         </td>
                     </tr>
                     <tr class="AlternatingRow">
@@ -123,13 +123,15 @@
                         </td>
                         <td class="vd-amountcol">
                             <asp:HyperLink ID="hplnkGOIAidFEPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
-                                NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=GRANT_RECEIVED_GOIFE&DateTo={3:d}"
-                                EnableViewState="false" />
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOIGrantFeHeads, Item.DateTo) %>'
+                                EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantFeUpToPrev) %>' />
                         </td>
 
                         <td class="vd-amountcol">
                             <asp:HyperLink ID="hplnkGOIAidFEUptoMonth" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency from financial year start till input month"
-                                EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=GRANT_RECEIVED_GOIFE&DateFrom={0:d}&DateTo={2:d}" />
+                                EnableViewState="false"
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.FundsReceivedGOIGrantFeHeads, Item.DateFrom, Item.DateTo) %>'
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantFeCurr) %>' />
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblGOIAidFEsum" runat="server" ToolTip="Funds Received from Government of India in local currency till date" EnableViewState="false" />
@@ -179,16 +181,14 @@
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblFundReceivedPreviousYear" runat="server" EnableViewState="false"
-                                OnPreRender="lbl_PreRenderShowSum" SumType="FundReceivedPreviousYear" />
+                                SumType="FundReceivedPreviousYear" />
                         </td>
 
                         <td class="vd-amountcol">
-                            <asp:Label ID="lblFundRecievedUpToMonth" runat="server" EnableViewState="false" SumType="FundReceivedUptoMonth"
-                                OnPreRender="lbl_PreRenderShowSum" />
+                            <asp:Label ID="lblFundRecievedUpToMonth" runat="server" EnableViewState="false" SumType="FundReceivedUptoMonth" />
                         </td>
                         <td class="vd-amountcol">
-                            <asp:Label ID="lblFundRecievedSum" runat="server" EnableViewState="false" SumType="FundSum"
-                                OnPreRender="lbl_PreRenderShowSum" />
+                            <asp:Label ID="lblFundRecievedSum" runat="server" EnableViewState="false" SumType="FundSum" />
                         </td>
                     </tr>
                     <tr class="RowHeader">
@@ -217,16 +217,16 @@
                         <td align="right">Total(II+III)
                         </td>
                         <td class="vd-amountcol">
-                            <asp:Label ID="lblReceiptsPreviousYear" runat="server" EnableViewState="false" OnPreRender="lbl_PreRenderShowSum"
+                            <asp:Label ID="lblReceiptsPreviousYear" runat="server" EnableViewState="false"
                                 SumType="ReceiptsPreviousYear" />
                         </td>
 
                         <td class="vd-amountcol">
-                            <asp:Label ID="lblReceiptsUptoMonth" runat="server" EnableViewState="false" OnPreRender="lbl_PreRenderShowSum"
+                            <asp:Label ID="lblReceiptsUptoMonth" runat="server" EnableViewState="false"
                                 SumType="ReceiptsUptoMonth" />
                         </td>
                         <td class="vd-amountcol">
-                            <asp:Label ID="Label1" runat="server" EnableViewState="false" OnPreRender="lbl_PreRenderShowSum"
+                            <asp:Label ID="Label1" runat="server" EnableViewState="false"
                                 SumType="ReceiptsSum" />
                         </td>
                     </tr>
@@ -236,26 +236,26 @@
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblExpenditurePreviousYear" runat="server" EnableViewState="false"
-                                OnPreRender="lbl_PreRenderShowSum" SumType="PaymentsPreviousYear" />
+                                SumType="PaymentsPreviousYear" />
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblExpenditureUpToMonth" runat="server" EnableViewState="false"
-                                OnPreRender="lbl_PreRenderShowSum" SumType="PaymentsUptoMonth" />
+                                SumType="PaymentsUptoMonth" />
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblTotalExpenditure" runat="server" EnableViewState="false"
-                                OnPreRender="lbl_PreRenderShowSum" SumType="PaymentsSum" />
+                                SumType="PaymentsSum" />
                         </td>
                     </tr>
                     <tr class="RowHeader ui-state-active ui-widget-header">
                         <td align="center"><strong>VI</strong></td>
                         <td align="right"><b>BALANCE FUND(IV-V)</b></td>
                         <td class="vd-amountcol">
-                            <asp:Label ID="lblbalancefundprevious" runat="server" EnableViewState="False" OnPreRender="lblbalance_prerender" />
+                            <asp:Label ID="lblbalancefundprevious" runat="server" EnableViewState="False" />
                         </td>
                         <td></td>
                         <td class="vd-amountcol">
-                            <asp:Label ID="lblbalancefundcumulative" runat="server" EnableViewState="False" OnPreRender="lblbalancefundcumulative_prerender" /></td>
+                            <asp:Label ID="lblbalancefundcumulative" runat="server" EnableViewState="False" /></td>
                     </tr>
                 </tbody>
             </table>
