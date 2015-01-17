@@ -644,8 +644,8 @@ namespace Finance.Reports
 
                              //I - b
                              FundsReceivedGOIGrantFeUpToPrev = fundsReceivedGOIGrantFeUpToPrev,
-                             FundsReceivedGOIGrantFeCurr = fundsReceivedGOIGrantFeCurr
-
+                             FundsReceivedGOIGrantFeCurr = fundsReceivedGOIGrantFeCurr,
+                             FundsReceivedGOIGrantFeCum = fundsReceivedGOIGrantFeUpToPrev + fundsReceivedGOIGrantFeCurr
                          });
             //throw new NotImplementedException();
             return query.FirstOrDefault();

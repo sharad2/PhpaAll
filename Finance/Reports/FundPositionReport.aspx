@@ -134,7 +134,8 @@
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantFeCurr) %>' />
                         </td>
                         <td class="vd-amountcol">
-                            <asp:Label ID="lblGOIAidFEsum" runat="server" ToolTip="Funds Received from Government of India in local currency till date" EnableViewState="false" />
+                            <asp:Label ID="lblGOIAidFEsum" runat="server" ToolTip="Funds Received from Government of India in local currency till date" EnableViewState="false"   
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantFeCum) %>' />
                         </td>
                     </tr>
                     <tr class="AlternatingRow">
