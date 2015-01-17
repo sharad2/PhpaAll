@@ -13,16 +13,16 @@ namespace Eclipse.PhpaLibrary.Reporting
             internal const string EstablishmentTourExpenditure = "ESTABLISHMENT_TOUR";
 
             internal const string CivilExpenditure = "CIVIL_EXPENDITURE";
-            internal const string CivilTourExpenditure =  "CIVIL_TOUR";
+            internal const string CivilTourExpenditure = "CIVIL_TOUR";
 
             // Used by Job Payment Register
             public const string MainCivilExpenditure = "CIVIL_MAIN_EXPENSES";
 
-            internal const string ElectricalExpenditure =  "ELECTR_EXPENDITURE";
+            internal const string ElectricalExpenditure = "ELECTR_EXPENDITURE";
             internal const string ElectricalTourExpenditure = "ELECTRICAL_TOUR";
 
-            internal const string TransmissionExpenditure =  "TRANS_EXPENDITURE";
-            internal const string TransmissionTourExpenditure =  "TRANS_TOUR";
+            internal const string TransmissionExpenditure = "TRANS_EXPENDITURE";
+            internal const string TransmissionTourExpenditure = "TRANS_TOUR";
 
         }
 
@@ -36,9 +36,6 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public readonly static IEnumerable<string> TransmissionExpenditures = new[] { ExpenditureSubTypes.TransmissionExpenditure, ExpenditureSubTypes.TransmissionTourExpenditure };
 
-        public readonly static IEnumerable<string> CivilExpenditures = new[] { 
-            ExpenditureSubTypes.CivilTourExpenditure, ExpenditureSubTypes.CivilExpenditure, ExpenditureSubTypes.MainCivilExpenditure };
-
         private readonly static IEnumerable<string> ProjectExpenditures = new[] {
                 ExpenditureSubTypes.EstablishmentExpenditure, ExpenditureSubTypes.CivilExpenditure,ExpenditureSubTypes.MainCivilExpenditure, ExpenditureSubTypes.ElectricalExpenditure,
                 ExpenditureSubTypes.TransmissionExpenditure
@@ -49,27 +46,27 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public static class AdvanceSubTypes
         {
-            public const string MaterialAdvance =  "MATERIAL_ADVANCE";
-            public const string EmployeeAdvance =  "EMPLOYEE_ADVANCE";
+            public const string MaterialAdvance = "MATERIAL_ADVANCE";
+            public const string EmployeeAdvance = "EMPLOYEE_ADVANCE";
             public const string EstablishmentPartyAdvance = "ESTB_PARTY_ADVANCE";
-            public const string CivilPartyAdance =  "CIVIL_PARTY_ADVANCE";
-            public const string ElectricalPartyAdvance =  "ELEC_PARTY_ADVANCE";
+            public const string CivilPartyAdance = "CIVIL_PARTY_ADVANCE";
+            public const string ElectricalPartyAdvance = "ELEC_PARTY_ADVANCE";
             public const string TransmissionPartyAdance = "TRAN_PARTY_ADVANCE";
 
         }
         public readonly static IEnumerable<string> PartyAdvances = new[] { 
             AdvanceSubTypes.EstablishmentPartyAdvance, AdvanceSubTypes.CivilPartyAdance, AdvanceSubTypes.ElectricalPartyAdvance, AdvanceSubTypes.TransmissionPartyAdance };
 
-        public readonly static IEnumerable<string> JobAdvances = new[] {AdvanceSubTypes.MaterialAdvance}.Concat(PartyAdvances);
+        public readonly static IEnumerable<string> JobAdvances = new[] { AdvanceSubTypes.MaterialAdvance }.Concat(PartyAdvances);
 
-        public readonly static IEnumerable<string> AllAdvances = new[] {AdvanceSubTypes.EmployeeAdvance}.Concat(JobAdvances);
+        public readonly static IEnumerable<string> AllAdvances = new[] { AdvanceSubTypes.EmployeeAdvance }.Concat(JobAdvances);
 
 
         public static class TaxSubTypes
         {
-            public const string GreenTax =  "GREEN_TAX";
-            public const string BhutanIncomeTax =  "BIT";
-            public const string ServiceTax =  "SVCTAX" ;
+            public const string GreenTax = "GREEN_TAX";
+            public const string BhutanIncomeTax = "BIT";
+            public const string ServiceTax = "SVCTAX";
             public const string BhutanSalesTax = "BST";
         }
 
@@ -82,33 +79,33 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public static class GrantSubType
         {
-            public const string GrantNu =  "GRANT_RECEIVED_GOINU";
+            public const string GrantNu = "GRANT_RECEIVED_GOINU";
             public const string GrantFe = "GRANT_RECEIVED_GOIFE";
         }
 
-        public readonly static IEnumerable<string> Grants = new[] {GrantSubType.GrantNu, GrantSubType.GrantFe};
+        public readonly static IEnumerable<string> Grants = new[] { GrantSubType.GrantNu, GrantSubType.GrantFe };
 
         public static class LoanSubType
         {
-            public const string LoanNu = "LOAN_RECEIVED_GOINU" ;
-            public const string LoanFe =  "LOAN_RECEIVED_GOIFE";
+            public const string LoanNu = "LOAN_RECEIVED_GOINU";
+            public const string LoanFe = "LOAN_RECEIVED_GOIFE";
         }
 
-        public readonly static IEnumerable<string> AllLoans = new[] {LoanSubType.LoanNu, LoanSubType.LoanFe};
+        public readonly static IEnumerable<string> AllLoans = new[] { LoanSubType.LoanNu, LoanSubType.LoanFe };
 
 
         public static class ReceiptSubType
         {
-            public const string InterestReceipt =  "INTEREST" ;
-            public const string AccumulatedReceipt =  "ACCUMULATED_RECEIPTS";
-            public const string TenderSale =  "TENDER_SALE" ;
+            public const string InterestReceipt = "INTEREST";
+            public const string AccumulatedReceipt = "ACCUMULATED_RECEIPTS";
+            public const string TenderSale = "TENDER_SALE";
         }
 
         public static class CashSubTypes
         {
-            public const string CashInBankNu =  "BANKNU";
-            public const string CashInBankFe =  "BANKFE" ;
-            public const string CashInHand =  "CASH";
+            public const string CashInBankNu = "BANKNU";
+            public const string CashInBankFe = "BANKFE";
+            public const string CashInHand = "CASH";
             public const string Investment = "INVESTMENT";
         }
 
@@ -116,8 +113,8 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public static class ExciseDutySubTypes
         {
-            public const string ExciseDutyGOI =  "EDGOI";
-            public const string ExciseDutyRGOB =  "EDRGOB" ;
+            public const string ExciseDutyGOI = "EDGOI";
+            public const string ExciseDutyRGOB = "EDRGOB";
         }
 
         public readonly static IEnumerable<string> AllExciseDuties = new[] { ExciseDutySubTypes.ExciseDutyGOI, ExciseDutySubTypes.ExciseDutyRGOB };
@@ -132,9 +129,18 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public static class DepositSubTypes
         {
-            public const string EarnestMoneyDeposit =  "EMD";
-            public const string SecurityDeposit =  "SD";
+            public const string EarnestMoneyDeposit = "EMD";
+            public const string SecurityDeposit = "SD";
         }
+
+        /// <summary>
+        /// Used by Fund position report
+        /// </summary>
+        public readonly static IEnumerable<string> CivilExpenditures = new[] { 
+                ExpenditureSubTypes.CivilTourExpenditure, ExpenditureSubTypes.CivilExpenditure, ExpenditureSubTypes.MainCivilExpenditure,                   
+                ExciseDutySubTypes.ExciseDutyGOI, AdvanceSubTypes.MaterialAdvance, AdvanceSubTypes.CivilPartyAdance, TaxSubTypes.GreenTax,
+                TaxSubTypes.BhutanSalesTax
+            }.Concat(StockSuspense);
 
     }
 }

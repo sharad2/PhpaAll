@@ -165,13 +165,14 @@ namespace Finance.Reports
                     SetAdditiveLabelProperties(lblEstablishExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
                     SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
                 }
+                //else if (HeadOfAccountHelpers.CivilExpenditures
+                //            .Concat(HeadOfAccountHelpers.StockSuspense)
+                //            .Concat(new[] { HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyGOI })
+                //            .Contains(grp.RoAccountType.HeadOfAccountType) || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance ||
+                //    grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.CivilPartyAdance || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.GreenTax ||
+                //    grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
                 // VII b) Calculating expenditure for Civil works (200 Heads).
-                else if (HeadOfAccountHelpers.CivilExpenditures
-                            .Concat(HeadOfAccountHelpers.StockSuspense)
-                            .Concat(new[] { HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyGOI })
-                            .Contains(grp.RoAccountType.HeadOfAccountType) || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance ||
-                    grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.CivilPartyAdance || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.GreenTax ||
-                    grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.BhutanSalesTax)
+                else if (HeadOfAccountHelpers.CivilExpenditures.Contains(grp.RoAccountType.HeadOfAccountType))
                 {
                     SetAdditiveHyperLinkProperties(hplnkCivilExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkCivilExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
