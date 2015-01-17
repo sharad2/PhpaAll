@@ -76,6 +76,191 @@
             Action="Submit" IsDefault="true" />
     </eclipse:TwoColumnPanel>
     <i:ValidationSummary ID="ValidationSummary1" runat="server" />
+
+    <asp:FormView runat="server" ItemType="Finance.Reports.FundPositionReportData" SelectMethod="Unnamed_GetItem">
+        <ItemTemplate>
+            <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
+                <caption style="text-align: right; font-weight: bold; font-size: 1.2em">All Figures in Million Rs/Nu</caption>
+                <thead class="ui-state-default">
+                    <tr class="RowHeader">
+                        <th align="center" rowspan="3" width="50px"><strong>I</strong></th>
+                        <th align="center" rowspan="3" class="RowHeader" width="450px">Receipts(1)
+                        </th>
+                        <th align="center" rowspan="3" width="150px">Upto Previous Year(2)
+                        </th>
+                        <th align="center" rowspan="3" width="150px">Current Year(3)
+                        </th>
+                        <th align="center" rowspan="3" width="200px">Total Cumulative(4)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="AlternatingRow">
+                        <td></td>
+                        <td>Funds Received From GOI (Grant) Rs./NU.
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:HyperLink runat="server"
+                                ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOIGrantNuHeads, Item.DateTo) %>'
+                                EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantNuUpToPrev) %>' />
+                        </td>
+
+                        <td class="vd-amountcol">
+                            <asp:HyperLink runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency from financial year start till input month"
+                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOIGrantNuHeads, Item.DateTo) %>'
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantNuCurr) %>' />
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:Literal runat="server"  EnableViewState="false" 
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantNuCum) %>'
+                                />
+                        </td>
+                    </tr>
+                    <tr class="AlternatingRow">
+                        <td></td>
+                        <td>Funds Received From GOI (Grant) F.E.
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:HyperLink ID="hplnkGOIAidFEPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
+                                NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=GRANT_RECEIVED_GOIFE&DateTo={3:d}"
+                                EnableViewState="false" />
+                        </td>
+
+                        <td class="vd-amountcol">
+                            <asp:HyperLink ID="hplnkGOIAidFEUptoMonth" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency from financial year start till input month"
+                                EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=GRANT_RECEIVED_GOIFE&DateFrom={0:d}&DateTo={2:d}" />
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="lblGOIAidFEsum" runat="server" ToolTip="Funds Received from Government of India in local currency till date" EnableViewState="false" />
+                        </td>
+                    </tr>
+                    <tr class="AlternatingRow">
+                        <td></td>
+                        <td>Funds Received From GOI (Loan) Rs. / Nu.
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:HyperLink ID="hplnkGOILoanPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
+                                NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=LOAN_RECEIVED_GOINU&DateTo={3:d}"
+                                EnableViewState="false" />
+                        </td>
+
+                        <td class="vd-amountcol">
+                            <asp:HyperLink ID="hplnkGOILoanUptoMonth" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency from financial year start till input month"
+                                EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=LOAN_RECEIVED_GOINU&DateFrom={0:d}&DateTo={2:d}" />
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="lblGOILoansum" runat="server" ToolTip="Funds Received from Government of India in local currency till date" EnableViewState="false" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Funds Received From GOI (Loan) F.E.
+                        </td>
+                        <td class="vd-amountcol">
+
+                            <asp:HyperLink ID="hplnkGOILoanFEPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in Foreign Exchange prior to Financial Year"
+                                EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=LOAN_RECEIVED_GOIFE&DateTo={3:d}" />
+                        </td>
+
+                        <td class="vd-amountcol">
+
+                            <asp:HyperLink ID="hplnkGOILoanFEUptoMonth" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in Foreign Exchange from financial year start till input month"
+                                EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=LOAN_RECEIVED_GOIFE&DateFrom={0:d}&DateTo={2:d}" />
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="lblGOILoanFEsum" runat="server" ToolTip="Funds received from Government of India in Foreign Exchange till date"
+                                EnableViewState="false" />
+                        </td>
+                    </tr>
+                    <tr class="RowHeader">
+                        <td align="center"><strong>II</strong></td>
+                        <td align="right">Total Fund GOI
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="lblFundReceivedPreviousYear" runat="server" EnableViewState="false"
+                                OnPreRender="lbl_PreRenderShowSum" SumType="FundReceivedPreviousYear" />
+                        </td>
+
+                        <td class="vd-amountcol">
+                            <asp:Label ID="lblFundRecievedUpToMonth" runat="server" EnableViewState="false" SumType="FundReceivedUptoMonth"
+                                OnPreRender="lbl_PreRenderShowSum" />
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="lblFundRecievedSum" runat="server" EnableViewState="false" SumType="FundSum"
+                                OnPreRender="lbl_PreRenderShowSum" />
+                        </td>
+                    </tr>
+                    <tr class="RowHeader">
+                        <td align="center"><strong>III</strong></td>
+                        <td title="TOTAL FUND GOI">
+                            <span>Other Receipts:Ineterst,Sale of Tender,EMD,SD,other receipts etc</span>
+                        </td>
+                        <td class="vd-amountcol">
+
+                            <asp:HyperLink ID="hplnkReceiptsPreviousYear" runat="server" ToolTip="Click to list voucher entries for Interest received prior to Financial Year"
+                                EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=INTEREST&DateTo={3:d}" />
+                        </td>
+
+                        <td class="vd-amountcol">
+
+                            <asp:HyperLink ID="hplnkReceiptsUptoMonth" runat="server" ToolTip="Click to list voucher entries for Interest received from financial year start till input month"
+                                EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=INTEREST&DateFrom={0:d}&DateTo={2:d}" />
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="lblReceiptssum" runat="server" ToolTip="Interest received till date"
+                                EnableViewState="false" />
+                        </td>
+                    </tr>
+                    <tr class="RowHeader">
+                        <td align="center"><strong>IV</strong></td>
+                        <td align="right">Total(II+III)
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="lblReceiptsPreviousYear" runat="server" EnableViewState="false" OnPreRender="lbl_PreRenderShowSum"
+                                SumType="ReceiptsPreviousYear" />
+                        </td>
+
+                        <td class="vd-amountcol">
+                            <asp:Label ID="lblReceiptsUptoMonth" runat="server" EnableViewState="false" OnPreRender="lbl_PreRenderShowSum"
+                                SumType="ReceiptsUptoMonth" />
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="Label1" runat="server" EnableViewState="false" OnPreRender="lbl_PreRenderShowSum"
+                                SumType="ReceiptsSum" />
+                        </td>
+                    </tr>
+                    <tr class="RowHeader">
+                        <td align="center"><strong>V</strong></td>
+                        <td align="right">Expenditure
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="lblExpenditurePreviousYear" runat="server" EnableViewState="false"
+                                OnPreRender="lbl_PreRenderShowSum" SumType="PaymentsPreviousYear" />
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="lblExpenditureUpToMonth" runat="server" EnableViewState="false"
+                                OnPreRender="lbl_PreRenderShowSum" SumType="PaymentsUptoMonth" />
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="lblTotalExpenditure" runat="server" EnableViewState="false"
+                                OnPreRender="lbl_PreRenderShowSum" SumType="PaymentsSum" />
+                        </td>
+                    </tr>
+                    <tr class="RowHeader ui-state-active ui-widget-header">
+                        <td align="center"><strong>VI</strong></td>
+                        <td align="right"><b>BALANCE FUND(IV-V)</b></td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="lblbalancefundprevious" runat="server" EnableViewState="False" OnPreRender="lblbalance_prerender" />
+                        </td>
+                        <td></td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="lblbalancefundcumulative" runat="server" EnableViewState="False" OnPreRender="lblbalancefundcumulative_prerender" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </ItemTemplate>
+    </asp:FormView>
     <br />
     <br />
     <br />
@@ -403,8 +588,7 @@
     <br />
     <br />
     <div id="divdiff" runat="server">
-        <table rules="all" cellpadding="4mm" class="MainTable" width="1000px"
-            >
+        <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
             <thead class="ui-state-default">
                 <tr class="RowHeader">
                     <th align="center"><strong>Name of the receipts</strong></th>
@@ -412,34 +596,36 @@
                 </tr>
             </thead>
             <tbody>
-            <tr class="AlternatingRow">
-                <td>
-                    <asp:Label ID="lbltotfund" runat="server" Text="Total Fund Received from GOI"></asp:Label></td>
-                <td class="vd-amountcol">
-                    <asp:Label ID="Label2" runat="server"
-                        EnableViewState="false" SumType="FundSum"
-                        OnPreRender="lbl_PreRenderShowSum" /></td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="lblexp" runat="server"
-                        Text="Total Expenditure"></asp:Label></td>
-                <td class="vd-amountcol">
-                    <asp:Label ID="Label3" runat="server"
-                        EnableViewState="false"
-                        OnPreRender="lbl_PreRenderShowSum"
-                        SumType="PaymentsSum" /></td>
-            </tr></tbody>
+                <tr class="AlternatingRow">
+                    <td>
+                        <asp:Label ID="lbltotfund" runat="server" Text="Total Fund Received from GOI"></asp:Label></td>
+                    <td class="vd-amountcol">
+                        <asp:Label ID="Label2" runat="server"
+                            EnableViewState="false" SumType="FundSum"
+                            OnPreRender="lbl_PreRenderShowSum" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblexp" runat="server"
+                            Text="Total Expenditure"></asp:Label></td>
+                    <td class="vd-amountcol">
+                        <asp:Label ID="Label3" runat="server"
+                            EnableViewState="false"
+                            OnPreRender="lbl_PreRenderShowSum"
+                            SumType="PaymentsSum" /></td>
+                </tr>
+            </tbody>
             <tfoot>
-            <tr class="RowHeader ui-state-active ui-widget-header">
-                <td align="right"><b>
-                    <asp:Label ID="lbldiff" runat="server"
-                        Text="Balance Fund"></asp:Label></b></td>
-                <td class="vd-amountcol">
-                    <asp:Label ID="lblDifference" runat="server"
-                        EnableViewState="false"
-                        OnPreRender="lblDifference_PreRender" /></td>
-            </tr></tfoot>
+                <tr class="RowHeader ui-state-active ui-widget-header">
+                    <td align="right"><b>
+                        <asp:Label ID="lbldiff" runat="server"
+                            Text="Balance Fund"></asp:Label></b></td>
+                    <td class="vd-amountcol">
+                        <asp:Label ID="lblDifference" runat="server"
+                            EnableViewState="false"
+                            OnPreRender="lblDifference_PreRender" /></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </asp:Content>

@@ -20,6 +20,21 @@ using Eclipse.PhpaLibrary.Web;
 
 namespace Finance.Reports
 {
+    public class FundPositionReportData
+    {
+        public DateTime DateTo { get; set; }
+
+        public decimal? FundsReceivedGOIGrantNuUpToPrev { get; set; }
+
+        public decimal? FundsReceivedGOIGrantNuCurr { get; set; }
+
+        public decimal FundsReceivedGOIGrantNuCum { get; set; }
+
+        public string FundsReceivedGOIGrantNuHeads { get; set; }
+
+
+    }
+
     public partial class FundPositionReport : PageBase
     {
         //private ReportingDataContext m_db;
@@ -89,8 +104,9 @@ namespace Finance.Reports
             var query = (from vd in db.RoVoucherDetails
                          where  vd.HeadOfAccount.HeadOfAccountId != null
                                 && vd.HeadOfAccount.RoAccountType != null
-                                && !HeadOfAccountHelpers.FundTransit.Concat(HeadOfAccountHelpers.AllBanks).Contains(vd.HeadOfAccount.RoAccountType.HeadOfAccountType)
-                                && vd.HeadOfAccount.RoAccountType.HeadOfAccountType != HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyRGOB
+                                && !HeadOfAccountHelpers.FundTransit.Concat(HeadOfAccountHelpers.AllBanks)
+                                 .Concat(new[] { HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyRGOB, HeadOfAccountHelpers.CashSubTypes.CashInHand })
+                                 .Contains(vd.HeadOfAccount.RoAccountType.HeadOfAccountType)
                          group vd by vd.HeadOfAccount.RoAccountType into g
                          select new
                          {
@@ -563,6 +579,46 @@ namespace Finance.Reports
                 return amount.Value.ToString(MONEY_FORMAT_SPECIFIER);
             }
             return string.Empty;
+        }
+
+        // The id parameter should match the DataKeyNames value set on the control
+        // or be decorated with a value provider attribute, e.g. [QueryString]int id
+        public FundPositionReportData Unnamed_GetItem(int? id)
+        {
+
+            var db = (ReportingDataContext)dsQueries.Database;
+
+            //Getting sum of amount ahainst headofaccount type
+            var query = (from vd in db.RoVoucherDetails
+                         where vd.HeadOfAccount.HeadOfAccountId != null
+                                && vd.HeadOfAccount.RoAccountType != null
+                                && (vd.DebitAmount.HasValue || vd.CreditAmount.HasValue)
+                                && vd.RoVoucher.VoucherDate <= m_dtPassed
+                                && !HeadOfAccountHelpers.FundTransit.Concat(HeadOfAccountHelpers.AllBanks)
+                                 .Concat(new[] { HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyRGOB, HeadOfAccountHelpers.CashSubTypes.CashInHand })
+                                 .Contains(vd.HeadOfAccount.RoAccountType.HeadOfAccountType)
+                         group vd by 1 into g
+                         // I - a
+                         let fundsReceivedGOIGrantNuHeads = HeadOfAccountHelpers.GrantSubType.GrantNu
+                         let fundsReceivedGOIGrantNuUpToPrev = g.Where(p => p.HeadOfAccount.HeadOfAccountType == fundsReceivedGOIGrantNuHeads && p.RoVoucher.VoucherDate <= m_dtPreviousYear)
+                                                        .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
+                         let fundsReceivedGOIGrantNuCurr = g.Where(p => p.HeadOfAccount.HeadOfAccountType == fundsReceivedGOIGrantNuHeads && p.RoVoucher.VoucherDate > m_dtPreviousYear)
+                                                        .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
+                         select new FundPositionReportData
+                         {
+                             DateTo = m_dtPassed,
+                             // I - a
+                             FundsReceivedGOIGrantNuUpToPrev = fundsReceivedGOIGrantNuUpToPrev,
+                             FundsReceivedGOIGrantNuCurr = fundsReceivedGOIGrantNuCurr,
+                             FundsReceivedGOIGrantNuCum = fundsReceivedGOIGrantNuUpToPrev + fundsReceivedGOIGrantNuCurr,
+                             FundsReceivedGOIGrantNuHeads = fundsReceivedGOIGrantNuHeads
+                             //RoAccountType = g.Key,
+                             //PreviousYearSum = g.Sum(hoa => hoa.RoVoucher.VoucherDate < m_dtPreviousYear ? (hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0) : 0),
+                             //ForMonthSum = g.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtPassed ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0),
+                             //UptoMonthSum = g.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0)
+                         });
+            //throw new NotImplementedException();
+            return query.FirstOrDefault();
         }
 
     }
