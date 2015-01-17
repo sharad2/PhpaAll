@@ -144,16 +144,18 @@
                         </td>
                         <td class="vd-amountcol">
                             <asp:HyperLink ID="hplnkGOILoanPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
-                                NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=LOAN_RECEIVED_GOINU&DateTo={3:d}"
-                                EnableViewState="false" />
+                               NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOILoanNuHeads, Item.DateTo) %>'
+                                EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOILoanNuUpToPrev) %>'/>
                         </td>
 
                         <td class="vd-amountcol">
                             <asp:HyperLink ID="hplnkGOILoanUptoMonth" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency from financial year start till input month"
-                                EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=LOAN_RECEIVED_GOINU&DateFrom={0:d}&DateTo={2:d}" />
+                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.FundsReceivedGOILoanNuHeads, Item.DateFrom, Item.DateTo) %>' 
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOILoanNuCurr) %>'/>
                         </td>
                         <td class="vd-amountcol">
-                            <asp:Label ID="lblGOILoansum" runat="server" ToolTip="Funds Received from Government of India in local currency till date" EnableViewState="false" />
+                            <asp:Label ID="lblGOILoansum" runat="server" ToolTip="Funds Received from Government of India in local currency till date" EnableViewState="false"
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOILoanNuCum) %>' />
                         </td>
                     </tr>
                     <tr>

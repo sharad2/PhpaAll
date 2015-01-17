@@ -46,6 +46,16 @@ namespace Finance.Reports
 
         public string FundsReceivedGOIGrantFeHeads { get; set; }
 
+        /// <summary>
+        /// I - c
+        /// </summary>
+        public decimal? FundsReceivedGOILoanNuUpToPrev { get; set; }
+
+        public decimal? FundsReceivedGOILoanNuCurr { get; set; }
+
+        public decimal? FundsReceivedGOILoanNuCum { get; set; }
+
+        public string FundsReceivedGOILoanNuHeads { get; set; }
 
         public DateTime DateFrom { get; set; }
     }
@@ -632,6 +642,13 @@ namespace Finance.Reports
                          let fundsReceivedGOIGrantFeCurr = currYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == fundsReceivedGOIGrantFeHeads)
                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
 
+                         // I - c
+                         let fundsReceivedGOILoanNuHeads = HeadOfAccountHelpers.LoanSubType.LoanNu
+                         let fundsReceivedGOILoanNuUpToPrev = prevYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == fundsReceivedGOILoanNuHeads)
+                                                        .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
+                         let fundsReceivedGOILoanNuCurr = currYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == fundsReceivedGOILoanNuHeads)
+                                                        .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
+
                          select new FundPositionReportData
                          {
                              DateFrom = m_dtPreviousYear,
@@ -645,7 +662,14 @@ namespace Finance.Reports
                              //I - b
                              FundsReceivedGOIGrantFeUpToPrev = fundsReceivedGOIGrantFeUpToPrev,
                              FundsReceivedGOIGrantFeCurr = fundsReceivedGOIGrantFeCurr,
-                             FundsReceivedGOIGrantFeCum = fundsReceivedGOIGrantFeUpToPrev + fundsReceivedGOIGrantFeCurr
+                             FundsReceivedGOIGrantFeCum = fundsReceivedGOIGrantFeUpToPrev + fundsReceivedGOIGrantFeCurr,
+                             FundsReceivedGOIGrantFeHeads = fundsReceivedGOIGrantFeHeads,
+
+                             // I - c
+                             FundsReceivedGOILoanNuUpToPrev = fundsReceivedGOILoanNuUpToPrev,
+                             FundsReceivedGOILoanNuCurr = fundsReceivedGOILoanNuCurr,
+                             FundsReceivedGOILoanNuCum = fundsReceivedGOILoanNuUpToPrev + fundsReceivedGOILoanNuCurr,
+                             FundsReceivedGOILoanNuHeads = fundsReceivedGOILoanNuHeads,
                          });
             //throw new NotImplementedException();
             return query.FirstOrDefault();
