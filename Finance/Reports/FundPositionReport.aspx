@@ -165,17 +165,21 @@
                         <td class="vd-amountcol">
 
                             <asp:HyperLink ID="hplnkGOILoanFEPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in Foreign Exchange prior to Financial Year"
-                                EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=LOAN_RECEIVED_GOIFE&DateTo={3:d}" />
+                                EnableViewState="false" 
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOILoanFeHeads, Item.DateTo) %>' 
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOILoanFeUpToPrev) %>'/>
                         </td>
 
                         <td class="vd-amountcol">
 
                             <asp:HyperLink ID="hplnkGOILoanFEUptoMonth" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in Foreign Exchange from financial year start till input month"
-                                EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=LOAN_RECEIVED_GOIFE&DateFrom={0:d}&DateTo={2:d}" />
+                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.FundsReceivedGOILoanFeHeads, Item.DateFrom, Item.DateTo) %>' 
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOILoanFeCurr) %>'/>
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblGOILoanFEsum" runat="server" ToolTip="Funds received from Government of India in Foreign Exchange till date"
-                                EnableViewState="false" />
+                                EnableViewState="false" 
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOILoanFeCum) %>'/>
                         </td>
                     </tr>
                     <tr class="RowHeader">
@@ -184,14 +188,17 @@
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblFundReceivedPreviousYear" runat="server" EnableViewState="false"
-                                SumType="FundReceivedPreviousYear" />
+                                SumType="FundReceivedPreviousYear" 
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedGOITotalUpToPrev) %>'/>
                         </td>
 
                         <td class="vd-amountcol">
-                            <asp:Label ID="lblFundRecievedUpToMonth" runat="server" EnableViewState="false" SumType="FundReceivedUptoMonth" />
+                            <asp:Label ID="lblFundRecievedUpToMonth" runat="server" EnableViewState="false" SumType="FundReceivedUptoMonth" 
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedGOITotalCurr) %>' />
                         </td>
                         <td class="vd-amountcol">
-                            <asp:Label ID="lblFundRecievedSum" runat="server" EnableViewState="false" SumType="FundSum" />
+                            <asp:Label ID="lblFundRecievedSum" runat="server" EnableViewState="false" SumType="FundSum" 
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedGOITotalCum) %>' />
                         </td>
                     </tr>
                     <tr class="RowHeader">
@@ -202,17 +209,21 @@
                         <td class="vd-amountcol">
 
                             <asp:HyperLink ID="hplnkReceiptsPreviousYear" runat="server" ToolTip="Click to list voucher entries for Interest received prior to Financial Year"
-                                EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=INTEREST&DateTo={3:d}" />
+                                EnableViewState="false" 
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}", Item.FundReceivedOtherHeads, Item.DateFrom, Item.DateTo) %>' 
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedOtherUpToPrev) %>'/>
                         </td>
 
                         <td class="vd-amountcol">
 
                             <asp:HyperLink ID="hplnkReceiptsUptoMonth" runat="server" ToolTip="Click to list voucher entries for Interest received from financial year start till input month"
-                                EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=INTEREST&DateFrom={0:d}&DateTo={2:d}" />
+                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.FundReceivedOtherHeads, Item.DateFrom, Item.DateTo) %>' 
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedOtherCurr) %>'/>
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblReceiptssum" runat="server" ToolTip="Interest received till date"
-                                EnableViewState="false" />
+                                EnableViewState="false" 
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedOtherCum) %>'/>
                         </td>
                     </tr>
                     <tr class="RowHeader">
@@ -221,16 +232,18 @@
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblReceiptsPreviousYear" runat="server" EnableViewState="false"
-                                SumType="ReceiptsPreviousYear" />
+                                SumType="ReceiptsPreviousYear" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedOtherAndGOITotalUpToPrev) %>' />
                         </td>
 
                         <td class="vd-amountcol">
                             <asp:Label ID="lblReceiptsUptoMonth" runat="server" EnableViewState="false"
-                                SumType="ReceiptsUptoMonth" />
+                                SumType="ReceiptsUptoMonth" 
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedOtherAndGOITotalCurr) %>'/>
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="Label1" runat="server" EnableViewState="false"
-                                SumType="ReceiptsSum" />
+                                SumType="ReceiptsSum"
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedOtherAndGOITotalCum) %>' />
                         </td>
                     </tr>
                     <tr class="RowHeader">
@@ -262,6 +275,7 @@
                     </tr>
                 </tbody>
             </table>
+
         </ItemTemplate>
     </asp:FormView>
     <br />
