@@ -31,5 +31,10 @@ namespace Finance.Finance
 
         }
 
+        protected void btnNewFiscalYear_Click(object sender, EventArgs e)
+        {
+            gvFiscalYear.InsertRowsCount = 1;
+        }
+
     }
 }
