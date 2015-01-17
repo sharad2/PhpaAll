@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace Finance.Finance
 {
-    public partial class CloseFinancialYear : PageBase
+    public partial class ManageFinancialYears : PageBase
     {
         protected void dsFiscalYear_Selecting(object sender, System.Web.UI.WebControls.LinqDataSourceSelectEventArgs e)
         {
@@ -34,6 +34,16 @@ namespace Finance.Finance
         protected void btnNewFiscalYear_Click(object sender, EventArgs e)
         {
             gvFiscalYear.InsertRowsCount = 1;
+        }
+
+        protected void gvFiscalYear_RowInserting(object sender, GridViewInsertingEventArgs e)
+        {
+            GridViewExInsert gv = (GridViewExInsert)sender;
+            GridViewRow row = gv.Rows[e.RowIndex];
+            TextBoxEx tbFYStartDate = (TextBoxEx)row.FindControl("tbFYStartDate");
+            TextBoxEx tbFreeze = (TextBoxEx)row.FindControl("tbFreeze");
+            DateTime fiscalYear = Convert.ToDateTime(tbFYStartDate.Value);
+            e.Values["Name"] = fiscalYear.Year.ToString(); 
         }
 
     }

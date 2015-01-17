@@ -1,16 +1,16 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="CloseFinancialYear.aspx.cs"
-    Inherits="Finance.Finance.CloseFinancialYear" EnableEventValidation="true" Title="Close Financial Year" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="ManageFinancialYears.aspx.cs"
+    Inherits="Finance.Finance.ManageFinancialYears" EnableEventValidation="true" Title="Manage Financial Year" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
 <asp:Content ID="C4" ContentPlaceHolderID="cph" runat="server">
     <br />
-    <i:ButtonEx ID="btnNewFiscalYear" runat="server" Text="Enter New Fiscal Year" OnClick="btnNewFiscalYear_Click"
+    <i:ButtonEx ID="btnNewFiscalYear" runat="server" Text="Create New Financial Year" OnClick="btnNewFiscalYear_Click"
         Action="Submit" Icon="PlusThick" />
     <phpa:PhpaLinqDataSource ID="dsFiscalYear" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FiscalDataContext"
         TableName="FinancialYears" RenderLogVisible="False"
-        EnableUpdate="true" EnableDelete="true" EnableInsert="true">
+        EnableUpdate="true" EnableInsert="true">
         <UpdateParameters>
             <asp:Parameter Name="Name" Type="String" />
             <asp:Parameter Name="StartDate" Type="DateTime" />
@@ -26,17 +26,17 @@
     </phpa:PhpaLinqDataSource>
     <i:ValidationSummary ID="valSummary" runat="server" />
     <jquery:GridViewExInsert ID="gvFiscalYear" runat="server" AutoGenerateColumns="False"
-        InsertRowsAtBottom="false" InsertRowsCount="0"
+        InsertRowsAtBottom="false" InsertRowsCount="0" OnRowInserting="gvFiscalYear_RowInserting"
         DataKeyNames="YearId" DataSourceID="dsFiscalYear" AllowSorting="True" EnableViewState="true"
-        Style="margin-top: 2px" Caption="List of Fiscal Years">
+        Style="margin-top: 2px" Caption="List of Financial Years">
         <Columns>
-            <jquery:CommandFieldEx ShowDeleteButton="true" DeleteConfirmationText="Do you really want to delete this fiscal year?"
-                DataFields="Freeze">
-            </jquery:CommandFieldEx>
+            <jquery:CommandFieldEx></jquery:CommandFieldEx>
             <eclipse:SequenceField />
+            <eclipse:MultiBoundField DataFields="Name" HeaderText="Financial Year" SortExpression="Name" ItemStyle-HorizontalAlign="Left">
+            </eclipse:MultiBoundField>
             <eclipse:MultiBoundField DataFields="StartDate" HeaderText="Starts On" SortExpression="StartDate" DataFormatString="{0:d}">
                 <EditItemTemplate>
-                    <i:TextBoxEx runat="server" ID="tbYearStartDate" Text='<%# Bind("StartDate") %>' FriendlyName="Fiscal year start date">
+                    <i:TextBoxEx runat="server" ID="tbFYStartDate" Text='<%# Bind("StartDate", "{0:d}") %>' FriendlyName="Fiscal Year Start Date">
                         <Validators>
                             <i:Required />
                             <i:Date />
@@ -46,27 +46,15 @@
             </eclipse:MultiBoundField>
             <eclipse:MultiBoundField DataFields="EndDate" HeaderText="Ends On" SortExpression="EndDate" DataFormatString="{0:d}">
                 <EditItemTemplate>
-                    <i:TextBoxEx runat="server" ID="tbYearEndDate" Text='<%# Bind("EndDate") %>' FriendlyName="Fiscal year end date">
+                    <i:TextBoxEx runat="server" ID="tbFYEndDate" Text='<%# Bind("EndDate", "{0:d}") %>' FriendlyName="Fiscal Year End Date">
                         <Validators>
                             <i:Required />
-                            <i:Date />
+                            <i:Date DateType="ToDate" AssociatedControlID="tbFYStartDate" MaxRange="365" />
                         </Validators>
                     </i:TextBoxEx>
                 </EditItemTemplate>
             </eclipse:MultiBoundField>
-            <eclipse:MultiBoundField DataFields="Name" HeaderText="Year Name" SortExpression="Name"
-                ItemStyle-HorizontalAlign="Left">
-                <EditItemTemplate>
-                    <i:TextBoxEx runat="server" ID="tbYearName" Text='<%# Bind("Name") %>'>
-                        <Validators>
-                            <i:Value DependsOn="tbYearStartDate" />
-                            <i:Required />
-                        </Validators>
-                    </i:TextBoxEx>
-                </EditItemTemplate>
-            </eclipse:MultiBoundField>
-            <eclipse:MultiBoundField HeaderText="Close Year" DataFields="Freeze" SortExpression="Freeze"
-                ItemStyle-HorizontalAlign="Left">
+            <eclipse:MultiBoundField HeaderText="Closed" DataFields="Freeze" SortExpression="Freeze" ItemStyle-HorizontalAlign="Left">
                 <EditItemTemplate>
                     <i:TextBoxEx runat="server" ID="tbFreeze" FriendlyName="CloseYear" Size="1" CaseConversion="UpperCase"
                         MaxLength="1" Text='<%# Bind("Freeze") %>'>

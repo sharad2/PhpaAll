@@ -193,7 +193,7 @@
     <Content Include="Doc\TdsCertificate.doc.aspx" />
     <Content Include="Doc\TrialBalance.doc.aspx" />
     <Content Include="Doc\VoucherSearch.doc.aspx" />
-    <Content Include="Finance\CloseFinancialYear.aspx" />
+    <Content Include="Finance\ManageFinancialYears.aspx" />
     <Content Include="Finance\InsertVoucher.aspx" />
     <Content Include="Finance\InsertVoucher.js" />
     <Content Include="Finance\VoucherDetails.aspx" />
@@ -566,12 +566,12 @@
     <Compile Include="Doc\VoucherSearch.doc.aspx.designer.cs">
       <DependentUpon>VoucherSearch.doc.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Finance\CloseFinancialYear.aspx.cs">
-      <DependentUpon>CloseFinancialYear.aspx</DependentUpon>
+    <Compile Include="Finance\ManageFinancialYears.aspx.cs">
+      <DependentUpon>ManageFinancialYears.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Finance\CloseFinancialYear.aspx.designer.cs">
-      <DependentUpon>CloseFinancialYear.aspx</DependentUpon>
+    <Compile Include="Finance\ManageFinancialYears.aspx.designer.cs">
+      <DependentUpon>ManageFinancialYears.aspx</DependentUpon>
     </Compile>
     <Compile Include="Finance\InsertVoucher.aspx.cs">
       <DependentUpon>InsertVoucher.aspx</DependentUpon>

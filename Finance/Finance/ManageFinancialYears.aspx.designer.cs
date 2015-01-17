@@ -10,7 +10,7 @@
 namespace Finance.Finance {
     
     
-    public partial class CloseFinancialYear {
+    public partial class ManageFinancialYears {
         
         /// <summary>
         /// btnNewFiscalYear control.
