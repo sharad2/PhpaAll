@@ -113,9 +113,9 @@ namespace Eclipse.PhpaLibrary.Reporting
 
         public readonly static IEnumerable<string> AllExciseDuties = new[] { ExciseDutySubTypes.ExciseDutyGOI, ExciseDutySubTypes.ExciseDutyRGOB };
 
-        public readonly static IEnumerable<string> Assets = new string[] { "ASSETS" };
+        public const string AssetMiscellaneous = "ASSETS";
 
-        public readonly static IEnumerable<string> Liabilities = new string[] { "LIABILITY" };
+        public const string LiabilityMiscellaneous = "LIABILITY";
 
         public readonly static IEnumerable<string> StockSuspense = new string[] { "STOCK_SUSPENSE" };
 
@@ -140,8 +140,8 @@ namespace Eclipse.PhpaLibrary.Reporting
         };
 
         public readonly static IEnumerable<string> OtherFundReceipts = new[] {TaxSubTypes.BhutanIncomeTax, ReceiptSubType.InterestReceipt, ReceiptSubType.TenderSale,
-                    DepositSubTypes.EarnestMoneyDeposit, DepositSubTypes.SecurityDeposit}
-                    .Concat(SalaryRemittances);
+                    DepositSubTypes.EarnestMoneyDeposit, DepositSubTypes.SecurityDeposit, ReceiptSubType.AccumulatedReceipt, AssetMiscellaneous,
+                    LiabilityMiscellaneous}.Concat(SalaryRemittances);
 
         public readonly static IEnumerable<string> ElectricalExpenditures = new[] { ExpenditureSubTypes.ElectricalExpenditure, ExpenditureSubTypes.ElectricalTourExpenditure,
             AdvanceSubTypes.ElectricalPartyAdvance
@@ -152,5 +152,36 @@ namespace Eclipse.PhpaLibrary.Reporting
         };
         #endregion
 
+        //Category "R"
+        //ACCUMULATED_RECEIPTS,
+        //INTEREST --x,
+        //TENDER_SALE --x
+
+        //Category A
+        //ASSETS,
+        //BST --x,
+        //CIVIL_PARTY_ADVANCE --x,
+        //EDGOI --x,
+        //EDRGOB --x,
+        //ELEC_PARTY_ADVANCE --x,
+        //EMPLOYEE_ADVANCE --x,
+        //ESTB_PARTY_ADVANCE --x,
+        //FUNDS_TRANSIT --x,
+        //MATERIAL_ADVANCE --x,
+        //PARTY_ADVANCE,
+        //STOCK_SUSPENSE --x,
+        //SVCTAX --x,
+        //TRAN_PARTY_ADVANCE --x
+
+        //Category "L"
+        //BIT -- x,
+        //EMD --x,
+        //GRANT_RECEIVED_GOIFE -- x,
+        //GRANT_RECEIVED_GOINU -- x,
+        //LIABILITY,
+        //LOAN_RECEIVED_GOIFE -- x,
+        //LOAN_RECEIVED_GOINU -- x,
+        //SALARY_REMITANCES --x,
+        //SD --x
     }
 }

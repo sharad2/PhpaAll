@@ -89,7 +89,7 @@ namespace Finance.Reports
             var query = (from vd in db.RoVoucherDetails
                          where  vd.HeadOfAccount.HeadOfAccountId != null
                                 && vd.HeadOfAccount.RoAccountType != null
-                                && !HeadOfAccountHelpers.FundTransit.Contains(vd.HeadOfAccount.RoAccountType.HeadOfAccountType)
+                                && !HeadOfAccountHelpers.FundTransit.Concat(HeadOfAccountHelpers.AllBanks).Contains(vd.HeadOfAccount.RoAccountType.HeadOfAccountType)
                                 && vd.HeadOfAccount.RoAccountType.HeadOfAccountType != HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyRGOB
                          group vd by vd.HeadOfAccount.RoAccountType into g
                          select new
@@ -189,13 +189,11 @@ namespace Finance.Reports
                 }
                 else
                 {
-                    if (grp.RoAccountType.Category == "R" || grp.RoAccountType.Category == "A" || grp.RoAccountType.Category == "L")
-                    {
-                        SetAdditiveHyperLinkProperties(hplnkReceiptsPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
-                        SetAdditiveHyperLinkProperties(hplnkReceiptsUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
-                        SetAdditiveLabelProperties(lblReceiptssum, grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum, SumType.ReceiptsSum);
-                    }
+#if DEBUG
+                    throw new NotImplementedException(string.Format("Optimize the query and exclude head type {0}", grp.RoAccountType.HeadOfAccountType));
+#endif
                 }
+
             }
 
             // Update hyperlink and label amounts

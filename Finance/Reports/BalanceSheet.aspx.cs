@@ -141,7 +141,7 @@ namespace Finance.Reports
                     HyperLink hplnk = (HyperLink)this.plhTable.FindControl(grp.Key.RoAccountType.HeadOfAccountType);
                     if (grp.Key.RoAccountType.Category == "A" || grp.Key.RoAccountType.Category == "B" || grp.Key.RoAccountType.Category == "E" || grp.Key.RoAccountType.Category == "C")
                     {
-                        if (hplnk == null ||  (HeadOfAccountHelpers.Assets.Contains(hplnk.ID)))
+                        if (hplnk == null || hplnk.ID == HeadOfAccountHelpers.AssetMiscellaneous)
                         {
                             hplnk = ASSETS;
                             otherAssets += Convert.ToDouble(-grp.Amount);
@@ -158,7 +158,7 @@ namespace Finance.Reports
                     }
                     else if (grp.Key.RoAccountType.Category == "L" || grp.Key.RoAccountType.Category == "R")
                     {
-                        if (hplnk == null || (HeadOfAccountHelpers.Liabilities.Contains(hplnk.ID)))
+                        if (hplnk == null || hplnk.ID == HeadOfAccountHelpers.LiabilityMiscellaneous)
                         {
                             hplnk = LIABILITY;
                             otherLiability += Convert.ToDouble(grp.Amount);
