@@ -23,6 +23,8 @@
       <siteMapNode url="~/Finance/VoucherSearch.aspx" title="Voucher Search" description="Provides several ways to locate a voucher which you may be looking for">
         <siteMapNode url="~/Doc/VoucherSearch.doc.aspx" title="Voucher Search Doc"  description="Documentation for voucher search"/>
       </siteMapNode>
+      <siteMapNode url="~/Finance/CloseFinancialYear.aspx" title="Close Financial Year" description="List fiscal years and allows to close them">
+      </siteMapNode>
     </siteMapNode>
 
     <siteMapNode url="~/Reports/PrintAccountHeads.aspx" title="Account Heads"  description="Print Account Heads along with Cost">

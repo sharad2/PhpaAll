@@ -23,7 +23,7 @@ namespace Eclipse.PhpaLibrary.Database
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="PHPA2")]
-	public partial class FiscalDataContext : System.Data.Linq.DataContext
+    public partial class FiscalDataContext : Eclipse.PhpaLibrary.Database.DataContextBase
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
