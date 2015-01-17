@@ -16,7 +16,6 @@ namespace Finance.Finance
             using (FiscalDataContext db = new FiscalDataContext(ReportingUtilities.DefaultConnectString))
             {
                 var query = (from fy in db.FinancialYears
-                             orderby fy.StartDate descending
                              select new
                              {
                                  YearId = fy.YearId,
