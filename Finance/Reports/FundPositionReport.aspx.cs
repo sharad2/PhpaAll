@@ -143,13 +143,7 @@ namespace Finance.Reports
                     SetAdditivePropertiesFund(grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum, SumType.FundSum);
                 }
                 // III Funds received from Other Receipts.
-                else if (HeadOfAccountHelpers.SalaryRemittances
-                            .Contains(grp.RoAccountType.HeadOfAccountType) || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax ||
-                    grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.ReceiptSubType.InterestReceipt ||
-                    grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.ReceiptSubType.TenderSale ||
-                    grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.DepositSubTypes.EarnestMoneyDeposit ||
-                    grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.DepositSubTypes.SecurityDeposit
-                    )
+                else if (HeadOfAccountHelpers.OtherFundReceipts.Contains(grp.RoAccountType.HeadOfAccountType))
                 {
                     SetAdditiveHyperLinkProperties(hplnkReceiptsPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkReceiptsUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);

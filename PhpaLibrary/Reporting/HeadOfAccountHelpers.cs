@@ -145,5 +145,9 @@ namespace Eclipse.PhpaLibrary.Reporting
             AdvanceSubTypes.EstablishmentPartyAdvance, TaxSubTypes.ServiceTax
         };
 
+        public readonly static IEnumerable<string> OtherFundReceipts = new[] {TaxSubTypes.BhutanIncomeTax, ReceiptSubType.InterestReceipt, ReceiptSubType.TenderSale,
+                    DepositSubTypes.EarnestMoneyDeposit, DepositSubTypes.SecurityDeposit}
+                    .Concat(SalaryRemittances);
+
     }
 }
