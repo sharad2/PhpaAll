@@ -172,9 +172,7 @@ namespace Finance.Reports
                     SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
                 }
                 // VII c) Calculating expenditure for Electrical works (300 Heads)
-                else if (HeadOfAccountHelpers.ElectricalExpenditures
-                    //.Concat(HeadOfAccountHelpers.AdvanceSubTypes.ElectricalPartyAdvance)
-                        .Contains(grp.RoAccountType.HeadOfAccountType) || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.ElectricalPartyAdvance)
+                else if (HeadOfAccountHelpers.ElectricalExpenditures.Contains(grp.RoAccountType.HeadOfAccountType))
                 {
                     SetAdditiveHyperLinkProperties(hplnkElectricalExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkElectricalExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
@@ -182,8 +180,7 @@ namespace Finance.Reports
                     SetAdditivePropertiesFund(-grp.ForMonthSum, SumType.PaymentsForMonth);
                 }
                 // VII d) Calculating expenditure for Transmission works (400 heads)
-                else if (HeadOfAccountHelpers.TransmissionExpenditures
-                            .Contains(grp.RoAccountType.HeadOfAccountType) || grp.RoAccountType.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.TransmissionPartyAdance)
+                else if (HeadOfAccountHelpers.TransmissionExpenditures.Contains(grp.RoAccountType.HeadOfAccountType))
                 {
                     SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkTransmissionExpenditureUpToMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);

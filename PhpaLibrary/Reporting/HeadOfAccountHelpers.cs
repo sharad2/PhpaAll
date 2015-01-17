@@ -30,10 +30,6 @@ namespace Eclipse.PhpaLibrary.Reporting
                 ExpenditureSubTypes.EstablishmentTourExpenditure, ExpenditureSubTypes.TransmissionTourExpenditure
             };
 
-        public readonly static IEnumerable<string> ElectricalExpenditures = new[] { ExpenditureSubTypes.ElectricalExpenditure, ExpenditureSubTypes.ElectricalTourExpenditure };
-
-        public readonly static IEnumerable<string> TransmissionExpenditures = new[] { ExpenditureSubTypes.TransmissionExpenditure, ExpenditureSubTypes.TransmissionTourExpenditure };
-
         private readonly static IEnumerable<string> ProjectExpenditures = new[] {
                 ExpenditureSubTypes.EstablishmentExpenditure, ExpenditureSubTypes.CivilExpenditure,ExpenditureSubTypes.MainCivilExpenditure, ExpenditureSubTypes.ElectricalExpenditure,
                 ExpenditureSubTypes.TransmissionExpenditure
@@ -131,9 +127,7 @@ namespace Eclipse.PhpaLibrary.Reporting
             public const string SecurityDeposit = "SD";
         }
 
-        /// <summary>
-        /// Used by Fund position report
-        /// </summary>
+        #region Fund Position Report specific
         public readonly static IEnumerable<string> CivilExpenditures = new[] { 
                 ExpenditureSubTypes.CivilTourExpenditure, ExpenditureSubTypes.CivilExpenditure, ExpenditureSubTypes.MainCivilExpenditure,                   
                 ExciseDutySubTypes.ExciseDutyGOI, AdvanceSubTypes.MaterialAdvance, AdvanceSubTypes.CivilPartyAdance, TaxSubTypes.GreenTax,
@@ -148,6 +142,15 @@ namespace Eclipse.PhpaLibrary.Reporting
         public readonly static IEnumerable<string> OtherFundReceipts = new[] {TaxSubTypes.BhutanIncomeTax, ReceiptSubType.InterestReceipt, ReceiptSubType.TenderSale,
                     DepositSubTypes.EarnestMoneyDeposit, DepositSubTypes.SecurityDeposit}
                     .Concat(SalaryRemittances);
+
+        public readonly static IEnumerable<string> ElectricalExpenditures = new[] { ExpenditureSubTypes.ElectricalExpenditure, ExpenditureSubTypes.ElectricalTourExpenditure,
+            AdvanceSubTypes.ElectricalPartyAdvance
+        };
+
+        public readonly static IEnumerable<string> TransmissionExpenditures = new[] { ExpenditureSubTypes.TransmissionExpenditure, ExpenditureSubTypes.TransmissionTourExpenditure,
+            AdvanceSubTypes.TransmissionPartyAdance
+        };
+        #endregion
 
     }
 }
