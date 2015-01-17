@@ -307,7 +307,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EclipseLibrary.WebForms\EclipseLibrary.WebForms.csproj">
-      <Project>{9B52E8F7-82A8-4F2D-967B-7CDD5C25E255}</Project>
+      <Project>{9b52e8f7-82a8-4f2d-967b-7cdd5c25e255}</Project>
       <Name>EclipseLibrary.WebForms</Name>
     </ProjectReference>
   </ItemGroup>
