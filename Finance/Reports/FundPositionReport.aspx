@@ -252,7 +252,8 @@
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblExpenditurePreviousYear" runat="server" EnableViewState="false"
-                                SumType="PaymentsPreviousYear" />
+                                SumType="PaymentsPreviousYear"  
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.EstablishmentExpendituresUpToPre) %>'/>
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblExpenditureUpToMonth" runat="server" EnableViewState="false"

@@ -670,6 +670,10 @@ namespace Finance.Reports
 
             var db = (ReportingDataContext)dsQueries.Database;
 
+            // The array contains heads in the order in which they are displayed on the report
+            var allGoiHeadTypes = new[] { HeadOfAccountHelpers.GrantSubType.GrantNu, HeadOfAccountHelpers.GrantSubType.GrantFe,
+                HeadOfAccountHelpers.LoanSubType.LoanNu, HeadOfAccountHelpers.LoanSubType.LoanFe };
+
             //Getting sum of amount ahainst headofaccount type
             var query = (from vd in db.RoVoucherDetails
                          where vd.HeadOfAccount.HeadOfAccountId != null
@@ -680,85 +684,83 @@ namespace Finance.Reports
                                  .Concat(new[] { HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyRGOB, HeadOfAccountHelpers.CashSubTypes.CashInHand })
                                  .Contains(vd.HeadOfAccount.RoAccountType.HeadOfAccountType)
                          group vd by 1 into g
-                         let prevYearVouchers = g.Where(p => p.RoVoucher.VoucherDate <= m_dtPreviousYear)
+                         // let prevYearVouchers = g.Where(p => p.RoVoucher.VoucherDate <= m_dtPreviousYear) // TODO: I think we should be using this
+                         let prevYearVouchers = g.Where(p => p.RoVoucher.VoucherDate < m_dtPreviousYear)
                          let currYearVouchers = g.Where(p => p.RoVoucher.VoucherDate > m_dtPreviousYear)
-
                          select new FundPositionReportData
                          {
                              DateFrom = m_dtPreviousYear,
                              DateTo = m_dtPassed,
                              // I - a
-                             FundsReceivedGOIGrantNuUpToPrev = prevYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.GrantSubType.GrantNu)
+                             FundsReceivedGOIGrantNuUpToPrev = prevYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == allGoiHeadTypes[0])
                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                             FundsReceivedGOIGrantNuCurr = currYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.GrantSubType.GrantNu)
+                             FundsReceivedGOIGrantNuCurr = currYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == allGoiHeadTypes[0])
                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                             FundsReceivedGOIGrantNuCum = g.Where(p => p.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.GrantSubType.GrantNu).Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                             FundsReceivedGOIGrantNuHeads = HeadOfAccountHelpers.GrantSubType.GrantNu,
+                             FundsReceivedGOIGrantNuCum = g.Where(p => p.HeadOfAccount.HeadOfAccountType == allGoiHeadTypes[0]).Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
+                             FundsReceivedGOIGrantNuHeads = allGoiHeadTypes[0],
 
                              //I - b
-                             FundsReceivedGOIGrantFeUpToPrev = prevYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.GrantSubType.GrantFe)
+                             FundsReceivedGOIGrantFeUpToPrev = prevYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == allGoiHeadTypes[1])
                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                             FundsReceivedGOIGrantFeCurr = currYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.GrantSubType.GrantFe)
+                             FundsReceivedGOIGrantFeCurr = currYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == allGoiHeadTypes[1])
                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                             FundsReceivedGOIGrantFeCum = g.Where(p => p.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.GrantSubType.GrantFe)
+                             FundsReceivedGOIGrantFeCum = g.Where(p => p.HeadOfAccount.HeadOfAccountType == allGoiHeadTypes[1])
                                 .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                             FundsReceivedGOIGrantFeHeads = HeadOfAccountHelpers.GrantSubType.GrantFe,
+                             FundsReceivedGOIGrantFeHeads = allGoiHeadTypes[1],
 
                              // I - c
-                             FundsReceivedGOILoanNuUpToPrev = prevYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.LoanSubType.LoanNu)
+                             FundsReceivedGOILoanNuUpToPrev = prevYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == allGoiHeadTypes[2])
                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                             FundsReceivedGOILoanNuCurr = currYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.LoanSubType.LoanNu)
+                             FundsReceivedGOILoanNuCurr = currYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == allGoiHeadTypes[2])
                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                             FundsReceivedGOILoanNuCum = g.Where(p => p.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.LoanSubType.LoanNu)
+                             FundsReceivedGOILoanNuCum = g.Where(p => p.HeadOfAccount.HeadOfAccountType == allGoiHeadTypes[2])
                                 .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
 
-                             FundsReceivedGOILoanNuHeads = HeadOfAccountHelpers.LoanSubType.LoanNu,
+                             FundsReceivedGOILoanNuHeads = allGoiHeadTypes[2],
 
                              //I - d
-                             FundsReceivedGOILoanFeUpToPrev = prevYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.LoanSubType.LoanFe)
+                             FundsReceivedGOILoanFeUpToPrev = prevYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == allGoiHeadTypes[3])
                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                             FundsReceivedGOILoanFeCurr = currYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.LoanSubType.LoanFe)
+                             FundsReceivedGOILoanFeCurr = currYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == allGoiHeadTypes[3])
                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                             FundsReceivedGOILoanFeCum = g.Where(p => p.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.LoanSubType.LoanFe)
+                             FundsReceivedGOILoanFeCum = g.Where(p => p.HeadOfAccount.HeadOfAccountType == allGoiHeadTypes[3])
                                 .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                             FundsReceivedGOILoanFeHeads = HeadOfAccountHelpers.LoanSubType.LoanFe,
+                             FundsReceivedGOILoanFeHeads = allGoiHeadTypes[3],
 
                              //II
-                             FundReceivedGOITotalUpToPrev = prevYearVouchers.Where(p => new[] { HeadOfAccountHelpers.LoanSubType.LoanNu, HeadOfAccountHelpers.LoanSubType.LoanFe, 
-                                        HeadOfAccountHelpers.GrantSubType.GrantFe, HeadOfAccountHelpers.GrantSubType.GrantNu }
-                                            .Contains(p.HeadOfAccount.HeadOfAccountType))
+                             FundReceivedGOITotalUpToPrev = prevYearVouchers.Where(p => allGoiHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType))
                                             .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                             FundReceivedGOITotalCurr = currYearVouchers.Where(p => new[] { HeadOfAccountHelpers.LoanSubType.LoanNu, HeadOfAccountHelpers.LoanSubType.LoanFe, 
-                                        HeadOfAccountHelpers.GrantSubType.GrantFe, HeadOfAccountHelpers.GrantSubType.GrantNu }
-                                            .Contains(p.HeadOfAccount.HeadOfAccountType))
+                             FundReceivedGOITotalCurr = currYearVouchers.Where(p => allGoiHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType))
                                             .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                             FundReceivedGOITotalCum = g.Where(p => new[] { HeadOfAccountHelpers.LoanSubType.LoanNu, HeadOfAccountHelpers.LoanSubType.LoanFe, 
-                                        HeadOfAccountHelpers.GrantSubType.GrantFe, HeadOfAccountHelpers.GrantSubType.GrantNu }
-                                            .Contains(p.HeadOfAccount.HeadOfAccountType))
+                             FundReceivedGOITotalCum = g.Where(p => allGoiHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType))
                                             .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                            //III
+                             //III
                              FundReceivedOtherUpToPrev = prevYearVouchers.Where(p => HeadOfAccountHelpers.OtherFundReceipts.Contains(p.HeadOfAccount.HeadOfAccountType))
                                                          .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
                              FundReceivedOtherCurr = currYearVouchers.Where(p => HeadOfAccountHelpers.OtherFundReceipts.Contains(p.HeadOfAccount.HeadOfAccountType))
                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
                              FundReceivedOtherCum = g.Where(p => HeadOfAccountHelpers.OtherFundReceipts.Contains(p.HeadOfAccount.HeadOfAccountType))
                                 .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                             FundReceivedOtherHeads = string.Join(",",HeadOfAccountHelpers.OtherFundReceipts),
+                             FundReceivedOtherHeads = string.Join(",", HeadOfAccountHelpers.OtherFundReceipts),
 
-                             ///IV 
-                             FundReceivedOtherAndGOITotalUpToPrev = prevYearVouchers.Where(p => new[] { HeadOfAccountHelpers.LoanSubType.LoanNu, HeadOfAccountHelpers.LoanSubType.LoanFe, 
-                                        HeadOfAccountHelpers.GrantSubType.GrantFe, HeadOfAccountHelpers.GrantSubType.GrantNu}.Concat(HeadOfAccountHelpers.OtherFundReceipts)
+                             //IV 
+                             FundReceivedOtherAndGOITotalUpToPrev = prevYearVouchers.Where(p => allGoiHeadTypes.Concat(HeadOfAccountHelpers.OtherFundReceipts)
                                             .Contains(p.HeadOfAccount.HeadOfAccountType))
                                             .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
 
-                             FundReceivedOtherAndGOITotalCurr = currYearVouchers.Where(p => new[] { HeadOfAccountHelpers.LoanSubType.LoanNu, HeadOfAccountHelpers.LoanSubType.LoanFe, 
-                                        HeadOfAccountHelpers.GrantSubType.GrantFe, HeadOfAccountHelpers.GrantSubType.GrantNu }.Concat(HeadOfAccountHelpers.OtherFundReceipts)
+                             FundReceivedOtherAndGOITotalCurr = currYearVouchers.Where(p => allGoiHeadTypes.Concat(HeadOfAccountHelpers.OtherFundReceipts)
                                             .Contains(p.HeadOfAccount.HeadOfAccountType))
                                             .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
-                             FundReceivedOtherAndGOITotalCum = g.Where(p => new[] { HeadOfAccountHelpers.LoanSubType.LoanNu, HeadOfAccountHelpers.LoanSubType.LoanFe, 
-                                        HeadOfAccountHelpers.GrantSubType.GrantFe, HeadOfAccountHelpers.GrantSubType.GrantNu }.Concat(HeadOfAccountHelpers.OtherFundReceipts)
+                             FundReceivedOtherAndGOITotalCum = g.Where(p => allGoiHeadTypes.Concat(HeadOfAccountHelpers.OtherFundReceipts)
                                             .Contains(p.HeadOfAccount.HeadOfAccountType))
                                             .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
+
+                             // V
+                             EstablishmentExpendituresUpToPre = prevYearVouchers.Where(p => HeadOfAccountHelpers.EstablishmentExpenditures
+                                 .Concat(HeadOfAccountHelpers.CivilExpenditures).Concat(HeadOfAccountHelpers.ElectricalExpenditures)
+                                 .Concat(HeadOfAccountHelpers.TransmissionExpenditures)
+                                 .Contains(p.HeadOfAccount.HeadOfAccountType))
+                                 .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0)
 
                          });
             //throw new NotImplementedException();
