@@ -9,7 +9,7 @@
     <i:ButtonEx ID="btnNewFiscalYear" runat="server" Text="Create New Financial Year" OnClick="btnNewFiscalYear_Click"
         Action="Submit" Icon="PlusThick" />
     <phpa:PhpaLinqDataSource ID="dsFiscalYear" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FiscalDataContext"
-        TableName="FinancialYears" RenderLogVisible="False" OrderBy="YearId desc"
+        TableName="FinancialYears" RenderLogVisible="False" OrderBy="Name desc"
         EnableUpdate="true" EnableInsert="true">
         <UpdateParameters>
             <asp:Parameter Name="Name" Type="String" />

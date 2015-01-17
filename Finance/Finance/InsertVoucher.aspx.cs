@@ -565,10 +565,11 @@ namespace Finance.Finance
 
             using (FiscalDataContext db = new FiscalDataContext(ReportingUtilities.DefaultConnectString))
             {
-                //This query is used to get the start and end date for the freezed financial year.
+                //This query is used to get the start and end date for the open financial year.
                 var voucher = (Voucher)fvEdit.DataItem;
                 var query = (from fdc in db.FinancialYears
-                             where fdc.Freeze == "Y"
+                             where (fdc.Freeze ?? "N") != "Y"
+                             orderby fdc.Name descending
                              select new
                              {
                                  startdate = fdc.StartDate,
@@ -579,9 +580,9 @@ namespace Finance.Finance
                     if (voucher.VoucherDate >= date.startdate && voucher.VoucherDate <= date.enddate)
                     {
                         var btn = (LinkButtonEx)sender;
-                        btn.Enabled = false;
+                        btn.Enabled = true;
                         LinkButtonEx btn2 = (LinkButtonEx)fvEdit.FindControl("btnDelete");
-                        btn2.Enabled = false;
+                        btn2.Enabled = true;
                     }
                 }
 
@@ -598,7 +599,7 @@ namespace Finance.Finance
         {
             using (FiscalDataContext db = new FiscalDataContext(ReportingUtilities.DefaultConnectString))
             {
-                //This query is used to get the start and end date for the unfreezed financial year.
+                //This query is used to get the start and end date for the open financial year.
                 var qry = (from qr in db.FinancialYears
                            where (qr.Freeze ?? "N") != "Y"
                            orderby qr.StartDate descending

@@ -281,10 +281,10 @@
                 ClientIDMode="Static">
                 <Ajax Url="VoucherDetails.aspx" UseDialog="false" />
             </jquery:Dialog>
-            <i:LinkButtonEx ID="btnEdit" runat="server" Text="Edit" CausesValidation="false"
+            <i:LinkButtonEx ID="btnEdit" runat="server" Text="Edit" CausesValidation="false" Enabled="false"
                 Action="Submit" OnClick="btnEdit_Click" RolesRequired="FinanceManager"
                 OnPreRender="btnEdit_PreRender" />
-            <i:LinkButtonEx ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click"
+            <i:LinkButtonEx ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click" Enabled="false"
                 RolesRequired="FinanceManager" Action="Submit" CausesValidation="false" OnClientClick="
 function(e) {
     return confirm('Are you sure you want to delete the Voucher?');
