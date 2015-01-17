@@ -268,7 +268,7 @@
                         <td align="center"><strong>VI</strong></td>
                         <td align="right"><b>BALANCE FUND(IV-V)</b></td>
                         <td class="vd-amountcol">
-                            <asp:Label ID="lblbalancefundprevious" runat="server" EnableViewState="False" />
+                            <asp:Label ID="lblbalancefundprevious" runat="server" EnableViewState="False" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.BalanceFundUpToPrev) %>' />
                         </td>
                         <td></td>
                         <td class="vd-amountcol">

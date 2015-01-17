@@ -102,7 +102,7 @@ namespace Finance.Reports
 
 
         /// <summary>
-        /// VI
+        /// V
         /// </summary>
         public decimal? EstablishmentExpendituresUpToPre { get; set; }
 
@@ -111,6 +111,8 @@ namespace Finance.Reports
         public decimal? EstablishmentExpendituresCum { get; set; }
 
         public string EstablishmentExpendituresHeads { get; set; }
+
+        public decimal? BalanceFundUpToPrev { get; set; }
 
     }
 
@@ -674,6 +676,10 @@ namespace Finance.Reports
             var allGoiHeadTypes = new[] { HeadOfAccountHelpers.GrantSubType.GrantNu, HeadOfAccountHelpers.GrantSubType.GrantFe,
                 HeadOfAccountHelpers.LoanSubType.LoanNu, HeadOfAccountHelpers.LoanSubType.LoanFe };
 
+            var allExpenditureHeadTypes = HeadOfAccountHelpers.EstablishmentExpenditures
+                                 .Concat(HeadOfAccountHelpers.CivilExpenditures).Concat(HeadOfAccountHelpers.ElectricalExpenditures)
+                                 .Concat(HeadOfAccountHelpers.TransmissionExpenditures);
+
             //Getting sum of amount ahainst headofaccount type
             var query = (from vd in db.RoVoucherDetails
                          where vd.HeadOfAccount.HeadOfAccountId != null
@@ -687,6 +693,18 @@ namespace Finance.Reports
                          // let prevYearVouchers = g.Where(p => p.RoVoucher.VoucherDate <= m_dtPreviousYear) // TODO: I think we should be using this
                          let prevYearVouchers = g.Where(p => p.RoVoucher.VoucherDate < m_dtPreviousYear)
                          let currYearVouchers = g.Where(p => p.RoVoucher.VoucherDate > m_dtPreviousYear)
+                         //II
+                         let fundReceivedGOITotalUpToPrev = (decimal?)prevYearVouchers.Where(p => allGoiHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                            .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
+                         // III
+                         let fundReceivedOtherUpToPrev = (decimal?)prevYearVouchers.Where(p => HeadOfAccountHelpers.OtherFundReceipts.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
+
+                         // IV = II + III
+                         let fundReceivedOtherAndGOITotalUpToPrev = fundReceivedGOITotalUpToPrev == null && fundReceivedOtherUpToPrev == null ? (decimal?)null :
+                            (fundReceivedGOITotalUpToPrev ?? 0) + (fundReceivedOtherUpToPrev ?? 0)
+                         let establishmentExpendituresUpToPre = (decimal?) prevYearVouchers.Where(p => allExpenditureHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType))
+                               .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0)
                          select new FundPositionReportData
                          {
                              DateFrom = m_dtPreviousYear,
@@ -728,25 +746,21 @@ namespace Finance.Reports
                              FundsReceivedGOILoanFeHeads = allGoiHeadTypes[3],
 
                              //II
-                             FundReceivedGOITotalUpToPrev = prevYearVouchers.Where(p => allGoiHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType))
-                                            .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
+                             FundReceivedGOITotalUpToPrev = fundReceivedGOITotalUpToPrev,
                              FundReceivedGOITotalCurr = currYearVouchers.Where(p => allGoiHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType))
                                             .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
                              FundReceivedGOITotalCum = g.Where(p => allGoiHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType))
                                             .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
                              //III
-                             FundReceivedOtherUpToPrev = prevYearVouchers.Where(p => HeadOfAccountHelpers.OtherFundReceipts.Contains(p.HeadOfAccount.HeadOfAccountType))
-                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
+                             FundReceivedOtherUpToPrev = fundReceivedOtherUpToPrev,
                              FundReceivedOtherCurr = currYearVouchers.Where(p => HeadOfAccountHelpers.OtherFundReceipts.Contains(p.HeadOfAccount.HeadOfAccountType))
                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
                              FundReceivedOtherCum = g.Where(p => HeadOfAccountHelpers.OtherFundReceipts.Contains(p.HeadOfAccount.HeadOfAccountType))
                                 .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
                              FundReceivedOtherHeads = string.Join(",", HeadOfAccountHelpers.OtherFundReceipts),
 
-                             //IV 
-                             FundReceivedOtherAndGOITotalUpToPrev = prevYearVouchers.Where(p => allGoiHeadTypes.Concat(HeadOfAccountHelpers.OtherFundReceipts)
-                                            .Contains(p.HeadOfAccount.HeadOfAccountType))
-                                            .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
+                             //IV = II + III
+                             FundReceivedOtherAndGOITotalUpToPrev = fundReceivedOtherAndGOITotalUpToPrev,
 
                              FundReceivedOtherAndGOITotalCurr = currYearVouchers.Where(p => allGoiHeadTypes.Concat(HeadOfAccountHelpers.OtherFundReceipts)
                                             .Contains(p.HeadOfAccount.HeadOfAccountType))
@@ -756,11 +770,11 @@ namespace Finance.Reports
                                             .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
 
                              // V
-                             EstablishmentExpendituresUpToPre = prevYearVouchers.Where(p => HeadOfAccountHelpers.EstablishmentExpenditures
-                                 .Concat(HeadOfAccountHelpers.CivilExpenditures).Concat(HeadOfAccountHelpers.ElectricalExpenditures)
-                                 .Concat(HeadOfAccountHelpers.TransmissionExpenditures)
-                                 .Contains(p.HeadOfAccount.HeadOfAccountType))
-                                 .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0)
+                             EstablishmentExpendituresUpToPre = establishmentExpendituresUpToPre,
+
+                             // VI = IV - V
+                             BalanceFundUpToPrev = fundReceivedOtherAndGOITotalUpToPrev == null && establishmentExpendituresUpToPre == null ? (decimal?)null :
+                                (fundReceivedOtherAndGOITotalUpToPrev ?? 0)- (establishmentExpendituresUpToPre ?? 0)
 
                          });
             //throw new NotImplementedException();
