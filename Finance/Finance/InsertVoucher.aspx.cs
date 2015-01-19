@@ -619,32 +619,5 @@ namespace Finance.Finance
 
             };
         }
-        /// <summary>
-        /// This event is used to verify that no voucher should be deletable of the freezed financial year.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //protected void btnDelete_PreRender(object sender, EventArgs e)
-        //{
-        //    using (FinancialYearDataContext db = new FinancialYearDataContext(ReportingUtilities.DefaultConnectString))
-        //    {
-        //        var voucher = (Voucher)fvEdit.DataItem;
-        //        var query = (from fdc in db.FinancialYears
-        //                     where fdc.Freeze == "Y"
-        //                     select new
-        //                     {
-        //                         startdate = fdc.StartDate,
-        //                         enddate = fdc.EndDate
-        //                     });
-        //        foreach (var date in query)
-        //        {
-        //            if (voucher.VoucherDate >= date.startdate && voucher.VoucherDate <= date.enddate)
-        //            {
-        //                var btn = (LinkButtonEx)sender;
-        //                btn.Enabled = false;
-        //            }
-        //        }
-        //    };
-        //} 
     }
 }
