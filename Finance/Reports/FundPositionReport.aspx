@@ -273,7 +273,8 @@
                         </td>
                         <td></td>
                         <td class="vd-amountcol">
-                            <asp:Label ID="lblbalancefundcumulative" runat="server" EnableViewState="False" /></td>
+                            <asp:Label ID="lblbalancefundcumulative" runat="server" EnableViewState="False" 
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.BalanceFundCum) %>'/></td>
                     </tr>
                 </tbody>
             </table>
@@ -304,13 +305,13 @@
                 <td class="vd-amountcol">
 
                     <asp:HyperLink ID="hplnkEstablishExpenditurePreviousYear" runat="server" ToolTip="Click to list voucher entries for expenditure for input month"
-                        EnableViewState="false"  NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.FundReceivedOtherHeads, Item.DateFrom, Item.DateTo) %>' 
+                        EnableViewState="false"  NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.EstablishmentExpendituresHead, Item.DateFrom, Item.DateTo) %>' 
                         Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.EstablishmentExpendituresUpToPrev) %>'/>
                 </td>
                 <td class="vd-amountcol">
 
                     <asp:HyperLink ID="hplnkEstablishExpenditureUptoMonth" runat="server" ToolTip="Click to list voucher entries for expenditure from financial year start till input month"
-                        EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.FundReceivedOtherHeads, Item.DateFrom, Item.DateTo) %>'  
+                        EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.EstablishmentExpendituresHead, Item.DateFrom, Item.DateTo) %>'  
                          Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.EstablishmentExpendituresCurr) %>'/>
                 </td>
                 <td class="vd-amountcol">
@@ -325,16 +326,19 @@
                 <td class="vd-amountcol">
 
                     <asp:HyperLink ID="hplnkCivilExpenditurePreviousYear" runat="server" ToolTip="Click to list voucher entries for expenditure for input month"
-                        EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=EXPENDITURE,TOUR_EXPENSES,MR&DateFrom={1:d}&DateTo={2:d}" />
+                        EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.CivilWorkExpendituresHead, Item.DateFrom, Item.DateTo) %>' 
+                        Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.CivilWorkExpendituresUpToPrev) %>'/>
                 </td>
                 <td class="vd-amountcol">
 
                     <asp:HyperLink ID="hplnkCivilExpenditureUpToMonth" runat="server" ToolTip="Click to list voucher entries for expenditure from financial year start till input month"
-                        EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=EXPENDITURE,TOUR_EXPENSES,MR&DateFrom={0:d}&DateTo={2:d}" />
+                        EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.CivilWorkExpendituresHead, Item.DateFrom, Item.DateTo) %>'
+                        Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.CivilWorkExpendituresCurr) %>'/>
                 </td>
                 <td class="vd-amountcol">
                     <asp:Label ID="lblCivilExpendituresum" runat="server" ToolTip="Expenditure incured till date"
-                        EnableViewState="false" />
+                        EnableViewState="false"
+                        Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.CivilWorkExpendituresCum) %>' />
                 </td>
             </tr>
             <tr>
@@ -344,16 +348,20 @@
                 <td class="vd-amountcol">
 
                     <asp:HyperLink ID="hplnkElectricalExpenditurePreviousYear" runat="server" ToolTip="Click to list voucher entries for employee advances prior to Financial Year"
-                        EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=EMPLOYEE_ADVANCE&DateTo={3:d}" />
+                        EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.ElectricalExpendituresHead, Item.DateTo) %>'
+                        Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ElectricalExpendituresUpToPrev) %>'
+                        />
                 </td>
                 <td class="vd-amountcol">
 
                     <asp:HyperLink ID="hplnkElectricalExpenditureUpToMonth" runat="server" ToolTip="Click to list voucher entries for employee advances from financial year start till input month"
-                        EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=EMPLOYEE_ADVANCE&DateFrom={0:d}&DateTo={2:d}" />
+                        EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.ElectricalExpendituresHead, Item.DateFrom, Item.DateTo) %>'
+                        Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ElectricalExpendituresCurr) %>'/>
                 </td>
                 <td class="vd-amountcol">
                     <asp:Label ID="lblElectricalExpendituresum" runat="server" ToolTip="Advances to Employees till date"
-                        EnableViewState="false" />
+                        EnableViewState="false" 
+                        Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ElectricalExpendituresCum) %>'/>
                 </td>
             </tr>
             <tr>
@@ -363,19 +371,22 @@
                 <td class="vd-amountcol">
 
                     <asp:HyperLink ID="hplnkTransmissionExpenditurePreviousYear" runat="server" ToolTip="Click to list voucher entries for party and material advances prior to Financial Year"
-                        NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=PARTY_ADVANCE,MATERIAL_ADVANCE&DateTo={3:d}"
-                        EnableViewState="false" />
+                        NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.TransmissionExpendituresHead, Item.DateTo) %>'
+                        EnableViewState="false"
+                        Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.TransmissionExpendituresUpToPrev) %>' />
                 </td>
 
                 <td class="vd-amountcol">
 
                     <asp:HyperLink ID="hplnkTransmissionExpenditureUpToMonth" runat="server" ToolTip="Click to list voucher entries for party and material advances from financial year start till input month"
-                        NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=PARTY_ADVANCE,MATERIAL_ADVANCE&DateFrom={0:d}&DateTo={2:d}"
-                        EnableViewState="false" />
+                        NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.ElectricalExpendituresHead, Item.DateFrom, Item.DateTo) %>'
+                        EnableViewState="false" 
+                        Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.TransmissionExpendituresCurr) %>'/>
                 </td>
                 <td class="vd-amountcol" colspan="2">
                     <asp:Label ID="lblTransmissionExpendituresum" runat="server" ToolTip="Advances to parties for material till date"
-                        EnableViewState="false" />
+                        EnableViewState="false"
+                        Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.TransmissionExpendituresCum) %>' />
                 </td>
             </tr>
 

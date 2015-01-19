@@ -149,6 +149,29 @@ namespace Finance.Reports
         public string CivilWorkExpendituresHead { get; set; }
 
 
+        /// <summary>
+        /// VII - c
+        /// </summary>
+        public decimal? ElectricalExpendituresUpToPrev { get; set; }
+
+        public decimal? ElectricalExpendituresCurr { get; set; }
+
+        public decimal? ElectricalExpendituresCum { get; set; }
+
+        public string ElectricalExpendituresHead { get; set; }
+
+
+        /// <summary>
+        /// VII - d
+        /// </summary>
+        public decimal? TransmissionExpendituresUpToPrev { get; set; }
+
+        public decimal? TransmissionExpendituresCurr { get; set; }
+
+        public decimal? TransmissionExpendituresCum { get; set; }
+
+        public string TransmissionExpendituresHead { get; set; }
+
     }
 
     public partial class FundPositionReport : PageBase
@@ -827,6 +850,7 @@ namespace Finance.Reports
                              ExpendituresUpToPrev = expendituresUpToPrev,
                              ExpendituresCurr =   expendituresCurr,
                              ExpendituresCum =  expendituresCum,
+
                              // VI = IV - V
                              BalanceFundUpToPrev = fundReceivedOtherAndGOITotalUpToPrev == null && expendituresUpToPrev == null ? (decimal?)null :
                                 (fundReceivedOtherAndGOITotalUpToPrev ?? 0) - (expendituresUpToPrev ?? 0),
@@ -837,7 +861,7 @@ namespace Finance.Reports
                              BalanceFundCum = fundReceivedOtherAndGOITotalUpToPrev == null && expendituresUpToPrev == null ? (decimal?)null :
                                 (fundReceivedOtherAndGOITotalUpToPrev ?? 0) - (expendituresUpToPrev ?? 0),
 
-                                //VII
+                                //VII -a
 
                              EstablishmentExpendituresUpToPrev = prevYearVouchers.Where(p => HeadOfAccountHelpers.EstablishmentExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
                                                          .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
@@ -847,7 +871,46 @@ namespace Finance.Reports
                              EstablishmentExpendituresCum = g.Where(p => HeadOfAccountHelpers.EstablishmentExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
                                          .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
 
-                             EstablishmentExpendituresHead = string.Join(",", HeadOfAccountHelpers.EstablishmentExpenditures)
+                             EstablishmentExpendituresHead = string.Join(",", HeadOfAccountHelpers.EstablishmentExpenditures),
+
+
+                               //VII -b
+
+                             CivilWorkExpendituresUpToPrev = prevYearVouchers.Where(p => HeadOfAccountHelpers.CivilExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                                         .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
+
+                             CivilWorkExpendituresCurr = currYearVouchers.Where(p => HeadOfAccountHelpers.CivilExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                             .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
+                             CivilWorkExpendituresCum = g.Where(p => HeadOfAccountHelpers.CivilExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                         .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
+
+                             CivilWorkExpendituresHead = string.Join(",", HeadOfAccountHelpers.CivilExpenditures),
+
+                             //VII -c
+
+                             ElectricalExpendituresUpToPrev = prevYearVouchers.Where(p => HeadOfAccountHelpers.ElectricalExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                                         .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
+
+                             ElectricalExpendituresCurr = currYearVouchers.Where(p => HeadOfAccountHelpers.ElectricalExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                             .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
+                             ElectricalExpendituresCum = g.Where(p => HeadOfAccountHelpers.ElectricalExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                         .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
+
+                             ElectricalExpendituresHead = string.Join(",", HeadOfAccountHelpers.ElectricalExpenditures),
+
+
+                             //VII -d
+
+                             TransmissionExpendituresUpToPrev = prevYearVouchers.Where(p => HeadOfAccountHelpers.TransmissionExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                                         .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
+
+                             TransmissionExpendituresCurr = currYearVouchers.Where(p => HeadOfAccountHelpers.TransmissionExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                             .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
+                             TransmissionExpendituresCum = g.Where(p => HeadOfAccountHelpers.TransmissionExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                         .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
+
+                             TransmissionExpendituresHead = string.Join(",", HeadOfAccountHelpers.TransmissionExpenditures)
+
 
 
                          });
