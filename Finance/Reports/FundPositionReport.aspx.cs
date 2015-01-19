@@ -118,7 +118,7 @@ namespace Finance.Reports
         /// </summary>
         public decimal? BalanceFundUpToPrev { get; set; }
 
-        public decimal? BalanceFundCurr { get; set; }
+        //public decimal? BalanceFundCurr { get; set; }
 
         public decimal? BalanceFundCum { get; set; }
 
@@ -773,8 +773,10 @@ namespace Finance.Reports
                          // IV = II + III
                          let fundReceivedOtherAndGOITotalUpToPrev = fundReceivedGOITotalUpToPrev == null && fundReceivedOtherUpToPrev == null ? (decimal?)null :
                             (fundReceivedGOITotalUpToPrev ?? 0) + (fundReceivedOtherUpToPrev ?? 0)
-                         let fundReceivedOtherAndGOITotalCurr = fundReceivedGOITotalCurr == null && fundReceivedOtherCurr == null ? (decimal?)null :
+
+                         let fundReceivedOtherAndGOITotalCurr     = fundReceivedGOITotalCurr == null && fundReceivedOtherCurr == null ? (decimal?)null :
                                                                 (fundReceivedGOITotalCurr ?? 0) + (fundReceivedOtherCurr ?? 0)
+
                          let FundReceivedOtherAndGOITotalCum = fundReceivedGOITotalCum == null && FundReceivedOtherCum == null ? (decimal?)null : 
                                                        (fundReceivedGOITotalCum ?? 0)-(FundReceivedOtherCum ?? 0)
 
@@ -842,9 +844,7 @@ namespace Finance.Reports
                              FundReceivedOtherAndGOITotalUpToPrev = fundReceivedOtherAndGOITotalUpToPrev,
 
                              FundReceivedOtherAndGOITotalCurr = fundReceivedOtherAndGOITotalCurr,
-                             FundReceivedOtherAndGOITotalCum = g.Where(p => allGoiHeadTypes.Concat(HeadOfAccountHelpers.OtherFundReceipts)
-                                            .Contains(p.HeadOfAccount.HeadOfAccountType))
-                                            .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
+                             FundReceivedOtherAndGOITotalCum = FundReceivedOtherAndGOITotalCum,
 
                              // V
                              ExpendituresUpToPrev = expendituresUpToPrev,
@@ -855,11 +855,11 @@ namespace Finance.Reports
                              BalanceFundUpToPrev = fundReceivedOtherAndGOITotalUpToPrev == null && expendituresUpToPrev == null ? (decimal?)null :
                                 (fundReceivedOtherAndGOITotalUpToPrev ?? 0) - (expendituresUpToPrev ?? 0),
 
-                             BalanceFundCurr = fundReceivedOtherAndGOITotalUpToPrev == null && expendituresUpToPrev == null ? (decimal?)null :
-                                (fundReceivedOtherAndGOITotalUpToPrev ?? 0) - (expendituresUpToPrev ?? 0),
+                             //BalanceFundCurr = fundReceivedOtherAndGOITotalUpToPrev == null && expendituresUpToPrev == null ? (decimal?)null :
+                             //   (fundReceivedOtherAndGOITotalUpToPrev ?? 0) - (expendituresUpToPrev ?? 0),
 
-                             BalanceFundCum = fundReceivedOtherAndGOITotalUpToPrev == null && expendituresUpToPrev == null ? (decimal?)null :
-                                (fundReceivedOtherAndGOITotalUpToPrev ?? 0) - (expendituresUpToPrev ?? 0),
+                             BalanceFundCum = FundReceivedOtherAndGOITotalCum == null && expendituresCum == null ? (decimal?)null :
+                                (FundReceivedOtherAndGOITotalCum ?? 0) - (expendituresCum ?? 0),
 
                                 //VII -a
 
