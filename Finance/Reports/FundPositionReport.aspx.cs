@@ -17,6 +17,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
+using System.Collections;
 
 namespace Finance.Reports
 {
@@ -171,6 +172,8 @@ namespace Finance.Reports
         public decimal? TransmissionExpendituresCum { get; set; }
 
         public string TransmissionExpendituresHead { get; set; }
+
+        public IEnumerable AllBanks { get; set; }
 
     }
 
@@ -738,23 +741,37 @@ namespace Finance.Reports
                                  .Concat(HeadOfAccountHelpers.CivilExpenditures).Concat(HeadOfAccountHelpers.ElectricalExpenditures)
                                  .Concat(HeadOfAccountHelpers.TransmissionExpenditures);
 
+            //var query3 = (from vd in db.RoVoucherDetails
+            //              join hh in db.RoHeadHierarchies on vd.HeadOfAccountId equals hh.HeadOfAccountId
+            //              where HeadOfAccountHelpers.AllBanks.Contains(hh.HeadOfAccountType)
+            //              group vd by vd.HeadOfAccountId into grouping
+            //              select new
+            //              {
+            //                  BankName = grouping.Max(p => p.HeadOfAccount.Description),
+            //                  Balance = (-(grouping.Sum(hoa => hoa.RoVoucher.VoucherDate < m_dtPreviousYear ? (hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0) : 0)
+            //                  + grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtPassed ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0)
+            //                  + grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0))),
+            //                  BankHead = grouping.Max(p => p.HeadOfAccountId)
+            //              });
+
             //Getting sum of amount ahainst headofaccount type
             var query = (from vd in db.RoVoucherDetails
                          where vd.HeadOfAccount.HeadOfAccountId != null
                                 && vd.HeadOfAccount.RoAccountType != null
                                 && (vd.DebitAmount.HasValue || vd.CreditAmount.HasValue)
                                 && vd.RoVoucher.VoucherDate <= m_dtPassed
-                                && !HeadOfAccountHelpers.FundTransit.Concat(HeadOfAccountHelpers.AllBanks)
+                                && !HeadOfAccountHelpers.FundTransit
                                  .Concat(new[] { HeadOfAccountHelpers.ExciseDutySubTypes.ExciseDutyRGOB, HeadOfAccountHelpers.CashSubTypes.CashInHand })
                                  .Contains(vd.HeadOfAccount.RoAccountType.HeadOfAccountType)
                          group vd by 1 into g
+
                          // let prevYearVouchers = g.Where(p => p.RoVoucher.VoucherDate <= m_dtPreviousYear) // TODO: I think we should be using this
                          let prevYearVouchers = g.Where(p => p.RoVoucher.VoucherDate < m_dtPreviousYear)
                          let currYearVouchers = g.Where(p => p.RoVoucher.VoucherDate >= m_dtPreviousYear)
                          //II
                          let fundReceivedGOITotalUpToPrev = (decimal?)prevYearVouchers.Where(p => allGoiHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType))
                                             .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
-                         
+
                          let fundReceivedGOITotalCurr = (decimal?)currYearVouchers.Where(p => allGoiHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType))
                                             .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0)
 
@@ -774,14 +791,14 @@ namespace Finance.Reports
                          let fundReceivedOtherAndGOITotalUpToPrev = fundReceivedGOITotalUpToPrev == null && fundReceivedOtherUpToPrev == null ? (decimal?)null :
                             (fundReceivedGOITotalUpToPrev ?? 0) + (fundReceivedOtherUpToPrev ?? 0)
 
-                         let fundReceivedOtherAndGOITotalCurr     = fundReceivedGOITotalCurr == null && fundReceivedOtherCurr == null ? (decimal?)null :
+                         let fundReceivedOtherAndGOITotalCurr = fundReceivedGOITotalCurr == null && fundReceivedOtherCurr == null ? (decimal?)null :
                                                                 (fundReceivedGOITotalCurr ?? 0) + (fundReceivedOtherCurr ?? 0)
 
-                         let fundReceivedOtherAndGOITotalCum = fundReceivedGOITotalCum == null && fundReceivedOtherCum == null ? (decimal?)null : 
+                         let fundReceivedOtherAndGOITotalCum = fundReceivedGOITotalCum == null && fundReceivedOtherCum == null ? (decimal?)null :
                                                        (fundReceivedGOITotalCum ?? 0) + (fundReceivedOtherCum ?? 0)
 
 
-                         let expendituresUpToPrev = (decimal?) prevYearVouchers.Where(p => allExpenditureHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType))
+                         let expendituresUpToPrev = (decimal?)prevYearVouchers.Where(p => allExpenditureHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType))
                                .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0)
 
                          let expendituresCurr = (decimal?)currYearVouchers.Where(p => allExpenditureHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType))
@@ -789,7 +806,7 @@ namespace Finance.Reports
 
                          let expendituresCum = (decimal?)g.Where(p => allExpenditureHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType))
                                 .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0)
-                        
+
                          select new FundPositionReportData
                          {
                              DateFrom = m_dtPreviousYear,
@@ -848,8 +865,8 @@ namespace Finance.Reports
 
                              // V
                              ExpendituresUpToPrev = expendituresUpToPrev,
-                             ExpendituresCurr =   expendituresCurr,
-                             ExpendituresCum =  expendituresCum,
+                             ExpendituresCurr = expendituresCurr,
+                             ExpendituresCum = expendituresCum,
 
                              // VI = IV - V
                              BalanceFundUpToPrev = fundReceivedOtherAndGOITotalUpToPrev == null && expendituresUpToPrev == null ? (decimal?)null :
@@ -873,7 +890,7 @@ namespace Finance.Reports
                              EstablishmentExpendituresHead = string.Join(",", HeadOfAccountHelpers.EstablishmentExpenditures),
 
 
-                               //VII -b
+                             //VII -b
 
                              CivilWorkExpendituresUpToPrev = prevYearVouchers.Where(p => HeadOfAccountHelpers.CivilExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
                                                          .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
@@ -908,8 +925,18 @@ namespace Finance.Reports
                              TransmissionExpendituresCum = g.Where(p => HeadOfAccountHelpers.TransmissionExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
                                          .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
 
-                             TransmissionExpendituresHead = string.Join(",", HeadOfAccountHelpers.TransmissionExpenditures)
+                             TransmissionExpendituresHead = string.Join(",", HeadOfAccountHelpers.TransmissionExpenditures),
 
+                             // VIII
+                             AllBanks = from item in g
+                                 where HeadOfAccountHelpers.AllBanks.Contains(item.HeadOfAccount.HeadOfAccountType)
+                                 group item by item.HeadOfAccount into g2
+                                 select new
+                                 {
+                                     BankName = g2.Key.Description,
+                                     Balance = -g2.Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
+                                     BankHead = g2.Key.HeadOfAccountId
+                                 }
 
 
                          });
