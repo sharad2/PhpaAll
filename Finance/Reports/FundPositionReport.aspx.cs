@@ -27,6 +27,8 @@ namespace Finance.Reports
 
         public DateTime DateFrom { get; set; }
 
+        public DateTime PreviousYearEndDate { get; set; }
+
         /// <summary>
         /// I - a
         /// </summary>
@@ -811,6 +813,7 @@ namespace Finance.Reports
                          {
                              DateFrom = m_dtPreviousYear,
                              DateTo = m_dtPassed,
+                             PreviousYearEndDate = m_dtPreviousYearEnd,
                              // I - a
                              FundsReceivedGOIGrantNuUpToPrev = prevYearVouchers.Where(p => p.HeadOfAccount.HeadOfAccountType == allGoiHeadTypes[0])
                                                         .Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),

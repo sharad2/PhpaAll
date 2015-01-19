@@ -102,7 +102,7 @@
                         <td class="vd-amountcol">
                             <asp:HyperLink runat="server"
                                 ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
-                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOIGrantNuHeads, Item.DateFrom
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOIGrantNuHeads, Item.PreviousYearEndDate
 ) %>'
                                 EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantNuUpToPrev) %>' />
                         </td>
@@ -124,7 +124,7 @@
                         </td>
                         <td class="vd-amountcol">
                             <asp:HyperLink ID="hplnkGOIAidFEPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
-                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOIGrantFeHeads, Item.DateFrom) %>'
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOIGrantFeHeads, Item.PreviousYearEndDate) %>'
                                 EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantFeUpToPrev) %>' />
                         </td>
 
@@ -145,7 +145,7 @@
                         </td>
                         <td class="vd-amountcol">
                             <asp:HyperLink ID="hplnkGOILoanPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
-                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOILoanNuHeads, Item.DateFrom) %>'
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOILoanNuHeads, Item.PreviousYearEndDate) %>'
                                 EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOILoanNuUpToPrev) %>' />
                         </td>
 
@@ -167,7 +167,7 @@
 
                             <asp:HyperLink ID="hplnkGOILoanFEPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in Foreign Exchange prior to Financial Year"
                                 EnableViewState="false"
-                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOILoanFeHeads, Item.DateFrom) %>'
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOILoanFeHeads, Item.PreviousYearEndDate) %>'
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOILoanFeUpToPrev) %>' />
                         </td>
 
@@ -211,7 +211,7 @@
 
                             <asp:HyperLink ID="hplnkReceiptsPreviousYear" runat="server" ToolTip="Click to list voucher entries for Interest received prior to Financial Year"
                                 EnableViewState="false"
-                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}", Item.FundReceivedOtherHeads, Item.DateFrom) %>'
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundReceivedOtherHeads, Item.PreviousYearEndDate) %>'
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedOtherUpToPrev) %>' />
                         </td>
 
@@ -306,7 +306,7 @@
                         <td class="vd-amountcol">
 
                             <asp:HyperLink ID="hplnkEstablishExpenditurePreviousYear" runat="server" ToolTip="Click to list voucher entries for expenditure for input month"
-                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.EstablishmentExpendituresHead, Item.DateFrom) %>'
+                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.EstablishmentExpendituresHead, Item.PreviousYearEndDate) %>'
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.EstablishmentExpendituresUpToPrev) %>' />
                         </td>
                         <td class="vd-amountcol">
@@ -327,7 +327,7 @@
                         <td class="vd-amountcol">
 
                             <asp:HyperLink ID="hplnkCivilExpenditurePreviousYear" runat="server" ToolTip="Click to list voucher entries for expenditure for input month"
-                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.CivilWorkExpendituresHead, Item.DateFrom) %>'
+                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.CivilWorkExpendituresHead, Item.PreviousYearEndDate) %>'
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.CivilWorkExpendituresUpToPrev) %>' />
                         </td>
                         <td class="vd-amountcol">
@@ -349,7 +349,7 @@
                         <td class="vd-amountcol">
 
                             <asp:HyperLink ID="hplnkElectricalExpenditurePreviousYear" runat="server" ToolTip="Click to list voucher entries for employee advances prior to Financial Year"
-                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.ElectricalExpendituresHead, Item.DateFrom) %>'
+                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.ElectricalExpendituresHead, Item.PreviousYearEndDate) %>'
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ElectricalExpendituresUpToPrev) %>' />
                         </td>
                         <td class="vd-amountcol">
@@ -371,7 +371,7 @@
                         <td class="vd-amountcol">
 
                             <asp:HyperLink ID="hplnkTransmissionExpenditurePreviousYear" runat="server" ToolTip="Click to list voucher entries for party and material advances prior to Financial Year"
-                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.TransmissionExpendituresHead, Item.DateTo) %>'
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.TransmissionExpendituresHead, Item.PreviousYearEndDate) %>'
                                 EnableViewState="false"
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.TransmissionExpendituresUpToPrev) %>' />
                         </td>
