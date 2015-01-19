@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="ManageFinancialYears.aspx.cs"
-    Inherits="Finance.Finance.ManageFinancialYears" EnableEventValidation="true" Title="Manage Financial Year" %>
+    Inherits="Finance.Finance.ManageFinancialYears" EnableEventValidation="true" Title="Manage Financial Years" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
