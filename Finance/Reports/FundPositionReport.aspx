@@ -483,7 +483,7 @@
     <br />
     <br />
     <br />
-    <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
+   <%-- <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
         <caption style="text-align: right; font-weight: bold; font-size: 1.2em">All Figures in Million Rs/Nu</caption>
         <thead class="ui-state-default">
             <tr class="RowHeader">
@@ -658,12 +658,12 @@
                     <asp:Label ID="lblbalancefundcumulative" runat="server" EnableViewState="False" OnPreRender="lblbalancefundcumulative_prerender" /></td>
             </tr>
         </tbody>
-    </table>
+    </table>--%>
     <br />
     <br />
     <br />
-    <span style="font-weight: bold;">VII Detail of Expenditure</span>
-    <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
+   <%-- <span style="font-weight: bold;">VII Detail of Expenditure</span>--%>
+   <%-- <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
         <thead class="ui-state-default">
             <tr class="RowHeader">
                 <th align="center" rowspan="2" width="50px"><strong></strong></th>
@@ -778,7 +778,7 @@
                 </td>
             </tr>
         </tbody>
-    </table>
+    </table>--%>
    <%--   <br />
     <br />
     <br />
