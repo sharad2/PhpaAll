@@ -370,33 +370,33 @@ namespace Finance.Reports
                     hl.Text = DisplayInMillion(kvp.Value);
                 }
             }
-            ltrlCurrentMonth.Text = string.Empty;
-            DateTime dateval = Convert.ToDateTime(dttbreceiptpayment.Text);
-            valdate = dateval.ToString("Y");
+            //ltrlCurrentMonth.Text = string.Empty;
+            //DateTime dateval = Convert.ToDateTime(dttbreceiptpayment.Text);
+            //valdate = dateval.ToString("Y");
 
-            ltrlCurrentMonth.Text = "Expenditure for the Month of " + valdate + " (till date)";
+            //ltrlCurrentMonth.Text = "Expenditure for the Month of " + valdate + " (till date)";
 
             //Sequence of queries does maater..as we want grid view to be rendered in the end.
             // Getting fund in banks as on date
-            var query3 = (from vd in db.RoVoucherDetails
-                          join hh in db.RoHeadHierarchies on vd.HeadOfAccountId equals hh.HeadOfAccountId
-                          where HeadOfAccountHelpers.AllBanks.Contains(hh.HeadOfAccountType)
-                          group vd by vd.HeadOfAccountId into grouping
-                          select new
-                          {
-                              BankName = grouping.Max(p => p.HeadOfAccount.Description),
-                              Balance = (-(grouping.Sum(hoa => hoa.RoVoucher.VoucherDate < m_dtPreviousYear ? (hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0) : 0) + grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtPassed ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0) + grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0))),
-                              BankHead = grouping.Max(p => p.HeadOfAccountId)
-                          });
-            // Get total of Balance fund in banks other than Bank at wangdue
-            // We keep tottal of balance in million format.
-            foreach (var bank in query3)
-            {
-                _otherBankAmount = _otherBankAmount + bank.Balance;
-                otherBankAmount = DisplayInMillion(_otherBankAmount);
-            }
-            grvBankAccount.DataSource = query3;
-            grvBankAccount.DataBind();
+            //var query3 = (from vd in db.RoVoucherDetails
+            //              join hh in db.RoHeadHierarchies on vd.HeadOfAccountId equals hh.HeadOfAccountId
+            //              where HeadOfAccountHelpers.AllBanks.Contains(hh.HeadOfAccountType)
+            //              group vd by vd.HeadOfAccountId into grouping
+            //              select new
+            //              {
+            //                  BankName = grouping.Max(p => p.HeadOfAccount.Description),
+            //                  Balance = (-(grouping.Sum(hoa => hoa.RoVoucher.VoucherDate < m_dtPreviousYear ? (hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0) : 0) + grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtPassed ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0) + grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0))),
+            //                  BankHead = grouping.Max(p => p.HeadOfAccountId)
+            //              });
+            //// Get total of Balance fund in banks other than Bank at wangdue
+            //// We keep tottal of balance in million format.
+            //foreach (var bank in query3)
+            //{
+            //    _otherBankAmount = _otherBankAmount + bank.Balance;
+            //    otherBankAmount = DisplayInMillion(_otherBankAmount);
+            //}
+            //grvBankAccount.DataSource = query3;
+            //grvBankAccount.DataBind();
             return;
         }
 
@@ -629,24 +629,24 @@ namespace Finance.Reports
             lbl.Text = DisplayInMillion(getBalancefund());
         }
 
-        protected void lblExpenditureCurrentmonth_PreRenderShowSum(object sender, EventArgs e)
-        {
-            Label lbl = (Label)sender;
-            SumType totalType = (SumType)Enum.Parse(typeof(SumType), lbl.Attributes["SumType"]);
-            if (m_totals.ContainsKey(totalType))
-            {
-                decimal d = m_totals[totalType];
-                lbl.Text = DisplayInMillion(d);
-            }
+        //protected void lblExpenditureCurrentmonth_PreRenderShowSum(object sender, EventArgs e)
+        //{
+        //    Label lbl = (Label)sender;
+        //    SumType totalType = (SumType)Enum.Parse(typeof(SumType), lbl.Attributes["SumType"]);
+        //    if (m_totals.ContainsKey(totalType))
+        //    {
+        //        decimal d = m_totals[totalType];
+        //        lbl.Text = DisplayInMillion(d);
+        //    }
 
-        }
+        //}
 
-        protected void lblDifference_PreRender(object sender, EventArgs e)
-        {
-            Label lbl = (Label)sender;
-            decimal d = m_totals[SumType.FundSum] - m_totals[SumType.PaymentsSum];
-            lbl.Text = DisplayInMillion(d);
-        }
+        //protected void lblDifference_PreRender(object sender, EventArgs e)
+        //{
+        //    Label lbl = (Label)sender;
+        //    decimal d = m_totals[SumType.FundSum] - m_totals[SumType.PaymentsSum];
+        //    lbl.Text = DisplayInMillion(d);
+        //}
 
         /// <summary>
         /// Returns balance fund.i.e difference between receipts and expenditure.
@@ -675,40 +675,40 @@ namespace Finance.Reports
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void grvBankAccount_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            switch (e.Row.RowType)
-            {
-                case DataControlRowType.DataRow:
-                    var val = m_totals[0];
-                    int indexAccountbanace = grvBankAccount.Columns.Cast<DataControlField>()
-                  .Select((p, i) => p.AccessibleHeaderText == "AccountBalance" ? i : -1).First(p => p >= 0);
-                    int indexAccountHead = grvBankAccount.Columns.Cast<DataControlField>()
-                  .Select((p, i) => p.AccessibleHeaderText == "AccountHead" ? i : -1).First(p => p >= 0);
-                    var valuehead = e.Row.Cells[indexAccountHead].Text;
-                    var value = Convert.ToDecimal(e.Row.Cells[indexAccountbanace].Text);
-                    //if (valuehead == "1415")
-                    //{
-                    //  // If bank is BOB wangdue then we get balance at bank by susbtracting total balace fund with balance in other banks
-                    //var balancefund = Convert.ToDecimal(DisplayInMillion(getBalancefund())) - _otherBankAmount;
-                    //e.Row.Cells[indexAccountbanace].Text = balancefund.ToString();
-                    //}
-                    //else
-                    //{
+        //protected void grvBankAccount_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    switch (e.Row.RowType)
+        //    {
+        //        case DataControlRowType.DataRow:
+        //            var val = m_totals[0];
+        //            int indexAccountbanace = grvBankAccount.Columns.Cast<DataControlField>()
+        //          .Select((p, i) => p.AccessibleHeaderText == "AccountBalance" ? i : -1).First(p => p >= 0);
+        //            int indexAccountHead = grvBankAccount.Columns.Cast<DataControlField>()
+        //          .Select((p, i) => p.AccessibleHeaderText == "AccountHead" ? i : -1).First(p => p >= 0);
+        //            var valuehead = e.Row.Cells[indexAccountHead].Text;
+        //            var value = Convert.ToDecimal(e.Row.Cells[indexAccountbanace].Text);
+        //            //if (valuehead == "1415")
+        //            //{
+        //            //  // If bank is BOB wangdue then we get balance at bank by susbtracting total balace fund with balance in other banks
+        //            //var balancefund = Convert.ToDecimal(DisplayInMillion(getBalancefund())) - _otherBankAmount;
+        //            //e.Row.Cells[indexAccountbanace].Text = balancefund.ToString();
+        //            //}
+        //            //else
+        //            //{
 
-                    e.Row.Cells[indexAccountbanace].Text = DisplayInMillion(value);
-                    //}
-                    break;
-                case DataControlRowType.Footer:
-                    int indexNetPay1 = grvBankAccount.Columns.Cast<DataControlField>()
-                   .Select((p, i) => p.AccessibleHeaderText == "AccountBalance" ? i : -1).First(p => p >= 0);
-                    e.Row.Cells[indexNetPay1].Text = DisplayInMillion(getBalancefund());
-                    int indexNetPay2 = grvBankAccount.Columns.Cast<DataControlField>()
-                  .Select((p, i) => p.AccessibleHeaderText == "AccountName" ? i : -1).First(p => p >= 0);
-                    e.Row.Cells[indexNetPay2].Text = "TOTAL";
-                    break;
-            }
-        }
+        //            e.Row.Cells[indexAccountbanace].Text = DisplayInMillion(value);
+        //            //}
+        //            break;
+        //        case DataControlRowType.Footer:
+        //            int indexNetPay1 = grvBankAccount.Columns.Cast<DataControlField>()
+        //           .Select((p, i) => p.AccessibleHeaderText == "AccountBalance" ? i : -1).First(p => p >= 0);
+        //            e.Row.Cells[indexNetPay1].Text = DisplayInMillion(getBalancefund());
+        //            int indexNetPay2 = grvBankAccount.Columns.Cast<DataControlField>()
+        //          .Select((p, i) => p.AccessibleHeaderText == "AccountName" ? i : -1).First(p => p >= 0);
+        //            e.Row.Cells[indexNetPay2].Text = "TOTAL";
+        //            break;
+        //    }
+        //}
 
         /// <summary>
         /// Display amount in millions..

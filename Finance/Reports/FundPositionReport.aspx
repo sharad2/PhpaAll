@@ -102,7 +102,8 @@
                         <td class="vd-amountcol">
                             <asp:HyperLink runat="server"
                                 ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
-                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOIGrantNuHeads, Item.DateTo) %>'
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOIGrantNuHeads, Item.DateFrom
+) %>'
                                 EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantNuUpToPrev) %>' />
                         </td>
 
@@ -123,7 +124,7 @@
                         </td>
                         <td class="vd-amountcol">
                             <asp:HyperLink ID="hplnkGOIAidFEPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
-                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOIGrantFeHeads, Item.DateTo) %>'
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOIGrantFeHeads, Item.DateFrom) %>'
                                 EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantFeUpToPrev) %>' />
                         </td>
 
@@ -144,7 +145,7 @@
                         </td>
                         <td class="vd-amountcol">
                             <asp:HyperLink ID="hplnkGOILoanPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
-                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOILoanNuHeads, Item.DateTo) %>'
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOILoanNuHeads, Item.DateFrom) %>'
                                 EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOILoanNuUpToPrev) %>' />
                         </td>
 
@@ -166,7 +167,7 @@
 
                             <asp:HyperLink ID="hplnkGOILoanFEPreviousYear" runat="server" ToolTip="Click to list voucher entries for Funds Received from Government of India in Foreign Exchange prior to Financial Year"
                                 EnableViewState="false"
-                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOILoanFeHeads, Item.DateTo) %>'
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOILoanFeHeads, Item.DateFrom) %>'
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOILoanFeUpToPrev) %>' />
                         </td>
 
@@ -305,7 +306,7 @@
                         <td class="vd-amountcol">
 
                             <asp:HyperLink ID="hplnkEstablishExpenditurePreviousYear" runat="server" ToolTip="Click to list voucher entries for expenditure for input month"
-                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.EstablishmentExpendituresHead, Item.DateFrom, Item.DateTo) %>'
+                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.EstablishmentExpendituresHead, Item.DateFrom) %>'
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.EstablishmentExpendituresUpToPrev) %>' />
                         </td>
                         <td class="vd-amountcol">
@@ -326,7 +327,7 @@
                         <td class="vd-amountcol">
 
                             <asp:HyperLink ID="hplnkCivilExpenditurePreviousYear" runat="server" ToolTip="Click to list voucher entries for expenditure for input month"
-                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.CivilWorkExpendituresHead, Item.DateFrom, Item.DateTo) %>'
+                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.CivilWorkExpendituresHead, Item.DateFrom) %>'
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.CivilWorkExpendituresUpToPrev) %>' />
                         </td>
                         <td class="vd-amountcol">
@@ -348,7 +349,7 @@
                         <td class="vd-amountcol">
 
                             <asp:HyperLink ID="hplnkElectricalExpenditurePreviousYear" runat="server" ToolTip="Click to list voucher entries for employee advances prior to Financial Year"
-                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.ElectricalExpendituresHead, Item.DateTo) %>'
+                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.ElectricalExpendituresHead, Item.DateFrom) %>'
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ElectricalExpendituresUpToPrev) %>' />
                         </td>
                         <td class="vd-amountcol">
@@ -406,7 +407,19 @@
                     </tr>
                 </tbody>
             </table>
-            <jquery:GridViewEx ID="grvBankAccount" runat="server" AutoGenerateColumns="false" ShowFooter="true" Width="1000px" DataSource='<%# Item.AllBanks %>' Caption="Sharad">
+          <%--  <br />
+            <br />
+            <br />
+            <span style="font-weight: bolder; font-size: 1.2em; width: 1000px">
+        <asp:Literal ID="ltrlCurrentMonth" runat="server"></asp:Literal>
+        <asp:Label ID="lblExpenditureCurrentmonth" runat="server" SumType="PaymentsForMonth" CssClass="lblExpenditureCurrentMonth"
+            OnPreRender="lblExpenditureCurrentmonth_PreRenderShowSum" /></span>--%>
+    <br />
+    <br />
+    <br />
+             <span style="font-weight: bold;">VIII Detail of Balance Fund(Including Other receipts fund)</span>
+
+            <jquery:GridViewEx ID="grvBankAccount" runat="server" AutoGenerateColumns="false" ShowFooter="true" Width="1000px" DataSource='<%# Item.AllBanks %>'>
                 <Columns>
                     <eclipse:MultiBoundField DataFields="BankHead" HeaderText="Bank Head" AccessibleHeaderText="AccountHead" Visible="false"></eclipse:MultiBoundField>
                     <eclipse:MultiBoundField DataFields="BankName" HeaderText="Name Of The Account" AccessibleHeaderText="AccountName" ItemStyle-Width="800px">
@@ -418,6 +431,53 @@
                 </Columns>
                 <FooterStyle HorizontalAlign="Right" Font-Bold="true" CssClass="RowHeader ui-state-active ui-widget-header" />
             </jquery:GridViewEx>
+
+            <br />
+            <br />
+
+            <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
+            <thead class="ui-state-default">
+                <tr class="RowHeader">
+                    <th align="center"><strong>Name of the receipts</strong></th>
+                    <th align="center">Figures(in millions)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="AlternatingRow">
+                    <td>
+                        <asp:Label ID="lbltotfund" runat="server" Text="Total Fund Received from GOI"></asp:Label></td>
+                    <td class="vd-amountcol">
+                        <asp:Label ID="Label2" runat="server"
+                            EnableViewState="false" SumType="FundSum" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedGOITotalCum) %>'
+                             /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblexp" runat="server"
+                            Text="Total Expenditure"></asp:Label></td>
+                    <td class="vd-amountcol">
+                        <asp:Label ID="Label3" runat="server"
+                            EnableViewState="false"
+                            
+                            SumType="PaymentsSum"
+                            Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ExpendituresCum) %>'  /></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="RowHeader ui-state-active ui-widget-header">
+                    <td align="right"><b>
+                        <asp:Label ID="lbldiff" runat="server"
+                            Text="Balance Fund"></asp:Label></b></td>
+                    <td class="vd-amountcol">
+                        <asp:Label ID="lblDifference" runat="server"
+                            EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", (Item.FundReceivedGOITotalCum)-(Item.ExpendituresCum)) %>' 
+                             /></td>
+                </tr>
+            </tfoot>
+        </table>
+
+
+
         </ItemTemplate>
     </asp:FormView>
     <br />
@@ -719,10 +779,10 @@
             </tr>
         </tbody>
     </table>
+   <%--   <br />
     <br />
     <br />
-    <br />
-    <span style="font-weight: bolder; font-size: 1.2em; width: 1000px">
+  <span style="font-weight: bolder; font-size: 1.2em; width: 1000px">
         <asp:Literal ID="ltrlCurrentMonth" runat="server"></asp:Literal>
         <asp:Label ID="lblExpenditureCurrentmonth" runat="server" EnableViewState="false" SumType="PaymentsForMonth" CssClass="lblExpenditureCurrentMonth"
             OnPreRender="lblExpenditureCurrentmonth_PreRenderShowSum" /></span>
@@ -745,8 +805,8 @@
     </div>
     <br />
     <br />
-    <br />
-    <div id="divdiff" runat="server">
+    <br />--%>
+   <%-- <div id="divdiff" runat="server">
         <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
             <thead class="ui-state-default">
                 <tr class="RowHeader">
@@ -786,5 +846,5 @@
                 </tr>
             </tfoot>
         </table>
-    </div>
+    </div>--%>
 </asp:Content>
