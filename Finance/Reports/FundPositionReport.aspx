@@ -394,19 +394,15 @@
                 <td class="center"></td>
                 <td align="right"><b>TOTAL PAYMENTS</b></td>
                 <td class="vd-amountcol">
-                    <asp:Label ID="lblPaymentsPreviousYear" runat="server" EnableViewState="false" OnPreRender="lbl_PreRenderShowSum"
-                        SumType="PaymentsPreviousYear" />
+                    <asp:Label ID="lblPaymentsPreviousYear" runat="server" EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ExpendituresUpToPrev) %>'  />
                 </td>
 
                 <td class="vd-amountcol">
-                    <asp:Label ID="lblPaymentsumUptoMonth" runat="server" EnableViewState="false" SumType="PaymentsUptoMonth"
-                        OnPreRender="lbl_PreRenderShowSum" />
+                    <asp:Label ID="lblPaymentsumUptoMonth" runat="server" EnableViewState="false"  Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ExpendituresCurr) %>' />
                 </td>
                 <td class="vd-amountcol">
-                    <asp:Label ID="lblPaymentsum" runat="server" EnableViewState="false" SumType="PaymentsSum"
-                        OnPreRender="lbl_PreRenderShowSum" />
-                    <asp:Label ID="lblPaymentForMonthSum" runat="server" EnableViewState="false" Visible="false" SumType="PaymentsForMonth"
-                        OnPreRender="lbl_PreRenderShowSum" />
+                    <asp:Label ID="lblPaymentsum" runat="server" EnableViewState="false"  />
+                    <asp:Label ID="lblPaymentForMonthSum" runat="server" EnableViewState="false"   Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ExpendituresCum) %>' />
                 </td>
             </tr>
         </tbody>
