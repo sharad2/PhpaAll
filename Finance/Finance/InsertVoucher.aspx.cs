@@ -476,6 +476,11 @@ namespace Finance.Finance
         protected void tbVD_ServerValidate(object sender, EclipseLibrary.Web.JQuery.Input.ServerValidateEventArgs e)
         {
             TextBoxEx tbVoucherDate = (TextBoxEx)fvEdit.FindControl("tbVoucherDate");
+            if (string.IsNullOrEmpty(tbVoucherDate.Text)) 
+            {
+                tbVoucherDate.IsValid = false;
+                return;
+            }
             DateTime dt = DateTime.Parse(tbVoucherDate.Text);
             if (!IsDateValid(dt))
             {
@@ -647,10 +652,10 @@ namespace Finance.Finance
                 }
                 else 
                 {
-                    tb.Text = null;
                     val.Min = 1;
                     val.Max = -1;
                     tb.ReadOnly = true;
+                    tb.Enabled = false;
                     lblError.Text = "Voucher cannot be created as there is no open financial year for voucher creation.";
                 }
             };
