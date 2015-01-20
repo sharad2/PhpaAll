@@ -623,22 +623,35 @@ namespace Finance.Finance
         {
             using (FiscalDataContext db = new FiscalDataContext(ReportingUtilities.DefaultConnectString))
             {
-                //This query is used to get the start and end date for the open financial year.
+                TextBoxEx tb = (TextBoxEx)fvEdit.FindControl("tbVoucherDate");
+                var val = tb.Validators.OfType<Date>().Single();
+                //This query is used to get the start and end date for the open financial years.
                 var qry = (from qr in db.FinancialYears
                            where (qr.Freeze ?? "N") != "Y"
-                           orderby qr.Name
-                           select new { sdate = qr.StartDate, edate = qr.EndDate }).FirstOrDefault();
-                var sdate = qry.sdate;
-                var edate = qry.edate;
-                TextBoxEx tb = (TextBoxEx)fvEdit.FindControl("tbVoucherDate");
-                TimeSpan minspan = sdate - DateTime.Today;
-                var val = tb.Validators.OfType<Date>().Single();
-                val.Min = minspan.Days;
-                //If the financial year have end date we must incorporate the validation for the max date.
-                if (edate != null)
+                           group new { qr } by new { qr.Freeze } into g
+                           select new { minStartDate = g.Min(p => p.qr.StartDate),
+                                        maxEndtDate = g.Max(p => p.qr.EndDate)
+                           }).FirstOrDefault();
+                if (qry != null)
                 {
-                    TimeSpan? maxspan = edate - DateTime.Today;
-                    val.Max = maxspan.Value.Days;
+                    var sdate = qry.minStartDate;
+                    var edate = qry.maxEndtDate;
+                    TimeSpan minspan = sdate - DateTime.Today;
+                    val.Min = minspan.Days;
+                    //If the financial year have end date we must incorporate the validation for the max date.
+                    if (edate != null)
+                    {
+                        TimeSpan? maxspan = edate - DateTime.Today;
+                        val.Max = maxspan.Value.Days;
+                    }
+                }
+                else 
+                {
+                    tb.Text = null;
+                    val.Min = 1;
+                    val.Max = -1;
+                    tb.ReadOnly = true;
+                    lblError.Text = "Voucher cannot be created as there is no open financial year for voucher creation.";
                 }
             };
         }

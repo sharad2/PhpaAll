@@ -12,6 +12,8 @@
     <asp:HyperLink runat="server" NavigateUrl="~/Finance/InsertVoucher.aspx">Create New Voucher</asp:HyperLink>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph" runat="server">
+
+    <asp:Label ID="lblError" runat="server" ForeColor="Red" />
     <phpa:PhpaLinqDataSource ID="dsEditVouchers" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FinanceDataContext"
         TableName="Vouchers" AutoGenerateWhereClause="false" Where="VoucherId == @VoucherId"
         EnableInsert="true" EnableUpdate="true" OnContextCreating="ds_ContextCreating"
