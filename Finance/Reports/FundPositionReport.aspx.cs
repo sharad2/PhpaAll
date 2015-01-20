@@ -113,7 +113,7 @@ namespace Finance.Reports
 
         public decimal? ExpendituresCum { get; set; }
 
-        public string ExpendituresHeads { get; set; }
+        //public string ExpendituresHeads { get; set; }
 
 
         /// <summary>
@@ -176,6 +176,11 @@ namespace Finance.Reports
         public string TransmissionExpendituresHead { get; set; }
 
         public IEnumerable AllBanks { get; set; }
+
+        /// <summary>
+        /// Expenditure for Current Month
+        /// </summary>
+        public decimal? CurrentMonthExpenditure { get; set; }
 
     }
 
@@ -939,8 +944,11 @@ namespace Finance.Reports
                                      BankName = g2.Key.Description,
                                      Balance = -g2.Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
                                      BankHead = g2.Key.HeadOfAccountId
-                                 }
+                                 },
 
+                             CurrentMonthExpenditure = g.Where(p => allExpenditureHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType) && 
+                                 p.RoVoucher.VoucherDate >= m_dtMonthStart && p.RoVoucher.VoucherDate <= m_dtPassed)
+                                .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0)
 
                          });
             //throw new NotImplementedException();

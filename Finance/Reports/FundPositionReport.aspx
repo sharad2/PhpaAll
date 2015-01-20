@@ -407,7 +407,9 @@
                     </tr>
                 </tbody>
             </table>
-            <h2 runat="server">Expenditure for the month of <%# string.Format("{0:MMMMM, yyyy}", Item.DateTo) %> (till date)</h2>
+            <h2 runat="server">Expenditure for the month of <%# string.Format("{0:MMMMM, yyyy}", Item.DateTo) %> (till date):
+                <%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.CurrentMonthExpenditure) %>
+            </h2>
           <%--  <br />
             <br />
             <br />
