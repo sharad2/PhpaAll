@@ -484,7 +484,7 @@ namespace Finance.Finance
             DateTime dt = DateTime.Parse(tbVoucherDate.Text);
             if (!IsDateValid(dt))
             {
-                e.ControlToValidate.ErrorMessage = "Voucher cannot be created in a closed financial year. Please select a valid voucher date.";
+                e.ControlToValidate.ErrorMessage = "Voucher cannot be created or edited in a closed financial year. Please select a valid voucher date.";
                 tbVoucherDate.IsValid = false;
                 return;
             }
@@ -656,7 +656,8 @@ namespace Finance.Finance
                     val.Max = -1;
                     tb.ReadOnly = true;
                     tb.Enabled = false;
-                    lblError.Text = "Voucher cannot be created as there is no open financial year for voucher creation.";
+                    lblError.Visible = true;
+                    lblError.Text = "Voucher cannot be created as there is no open financial year available for voucher creation.";
                 }
             };
         }

@@ -13,7 +13,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph" runat="server">
 
-    <asp:Label ID="lblError" runat="server" ForeColor="Red" />
+    <asp:Label ID="lblError" runat="server" Visible="false" ForeColor="Red" />
     <phpa:PhpaLinqDataSource ID="dsEditVouchers" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FinanceDataContext"
         TableName="Vouchers" AutoGenerateWhereClause="false" Where="VoucherId == @VoucherId"
         EnableInsert="true" EnableUpdate="true" OnContextCreating="ds_ContextCreating"
