@@ -67,7 +67,7 @@
             </eclipse:MultiBoundField>
         </Columns>
         <EmptyDataTemplate>
-            There is no financial year defined in the system yet. Nobody will be able to edit or delete any Vouchers. Please define an active financial year so that Vouchers can be edited and deleted in the active financial year.
+            There is no active financial year defined in the system yet. Nobody will be able to Create, Edit or Delete any Vouchers. Please define an active financial year so that Vouchers can be Created, Edited or Deleted in the active financial year.
         </EmptyDataTemplate>
     </jquery:GridViewExInsert>
 </asp:Content>
