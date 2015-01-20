@@ -188,16 +188,16 @@
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblFundReceivedPreviousYear" runat="server" EnableViewState="false"
-                                SumType="FundReceivedPreviousYear"
+                                
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedGOITotalUpToPrev) %>' />
                         </td>
 
                         <td class="vd-amountcol">
-                            <asp:Label ID="lblFundRecievedUpToMonth" runat="server" EnableViewState="false" SumType="FundReceivedUptoMonth"
+                            <asp:Label ID="lblFundRecievedUpToMonth" runat="server" EnableViewState="false"
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedGOITotalCurr) %>' />
                         </td>
                         <td class="vd-amountcol">
-                            <asp:Label ID="lblFundRecievedSum" runat="server" EnableViewState="false" SumType="FundSum"
+                            <asp:Label ID="lblFundRecievedSum" runat="server" EnableViewState="false" 
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedGOITotalCum) %>' />
                         </td>
                     </tr>
@@ -232,17 +232,17 @@
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblReceiptsPreviousYear" runat="server" EnableViewState="false"
-                                SumType="ReceiptsPreviousYear" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedOtherAndGOITotalUpToPrev) %>' />
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedOtherAndGOITotalUpToPrev) %>' />
                         </td>
 
                         <td class="vd-amountcol">
                             <asp:Label ID="lblReceiptsUptoMonth" runat="server" EnableViewState="false"
-                                SumType="ReceiptsUptoMonth"
+                                
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedOtherAndGOITotalCurr) %>' />
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="Label1" runat="server" EnableViewState="false"
-                                SumType="ReceiptsSum"
+                                
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedOtherAndGOITotalCum) %>' />
                         </td>
                     </tr>
@@ -252,16 +252,16 @@
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblExpenditurePreviousYear" runat="server" EnableViewState="false"
-                                SumType="PaymentsPreviousYear"
+                                
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ExpendituresUpToPrev) %>' />
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblExpenditureUpToMonth" runat="server" EnableViewState="false"
-                                SumType="PaymentsUptoMonth" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ExpendituresCurr) %>' />
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ExpendituresCurr) %>' />
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblTotalExpenditure" runat="server" EnableViewState="false"
-                                SumType="PaymentsSum"
+                                
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ExpendituresCum) %>' />
                         </td>
                     </tr>
@@ -450,7 +450,7 @@
                         <asp:Label ID="lbltotfund" runat="server" Text="Total Fund Received from GOI"></asp:Label></td>
                     <td class="vd-amountcol">
                         <asp:Label ID="Label2" runat="server"
-                            EnableViewState="false" SumType="FundSum" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedGOITotalCum) %>'
+                            EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedGOITotalCum) %>'
                              /></td>
                 </tr>
                 <tr>
