@@ -48,7 +48,6 @@ namespace Finance.Finance
                 if (string.IsNullOrEmpty(this.Request.QueryString["VoucherId"]))
                 {
                     fvEdit.DefaultMode = FormViewMode.Insert;
-                    //fvEdit.ChangeMode(FormViewMode.Insert);
 
                     if (string.IsNullOrEmpty(this.Request.QueryString["VoucherDate"]))
                     {
@@ -59,7 +58,6 @@ namespace Finance.Finance
                 else
                 {
                     fvEdit.DefaultMode = FormViewMode.ReadOnly;
-                    //fvEdit.ChangeMode(FormViewMode.ReadOnly);
                 }
             }
             ctlVoucherDetail.Station = this.GetUserStations();
@@ -208,7 +206,6 @@ namespace Finance.Finance
             {
                 return;
             }
-            //voucher.Station = Session["station"].ToString();
             bool bSuccess = SaveVoucher();
 
             if (bSuccess)
@@ -216,13 +213,7 @@ namespace Finance.Finance
                 //fvEdit.ChangeMode(FormViewMode.Edit);
                 switch (fvEdit.CurrentMode)
                 {
-                    /*case FormViewMode.Edit:
-                        fvEdit.ChangeMode(FormViewMode.ReadOnly);
-                        ctlVoucherDetail.DataBind();
-                        break;*/
-
                     case FormViewMode.Insert:
-                        //string url = Request.Url.AbsoluteUri;
                         string[] url = Request.Url.AbsoluteUri.Split('?');
 
                         if (!string.IsNullOrEmpty(voucher.CheckNumber.ToString()))
@@ -318,15 +309,11 @@ namespace Finance.Finance
             switch (fvEdit.CurrentMode)
             {
                 case FormViewMode.Edit:
-
-                    //dsEditVouchers.UpdateParameters["Station"].DefaultValue = Session["station"].ToString();
                     dsEditVouchers.UpdateParameters["StationId"].DefaultValue = ddlStation.Value;
                     fvEdit.UpdateItem(false);
                     break;
 
                 case FormViewMode.Insert:
-
-                    //dsEditVouchers.InsertParameters["Station"].DefaultValue = Session["station"].ToString();
                     dsEditVouchers.InsertParameters["StationId"].DefaultValue = ddlStation.Value;
                     fvEdit.InsertItem(false);
                     break;
@@ -562,9 +549,6 @@ namespace Finance.Finance
                 case FormViewMode.Edit:
                     btn.Text = "Update";
                     break;
-                //case FormViewMode.Insert:
-                //    break;
-
             }
         }
         /// <summary>
@@ -576,12 +560,6 @@ namespace Finance.Finance
         /// <param name="e"></param>
         protected void dsStations_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
-            //if (Session["Station"] == null)
-            //{
-            //    FormsAuthentication.RedirectToLoginPage();
-            //    return;
-            //}
-            //List<string> stations = new List<string>(Session["Station"].ToString().Split(','));
             using (Eclipse.PhpaLibrary.Database.PIS.PISDataContext db = new Eclipse.PhpaLibrary.Database.PIS.PISDataContext(Eclipse.PhpaLibrary.Reporting.ReportingUtilities.DefaultConnectString))
             {
                 var stations = this.GetUserStations();
