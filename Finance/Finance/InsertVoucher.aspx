@@ -102,8 +102,8 @@
                         FriendlyName="Voucher Date" QueryString="VoucherDate"
                         OnLoad="tbVoucherDate_OnLoad">
                         <Validators>
-                            <i:Required />
-                            <i:Date />
+                            <i:Required OnServerValidate="tbVD_ServerValidate" ClientMessage="Not Valid date"/>
+                            <i:Date/>
                         </Validators>
                     </i:TextBoxEx>
                     <eclipse:LeftLabel runat="server" Text="Voucher No" />

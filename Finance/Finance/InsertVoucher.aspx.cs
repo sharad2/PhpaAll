@@ -79,6 +79,42 @@ namespace Finance.Finance
                 e.Cancel = true;
             }
         }
+        /// <summary>
+        /// This is for validating the passed date whether this date is a valid date or not.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns>True or False. If the passed date is not a part of an open financial year then this function will return false. 
+        /// This function will return true only when the passed date belongs to an open year.</returns>
+        protected bool IsDateValid(DateTime dt)
+        {
+            bool bValidDate = false;
+            if (dt != null)
+            {
+                using (FiscalDataContext db = new FiscalDataContext(ReportingUtilities.DefaultConnectString))
+                {
+                
+                        var query = (from fy in db.FinancialYears
+                                     where (fy.Freeze ?? "N") != "Y"
+                                     orderby fy.Name
+                                     select new
+                                     {
+                                         startdate = fy.StartDate,
+                                         enddate = fy.EndDate
+                                     });
+                        
+                        foreach (var date in query)
+                        {
+                            if (dt.Date >= date.startdate && dt.Date <= date.enddate)
+                            {
+                                bValidDate = true;
+                                break;
+                            }
+                        }
+                   
+                    }
+                }
+            return bValidDate;
+        }
 
         protected void dsEditVouchers_Deleting(object sender, LinqDataSourceDeleteEventArgs e)
         {
@@ -381,8 +417,6 @@ namespace Finance.Finance
                 voucher = (Voucher)e.Result;
                 dsEditVoucherDetail.InsertParameters["VoucherId"].DefaultValue = voucher.VoucherId.ToString();
                 dsEditVoucherDetail.UpdateParameters["VoucherId"].DefaultValue = voucher.VoucherId.ToString();
-
-
             }
         }
 
@@ -452,6 +486,18 @@ namespace Finance.Finance
             }
         }
 
+        protected void tbVD_ServerValidate(object sender, EclipseLibrary.Web.JQuery.Input.ServerValidateEventArgs e)
+        {
+            TextBoxEx tbVoucherDate = (TextBoxEx)fvEdit.FindControl("tbVoucherDate");
+            DateTime dt = DateTime.Parse(tbVoucherDate.Text);
+            if (!IsDateValid(dt))
+            {
+                e.ControlToValidate.ErrorMessage = "Voucher cannot be created in a closed financial year. Please select a valid voucher date.";
+                tbVoucherDate.IsValid = false;
+                return;
+            }
+
+        }
         #endregion
 
         protected void dlgVoucher_PreRender(object sender, EventArgs e)
@@ -602,7 +648,7 @@ namespace Finance.Finance
                 //This query is used to get the start and end date for the open financial year.
                 var qry = (from qr in db.FinancialYears
                            where (qr.Freeze ?? "N") != "Y"
-                           orderby qr.StartDate descending
+                           orderby qr.Name
                            select new { sdate = qr.StartDate, edate = qr.EndDate }).FirstOrDefault();
                 var sdate = qry.sdate;
                 var edate = qry.edate;
@@ -616,7 +662,6 @@ namespace Finance.Finance
                     TimeSpan? maxspan = edate - DateTime.Today;
                     val.Max = maxspan.Value.Days;
                 }
-
             };
         }
     }
