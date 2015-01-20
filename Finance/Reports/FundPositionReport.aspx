@@ -79,18 +79,18 @@
 
     <asp:FormView runat="server" ItemType="Finance.Reports.FundPositionReportData" SelectMethod="GetFundData">
         <ItemTemplate>
-            <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
+            <table rules="all" style="padding:4mm; width:1000px" class="MainTable">
                 <caption style="text-align: right; font-weight: bold; font-size: 1.2em">All Figures in Million Rs/Nu</caption>
                 <thead class="ui-state-default">
                     <tr class="RowHeader">
-                        <th align="center" rowspan="3" width="50px"><strong>I</strong></th>
-                        <th align="center" rowspan="3" class="RowHeader" width="450px">Receipts(1)
+                        <th style="text-align:center; width:50px" rowspan="3"><strong>I</strong></th>
+                        <th style="text-align:center; width:450px" rowspan="3" class="RowHeader">Receipts(1)
                         </th>
-                        <th align="center" rowspan="3" width="150px">Upto Previous Year(2)
+                        <th style="text-align:center; width:150px" rowspan="3" >Upto Previous Year(2)
                         </th>
-                        <th align="center" rowspan="3" width="150px">Current Year(3)
+                        <th style="text-align:center; width:150px" rowspan="3">Current Year(3)
                         </th>
-                        <th align="center" rowspan="3" width="200px">Total Cumulative(4)
+                        <th style="text-align:center; width:200px" rowspan="3">Total Cumulative(4)
                         </th>
                     </tr>
                 </thead>
@@ -183,8 +183,8 @@
                         </td>
                     </tr>
                     <tr class="RowHeader">
-                        <td align="center"><strong>II</strong></td>
-                        <td align="right">Total Fund GOI
+                        <td style="text-align:center"><strong>II</strong></td>
+                        <td style="text-align:right">Total Fund GOI
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblFundReceivedPreviousYear" runat="server" EnableViewState="false"
@@ -202,7 +202,7 @@
                         </td>
                     </tr>
                     <tr class="RowHeader">
-                        <td align="center"><strong>III</strong></td>
+                        <td style="text-align:center"><strong>III</strong></td>
                         <td title="TOTAL FUND GOI">
                             <span>Other Receipts:Ineterst,Sale of Tender,EMD,SD,other receipts etc</span>
                         </td>
@@ -227,8 +227,8 @@
                         </td>
                     </tr>
                     <tr class="RowHeader">
-                        <td align="center"><strong>IV</strong></td>
-                        <td align="right">Total(II+III)
+                        <td style="text-align:center"><strong>IV</strong></td>
+                        <td style="text-align:right">Total(II+III)
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblReceiptsPreviousYear" runat="server" EnableViewState="false"
@@ -247,8 +247,8 @@
                         </td>
                     </tr>
                     <tr class="RowHeader">
-                        <td align="center"><strong>V</strong></td>
-                        <td align="right">Expenditure
+                        <td style="text-align:center"><strong>V</strong></td>
+                        <td style="text-align:right">Expenditure
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblExpenditurePreviousYear" runat="server" EnableViewState="false"
@@ -266,8 +266,8 @@
                         </td>
                     </tr>
                     <tr class="RowHeader ui-state-active ui-widget-header">
-                        <td align="center"><strong>VI</strong></td>
-                        <td align="right"><b>BALANCE FUND(IV-V)</b></td>
+                        <td style="text-align:center"><strong>VI</strong></td>
+                        <td style="text-align:right"><b>BALANCE FUND(IV-V)</b></td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblbalancefundprevious" runat="server" EnableViewState="False" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.BalanceFundUpToPrev) %>' />
                         </td>
@@ -283,22 +283,22 @@
             <br />
             <br />
             <span style="font-weight: bold;">VII Detail of Expenditure</span>
-            <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
+            <table rules="all" style="padding:4mm; width:1000px" class="MainTable">
                 <thead class="ui-state-default">
                     <tr class="RowHeader">
-                        <th align="center" rowspan="2" width="50px"><strong></strong></th>
-                        <th align="center" rowspan="2" class="RowHeader" width="450px"></th>
-                        <th align="center" rowspan="2" width="150px">Upto Previous Year(2)<br />
+                        <th style="text-align:center; width:50px" rowspan="2"><strong></strong></th>
+                        <th style="text-align:center; width:450px" rowspan="2" class="RowHeader"></th>
+                        <th style="text-align:center; width:150px" rowspan="2">Upto Previous Year(2)<br />
                         </th>
-                        <th align="center" rowspan="2" width="150px">Current Year(3)
+                        <th style="text-align:center; width:150px" rowspan="2">Current Year(3)
                         </th>
-                        <th align="center" rowspan="2" width="200px">Total Cumulative(4)<br />
+                        <th style="text-align:center; width:200px" rowspan="2">Total Cumulative(4)<br />
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td align="right"><strong>a)</strong></td>
+                        <td style="text-align:right"><strong>a)</strong></td>
                         <td>Establishment (including WAPCOS)
                         </td>
 
@@ -320,7 +320,7 @@
                         </td>
                     </tr>
                     <tr class="AlternatingRow">
-                        <td align="right"><strong>b)</strong></td>
+                        <td style="text-align:right"><strong>b)</strong></td>
                         <td>Civil Works
                         </td>
                         <td class="vd-amountcol">
@@ -342,7 +342,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td align="right"><strong>c)</strong></td>
+                        <td style="text-align:right"><strong>c)</strong></td>
                         <td>Electrical
                         </td>
                         <td class="vd-amountcol">
@@ -364,7 +364,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td align="right"><strong>d)</strong></td>
+                        <td style="text-align:right"><strong>d)</strong></td>
                         <td>Transmission
                         </td>
                         <td class="vd-amountcol">
@@ -390,8 +390,8 @@
                     </tr>
 
                     <tr class="RowHeader ui-state-active ui-widget-header">
-                        <td class="center"></td>
-                        <td align="right"><b>TOTAL PAYMENTS</b></td>
+                        <td style="text-align:center"></td>
+                        <td style="text-align:right"><b>TOTAL PAYMENTS</b></td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblPaymentsPreviousYear" runat="server" EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ExpendituresUpToPrev) %>' />
                         </td>
@@ -437,11 +437,11 @@
             <br />
             <br />
 
-            <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
+            <table rules="all" style="padding:4mm; width:1000px" class="MainTable">
             <thead class="ui-state-default">
                 <tr class="RowHeader">
-                    <th align="center"><strong>Name of the receipts</strong></th>
-                    <th align="center">Figures(in millions)</th>
+                    <th style="text-align:center"><strong>Name of the receipts</strong></th>
+                    <th style="text-align:center">Figures(in millions)</th>
                 </tr>
             </thead>
             <tbody>
@@ -467,7 +467,7 @@
             </tbody>
             <tfoot>
                 <tr class="RowHeader ui-state-active ui-widget-header">
-                    <td align="right"><b>
+                    <td style="text-align:right"><b>
                         <asp:Label ID="lbldiff" runat="server"
                             Text="Balance Fund"></asp:Label></b></td>
                     <td class="vd-amountcol">
