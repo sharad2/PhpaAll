@@ -77,7 +77,7 @@
     </eclipse:TwoColumnPanel>
     <i:ValidationSummary ID="ValidationSummary1" runat="server" />
 
-    <asp:FormView runat="server" ItemType="Finance.Reports.FundPositionReportData" SelectMethod="Unnamed_GetItem">
+    <asp:FormView runat="server" ItemType="Finance.Reports.FundPositionReportData" SelectMethod="GetFundData">
         <ItemTemplate>
             <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
                 <caption style="text-align: right; font-weight: bold; font-size: 1.2em">All Figures in Million Rs/Nu</caption>
@@ -102,8 +102,7 @@
                         <td class="vd-amountcol">
                             <asp:HyperLink runat="server"
                                 ToolTip="Click to list voucher entries for Funds Received from Government of India in local Currency prior to Financial Year"
-                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOIGrantNuHeads, Item.PreviousYearEndDate
-) %>'
+                                NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.FundsReceivedGOIGrantNuHeads, Item.PreviousYearEndDate) %>'
                                 EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantNuUpToPrev) %>' />
                         </td>
 
