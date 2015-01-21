@@ -42,6 +42,7 @@ namespace Finance.Finance
         /// <param name="e"></param>
         protected override void OnLoad(EventArgs e)
         {
+            lvEditableDates.DataBind();
             if (!IsPostBack)
             {
                 if (string.IsNullOrEmpty(this.Request.QueryString["VoucherId"]))
@@ -577,19 +578,16 @@ namespace Finance.Finance
             }
         }
 
-        /// <summary>
-        /// This event is used to validate the voucher date that it should lies within the unfreezed financial year.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void tbVoucherDate_OnLoad(object sender, EventArgs e)
+        protected void tbVoucherDate_PreRender(object sender, EventArgs e)
         {
             TextBoxEx tb = (TextBoxEx)fvEdit.FindControl("tbVoucherDate");
             var val = tb.Validators.OfType<Date>().Single();
-            val.Min = (_editableDates.Min(p => p.Item1) - DateTime.Today).Days;
-            val.Max = (_editableDates.Max(p => p.Item2) - DateTime.Today).Days;
+            if (_editableDates != null)
+            {
+                val.Min = (_editableDates.Min(p => p.Item1) - DateTime.Today).Days;
+                val.Max = (_editableDates.Max(p => p.Item2) - DateTime.Today).Days;
+            }
         }
-
         #endregion
     }
 }

@@ -16,7 +16,7 @@
     <phpa:PhpaLinqDataSource ID="dsFiscalYear" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FiscalDataContext"
         TableName="FinancialYears" RenderLogVisible="False" OrderBy="Name desc" Where='Freeze == "N"' OnSelected="dsFiscalYear_Selected">
     </phpa:PhpaLinqDataSource>
-    <asp:ListView runat="server" DataSourceID="dsFiscalYear" ItemType="Eclipse.PhpaLibrary.Database.FinancialYear">
+    <asp:ListView runat="server" ID="lvEditableDates" DataSourceID="dsFiscalYear" ItemType="Eclipse.PhpaLibrary.Database.FinancialYear">
         <LayoutTemplate>
                         <fieldset>
                 <legend>Vouchers can be created for
@@ -127,7 +127,7 @@
                     <eclipse:LeftLabel runat="server" Text="Voucher Date" />
                     <i:TextBoxEx ID="tbVoucherDate" runat="server" Text='<%# Bind("VoucherDate", "{0:d}") %>'
                         FriendlyName="Voucher Date" QueryString="VoucherDate"
-                        OnLoad="tbVoucherDate_OnLoad">
+                        OnPreRender="tbVoucherDate_PreRender" >
                         <Validators>
                             <i:Required OnServerValidate="tbVD_ServerValidate" ClientMessage="Not Valid date" />
                             <i:Date />
