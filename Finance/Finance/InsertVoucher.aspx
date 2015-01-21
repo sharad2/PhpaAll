@@ -16,27 +16,29 @@
     <phpa:PhpaLinqDataSource ID="dsFiscalYear" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FiscalDataContext"
         TableName="FinancialYears" RenderLogVisible="False" OrderBy="Name desc" Where='Freeze == "N"' OnSelected="dsFiscalYear_Selected">
     </phpa:PhpaLinqDataSource>
+    <br/>
     <asp:ListView runat="server" ID="lvEditableDates" DataSourceID="dsFiscalYear" ItemType="Eclipse.PhpaLibrary.Database.FinancialYear">
         <LayoutTemplate>
-                        <fieldset>
-                <legend>Vouchers can be created for
-                     <asp:HyperLink runat="server" Text="Manage" NavigateUrl="~/Finance/ManageFinancialYears.aspx"></asp:HyperLink></legend>
-            <ul>
-                <li runat="server" id="itemPlaceholder"></li>
-            </ul>
+            <fieldset>
+                <legend>
+                    Vouchers can be created or edited for
+                </legend>
+                <ul>
+                    <li runat="server" id="itemPlaceholder"></li>
+                </ul>
+                <asp:HyperLink runat="server" Text="Manage" NavigateUrl="~/Finance/ManageFinancialYears.aspx"></asp:HyperLink>
             </fieldset>
         </LayoutTemplate>
         <ItemTemplate>
-            <li>Year <%# Item.Name %>: Voucher Dates <%# Item.StartDate.ToShortDateString() %> to <%# Item.EndDate.ToShortDateString() %>
+            <li>Year <%# Item.Name %>: Voucher Dates from <%# Item.StartDate.ToShortDateString() %> to <%# Item.EndDate.ToShortDateString() %>
             </li>
         </ItemTemplate>
         <EmptyDataTemplate>
-            All financial years have been closed. Vouchers cannot be created or edited.  
+            <asp:Label runat="server" Text="All financial years have been closed. Vouchers cannot be created or edited." ForeColor="Red"></asp:Label>    
             <asp:HyperLink runat="server" Text="Manage" NavigateUrl="~/Finance/ManageFinancialYears.aspx"></asp:HyperLink>
         </EmptyDataTemplate>
     </asp:ListView>
-
-    <asp:Label ID="lblError" runat="server" Visible="false" ForeColor="Red" />
+        <br />
     <phpa:PhpaLinqDataSource ID="dsEditVouchers" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FinanceDataContext"
         TableName="Vouchers" AutoGenerateWhereClause="false" Where="VoucherId == @VoucherId"
         EnableInsert="true" EnableUpdate="true" OnContextCreating="ds_ContextCreating"
@@ -127,7 +129,7 @@
                     <eclipse:LeftLabel runat="server" Text="Voucher Date" />
                     <i:TextBoxEx ID="tbVoucherDate" runat="server" Text='<%# Bind("VoucherDate", "{0:d}") %>'
                         FriendlyName="Voucher Date" QueryString="VoucherDate"
-                        OnPreRender="tbVoucherDate_PreRender" >
+                        OnPreRender="tbVoucherDate_PreRender">
                         <Validators>
                             <i:Required OnServerValidate="tbVD_ServerValidate" ClientMessage="Not Valid date" />
                             <i:Date />

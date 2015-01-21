@@ -582,11 +582,16 @@ namespace Finance.Finance
         {
             TextBoxEx tb = (TextBoxEx)fvEdit.FindControl("tbVoucherDate");
             var val = tb.Validators.OfType<Date>().Single();
-            if (_editableDates != null)
+            if (_editableDates.Count() > 0)
             {
                 val.Min = (_editableDates.Min(p => p.Item1) - DateTime.Today).Days;
                 val.Max = (_editableDates.Max(p => p.Item2) - DateTime.Today).Days;
             }
+            else 
+            {
+                tb.Enabled = false;
+            }
+
         }
         #endregion
     }
