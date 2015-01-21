@@ -31,15 +31,6 @@ namespace Finance.Finance {
         protected global::Eclipse.PhpaLibrary.Web.PhpaLinqDataSource dsFiscalYear;
         
         /// <summary>
-        /// gvFiscalYear control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::EclipseLibrary.Web.JQuery.GridViewEx gvFiscalYear;
-        
-        /// <summary>
         /// lblError control.
         /// </summary>
         /// <remarks>

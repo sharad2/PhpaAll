@@ -14,43 +14,27 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="cph" runat="server">
 
     <phpa:PhpaLinqDataSource ID="dsFiscalYear" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FiscalDataContext"
-        TableName="FinancialYears" RenderLogVisible="False" OrderBy="Name desc" Where='Freeze != "Y"' OnSelected="dsFiscalYear_Selected">
+        TableName="FinancialYears" RenderLogVisible="False" OrderBy="Name desc" Where='Freeze == "N"' OnSelected="dsFiscalYear_Selected">
     </phpa:PhpaLinqDataSource>
-    <asp:Repeater runat="server" DataSourceID="dsFiscalYear" ItemType="Eclipse.PhpaLibrary.Database.FinancialYear">
-        <HeaderTemplate>
-            <fieldset>
-                <legend>Vouchers can be created for</legend>
-                <ul>
-        </HeaderTemplate>
-        <ItemTemplate>
-            <li>
-            Year <%# Item.Name %>: Voucher Dates <%# Item.StartDate.ToShortDateString() %> to <%# Item.EndDate.ToShortDateString() %>
-                </li>
-        </ItemTemplate>
-        <FooterTemplate>
+    <asp:ListView runat="server" DataSourceID="dsFiscalYear" ItemType="Eclipse.PhpaLibrary.Database.FinancialYear">
+        <LayoutTemplate>
+                        <fieldset>
+                <legend>Vouchers can be created for
+                     <asp:HyperLink runat="server" Text="Manage" NavigateUrl="~/Finance/ManageFinancialYears.aspx"></asp:HyperLink></legend>
+            <ul>
+                <li runat="server" id="itemPlaceholder"></li>
             </ul>
             </fieldset>
-        </FooterTemplate>
-    </asp:Repeater>
-    <jquery:GridViewEx ID="gvFiscalYear" runat="server" AutoGenerateColumns="False"
-        DataKeyNames="YearId" DataSourceID="dsFiscalYear" AllowSorting="True"
-        Caption="Open Financial Years">
-        <Columns>
-            <eclipse:MultiBoundField DataFields="Name" HeaderText="Financial Year" SortExpression="Name" ItemStyle-HorizontalAlign="Left">
-            </eclipse:MultiBoundField>
-            <eclipse:MultiBoundField DataFields="StartDate" HeaderText="Starts On" SortExpression="StartDate" DataFormatString="{0:d}">
-            </eclipse:MultiBoundField>
-            <eclipse:MultiBoundField DataFields="EndDate" HeaderText="Ends On" SortExpression="EndDate" DataFormatString="{0:d}">
-            </eclipse:MultiBoundField>
-            <eclipse:MultiBoundField HeaderText="Closed" DataFields="Freeze" SortExpression="Freeze" ItemStyle-HorizontalAlign="Left">
-            </eclipse:MultiBoundField>
-        </Columns>
+        </LayoutTemplate>
+        <ItemTemplate>
+            <li>Year <%# Item.Name %>: Voucher Dates <%# Item.StartDate.ToShortDateString() %> to <%# Item.EndDate.ToShortDateString() %>
+            </li>
+        </ItemTemplate>
         <EmptyDataTemplate>
-            All Financial Years have been closed. Vouchers cannot be edited.
+            All financial years have been closed. Vouchers cannot be created or edited.  
+            <asp:HyperLink runat="server" Text="Manage" NavigateUrl="~/Finance/ManageFinancialYears.aspx"></asp:HyperLink>
         </EmptyDataTemplate>
-    </jquery:GridViewEx>
-
-
+    </asp:ListView>
 
     <asp:Label ID="lblError" runat="server" Visible="false" ForeColor="Red" />
     <phpa:PhpaLinqDataSource ID="dsEditVouchers" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FinanceDataContext"
@@ -110,6 +94,7 @@
     <asp:FormView ID="fvEdit" runat="server" DataKeyNames="VoucherId" DataSourceID="dsEditVouchers">
         <HeaderTemplate>
             Voucher:
+           
             <%# Eval("Particulars") ?? "New"%>
         </HeaderTemplate>
         <EditItemTemplate>
@@ -138,13 +123,14 @@
                         </Validators>
                     </i:DropDownListEx>
                     List displays only those stations for which you are authorized
+                   
                     <eclipse:LeftLabel runat="server" Text="Voucher Date" />
                     <i:TextBoxEx ID="tbVoucherDate" runat="server" Text='<%# Bind("VoucherDate", "{0:d}") %>'
                         FriendlyName="Voucher Date" QueryString="VoucherDate"
                         OnLoad="tbVoucherDate_OnLoad">
                         <Validators>
-                            <i:Required OnServerValidate="tbVD_ServerValidate" ClientMessage="Not Valid date"/>
-                            <i:Date/>
+                            <i:Required OnServerValidate="tbVD_ServerValidate" ClientMessage="Not Valid date" />
+                            <i:Date />
                         </Validators>
                     </i:TextBoxEx>
                     <eclipse:LeftLabel runat="server" Text="Voucher No" />
@@ -156,6 +142,7 @@
                     </i:TextBoxEx>
                     <br />
                     First time in the session, you must enter a code here. then it will keep incrementing.
+                   
                     <eclipse:LeftLabel runat="server" Text="Division" />
                     <i:AutoComplete ID="tbDivisionCode" runat="server" FriendlyName="Division" WebMethod="GetDivisions"
                         WebServicePath="~/Services/Divisions.asmx" Value='<%# Bind("DivisionId") %>'
@@ -176,6 +163,7 @@
                     <br />
                     First time in the session, you must enter a cheque number here. then it will keep
                     incrementing.
+                   
                     <eclipse:LeftLabel ID="lblPayee" runat="server" Text="Payee" />
                     <i:AutoComplete ID="tbPayee" runat="server" FriendlyName="Payee" WebMethod="GetVoucherPayeeList"
                         WebServicePath="~/Services/Divisions.asmx" Text='<%# Bind("PayeeName") %>' ShowUiHint="false"
@@ -336,10 +324,12 @@ function(e) {
         <EmptyDataTemplate>
             <phpa:FormViewStatusMessage ID="fvDeleteStatusMessage" runat="server" />
             What would you like to do now ?
+           
             <ul>
                 <asp:LoginView ID="LoginView1" runat="server">
                     <AnonymousTemplate>
                         <li>To create vouchers, you must
+                           
                             <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/Login.aspx">login</asp:HyperLink>.
                         </li>
                     </AnonymousTemplate>
@@ -347,10 +337,12 @@ function(e) {
                         <asp:RoleGroup Roles="Operator">
                             <ContentTemplate>
                                 <li>You can
+                                   
                                     <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/Finance/InsertVoucher.aspx"
                                         Text="Create New Voucher" />
                                     . </li>
                                 <li>To edit a voucher,
+                                   
                                     <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/Finance/DayBook.aspx">Go to Day Book</asp:HyperLink>
                                     and select the voucher to edit. </li>
                                 <li>
@@ -360,6 +352,7 @@ function(e) {
                     <LoggedInTemplate>
                         <li>You need to be an operator to create. You can view vouchers for a specific date
                             using the
+                           
                             <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Finance/DayBook.aspx">Day Book</asp:HyperLink>
                         </li>
                     </LoggedInTemplate>

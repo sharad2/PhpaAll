@@ -1,16 +1,14 @@
-﻿using System;
-using System.Data.Linq;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web.UI.WebControls;
-using Eclipse.PhpaLibrary.Database;
+﻿using Eclipse.PhpaLibrary.Database;
 using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery;
 using EclipseLibrary.Web.JQuery.Input;
+using System;
 using System.Collections.Generic;
-using System.Web.Security;
-using System.Web.UI;
+using System.Data.Linq;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace Finance.Finance
 {
@@ -550,68 +548,7 @@ namespace Finance.Finance
 
         #endregion
 
-        /// <summary>
-        /// This event is used to verify that no voucher should be editable of the freezed financial year.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //protected void btnEdit_PreRender(object sender, EventArgs e)
-        //{
-        //    var voucher = (Voucher)fvEdit.DataItem;
-        //    if (IsDateEditable(voucher.VoucherDate))
-        //    {
-        //        var btn = (LinkButtonEx)sender;
-        //        btn.Enabled = true;
-        //        LinkButtonEx btn2 = (LinkButtonEx)fvEdit.FindControl("btnDelete");
-        //        btn2.Enabled = true;
-        //    }
-        //}
-
-        /// <summary>
-        /// This event is used to validate the voucher date that it should lies within the unfreezed financial year.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void tbVoucherDate_OnLoad(object sender, EventArgs e)
-        {
-            using (FiscalDataContext db = new FiscalDataContext(ReportingUtilities.DefaultConnectString))
-            {
-                TextBoxEx tb = (TextBoxEx)fvEdit.FindControl("tbVoucherDate");
-                var val = tb.Validators.OfType<Date>().Single();
-                //This query is used to get the start and end date for the open financial years.
-                var qry = (from qr in db.FinancialYears
-                           where (qr.Freeze ?? "N") != "Y"
-                           group new { qr } by new { qr.Freeze } into g
-                           select new
-                           {
-                               minStartDate = g.Min(p => p.qr.StartDate),
-                               maxEndtDate = g.Max(p => p.qr.EndDate)
-                           }).FirstOrDefault();
-                if (qry != null)
-                {
-                    var sdate = qry.minStartDate;
-                    var edate = qry.maxEndtDate;
-                    TimeSpan minspan = sdate - DateTime.Today;
-                    val.Min = minspan.Days;
-                    //If the financial year have end date we must incorporate the validation for the max date.
-                    if (edate != null)
-                    {
-                        TimeSpan? maxspan = edate - DateTime.Today;
-                        val.Max = maxspan.Value.Days;
-                    }
-                }
-                else
-                {
-                    val.Min = 1;
-                    val.Max = -1;
-                    tb.ReadOnly = true;
-                    tb.Enabled = false;
-                    lblError.Visible = true;
-                    lblError.Text = "Voucher cannot be created as there is no open financial year available for voucher creation.";
-                }
-            };
-        }
-
+        #region Editable Dates
         private IList<Tuple<DateTime, DateTime>> _editableDates;
         protected void dsFiscalYear_Selected(object sender, LinqDataSourceStatusEventArgs e)
         {
@@ -639,5 +576,20 @@ namespace Finance.Finance
                 btn.Enabled = true;
             }
         }
+
+        /// <summary>
+        /// This event is used to validate the voucher date that it should lies within the unfreezed financial year.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void tbVoucherDate_OnLoad(object sender, EventArgs e)
+        {
+            TextBoxEx tb = (TextBoxEx)fvEdit.FindControl("tbVoucherDate");
+            var val = tb.Validators.OfType<Date>().Single();
+            val.Min = (_editableDates.Min(p => p.Item1) - DateTime.Today).Days;
+            val.Max = (_editableDates.Max(p => p.Item2) - DateTime.Today).Days;
+        }
+
+        #endregion
     }
 }
