@@ -10,6 +10,7 @@ using EclipseLibrary.Web.JQuery;
 using EclipseLibrary.Web.JQuery.Input;
 using System.Collections.Generic;
 using System.Web.Security;
+using System.Web.UI;
 
 namespace Finance.Finance
 {
@@ -77,42 +78,7 @@ namespace Finance.Finance
                 e.Cancel = true;
             }
         }
-        /// <summary>
-        /// This is for validating the passed date whether this date is a valid date or not.
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <returns>True or False. If the passed date is not a part of an open financial year then this function will return false. 
-        /// This function will return true only when the passed date belongs to an open year.</returns>
-        protected bool IsDateValid(DateTime dt)
-        {
-            bool bValidDate = false;
-            if (dt != null)
-            {
-                using (FiscalDataContext db = new FiscalDataContext(ReportingUtilities.DefaultConnectString))
-                {
-                
-                        var query = (from fy in db.FinancialYears
-                                     where (fy.Freeze ?? "N") != "Y"
-                                     orderby fy.Name
-                                     select new
-                                     {
-                                         startdate = fy.StartDate,
-                                         enddate = fy.EndDate
-                                     });
-                        
-                        foreach (var date in query)
-                        {
-                            if (dt.Date >= date.startdate && dt.Date <= date.enddate)
-                            {
-                                bValidDate = true;
-                                break;
-                            }
-                        }
-                   
-                    }
-                }
-            return bValidDate;
-        }
+
 
         protected void dsEditVouchers_Deleting(object sender, LinqDataSourceDeleteEventArgs e)
         {
@@ -476,13 +442,13 @@ namespace Finance.Finance
         protected void tbVD_ServerValidate(object sender, EclipseLibrary.Web.JQuery.Input.ServerValidateEventArgs e)
         {
             TextBoxEx tbVoucherDate = (TextBoxEx)fvEdit.FindControl("tbVoucherDate");
-            if (string.IsNullOrEmpty(tbVoucherDate.Text)) 
+            if (string.IsNullOrEmpty(tbVoucherDate.Text))
             {
                 tbVoucherDate.IsValid = false;
                 return;
             }
-            DateTime dt = DateTime.Parse(tbVoucherDate.Text);
-            if (!IsDateValid(dt))
+            //DateTime dt = DateTime.Parse(tbVoucherDate.Text);
+            if (!IsDateEditable(tbVoucherDate.ValueAsDate.Value))
             {
                 e.ControlToValidate.ErrorMessage = "Voucher cannot be created or edited in a closed financial year. Please select a valid voucher date.";
                 tbVoucherDate.IsValid = false;
@@ -589,35 +555,17 @@ namespace Finance.Finance
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnEdit_PreRender(object sender, EventArgs e)
-        {
-
-            using (FiscalDataContext db = new FiscalDataContext(ReportingUtilities.DefaultConnectString))
-            {
-                //This query is used to get the start and end date for the open financial year.
-                var voucher = (Voucher)fvEdit.DataItem;
-                var query = (from fdc in db.FinancialYears
-                             where (fdc.Freeze ?? "N") != "Y"
-                             orderby fdc.Name descending
-                             select new
-                             {
-                                 startdate = fdc.StartDate,
-                                 enddate = fdc.EndDate
-                             });
-                foreach (var date in query)
-                {
-                    if (voucher.VoucherDate >= date.startdate && voucher.VoucherDate <= date.enddate)
-                    {
-                        var btn = (LinkButtonEx)sender;
-                        btn.Enabled = true;
-                        LinkButtonEx btn2 = (LinkButtonEx)fvEdit.FindControl("btnDelete");
-                        btn2.Enabled = true;
-                    }
-                }
-
-
-            };
-        }
+        //protected void btnEdit_PreRender(object sender, EventArgs e)
+        //{
+        //    var voucher = (Voucher)fvEdit.DataItem;
+        //    if (IsDateEditable(voucher.VoucherDate))
+        //    {
+        //        var btn = (LinkButtonEx)sender;
+        //        btn.Enabled = true;
+        //        LinkButtonEx btn2 = (LinkButtonEx)fvEdit.FindControl("btnDelete");
+        //        btn2.Enabled = true;
+        //    }
+        //}
 
         /// <summary>
         /// This event is used to validate the voucher date that it should lies within the unfreezed financial year.
@@ -634,8 +582,10 @@ namespace Finance.Finance
                 var qry = (from qr in db.FinancialYears
                            where (qr.Freeze ?? "N") != "Y"
                            group new { qr } by new { qr.Freeze } into g
-                           select new { minStartDate = g.Min(p => p.qr.StartDate),
-                                        maxEndtDate = g.Max(p => p.qr.EndDate)
+                           select new
+                           {
+                               minStartDate = g.Min(p => p.qr.StartDate),
+                               maxEndtDate = g.Max(p => p.qr.EndDate)
                            }).FirstOrDefault();
                 if (qry != null)
                 {
@@ -650,7 +600,7 @@ namespace Finance.Finance
                         val.Max = maxspan.Value.Days;
                     }
                 }
-                else 
+                else
                 {
                     val.Min = 1;
                     val.Max = -1;
@@ -662,9 +612,32 @@ namespace Finance.Finance
             };
         }
 
+        private IList<Tuple<DateTime, DateTime>> _editableDates;
         protected void dsFiscalYear_Selected(object sender, LinqDataSourceStatusEventArgs e)
         {
-            var x = e.Result;
+            var x = (IEnumerable<FinancialYear>)e.Result;
+            _editableDates = x.Select(p => Tuple.Create(p.StartDate, p.EndDate)).ToList();
+        }
+
+        /// <summary>
+        /// This is for validating the passed date whether this date is a valid date or not.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns>True or False. If the passed date is not a part of an open financial year then this function will return false. 
+        /// This function will return true only when the passed date belongs to an open year.</returns>
+        protected bool IsDateEditable(DateTime dt)
+        {
+            return _editableDates.Any(p => dt >= p.Item1 && dt <= p.Item2);
+        }
+
+        protected void DisableLinkButtonEx_PreRender(object sender, EventArgs e)
+        {
+            var voucher = (Voucher)fvEdit.DataItem;
+            if (IsDateEditable(voucher.VoucherDate))
+            {
+                var btn = (LinkButtonEx)sender;
+                btn.Enabled = true;
+            }
         }
     }
 }

@@ -14,7 +14,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="cph" runat="server">
 
     <phpa:PhpaLinqDataSource ID="dsFiscalYear" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FiscalDataContext"
-        TableName="FinancialYears" RenderLogVisible="False" OrderBy="Name desc" Where='Freeze == "Y"' OnSelected="dsFiscalYear_Selected">
+        TableName="FinancialYears" RenderLogVisible="False" OrderBy="Name desc" Where='Freeze != "Y"' OnSelected="dsFiscalYear_Selected">
     </phpa:PhpaLinqDataSource>
     <asp:Repeater runat="server" DataSourceID="dsFiscalYear" ItemType="Eclipse.PhpaLibrary.Database.FinancialYear">
         <HeaderTemplate>
@@ -324,8 +324,8 @@
             </jquery:Dialog>
             <i:LinkButtonEx ID="btnEdit" runat="server" Text="Edit" CausesValidation="false" Enabled="false"
                 Action="Submit" OnClick="btnEdit_Click" RolesRequired="FinanceManager"
-                OnPreRender="btnEdit_PreRender" />
-            <i:LinkButtonEx ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click" Enabled="false"
+                OnPreRender="DisableLinkButtonEx_PreRender" />
+            <i:LinkButtonEx ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click" Enabled="false" OnPreRender="DisableLinkButtonEx_PreRender"
                 RolesRequired="FinanceManager" Action="Submit" CausesValidation="false" OnClientClick="
 function(e) {
     return confirm('Are you sure you want to delete the Voucher?');
