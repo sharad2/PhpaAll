@@ -12,7 +12,10 @@
         }
 
             .MainTable TD {
-                border: thin 0.25mm black solid;
+                border: 0.25mm black solid;
+                padding: 2mm;
+                font-size: 1.1em;
+                font-family: Arial;
             }
 
             .MainTable TH {
@@ -28,7 +31,7 @@
         .RowHeader {
             font-size: 1.1em;
             font-family: Arial;
-            text-indent: 5mm;
+            /*text-indent: 5mm;*/
             font-weight: bolder;
             padding-top: 3mm;
             margin-top: 10mm;
@@ -48,8 +51,20 @@
 
         .AlternatingRow {
             background-color: #F7F7F7;
+            border: thin 0.25mm black solid;
         }
 
+        .GridRow{
+            border: thin 0.25mm black solid;
+            height: 9mm;
+            font-size: 1.1em;
+        }
+        .GridAlternatingRow {
+            background-color: #F7F7F7;
+            border: thin 0.25mm black solid;
+            height: 9mm;
+            font-size: 1.1em;
+        }
         .lblExpenditureCurrentMonth {
             padding-left: 50mm;
         }
@@ -79,23 +94,23 @@
 
     <asp:FormView runat="server" ItemType="Finance.Reports.FundPositionReportData" SelectMethod="GetFundData">
         <ItemTemplate>
-            <table rules="all" style="padding:4mm; width:1000px" class="MainTable">
+            <table rules="all" style="padding: 4mm; width: 1000px" class="MainTable">
                 <caption style="text-align: right; font-weight: bold; font-size: 1.2em">All Figures in Million Rs/Nu</caption>
                 <thead class="ui-state-default">
                     <tr class="RowHeader">
-                        <th style="text-align:center; width:50px" rowspan="3"><strong>I</strong></th>
-                        <th style="text-align:center; width:450px" rowspan="3" class="RowHeader">Receipts(1)
+                        <th style="text-align: center; width: 50px" rowspan="3"><strong>I</strong></th>
+                        <th style="text-align: center; width: 450px" rowspan="3" class="RowHeader">Receipts(1)
                         </th>
-                        <th style="text-align:center; width:150px" rowspan="3" >Upto Previous Year(2)
+                        <th style="text-align: center; width: 150px" rowspan="3">Upto Previous Year(2)
                         </th>
-                        <th style="text-align:center; width:150px" rowspan="3">Current Year(3)
+                        <th style="text-align: center; width: 150px" rowspan="3">Current Year(3)
                         </th>
-                        <th style="text-align:center; width:200px" rowspan="3">Total Cumulative(4)
+                        <th style="text-align: center; width: 200px" rowspan="3">Total Cumulative(4)
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="AlternatingRow">
+                    <tr>
                         <td></td>
                         <td>Funds Received From GOI (Grant) Rs./NU.
                         </td>
@@ -138,7 +153,7 @@
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOIGrantFeCum) %>' />
                         </td>
                     </tr>
-                    <tr class="AlternatingRow">
+                    <tr>
                         <td></td>
                         <td>Funds Received From GOI (Loan) Rs. / Nu.
                         </td>
@@ -158,7 +173,7 @@
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOILoanNuCum) %>' />
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="AlternatingRow">
                         <td></td>
                         <td>Funds Received From GOI (Loan) F.E.
                         </td>
@@ -182,13 +197,12 @@
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOILoanFeCum) %>' />
                         </td>
                     </tr>
-                    <tr class="RowHeader">
-                        <td style="text-align:center"><strong>II</strong></td>
-                        <td style="text-align:right">Total Fund GOI
+                    <tr class="RowHeader" >
+                        <td style="text-align: center"><strong>II</strong></td>
+                        <td style="text-align: right">Total Fund GOI
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblFundReceivedPreviousYear" runat="server" EnableViewState="false"
-                                
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedGOITotalUpToPrev) %>' />
                         </td>
 
@@ -197,14 +211,14 @@
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedGOITotalCurr) %>' />
                         </td>
                         <td class="vd-amountcol">
-                            <asp:Label ID="lblFundRecievedSum" runat="server" EnableViewState="false" 
+                            <asp:Label ID="lblFundRecievedSum" runat="server" EnableViewState="false"
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedGOITotalCum) %>' />
                         </td>
                     </tr>
-                    <tr class="RowHeader">
-                        <td style="text-align:center"><strong>III</strong></td>
+                    <tr class="AlternatingRow">
+                        <td style="text-align: center; font-style:oblique"><strong>III</strong></td>
                         <td title="TOTAL FUND GOI">
-                            <span>Other Receipts:Ineterst,Sale of Tender,EMD,SD,other receipts etc</span>
+                            Other Receipts:Ineterst,Sale of Tender,EMD,SD,other receipts etc.
                         </td>
                         <td class="vd-amountcol">
 
@@ -227,8 +241,8 @@
                         </td>
                     </tr>
                     <tr class="RowHeader">
-                        <td style="text-align:center"><strong>IV</strong></td>
-                        <td style="text-align:right">Total(II+III)
+                        <td style="text-align: center"><strong>IV</strong></td>
+                        <td style="text-align: right">Total(II+III)
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblReceiptsPreviousYear" runat="server" EnableViewState="false"
@@ -237,22 +251,19 @@
 
                         <td class="vd-amountcol">
                             <asp:Label ID="lblReceiptsUptoMonth" runat="server" EnableViewState="false"
-                                
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedOtherAndGOITotalCurr) %>' />
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="Label1" runat="server" EnableViewState="false"
-                                
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedOtherAndGOITotalCum) %>' />
                         </td>
                     </tr>
-                    <tr class="RowHeader">
-                        <td style="text-align:center"><strong>V</strong></td>
-                        <td style="text-align:right">Expenditure
+                    <tr class="AlternatingRow">
+                        <td style="text-align: center"><strong>V</strong></td>
+                        <td style="text-align: right">Expenditure
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblExpenditurePreviousYear" runat="server" EnableViewState="false"
-                                
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ExpendituresUpToPrev) %>' />
                         </td>
                         <td class="vd-amountcol">
@@ -261,13 +272,12 @@
                         </td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblTotalExpenditure" runat="server" EnableViewState="false"
-                                
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ExpendituresCum) %>' />
                         </td>
                     </tr>
                     <tr class="RowHeader ui-state-active ui-widget-header">
-                        <td style="text-align:center"><strong>VI</strong></td>
-                        <td style="text-align:right"><b>BALANCE FUND(IV-V)</b></td>
+                        <td style="text-align: center"><strong>VI</strong></td>
+                        <td style="text-align: right"><b>BALANCE FUND(IV-V)</b></td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblbalancefundprevious" runat="server" EnableViewState="False" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.BalanceFundUpToPrev) %>' />
                         </td>
@@ -283,22 +293,19 @@
             <br />
             <br />
             <span style="font-weight: bold;">VII Detail of Expenditure</span>
-            <table rules="all" style="padding:4mm; width:1000px" class="MainTable">
+            <table rules="all" style="padding: 4mm; width: 1000px" class="MainTable">
                 <thead class="ui-state-default">
                     <tr class="RowHeader">
-                        <th style="text-align:center; width:50px" rowspan="2"><strong></strong></th>
-                        <th style="text-align:center; width:450px" rowspan="2" class="RowHeader"></th>
-                        <th style="text-align:center; width:150px" rowspan="2">Upto Previous Year(2)<br />
-                        </th>
-                        <th style="text-align:center; width:150px" rowspan="2">Current Year(3)
-                        </th>
-                        <th style="text-align:center; width:200px" rowspan="2">Total Cumulative(4)<br />
-                        </th>
+                        <th style="text-align: center; width: 50px" rowspan="2"><strong></strong></th>
+                        <th style="text-align: center; width: 450px" rowspan="2" class="RowHeader"></th>
+                        <th style="text-align: center; width: 150px" rowspan="2">Upto Previous Year(2)</th>
+                        <th style="text-align: center; width: 150px" rowspan="2">Current Year(3)</th>
+                        <th style="text-align: center; width: 200px" rowspan="2">Total Cumulative(4)</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="text-align:right"><strong>a)</strong></td>
+                        <td style="text-align: right"><strong>a)</strong></td>
                         <td>Establishment (including WAPCOS)
                         </td>
 
@@ -320,7 +327,7 @@
                         </td>
                     </tr>
                     <tr class="AlternatingRow">
-                        <td style="text-align:right"><strong>b)</strong></td>
+                        <td style="text-align: right"><strong>b)</strong></td>
                         <td>Civil Works
                         </td>
                         <td class="vd-amountcol">
@@ -342,7 +349,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align:right"><strong>c)</strong></td>
+                        <td style="text-align: right"><strong>c)</strong></td>
                         <td>Electrical
                         </td>
                         <td class="vd-amountcol">
@@ -363,8 +370,8 @@
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ElectricalExpendituresCum) %>' />
                         </td>
                     </tr>
-                    <tr>
-                        <td style="text-align:right"><strong>d)</strong></td>
+                    <tr class="AlternatingRow">
+                        <td style="text-align: right"><strong>d)</strong></td>
                         <td>Transmission
                         </td>
                         <td class="vd-amountcol">
@@ -390,8 +397,8 @@
                     </tr>
 
                     <tr class="RowHeader ui-state-active ui-widget-header">
-                        <td style="text-align:center"></td>
-                        <td style="text-align:right"><b>TOTAL PAYMENTS</b></td>
+                        <td style="text-align: center"></td>
+                        <td style="text-align: right"><b>TOTAL PAYMENTS</b></td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblPaymentsPreviousYear" runat="server" EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ExpendituresUpToPrev) %>' />
                         </td>
@@ -406,86 +413,84 @@
                     </tr>
                 </tbody>
             </table>
+            <br />
+            <br />
             <h2 runat="server">Expenditure for the month of <%# string.Format("{0:MMMMM, yyyy}", Item.DateTo) %> (till date):
                 <%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.CurrentMonthExpenditure) %>
             </h2>
-          <%--  <br />
+            <%--  <br />
             <br />
             <br />
             <span style="font-weight: bolder; font-size: 1.2em; width: 1000px">
         <asp:Literal ID="ltrlCurrentMonth" runat="server"></asp:Literal>
         <asp:Label ID="lblExpenditureCurrentmonth" runat="server" SumType="PaymentsForMonth" CssClass="lblExpenditureCurrentMonth"
             OnPreRender="lblExpenditureCurrentmonth_PreRenderShowSum" /></span>--%>
-    <br />
-    <br />
-    <br />
-             <span style="font-weight: bold;">VIII Detail of Balance Fund(Including Other receipts fund)</span>
+            <br />
+            <br />
+            <span style="font-weight: bold;">VIII Detail of Balance Fund(Including Other receipts fund)</span>
 
             <jquery:GridViewEx ID="grvBankAccount" runat="server" AutoGenerateColumns="false" ShowFooter="true" Width="1000px" DataSource='<%# Item.AllBanks %>'>
                 <Columns>
                     <eclipse:MultiBoundField DataFields="BankHead" HeaderText="Bank Head" AccessibleHeaderText="AccountHead" Visible="false"></eclipse:MultiBoundField>
                     <eclipse:MultiBoundField DataFields="BankName" HeaderText="Name Of The Account" AccessibleHeaderText="AccountName" ItemStyle-Width="800px">
                     </eclipse:MultiBoundField>
-                    <eclipse:MultiBoundField DataFields="Balance" HeaderText="Balance As On Date" AccessibleHeaderText="AccountBalance"
-                        DataFormatString="{0:#,###,,.000;(#,###,,.000)}" DataSummaryCalculation="ValueSummation">
+                    <eclipse:MultiBoundField DataFields="Balance" HeaderText="Balance As On Date" AccessibleHeaderText="AccountBalance" DataFormatString="{0:#,###,,.000;(#,###,,.000)}" DataSummaryCalculation="ValueSummation">
                         <ItemStyle HorizontalAlign="Right" Width="200px" />
                     </eclipse:MultiBoundField>
                 </Columns>
-                <FooterStyle HorizontalAlign="Right" Font-Bold="true" CssClass="RowHeader ui-state-active ui-widget-header" />
+                <HeaderStyle Height="9mm"  CssClass="RowHeader ui-state-default"/>
+                <RowStyle CssClass="GridRow" />
+                <AlternatingRowStyle CssClass="GridAlternatingRow" />
+                <FooterStyle HorizontalAlign="Right" Height="9mm" CssClass="RowHeader ui-state-active ui-widget-header" />
             </jquery:GridViewEx>
 
             <br />
             <br />
-
-            <table rules="all" style="padding:4mm; width:1000px" class="MainTable">
-            <thead class="ui-state-default">
-                <tr class="RowHeader">
-                    <th style="text-align:center"><strong>Name of the receipts</strong></th>
-                    <th style="text-align:center">Figures(in millions)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="AlternatingRow">
-                    <td>
-                        <asp:Label ID="lbltotfund" runat="server" Text="Total Fund Received from GOI"></asp:Label></td>
-                    <td class="vd-amountcol">
-                        <asp:Label ID="Label2" runat="server"
-                            EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedGOITotalCum) %>'
-                             /></td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Label ID="lblexp" runat="server"
-                            Text="Total Expenditure"></asp:Label></td>
-                    <td class="vd-amountcol">
-                        <asp:Label ID="Label3" runat="server"
-                            EnableViewState="false"
-                            
-                            SumType="PaymentsSum"
-                            Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ExpendituresCum) %>'  /></td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr class="RowHeader ui-state-active ui-widget-header">
-                    <td style="text-align:right"><b>
-                        <asp:Label ID="lbldiff" runat="server"
-                            Text="Balance Fund"></asp:Label></b></td>
-                    <td class="vd-amountcol">
-                        <asp:Label ID="lblDifference" runat="server"
-                            EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", (Item.FundReceivedGOITotalCum)-(Item.ExpendituresCum)) %>' 
-                             /></td>
-                </tr>
-            </tfoot>
-        </table>
+            <br />
+            <table rules="all" style="padding: 4mm; width: 1000px" class="MainTable">
+                <thead class="ui-state-default">
+                    <tr class="RowHeader">
+                        <th style="text-align: center" class="RowHeader"><strong>Name of the receipts</strong></th>
+                        <th style="text-align: center">Figures(in millions)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lbltotfund" runat="server" Text="Total Fund Received from GOI"></asp:Label></td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="Label2" runat="server"
+                                EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundReceivedGOITotalCum) %>' /></td>
+                    </tr>
+                    <tr class="AlternatingRow">
+                        <td>
+                            <asp:Label ID="lblexp" runat="server"
+                                Text="Total Expenditure"></asp:Label></td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="Label3" runat="server"
+                                EnableViewState="false"
+                                SumType="PaymentsSum"
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.ExpendituresCum) %>' /></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="RowHeader ui-state-active ui-widget-header">
+                        <td style="text-align: right"><b>
+                            <asp:Label ID="lbldiff" runat="server"
+                                Text="Balance Fund"></asp:Label></b></td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="lblDifference" runat="server"
+                                EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", (Item.FundReceivedGOITotalCum)-(Item.ExpendituresCum)) %>' /></td>
+                    </tr>
+                </tfoot>
+            </table>
 
 
 
         </ItemTemplate>
     </asp:FormView>
-    <br />
-    <br />
-    <br />
-   <%-- <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
+
+    <%-- <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
         <caption style="text-align: right; font-weight: bold; font-size: 1.2em">All Figures in Million Rs/Nu</caption>
         <thead class="ui-state-default">
             <tr class="RowHeader">
@@ -661,11 +666,9 @@
             </tr>
         </tbody>
     </table>--%>
-    <br />
-    <br />
-    <br />
-   <%-- <span style="font-weight: bold;">VII Detail of Expenditure</span>--%>
-   <%-- <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
+
+    <%-- <span style="font-weight: bold;">VII Detail of Expenditure</span>--%>
+    <%-- <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
         <thead class="ui-state-default">
             <tr class="RowHeader">
                 <th align="center" rowspan="2" width="50px"><strong></strong></th>
@@ -781,7 +784,7 @@
             </tr>
         </tbody>
     </table>--%>
-   <%--   <br />
+    <%--   <br />
     <br />
     <br />
   <span style="font-weight: bolder; font-size: 1.2em; width: 1000px">
@@ -808,7 +811,7 @@
     <br />
     <br />
     <br />--%>
-   <%-- <div id="divdiff" runat="server">
+    <%-- <div id="divdiff" runat="server">
         <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
             <thead class="ui-state-default">
                 <tr class="RowHeader">
