@@ -182,6 +182,13 @@ namespace Finance.Reports
         /// </summary>
         public decimal? CurrentMonthExpenditure { get; set; }
 
+
+        /// <summary>
+        /// Balance fund
+        /// </summary>
+
+        public decimal? BalanceFund { get; set; }
+
     }
 
     public partial class FundPositionReport : PageBase
@@ -951,6 +958,9 @@ namespace Finance.Reports
                                      Balance = -g2.Sum(p => p.CreditAmount ?? 0 - p.DebitAmount ?? 0),
                                      BankHead = g2.Key.HeadOfAccountId
                                  },
+
+                             BalanceFund = fundReceivedGOITotalCum == null && expendituresCum == null ? (decimal?)null :
+                                           (fundReceivedGOITotalCum ?? 0) - (expendituresCum ?? 0),
 
                              CurrentMonthExpenditure = g.Where(p => allExpenditureHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType) &&
                                  p.RoVoucher.VoucherDate >= dtMonthStart && p.RoVoucher.VoucherDate <= dtPassed)

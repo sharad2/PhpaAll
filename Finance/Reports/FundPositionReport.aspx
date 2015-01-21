@@ -480,7 +480,7 @@
                                 Text="Balance Fund"></asp:Label></b></td>
                         <td class="vd-amountcol">
                             <asp:Label ID="lblDifference" runat="server"
-                                EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", (Item.FundReceivedGOITotalCum)-(Item.ExpendituresCum)) %>' /></td>
+                                EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.BalanceFund) %>' /></td>
                     </tr>
                 </tfoot>
             </table>
