@@ -11,24 +11,24 @@ namespace Finance.Finance
 {
     public partial class ManageFinancialYears : PageBase
     {
-        protected void dsFiscalYear_Selecting(object sender, System.Web.UI.WebControls.LinqDataSourceSelectEventArgs e)
-        {
-            using (FiscalDataContext db = new FiscalDataContext(ReportingUtilities.DefaultConnectString))
-            {
-                var query = (from fy in db.FinancialYears
-                             select new
-                             {
-                                 YearId = fy.YearId,
-                                 Name = fy.Name,
-                                 StartDate = fy.StartDate,
-                                 EndDate = fy.EndDate,
-                                 Freeze = fy.Freeze
-                             }).ToList();
+        //protected void dsFiscalYear_Selecting(object sender, System.Web.UI.WebControls.LinqDataSourceSelectEventArgs e)
+        //{
+        //    //using (FiscalDataContext db = new FiscalDataContext(ReportingUtilities.DefaultConnectString))
+        //    //{
+        //    //    var query = (from fy in db.FinancialYears
+        //    //                 select new
+        //    //                 {
+        //    //                     YearId = fy.YearId,
+        //    //                     Name = fy.Name,
+        //    //                     StartDate = fy.StartDate,
+        //    //                     EndDate = fy.EndDate,
+        //    //                     Freeze = fy.Freeze
+        //    //                 }).ToList();
 
-                e.Result = query;
-            }
+        //    //    e.Result = query;
+        //    //}
 
-        }
+        //}
 
         protected void btnNewFiscalYear_Click(object sender, EventArgs e)
         {
@@ -40,8 +40,8 @@ namespace Finance.Finance
             GridViewExInsert gv = (GridViewExInsert)sender;
             GridViewRow row = gv.Rows[e.RowIndex];
             TextBoxEx tbFYStartDate = (TextBoxEx)row.FindControl("tbFYStartDate");
-            TextBoxEx tbFreeze = (TextBoxEx)row.FindControl("tbFreeze");
-            DateTime fiscalYear = Convert.ToDateTime(tbFYStartDate.Value);
+            //TextBoxEx tbFreeze = (TextBoxEx)row.FindControl("tbFreeze");
+            DateTime fiscalYear = tbFYStartDate.ValueAsDate.Value;
             e.Values["Name"] = fiscalYear.Year.ToString(); 
         }
 

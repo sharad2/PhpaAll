@@ -13,6 +13,45 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph" runat="server">
 
+    <phpa:PhpaLinqDataSource ID="dsFiscalYear" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FiscalDataContext"
+        TableName="FinancialYears" RenderLogVisible="False" OrderBy="Name desc" Where='Freeze == "Y"' OnSelected="dsFiscalYear_Selected">
+    </phpa:PhpaLinqDataSource>
+    <asp:Repeater runat="server" DataSourceID="dsFiscalYear" ItemType="Eclipse.PhpaLibrary.Database.FinancialYear">
+        <HeaderTemplate>
+            <fieldset>
+                <legend>Vouchers can be created for</legend>
+                <ul>
+        </HeaderTemplate>
+        <ItemTemplate>
+            <li>
+            Year <%# Item.Name %>: Voucher Dates <%# Item.StartDate.ToShortDateString() %> to <%# Item.EndDate.ToShortDateString() %>
+                </li>
+        </ItemTemplate>
+        <FooterTemplate>
+            </ul>
+            </fieldset>
+        </FooterTemplate>
+    </asp:Repeater>
+    <jquery:GridViewEx ID="gvFiscalYear" runat="server" AutoGenerateColumns="False"
+        DataKeyNames="YearId" DataSourceID="dsFiscalYear" AllowSorting="True"
+        Caption="Open Financial Years">
+        <Columns>
+            <eclipse:MultiBoundField DataFields="Name" HeaderText="Financial Year" SortExpression="Name" ItemStyle-HorizontalAlign="Left">
+            </eclipse:MultiBoundField>
+            <eclipse:MultiBoundField DataFields="StartDate" HeaderText="Starts On" SortExpression="StartDate" DataFormatString="{0:d}">
+            </eclipse:MultiBoundField>
+            <eclipse:MultiBoundField DataFields="EndDate" HeaderText="Ends On" SortExpression="EndDate" DataFormatString="{0:d}">
+            </eclipse:MultiBoundField>
+            <eclipse:MultiBoundField HeaderText="Closed" DataFields="Freeze" SortExpression="Freeze" ItemStyle-HorizontalAlign="Left">
+            </eclipse:MultiBoundField>
+        </Columns>
+        <EmptyDataTemplate>
+            All Financial Years have been closed. Vouchers cannot be edited.
+        </EmptyDataTemplate>
+    </jquery:GridViewEx>
+
+
+
     <asp:Label ID="lblError" runat="server" Visible="false" ForeColor="Red" />
     <phpa:PhpaLinqDataSource ID="dsEditVouchers" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FinanceDataContext"
         TableName="Vouchers" AutoGenerateWhereClause="false" Where="VoucherId == @VoucherId"

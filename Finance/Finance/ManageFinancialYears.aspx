@@ -28,7 +28,7 @@
     <jquery:GridViewExInsert ID="gvFiscalYear" runat="server" AutoGenerateColumns="False"
         InsertRowsAtBottom="false" InsertRowsCount="0" OnRowInserting="gvFiscalYear_RowInserting"
         DataKeyNames="YearId" DataSourceID="dsFiscalYear" AllowSorting="True" EnableViewState="true"
-        Style="margin-top: 2px" Caption="List of Financial Years">
+        Style="margin-top: 2px" Caption="List of Financial Years" ItemType="Eclipse.PhpaLibrary.Database.FinancialYear">
         <Columns>
             <jquery:CommandFieldEx RolesRequired="FinanceManager"></jquery:CommandFieldEx>
             <eclipse:SequenceField />

@@ -661,5 +661,10 @@ namespace Finance.Finance
                 }
             };
         }
+
+        protected void dsFiscalYear_Selected(object sender, LinqDataSourceStatusEventArgs e)
+        {
+            var x = e.Result;
+        }
     }
 }
