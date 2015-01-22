@@ -12,6 +12,33 @@
     <asp:HyperLink runat="server" NavigateUrl="~/Finance/InsertVoucher.aspx">Create New Voucher</asp:HyperLink>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cph" runat="server">
+
+    <phpa:PhpaLinqDataSource ID="dsFiscalYear" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FiscalDataContext"
+        TableName="FinancialYears" RenderLogVisible="False" OrderBy="Name desc" Where='Freeze == "N"' OnSelected="dsFiscalYear_Selected">
+    </phpa:PhpaLinqDataSource>
+    <br/>
+    <asp:ListView runat="server" ID="lvEditableDates" DataSourceID="dsFiscalYear" ItemType="Eclipse.PhpaLibrary.Database.FinancialYear">
+        <LayoutTemplate>
+            <fieldset>
+                <legend>
+                    Vouchers can be created or edited for
+                </legend>
+                <ul>
+                    <li runat="server" id="itemPlaceholder"></li>
+                </ul>
+                <asp:HyperLink runat="server" Text="Manage" NavigateUrl="~/Finance/ManageFinancialYears.aspx"></asp:HyperLink>
+            </fieldset>
+        </LayoutTemplate>
+        <ItemTemplate>
+            <li>Year <%# Item.Name %>: Voucher Dates from <%# Item.StartDate.ToShortDateString() %> to <%# Item.EndDate.ToShortDateString() %>
+            </li>
+        </ItemTemplate>
+        <EmptyDataTemplate>
+            <asp:Label runat="server" Text="All financial years have been closed. Vouchers cannot be created or edited." ForeColor="Red"></asp:Label>    
+            <asp:HyperLink runat="server" Text="Manage" NavigateUrl="~/Finance/ManageFinancialYears.aspx"></asp:HyperLink>
+        </EmptyDataTemplate>
+    </asp:ListView>
+        <br />
     <phpa:PhpaLinqDataSource ID="dsEditVouchers" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FinanceDataContext"
         TableName="Vouchers" AutoGenerateWhereClause="false" Where="VoucherId == @VoucherId"
         EnableInsert="true" EnableUpdate="true" OnContextCreating="ds_ContextCreating"
@@ -69,6 +96,7 @@
     <asp:FormView ID="fvEdit" runat="server" DataKeyNames="VoucherId" DataSourceID="dsEditVouchers">
         <HeaderTemplate>
             Voucher:
+           
             <%# Eval("Particulars") ?? "New"%>
         </HeaderTemplate>
         <EditItemTemplate>
@@ -97,11 +125,13 @@
                         </Validators>
                     </i:DropDownListEx>
                     List displays only those stations for which you are authorized
+                   
                     <eclipse:LeftLabel runat="server" Text="Voucher Date" />
                     <i:TextBoxEx ID="tbVoucherDate" runat="server" Text='<%# Bind("VoucherDate", "{0:d}") %>'
-                        FriendlyName="Voucher Date" QueryString="VoucherDate">
+                        FriendlyName="Voucher Date" QueryString="VoucherDate"
+                        OnPreRender="tbVoucherDate_PreRender">
                         <Validators>
-                            <i:Required />
+                            <i:Required OnServerValidate="tbVD_ServerValidate" ClientMessage="Not Valid date" />
                             <i:Date />
                         </Validators>
                     </i:TextBoxEx>
@@ -114,6 +144,7 @@
                     </i:TextBoxEx>
                     <br />
                     First time in the session, you must enter a code here. then it will keep incrementing.
+                   
                     <eclipse:LeftLabel runat="server" Text="Division" />
                     <i:AutoComplete ID="tbDivisionCode" runat="server" FriendlyName="Division" WebMethod="GetDivisions"
                         WebServicePath="~/Services/Divisions.asmx" Value='<%# Bind("DivisionId") %>'
@@ -134,6 +165,7 @@
                     <br />
                     First time in the session, you must enter a cheque number here. then it will keep
                     incrementing.
+                   
                     <eclipse:LeftLabel ID="lblPayee" runat="server" Text="Payee" />
                     <i:AutoComplete ID="tbPayee" runat="server" FriendlyName="Payee" WebMethod="GetVoucherPayeeList"
                         WebServicePath="~/Services/Divisions.asmx" Text='<%# Bind("PayeeName") %>' ShowUiHint="false"
@@ -280,9 +312,10 @@
                 ClientIDMode="Static">
                 <Ajax Url="VoucherDetails.aspx" UseDialog="false" />
             </jquery:Dialog>
-            <i:LinkButtonEx ID="btnEdit" runat="server" Text="Edit" CausesValidation="false"
-                Action="Submit" OnClick="btnEdit_Click" RolesRequired="FinanceManager" />
-            <i:LinkButtonEx ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click"
+            <i:LinkButtonEx ID="btnEdit" runat="server" Text="Edit" CausesValidation="false" Enabled="false"
+                Action="Submit" OnClick="btnEdit_Click" RolesRequired="FinanceManager"
+                OnPreRender="DisableLinkButtonEx_PreRender" />
+            <i:LinkButtonEx ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click" Enabled="false" OnPreRender="DisableLinkButtonEx_PreRender"
                 RolesRequired="FinanceManager" Action="Submit" CausesValidation="false" OnClientClick="
 function(e) {
     return confirm('Are you sure you want to delete the Voucher?');
@@ -293,10 +326,12 @@ function(e) {
         <EmptyDataTemplate>
             <phpa:FormViewStatusMessage ID="fvDeleteStatusMessage" runat="server" />
             What would you like to do now ?
+           
             <ul>
                 <asp:LoginView ID="LoginView1" runat="server">
                     <AnonymousTemplate>
                         <li>To create vouchers, you must
+                           
                             <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/Login.aspx">login</asp:HyperLink>.
                         </li>
                     </AnonymousTemplate>
@@ -304,10 +339,12 @@ function(e) {
                         <asp:RoleGroup Roles="Operator">
                             <ContentTemplate>
                                 <li>You can
+                                   
                                     <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/Finance/InsertVoucher.aspx"
                                         Text="Create New Voucher" />
                                     . </li>
                                 <li>To edit a voucher,
+                                   
                                     <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/Finance/DayBook.aspx">Go to Day Book</asp:HyperLink>
                                     and select the voucher to edit. </li>
                                 <li>
@@ -317,6 +354,7 @@ function(e) {
                     <LoggedInTemplate>
                         <li>You need to be an operator to create. You can view vouchers for a specific date
                             using the
+                           
                             <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Finance/DayBook.aspx">Day Book</asp:HyperLink>
                         </li>
                     </LoggedInTemplate>

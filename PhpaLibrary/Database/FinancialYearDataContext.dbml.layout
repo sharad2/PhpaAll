@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Fiscal">
+  <DataContextMoniker Name="/FiscalDataContext" />
+  <nestedChildShapes>
+    <classShape Id="2f6e54ee-7cc1-4dd6-9c62-113c552ac4d3" absoluteBounds="5.25, 2, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/FiscalDataContext/FinancialYear" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ad39b04b-9bf4-4338-8e7b-f5a3b4ad3e24" absoluteBounds="5.265, 2.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

@@ -372,3 +372,24 @@ Database Modifications:-
 NA
 
 ==========================================================================
+
+
+
+Year Closing:-
+
+Database changes:-
+
+Added new table dbo.FinancialYear
+
+Added unique constraint on column Name
+
+USE [PHPA2151114]
+GO
+
+ALTER TABLE dbo.FinancialYear ADD  CONSTRAINT [UK_Name] UNIQUE NONCLUSTERED 
+(
+	[Name] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+
+

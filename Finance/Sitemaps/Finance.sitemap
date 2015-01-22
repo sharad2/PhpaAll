@@ -96,5 +96,8 @@
       <siteMapNode url="~/Doc/ManageDivisions.doc.aspx" title="Divisions Doc"  description="Documentation for Manage Divisions" Visible="False"/>
       <siteMapNode url="~/Reports/PendingAdvance.aspx?ReportName=DivisionExpenditure" title="Divisional Expenses"  description="Expenditure of Division" />
     </siteMapNode>
+    <siteMapNode url="~/Finance/ManageFinancialYears.aspx" title="Financial Years" description="All financial years can be seen here. New financial years can be created and existing financial years can be modified as well.">
+    </siteMapNode>
   </siteMapNode>
+
 </siteMap>
