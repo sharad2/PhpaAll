@@ -413,7 +413,7 @@ namespace Finance.Payroll
                 MultiBoundField bank = (MultiBoundField)(from DataControlField col in gvEmployeesForperiod.Columns
                                         where col.AccessibleHeaderText == "Bank"
                                         select col).Single();
-                if (bank.CommonCellText == null)
+                if (string.IsNullOrEmpty(bank.CommonCellText))
                 {
 
                     gvEmployeesForperiod.Caption = string.Format(@"<br/><b>This is a list of employees  who will be paid a salary during the period from
@@ -421,7 +421,7 @@ namespace Finance.Payroll
                     }
                     else
                     {
-                        bank.Visible = false;
+                        //bank.Visible = false;
                         string caption = string.Empty;
                         if (m_sp.StationId == null)
                         {
