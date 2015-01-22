@@ -130,15 +130,6 @@ namespace Finance.Reports {
         protected global::System.Web.UI.WebControls.FormView fvJob;
         
         /// <summary>
-        /// lblOpenBal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOpenBal;
-        
-        /// <summary>
         /// lblOpeningBalance control.
         /// </summary>
         /// <remarks>

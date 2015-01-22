@@ -183,7 +183,7 @@
     </asp:FormView>
     <br />
     <div style="font-size: large; margin-bottom: 1mm">
-        <asp:Label ID="lblOpenBal" runat="server" Text="Opening Balance:" Visible="false" />
+        <%--<asp:Label ID="lblOpenBal" runat="server" Text="Opening Balance:" Visible="false" />--%>
         <asp:Label ID="lblOpeningBalance" ToolTip="Opening balance of Job" runat="server"
             Width="40%" />
     </div>

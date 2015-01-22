@@ -161,7 +161,7 @@ namespace Finance.Reports
                                                          where vd.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.DepositSubTypes.SecurityDeposit
                                                          select vd.CreditAmount ?? 0 - vd.DebitAmount ?? 0).Sum()
                         let materialRecovered = (decimal?)(from vd in grp
-                                                           where HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                                                           where vd.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.AdvanceSubTypes.MaterialAdvance
                                                            select vd.CreditAmount).Sum()
                         let interestRecovered = (decimal?)(from vd in grp
                                                            where vd.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.ReceiptSubType.InterestReceipt
@@ -176,7 +176,7 @@ namespace Finance.Reports
                                                   where 
                                                   (!otherRecoveryHeadExclusion.Contains(vd.HeadOfAccount.HeadOfAccountType) ||
                                                   (HeadOfAccountHelpers.AllExpenditures.Contains(vd.HeadOfAccount.HeadOfAccountType) &&
-                                                  !HeadOfAccountHelpers.ExpenditureSubTypes.MainCivilExpenditure.Contains(vd.HeadOfAccount.HeadOfAccountType) && vd.RoJob.TypeFlag == "X"))
+                                                  (vd.HeadOfAccount.HeadOfAccountType != HeadOfAccountHelpers.ExpenditureSubTypes.MainCivilExpenditure && vd.RoJob.TypeFlag == "X")))
                                                   select vd.CreditAmount).Sum()
                         let otherRecovery = otherRecoveryDebit.HasValue || otherRecoveryCredit.HasValue ? (otherRecoveryCredit ?? 0) - (otherRecoveryDebit ?? 0) : (decimal?)null
                         let anyRecovery = materialRecovered.HasValue || advanceAdjusted.HasValue || contractorTax.HasValue || securityDeposit.HasValue ||
@@ -189,7 +189,7 @@ namespace Finance.Reports
                                                    where HeadOfAccountHelpers.AllExpenditures.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                    select vd.DebitAmount).Sum()
                         let admittedAmountCredit = (from vd in grp
-                                                    where ((HeadOfAccountHelpers.ExpenditureSubTypes.MainCivilExpenditure.Contains(vd.HeadOfAccount.HeadOfAccountType) && vd.RoJob.TypeFlag == "X") ||
+                                                    where ((vd.HeadOfAccount.HeadOfAccountType == HeadOfAccountHelpers.ExpenditureSubTypes.MainCivilExpenditure && vd.RoJob.TypeFlag == "X") ||
                                                     (HeadOfAccountHelpers.AllExpenditures.Contains(vd.HeadOfAccount.HeadOfAccountType) && vd.RoJob.TypeFlag != "X"))
                                                     select vd.CreditAmount).Sum()
                         let admittedAmount = admittedAmountDebit.HasValue || admittedAmountCredit.HasValue ? (admittedAmountDebit ?? 0) - (admittedAmountCredit ?? 0) : (decimal?)null
@@ -219,7 +219,7 @@ namespace Finance.Reports
 
             e.Result = query.Where(p => p.VoucherDate >= fromDate && p.VoucherDate <= toDate);
 
-            lblOpeningBalance.Text = string.Format("{0:N2}", query.Where(p => p.VoucherDate < fromDate)
+            lblOpeningBalance.Text = string.Format("Opening Balance: {0:N2}", query.Where(p => p.VoucherDate < fromDate)
                 .Sum(p => (decimal?)p.NetPayment));
         }
 
@@ -252,7 +252,7 @@ namespace Finance.Reports
             {
                 case DataControlRowType.Header:
                     gvContractorPayment.Caption = string.Format("<span style='font-size:medium; font-weight:bold'>Payment to Contractor from {0:dd MMMM yyyy} {1}</span>", tbFromDate.ValueAsDate, tbToDate.ValueAsDate.HasValue ? " to " + tbToDate.ValueAsDate.Value.ToString("dd MMMM yyyy") : null);
-                    lblOpenBal.Visible = true;
+                    //lblOpenBal.Visible = true;
                     break;
 
                 case DataControlRowType.Footer:
