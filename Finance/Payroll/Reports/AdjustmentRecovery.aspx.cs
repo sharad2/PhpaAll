@@ -80,14 +80,14 @@ namespace Finance.Payroll.Reports
         {
             char ch = ':';
             string[] bankLoanname = new string[2];
-            if (tbHeadOfAccount.Text != null)
+            if (!string.IsNullOrEmpty(tbHeadOfAccount.Text))
             {
                 bankLoanname = tbHeadOfAccount.Text.Split(ch);
             }
             switch (e.Row.RowType)
             {
                 case DataControlRowType.DataRow:
-                    gvBLRecovery.Caption = string.Format("<b>{0}</b><br/><b>OFFICE OF THE SENIOR FINANCE OFFICER<br/><b>{3}::BHUTAN</b><br/>SCHEDULE OF RECOVERY OF LOAN {4}<br/>FOR THE PERIOD {1:dd MMMM yyyy} to {2:dd MMMM yyyy}", ConfigurationManager.AppSettings["PrintTitle"], tbFromDate.ValueAsDate, tbToDate.ValueAsDate, ConfigurationManager.AppSettings["Office"], (tbHeadOfAccount.Text != null) ? bankLoanname.GetValue(1) : "");
+                    gvBLRecovery.Caption = string.Format("<b>{0}</b><br/><b>OFFICE OF THE SENIOR FINANCE OFFICER<br/><b>{3}::BHUTAN</b><br/>SCHEDULE OF RECOVERY OF LOAN {4}<br/>FOR THE PERIOD {1:dd MMMM yyyy} to {2:dd MMMM yyyy}", ConfigurationManager.AppSettings["PrintTitle"], tbFromDate.ValueAsDate, tbToDate.ValueAsDate, ConfigurationManager.AppSettings["Office"], (!string.IsNullOrEmpty(tbHeadOfAccount.Text)) ? bankLoanname.GetValue(1) : "");
                     break;
             }
         }
