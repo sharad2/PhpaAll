@@ -380,6 +380,10 @@ namespace Eclipse.PhpaLibrary.Web
             {
                 db = new PackageActivityDataContext(strConnectString);
             }
+            else if (contextTypeName == typeof(FiscalDataContext).ToString())
+            {
+                db = new FiscalDataContext(strConnectString);
+            }
             else
             {
                 throw new NotSupportedException();

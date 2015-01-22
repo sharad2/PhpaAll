@@ -1,15 +1,14 @@
-﻿using System;
-using System.Data.Linq;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web.UI.WebControls;
-using Eclipse.PhpaLibrary.Database;
+﻿using Eclipse.PhpaLibrary.Database;
 using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery;
 using EclipseLibrary.Web.JQuery.Input;
+using System;
 using System.Collections.Generic;
-using System.Web.Security;
+using System.Data.Linq;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace Finance.Finance
 {
@@ -43,12 +42,12 @@ namespace Finance.Finance
         /// <param name="e"></param>
         protected override void OnLoad(EventArgs e)
         {
+            lvEditableDates.DataBind();
             if (!IsPostBack)
             {
                 if (string.IsNullOrEmpty(this.Request.QueryString["VoucherId"]))
                 {
                     fvEdit.DefaultMode = FormViewMode.Insert;
-                    //fvEdit.ChangeMode(FormViewMode.Insert);
 
                     if (string.IsNullOrEmpty(this.Request.QueryString["VoucherDate"]))
                     {
@@ -59,7 +58,6 @@ namespace Finance.Finance
                 else
                 {
                     fvEdit.DefaultMode = FormViewMode.ReadOnly;
-                    //fvEdit.ChangeMode(FormViewMode.ReadOnly);
                 }
             }
             ctlVoucherDetail.Station = this.GetUserStations();
@@ -79,6 +77,7 @@ namespace Finance.Finance
                 e.Cancel = true;
             }
         }
+
 
         protected void dsEditVouchers_Deleting(object sender, LinqDataSourceDeleteEventArgs e)
         {
@@ -172,7 +171,6 @@ namespace Finance.Finance
             {
                 return;
             }
-            //voucher.Station = Session["station"].ToString();
             bool bSuccess = SaveVoucher();
 
             if (bSuccess)
@@ -180,16 +178,10 @@ namespace Finance.Finance
                 //fvEdit.ChangeMode(FormViewMode.Edit);
                 switch (fvEdit.CurrentMode)
                 {
-                    /*case FormViewMode.Edit:
-                        fvEdit.ChangeMode(FormViewMode.ReadOnly);
-                        ctlVoucherDetail.DataBind();
-                        break;*/
-
                     case FormViewMode.Insert:
-                        //string url = Request.Url.AbsoluteUri;
-                        string [] url = Request.Url.AbsoluteUri.Split('?');
+                        string[] url = Request.Url.AbsoluteUri.Split('?');
 
-                        if(!string.IsNullOrEmpty(voucher.CheckNumber.ToString()))
+                        if (!string.IsNullOrEmpty(voucher.CheckNumber.ToString()))
                         {
                             int? CheckNumber = voucher.CheckNumber + 1;
                             url[0] = string.Format("{0}?CheckNumber={1}&VoucherDate={2}", url[0], CheckNumber.ToString(), voucher.VoucherDate.ToShortDateString());
@@ -222,7 +214,7 @@ namespace Finance.Finance
 
             if (bSuccess)
             {
-               fvEdit.ChangeMode(FormViewMode.Edit);
+                fvEdit.ChangeMode(FormViewMode.Edit);
             }
         }
 
@@ -232,12 +224,12 @@ namespace Finance.Finance
         /// <returns></returns>
         private bool SaveVoucher()
         {
-           
+
             SqlConnection conn = null;
             SqlTransaction trans = null;
             bool bSuccess = false;
             try
-            {                
+            {
                 conn = new SqlConnection(ReportingUtilities.DefaultConnectString);
                 conn.Open();
                 trans = conn.BeginTransaction();
@@ -253,7 +245,7 @@ namespace Finance.Finance
                 {
                     trans.Rollback();
                 }
-                
+
                 EclipseLibrary.Web.JQuery.Input.ValidationSummary valSummary = (EclipseLibrary.Web.JQuery.Input.ValidationSummary)fvEdit.FindControl("valSummary");
                 valSummary.ErrorMessages.Add(ex.Message);
             }
@@ -282,16 +274,12 @@ namespace Finance.Finance
             switch (fvEdit.CurrentMode)
             {
                 case FormViewMode.Edit:
-                    
-                    //dsEditVouchers.UpdateParameters["Station"].DefaultValue = Session["station"].ToString();
                     dsEditVouchers.UpdateParameters["StationId"].DefaultValue = ddlStation.Value;
                     fvEdit.UpdateItem(false);
                     break;
 
                 case FormViewMode.Insert:
-                    
-                    //dsEditVouchers.InsertParameters["Station"].DefaultValue = Session["station"].ToString();
-                    dsEditVouchers.InsertParameters["StationId"].DefaultValue =ddlStation.Value;
+                    dsEditVouchers.InsertParameters["StationId"].DefaultValue = ddlStation.Value;
                     fvEdit.InsertItem(false);
                     break;
 
@@ -321,7 +309,7 @@ namespace Finance.Finance
                 }
 
             }
-        }       
+        }
 
         /// <summary>
         /// If form view insert fails, cancel the grid view insert
@@ -361,7 +349,7 @@ namespace Finance.Finance
             {
                 voucher = (Voucher)e.Result;
 
-                dsEditVoucherDetail.InsertParameters["VoucherId"].DefaultValue = voucher.VoucherId.ToString();               
+                dsEditVoucherDetail.InsertParameters["VoucherId"].DefaultValue = voucher.VoucherId.ToString();
                 dsEditVouchers.WhereParameters["VoucherId"].DefaultValue = voucher.VoucherId.ToString();
                 dsEditVoucherDetail.WhereParameters["VoucherId"].DefaultValue = voucher.VoucherId.ToString();
             }
@@ -381,8 +369,6 @@ namespace Finance.Finance
                 voucher = (Voucher)e.Result;
                 dsEditVoucherDetail.InsertParameters["VoucherId"].DefaultValue = voucher.VoucherId.ToString();
                 dsEditVoucherDetail.UpdateParameters["VoucherId"].DefaultValue = voucher.VoucherId.ToString();
-                
-
             }
         }
 
@@ -403,8 +389,8 @@ namespace Finance.Finance
             {
                 e.NeedsToBeValdiated = false;
             }
-        }       
-     
+        }
+
         protected void val_DebitOrCredit(object sender, EclipseLibrary.Web.JQuery.Input.ServerValidateEventArgs e)
         {
             TextBoxEx tbCredit = (TextBoxEx)e.ControlToValidate;
@@ -451,7 +437,24 @@ namespace Finance.Finance
                 e.ControlToValidate.IsValid = true;
             }
         }
-       
+
+        protected void tbVD_ServerValidate(object sender, EclipseLibrary.Web.JQuery.Input.ServerValidateEventArgs e)
+        {
+            TextBoxEx tbVoucherDate = (TextBoxEx)fvEdit.FindControl("tbVoucherDate");
+            if (string.IsNullOrEmpty(tbVoucherDate.Text))
+            {
+                tbVoucherDate.IsValid = false;
+                return;
+            }
+            //DateTime dt = DateTime.Parse(tbVoucherDate.Text);
+            if (!IsDateEditable(tbVoucherDate.ValueAsDate.Value))
+            {
+                e.ControlToValidate.ErrorMessage = "Voucher cannot be created or edited in a closed financial year. Please select a valid voucher date.";
+                tbVoucherDate.IsValid = false;
+                return;
+            }
+
+        }
         #endregion
 
         protected void dlgVoucher_PreRender(object sender, EventArgs e)
@@ -461,7 +464,8 @@ namespace Finance.Finance
             if (!string.IsNullOrEmpty(this.Request.QueryString["VoucherId"]))
             {
                 dlgVoucher.Ajax.Url += string.Format("?VoucherId={0}", this.Request.QueryString["VoucherId"].ToString());
-            }else if (voucher.VoucherId != 0)
+            }
+            else if (voucher.VoucherId != 0)
             {
                 dlgVoucher.Ajax.Url += string.Format("?VoucherId={0}", voucher.VoucherId.ToString());
             }
@@ -495,7 +499,7 @@ namespace Finance.Finance
         {
             fvEdit.ChangeMode(FormViewMode.Edit);
         }
-        
+
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             fvEdit.ChangeMode(FormViewMode.ReadOnly);
@@ -515,9 +519,6 @@ namespace Finance.Finance
                 case FormViewMode.Edit:
                     btn.Text = "Update";
                     break;
-                //case FormViewMode.Insert:
-                //    break;
-
             }
         }
         /// <summary>
@@ -529,12 +530,6 @@ namespace Finance.Finance
         /// <param name="e"></param>
         protected void dsStations_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
-            //if (Session["Station"] == null)
-            //{
-            //    FormsAuthentication.RedirectToLoginPage();
-            //    return;
-            //}
-            //List<string> stations = new List<string>(Session["Station"].ToString().Split(','));
             using (Eclipse.PhpaLibrary.Database.PIS.PISDataContext db = new Eclipse.PhpaLibrary.Database.PIS.PISDataContext(Eclipse.PhpaLibrary.Reporting.ReportingUtilities.DefaultConnectString))
             {
                 var stations = this.GetUserStations();
@@ -553,7 +548,51 @@ namespace Finance.Finance
         }
 
         #endregion
-  
-       
+
+        #region Editable Dates
+        private IList<Tuple<DateTime, DateTime>> _editableDates;
+        protected void dsFiscalYear_Selected(object sender, LinqDataSourceStatusEventArgs e)
+        {
+            var x = (IEnumerable<FinancialYear>)e.Result;
+            _editableDates = x.Select(p => Tuple.Create(p.StartDate, p.EndDate)).ToList();
+        }
+
+        /// <summary>
+        /// This is for validating the passed date whether this date is a valid date or not.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns>True or False. If the passed date is not a part of an open financial year then this function will return false. 
+        /// This function will return true only when the passed date belongs to an open year.</returns>
+        protected bool IsDateEditable(DateTime dt)
+        {
+            return _editableDates.Any(p => dt >= p.Item1 && dt <= p.Item2);
+        }
+
+        protected void DisableLinkButtonEx_PreRender(object sender, EventArgs e)
+        {
+            var voucher = (Voucher)fvEdit.DataItem;
+            if (IsDateEditable(voucher.VoucherDate))
+            {
+                var btn = (LinkButtonEx)sender;
+                btn.Enabled = true;
+            }
+        }
+
+        protected void tbVoucherDate_PreRender(object sender, EventArgs e)
+        {
+            TextBoxEx tb = (TextBoxEx)fvEdit.FindControl("tbVoucherDate");
+            var val = tb.Validators.OfType<Date>().Single();
+            if (_editableDates.Count() > 0)
+            {
+                val.Min = (_editableDates.Min(p => p.Item1) - DateTime.Today).Days;
+                val.Max = (_editableDates.Max(p => p.Item2) - DateTime.Today).Days;
+            }
+            else 
+            {
+                tb.Enabled = false;
+            }
+
+        }
+        #endregion
     }
 }
