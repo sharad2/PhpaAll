@@ -139,8 +139,9 @@
             No salary provided to the employee during the given period.
         </EmptyDataTemplate>
     </jquery:GridViewEx>
+
              <br />
-        <i><b>This is computer generated document no signature is required.</i></b>
+        <asp:Label id="lblSignatureMessage" runat="server" Text="This is computer generated document no signature is required." Font-Italic="true" Font-Bold="true" visible="false"></asp:Label>
         <br />  
             <br /> 
     <phpa:PhpaLinqDataSource ID="dsRepCat" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.Payroll.PayrollDataContext"

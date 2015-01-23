@@ -219,6 +219,7 @@ namespace Finance.Payroll.Reports
                         cellP.Text = string.Format("{0:N0}", pea.Amount);
                         UpdateSum(m_dictAdjustmentsum, Math.Round(pea.Amount ?? 0, MidpointRounding.AwayFromZero), pea.Adjustment);
                     }
+                    lblSignatureMessage.Visible = true;
                     break;
 
                 case DataControlRowType.Footer:
