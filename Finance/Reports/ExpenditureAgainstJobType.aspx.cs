@@ -54,6 +54,8 @@ namespace Finance.Reports
 
         protected void ds_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
+         string[] typeFlag  = new string[2];
+
             if (!btnShowReport.IsPageValid())
             {
                 e.Cancel = true;
@@ -63,8 +65,17 @@ namespace Finance.Reports
                 ReportingDataContext db = (ReportingDataContext)ds.Database;
                 DateTime? m_tbTodate = tbToDate.ValueAsDate;
                 DateTime dateMonthStart = m_tbTodate.Value.MonthStartDate();
-
+                
                 this.Title += string.Format(" From {0:d MMMM yyyy} to {1:d MMMM yyyy}", tbFromDate.ValueAsDate, tbToDate.ValueAsDate);
+                if (_typeFlag == "C")
+                {
+                    typeFlag.SetValue(_typeFlag,0);
+                    typeFlag.SetValue("S",1);
+                }
+                else
+                {
+                    typeFlag.SetValue(_typeFlag,0);
+                }
 
                 e.Result = (from vd in db.RoVoucherDetails
                             where HeadOfAccountHelpers.AllExpenditures.Concat(HeadOfAccountHelpers.AllAdvances).Contains(vd.RoHeadHierarchy.HeadOfAccountType) &&
@@ -72,7 +83,8 @@ namespace Finance.Reports
                                 //        vd.RoHeadHierarchy.HeadOfAccountType == "PARTY_ADVANCE" ||
                                 //        vd.RoHeadHierarchy.HeadOfAccountType == "MATERIAL_ADVANCE" ||
                                 //        vd.RoHeadHierarchy.HeadOfAccountType == "TOUR_EXPENSES") &&
-                                   vd.RoJob.TypeFlag == _typeFlag && 
+                                   //vd.RoJob.TypeFlag == _typeFlag && 
+                                   typeFlag.Contains(vd.RoJob.TypeFlag) &&
                                    vd.RoVoucher.VoucherDate >= tbFromDate.ValueAsDate &&
                                    vd.RoVoucher.VoucherDate <= tbToDate.ValueAsDate
                             group vd by vd.RoJob into grouping
