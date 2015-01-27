@@ -73,7 +73,7 @@ namespace Finance.Payroll.Reports
                             SalaryPeriodStart = grp.Min(p => p.EmployeePeriod.SalaryPeriod.SalaryPeriodStart),
                             SalaryPeriodEnd = grp.Max(p => p.EmployeePeriod.SalaryPeriod.SalaryPeriodEnd),
                             Amount = grp.Sum(p => p.Amount),
-                            BankId = grp.Max(p => p.EmployeePeriod.BankId ?? p.EmployeePeriod.Employee.BankId)
+                            BankId = grp.Max(p => p.EmployeePeriod.Bank.BankId) != null ? grp.Max(p => p.EmployeePeriod.Bank.BankId)  : grp.Max(p => p.EmployeePeriod.Employee.Bank.BankId)
                         };
             if (!string.IsNullOrEmpty(ddlParentOffice.Value))
             {
