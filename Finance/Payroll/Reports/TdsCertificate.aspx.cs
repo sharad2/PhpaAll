@@ -65,6 +65,7 @@ namespace Finance.Payroll.Reports
                        };
             this.Title += string.Format(" From {0:d MMMM yyyy} To {1:d MMMM yyyy}",tbFromDate.ValueAsDate,tbToDate.ValueAsDate);
         }
+
         protected void dsEmployee_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
             if (!btnGo.IsPageValid())
@@ -72,39 +73,24 @@ namespace Finance.Payroll.Reports
                 e.Cancel = true;
                 return;
             }
-
             PayrollDataContext db = (PayrollDataContext)ds.Database;
-            e.Result = from emp in db.Employees
-                       where emp.EmployeeId == Convert.ToInt32(tbEmployee.Value)
-                       select new
-                       {
-                           EmployeeId = emp.EmployeeId,
-                           FullName = emp.FullName,
-                           EmployeeCode = emp.EmployeeCode,
-                           CitizenCardNo = emp.CitizenCardNo,
-                           Designation = emp.Designation,
-                           Tpn = emp.Tpn
-                       };
+            e.Result =
+                  from empp in db.EmployeePeriods
+                  where empp.Employee.EmployeeId == Convert.ToInt32(tbEmployee.Value) && empp.SalaryPeriod.SalaryPeriodStart >= tbFromDate.ValueAsDate.Value.MonthStartDate() &&
+                        empp.SalaryPeriod.SalaryPeriodEnd <= tbToDate.ValueAsDate.Value.MonthEndDate()
+                   group new {empp} by new {empp.Employee} into g
+                  select new
+                  {
+                      EmployeeId = g.Key.Employee.EmployeeId,
+                      FullName = g.Key.Employee.FullName,
+                      EmployeeCode = g.Key.Employee.EmployeeCode,
+                      CitizenCardNo = g.Key.Employee.CitizenCardNo,
+                      Designation = (g.Select(p => p.empp.Designation).Distinct().Count() == 1 && g.Max(p => p.empp.Designation) != null) ? g.Max(p => p.empp.Designation) : g.Key.Employee.Designation,
+                      Tpn = g.Key.Employee.Tpn
+
+                  };
         }
 
-        //decimal _dTotalNetPay = 0;
-        //protected void gv_MatrixRowDataBound(object sender, MatrixRowEventArgs e)
-        //{
-        //    MatrixField mf = (MatrixField)sender;
-        //    decimal dBasicPay = Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "BasicPay") ?? 0);
-        //    decimal?[] rowTotals = e.MatrixRow.GetRowTotals(mf.MatrixColumns.Where(p => !(bool)p["IsDeduction"]));
-        //    decimal? dTotalAllowances = rowTotals == null ? null : rowTotals[0];
-        //    e.MatrixRow.SetRowTotalText(0, string.Format("{0:C}", dBasicPay + dTotalAllowances));
-
-        //    rowTotals = e.MatrixRow.GetRowTotals(mf.MatrixColumns.Where(p => (bool)p["IsDeduction"]));
-        //    decimal? dTotalDeduction = rowTotals == null ? null : rowTotals[0];
-
-        //    var index = gv.Columns.Cast<DataControlField>()
-        //        .Select((p, i) => p.AccessibleHeaderText == "NetPay" ? i : -1).Single(p => p >= 0);
-        //    e.Row.Cells[index].Text = string.Format("{0:C2}", (dBasicPay + dTotalAllowances) - dTotalDeduction);
-        //    _dTotalNetPay += ((dBasicPay + dTotalAllowances) - dTotalDeduction) ?? 0;
-
-        //}
         private decimal _finalDeductions, _finalSanctions;
         decimal?_totalNetPay= 0.0M;
         protected void gv_RowDataBound(object sender, GridViewRowEventArgs e)
