@@ -85,7 +85,7 @@ namespace Finance.Payroll.Reports
                       FullName = g.Key.Employee.FullName,
                       EmployeeCode = g.Key.Employee.EmployeeCode,
                       CitizenCardNo = g.Key.Employee.CitizenCardNo,
-                      Designation = g.Select(p => p.empp.Designation).Distinct().Count() > 1 ? g.Key.Employee.Designation : g.Max(p => p.empp.Designation),
+                      Designation = (g.Select(p => p.empp.Designation).Distinct().Count() == 1 && g.Max(p => p.empp.Designation) != null) ? g.Max(p => p.empp.Designation) : g.Key.Employee.Designation,
                       Tpn = g.Key.Employee.Tpn
 
                   };
