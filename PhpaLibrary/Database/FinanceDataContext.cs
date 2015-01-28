@@ -410,6 +410,7 @@ namespace Eclipse.PhpaLibrary.Database
                 m_jobTypes.Add(new JobType('D', "Department"));
                 m_jobTypes.Add(new JobType('W', "Work Order"));
                 m_jobTypes.Add(new JobType('C', "Contract"));
+                m_jobTypes.Add(new JobType('S', "Special"));
             }
             return m_jobTypes;
         }
