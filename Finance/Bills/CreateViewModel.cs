@@ -69,6 +69,8 @@ namespace PhpaAll.Bills
         [Display(Name = "Image")]
         public Image BillImage { get; set; }
 
-        
+
+        //Weather it is edit mode or not
+        public bool isEditMode { get; set; }
     }
 }

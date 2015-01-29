@@ -93,7 +93,8 @@ namespace PhpaAll.Controllers
                PaidDate = bill.PaidOn,
                Remarks = bill.Remarks,
                DivisionSubmittedDate = bill.SubmittedToDivision,
-               FinanceSubmittedDate = bill.SubmittedToFinance
+               FinanceSubmittedDate = bill.SubmittedToFinance,
+               isEditMode = true
 
            };           
           return View(Views.Create, model);
