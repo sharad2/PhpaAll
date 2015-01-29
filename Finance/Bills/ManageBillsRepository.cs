@@ -42,14 +42,36 @@ namespace PhpaAll.Bills
         }
 
 
-
+        //Gettting the details of passed BillNumber to be updated
         public Bill GetBillNumber(string id)
         {
             return (from bill in _db.Bills
                     where bill.BillNumber == id
                     select bill).FirstOrDefault();
 
-         
+
+        }
+
+
+        //Updating the BillNumber
+        public void UpdateBill(CreateViewModel model)
+        {
+            Bill edit = _db.Bills.Where(bill => bill.BillNumber == model.BillNumber).SingleOrDefault();
+
+            edit.Amount = model.Amount;
+            edit.ApprovedBy = model.ApprovedBy;
+            edit.BillNumber = model.BillNumber;
+            edit.ApprovedOn = model.ApprovedDate;
+            edit.BillDate = model.BillDate;
+            edit.BillType = model.BillType;
+            edit.ContractorId = model.ContractorId;
+            edit.DivisionId = model.DivisionId;
+            edit.DueDate = model.DueDate;
+            edit.PaidOn = model.PaidDate;
+            edit.Remarks = model.Remarks;
+            edit.SubmittedToDivision = model.DivisionSubmittedDate;
+            edit.SubmittedToFinance = model.FinanceSubmittedDate;
+            _db.SubmitChanges();
         }
     }
 }

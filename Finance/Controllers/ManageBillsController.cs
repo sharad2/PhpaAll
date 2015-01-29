@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Linq;
 using PhpaAll.Bills;
+using System.Data;
 
 namespace PhpaAll.Controllers
 {
@@ -100,17 +101,22 @@ namespace PhpaAll.Controllers
      
         // POST:Edit
         [AcceptVerbs(HttpVerbs.Post)]
-        public virtual ActionResult Edit(string id, FormCollection collection)
+        public virtual ActionResult Edit(CreateViewModel model)
         {
-             try
+           
+            try
             {
-                // TODO: Add update logic here           
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _service.Value.UpdateBill(model);
+                    return RedirectToAction(Views.Index);
+                }
             }
-            catch
+            catch (DataException)
             {
-                return View(Views.Index);
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
+            return View(Views.Index);
         }
     }
 }

@@ -116,7 +116,7 @@ namespace PhpaAll.Controllers
         public class ActionParamsClass_Edit
         {
             public readonly string id = "id";
-            public readonly string collection = "collection";
+            public readonly string model = "model";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -188,15 +188,14 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id, System.Web.Mvc.FormCollection collection);
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, PhpaAll.Bills.CreateViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Edit(string id, System.Web.Mvc.FormCollection collection)
+        public override System.Web.Mvc.ActionResult Edit(PhpaAll.Bills.CreateViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "collection", collection);
-            EditOverride(callInfo, id, collection);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            EditOverride(callInfo, model);
             return callInfo;
         }
 
