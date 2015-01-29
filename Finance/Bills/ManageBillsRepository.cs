@@ -45,17 +45,11 @@ namespace PhpaAll.Bills
 
         public Bill GetBillNumber(string id)
         {
-            throw new NotImplementedException();
-            //var query = from u in _db.Bills
-            //            where u.Id == id
-            //            select u;
-            //var bills = query.FirstOrDefault();
-            //var model = new Bill()
-            //{
-            //    Id = id,
-            //    BillType = bills.BillType
-            //};
-            //return model;
+            return (from bill in _db.Bills
+                    where bill.BillNumber == id
+                    select bill).FirstOrDefault();
+
+         
         }
     }
 }

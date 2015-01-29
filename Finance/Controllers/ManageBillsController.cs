@@ -75,32 +75,28 @@ namespace PhpaAll.Controllers
         // GET:Edit
         public virtual ActionResult Edit(string id)
         {
-            throw new NotImplementedException();
-          // CreateViewModel model = _service.Value.GetBillNumber(id);
-          //return View(model);
-                       
-   
+           
+           var bill = _service.Value.GetBillNumber(id);
+           var model = new CreateViewModel
+           {
+               Amount = bill.Amount,
+               ApprovedBy = bill.ApprovedBy,
+               BillNumber = bill.BillNumber,
+               ApprovedDate = bill.ApprovedOn,
+               BillDate = bill.BillDate,
+               BillType = bill.BillType,
+               ContractorId = bill.ContractorId,
+               DivisionId = bill.DivisionId,
+               DueDate = bill.DueDate,
+               PaidDate = bill.PaidOn,
+               Remarks = bill.Remarks,
+               DivisionSubmittedDate = bill.SubmittedToDivision,
+               FinanceSubmittedDate = bill.SubmittedToFinance
 
-          //  return View(Views.Create, new CreateViewModel()
-          //  {
-
-          //      BillNumber = id,
-          //      BillType = 
-          //  });  
-          
+           };           
+          return View(Views.Create, model);
         }
-        //public ActionResult Edit(int id)
-        //{
-        //    IndexViewModel model = _service.Value.Bills.Where(x => x.Id == id).Select(x =>
-        //                        new BillModel()
-        //                        {
-        //                         BillNumber = x.BillNumber,
-        //                          BillType = x.BillType, 
-        //                        });
 
-        //    PreparePublisher(model);
-        //    return View(model);
-        //}      
      
         // POST:Edit
         [AcceptVerbs(HttpVerbs.Post)]

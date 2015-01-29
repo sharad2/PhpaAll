@@ -17,19 +17,18 @@
         <div class="form-group form-group-sm">
             <label for="billNumber" class="col-sm-2 control-label">Bill No. *</label>
             <div class="col-sm-3">
-                @Html.TextBoxFor(m => m.BillNumber, new
-           {
-               id = "billNumber",
-               maxlength = "60",
-               @class = "form-control",
-               @required = "required"
-           })
+                    @Html.TextBoxFor(m => m.BillNumber, new
+                                   {
+                                       id = "billNumber",
+                                       maxlength = "60",
+                                       @class = "form-control",
+                                       @required = "required"
+                                   })
 
-                @Html.ValidationMessageFor(m => m.BillNumber, null, new
-           {
-               @class = "help-block"
-           })
-
+                    @Html.ValidationMessageFor(m => m.BillNumber, null, new
+                                   {
+                                       @class = "help-block"
+                                   })
             </div>
 
             <label for="billType" class="col-sm-1 control-label">Type</label>
@@ -257,6 +256,7 @@
         </div>
     </div>
 </form>
+
 
 
 
