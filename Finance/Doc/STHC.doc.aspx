@@ -1,4 +1,4 @@
-﻿<%@ Page Title="STHC Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="STHC.doc.aspx.cs" Inherits="Finance.Doc.STHC" %>
+﻿<%@ Page Title="STHC Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="STHC.doc.aspx.cs" Inherits="PhpaAll.Doc.STHC" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">

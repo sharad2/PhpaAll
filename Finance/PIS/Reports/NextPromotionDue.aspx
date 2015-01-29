@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Next Promotion Due" Language="C#" MasterPageFile="~/MasterPage.master"
-    CodeBehind="NextPromotionDue.aspx.cs" Inherits="Finance.PIS.Reports.NextPromotionDue"
+    CodeBehind="NextPromotionDue.aspx.cs" Inherits="PhpaAll.PIS.Reports.NextPromotionDue"
     EnableViewState="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

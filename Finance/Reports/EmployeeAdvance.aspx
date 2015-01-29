@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="EmployeeAdvance.aspx.cs"
-    Inherits="Finance.Reports.EmployeeAdvance" Title="Employee Advance" EnableViewState="false" %>
+    Inherits="PhpaAll.Reports.EmployeeAdvance" Title="Employee Advance" EnableViewState="false" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

@@ -1,0 +1,122 @@
+﻿@model PhpaAll.Bills.IndexViewModel
+@{
+    ViewBag.Title = "Recent Bills";
+}
+
+<h2>
+    Recent Bills
+
+    <small>
+        <a href="@Url.Action(MVC.ManageBills.Create())">Create new bill</a>
+    </small>
+</h2>
+<ul class="list-group">
+    <li class="list-group-item list-group-item-success">
+        <div class="row">
+            <div class="col-md-5">
+                <h4 class="list-group-item-heading">
+                    Bill Number
+                    <small>
+                        <em>Type</em>
+                        <span class="badge"> Date</span>
+                    </small>
+                </h4>
+                <p class="list-group-item-text">
+                    <span class="label label-info">Division Id</span>
+                    <span class="label label-success">Contractor Id</span>
+                </p>
+
+            </div>
+            <div class="col-md-4">
+                <h4 class="list-group-item-heading">
+                    Amount(Nu)
+                    <small>
+                        Paid Date
+                        <em>
+                            <mark>
+                                Due Date
+                            </mark>
+                        </em>
+                    </small>
+                </h4>
+                <p class="list-group-item-text">
+                    <abrr title="Division Submitted Date">Division Submitted Date</abrr>
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="list-group-item-heading">
+                    Approved by
+                    <small>
+                        Approved Date
+                    </small>
+                </h4>
+                <p class="list-group-item-text">
+                    <abrr title="Finance Submitted Date">Finance Submitted Date</abrr>
+                </p>
+            </div>
+        </div>
+    </li>
+
+    @for (var i = 0; i < Model.Bills.Count; ++i)
+    {
+
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-md-5">
+                    <h4 class="list-group-item-heading">
+                        @Html.DisplayFor(m => m.Bills[i].BillNumber)
+                        <small>
+                            <em>@Html.DisplayFor(m => m.Bills[i].BillType)</em>
+                            <span class="badge">
+                                @Html.DisplayFor(m => m.Bills[i].BillDate)
+                            </span>
+                        </small>
+                    </h4>
+                    <p class="list-group-item-text">
+                        <span class="label label-info">
+                            @Html.DisplayFor(m => m.Bills[i].DivisionId)
+                        </span>
+                        &nbsp;
+                        <span class="label label-success">
+                            @Html.DisplayFor(m => m.Bills[i].ContractorId)
+                        </span>
+                    </p>
+
+                </div>
+                <div class="col-md-4">
+                    <h4 class="list-group-item-heading">
+                        @Html.DisplayFor(m => m.Bills[i].Amount)
+                        <small>
+                            @Html.DisplayFor(m => m.Bills[i].PaidDate)
+                            <em> <mark>@Html.DisplayFor(m => m.Bills[i].DueDate)</mark></em>
+                        </small>
+                    </h4>
+                    <p class="list-group-item-text">
+                        <abrr title="Division Submitted Date">
+                            @Html.DisplayFor(m => m.Bills[i].DivisionSubmittedDate)
+                        </abrr>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <h4 class="list-group-item-heading">
+                        @Html.DisplayFor(m => m.Bills[i].ApprovedBy)
+                        <span class="pull-right">
+                            <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].BillNumber))" class="btn btn-sm btn-default">Edit</a>
+                        </span>
+                        <small>
+                            @Html.DisplayFor(m => m.Bills[i].ApprovedDate)
+                        </small>
+                    </h4>
+                    <p class="list-group-item-text">
+                        <abrr title="Finance Submitted Date">
+                            @Html.DisplayFor(m => m.Bills[i].FinanceSubmittedDate)
+                        </abrr>
+                    </p>
+                    
+                
+                </div>
+            </div>
+        </li>
+
+    }
+</ul>

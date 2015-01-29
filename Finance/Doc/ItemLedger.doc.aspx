@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Item Ledger Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="ItemLedger.doc.aspx.cs" Inherits="Finance.Doc.ItemLedger" %>
+﻿<%@ Page Title="Item Ledger Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="ItemLedger.doc.aspx.cs" Inherits="PhpaAll.Doc.ItemLedger" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
  

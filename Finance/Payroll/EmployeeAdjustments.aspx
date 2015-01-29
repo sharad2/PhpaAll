@@ -1,5 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="EmployeeAdjustments.aspx.cs"
-    Inherits="Finance.Payroll.EmployeeAdjustments" Title="Default Employee Adjustments" %>
+    Inherits="PhpaAll.Payroll.EmployeeAdjustments" Title="Default Employee Adjustments" %>
 
 <%@ Register Src="../Controls/EmployeeAdjustmentEditor.ascx" TagName="EmployeeAdjustmentEditor"
     TagPrefix="uc1" %>

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="InsertVoucher.aspx.cs"
-    Inherits="Finance.Finance.InsertVoucher" Title="Create Voucher" EnableViewState="true" %>
+    Inherits="PhpaAll.Finance.InsertVoucher" Title="Create Voucher" EnableViewState="true" %>
 
 <%@ Register Src="../Controls/VoucherDetailControl.ascx" TagName="VoucherDetailControl"
     TagPrefix="uc1" %>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="GPF Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="GPF.doc.aspx.cs" Inherits="Finance.Doc.GPF" %>
+﻿<%@ Page Title="GPF Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="GPF.doc.aspx.cs" Inherits="PhpaAll.Doc.GPF" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">

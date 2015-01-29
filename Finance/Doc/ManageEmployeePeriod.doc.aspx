@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Manage Employee Period Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="ManageEmployeePeriod.doc.aspx.cs" Inherits="Finance.Doc.ManageEmployeePeriod" %>
+﻿<%@ Page Title="Manage Employee Period Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="ManageEmployeePeriod.doc.aspx.cs" Inherits="PhpaAll.Doc.ManageEmployeePeriod" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="CumulativeYearlyExpenditure.aspx.cs"
-    EnableViewState="false" Inherits="Finance.Reports.CumulativeYearlyExpenditure"
+    EnableViewState="false" Inherits="PhpaAll.Reports.CumulativeYearlyExpenditure"
     Title="Cumulative Yearly Expenditure Report" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"

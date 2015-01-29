@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Receive GRN" Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="RecieveGRN.aspx.cs"
-    EnableViewState="true" Inherits="Finance.Store.RecieveGRN" %>
+    EnableViewState="true" Inherits="PhpaAll.Store.RecieveGRN" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">

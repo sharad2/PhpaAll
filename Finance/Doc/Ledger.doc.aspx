@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Ledger Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Ledger.doc.aspx.cs" Inherits="Finance.Doc.Ledger" %>
+﻿<%@ Page Title="Ledger Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Ledger.doc.aspx.cs" Inherits="PhpaAll.Doc.Ledger" %>
 
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
 <br />

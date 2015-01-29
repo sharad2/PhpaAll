@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Promotion Types" Language="C#" MasterPageFile="~/MasterPage.master"
-    CodeBehind="PromotionTypes.aspx.cs" Inherits="Finance.PIS.Masters.PromotionTypes" %>
+    CodeBehind="PromotionTypes.aspx.cs" Inherits="PhpaAll.PIS.Masters.PromotionTypes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

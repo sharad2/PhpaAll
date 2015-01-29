@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="EarnedMoneyDeposit.aspx.cs"
-    Inherits="Finance.Reports.MoneyDeposit" Title="Earnest Money Deposit" EnableViewState="false" %>
+    Inherits="PhpaAll.Reports.MoneyDeposit" Title="Earnest Money Deposit" EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

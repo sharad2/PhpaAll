@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Staff Divisions" Language="C#" MasterPageFile="~/MasterPage.master"
-    CodeBehind="StaffDivisions.aspx.cs" Inherits="Finance.PIS.Reports.StaffDivisions"
+    CodeBehind="StaffDivisions.aspx.cs" Inherits="PhpaAll.PIS.Reports.StaffDivisions"
     EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"

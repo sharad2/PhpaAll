@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Employee Adjustments Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="EmployeeAdjustments.doc.aspx.cs" Inherits="Finance.Doc.EmployeeAdjustments" %>
+﻿<%@ Page Title="Employee Adjustments Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="EmployeeAdjustments.doc.aspx.cs" Inherits="PhpaAll.Doc.EmployeeAdjustments" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">

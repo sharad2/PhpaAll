@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="Monthly Construction Schedule" Language="C#" MasterPageFile="~/MIS/NestedMIS.master"
     AutoEventWireup="true" ValidateRequest="false" CodeBehind="MonthlyConstruction.aspx.cs"
-    Inherits="Finance.MIS.MonthlyConstructionProgress" %>
+    Inherits="PhpaAll.MIS.MonthlyConstructionProgress" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

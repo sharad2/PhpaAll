@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" CodeBehind="ManageUsers.aspx.cs" Inherits="Finance.ManageUsers"
+﻿<%@ Page Language="C#" CodeBehind="ManageUsers.aspx.cs" Inherits="PhpaAll.ManageUsers"
     MasterPageFile="~/MasterPage.master" Title="Manage Users" EnableViewState="true" %>
 
 <asp:Content ContentPlaceHolderID="head" runat="server">

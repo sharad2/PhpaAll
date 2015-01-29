@@ -1,4 +1,4 @@
-﻿<%@ Page Title="RMTD Report Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="RMTDReport.doc.aspx.cs" Inherits="Finance.Doc.RMTDReport" %>
+﻿<%@ Page Title="RMTD Report Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="RMTDReport.doc.aspx.cs" Inherits="PhpaAll.Doc.RMTDReport" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">

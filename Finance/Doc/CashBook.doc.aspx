@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Cash Book Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="CashBook.doc.aspx.cs" Inherits="Finance.Doc.CashBook" %>
+﻿<%@ Page Title="Cash Book Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="CashBook.doc.aspx.cs" Inherits="PhpaAll.Doc.CashBook" %>
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
  <br />
  <p>Displays all the vouchers associated with a particular cash account. You specify

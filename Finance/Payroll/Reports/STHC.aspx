@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="STHC.aspx.cs"
-    Inherits="Finance.Payroll.Reports.STHC" Title="Remittances Of PIT & HC" EnableViewState="false" %>
+    Inherits="PhpaAll.Payroll.Reports.STHC" Title="Remittances Of PIT & HC" EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

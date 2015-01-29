@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Exp_VariousHeads Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Exp_VariousHeads.doc.aspx.cs" Inherits="Finance.Doc.Exp_VariousHeads" %>
+﻿<%@ Page Title="Exp_VariousHeads Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Exp_VariousHeads.doc.aspx.cs" Inherits="PhpaAll.Doc.Exp_VariousHeads" %>
 
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
 <br />

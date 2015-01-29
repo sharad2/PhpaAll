@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="Adjustment.aspx.cs"
-    Inherits="Finance.Payroll.ManageAdjustments" Title="Adjustment Manager" %>
+    Inherits="PhpaAll.Payroll.ManageAdjustments" Title="Adjustment Manager" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

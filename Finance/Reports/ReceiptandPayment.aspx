@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="ReceiptandPayment.aspx.cs"
-    Inherits="Finance.Reports.ReceiptandPayment" Title="Receipts and Payments" EnableViewState="false" %>
+    Inherits="PhpaAll.Reports.ReceiptandPayment" Title="Receipts and Payments" EnableViewState="false" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Cumulative Yearly Expenditure Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="CumulativeYearlyExpenditure.doc.aspx.cs" Inherits="Finance.Doc.CumulativeYearlyExpenditure" %>
+﻿<%@ Page Title="Cumulative Yearly Expenditure Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="CumulativeYearlyExpenditure.doc.aspx.cs" Inherits="PhpaAll.Doc.CumulativeYearlyExpenditure" %>
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
  <br />
  <p>Display the Expenditure against Expenditure Head's for each financial year.</p>

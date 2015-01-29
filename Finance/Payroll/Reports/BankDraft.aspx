@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="BankDraft.aspx.cs"
-    Inherits="Finance.Payroll.Reports.BankDraft" Title="Bank Draft Form" EnableViewState="false" %>
+    Inherits="PhpaAll.Payroll.Reports.BankDraft" Title="Bank Draft Form" EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

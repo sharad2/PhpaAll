@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" CodeBehind="FamilyMembers.aspx.cs" Inherits="Finance.PIS.FamilyMembers"
+﻿<%@ Page Language="C#" CodeBehind="FamilyMembers.aspx.cs" Inherits="PhpaAll.PIS.FamilyMembers"
     EnableViewState="true" Title="Family Members" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

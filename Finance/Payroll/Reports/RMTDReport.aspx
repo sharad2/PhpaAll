@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="RMTDReport.aspx.cs"
-    EnableViewState="false" Inherits="Finance.Payroll.Reports.RMTDReport" Title="Remittances Recovered from the Salary of Deputationists" %>
+    EnableViewState="false" Inherits="PhpaAll.Payroll.Reports.RMTDReport" Title="Remittances Recovered from the Salary of Deputationists" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="SSS.aspx.cs"
-    Inherits="Finance.Payroll.Reports.SSS" Title="Schedule For Recovery Of Life Insurance Premium(SSS)"
+    Inherits="PhpaAll.Payroll.Reports.SSS" Title="Schedule For Recovery Of Life Insurance Premium(SSS)"
     EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"

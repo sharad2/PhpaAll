@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="LearnMorePayroll.aspx.cs" Inherits="Finance.Payroll.LearnMorePayroll" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="LearnMorePayroll.aspx.cs" Inherits="PhpaAll.Payroll.LearnMorePayroll" Title="Untitled Page" %>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="cph" runat="server">

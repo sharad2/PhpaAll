@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="Summary of Financial Progress in respect of Major Civil Packages"
     Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="PackageActivitySummary.aspx.cs"
-    Inherits="Finance.MIS.SummaryofFinacialProgress.PackageActivitySummary" %>
+    Inherits="PhpaAll.MIS.SummaryofFinacialProgress.PackageActivitySummary" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

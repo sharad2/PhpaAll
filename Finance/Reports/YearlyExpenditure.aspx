@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="YearlyExpenditure.aspx.cs"
-    Inherits="Finance.Reports.YearlyExpenditure" Title="Yearly Expenditure" %>
+    Inherits="PhpaAll.Reports.YearlyExpenditure" Title="Yearly Expenditure" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

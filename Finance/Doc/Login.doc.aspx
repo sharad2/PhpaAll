@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Login Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Login.doc.aspx.cs" Inherits="Finance.Doc.Login" %>
+﻿<%@ Page Title="Login Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Login.doc.aspx.cs" Inherits="PhpaAll.Doc.Login" %>
 
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
     <h2>Troubleshooting</h2>

@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Abstract Financial Details" Language="C#" MasterPageFile="~/MIS/NestedMIS.master"
-    CodeBehind="AbstractFinancialDetail.aspx.cs" Inherits="Finance.MIS.AbstractFinancialDetail" %>
+    CodeBehind="AbstractFinancialDetail.aspx.cs" Inherits="PhpaAll.MIS.AbstractFinancialDetail" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

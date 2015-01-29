@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Insert Voucher Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="InsertVoucher.doc.aspx.cs" Inherits="Finance.Doc.InsertVoucher" %>
+﻿<%@ Page Title="Insert Voucher Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="InsertVoucher.doc.aspx.cs" Inherits="PhpaAll.Doc.InsertVoucher" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
  

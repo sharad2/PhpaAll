@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Create SRS" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeBehind="CreateSRS.aspx.cs" Inherits="Finance.Store.CreateSRS" ClientIDMode="Static" %>
+    CodeBehind="CreateSRS.aspx.cs" Inherits="PhpaAll.Store.CreateSRS" ClientIDMode="Static" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">

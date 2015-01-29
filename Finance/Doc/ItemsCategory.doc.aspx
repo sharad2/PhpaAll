@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Items Category Doc" Language="C#" MasterPageFile="~/MasterPage.master"
-    AutoEventWireup="true" CodeBehind="ItemsCategory.doc.aspx.cs" Inherits="Finance.Doc.ItemsCategory" %>
+    AutoEventWireup="true" CodeBehind="ItemsCategory.doc.aspx.cs" Inherits="PhpaAll.Doc.ItemsCategory" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

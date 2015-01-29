@@ -1,0 +1,265 @@
+﻿@model PhpaAll.Bills.CreateViewModel
+
+@{
+    ViewBag.Title = "Create Bill";
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+<h2 style="margin-top:0">
+    @ViewBag.Title
+</h2>
+
+
+<form class="form-horizontal" action="@Url.Action(MVC.ManageBills.CreateBill())" method="post">
+    <div class="well well-sm">
+
+        <div class="form-group form-group-sm">
+            <label for="billNumber" class="col-sm-2 control-label">Bill No. *</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(m => m.BillNumber, new
+           {
+               id = "billNumber",
+               maxlength = "60",
+               @class = "form-control",
+               @required = "required"
+           })
+
+                @Html.ValidationMessageFor(m => m.BillNumber, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+
+            <label for="billType" class="col-sm-1 control-label">Type</label>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.BillType, new
+           {
+               id = "billType",
+               @class = "form-control",
+               maxlength = "10"
+           })
+                @Html.ValidationMessageFor(m => m.BillType, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+
+            <label for="billDate" class="col-sm-2 control-label">Date *</label>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.BillDate, new
+           {
+               id = "billDate",
+               @class = "form-control",
+               @required = "required",
+               @placeholder = "dd/mm/yyyy"
+           })
+                @Html.ValidationMessageFor(m => m.BillDate, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+
+            <label for="amount" class="col-sm-2 control-label">Amount *</label>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.Amount, new
+           {
+               id = "amount",
+               @class = "form-control",
+               min = "0",
+               type = "number",
+               @required = "required"
+
+           })
+                @Html.ValidationMessageFor(m => m.Amount, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+
+            <label for="approvedBy" class="col-sm-2 control-label">Approved by</label>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.ApprovedBy, new
+           {
+               id = "approvedBy",
+               @class = "form-control",
+               maxlength = "50"
+
+           })
+                @Html.ValidationMessageFor(m => m.ApprovedBy, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+
+            <label for="approvedOn" class="col-sm-2 control-label">Approved on</label>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.ApprovedDate, new
+           {
+               id = "approvedOn",
+               @class = "form-control",
+               type = "date"
+
+           })
+                @Html.ValidationMessageFor(m => m.ApprovedDate, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label for="divId" class="col-sm-2 control-label">Division Id *</label>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.DivisionId, new
+           {
+               id = "divId",
+               @class = "form-control",
+               type = "numeric",
+               @required = "required"
+
+           })
+                @Html.ValidationMessageFor(m => m.DivisionId, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+
+            <label for="divSubDate" class="col-sm-2 control-label">To Division</label>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.DivisionSubmittedDate, new
+           {
+               id = "divSubDate",
+               @class = "form-control",
+               type = "date",
+               @placeholder = "dd/mm/yyyy"
+           })
+                @Html.ValidationMessageFor(m => m.DivisionSubmittedDate, null, new
+           {
+               @class = "help-block"
+           })
+
+                <small class="help-block">*Submitted to division date</small>
+            </div>
+
+
+            <label for="finSubDate" class="col-sm-2 control-label">To Finance</label>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.FinanceSubmittedDate, new
+           {
+               id = "finSubDate",
+               @class = "form-control",
+               type = "date",
+               @placeholder = "dd/mm/yyyy"
+
+           })
+                @Html.ValidationMessageFor(m => m.FinanceSubmittedDate, null, new
+           {
+               @class = "help-block"
+           })
+                <small class="help-block">*Submitted to finance date</small>
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label for="conId" class="col-sm-2 control-label">Contractor Id</label>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.ContractorId, new
+           {
+               id = "conId",
+               @class = "form-control",
+               type = "numeric"
+
+           })
+                @Html.ValidationMessageFor(m => m.ContractorId, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+            <label for="dueDate" class="col-sm-2 control-label">Due Date</label>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.DueDate, new
+           {
+               id = "dueDate",
+               @class = "form-control",
+               type = "date",
+               @placeholder = "dd/mm/yyyy"
+           })
+                @Html.ValidationMessageFor(m => m.DueDate, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+
+            <label for="paidDate" class="col-sm-2 control-label">Paid Date</label>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.PaidDate, new
+           {
+               id = "paidDate",
+               @class = "form-control",
+               type = "date",
+               @placeholder = "dd/mm/yyyy"
+
+           })
+                @Html.ValidationMessageFor(m => m.PaidDate, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="remarks" class="col-sm-2 control-label">Remark</label>
+            <div class="col-sm-6">
+                @Html.TextAreaFor(m => m.Remarks, new
+           {
+               id = "remarks",
+               @class = "form-control",
+               maxlength = "255"
+           })
+                @Html.ValidationMessageFor(m => m.Remarks, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+
+            <label for="image" class="col-sm-2 control-label">Insert Image</label>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.BillImage, new
+           {
+               id = "image",
+               @class = "form-control",
+               type = "File"
+
+           })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Add Bill</button>
+                <a href="@Url.Action(MVC.ManageBills.Index())">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+@section scripts {
+    <script type="text/javascript" src="@Links.Scripts.jqueryval_js"></script>
+}

@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Activity List" Language="C#" MasterPageFile="~/MasterPage.master"
-    CodeBehind="ActivityList.aspx.cs" Inherits="Finance.MIS.ActivityList" %>
+    CodeBehind="ActivityList.aspx.cs" Inherits="PhpaAll.MIS.ActivityList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">

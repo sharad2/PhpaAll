@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="MiscRMT.aspx.cs"
-    Inherits="Finance.Payroll.Reports.MiscRMT" Title="FFCLUB RMT" EnableViewState="false" %>
+    Inherits="PhpaAll.Payroll.Reports.MiscRMT" Title="FFCLUB RMT" EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

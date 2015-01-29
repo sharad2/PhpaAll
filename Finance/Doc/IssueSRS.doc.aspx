@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Issue SRS Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="IssueSRS.doc.aspx.cs" Inherits="Finance.Doc.IssueSRS" %>
+﻿<%@ Page Title="Issue SRS Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="IssueSRS.doc.aspx.cs" Inherits="PhpaAll.Doc.IssueSRS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
  

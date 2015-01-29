@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="StockSuspense.aspx.cs"
-    Inherits="Finance.Reports.StockSuspense" Title="Stock Suspense Statement" EnableViewState="false" %>
+    Inherits="PhpaAll.Reports.StockSuspense" Title="Stock Suspense Statement" EnableViewState="false" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

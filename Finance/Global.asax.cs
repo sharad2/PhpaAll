@@ -6,7 +6,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
 
-namespace Finance
+namespace PhpaAll
 {
     public class Global : System.Web.HttpApplication
     {

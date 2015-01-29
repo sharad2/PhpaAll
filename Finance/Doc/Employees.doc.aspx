@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Employees Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Employees.doc.aspx.cs" Inherits="Finance.Doc.Employees" %>
+﻿<%@ Page Title="Employees Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Employees.doc.aspx.cs" Inherits="PhpaAll.Doc.Employees" %>
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
   <br />
   

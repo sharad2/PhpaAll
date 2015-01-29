@@ -1,5 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="Contractor.aspx.cs"
-    Inherits="Finance.Finance.ManageContractor" Title="Manage Contractors" EnableEventValidation="true" %>
+    Inherits="PhpaAll.Finance.ManageContractor" Title="Manage Contractors" EnableEventValidation="true" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

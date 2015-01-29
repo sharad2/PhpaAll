@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="PaybillRegister.aspx.cs"
-    Inherits="Finance.Payroll.Reports.PaybillRegister" Title="Paybill Register" EnableViewState="false" %>
+    Inherits="PhpaAll.Payroll.Reports.PaybillRegister" Title="Paybill Register" EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

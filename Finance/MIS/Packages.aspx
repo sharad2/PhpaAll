@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Packages" Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="Packages.aspx.cs"
-    Inherits="Finance.MIS.Packages" EnableViewState="true" %>
+    Inherits="PhpaAll.MIS.Packages" EnableViewState="true" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="CreateGRN.aspx.cs"
-    Inherits="Finance.Store.CreateGRN" Title=" Create GRN" ClientIDMode="Static" %>
+    Inherits="PhpaAll.Store.CreateGRN" Title=" Create GRN" ClientIDMode="Static" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">

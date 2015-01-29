@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Title="Stations" MasterPageFile="~/MasterPage.master" CodeBehind="Stations.aspx.cs" Inherits="Finance.PIS.Masters.Stations" %>
+﻿<%@ Page Language="C#" Title="Stations" MasterPageFile="~/MasterPage.master" CodeBehind="Stations.aspx.cs" Inherits="PhpaAll.PIS.Masters.Stations" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

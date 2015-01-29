@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" CodeBehind="SalaryDetail.ascx.cs" Inherits="Finance.Controls.SalaryDetail" %>
+﻿<%@ Control Language="C#" CodeBehind="SalaryDetail.ascx.cs" Inherits="PhpaAll.Controls.SalaryDetail" %>
 <phpa:PhpaLinqDataSource ID="dsEmployeePeriod" RenderLogVisible="False" runat="server"
     ContextTypeName="Eclipse.PhpaLibrary.Database.Payroll.PayrollDataContext" TableName="EmployeePeriods"
     OnSelecting="dsEmployeePeriod_Selecting" OrderBy="Employee.Division.DivisionName, Employee.FirstName">

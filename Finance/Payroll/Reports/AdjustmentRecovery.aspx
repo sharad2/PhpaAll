@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="AdjustmentRecovery.aspx.cs"
-    Inherits="Finance.Payroll.Reports.AdjustmentRecovery" Title="Loan Recovery" EnableViewState="false" %>
+    Inherits="PhpaAll.Payroll.Reports.AdjustmentRecovery" Title="Loan Recovery" EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

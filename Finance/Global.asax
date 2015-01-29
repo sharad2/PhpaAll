@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Finance.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="PhpaAll.Global" Language="C#" %>

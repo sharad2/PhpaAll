@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="PaySlip.aspx.cs"
-    Inherits="Finance.Payroll.Reports.PaySlip" Title="Pay Slip" EnableViewState="false" %>
+    Inherits="PhpaAll.Payroll.Reports.PaySlip" Title="Pay Slip" EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

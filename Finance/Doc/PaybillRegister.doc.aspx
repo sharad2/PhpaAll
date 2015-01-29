@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Pay Bill Register Doc" Language="C#" MasterPageFile="~/MasterPage.master"
-    AutoEventWireup="true" CodeBehind="PaybillRegister.doc.aspx.cs" Inherits="Finance.Doc.PaybillRegister" %>
+    AutoEventWireup="true" CodeBehind="PaybillRegister.doc.aspx.cs" Inherits="PhpaAll.Doc.PaybillRegister" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

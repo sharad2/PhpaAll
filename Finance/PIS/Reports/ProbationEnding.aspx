@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Probation Completion" Language="C#" MasterPageFile="~/MasterPage.master"
-    CodeBehind="ProbationEnding.aspx.cs" Inherits="Finance.PIS.Reports.ProbationEnding"
+    CodeBehind="ProbationEnding.aspx.cs" Inherits="PhpaAll.PIS.Reports.ProbationEnding"
     EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"

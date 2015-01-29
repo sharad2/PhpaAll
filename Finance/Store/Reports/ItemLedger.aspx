@@ -1,5 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="ItemLedger.aspx.cs"
-    Inherits="Finance.Store.Reports.ItemLedger" Title="Item Ledger" EnableViewState="false" %>
+    Inherits="PhpaAll.Store.Reports.ItemLedger" Title="Item Ledger" EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

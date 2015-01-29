@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="ManageDivisions Doc" Language="C#" MasterPageFile="~/MasterPage.master"
-    AutoEventWireup="true" CodeBehind="ManageDivisions.doc.aspx.cs" Inherits="Finance.Doc.ManageDivisions" %>
+    AutoEventWireup="true" CodeBehind="ManageDivisions.doc.aspx.cs" Inherits="PhpaAll.Doc.ManageDivisions" %>
 
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
     <ol>

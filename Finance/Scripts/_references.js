@@ -9,3 +9,6 @@
 /// <reference path="bootstrap.js" />
 /// <reference path="modernizr-2.6.2.js" />
 /// <reference path="../finance/insertvoucher.js" />
+/// <reference path="jquery.validate.unobtrusive.min.js" />
+/// <reference path="jquery.validate.unobtrusive.bootstrap.min.js" />
+/// <reference path="jqueryval.js" />

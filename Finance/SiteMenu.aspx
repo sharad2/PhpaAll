@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="SiteMenu.aspx.cs"
-    Inherits="Finance.SiteMenu" Title="Site Map" EnableViewState="false" %>
+    Inherits="PhpaAll.SiteMenu" Title="Site Map" EnableViewState="false" %>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">
 </asp:Content>

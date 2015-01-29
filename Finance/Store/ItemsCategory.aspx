@@ -1,5 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="ItemsCategory.aspx.cs"
-    Inherits="Finance.Store.ItemsCategory" Title="Item Category" %>
+    Inherits="PhpaAll.Store.ItemsCategory" Title="Item Category" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

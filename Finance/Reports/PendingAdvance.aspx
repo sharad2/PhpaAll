@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="PendingAdvance.aspx.cs"
-    Inherits="Finance.Reports.PendingAdvance" Title="Divisional Expenses" %>
+    Inherits="PhpaAll.Reports.PendingAdvance" Title="Divisional Expenses" %>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="cph" runat="server">
     <asp:Label ID="lblReportDescription" runat="server" />

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Bank Book Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="BankBook.doc.aspx.cs" Inherits="Finance.Doc.BankBook" %>
+﻿<%@ Page Title="Bank Book Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="BankBook.doc.aspx.cs" Inherits="PhpaAll.Doc.BankBook" %>
 
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
 <br />
