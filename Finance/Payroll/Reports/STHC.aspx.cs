@@ -23,7 +23,7 @@ using System.Web.UI;
 using System.Configuration;
 
 
-namespace Finance.Payroll.Reports
+namespace PhpaAll.Payroll.Reports
 {
     public partial class STHC : PageBase
     {

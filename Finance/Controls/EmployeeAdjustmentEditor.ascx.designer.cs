@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.Controls {
+namespace PhpaAll.Controls {
     
     
     public partial class EmployeeAdjustmentEditor {

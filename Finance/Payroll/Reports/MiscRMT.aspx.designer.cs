@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.Payroll.Reports {
+namespace PhpaAll.Payroll.Reports {
     
     
     public partial class MiscRMT {

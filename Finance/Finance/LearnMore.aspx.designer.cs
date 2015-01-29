@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.Finance {
+namespace PhpaAll.Finance {
     
     
     public partial class LearnMore {

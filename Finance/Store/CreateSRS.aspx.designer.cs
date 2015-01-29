@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.Store {
+namespace PhpaAll.Store {
     
     
     public partial class CreateSRS {

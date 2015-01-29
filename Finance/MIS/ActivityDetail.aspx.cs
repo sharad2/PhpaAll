@@ -3,7 +3,7 @@ using System.Web.Script.Serialization;
 using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
-namespace Finance.MIS
+namespace PhpaAll.MIS
 {
     /// <summary>
     /// To edit an activity, pass ActivityID.   

@@ -59,7 +59,7 @@ using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 
 //Code reviewed by Mayank Sharama on 5th April 2008 
-namespace Finance.Reports
+namespace PhpaAll.Reports
 {
     /// <summary>
     /// You can pass the date in query string VoucherDate

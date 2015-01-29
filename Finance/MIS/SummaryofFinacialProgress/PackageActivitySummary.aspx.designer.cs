@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.MIS.SummaryofFinacialProgress {
+namespace PhpaAll.MIS.SummaryofFinacialProgress {
     
     
     public partial class PackageActivitySummary {
@@ -19,7 +19,7 @@ namespace Finance.MIS.SummaryofFinacialProgress {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Finance.Controls.PrinterFriendlyButton pfb;
+        protected global::PhpaAll.Controls.PrinterFriendlyButton pfb;
         
         /// <summary>
         /// HyperLink2 control.

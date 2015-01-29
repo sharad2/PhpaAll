@@ -5,7 +5,7 @@ using Eclipse.PhpaLibrary.Database.MIS;
 using Eclipse.PhpaLibrary.Web;
 using System.Web.UI;
 
-namespace Finance.MIS
+namespace PhpaAll.MIS
 {
     /// <summary>
     /// TODO: Expect PackageId to be passed in query string

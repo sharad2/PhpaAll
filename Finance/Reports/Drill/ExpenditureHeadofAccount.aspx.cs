@@ -14,7 +14,7 @@
  * PVSC Template Added.
  */
 using Eclipse.PhpaLibrary.Web;
-namespace Finance.Reports
+namespace PhpaAll.Reports
 {
     public partial class ExpenditureHeadofAccount : PageBase
     {

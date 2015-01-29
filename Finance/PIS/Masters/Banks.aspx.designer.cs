@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.PIS.Masters {
+namespace PhpaAll.PIS.Masters {
     
     
     public partial class Banks {

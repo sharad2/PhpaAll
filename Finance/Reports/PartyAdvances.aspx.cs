@@ -31,7 +31,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 //Code reviewed by Mayank Sharma on 7th April 2008 
-namespace Finance.Reports
+namespace PhpaAll.Reports
 {
     public partial class PartyAdvances : PageBase
     {

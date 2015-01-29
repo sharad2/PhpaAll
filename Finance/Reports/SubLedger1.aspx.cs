@@ -18,7 +18,7 @@ using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.UI;
 
-namespace Finance.Reports
+namespace PhpaAll.Reports
 {
     public partial class SubLedger1 : PageBase
     {

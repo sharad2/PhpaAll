@@ -23,7 +23,7 @@ using MatrixField = EclipseLibrary.Web.JQuery.MatrixField;
 using System.Collections.Specialized;
 using EclipseLibrary.Web.UI.Matrix;
 
-namespace Finance.Payroll.Reports
+namespace PhpaAll.Payroll.Reports
 {
     public partial class TdsCertificate : PageBase
     {

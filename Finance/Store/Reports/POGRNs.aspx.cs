@@ -5,7 +5,7 @@ using Eclipse.PhpaLibrary.Database.Store;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
 
-namespace Finance.Store.Reports
+namespace PhpaAll.Store.Reports
 {
     public partial class POGRNs : PageBase
     {

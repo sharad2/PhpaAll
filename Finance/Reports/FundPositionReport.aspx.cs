@@ -19,7 +19,7 @@ using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 using System.Collections;
 
-namespace Finance.Reports
+namespace PhpaAll.Reports
 {
     public class FundPositionReportData
     {

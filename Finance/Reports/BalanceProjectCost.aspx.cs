@@ -33,7 +33,7 @@ using System.Collections.Generic;
 using EclipseLibrary.Web.UI;
 using EclipseLibrary.Web.Extensions;
 
-namespace Finance.Reports
+namespace PhpaAll.Reports
 {
     public partial class BalanceProjectCost : PageBase
     {

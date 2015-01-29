@@ -17,7 +17,7 @@ using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 
 //Code reviewed by Mayank Sharama on 12th May 2008 
-namespace Finance.Reports
+namespace PhpaAll.Reports
 {
     
     public partial class CashBook : PageBase

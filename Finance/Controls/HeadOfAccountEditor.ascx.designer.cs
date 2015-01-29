@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance {
+namespace PhpaAll {
     
     
     public partial class HeadOfAccountEditor {

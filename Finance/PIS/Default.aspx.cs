@@ -8,7 +8,7 @@ using System.Web.Security;
 using EclipseLibrary.Web.UI;
 using System.Web.Services;
 
-namespace Finance.PIS
+namespace PhpaAll.PIS
 {
     public partial class Default : PageBase
     {

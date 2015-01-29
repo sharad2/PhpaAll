@@ -12,7 +12,7 @@ using EclipseLibrary.Web.JQuery.Input;
 using EclipseLibrary.Web.UI;
 using System.Collections.Generic;
 
-namespace Finance.MIS
+namespace PhpaAll.MIS
 {
     /// <summary>
     /// Query string : ProgressFormatId,IsEditMode.

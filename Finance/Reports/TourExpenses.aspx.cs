@@ -24,7 +24,7 @@ using Eclipse.PhpaLibrary.Web;
 using System.Web.UI.WebControls;
 using EclipseLibrary.Web.Extensions;
 
-namespace Finance.Reports
+namespace PhpaAll.Reports
 {
     public partial class TourExpenses : PageBase
     {

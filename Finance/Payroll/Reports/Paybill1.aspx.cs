@@ -10,7 +10,7 @@ using EclipseLibrary.Web.JQuery;
 using EclipseLibrary.Web.UI.Matrix;
 using MatrixField = EclipseLibrary.Web.JQuery.MatrixField;
 
-namespace Finance.Payroll.Reports
+namespace PhpaAll.Payroll.Reports
 {
     public partial class Paybill1 : PageBase
     {

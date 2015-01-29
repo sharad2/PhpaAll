@@ -118,9 +118,9 @@
 
 using System;
 using Eclipse.PhpaLibrary.Web;
-using Finance.Controls;
+using PhpaAll.Controls;
 
-namespace Finance
+namespace PhpaAll
 {
     /// <summary>
     /// Shows discrepant vouchers.

@@ -2,7 +2,7 @@
 using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.PIS
+namespace PhpaAll.PIS
 {
     public partial class Grants : PageBase
     {

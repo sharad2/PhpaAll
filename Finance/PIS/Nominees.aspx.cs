@@ -7,7 +7,7 @@ using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery;
 using EclipseLibrary.Web.JQuery.Input;
 
-namespace Finance.PIS
+namespace PhpaAll.PIS
 {
     public partial class Nominees : PageBase
     {

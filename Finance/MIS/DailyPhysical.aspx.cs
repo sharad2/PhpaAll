@@ -11,7 +11,7 @@ using EclipseLibrary.Web.JQuery;
 using EclipseLibrary.Web.JQuery.Input;
 using System.Web.Security;
 
-namespace Finance.MIS
+namespace PhpaAll.MIS
 {
     /// <summary>
     /// Query String: ProgressFormatId, IsEditMode. 

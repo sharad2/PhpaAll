@@ -5,7 +5,7 @@ using Eclipse.PhpaLibrary.Database;
 using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.Finance
+namespace PhpaAll.Finance
 {
     public partial class VoucherDetails : PageBase
     {

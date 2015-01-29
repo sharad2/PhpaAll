@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.Finance {
+namespace PhpaAll.Finance {
     
     
     public partial class InsertVoucher {
@@ -73,6 +73,6 @@ namespace Finance.Finance {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Finance.Controls.VoucherDetailControl ctlVoucherDetail;
+        protected global::PhpaAll.Controls.VoucherDetailControl ctlVoucherDetail;
     }
 }

@@ -5,7 +5,7 @@ using Eclipse.PhpaLibrary.Database.PIS;
 using Eclipse.PhpaLibrary.Web;
 using Eclipse.PhpaLibrary.Reporting;
 
-namespace Finance.PIS.Reports
+namespace PhpaAll.PIS.Reports
 {
     public partial class ACR : PageBase
     {

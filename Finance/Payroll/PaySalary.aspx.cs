@@ -5,7 +5,7 @@ using Eclipse.PhpaLibrary.Database.Payroll;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
 
-namespace Finance.Payroll
+namespace PhpaAll.Payroll
 {
     public partial class PaySalary :PageBase
     {

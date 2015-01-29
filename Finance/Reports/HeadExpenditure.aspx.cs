@@ -23,7 +23,7 @@ using Eclipse.PhpaLibrary.Web;
 using System.Web.UI.WebControls;
 using EclipseLibrary.Web.JQuery.Input;
 
-namespace Finance.Reports
+namespace PhpaAll.Reports
 {
     public partial class HeadExpenditure : PageBase
     {

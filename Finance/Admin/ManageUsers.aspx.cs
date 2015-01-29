@@ -54,7 +54,7 @@ using Eclipse.PhpaLibrary.Reporting;
 
 
 
-namespace Finance
+namespace PhpaAll
 {
     public partial class ManageUsers : PageBase
     {

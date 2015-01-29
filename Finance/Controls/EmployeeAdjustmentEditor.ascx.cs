@@ -16,9 +16,9 @@ using Eclipse.PhpaLibrary.Database.Payroll;
 using EclipseLibrary.Web.JQuery;
 using EclipseLibrary.Web.JQuery.Input;
 using System.Data.Linq;
-using Finance.Payroll;
+using PhpaAll.Payroll;
 
-namespace Finance.Controls
+namespace PhpaAll.Controls
 {
     /// <summary>
     /// Set the EmployeeId to enable updating/deleting of that employee's adjustments.

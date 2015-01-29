@@ -20,7 +20,7 @@ using EclipseLibrary.Web.JQuery.Input;
 using EclipseLibrary.Web.UI;
 using System.Collections.Generic;
 
-namespace Finance.Payroll
+namespace PhpaAll.Payroll
 {
     public partial class ManageAdjustments : PageBase
     {

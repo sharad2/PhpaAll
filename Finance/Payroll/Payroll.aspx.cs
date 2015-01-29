@@ -16,7 +16,7 @@
 using System.Web.UI;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.Payroll
+namespace PhpaAll.Payroll
 {
     public partial class Payroll : PageBase
     {

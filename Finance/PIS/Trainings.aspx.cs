@@ -5,7 +5,7 @@ using Eclipse.PhpaLibrary.Database.PIS;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
 
-namespace Finance.PIS
+namespace PhpaAll.PIS
 {
     public partial class Trainings : PageBase
     {

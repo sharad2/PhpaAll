@@ -18,7 +18,7 @@ using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Finance.Payroll
+namespace PhpaAll.Payroll
 {
     public partial class SalaryPeriods : PageBase
     {

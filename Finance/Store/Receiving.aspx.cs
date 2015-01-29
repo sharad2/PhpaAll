@@ -12,7 +12,7 @@ using System.Web.UI.HtmlControls;
 using Eclipse.PhpaLibrary.Web;
 
 
-namespace Finance.Store
+namespace PhpaAll.Store
 {
     public partial class Receiving : PageBase
     {

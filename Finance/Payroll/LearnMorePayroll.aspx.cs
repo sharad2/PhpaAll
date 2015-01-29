@@ -18,7 +18,7 @@
  */
 using System.Web.UI;
 
-namespace Finance.Payroll
+namespace PhpaAll.Payroll
 {
     public partial class LearnMorePayroll : Page
     {

@@ -8,7 +8,7 @@ using Eclipse.PhpaLibrary.Reporting;
 using EclipseLibrary.Web.UI;
 using EclipseLibrary.Web.JQuery.Input;
 
-namespace Finance.Services
+namespace PhpaAll.Services
 {
     /// <summary>
     /// Summary description for Items

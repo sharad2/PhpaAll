@@ -22,7 +22,7 @@ using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery;
 
-namespace Finance.Reports
+namespace PhpaAll.Reports
 {
     public partial class Ledger : PageBase
     {

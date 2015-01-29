@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.MIS {
+namespace PhpaAll.MIS {
     
     
     public partial class ProgressFormatManager {

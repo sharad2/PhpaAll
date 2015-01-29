@@ -21,7 +21,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.Reports
+namespace PhpaAll.Reports
 {
     public partial class YearlyExpenditure : PageBase
     {

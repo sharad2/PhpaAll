@@ -9,7 +9,7 @@ using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
 
-namespace Finance.PIS.Share
+namespace PhpaAll.PIS.Share
 {
     public partial class LeaveDetails : PageBase
     {

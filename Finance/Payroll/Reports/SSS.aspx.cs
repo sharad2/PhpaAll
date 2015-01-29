@@ -25,7 +25,7 @@ using Eclipse.PhpaLibrary.Web;
 using Eclipse.PhpaLibrary.Reporting;
 
 
-namespace Finance.Payroll.Reports
+namespace PhpaAll.Payroll.Reports
 {
     public partial class SSS : PageBase
     {

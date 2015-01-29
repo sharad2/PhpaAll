@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web.UI.WebControls;
 
-namespace Finance.Finance
+namespace PhpaAll.Finance
 {
     /// <summary>
     /// If voucherId is passed in the query string, then details of that voucher are shown.

@@ -3,7 +3,7 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Database.PIS;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.PIS.Masters
+namespace PhpaAll.PIS.Masters
 {
     public partial class TrainingTypes : PageBase
     {

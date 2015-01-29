@@ -1,6 +1,6 @@
 ﻿using System.Web.UI;
 
-namespace Finance.Controls
+namespace PhpaAll.Controls
 {
     public partial class SearchEmployee : UserControl
     {               

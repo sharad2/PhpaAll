@@ -18,7 +18,7 @@ using Eclipse.PhpaLibrary.Web;
 using Eclipse.PhpaLibrary.Database.PIS;
 using System.Web.Security;
 
-namespace Finance.Finance
+namespace PhpaAll.Finance
 {
     /// <summary>
     /// After a new employee is inserted, the page is posted back with employee id 

@@ -12,7 +12,7 @@ using EclipseLibrary.Web.UI;
 using Num2Wrd;
 
 
-namespace Finance.Payroll
+namespace PhpaAll.Payroll
 {
     // Take querystring variable "PeriodId".
 

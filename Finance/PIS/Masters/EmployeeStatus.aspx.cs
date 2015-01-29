@@ -2,7 +2,7 @@
 using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.PIS.Masters
+namespace PhpaAll.PIS.Masters
 {
     public partial class EmployeeStatus : PageBase
     {

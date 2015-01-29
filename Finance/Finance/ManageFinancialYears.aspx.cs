@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using System.Web.UI.WebControls;
 
-namespace Finance.Finance
+namespace PhpaAll.Finance
 {
     public partial class ManageFinancialYears : PageBase
     {

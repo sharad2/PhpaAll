@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.Store {
+namespace PhpaAll.Store {
     
     
     public partial class ItemsCategory {
@@ -28,7 +28,7 @@ namespace Finance.Store {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Finance.Controls.PrinterFriendlyButton PrinterFriendlyButton1;
+        protected global::PhpaAll.Controls.PrinterFriendlyButton PrinterFriendlyButton1;
         
         /// <summary>
         /// TwoColumnPanel control.

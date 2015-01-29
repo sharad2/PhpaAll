@@ -43,7 +43,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Database.Payroll;
 
-namespace Finance.Controls
+namespace PhpaAll.Controls
 {
     [ParseChildren(true)]
     [PersistChildren(false)]

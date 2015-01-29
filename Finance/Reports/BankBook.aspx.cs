@@ -2,7 +2,7 @@
 using Eclipse.PhpaLibrary.Web;
 
 
-namespace Finance
+namespace PhpaAll
 {
     public partial class BankBook : PageBase
     {

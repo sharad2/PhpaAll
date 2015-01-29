@@ -3,7 +3,7 @@ using System.Web.Security;
 using Eclipse.PhpaLibrary.Web;
 using System.Web.UI.WebControls;
 
-namespace Finance.Admin
+namespace PhpaAll.Admin
 {
     public partial class Security : PageBase
     {

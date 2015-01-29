@@ -5,7 +5,7 @@ using Eclipse.PhpaLibrary.Database.MIS;
 using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.MIS
+namespace PhpaAll.MIS
 {
     //Query String :PackageId
     public partial class AbstractFinancialProgress : PageBase

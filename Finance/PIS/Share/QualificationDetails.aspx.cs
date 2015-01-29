@@ -8,7 +8,7 @@ using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
 using EclipseLibrary.Web.UI;
 
-namespace Finance.PIS.Share
+namespace PhpaAll.PIS.Share
 {
     public partial class QualificationDetails : PageBase
     {

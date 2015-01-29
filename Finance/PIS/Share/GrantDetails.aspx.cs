@@ -4,7 +4,7 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Database.PIS;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.PIS.Share
+namespace PhpaAll.PIS.Share
 {
     public partial class GrantDetails : PageBase
     {

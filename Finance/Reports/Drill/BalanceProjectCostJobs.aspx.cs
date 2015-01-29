@@ -21,7 +21,7 @@
  */
 using System;
 using Eclipse.PhpaLibrary.Web;
-namespace Finance.Reports
+namespace PhpaAll.Reports
 {
     public partial class BalanceProjectCostJobs : PageBase
     {
