@@ -78,5 +78,15 @@ using System.Runtime.InteropServices;
 // Change log from 6.3.0.1 to 6.3.0.2 (Tagged by Hemant K. Singh on May 26th 2014.)
 // 1. Bug Fixed: We can now update job/employee information for any given voucher in the create voucher form.
 
-[assembly: AssemblyVersion("6.3.0.2")]
-[assembly: AssemblyFileVersion("6.3.0.2")]
+//Change log from 6.3.0.2 to 7.0.0.0(Tagged by MBisht 29 Jan 2015)
+
+/* Introducing following new Features :-
+ * 1. User can now change his/her password.
+ * 2. Health Contribution can be given on the basis % of Gross salary.
+ * 3. Assigning MR Number feature is now avalible.
+ * 4. Keeping bank name, account number and designation with employee period so that if anything of these get change then old
+ * information should display correctly with old data
+
+*/
+[assembly: AssemblyVersion("7.0.0.0")]
+[assembly: AssemblyFileVersion("7.0.0.0")]

@@ -30,7 +30,6 @@
       <siteMapNode url="~/PIS/Reports/StaffDivisions.aspx" title="Staff Divisions"  description="" />
       <siteMapNode url="~/PIS/Reports/ProbationEnding.aspx" title="Probation Completion"  description="" />
       <siteMapNode url="~/PIS/Reports/ContractEnding.aspx" title="Contract Completion"  description="" />
-      <siteMapNode url="~/PIS/Reports/NextIncrementDue.aspx" title="Next Increment Due"  description="" />
       <siteMapNode url="~/PIS/Reports/NextPromotionDue.aspx" title="Next Promotion Due"  description="" />
       <siteMapNode url="~/PIS/Reports/ACR.aspx" title="ACR"  description="" />
     </siteMapNode>
