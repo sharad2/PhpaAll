@@ -1899,6 +1899,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Bills\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MIS\NestedMIS.master" />
