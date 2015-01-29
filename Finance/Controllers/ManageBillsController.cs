@@ -74,12 +74,13 @@ namespace PhpaAll.Controllers
 
 
         // GET:Edit
-        public virtual ActionResult Edit(string id)
+        public virtual ActionResult Edit(int id)
         {
            
            var bill = _service.Value.GetBillNumber(id);
            var model = new CreateViewModel
            {
+               Id= bill.Id,
                Amount = bill.Amount,
                ApprovedBy = bill.ApprovedBy,
                BillNumber = bill.BillNumber,

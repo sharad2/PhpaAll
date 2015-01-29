@@ -101,7 +101,7 @@
                     <h4 class="list-group-item-heading">
                         @Html.DisplayFor(m => m.Bills[i].ApprovedBy)
                         <span class="pull-right">
-                            <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].BillNumber))" class="btn btn-sm btn-default">Edit</a>
+                            <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn btn-sm btn-default">Edit</a>
                         </span>
                         <small>
                             @Html.DisplayFor(m => m.Bills[i].ApprovedDate)

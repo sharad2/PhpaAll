@@ -38,7 +38,7 @@ namespace PhpaAll.Bills
 
 
 
-        public Bill GetBillNumber(string id)
+        public Bill GetBillNumber(int id)
         {
             return _repos.GetBillNumber(id);
         }

@@ -43,10 +43,10 @@ namespace PhpaAll.Bills
 
 
         //Gettting the details of passed BillNumber to be updated
-        public Bill GetBillNumber(string id)
+        public Bill GetBillNumber(int id)
         {
             return (from bill in _db.Bills
-                    where bill.BillNumber == id
+                    where bill.Id == id
                     select bill).FirstOrDefault();
 
 
@@ -56,7 +56,7 @@ namespace PhpaAll.Bills
         //Updating the BillNumber
         public void UpdateBill(CreateViewModel model)
         {
-            Bill edit = _db.Bills.Where(bill => bill.BillNumber == model.BillNumber).SingleOrDefault();
+            Bill edit = _db.Bills.Where(bill => bill.Id == model.Id).SingleOrDefault();
 
             edit.Amount = model.Amount;
             edit.ApprovedBy = model.ApprovedBy;

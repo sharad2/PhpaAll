@@ -31,8 +31,10 @@ namespace PhpaAll.Bills
             //Remarks = bill.Remarks;
             DivisionSubmittedDate = bill.SubmittedToDivision;
             FinanceSubmittedDate = bill.SubmittedToFinance;
+            Id = bill.Id;
         }
-
+        //For internal use to retrive row for editing
+        public int Id { get; set; }
 
         public string BillNumber { get; set; }
 

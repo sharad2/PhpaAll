@@ -10,6 +10,8 @@ namespace PhpaAll.Bills
 
     public class CreateViewModel
     {
+        //For internal use to retrive row for editing
+        public int Id { get; set; }
 
         [Display(Name = "Bill")]
         [StringLength(60, ErrorMessage = "The Bill number cannot exceed 60 characters.")]
@@ -66,5 +68,7 @@ namespace PhpaAll.Bills
 
         [Display(Name = "Image")]
         public Image BillImage { get; set; }
+
+        
     }
 }
