@@ -21,7 +21,7 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 
-namespace PhpaAll
+namespace PhpaAll.Finance
 {
     /// <summary>
     /// You can pass a comma seperated list of account types in the query string Types.

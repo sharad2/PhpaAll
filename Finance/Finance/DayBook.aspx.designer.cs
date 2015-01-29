@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PhpaAll.Reports {
+namespace PhpaAll.Finance {
     
     
     public partial class DayBook {

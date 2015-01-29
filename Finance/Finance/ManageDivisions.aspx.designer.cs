@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PhpaAll {
+namespace PhpaAll.Finance {
     
     
     public partial class ManageDivisions {

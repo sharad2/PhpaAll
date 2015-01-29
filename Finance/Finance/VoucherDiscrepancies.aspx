@@ -1,5 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="VoucherDiscrepancies.aspx.cs"
-    Inherits="PhpaAll.Vouchers" Title="Vouchers" %>
+    Inherits="PhpaAll.Finance.Vouchers" Title="Vouchers" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

@@ -42,7 +42,7 @@ using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery;
 using EclipseLibrary.Web.JQuery.Input;
 
-namespace PhpaAll
+namespace PhpaAll.Finance
 {
     public partial class ManageDivisions : PageBase
     {

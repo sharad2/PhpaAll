@@ -120,7 +120,7 @@ using System;
 using Eclipse.PhpaLibrary.Web;
 using PhpaAll.Controls;
 
-namespace PhpaAll
+namespace PhpaAll.Finance
 {
     /// <summary>
     /// Shows discrepant vouchers.
