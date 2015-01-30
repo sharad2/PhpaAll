@@ -27,7 +27,7 @@
                 </p>
 
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <h4 class="list-group-item-heading">
                     Amount(Nu)
                     <small>
@@ -43,9 +43,12 @@
                     <abrr title="Division Submitted Date">Division Submitted Date</abrr>
                 </p>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <h4 class="list-group-item-heading">
                     Approved by
+                    <span class="pull-right">
+                        <button class="btn btn-sm btn-default">Action</button>
+                    </span>
                     <small>
                         Approved Date
                     </small>
@@ -89,12 +92,17 @@
                     </p>
 
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h4 class="list-group-item-heading">
                         @Html.DisplayFor(m => m.Bills[i].Amount)
                         <small>
                             @Html.DisplayFor(m => m.Bills[i].PaidDate)
-                            <em> <mark>@Html.DisplayFor(m => m.Bills[i].DueDate)</mark></em>
+                            <em>
+                                @if (Model.Bills[i].DueDate.HasValue)
+                                {
+                                    <mark>@Html.DisplayFor(m => m.Bills[i].DueDate)</mark>
+                                }
+                            </em>
                         </small>
                     </h4>
                     <p class="list-group-item-text">
@@ -103,17 +111,37 @@
                         </abrr>
                     </p>
                 </div>
-                <div class="col-md-3">
-                    <h4 class="list-group-item-heading">
+                <div class="col-md-4">
+                    <div class="list-group-item-heading h4">
                         @Html.DisplayFor(m => m.Bills[i].ApprovedBy)
-                        <span class="pull-right">
-                            <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn btn-sm btn-default">Edit</a>
-                            <a href="@Url.Action(MVC.ManageBills.Delete(Model.Bills[i].Id))" class="btn btn-sm btn-default">Delete</a>
-                        </span>
+                        <div class="pull-right">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                    Edit
+                                </a>                  
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                        Delete
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                        <li role="presentation" style="text-align:center">
+                                            <div>
+                                                Sure ?
+                                                <a href="@Url.Action(MVC.ManageBills.Delete(Model.Bills[i].Id))" class="btn btn-primary">                                                
+                                                    Yes
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                           
+                            </div>
+                        </div>
                         <small>
                             @Html.DisplayFor(m => m.Bills[i].ApprovedDate)
                         </small>
-                    </h4>
+                    </div>
                     <p class="list-group-item-text">
                         <abrr title="Finance Submitted Date">
                             @Html.DisplayFor(m => m.Bills[i].FinanceSubmittedDate)
