@@ -63,7 +63,8 @@
                id = "billDate",
                @class = "form-control",
                @required = "required",
-               @placeholder = "dd/mm/yyyy"
+               @placeholder = "dd/mm/yyyy",
+               type="date"
            })
                 @Html.ValidationMessageFor(m => m.BillDate, null, new
            {
