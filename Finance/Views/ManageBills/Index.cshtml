@@ -73,13 +73,19 @@
                         </small>
                     </h4>
                     <p class="list-group-item-text">
-                        <span class="label label-info">
-                            @Html.DisplayFor(m => m.Bills[i].DivisionId)
-                        </span>
+                        @if (Model.Bills[i].DivisionId != null)
+                        {
+                            <span class="label label-info">
+                                @Html.DisplayFor(m => m.Bills[i].DivisionId)
+                            </span>
+                        }
                         &nbsp;
-                        <span class="label label-success">
-                            @Html.DisplayFor(m => m.Bills[i].ContractorId)
-                        </span>
+                        @if (Model.Bills[i].ContractorId != null)
+                        {
+                            <span class="label label-success">
+                                @Html.DisplayFor(m => m.Bills[i].ContractorId)
+                            </span>
+                        }
                     </p>
 
                 </div>
@@ -113,8 +119,8 @@
                             @Html.DisplayFor(m => m.Bills[i].FinanceSubmittedDate)
                         </abrr>
                     </p>
-                    
-                
+
+
                 </div>
             </div>
         </li>

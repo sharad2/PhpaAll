@@ -109,13 +109,14 @@
 
             </div>
 
-            <label for="approvedOn" class="col-sm-2 control-label">Approved on</label>
+            <label for="approvedOn" class="col-sm-2 control-label">Approved Date</label>
             <div class="col-sm-2">
                 @Html.TextBoxFor(m => m.ApprovedDate, new
            {
                id = "approvedOn",
                @class = "form-control",
-               type = "date"
+               type = "date",
+               @placeholder = "dd/mm/yyyy"
 
            })
                 @Html.ValidationMessageFor(m => m.ApprovedDate, null, new
