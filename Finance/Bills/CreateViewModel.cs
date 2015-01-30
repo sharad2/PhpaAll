@@ -67,7 +67,7 @@ namespace PhpaAll.Bills
         public string Remarks { get; set; }
 
         [Display(Name = "Image")]
-        public Image BillImage { get; set; }
+        public HttpPostedFileBase BillImage { get; set; }
 
 
         //Weather it is edit mode or not

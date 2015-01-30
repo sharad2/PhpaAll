@@ -5,6 +5,7 @@ using System.Web.Routing;
 using System.Linq;
 using PhpaAll.Bills;
 using System.Data;
+using System.IO;
 
 namespace PhpaAll.Controllers
 {
@@ -53,10 +54,20 @@ namespace PhpaAll.Controllers
             {
                 return View(Views.Create, model);
             }
+            byte[] imageData = null;
+
+            if (model.BillImage != null && model.BillImage.ContentLength > 0)
+            {
+                // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/
+              
+                FileStream fs = new FileStream(model.BillImage.FileName, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fs);
+                imageData = br.ReadBytes((int)model.BillImage.ContentLength);
+            }
 
             var bill = _service.Value.GetBillNumber(model.Id);
 
-            // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/
+
             var insertBill = new Bill
             {
                 Amount = model.Amount,
@@ -64,7 +75,7 @@ namespace PhpaAll.Controllers
                 BillNumber = model.BillNumber,
                 ApprovedOn = model.ApprovedDate,
                 BillDate = model.BillDate,
-                //BillImage = model.BillImage,
+                BillImage = imageData,
                 BillType = model.BillType,
                 ContractorId = model.ContractorId,
                 DivisionId = model.DivisionId,
@@ -140,7 +151,7 @@ namespace PhpaAll.Controllers
         {
             try
             {
-                    _service.Value.DeleteBill(id);
+                _service.Value.DeleteBill(id);
             }
             catch (DataException)
             {

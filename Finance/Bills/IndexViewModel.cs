@@ -14,7 +14,7 @@ namespace PhpaAll.Bills
         {
 
         }
-
+   
         internal BillModel(Bill bill)
         {
             Amount = bill.Amount;

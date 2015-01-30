@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Linq;
+using System.IO;
 
 namespace PhpaAll.Bills
 {
@@ -57,15 +58,26 @@ namespace PhpaAll.Bills
         {
             Bill edit = _db.Bills.Where(bill => bill.Id == model.Id).SingleOrDefault();
 
+           byte[] imageData = null;
+
+           if (model.BillImage != null && model.BillImage.ContentLength > 0)
+           {
+               FileStream fs = new FileStream(model.BillImage.FileName, FileMode.Open, FileAccess.Read);
+               BinaryReader br = new BinaryReader(fs);
+               imageData = br.ReadBytes((int)model.BillImage.ContentLength);
+
+           }
             edit.Amount = model.Amount;
             edit.ApprovedBy = model.ApprovedBy;
             edit.BillNumber = model.BillNumber;
             edit.ApprovedOn = model.ApprovedDate;
             edit.BillDate = model.BillDate;
+            edit.BillImage = imageData;
             edit.BillType = model.BillType;
             edit.ContractorId = model.ContractorId;
             edit.DivisionId = model.DivisionId;
             edit.DueDate = model.DueDate;
+            edit.BillImage = imageData;
             edit.PaidOn = model.PaidDate;
             edit.Remarks = model.Remarks;
             edit.SubmittedToDivision = model.DivisionSubmittedDate;

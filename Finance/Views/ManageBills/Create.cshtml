@@ -18,7 +18,7 @@
 </h2>
 
 
-<form class="form-horizontal" action="@Url.Action(MVC.ManageBills.CreateUpdateBill())" method="post">
+<form class="form-horizontal" action="@Url.Action(MVC.ManageBills.CreateUpdateBill())" method="post" enctype="multipart/form-data">
     @Html.HiddenFor(m=> m.Id)
     <div class="well well-sm">
         <div class="form-group form-group-sm">
@@ -256,6 +256,8 @@
                type = "File"
 
            })
+
+                
             </div>
         </div>
 
