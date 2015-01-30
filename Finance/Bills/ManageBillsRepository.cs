@@ -73,5 +73,13 @@ namespace PhpaAll.Bills
             edit.SubmittedToFinance = model.FinanceSubmittedDate;
             _db.SubmitChanges();
         }
+
+
+        public void DeleteBill(int id)
+        {
+            Bill edit = _db.Bills.Where(bill => bill.Id == id).SingleOrDefault();
+            _db.Bills.DeleteOnSubmit(edit);
+            _db.SubmitChanges();
+        } 
     }
 }

@@ -36,7 +36,7 @@ namespace PhpaAll.Controllers
 
         public virtual ActionResult Create()
         {
-            var model = new CreateViewModel();            
+            var model = new CreateViewModel();
             return View(Views.Create, model);
         }
 
@@ -53,7 +53,7 @@ namespace PhpaAll.Controllers
             {
                 return View(Views.Create, model);
             }
-            
+
             var bill = _service.Value.GetBillNumber(model.Id);
 
             // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/
@@ -80,8 +80,8 @@ namespace PhpaAll.Controllers
                 //if no bill is there than insert new bill
                 _service.Value.InsertBill(insertBill);
                 return RedirectToAction(MVC.ManageBills.Index());
-                
-                
+
+
             }
             else
             {
@@ -102,7 +102,7 @@ namespace PhpaAll.Controllers
             }
         }
 
-        
+
 
         // GET:Edit
         /// <summary>
@@ -112,30 +112,43 @@ namespace PhpaAll.Controllers
         /// <returns></returns>
         public virtual ActionResult Edit(int id)
         {
-           
-           var bill = _service.Value.GetBillNumber(id);
-           var model = new CreateViewModel
-           {
-               Id= bill.Id,
-               Amount = bill.Amount,
-               ApprovedBy = bill.ApprovedBy,
-               BillNumber = bill.BillNumber,
-               ApprovedDate = bill.ApprovedOn,
-               BillDate = bill.BillDate,
-               BillType = bill.BillType,
-               ContractorId = bill.ContractorId,
-               DivisionId = bill.DivisionId,
-               DueDate = bill.DueDate,
-               PaidDate = bill.PaidOn,
-               Remarks = bill.Remarks,
-               DivisionSubmittedDate = bill.SubmittedToDivision,
-               FinanceSubmittedDate = bill.SubmittedToFinance,
-               isEditMode = true
 
-           };           
-          return View(Views.Create, model);
+            var bill = _service.Value.GetBillNumber(id);
+            var model = new CreateViewModel
+            {
+                Id = bill.Id,
+                Amount = bill.Amount,
+                ApprovedBy = bill.ApprovedBy,
+                BillNumber = bill.BillNumber,
+                ApprovedDate = bill.ApprovedOn,
+                BillDate = bill.BillDate,
+                BillType = bill.BillType,
+                ContractorId = bill.ContractorId,
+                DivisionId = bill.DivisionId,
+                DueDate = bill.DueDate,
+                PaidDate = bill.PaidOn,
+                Remarks = bill.Remarks,
+                DivisionSubmittedDate = bill.SubmittedToDivision,
+                FinanceSubmittedDate = bill.SubmittedToFinance,
+                isEditMode = true
+
+            };
+            return View(Views.Create, model);
         }
 
-     
+        public virtual ActionResult Delete(int id)
+        {
+            try
+            {
+                    _service.Value.DeleteBill(id);
+            }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Unable delete. Try again, and if the problem persists see your system administrator.");
+            }
+            return RedirectToAction(MVC.ManageBills.Index());
+        }
+
+
     }
 }

@@ -102,6 +102,7 @@
                         @Html.DisplayFor(m => m.Bills[i].ApprovedBy)
                         <span class="pull-right">
                             <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn btn-sm btn-default">Edit</a>
+                            <a href="@Url.Action(MVC.ManageBills.Delete(Model.Bills[i].Id))" class="btn btn-sm btn-default">Delete</a>
                         </span>
                         <small>
                             @Html.DisplayFor(m => m.Bills[i].ApprovedDate)
