@@ -249,13 +249,8 @@
 
             <label for="image" class="col-sm-2 control-label">Insert Image</label>
             <div class="col-sm-2">
-                @Html.TextBoxFor(m => m.BillImage, new
-           {
-               id = "image",
-               @class = "form-control",
-               type = "File"
+                <input type="file" multiple="multiple" name="File1" id="File1" accept="image/*" />
 
-           })
 
                 
             </div>

@@ -6,6 +6,7 @@ using System.Linq;
 using PhpaAll.Bills;
 using System.Data;
 using System.IO;
+using System.Web;
 
 namespace PhpaAll.Controllers
 {
@@ -56,14 +57,12 @@ namespace PhpaAll.Controllers
             }
             byte[] imageData = null;
 
-            if (model.BillImage != null && model.BillImage.ContentLength > 0)
-            {
+      
                 // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/
-              
-                FileStream fs = new FileStream(model.BillImage.FileName, FileMode.Open, FileAccess.Read);
-                BinaryReader br = new BinaryReader(fs);
-                imageData = br.ReadBytes((int)model.BillImage.ContentLength);
-            }
+                HttpPostedFileBase file = Request.Files["File1"];
+                var ms = new MemoryStream(16498);
+                file.InputStream.CopyTo(ms);  
+                imageData = ms.ToArray();
 
             var bill = _service.Value.GetBillNumber(model.Id);
 
