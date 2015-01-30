@@ -27,7 +27,6 @@ namespace PhpaAll.Bills
         public void InsertBill(Bill bill)
         {
             _db.Bills.InsertOnSubmit(bill);
-
             _db.SubmitChanges();
 
 
