@@ -75,6 +75,9 @@
             </eclipse:MultiBoundField>
             <eclipse:MultiBoundField DataFields="CitizenId" HeaderText="Citizen ID" FooterText="Total"
                 ItemStyle-HorizontalAlign="Center" />
+            <eclipse:MultiBoundField DataFields="SalaryPeriodStartDate" HeaderText="For"
+                DataFormatString="{0:MMM yyyy}"  Visible="false" ItemStyle-Wrap="false" AccessibleHeaderText="SalaryPeriodDate">
+            </eclipse:MultiBoundField>
             <eclipse:MultiBoundField DataFields="DateOfBirth" HeaderText="Date of Birth" DataFormatString="{0:d}">
                 <ItemStyle HorizontalAlign="Right" />
             </eclipse:MultiBoundField>
