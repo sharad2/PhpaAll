@@ -54,35 +54,24 @@ namespace PhpaAll.Bills
 
 
         //Updating the BillNumber
-        public void UpdateBill(CreateViewModel model)
+        public void UpdateBill(Bill model)
         {
             Bill edit = _db.Bills.Where(bill => bill.Id == model.Id).SingleOrDefault();
-
-           byte[] imageData = null;
-
-           if (model.BillImage != null && model.BillImage.ContentLength > 0)
-           {
-               // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/  
-               var ms = new MemoryStream(model.BillImage.ContentLength);
-               model.BillImage.InputStream.CopyTo(ms);
-               imageData = ms.ToArray();
-
-           }
+           
             edit.Amount = model.Amount;
             edit.ApprovedBy = model.ApprovedBy;
             edit.BillNumber = model.BillNumber;
-            edit.ApprovedOn = model.ApprovedDate;
+            edit.ApprovedOn = model.ApprovedOn;
             edit.BillDate = model.BillDate;
-            edit.BillImage = imageData;
+            edit.BillImage = model.BillImage;
             edit.BillType = model.BillType;
             edit.ContractorId = model.ContractorId;
             edit.DivisionId = model.DivisionId;
             edit.DueDate = model.DueDate;
-            edit.BillImage = imageData;
-            edit.PaidOn = model.PaidDate;
+            edit.PaidOn = model.PaidOn;
             edit.Remarks = model.Remarks;
-            edit.SubmittedToDivision = model.DivisionSubmittedDate;
-            edit.SubmittedToFinance = model.FinanceSubmittedDate;
+            edit.SubmittedToDivision = model.SubmittedToDivision;
+            edit.SubmittedToFinance = model.SubmittedToFinance;
             _db.SubmitChanges();
         }
 

@@ -20,6 +20,8 @@
 
 <form class="form-horizontal" action="@Url.Action(MVC.ManageBills.CreateUpdateBill())" method="post" enctype="multipart/form-data">
     @Html.HiddenFor(m=> m.Id)
+    @Html.HiddenFor(m=>m.isEditMode)
+
     <div class="well well-sm">
         <div class="form-group form-group-sm">
             <label for="billNumber" class="col-sm-2 control-label">Bill No. *</label>

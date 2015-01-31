@@ -70,7 +70,6 @@ namespace PhpaAll.Bills
         // public string Remarks { get; set; }
 
         //public Image BillImage { get; set; }
-
     }
 
 

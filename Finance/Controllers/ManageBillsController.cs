@@ -50,6 +50,7 @@ namespace PhpaAll.Controllers
         [HttpPost]
         public virtual ActionResult CreateUpdateBill(CreateViewModel model)
         {
+
             if (!ModelState.IsValid)
             {
                 return View(Views.Create, model);
@@ -63,10 +64,8 @@ namespace PhpaAll.Controllers
                 model.BillImage.InputStream.CopyTo(ms);
                 imageData = ms.ToArray();
             }
-            var bill = _service.Value.GetBillNumber(model.Id);
 
-
-            var insertBill = new Bill
+            var bill = new Bill
             {
                 Amount = model.Amount,
                 ApprovedBy = model.ApprovedBy,
@@ -81,25 +80,17 @@ namespace PhpaAll.Controllers
                 PaidOn = model.PaidDate,
                 Remarks = model.Remarks,
                 SubmittedToDivision = model.DivisionSubmittedDate,
-                SubmittedToFinance = model.FinanceSubmittedDate,
-            };
-
-            if (bill == null)
+                SubmittedToFinance = model.FinanceSubmittedDate,               
+            };   
+            if (model.isEditMode)
             {
-                //if no bill is there than insert new bill
-                _service.Value.InsertBill(insertBill);
-                return RedirectToAction(MVC.ManageBills.Index());
-
-
-            }
-            else
-            {
+                
                 try
                 {
                     if (ModelState.IsValid)
                     {
                         //update the existing bill same id
-                        _service.Value.UpdateBill(model);
+                        _service.Value.UpdateBill(bill);
                         return RedirectToAction(MVC.ManageBills.Index());
                     }
                 }
@@ -107,6 +98,13 @@ namespace PhpaAll.Controllers
                 {
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
                 }
+                return RedirectToAction(MVC.ManageBills.Index());
+
+            }
+            else
+            {
+               //if no bill is there than insert new bill
+                _service.Value.InsertBill(bill);
                 return RedirectToAction(MVC.ManageBills.Index());
             }
         }
