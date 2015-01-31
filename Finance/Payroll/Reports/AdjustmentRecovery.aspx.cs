@@ -47,7 +47,7 @@ namespace PhpaAll.Payroll.Reports
                                && pea.Amount != 0 
                                && pea.Adjustment.AdjustmentCategory.ReportCategories.Any(p => p.ReportId == 104)
                               // && (string.IsNullOrEmpty(strAccountNo) || pea.EmployeePeriod.Employee.BankLoanAccountNo.StartsWith(strAccountNo))
-                         orderby pea.EmployeePeriod.Employee.FirstName, pea.EmployeePeriod.Employee.LastName
+                         orderby pea.EmployeePeriod.Employee.FirstName, pea.EmployeePeriod.Employee.LastName, pea.EmployeePeriod.SalaryPeriod.SalaryPeriodStart
                          select new
                          {
                              EmployeeCode = pea.EmployeePeriod.Employee.EmployeeCode,
@@ -57,7 +57,8 @@ namespace PhpaAll.Payroll.Reports
                              Amount = pea.Amount ?? 0,
                              AccountNumber = pea.EmployeePeriod.BankAccountNo ?? pea.EmployeePeriod.Employee.BankAccountNo,
                              HeadOfAccountId = pea.Adjustment.HeadOfAccountId,
-                             BankId= pea.EmployeePeriod.BankId ?? pea.EmployeePeriod.Employee.BankId
+                             BankId= pea.EmployeePeriod.BankId ?? pea.EmployeePeriod.Employee.BankId,
+                             SalaryPeriodStartDate = pea.EmployeePeriod.SalaryPeriod.SalaryPeriodStart
                          });
             if (!string.IsNullOrEmpty(tbAccountNo.Text))
             {
@@ -89,6 +90,13 @@ namespace PhpaAll.Payroll.Reports
                 case DataControlRowType.DataRow:
                     gvBLRecovery.Caption = string.Format("<b>{0}</b><br/><b>OFFICE OF THE SENIOR FINANCE OFFICER<br/><b>{3}::BHUTAN</b><br/>SCHEDULE OF RECOVERY OF LOAN {4}<br/>FOR THE PERIOD {1:dd MMMM yyyy} to {2:dd MMMM yyyy}", ConfigurationManager.AppSettings["PrintTitle"], tbFromDate.ValueAsDate, tbToDate.ValueAsDate, ConfigurationManager.AppSettings["Office"], (!string.IsNullOrEmpty(tbHeadOfAccount.Text)) ? bankLoanname.GetValue(1) : "");
                     break;
+            }
+            if (Convert.ToDateTime(tbFromDate.Value).ToString("yyyyMM") != Convert.ToDateTime(tbToDate.Value).ToString("yyyyMM"))
+            {
+                DataControlField column = (from DataControlField col in gvBLRecovery.Columns
+                                           where col.AccessibleHeaderText == "SalaryPeriodDate"
+                                           select col).Single();
+                column.Visible = true;
             }
         }
      
