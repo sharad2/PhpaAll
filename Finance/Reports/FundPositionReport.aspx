@@ -92,7 +92,7 @@
     </eclipse:TwoColumnPanel>
     <i:ValidationSummary ID="ValidationSummary1" runat="server" />
 
-    <asp:FormView runat="server" ItemType="Finance.Reports.FundPositionReportData" SelectMethod="GetFundData">
+    <asp:FormView runat="server" ItemType="PhpaAll.Reports.FundPositionReportData" SelectMethod="GetFundData">
         <ItemTemplate>
             <table rules="all" style="padding: 4mm; width: 1000px" class="MainTable">
                 <caption style="text-align: right; font-weight: bold; font-size: 1.2em">All Figures in Million Rs/Nu</caption>
