@@ -28,7 +28,7 @@ namespace PhpaAll.Bills
             DivisionId = bill.DivisionId;
             DueDate = bill.DueDate;
             PaidDate = bill.PaidOn;
-            //Remarks = bill.Remarks;
+            Remarks = bill.Remarks;
             DivisionSubmittedDate = bill.SubmittedToDivision;
             FinanceSubmittedDate = bill.SubmittedToFinance;
             Id = bill.Id;
@@ -67,7 +67,7 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? ApprovedDate { get; set; }
 
-        // public string Remarks { get; set; }
+        public string Remarks { get; set; }
 
         //public Image BillImage { get; set; }
     }

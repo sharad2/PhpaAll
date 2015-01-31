@@ -57,6 +57,7 @@
                 </p>
             </div>
         </div>
+        <em><small>Remark</small></em>
     </li>
 
     @for (var i = 0; i < Model.Bills.Count; ++i)
@@ -145,6 +146,7 @@
 
                 </div>
             </div>
+            <em><small>@Html.DisplayFor(m => m.Bills[i].Remarks)</small></em>
         </li>
 
     }
