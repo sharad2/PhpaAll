@@ -92,6 +92,7 @@ namespace PhpaAll.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string RecentBills = "RecentBills";
             public readonly string Create = "Create";
             public readonly string CreateUpdateBill = "CreateUpdateBill";
             public readonly string Edit = "Edit";
@@ -102,6 +103,7 @@ namespace PhpaAll.Controllers
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string RecentBills = "RecentBills";
             public const string Create = "Create";
             public const string CreateUpdateBill = "CreateUpdateBill";
             public const string Edit = "Edit";
@@ -145,9 +147,11 @@ namespace PhpaAll.Controllers
             {
                 public readonly string Create = "Create";
                 public readonly string Index = "Index";
+                public readonly string RecentBills = "RecentBills";
             }
             public readonly string Create = "~/Views/ManageBills/Create.cshtml";
             public readonly string Index = "~/Views/ManageBills/Index.cshtml";
+            public readonly string RecentBills = "~/Views/ManageBills/RecentBills.cshtml";
         }
     }
 
@@ -164,6 +168,17 @@ namespace PhpaAll.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void RecentBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult RecentBills()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RecentBills);
+            RecentBillsOverride(callInfo);
             return callInfo;
         }
 

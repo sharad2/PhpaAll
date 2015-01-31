@@ -73,7 +73,7 @@ namespace PhpaAll.Bills
     }
 
 
-    public class IndexViewModel
+    public class RecentBillsViewModel
     {
         public IList<BillModel> Bills { get; set; }
     }

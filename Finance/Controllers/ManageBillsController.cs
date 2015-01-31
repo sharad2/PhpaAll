@@ -20,19 +20,28 @@ namespace PhpaAll.Controllers
 
             _service = new Lazy<ManageBillsService>(() => new ManageBillsService("default"));
         }
+
+
+        public virtual ActionResult Index()
+        {
+        
+            return View(Views.Index);
+        }
+
+
         /// <summary>
         /// Display recent bills. Option to create new bill
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult Index()
+        public virtual ActionResult RecentBills()
         {
-            var model = new IndexViewModel
+            var model = new RecentBillsViewModel
             {
                 Bills = (from bill in _service.Value.Bills
                          orderby bill.BillDate descending
                          select new BillModel(bill)).ToList()
             };
-            return View(Views.Index, model);
+            return View(Views.RecentBills, model);
         }
 
         public virtual ActionResult Create()
@@ -92,21 +101,21 @@ namespace PhpaAll.Controllers
                     {
                         //update the existing bill same id
                         _service.Value.UpdateBill(bill);
-                        return RedirectToAction(MVC.ManageBills.Index());
+                        return RedirectToAction(MVC.ManageBills.RecentBills());
                     }
                 }
                 catch (DataException)
                 {
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
                 }
-                return RedirectToAction(MVC.ManageBills.Index());
+                return RedirectToAction(MVC.ManageBills.RecentBills());
 
             }
             else
             {
                //if no bill is there than insert new bill
                 _service.Value.InsertBill(bill);
-                return RedirectToAction(MVC.ManageBills.Index());
+                return RedirectToAction(MVC.ManageBills.RecentBills());
             }
         }
 
@@ -154,7 +163,7 @@ namespace PhpaAll.Controllers
             {
                 ModelState.AddModelError("", "Unable delete. Try again, and if the problem persists see your system administrator.");
             }
-            return RedirectToAction(MVC.ManageBills.Index());
+            return RedirectToAction(MVC.ManageBills.RecentBills());
         }
 
 

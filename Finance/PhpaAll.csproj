@@ -311,9 +311,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\web.config" />
     <Content Include="Views\ManageBills\Create.cshtml" />
-    <Content Include="Views\ManageBills\Index.cshtml" />
+    <Content Include="Views\ManageBills\RecentBills.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jqueryval.js.bundle" />
+    <Content Include="Views\ManageBills\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">
@@ -331,11 +332,8 @@
       <DependentUpon>Security.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="BillsController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Bills\CreateViewModel.cs" />
-    <Compile Include="Bills\IndexViewModel.cs" />
+    <Compile Include="Bills\RecentBillsViewModel.cs" />
     <Compile Include="Bills\ManageBillsRepository.cs" />
     <Compile Include="Bills\ManageBillsService.cs" />
     <Compile Include="Bills\PhpaBills.designer.cs" />
@@ -344,7 +342,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PhpaBills.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\BillsController.cs" />
     <Compile Include="Controllers\ManageBillsController.cs" />
     <Compile Include="Controls\SearchEmployee.ascx.cs">
       <DependentUpon>SearchEmployee.ascx</DependentUpon>
