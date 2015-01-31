@@ -84,7 +84,7 @@ namespace PhpaAll.Payroll.Reports
             var query = from pea in db.PeriodEmployeeAdjustments
                        where periodList.Contains(pea.EmployeePeriod.SalaryPeriodId.ToString()) &&
                        strAdjCatList.Contains(pea.Adjustment.AdjustmentCategory.AdjustmentCategoryCode)
-                       orderby pea.EmployeePeriod.Employee.FirstName
+                        orderby pea.EmployeePeriod.Employee.FirstName, pea.EmployeePeriod.SalaryPeriod.SalaryPeriodStart
                        select new
                        {
                            EmployeeCode = pea.EmployeePeriod.Employee.EmployeeCode,
@@ -93,7 +93,8 @@ namespace PhpaAll.Payroll.Reports
                            Designation = pea.EmployeePeriod.Designation ?? pea.EmployeePeriod.Employee.Designation,
                            PolicyNo = pea.Comment,
                            Amount = pea.Amount ?? 0,
-                           BankId = pea.EmployeePeriod.BankId ?? pea.EmployeePeriod.Employee.BankId
+                           BankId = pea.EmployeePeriod.BankId ?? pea.EmployeePeriod.Employee.BankId,
+                           SalaryPeriodStartDate = pea.EmployeePeriod.SalaryPeriod.SalaryPeriodStart
                        };
             if (!string.IsNullOrEmpty(ddlBankName.Value))
             {
@@ -116,6 +117,13 @@ namespace PhpaAll.Payroll.Reports
                 case DataControlRowType.EmptyDataRow:
                     lblRemittedTo.Visible = false;
                     break;
+            }
+            if (Convert.ToDateTime(tbFromDate.Value).ToString("yyyyMM") != Convert.ToDateTime(tbToDate.Value).ToString("yyyyMM"))
+            {
+                DataControlField column = (from DataControlField col in gvSSS.Columns
+                                           where col.AccessibleHeaderText == "SalaryPeriodDate"
+                                           select col).Single();
+                column.Visible = true;
             }
         }
     }

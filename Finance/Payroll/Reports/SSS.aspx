@@ -71,6 +71,9 @@
                 <ItemStyle HorizontalAlign="Right" />
                 <FooterStyle HorizontalAlign="Right" />
             </eclipse:MultiBoundField>
+            <eclipse:MultiBoundField DataFields="SalaryPeriodStartDate" HeaderText="For"
+                DataFormatString="{0:MMM yyyy}"  Visible="false" ItemStyle-Wrap="false" AccessibleHeaderText="SalaryPeriodDate">
+            </eclipse:MultiBoundField>
              <eclipse:MultiBoundField HeaderText="Remarks" DataFormatString="">
                 <ItemStyle Width="2in" />
             </eclipse:MultiBoundField>
