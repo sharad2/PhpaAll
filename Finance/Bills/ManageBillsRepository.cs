@@ -54,24 +54,28 @@ namespace PhpaAll.Bills
 
 
         //Updating the BillNumber
-        public void UpdateBill(CreateViewModel model)
+        public void UpdateBill(Bill model)
         {
-            Bill edit = _db.Bills.Where(bill => bill.Id == model.Id).SingleOrDefault();
-           
+          
+            var edit = (from bill in _db.Bills
+                           where bill.Id == model.Id
+                           select bill).SingleOrDefault();
+
             edit.Amount = model.Amount;
             edit.ApprovedBy = model.ApprovedBy;
             edit.BillNumber = model.BillNumber;
-            edit.ApprovedOn = model.ApprovedDate;
+            edit.ApprovedOn = model.ApprovedOn;
             edit.BillDate = model.BillDate;
-            //edit.BillImage = model.BillImage;
+            edit.BillImage = model.BillImage;
             edit.BillType = model.BillType;
             edit.ContractorId = model.ContractorId;
             edit.DivisionId = model.DivisionId;
             edit.DueDate = model.DueDate;
-            edit.PaidOn = model.PaidDate;
+            edit.PaidOn = model.PaidOn;
             edit.Remarks = model.Remarks;
-            edit.SubmittedToDivision = model.DivisionSubmittedDate;
-            edit.SubmittedToFinance = model.FinanceSubmittedDate;
+            edit.SubmittedToDivision = model.SubmittedToDivision;
+            edit.SubmittedToFinance = model.SubmittedToFinance;
+
             _db.SubmitChanges();
         }
 

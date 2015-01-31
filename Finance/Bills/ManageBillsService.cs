@@ -43,9 +43,9 @@ namespace PhpaAll.Bills
             return _repos.GetBillNumber(id);
         }
 
-        public void UpdateBill(CreateViewModel model)
+        public void UpdateBill(Bill billmodel)
         {
-            _repos.UpdateBill(model);
+            _repos.UpdateBill(billmodel);
         }
 
         public void DeleteBill(int id)

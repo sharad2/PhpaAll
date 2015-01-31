@@ -80,7 +80,8 @@ namespace PhpaAll.Controllers
                 PaidOn = model.PaidDate,
                 Remarks = model.Remarks,
                 SubmittedToDivision = model.DivisionSubmittedDate,
-                SubmittedToFinance = model.FinanceSubmittedDate,               
+                SubmittedToFinance = model.FinanceSubmittedDate,
+                Id= model.Id
             };   
             if (model.isEditMode)
             {
@@ -90,7 +91,7 @@ namespace PhpaAll.Controllers
                     if (ModelState.IsValid)
                     {
                         //update the existing bill same id
-                        _service.Value.UpdateBill(model);
+                        _service.Value.UpdateBill(bill);
                         return RedirectToAction(MVC.ManageBills.Index());
                     }
                 }
