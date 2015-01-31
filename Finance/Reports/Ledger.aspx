@@ -75,7 +75,7 @@
             <asp:Label ID="lblClosingBalance" ToolTip="Closing balance of head of account" runat="server" />
         </div>
         <jquery:GridViewEx ID="gvVouchers" runat="server" AllowPaging="false" AutoGenerateColumns="False"
-            ShowFooter="True" DataKeyNames="VoucherId" DataSourceID="dsVouchers" AllowSorting="True"
+            ShowFooter="True" DataKeyNames="VoucherId" DataSourceID="dsVouchers" AllowSorting="false"
             OnRowDataBound="gvVouchers_RowDataBound" OnDataBound="gvVouchers_DataBound">
             <Columns>
                 <eclipse:SequenceField Visible="false" />
