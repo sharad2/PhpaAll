@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" EnableViewState="false"
-    CodeBehind="GIS.aspx.cs" Inherits="Finance.Payroll.Reports.GIS" Title=" SCHEDULE FOR RECOVERY OF GIS" %>
+    CodeBehind="GIS.aspx.cs" Inherits="PhpaAll.Payroll.Reports.GIS" Title=" SCHEDULE FOR RECOVERY OF GIS" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

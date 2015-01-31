@@ -5,7 +5,7 @@ using EclipseLibrary.Web.UI;
 using EclipseLibrary.Web.JQuery.Input;
 using System;
 
-namespace Finance.Services
+namespace PhpaAll.Services
 {
     /// <summary>
     /// Summary description for Employees

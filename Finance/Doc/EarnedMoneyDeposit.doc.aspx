@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Earned Money Deposit Doc" Language="C#" MasterPageFile="~/MasterPage.master"
-    AutoEventWireup="true" CodeBehind="EarnedMoneyDeposit.doc.aspx.cs" Inherits="Finance.Doc.EarnedMoneyDeposit_doc" %>
+    AutoEventWireup="true" CodeBehind="EarnedMoneyDeposit.doc.aspx.cs" Inherits="PhpaAll.Doc.EarnedMoneyDeposit_doc" %>
 
 <asp:Content ID="Content6" ContentPlaceHolderID="cph" runat="server">
     

@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="Package Activity" Language="C#" MasterPageFile="~/MasterPage.master"
     AutoEventWireup="true" CodeBehind="PackageActivityData.aspx.cs" EnableViewState="true"
-    Inherits="Finance.MIS.FinancialActivityData" %>
+    Inherits="PhpaAll.MIS.FinancialActivityData" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">

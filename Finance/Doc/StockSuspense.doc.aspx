@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Stock Suspense" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="StockSuspense.doc.aspx.cs" Inherits="Finance.Doc.StockSuspense" %>
+﻿<%@ Page Title="Stock Suspense" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="StockSuspense.doc.aspx.cs" Inherits="PhpaAll.Doc.StockSuspense" %>
 
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
 <br />

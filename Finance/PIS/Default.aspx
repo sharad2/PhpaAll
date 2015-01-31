@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Personnel Home Page" Language="C#" MasterPageFile="~/MasterPage.master"
-    CodeBehind="Default.aspx.cs" Inherits="Finance.PIS.Default" EnableViewState="false" %>
+    CodeBehind="Default.aspx.cs" Inherits="PhpaAll.PIS.Default" EnableViewState="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">

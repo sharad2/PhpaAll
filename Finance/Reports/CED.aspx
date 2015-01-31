@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="CED.aspx.cs"
-    Inherits="Finance.Reports.CED" Title="Central Excise Duty Report" EnableViewState="false" %>
+    Inherits="PhpaAll.Reports.CED" Title="Central Excise Duty Report" EnableViewState="false" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

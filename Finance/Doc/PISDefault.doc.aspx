@@ -1,4 +1,4 @@
-﻿<%@ Page Title="PIS Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="PISDefault.doc.aspx.cs" Inherits="Finance.Doc.PISDefault" %>
+﻿<%@ Page Title="PIS Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="PISDefault.doc.aspx.cs" Inherits="PhpaAll.Doc.PISDefault" %>
 
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
 <br />

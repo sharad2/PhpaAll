@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Insert Item Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="InsertItem.doc.aspx.cs" Inherits="Finance.Doc.InsertItem" %>
+﻿<%@ Page Title="Insert Item Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="InsertItem.doc.aspx.cs" Inherits="PhpaAll.Doc.InsertItem" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
  

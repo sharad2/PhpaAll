@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="GPF.aspx.cs"
-    Inherits="Finance.Payroll.Reports.GPF" Title="National Pension and Provident Fund (NPPF) - Thimphu, Bhutan" %>
+    Inherits="PhpaAll.Payroll.Reports.GPF" Title="National Pension and Provident Fund (NPPF) - Thimphu, Bhutan" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

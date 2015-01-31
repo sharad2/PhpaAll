@@ -26,7 +26,7 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Reporting;
 using System.Web.Security;
 
-namespace Finance.Controls
+namespace PhpaAll.Controls
 {
     public class VoucherDetailSelectingEventArgs : EventArgs
     {

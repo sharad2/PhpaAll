@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Daily Progress Report" Language="C#" MasterPageFile="~/MIS/NestedMIS.master"
-    EnableViewState="true" CodeBehind="DailyPhysical.aspx.cs" Inherits="Finance.MIS.DailyPhysical" %>
+    EnableViewState="true" CodeBehind="DailyPhysical.aspx.cs" Inherits="PhpaAll.MIS.DailyPhysical" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Progress Format Manager" Language="C#" MasterPageFile="~/MasterPage.master"
-    CodeBehind="ProgressFormatManager.aspx.cs" Inherits="Finance.MIS.ProgressFormatManager" %>
+    CodeBehind="ProgressFormatManager.aspx.cs" Inherits="PhpaAll.MIS.ProgressFormatManager" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">

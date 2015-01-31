@@ -7,7 +7,7 @@ using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.UI;
 using EclipseLibrary.Web.JQuery.Input;
 
-namespace Finance.Store.Reports
+namespace PhpaAll.Store.Reports
 {
     /// <summary>
     /// Pass ItemId

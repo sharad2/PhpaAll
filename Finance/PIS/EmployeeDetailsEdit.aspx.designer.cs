@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.PIS {
+namespace PhpaAll.PIS {
     
     
     public partial class EmployeeDetailsEdit {

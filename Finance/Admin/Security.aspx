@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Security Help" Language="C#" MasterPageFile="~/MasterPage.master"
-    CodeBehind="Security.aspx.cs" Inherits="Finance.Admin.Security" EnableViewState="false" %>
+    CodeBehind="Security.aspx.cs" Inherits="PhpaAll.Admin.Security" EnableViewState="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

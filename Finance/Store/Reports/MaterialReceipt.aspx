@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="MaterialReceipt.aspx.cs"
-    Inherits="Finance.Store.Reports.MaterialReceipt" Title="Material Receipt" EnableViewState="false" %>
+    Inherits="PhpaAll.Store.Reports.MaterialReceipt" Title="Material Receipt" EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

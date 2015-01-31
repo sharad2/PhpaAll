@@ -1,4 +1,4 @@
-﻿<%@ Page Title="DayBook Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="DayBook.doc.aspx.cs" Inherits="Finance.Doc.DayBook" %>
+﻿<%@ Page Title="DayBook Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="DayBook.doc.aspx.cs" Inherits="PhpaAll.Doc.DayBook" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
  

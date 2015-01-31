@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="@Links.Content.bootstrap_css" type="text/css" rel="stylesheet" />
+    @*<script type="text/javascript" src="@Links.Scripts.modernizr_2_8_3_js"></script>*@
+
+    <meta name="description" content="Phpa Bills Module" />
+</head>
+<body>
+    <div class="navbar navbar-default">
+        <div class="container-fluid bg-info">
+            <div class="navbar-header">
+                <!--Visible on mobile device only-->
+                <a class="navbar-brand bg-danger visible-xs pull-right" data-toggle="collapse" data-target=".navbar-collapse" title="App Setting">
+                    <span class="glyphicon glyphicon-align-justify" style="cursor:default"></span>
+                </a>
+
+
+                <!--Visible on mobile device only-->
+                <a class="visible-xs btn navbar-brand pull-right" data-toggle="modal" href="#searchModal">
+                    <span class="glyphicon glyphicon-search"></span>
+                </a>
+
+
+                <a class="navbar-brand bg-success" href="@Url.Content("~")" style="padding-right:5px;padding-left:2px;">
+                    <span class="glyphicon glyphicon-home"></span> PHPA Bills
+                </a>
+
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <form action="#" method="get" role="search" class="hidden-xs navbar-form navbar-left">
+                    <div class="input-group">
+                        <input type="search" class="form-control" name="id" placeholder="Search PHPA">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div><!-- /input-group -->
+                </form>
+                @*<ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("About", MVC.Home.About())</li>
+                    <li>@Html.ActionLink("Contact", MVC.Home.Contact())</li>
+                </ul>
+                @Html.Partial(MVC.SharedViews.Views._LoginPartial)*@
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Eclipse Systems Pvt. Ltd.</p>
+        </footer>
+    </div>
+
+    <!--Visible on mobile device only, it is opened as popoup-->
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <form action="#" method="get" role="search">
+            <div class="input-group input-group-lg" style="margin-top:20px;margin-left:10px;margin-right:10px;">
+                <input type="search" class="form-control" name="id" placeholder="Search PHPA">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div><!-- /input-group -->
+        </form>
+    </div>
+
+
+    <script type="text/javascript" src="@Links.Scripts.jquery_1_11_2_js"></script>
+    <script type="text/javascript" src="@Links.Scripts.bootstrap_js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+
+
+

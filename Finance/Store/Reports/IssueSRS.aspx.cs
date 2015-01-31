@@ -8,7 +8,7 @@ using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
 
-namespace Finance.Store.Reports
+namespace PhpaAll.Store.Reports
 {
     public partial class IssueSRS : PageBase
     {

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" Title="Employee Details"
-    EnableViewState="false" CodeBehind="EmployeeDetails.aspx.cs" Inherits="Finance.PIS.EmployeeDetails" %>
+    EnableViewState="false" CodeBehind="EmployeeDetails.aspx.cs" Inherits="PhpaAll.PIS.EmployeeDetails" %>
 
 <%@ Register Src="~/Controls/SearchEmployee.ascx" TagPrefix="uc1" TagName="SearchEmployee" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

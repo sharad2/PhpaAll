@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" 
-    CodeBehind="PrintAccountHeads.aspx.cs" Inherits="Finance.Reports.PrintAccountHeads"
+    CodeBehind="PrintAccountHeads.aspx.cs" Inherits="PhpaAll.Reports.PrintAccountHeads"
     Title="Head of Accounts along with Cost" %>
     <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>   

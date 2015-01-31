@@ -1,4 +1,4 @@
-﻿<%@ Page Title="GIS Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="GIS.doc.aspx.cs" Inherits="Finance.Doc.GIS" %>
+﻿<%@ Page Title="GIS Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="GIS.doc.aspx.cs" Inherits="PhpaAll.Doc.GIS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">

@@ -18,7 +18,7 @@
  */
 using System.Web.UI;
 using Eclipse.PhpaLibrary.Web;
-namespace Finance.Finance
+namespace PhpaAll.Finance
 {
     public partial class LearnMore : PageBase
     {

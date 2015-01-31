@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.Reports {
+namespace PhpaAll.Reports {
     
     
     public partial class PendingAdvance {

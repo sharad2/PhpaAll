@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Tds Certificate Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="TdsCertificate.doc.aspx.cs" Inherits="Finance.Doc.TdsCertificate" %>
+﻿<%@ Page Title="Tds Certificate Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="TdsCertificate.doc.aspx.cs" Inherits="PhpaAll.Doc.TdsCertificate" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">

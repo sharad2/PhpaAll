@@ -7,7 +7,7 @@ using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery;
 
-namespace Finance.MIS
+namespace PhpaAll.MIS
 {
     public partial class ProgressFormatManager : PageBase
     {

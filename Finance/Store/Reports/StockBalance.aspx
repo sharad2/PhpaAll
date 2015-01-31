@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="StockBalance.aspx.cs"
-    Inherits="Finance.Store.Reports.StockBalance" Title="Stock Balance" EnableViewState="false" %>
+    Inherits="PhpaAll.Store.Reports.StockBalance" Title="Stock Balance" EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

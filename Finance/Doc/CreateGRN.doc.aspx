@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Create GRN Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeBehind="CreateGRN.doc.aspx.cs" Inherits="Finance.Doc.CreateGRN" %>
+    CodeBehind="CreateGRN.doc.aspx.cs" Inherits="PhpaAll.Doc.CreateGRN" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

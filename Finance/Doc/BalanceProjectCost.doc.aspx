@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Balance Project Cost Doc" Language="C#" MasterPageFile="~/MasterPage.master"
-    CodeBehind="BalanceProjectCost.doc.aspx.cs" Inherits="Finance.Doc.BalanceProjectCost" %>
+    CodeBehind="BalanceProjectCost.doc.aspx.cs" Inherits="PhpaAll.Doc.BalanceProjectCost" %>
 
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
     <p>

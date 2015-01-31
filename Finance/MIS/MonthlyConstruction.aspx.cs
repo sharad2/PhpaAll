@@ -10,7 +10,7 @@ using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
 using EclipseLibrary.Web.UI;
 
-namespace Finance.MIS
+namespace PhpaAll.MIS
 {
     /// <summary>
     /// Query String :ProgressFormatId, IsEditMode.

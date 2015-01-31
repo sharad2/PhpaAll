@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Journal Book Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="JournalBook.doc.aspx.cs" Inherits="Finance.Doc.JournalBook" %>
+﻿<%@ Page Title="Journal Book Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="JournalBook.doc.aspx.cs" Inherits="PhpaAll.Doc.JournalBook" %>
 
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
 <br />

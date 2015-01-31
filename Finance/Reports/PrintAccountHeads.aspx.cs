@@ -11,7 +11,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.Reports
+namespace PhpaAll.Reports
 {
     public partial class PrintAccountHeads : PageBase
     {

@@ -8,7 +8,7 @@ using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
 using System.Collections.Generic;
 
-namespace Finance.Payroll.Reports
+namespace PhpaAll.Payroll.Reports
 {
     public partial class GIS : PageBase
     {

@@ -18,7 +18,7 @@ using System.Linq;
 using Eclipse.PhpaLibrary.Database;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.Finance
+namespace PhpaAll.Finance
 {
     public partial class Finance : PageBase
     {

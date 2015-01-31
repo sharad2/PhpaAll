@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="BalanceProjectCost.aspx.cs"
-    EnableViewState="false" Inherits="Finance.Reports.BalanceProjectCost" Title="Balance Project Cost" %>
+    EnableViewState="false" Inherits="PhpaAll.Reports.BalanceProjectCost" Title="Balance Project Cost" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Paybill Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Paybill1.doc.aspx.cs" Inherits="Finance.Doc.Paybill1" %>
+﻿<%@ Page Title="Paybill Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Paybill1.doc.aspx.cs" Inherits="PhpaAll.Doc.Paybill1" %>
 
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
 <br />

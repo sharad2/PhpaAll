@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.PIS.Reports {
+namespace PhpaAll.PIS.Reports {
     
     
     public partial class ContractEnding {

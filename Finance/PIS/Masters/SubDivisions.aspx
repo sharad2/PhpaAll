@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Sub Divisions" Language="C#" MasterPageFile="~/MasterPage.master"
-    CodeBehind="SubDivisions.aspx.cs" Inherits="Finance.PIS.Masters.SubDivisions" %>
+    CodeBehind="SubDivisions.aspx.cs" Inherits="PhpaAll.PIS.Masters.SubDivisions" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

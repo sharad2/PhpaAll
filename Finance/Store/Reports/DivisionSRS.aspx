@@ -1,5 +1,5 @@
 <%@ Page Title="Issue Report" Language="C#" MasterPageFile="~/MasterPage.master"
-    CodeBehind="DivisionSRS.aspx.cs" Inherits="Finance.Store.Reports.DivisionSRS"
+    CodeBehind="DivisionSRS.aspx.cs" Inherits="PhpaAll.Store.Reports.DivisionSRS"
     EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"

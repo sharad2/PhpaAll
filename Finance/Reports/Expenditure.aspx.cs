@@ -31,7 +31,7 @@ using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
 
-namespace Finance.Reports
+namespace PhpaAll.Reports
 {
     public partial class Expenditure : PageBase
     {

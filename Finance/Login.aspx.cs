@@ -21,7 +21,7 @@ using Eclipse.PhpaLibrary.Reporting;
 using System.Data.SqlClient;
 using System.Data;
 
-namespace Finance
+namespace PhpaAll
 {
     public partial class Login : PageBase
     {

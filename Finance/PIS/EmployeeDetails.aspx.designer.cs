@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.PIS {
+namespace PhpaAll.PIS {
     
     
     public partial class EmployeeDetails {
@@ -28,7 +28,7 @@ namespace Finance.PIS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Finance.Controls.SearchEmployee SearchEmployee1;
+        protected global::PhpaAll.Controls.SearchEmployee SearchEmployee1;
         
         /// <summary>
         /// LoginView1 control.

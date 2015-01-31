@@ -21,7 +21,7 @@ using Eclipse.PhpaLibrary.Database;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery;
 
-namespace Finance.Finance
+namespace PhpaAll.Finance
 {
     public partial class ManageContractor : PageBase
     {

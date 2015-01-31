@@ -24,7 +24,7 @@ using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery;
 using Eclipse.PhpaLibrary.Reporting;
 
-namespace Finance.Finance
+namespace PhpaAll.Finance
 {
     public partial class Jobs : PageBase
     {

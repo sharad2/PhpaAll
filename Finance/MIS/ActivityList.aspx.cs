@@ -8,7 +8,7 @@ using EclipseLibrary.Web.JQuery;
 using System.Web.UI.WebControls;
 using EclipseLibrary.Web.UI;
 
-namespace Finance.MIS
+namespace PhpaAll.MIS
 {
     /// <summary>
     /// ActivityId can be passed in query string

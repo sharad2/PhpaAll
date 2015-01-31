@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.Finance {
+namespace PhpaAll.Finance {
     
     
     public partial class Jobs {
@@ -28,7 +28,7 @@ namespace Finance.Finance {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Finance.Controls.PrinterFriendlyButton PrinterFriendlyButton1;
+        protected global::PhpaAll.Controls.PrinterFriendlyButton PrinterFriendlyButton1;
         
         /// <summary>
         /// lbltbJobCode control.

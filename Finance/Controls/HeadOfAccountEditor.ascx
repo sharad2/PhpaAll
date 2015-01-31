@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="Finance.HeadOfAccountEditor" CodeBehind="HeadOfAccountEditor.ascx.cs" %>
+﻿<%@ Control Language="C#" Inherits="PhpaAll.HeadOfAccountEditor" CodeBehind="HeadOfAccountEditor.ascx.cs" %>
 <phpa:PhpaLinqDataSource ID="dsEditAccounts" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FinanceDataContext"
     EnableDelete="True" EnableInsert="True" EnableUpdate="True" TableName="HeadOfAccounts"
     Where="HeadOfAccountId == @HeadOfAccountId" RenderLogVisible="False" OnSelecting="dsEditAccounts_Selecting"

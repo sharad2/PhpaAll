@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Contract Completion" Language="C#" MasterPageFile="~/MasterPage.master"
-    CodeBehind="ContractEnding.aspx.cs" Inherits="Finance.PIS.Reports.ContractEnding"
+    CodeBehind="ContractEnding.aspx.cs" Inherits="PhpaAll.PIS.Reports.ContractEnding"
     EnableViewState="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

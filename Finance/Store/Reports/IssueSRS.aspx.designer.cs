@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.Store.Reports {
+namespace PhpaAll.Store.Reports {
     
     
     public partial class IssueSRS {

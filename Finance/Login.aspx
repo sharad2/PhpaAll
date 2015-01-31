@@ -1,7 +1,7 @@
 ﻿<%--$Id: Login.aspx 37050 2010-11-08 06:33:09Z bkumar $--%>
 
 <%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="Login.aspx.cs"
-    Inherits="Finance.Login" Title="PHPA Login" EnableViewState="false" %>
+    Inherits="PhpaAll.Login" Title="PHPA Login" EnableViewState="false" %>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="cphSideNavigation" runat="server">
     <br />

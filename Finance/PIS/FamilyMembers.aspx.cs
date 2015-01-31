@@ -6,7 +6,7 @@ using Eclipse.PhpaLibrary.Database.PIS;
 using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.PIS
+namespace PhpaAll.PIS
 {
     public partial class FamilyMembers : PageBase
     {

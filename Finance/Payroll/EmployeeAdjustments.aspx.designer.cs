@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.Payroll {
+namespace PhpaAll.Payroll {
     
     
     public partial class EmployeeAdjustments {
@@ -154,6 +154,6 @@ namespace Finance.Payroll {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Finance.Controls.EmployeeAdjustmentEditor ctlEditor;
+        protected global::PhpaAll.Controls.EmployeeAdjustmentEditor ctlEditor;
     }
 }

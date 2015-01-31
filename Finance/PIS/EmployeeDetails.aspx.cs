@@ -9,7 +9,7 @@ using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery;
 
-namespace Finance.PIS
+namespace PhpaAll.PIS
 {
     public partial class EmployeeDetails : PageBase
     {

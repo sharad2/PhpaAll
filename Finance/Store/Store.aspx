@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="Store.aspx.cs"
-    Inherits="Finance.Store.Store" Title="Stores Home -- PHPA" EnableViewState="false" %>
+    Inherits="PhpaAll.Store.Store" Title="Stores Home -- PHPA" EnableViewState="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

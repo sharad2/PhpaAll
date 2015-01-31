@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="BalanceSheet.aspx.cs"
-    Inherits="Finance.Reports.BalanceSheet" Title="Balance Sheet" %>
+    Inherits="PhpaAll.Reports.BalanceSheet" Title="Balance Sheet" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

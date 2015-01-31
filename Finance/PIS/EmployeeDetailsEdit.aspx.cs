@@ -11,7 +11,7 @@ using EclipseLibrary.Web.JQuery;
 using EclipseLibrary.Web.JQuery.Input;
 using EclipseLibrary.Web.UI;
 
-namespace Finance.PIS
+namespace PhpaAll.PIS
 {
     /// <summary>
     /// Pass EmployeeId as query string

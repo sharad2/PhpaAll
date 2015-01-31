@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="RecoverySchedule.aspx.cs"
-    Inherits="Finance.Payroll.Reports.RecoverySchedule" Title="Recovery Schedule" %>
+    Inherits="PhpaAll.Payroll.Reports.RecoverySchedule" Title="Recovery Schedule" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

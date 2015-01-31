@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="ManageEmployeePeriod.aspx.cs"
-    Inherits="Finance.Payroll.ManageEmployeePeriod" Title="Salary Remittances to Bank" %>
+    Inherits="PhpaAll.Payroll.ManageEmployeePeriod" Title="Salary Remittances to Bank" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" CodeBehind="Trainings.aspx.cs" Inherits="Finance.PIS.Trainings"
+﻿<%@ Page Language="C#" CodeBehind="Trainings.aspx.cs" Inherits="PhpaAll.PIS.Trainings"
     Title="Trainings" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

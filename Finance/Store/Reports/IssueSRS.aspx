@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="IssueSRS.aspx.cs"
-    Inherits="Finance.Store.Reports.IssueSRS" Title="Issue Items" EnableViewState="true" %>
+    Inherits="PhpaAll.Store.Reports.IssueSRS" Title="Issue Items" EnableViewState="true" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

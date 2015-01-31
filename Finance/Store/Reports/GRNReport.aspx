@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="GRNReport.aspx.cs"
-    Inherits="Finance.Store.Reports.GRNReport" Title="GRN Report" EnableViewState="false" %>
+    Inherits="PhpaAll.Store.Reports.GRNReport" Title="GRN Report" EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

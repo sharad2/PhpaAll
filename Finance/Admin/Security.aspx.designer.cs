@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.Admin {
+namespace PhpaAll.Admin {
     
     
     public partial class Security {

@@ -9,7 +9,7 @@ using EclipseLibrary.Web.UI;
 using System.Collections.Generic;
 using System.Web.Security;
 
-namespace Finance.Finance
+namespace PhpaAll.Finance
 {
     /// <summary>
     /// You can pass one or more of the following query string variables:

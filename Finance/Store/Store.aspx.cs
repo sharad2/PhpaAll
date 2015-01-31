@@ -3,7 +3,7 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Database.Store;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.Store
+namespace PhpaAll.Store
 {
     public partial class Store : PageBase
     {

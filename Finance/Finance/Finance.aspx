@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="Finance.aspx.cs"
-    Inherits="Finance.Finance.Finance" Title="Finance Home -- PHPA" EnableViewState="false" %>
+    Inherits="PhpaAll.Finance.Finance" Title="Finance Home -- PHPA" EnableViewState="false" %>
 <asp:Content ID="c1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="c3" ContentPlaceHolderID="cphSideNavigation" runat="server">

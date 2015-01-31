@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="JournalBook.aspx.cs"
-    Inherits="Finance.Reports.JournalBook" Title="Journal Book" EnableViewState="false" %>
+    Inherits="PhpaAll.Reports.JournalBook" Title="Journal Book" EnableViewState="false" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

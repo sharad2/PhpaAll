@@ -7,7 +7,7 @@ using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Formatting;
 using EclipseLibrary.Web.JQuery;
 
-namespace Finance.MIS.SummaryofFinacialProgress
+namespace PhpaAll.MIS.SummaryofFinacialProgress
 {
     public partial class PackageActivitySummary : PageBase
     {

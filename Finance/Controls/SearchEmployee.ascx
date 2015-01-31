@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" CodeBehind="SearchEmployee.ascx.cs" Inherits="Finance.Controls.SearchEmployee"
+﻿<%@ Control Language="C#" CodeBehind="SearchEmployee.ascx.cs" Inherits="PhpaAll.Controls.SearchEmployee"
     EnableViewState="false" %>
 <div style="padding-top: 0.5em; padding-bottom: 0.5em;">
     <eclipse:LeftLabel runat="server" Text="Employee" />

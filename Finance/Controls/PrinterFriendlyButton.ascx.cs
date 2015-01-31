@@ -15,7 +15,7 @@
  */
 using System.Web.UI;
 using System.Web.UI.WebControls;
-namespace Finance.Controls
+namespace PhpaAll.Controls
 {
     public partial class PrinterFriendlyButton : UserControl
     {

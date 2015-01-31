@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="DayBook.aspx.cs"
-    Inherits="Finance.Reports.DayBook" Title="Day Book" EnableViewState="false" %>
+    Inherits="PhpaAll.Finance.DayBook" Title="Day Book" EnableViewState="false" %>
 
 <%@ Register Src="../Controls/VoucherDetailControl.ascx" TagName="VoucherDetailControl"
     TagPrefix="uc1" %>

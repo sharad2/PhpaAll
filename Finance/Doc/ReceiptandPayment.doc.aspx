@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Receipt and Payment Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="ReceiptandPayment.doc.aspx.cs" Inherits="Finance.Doc.ReceiptandPayment" %>
+﻿<%@ Page Title="Receipt and Payment Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="ReceiptandPayment.doc.aspx.cs" Inherits="PhpaAll.Doc.ReceiptandPayment" %>
 
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
  <br />

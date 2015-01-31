@@ -10,7 +10,7 @@ using System.Data;
 using System.Configuration;
 using System.Collections.Generic;
 
-namespace Finance.Payroll.Reports
+namespace PhpaAll.Payroll.Reports
 {
     public partial class PaySlip : PageBase
     {

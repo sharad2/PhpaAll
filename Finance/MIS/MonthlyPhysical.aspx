@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Monthly Physical Progress" Language="C#" MasterPageFile="~/MIS/NestedMIS.master"
-    EnableViewState="true" CodeBehind="MonthlyPhysical.aspx.cs" Inherits="Finance.MIS.MonthlyPhysicalFinancialProgress" %>
+    EnableViewState="true" CodeBehind="MonthlyPhysical.aspx.cs" Inherits="PhpaAll.MIS.MonthlyPhysicalFinancialProgress" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

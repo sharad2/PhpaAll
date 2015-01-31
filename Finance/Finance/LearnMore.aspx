@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="LearnMore.aspx.cs"
-    Inherits="Finance.Finance.LearnMore" Title="Learn More" %>
+    Inherits="PhpaAll.Finance.LearnMore" Title="Learn More" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

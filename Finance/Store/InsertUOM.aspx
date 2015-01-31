@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="InsertUOM.aspx.cs"
-    Inherits="Finance.Store.InsertUOM" Title="Unit of Measurement" %>
+    Inherits="PhpaAll.Store.InsertUOM" Title="Unit of Measurement" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

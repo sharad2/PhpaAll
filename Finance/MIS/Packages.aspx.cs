@@ -3,7 +3,7 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Database.MIS;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.MIS
+namespace PhpaAll.MIS
 {
     public partial class Packages : PageBase
     {

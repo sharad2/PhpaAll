@@ -5,7 +5,7 @@ using Eclipse.PhpaLibrary.Database.MIS;
 using Eclipse.PhpaLibrary.Web;
 using Eclipse.PhpaLibrary.Reporting;
 
-namespace Finance.MIS
+namespace PhpaAll.MIS
 {
     public partial class AbstractFinancialDetail : PageBase
     {

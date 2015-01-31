@@ -6,7 +6,7 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Database.Store;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.Store.Reports
+namespace PhpaAll.Store.Reports
 {
     public partial class GRNReport : PageBase
     {

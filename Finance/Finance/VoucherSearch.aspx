@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="VoucherSearch.aspx.cs"
-    Inherits="Finance.Finance.VoucherSearch" Title="Search Voucher" EnableViewState="false" %>
+    Inherits="PhpaAll.Finance.VoucherSearch" Title="Search Voucher" EnableViewState="false" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

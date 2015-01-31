@@ -18,7 +18,7 @@ using EclipseLibrary.Web.UI;
 
 
 
-namespace Finance
+namespace PhpaAll
 {
     public partial class HeadOfAccountEditor : UserControl
     {

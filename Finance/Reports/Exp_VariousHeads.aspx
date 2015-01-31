@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="Exp_VariousHeads.aspx.cs"
-    Inherits="Finance.Reports.Exp_VariousHeads" Title="Job Expenditure in Various Heads"
+    Inherits="PhpaAll.Reports.Exp_VariousHeads" Title="Job Expenditure in Various Heads"
     EnableViewState="false" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"

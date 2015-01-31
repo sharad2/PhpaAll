@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="FundPositionReport.aspx.cs"
-    Inherits="Finance.Reports.FundPositionReport" Title="Fund Position Report" %>
+    Inherits="PhpaAll.Reports.FundPositionReport" Title="Fund Position Report" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

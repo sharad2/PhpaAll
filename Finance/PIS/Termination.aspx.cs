@@ -7,7 +7,7 @@ using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
 
-namespace Finance.PIS
+namespace PhpaAll.PIS
 {
     public partial class Termination : PageBase
     {

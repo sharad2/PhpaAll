@@ -21,7 +21,7 @@ using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.UI;
 
-namespace Finance.Payroll.Reports
+namespace PhpaAll.Payroll.Reports
 {
     public partial class PaybillRegister : PageBase
     {

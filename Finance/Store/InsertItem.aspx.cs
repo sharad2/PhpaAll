@@ -6,7 +6,7 @@ using Eclipse.PhpaLibrary.Database.Store;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
 
-namespace Finance.Store
+namespace PhpaAll.Store
 {
     public partial class InsertItem : PageBase
     {

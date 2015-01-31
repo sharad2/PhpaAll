@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="MIS Home" Language="C#" MasterPageFile="~/MIS/NestedMIS.master" EnableViewState="false"
-    CodeBehind="Default.aspx.cs" Inherits="Finance.MIS.Default2" %>
+    CodeBehind="Default.aspx.cs" Inherits="PhpaAll.MIS.Default2" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

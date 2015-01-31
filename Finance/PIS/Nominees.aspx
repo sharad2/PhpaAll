@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" CodeBehind="Nominees.aspx.cs" Inherits="Finance.PIS.Nominees"
+﻿<%@ Page Language="C#" CodeBehind="Nominees.aspx.cs" Inherits="PhpaAll.PIS.Nominees"
     EnableViewState="true" Title="Nominees" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.Store.Reports {
+namespace PhpaAll.Store.Reports {
     
     
     public partial class SRSList {
@@ -19,7 +19,7 @@ namespace Finance.Store.Reports {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Finance.Controls.PrinterFriendlyButton PrinterFriendlyButton1;
+        protected global::PhpaAll.Controls.PrinterFriendlyButton PrinterFriendlyButton1;
         
         /// <summary>
         /// panelGrid control.

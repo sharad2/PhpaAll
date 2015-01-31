@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" CodeBehind="EmployeeAdjustmentEditor.ascx.cs" Inherits="Finance.Controls.EmployeeAdjustmentEditor" %>
+﻿<%@ Control Language="C#" CodeBehind="EmployeeAdjustmentEditor.ascx.cs" Inherits="PhpaAll.Controls.EmployeeAdjustmentEditor" %>
 <%@ Import Namespace="System.Drawing" %>
 <script type="text/javascript">
     function cbFractionBasicOverrriden_Click(e) {

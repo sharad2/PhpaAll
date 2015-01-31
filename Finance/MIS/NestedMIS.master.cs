@@ -6,7 +6,7 @@ using Eclipse.PhpaLibrary.Database.MIS;
 using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web.Providers;
 
-namespace Finance.MIS
+namespace PhpaAll.MIS
 {
     public partial class NestedMIS : System.Web.UI.MasterPage
     {

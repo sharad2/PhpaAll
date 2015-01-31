@@ -4,7 +4,7 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Database;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.MIS
+namespace PhpaAll.MIS
 {
     public partial class FinancialActivity : PageBase
     {

@@ -5,7 +5,7 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Database.PIS;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.PIS.Reports
+namespace PhpaAll.PIS.Reports
 {
     public partial class StaffDivisions : PageBase
     {

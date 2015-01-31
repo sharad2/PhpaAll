@@ -21,7 +21,7 @@ using Eclipse.PhpaLibrary.Database.Payroll;
 using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.Payroll.Reports
+namespace PhpaAll.Payroll.Reports
 {
     /// <summary>
     /// TODO: Need to remove the second grid

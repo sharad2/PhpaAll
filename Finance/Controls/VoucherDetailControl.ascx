@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" CodeBehind="VoucherDetailControl.ascx.cs" Inherits="Finance.Controls.VoucherDetailControl" %>
+﻿<%@ Control Language="C#" CodeBehind="VoucherDetailControl.ascx.cs" Inherits="PhpaAll.Controls.VoucherDetailControl" %>
 <phpa:PhpaLinqDataSource ID="dsVouchers" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Reporting.ReportingDataContext"
     OnSelecting="dsVouchers_Selecting" RenderLogVisible="False" OrderBy="VoucherDate, VoucherCode"
     TableName="RoVouchers" Visible="True">

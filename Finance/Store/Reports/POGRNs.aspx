@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="POGRNs.aspx.cs"
-    Inherits="Finance.Store.Reports.POGRNs" Title="GRN's per Purchase Order" %>
+    Inherits="PhpaAll.Store.Reports.POGRNs" Title="GRN's per Purchase Order" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

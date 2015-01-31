@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="ManageDivisions.aspx.cs"
-    Inherits="Finance.ManageDivisions" Title="Manage Divisions" %>
+    Inherits="PhpaAll.Finance.ManageDivisions" Title="Manage Divisions" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

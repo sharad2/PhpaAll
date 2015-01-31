@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="GIN List" Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="SRSList.aspx.cs"
-    Inherits="Finance.Store.Reports.SRSList" EnableViewState="false" %>
+    Inherits="PhpaAll.Store.Reports.SRSList" EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

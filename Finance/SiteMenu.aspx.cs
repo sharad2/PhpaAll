@@ -4,7 +4,7 @@ using System.Web.UI.WebControls;
 using System.Web;
 
 
-namespace Finance
+namespace PhpaAll
 {
     public partial class SiteMenu : PageBase
     {

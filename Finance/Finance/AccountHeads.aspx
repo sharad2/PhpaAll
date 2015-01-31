@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" Inherits="Finance.AccountHeads"
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" Inherits="PhpaAll.Finance.AccountHeads"
     Title="Manage Head of Accounts" CodeBehind="AccountHeads.aspx.cs" EnableEventValidation="false" %>
 
 <%--Event validation is being turned off because otherwise we are having problems expanding a tree noder

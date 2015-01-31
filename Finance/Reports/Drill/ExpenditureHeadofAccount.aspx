@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="ExpenditureHeadofAccount.aspx.cs" Inherits="Finance.Reports.ExpenditureHeadofAccount" Title="Expenditure Head of Accounts" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="ExpenditureHeadofAccount.aspx.cs" Inherits="PhpaAll.Reports.ExpenditureHeadofAccount" Title="Expenditure Head of Accounts" %>
 <%@ Register src="~/Controls/PrinterFriendlyButton.ascx" tagname="PrinterFriendlyButton" tagprefix="uc2" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

@@ -25,7 +25,7 @@ using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 
 
-namespace Finance.Reports
+namespace PhpaAll.Reports
 {
     public partial class PendingAdvance : PageBase
     {

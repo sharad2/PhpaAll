@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.MIS {
+namespace PhpaAll.MIS {
     
     
     public partial class AbstractFinancialProgress {
@@ -19,7 +19,7 @@ namespace Finance.MIS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Finance.Controls.PrinterFriendlyButton pfb;
+        protected global::PhpaAll.Controls.PrinterFriendlyButton pfb;
         
         /// <summary>
         /// tbMonth control.

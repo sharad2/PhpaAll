@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.PIS.Share {
+namespace PhpaAll.PIS.Share {
     
     
     public partial class ServiceHistoryDetails {

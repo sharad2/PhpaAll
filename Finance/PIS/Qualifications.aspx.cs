@@ -4,7 +4,7 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Database.PIS;
 using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.PIS
+namespace PhpaAll.PIS
 {
     public partial class Qualifications : PageBase
     {

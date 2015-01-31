@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.Payroll {
+namespace PhpaAll.Payroll {
     
     
     public partial class LearnMorePayroll {

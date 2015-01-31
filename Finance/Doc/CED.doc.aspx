@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="CED Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeBehind="CED.doc.aspx.cs" Inherits="Finance.Doc.CED" %>
+    CodeBehind="CED.doc.aspx.cs" Inherits="PhpaAll.Doc.CED" %>
 
 <asp:Content ID="Content6" ContentPlaceHolderID="cph" runat="server">
 <asp:MultiView ID="mvHelp" runat="server">

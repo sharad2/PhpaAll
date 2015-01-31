@@ -6,7 +6,7 @@ using EclipseLibrary.Web.JQuery.Input;
 using EclipseLibrary.Web.UI;
 using System.Collections.Generic;
 
-namespace Finance.Services
+namespace PhpaAll.Services
 {
     /// <summary>
     /// Summary description for HeadOfAccounts

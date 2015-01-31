@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Insert UOM Doc" Language="C#" MasterPageFile="~/MasterPage.master"
-    AutoEventWireup="true" CodeBehind="InsertUOM.doc.aspx.cs" Inherits="Finance.Doc.InsertUOM" %>
+    AutoEventWireup="true" CodeBehind="InsertUOM.doc.aspx.cs" Inherits="PhpaAll.Doc.InsertUOM" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

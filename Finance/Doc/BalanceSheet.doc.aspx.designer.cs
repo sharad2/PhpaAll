@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Finance.Doc {
+namespace PhpaAll.Doc {
     
     
     public partial class BalanceSheet {

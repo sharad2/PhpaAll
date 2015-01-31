@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="Employees.aspx.cs"
-    Inherits="Finance.Finance.ManageEmployee" ValidateRequest="false" Title="Manage Employees"
+    Inherits="PhpaAll.Finance.ManageEmployee" ValidateRequest="false" Title="Manage Employees"
     EnableViewState="false" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"

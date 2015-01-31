@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Employee Details Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="EmployeeDetails.doc.aspx.cs" Inherits="Finance.Doc.EmployeeDetails" %>
+﻿<%@ Page Title="Employee Details Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="EmployeeDetails.doc.aspx.cs" Inherits="PhpaAll.Doc.EmployeeDetails" %>
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
 <br />
     <p>This page displays complete personnel information of an employee. Buttons have been

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="TrialBalance.aspx.cs"
-    Inherits="Finance.Reports.TrialBalance" Title="Trial Balance Report" EnableViewState="false" %>
+    Inherits="PhpaAll.Reports.TrialBalance" Title="Trial Balance Report" EnableViewState="false" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

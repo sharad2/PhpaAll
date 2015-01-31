@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Balancesheet Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="BalanceSheet.doc.aspx.cs" Inherits="Finance.Doc.BalanceSheet" %>
+﻿<%@ Page Title="Balancesheet Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="BalanceSheet.doc.aspx.cs" Inherits="PhpaAll.Doc.BalanceSheet" %>
 
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
 <p>The balance sheet is always displayed from the project start date.</p>

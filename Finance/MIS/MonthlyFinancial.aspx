@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Monthly Financial Progress" Language="C#" MasterPageFile="~/MIS/NestedMIS.master"
-    CodeBehind="MonthlyFinancial.aspx.cs" ValidateRequest="false" Inherits="Finance.MIS.FinancialProgress" %>
+    CodeBehind="MonthlyFinancial.aspx.cs" ValidateRequest="false" Inherits="PhpaAll.MIS.FinancialProgress" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>

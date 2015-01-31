@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Annual Confidential Review Report" Language="C#" MasterPageFile="~/MasterPage.master"
-    CodeBehind="ACR.aspx.cs" Inherits="Finance.PIS.Reports.ACR" %>
+    CodeBehind="ACR.aspx.cs" Inherits="PhpaAll.PIS.Reports.ACR" %>
 
 <%@ Register Src="~/Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc1" %>

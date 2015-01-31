@@ -5,7 +5,7 @@ using Eclipse.PhpaLibrary.Web;
 using Eclipse.PhpaLibrary.Database.Store;
 using System.Collections.Generic;
 
-namespace Finance.Store
+namespace PhpaAll.Store
 {
     public partial class ItemsCategory : PageBase
     {

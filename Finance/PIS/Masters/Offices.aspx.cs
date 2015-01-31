@@ -10,7 +10,7 @@ using EclipseLibrary.Web.JQuery;
 using EclipseLibrary.Web.JQuery.Input;
 using EclipseLibrary.Web.UI;
 
-namespace Finance.PIS.Masters
+namespace PhpaAll.PIS.Masters
 {
     public partial class Offices : PageBase
     {

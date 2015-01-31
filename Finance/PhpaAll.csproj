@@ -10,8 +10,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Finance</RootNamespace>
-    <AssemblyName>Finance</AssemblyName>
+    <RootNamespace>PhpaAll</RootNamespace>
+    <AssemblyName>PhpaAll</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <SccProjectName>
     </SccProjectName>
@@ -59,7 +59,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq">
@@ -72,9 +77,36 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="T4MVCExtensions">
+      <HintPath>..\packages\T4MVCExtensions.3.11.0\lib\net40\T4MVCExtensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\ChangePassword.aspx" />
@@ -116,6 +148,10 @@
     <Content Include="App_Themes\Sunny\images\ui-icons_fadc7a_256x240.png" />
     <Content Include="App_Themes\Sunny\images\ui-icons_ffe180_256x240.png" />
     <Content Include="App_Themes\Sunny\jquery-ui-1.8.6.custom.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -197,6 +233,8 @@
     <Content Include="Finance\InsertVoucher.aspx" />
     <Content Include="Finance\InsertVoucher.js" />
     <Content Include="Finance\VoucherDetails.aspx" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
     <Content Include="Images\EclLogo.gif" />
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\PHPALogo2.png" />
@@ -206,7 +244,19 @@
     <Content Include="PIS\Masters\Stations.aspx" />
     <Content Include="Reports\FundPositionReport.aspx" />
     <Content Include="packages.config" />
+    <Content Include="Bills\PhpaBills.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>PhpaBills1.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.11.2.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.2.js" />
@@ -225,8 +275,19 @@
     </Content>
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jqueryval.js">
+      <DependentUpon>jqueryval.js.bundle</DependentUpon>
+    </Content>
     <Content Include="Scripts\json2.js" />
     <Content Include="Scripts\json2.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\npm.js" />
     <Content Include="Services\Adjustments.asmx" />
     <Content Include="Services\Contractors.asmx" />
     <Content Include="Services\Divisions.asmx" />
@@ -237,10 +298,22 @@
     <Content Include="Services\PONumbers.asmx" />
     <Content Include="SiteMenu.aspx" />
     <Content Include="Store\CreateSRS.aspx" />
+    <None Include="T4MVC.tt.hooks.t4" />
+    <None Include="T4MVC.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4MVC.cs</LastGenOutput>
+    </None>
+    <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\jquery-1.11.2.min.map" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\web.config" />
+    <Content Include="Views\ManageBills\Create.cshtml" />
+    <Content Include="Views\ManageBills\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Scripts\jqueryval.js.bundle" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">
@@ -257,6 +330,22 @@
     <Compile Include="Admin\Security.aspx.designer.cs">
       <DependentUpon>Security.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BillsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Bills\CreateViewModel.cs" />
+    <Compile Include="Bills\IndexViewModel.cs" />
+    <Compile Include="Bills\ManageBillsRepository.cs" />
+    <Compile Include="Bills\ManageBillsService.cs" />
+    <Compile Include="Bills\PhpaBills.designer.cs" />
+    <Compile Include="Bills\PhpaBills1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PhpaBills.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\BillsController.cs" />
+    <Compile Include="Controllers\ManageBillsController.cs" />
     <Compile Include="Controls\SearchEmployee.ascx.cs">
       <DependentUpon>SearchEmployee.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -585,6 +674,12 @@
     </Compile>
     <Compile Include="Finance\VoucherDetails.aspx.designer.cs">
       <DependentUpon>VoucherDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ManageBillsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="MIS\AbstractFinancialProgress.aspx.cs">
       <DependentUpon>AbstractFinancialProgress.aspx</DependentUpon>
@@ -1474,6 +1569,9 @@
       <DependentUpon>PONumbers.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SharedController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="SiteMenu.aspx.cs">
       <DependentUpon>SiteMenu.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1613,6 +1711,11 @@
     </Compile>
     <Compile Include="Store\Store.aspx.designer.cs">
       <DependentUpon>Store.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1848,6 +1951,15 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Phpatest.pubxml" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bills\PhpaBills.dbml.layout">
+      <DependentUpon>PhpaBills.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Trial Balance" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="TrialBalance.doc.aspx.cs" Inherits="Finance.Doc.TrialBalance" %>
+﻿<%@ Page Title="Trial Balance" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="TrialBalance.doc.aspx.cs" Inherits="PhpaAll.Doc.TrialBalance" %>
 <asp:Content ID="Content6" ContentPlaceHolderID="cphNoForm" runat="server">
 <br />
 <ol>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Store Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Store.doc.aspx.cs" Inherits="Finance.Doc.Store" %>
+﻿<%@ Page Title="Store Doc" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Store.doc.aspx.cs" Inherits="PhpaAll.Doc.Store" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
  

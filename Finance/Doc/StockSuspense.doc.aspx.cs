@@ -1,6 +1,6 @@
 ﻿using Eclipse.PhpaLibrary.Web;
 
-namespace Finance.Doc
+namespace PhpaAll.Doc
 {
 	public partial class StockSuspense : PageBase
 	{
