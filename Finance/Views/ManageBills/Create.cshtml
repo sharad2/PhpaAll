@@ -9,7 +9,7 @@
 <h2 style="margin-top:0">
     @if (Model.isEditMode)
     {
-           <span>Edit Bill</span>
+           <span>Edit Bill <mark class="small">@Html.DisplayFor(m => m.BillNumber)</mark></span>
     }
     else
     {
@@ -18,19 +18,13 @@
 </h2>
 
 
-<form class="form-horizontal" action="@Url.Action(MVC.ManageBills.CreateBill())" method="post">
+<form class="form-horizontal" action="@Url.Action(MVC.ManageBills.CreateUpdateBill())" method="post" enctype="multipart/form-data">
+    @Html.HiddenFor(m=> m.Id)
     <div class="well well-sm">
-
         <div class="form-group form-group-sm">
             <label for="billNumber" class="col-sm-2 control-label">Bill No. *</label>
             <div class="col-sm-3">
-                @if (Model.isEditMode)
-                {
-                    @Html.HiddenFor(m=>m.BillNumber)
-                <mark class="h4">@Html.DisplayFor(m => m.BillNumber)</mark>
-                }
-                else
-                {
+             
                     @Html.TextBoxFor(m => m.BillNumber, new
                                    {
                                        id = "billNumber",
@@ -43,7 +37,7 @@
                                    {
                                        @class = "help-block"
                                    }) 
-                }
+                
                 
             </div>
 
@@ -115,13 +109,14 @@
 
             </div>
 
-            <label for="approvedOn" class="col-sm-2 control-label">Approved on</label>
+            <label for="approvedOn" class="col-sm-2 control-label">Approved Date</label>
             <div class="col-sm-2">
                 @Html.TextBoxFor(m => m.ApprovedDate, new
            {
                id = "approvedOn",
                @class = "form-control",
-               type = "date"
+               type = "date",
+               @placeholder = "dd/mm/yyyy"
 
            })
                 @Html.ValidationMessageFor(m => m.ApprovedDate, null, new
@@ -254,13 +249,10 @@
 
             <label for="image" class="col-sm-2 control-label">Insert Image</label>
             <div class="col-sm-2">
-                @Html.TextBoxFor(m => m.BillImage, new
-           {
-               id = "image",
-               @class = "form-control",
-               type = "File"
+                <input type="file" multiple="multiple" name="File1" id="File1" accept="image/*" />
 
-           })
+
+                
             </div>
         </div>
 

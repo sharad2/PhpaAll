@@ -58,7 +58,7 @@ namespace PhpaAll.Bills
         [StringLength(50, ErrorMessage = "You can insert only 50 characters ")]
         public string ApprovedBy { get; set; }
 
-        [Display(Name = "Approved by")]
+        [Display(Name = "Approved date")]
         [DataType(DataType.Date)]
         public DateTime? ApprovedDate { get; set; }
 
@@ -67,7 +67,7 @@ namespace PhpaAll.Bills
         public string Remarks { get; set; }
 
         [Display(Name = "Image")]
-        public Image BillImage { get; set; }
+        public HttpPostedFileBase BillImage { get; set; }
 
 
         //Weather it is edit mode or not

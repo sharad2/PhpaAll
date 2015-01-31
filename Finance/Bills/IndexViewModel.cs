@@ -14,7 +14,7 @@ namespace PhpaAll.Bills
         {
 
         }
-
+   
         internal BillModel(Bill bill)
         {
             Amount = bill.Amount;
@@ -47,6 +47,7 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? DivisionSubmittedDate { get; set; }
 
+         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? FinanceSubmittedDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]

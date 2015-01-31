@@ -47,5 +47,10 @@ namespace PhpaAll.Bills
         {
             _repos.UpdateBill(model);
         }
+
+        public void DeleteBill(int id)
+        {
+            _repos.DeleteBill(id);
+        }
     }
 }
