@@ -34,7 +34,7 @@ namespace PhpaAll.Payroll.Reports
                              pea.EmployeePeriod.Employee.EmployeeTypeId.HasValue &&
                              selectedTypes.Contains(pea.EmployeePeriod.Employee.EmployeeTypeId.Value)
                              && pea.Adjustment.AdjustmentCategory.ReportCategories.Any(p => p.ReportId == 109)
-                        orderby pea.EmployeePeriod.Employee.GISAccountNumber
+                        orderby pea.EmployeePeriod.Employee.GISAccountNumber, pea.EmployeePeriod.SalaryPeriod.SalaryPeriodStart
                        select new
                        {
                            GISNo = pea.EmployeePeriod.Employee.GISAccountNumber,
@@ -46,7 +46,8 @@ namespace PhpaAll.Payroll.Reports
                            Amount = string.Format("{0:N0}", pea.Amount),
                            GISGroup = pea.EmployeePeriod.Employee.GISGroup,
                            DateOfBirth = pea.EmployeePeriod.Employee.DateOfBirth,
-                           BankId = pea.EmployeePeriod.BankId ?? pea.EmployeePeriod.Employee.BankId
+                           BankId = pea.EmployeePeriod.BankId ?? pea.EmployeePeriod.Employee.BankId,
+                           SalaryPeriodStartDate = pea.EmployeePeriod.SalaryPeriod.SalaryPeriodStart
                        };
             if (!string.IsNullOrEmpty(ddlBankName.Value))
             {
@@ -69,6 +70,13 @@ namespace PhpaAll.Payroll.Reports
                 case DataControlRowType.EmptyDataRow:
                     lblRecovery.Visible = false;
                     break;
+            }
+            if (Convert.ToDateTime(tbFromDate.Value).ToString("yyyyMM") != Convert.ToDateTime(tbToDate.Value).ToString("yyyyMM"))
+            {
+                DataControlField column = (from DataControlField col in gvGIS.Columns
+                                           where col.AccessibleHeaderText == "SalaryPeriodDate"
+                                           select col).Single();
+                column.Visible = true;
             }
         }
 
