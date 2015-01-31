@@ -90,7 +90,7 @@ namespace PhpaAll.Controllers
                     if (ModelState.IsValid)
                     {
                         //update the existing bill same id
-                        _service.Value.UpdateBill(bill);
+                        _service.Value.UpdateBill(model);
                         return RedirectToAction(MVC.ManageBills.Index());
                     }
                 }
