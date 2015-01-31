@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="C#" CodeBehind="HeadOfAccounts.asmx.cs" Class="Finance.Services.HeadOfAccounts" %>
+﻿<%@ WebService Language="C#" CodeBehind="HeadOfAccounts.asmx.cs" Class="PhpaAll.Services.HeadOfAccounts" %>

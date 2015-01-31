@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="C#" CodeBehind="PONumbers.asmx.cs" Class="Finance.Services.PONumbers" %>
+﻿<%@ WebService Language="C#" CodeBehind="PONumbers.asmx.cs" Class="PhpaAll.Services.PONumbers" %>

@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="C#" CodeBehind="Items.asmx.cs" Class="Finance.Services.Items" %>
+﻿<%@ WebService Language="C#" CodeBehind="Items.asmx.cs" Class="PhpaAll.Services.Items" %>
