@@ -62,9 +62,10 @@ namespace PhpaAll.Bills
 
            if (model.BillImage != null && model.BillImage.ContentLength > 0)
            {
-               FileStream fs = new FileStream(model.BillImage.FileName, FileMode.Open, FileAccess.Read);
-               BinaryReader br = new BinaryReader(fs);
-               imageData = br.ReadBytes((int)model.BillImage.ContentLength);
+               // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/  
+               var ms = new MemoryStream(model.BillImage.ContentLength);
+               model.BillImage.InputStream.CopyTo(ms);
+               imageData = ms.ToArray();
 
            }
             edit.Amount = model.Amount;
