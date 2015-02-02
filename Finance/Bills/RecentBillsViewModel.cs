@@ -22,8 +22,7 @@ namespace PhpaAll.Bills
             BillNumber = bill.BillNumber;
             ApprovedDate = bill.ApprovedOn;
             BillDate = bill.BillDate;
-            //BillImage = model.BillImage,
-            BillType = bill.BillType;
+            //BillImage = model.BillImage,          
             ContractorId = bill.ContractorId;
             DivisionId = bill.DivisionId;
             DueDate = bill.DueDate;
@@ -53,7 +52,6 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? PaidDate { get; set; }
 
-        public string BillType { get; set; }
 
         public int? DivisionId { get; set; }
 

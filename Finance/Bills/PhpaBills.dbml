@@ -9,7 +9,6 @@
       <Column Name="SubmittedToDivision" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="SubmittedToFinance" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="PaidOn" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="BillType" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
       <Column Name="DivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ContractorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />

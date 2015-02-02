@@ -67,7 +67,6 @@ namespace PhpaAll.Bills
             edit.ApprovedOn = model.ApprovedOn;
             edit.BillDate = model.BillDate;
             edit.BillImage = model.BillImage;
-            edit.BillType = model.BillType;
             edit.ContractorId = model.ContractorId;
             edit.DivisionId = model.DivisionId;
             edit.DueDate = model.DueDate;

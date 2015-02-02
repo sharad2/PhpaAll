@@ -94,8 +94,6 @@ namespace PhpaAll.Bills
 		
 		private System.Nullable<System.DateTime> _PaidOn;
 		
-		private string _BillType;
-		
 		private System.Nullable<int> _DivisionId;
 		
 		private System.Nullable<int> _ContractorId;
@@ -128,8 +126,6 @@ namespace PhpaAll.Bills
     partial void OnSubmittedToFinanceChanged();
     partial void OnPaidOnChanging(System.Nullable<System.DateTime> value);
     partial void OnPaidOnChanged();
-    partial void OnBillTypeChanging(string value);
-    partial void OnBillTypeChanged();
     partial void OnDivisionIdChanging(System.Nullable<int> value);
     partial void OnDivisionIdChanged();
     partial void OnContractorIdChanging(System.Nullable<int> value);
@@ -287,26 +283,6 @@ namespace PhpaAll.Bills
 					this._PaidOn = value;
 					this.SendPropertyChanged("PaidOn");
 					this.OnPaidOnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillType", DbType="NChar(10)")]
-		public string BillType
-		{
-			get
-			{
-				return this._BillType;
-			}
-			set
-			{
-				if ((this._BillType != value))
-				{
-					this.OnBillTypeChanging(value);
-					this.SendPropertyChanging();
-					this._BillType = value;
-					this.SendPropertyChanged("BillType");
-					this.OnBillTypeChanged();
 				}
 			}
 		}

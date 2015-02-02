@@ -47,21 +47,6 @@
                 
             </div>
 
-            @*<label for="billType" class="col-sm-1 control-label">Type</label>
-            <div class="col-sm-2">
-                @Html.TextBoxFor(m => m.BillType, new
-           {
-               id = "billType",
-               @class = "form-control",
-               maxlength = "10"
-           })
-                @Html.ValidationMessageFor(m => m.BillType, null, new
-           {
-               @class = "help-block"
-           })
-
-            </div>*@
-
             <label for="billDate" class="col-sm-2 control-label">Bill Date *</label>
             <div class="col-sm-4">
                 @Html.TextBoxFor(m => m.BillDate, new
