@@ -18,7 +18,16 @@ namespace PhpaAll.Controllers
         {
             base.Initialize(requestContext);
 
-            _service = new Lazy<ManageBillsService>(() => new ManageBillsService("default"));
+            _service = new Lazy<ManageBillsService>(() => new ManageBillsService("default", requestContext.HttpContext.Trace));
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (_service != null && _service.IsValueCreated)
+            {
+                _service.Value.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
 
@@ -127,25 +136,46 @@ namespace PhpaAll.Controllers
         public virtual ActionResult Edit(int id)
         {
 
-            var bill = _service.Value.GetBillNumber(id);
-            var model = new CreateViewModel
-            {
-                Id = bill.Id,
-                Amount = bill.Amount,
-                BillNumber = bill.BillNumber, 
-                Particulars= bill.Particulars,
-                BillDate = bill.BillDate,             
-                ContractorId = bill.ContractorId,
-                SubmittedToDivisionId = bill.SubmitedToDivisionId,
-                DueDate = bill.DueDate,
-                PaidDate = bill.PaidDate,
-                Remarks = bill.Remarks,
-                SubmittedOnDate = bill.SubmittedOnDate,             
-                isEditMode = true,
-                SubmittedToDivisionName = bill.Division.DivisionName,
-                ContractorName = bill.Contractor.ContractorName
+           // var bill = _service.Value.GetBillNumber(id);
 
-            };
+            var model = (from bill in _service.Value.Bills
+                        where bill.Id == id
+                        select new CreateViewModel
+                        {
+                            Id = bill.Id,
+                            Amount = bill.Amount,
+                            BillNumber = bill.BillNumber,
+                            Particulars = bill.Particulars,
+                            BillDate = bill.BillDate,
+                            ContractorId = bill.ContractorId,
+                            SubmittedToDivisionId = bill.SubmitedToDivisionId,
+                            DueDate = bill.DueDate,
+                            PaidDate = bill.PaidDate,
+                            Remarks = bill.Remarks,
+                            SubmittedOnDate = bill.SubmittedOnDate,
+                            isEditMode = true,
+                            SubmittedToDivisionName = bill.Division.DivisionName,
+                            ContractorName = bill.Contractor.ContractorName
+                        }).FirstOrDefault();
+
+            //var model = new CreateViewModel
+            //{
+            //    Id = bill.Id,
+            //    Amount = bill.Amount,
+            //    BillNumber = bill.BillNumber, 
+            //    Particulars= bill.Particulars,
+            //    BillDate = bill.BillDate,             
+            //    ContractorId = bill.ContractorId,
+            //    SubmittedToDivisionId = bill.SubmitedToDivisionId,
+            //    DueDate = bill.DueDate,
+            //    PaidDate = bill.PaidDate,
+            //    Remarks = bill.Remarks,
+            //    SubmittedOnDate = bill.SubmittedOnDate,             
+            //    isEditMode = true,
+            //    SubmittedToDivisionName = bill.Division.DivisionName,
+            //    ContractorName = bill.Contractor.ContractorName
+
+            //};
             return View(Views.Create, model);
         }
 

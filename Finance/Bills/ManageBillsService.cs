@@ -1,7 +1,10 @@
 ﻿//using PhpaBills.Database;
 using System;
 using System.Configuration;
+using System.Data.Linq;
+using System.IO;
 using System.Linq;
+using System.Web;
 
 namespace PhpaAll.Bills
 {
@@ -9,10 +12,22 @@ namespace PhpaAll.Bills
     {
         private readonly PhpaBillsDataContext _db;
 
-        public ManageBillsService(string connectStringName)
+        private readonly StringWriter _sw;
+
+        private readonly TraceContext _trace;
+
+        public ManageBillsService(string connectStringName, TraceContext trace)
         {
             var connectString = ConfigurationManager.ConnectionStrings[connectStringName].ConnectionString;
             _db = new PhpaBillsDataContext(connectString);
+            _sw = new StringWriter();
+            _db.Log = _sw;
+            _trace = trace;
+
+            //var dlo = new DataLoadOptions();
+            //dlo.LoadWith<Bill>(p => p.Contractor);
+            //dlo.LoadWith<Bill>(p => p.Division);
+            //_db.LoadOptions = dlo;
         }
 
         public void Dispose()
@@ -21,7 +36,12 @@ namespace PhpaAll.Bills
             {
                 _db.Dispose();
             }
+            if (_sw != null)
+            {
+                _trace.Write(_sw.ToString());
+            }
         }
+
 
         public void InsertBill(Bill bill)
         {
@@ -38,7 +58,7 @@ namespace PhpaAll.Bills
         }
 
 
-
+        [Obsolete]
         public Bill GetBillNumber(int id)
         {
             return (from bill in _db.Bills
