@@ -22,6 +22,8 @@
       <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Association Name="Bill_BillWorkflow" Member="BillWorkflows" ThisKey="Id" OtherKey="BillId" Type="BillWorkflow" />
+      <Association Name="Division_Bill" Member="Division" ThisKey="SubmitedToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+      <Association Name="Contractor_Bill" Member="Contractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="Contractor" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.BillWorkflow" Member="BillWorkflows">
@@ -35,6 +37,51 @@
       <Column Name="ActivityBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="ShortDescription" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Association Name="Bill_BillWorkflow" Member="Bill" ThisKey="BillId" OtherKey="Id" Type="Bill" IsForeignKey="true" />
+      <Association Name="Division_BillWorkflow" Member="Division" ThisKey="ToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+      <Association Name="Division_BillWorkflow1" Member="Division1" ThisKey="FromDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Division" Member="Divisions">
+    <Type Name="Division">
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DivisionCode" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="DivisionGroup" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="DivisionName" Type="System.String" DbType="NVarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Division_Bill" Member="Bills" ThisKey="DivisionId" OtherKey="SubmitedToDivisionId" Type="Bill" />
+      <Association Name="Division_BillWorkflow" Member="BillWorkflows" ThisKey="DivisionId" OtherKey="ToDivisionId" Type="BillWorkflow" />
+      <Association Name="Division_BillWorkflow1" Member="BillWorkflows1" ThisKey="DivisionId" OtherKey="FromDivisionId" Type="BillWorkflow" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contractor" Member="Contractors">
+    <Type Name="Contractor">
+      <Column Name="ContractorId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ContractorName" Type="System.String" DbType="NVarChar(120) NOT NULL" CanBeNull="false" />
+      <Column Name="ContractorCode" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Nationality" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Postal_Code" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Contact_person" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone1" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Phone2" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Association Name="Contractor_Bill" Member="Bills" ThisKey="ContractorId" OtherKey="ContractorId" Type="Bill" />
     </Type>
   </Table>
 </Database>

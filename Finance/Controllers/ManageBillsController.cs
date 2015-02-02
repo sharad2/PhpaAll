@@ -141,7 +141,9 @@ namespace PhpaAll.Controllers
                 PaidDate = bill.PaidDate,
                 Remarks = bill.Remarks,
                 SubmittedOnDate = bill.SubmittedOnDate,             
-                isEditMode = true
+                isEditMode = true,
+                SubmittedToDivisionName = bill.Division.DivisionName,
+                ContractorName = bill.Contractor.ContractorName
 
             };
             return View(Views.Create, model);

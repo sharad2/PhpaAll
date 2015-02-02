@@ -43,8 +43,13 @@ namespace PhpaAll.Bills
         [Required (ErrorMessage="Division Id is required.")]
         public int? SubmittedToDivisionId { get; set; }
 
+        public string SubmittedToDivisionName { get; set; }
+
         [Display(Name = "Contractor Id")]
         public int? ContractorId { get; set; }
+
+        public string ContractorName { get; set; }
+
 
         [Display(Name = "Amount")]
         [Required (ErrorMessage="Amount is required.")]

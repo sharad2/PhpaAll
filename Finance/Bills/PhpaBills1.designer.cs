@@ -36,6 +36,12 @@ namespace PhpaAll.Bills
     partial void InsertBillWorkflow(BillWorkflow instance);
     partial void UpdateBillWorkflow(BillWorkflow instance);
     partial void DeleteBillWorkflow(BillWorkflow instance);
+    partial void InsertDivision(Division instance);
+    partial void UpdateDivision(Division instance);
+    partial void DeleteDivision(Division instance);
+    partial void InsertContractor(Contractor instance);
+    partial void UpdateContractor(Contractor instance);
+    partial void DeleteContractor(Contractor instance);
     #endregion
 		
 		public PhpaBillsDataContext() : 
@@ -81,6 +87,22 @@ namespace PhpaAll.Bills
 			get
 			{
 				return this.GetTable<BillWorkflow>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Division> Divisions
+		{
+			get
+			{
+				return this.GetTable<Division>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Contractor> Contractors
+		{
+			get
+			{
+				return this.GetTable<Contractor>();
 			}
 		}
 	}
@@ -131,6 +153,10 @@ namespace PhpaAll.Bills
 		
 		private EntitySet<BillWorkflow> _BillWorkflows;
 		
+		private EntityRef<Division> _Division;
+		
+		private EntityRef<Contractor> _Contractor;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -178,6 +204,8 @@ namespace PhpaAll.Bills
 		public Bill()
 		{
 			this._BillWorkflows = new EntitySet<BillWorkflow>(new Action<BillWorkflow>(this.attach_BillWorkflows), new Action<BillWorkflow>(this.detach_BillWorkflows));
+			this._Division = default(EntityRef<Division>);
+			this._Contractor = default(EntityRef<Contractor>);
 			OnCreated();
 		}
 		
@@ -312,6 +340,10 @@ namespace PhpaAll.Bills
 			{
 				if ((this._SubmitedToDivisionId != value))
 				{
+					if (this._Division.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnSubmitedToDivisionIdChanging(value);
 					this.SendPropertyChanging();
 					this._SubmitedToDivisionId = value;
@@ -332,6 +364,10 @@ namespace PhpaAll.Bills
 			{
 				if ((this._ContractorId != value))
 				{
+					if (this._Contractor.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnContractorIdChanging(value);
 					this.SendPropertyChanging();
 					this._ContractorId = value;
@@ -574,6 +610,74 @@ namespace PhpaAll.Bills
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_Bill", Storage="_Division", ThisKey="SubmitedToDivisionId", OtherKey="DivisionId", IsForeignKey=true)]
+		public Division Division
+		{
+			get
+			{
+				return this._Division.Entity;
+			}
+			set
+			{
+				Division previousValue = this._Division.Entity;
+				if (((previousValue != value) 
+							|| (this._Division.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Division.Entity = null;
+						previousValue.Bills.Remove(this);
+					}
+					this._Division.Entity = value;
+					if ((value != null))
+					{
+						value.Bills.Add(this);
+						this._SubmitedToDivisionId = value.DivisionId;
+					}
+					else
+					{
+						this._SubmitedToDivisionId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Division");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contractor_Bill", Storage="_Contractor", ThisKey="ContractorId", OtherKey="ContractorId", IsForeignKey=true)]
+		public Contractor Contractor
+		{
+			get
+			{
+				return this._Contractor.Entity;
+			}
+			set
+			{
+				Contractor previousValue = this._Contractor.Entity;
+				if (((previousValue != value) 
+							|| (this._Contractor.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Contractor.Entity = null;
+						previousValue.Bills.Remove(this);
+					}
+					this._Contractor.Entity = value;
+					if ((value != null))
+					{
+						value.Bills.Add(this);
+						this._ContractorId = value.ContractorId;
+					}
+					else
+					{
+						this._ContractorId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Contractor");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -631,6 +735,10 @@ namespace PhpaAll.Bills
 		
 		private EntityRef<Bill> _Bill;
 		
+		private EntityRef<Division> _Division;
+		
+		private EntityRef<Division> _Division1;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -656,6 +764,8 @@ namespace PhpaAll.Bills
 		public BillWorkflow()
 		{
 			this._Bill = default(EntityRef<Bill>);
+			this._Division = default(EntityRef<Division>);
+			this._Division1 = default(EntityRef<Division>);
 			OnCreated();
 		}
 		
@@ -734,6 +844,10 @@ namespace PhpaAll.Bills
 			{
 				if ((this._FromDivisionId != value))
 				{
+					if (this._Division1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnFromDivisionIdChanging(value);
 					this.SendPropertyChanging();
 					this._FromDivisionId = value;
@@ -754,6 +868,10 @@ namespace PhpaAll.Bills
 			{
 				if ((this._ToDivisionId != value))
 				{
+					if (this._Division.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnToDivisionIdChanging(value);
 					this.SendPropertyChanging();
 					this._ToDivisionId = value;
@@ -857,6 +975,74 @@ namespace PhpaAll.Bills
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_BillWorkflow", Storage="_Division", ThisKey="ToDivisionId", OtherKey="DivisionId", IsForeignKey=true)]
+		public Division Division
+		{
+			get
+			{
+				return this._Division.Entity;
+			}
+			set
+			{
+				Division previousValue = this._Division.Entity;
+				if (((previousValue != value) 
+							|| (this._Division.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Division.Entity = null;
+						previousValue.BillWorkflows.Remove(this);
+					}
+					this._Division.Entity = value;
+					if ((value != null))
+					{
+						value.BillWorkflows.Add(this);
+						this._ToDivisionId = value.DivisionId;
+					}
+					else
+					{
+						this._ToDivisionId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Division");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_BillWorkflow1", Storage="_Division1", ThisKey="FromDivisionId", OtherKey="DivisionId", IsForeignKey=true)]
+		public Division Division1
+		{
+			get
+			{
+				return this._Division1.Entity;
+			}
+			set
+			{
+				Division previousValue = this._Division1.Entity;
+				if (((previousValue != value) 
+							|| (this._Division1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Division1.Entity = null;
+						previousValue.BillWorkflows1.Remove(this);
+					}
+					this._Division1.Entity = value;
+					if ((value != null))
+					{
+						value.BillWorkflows1.Add(this);
+						this._FromDivisionId = value.DivisionId;
+					}
+					else
+					{
+						this._FromDivisionId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Division1");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -875,6 +1061,938 @@ namespace PhpaAll.Bills
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Division")]
+	public partial class Division : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _DivisionId;
+		
+		private string _DivisionCode;
+		
+		private string _DivisionGroup;
+		
+		private string _DivisionName;
+		
+		private System.Nullable<System.DateTime> _Created;
+		
+		private string _CreatedBy;
+		
+		private string _CreatedWorkstation;
+		
+		private System.Nullable<System.DateTime> _Modified;
+		
+		private string _ModifiedWorkstation;
+		
+		private string _ModifiedBy;
+		
+		private System.Data.Linq.Binary _Version;
+		
+		private EntitySet<Bill> _Bills;
+		
+		private EntitySet<BillWorkflow> _BillWorkflows;
+		
+		private EntitySet<BillWorkflow> _BillWorkflows1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnDivisionIdChanging(int value);
+    partial void OnDivisionIdChanged();
+    partial void OnDivisionCodeChanging(string value);
+    partial void OnDivisionCodeChanged();
+    partial void OnDivisionGroupChanging(string value);
+    partial void OnDivisionGroupChanged();
+    partial void OnDivisionNameChanging(string value);
+    partial void OnDivisionNameChanged();
+    partial void OnCreatedChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedWorkstationChanging(string value);
+    partial void OnCreatedWorkstationChanged();
+    partial void OnModifiedChanging(System.Nullable<System.DateTime> value);
+    partial void OnModifiedChanged();
+    partial void OnModifiedWorkstationChanging(string value);
+    partial void OnModifiedWorkstationChanged();
+    partial void OnModifiedByChanging(string value);
+    partial void OnModifiedByChanged();
+    partial void OnVersionChanging(System.Data.Linq.Binary value);
+    partial void OnVersionChanged();
+    #endregion
+		
+		public Division()
+		{
+			this._Bills = new EntitySet<Bill>(new Action<Bill>(this.attach_Bills), new Action<Bill>(this.detach_Bills));
+			this._BillWorkflows = new EntitySet<BillWorkflow>(new Action<BillWorkflow>(this.attach_BillWorkflows), new Action<BillWorkflow>(this.detach_BillWorkflows));
+			this._BillWorkflows1 = new EntitySet<BillWorkflow>(new Action<BillWorkflow>(this.attach_BillWorkflows1), new Action<BillWorkflow>(this.detach_BillWorkflows1));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivisionId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		public int DivisionId
+		{
+			get
+			{
+				return this._DivisionId;
+			}
+			set
+			{
+				if ((this._DivisionId != value))
+				{
+					this.OnDivisionIdChanging(value);
+					this.SendPropertyChanging();
+					this._DivisionId = value;
+					this.SendPropertyChanged("DivisionId");
+					this.OnDivisionIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivisionCode", DbType="NVarChar(25) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string DivisionCode
+		{
+			get
+			{
+				return this._DivisionCode;
+			}
+			set
+			{
+				if ((this._DivisionCode != value))
+				{
+					this.OnDivisionCodeChanging(value);
+					this.SendPropertyChanging();
+					this._DivisionCode = value;
+					this.SendPropertyChanged("DivisionCode");
+					this.OnDivisionCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivisionGroup", DbType="NVarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string DivisionGroup
+		{
+			get
+			{
+				return this._DivisionGroup;
+			}
+			set
+			{
+				if ((this._DivisionGroup != value))
+				{
+					this.OnDivisionGroupChanging(value);
+					this.SendPropertyChanging();
+					this._DivisionGroup = value;
+					this.SendPropertyChanged("DivisionGroup");
+					this.OnDivisionGroupChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivisionName", DbType="NVarChar(80) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string DivisionName
+		{
+			get
+			{
+				return this._DivisionName;
+			}
+			set
+			{
+				if ((this._DivisionName != value))
+				{
+					this.OnDivisionNameChanging(value);
+					this.SendPropertyChanging();
+					this._DivisionName = value;
+					this.SendPropertyChanged("DivisionName");
+					this.OnDivisionNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created", DbType="SmallDateTime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> Created
+		{
+			get
+			{
+				return this._Created;
+			}
+			set
+			{
+				if ((this._Created != value))
+				{
+					this.OnCreatedChanging(value);
+					this.SendPropertyChanging();
+					this._Created = value;
+					this.SendPropertyChanged("Created");
+					this.OnCreatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedWorkstation", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
+		public string CreatedWorkstation
+		{
+			get
+			{
+				return this._CreatedWorkstation;
+			}
+			set
+			{
+				if ((this._CreatedWorkstation != value))
+				{
+					this.OnCreatedWorkstationChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedWorkstation = value;
+					this.SendPropertyChanged("CreatedWorkstation");
+					this.OnCreatedWorkstationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Modified", DbType="SmallDateTime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> Modified
+		{
+			get
+			{
+				return this._Modified;
+			}
+			set
+			{
+				if ((this._Modified != value))
+				{
+					this.OnModifiedChanging(value);
+					this.SendPropertyChanging();
+					this._Modified = value;
+					this.SendPropertyChanged("Modified");
+					this.OnModifiedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedWorkstation", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
+		public string ModifiedWorkstation
+		{
+			get
+			{
+				return this._ModifiedWorkstation;
+			}
+			set
+			{
+				if ((this._ModifiedWorkstation != value))
+				{
+					this.OnModifiedWorkstationChanging(value);
+					this.SendPropertyChanging();
+					this._ModifiedWorkstation = value;
+					this.SendPropertyChanged("ModifiedWorkstation");
+					this.OnModifiedWorkstationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedBy", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
+		public string ModifiedBy
+		{
+			get
+			{
+				return this._ModifiedBy;
+			}
+			set
+			{
+				if ((this._ModifiedBy != value))
+				{
+					this.OnModifiedByChanging(value);
+					this.SendPropertyChanging();
+					this._ModifiedBy = value;
+					this.SendPropertyChanged("ModifiedBy");
+					this.OnModifiedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Version
+		{
+			get
+			{
+				return this._Version;
+			}
+			set
+			{
+				if ((this._Version != value))
+				{
+					this.OnVersionChanging(value);
+					this.SendPropertyChanging();
+					this._Version = value;
+					this.SendPropertyChanged("Version");
+					this.OnVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_Bill", Storage="_Bills", ThisKey="DivisionId", OtherKey="SubmitedToDivisionId")]
+		public EntitySet<Bill> Bills
+		{
+			get
+			{
+				return this._Bills;
+			}
+			set
+			{
+				this._Bills.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_BillWorkflow", Storage="_BillWorkflows", ThisKey="DivisionId", OtherKey="ToDivisionId")]
+		public EntitySet<BillWorkflow> BillWorkflows
+		{
+			get
+			{
+				return this._BillWorkflows;
+			}
+			set
+			{
+				this._BillWorkflows.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_BillWorkflow1", Storage="_BillWorkflows1", ThisKey="DivisionId", OtherKey="FromDivisionId")]
+		public EntitySet<BillWorkflow> BillWorkflows1
+		{
+			get
+			{
+				return this._BillWorkflows1;
+			}
+			set
+			{
+				this._BillWorkflows1.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Bills(Bill entity)
+		{
+			this.SendPropertyChanging();
+			entity.Division = this;
+		}
+		
+		private void detach_Bills(Bill entity)
+		{
+			this.SendPropertyChanging();
+			entity.Division = null;
+		}
+		
+		private void attach_BillWorkflows(BillWorkflow entity)
+		{
+			this.SendPropertyChanging();
+			entity.Division = this;
+		}
+		
+		private void detach_BillWorkflows(BillWorkflow entity)
+		{
+			this.SendPropertyChanging();
+			entity.Division = null;
+		}
+		
+		private void attach_BillWorkflows1(BillWorkflow entity)
+		{
+			this.SendPropertyChanging();
+			entity.Division1 = this;
+		}
+		
+		private void detach_BillWorkflows1(BillWorkflow entity)
+		{
+			this.SendPropertyChanging();
+			entity.Division1 = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Contractor")]
+	public partial class Contractor : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ContractorId;
+		
+		private string _ContractorName;
+		
+		private string _ContractorCode;
+		
+		private string _Nationality;
+		
+		private string _Address;
+		
+		private string _City;
+		
+		private string _State;
+		
+		private string _Country;
+		
+		private string _Postal_Code;
+		
+		private string _Contact_person;
+		
+		private string _Phone1;
+		
+		private string _Phone2;
+		
+		private string _Fax;
+		
+		private System.Nullable<System.DateTime> _Created;
+		
+		private string _CreatedBy;
+		
+		private string _CreatedWorkstation;
+		
+		private System.Nullable<System.DateTime> _Modified;
+		
+		private string _ModifiedBy;
+		
+		private System.Data.Linq.Binary _Version;
+		
+		private string _ModifiedWorkstation;
+		
+		private EntitySet<Bill> _Bills;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnContractorIdChanging(int value);
+    partial void OnContractorIdChanged();
+    partial void OnContractorNameChanging(string value);
+    partial void OnContractorNameChanged();
+    partial void OnContractorCodeChanging(string value);
+    partial void OnContractorCodeChanged();
+    partial void OnNationalityChanging(string value);
+    partial void OnNationalityChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
+    partial void OnCityChanging(string value);
+    partial void OnCityChanged();
+    partial void OnStateChanging(string value);
+    partial void OnStateChanged();
+    partial void OnCountryChanging(string value);
+    partial void OnCountryChanged();
+    partial void OnPostal_CodeChanging(string value);
+    partial void OnPostal_CodeChanged();
+    partial void OnContact_personChanging(string value);
+    partial void OnContact_personChanged();
+    partial void OnPhone1Changing(string value);
+    partial void OnPhone1Changed();
+    partial void OnPhone2Changing(string value);
+    partial void OnPhone2Changed();
+    partial void OnFaxChanging(string value);
+    partial void OnFaxChanged();
+    partial void OnCreatedChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedWorkstationChanging(string value);
+    partial void OnCreatedWorkstationChanged();
+    partial void OnModifiedChanging(System.Nullable<System.DateTime> value);
+    partial void OnModifiedChanged();
+    partial void OnModifiedByChanging(string value);
+    partial void OnModifiedByChanged();
+    partial void OnVersionChanging(System.Data.Linq.Binary value);
+    partial void OnVersionChanged();
+    partial void OnModifiedWorkstationChanging(string value);
+    partial void OnModifiedWorkstationChanged();
+    #endregion
+		
+		public Contractor()
+		{
+			this._Bills = new EntitySet<Bill>(new Action<Bill>(this.attach_Bills), new Action<Bill>(this.detach_Bills));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContractorId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		public int ContractorId
+		{
+			get
+			{
+				return this._ContractorId;
+			}
+			set
+			{
+				if ((this._ContractorId != value))
+				{
+					this.OnContractorIdChanging(value);
+					this.SendPropertyChanging();
+					this._ContractorId = value;
+					this.SendPropertyChanged("ContractorId");
+					this.OnContractorIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContractorName", DbType="NVarChar(120) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string ContractorName
+		{
+			get
+			{
+				return this._ContractorName;
+			}
+			set
+			{
+				if ((this._ContractorName != value))
+				{
+					this.OnContractorNameChanging(value);
+					this.SendPropertyChanging();
+					this._ContractorName = value;
+					this.SendPropertyChanged("ContractorName");
+					this.OnContractorNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContractorCode", DbType="NVarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string ContractorCode
+		{
+			get
+			{
+				return this._ContractorCode;
+			}
+			set
+			{
+				if ((this._ContractorCode != value))
+				{
+					this.OnContractorCodeChanging(value);
+					this.SendPropertyChanging();
+					this._ContractorCode = value;
+					this.SendPropertyChanged("ContractorCode");
+					this.OnContractorCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nationality", DbType="NVarChar(2) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string Nationality
+		{
+			get
+			{
+				return this._Nationality;
+			}
+			set
+			{
+				if ((this._Nationality != value))
+				{
+					this.OnNationalityChanging(value);
+					this.SendPropertyChanging();
+					this._Nationality = value;
+					this.SendPropertyChanged("Nationality");
+					this.OnNationalityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this.OnAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Address = value;
+					this.SendPropertyChanged("Address");
+					this.OnAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_City", DbType="NVarChar(25)", UpdateCheck=UpdateCheck.Never)]
+		public string City
+		{
+			get
+			{
+				return this._City;
+			}
+			set
+			{
+				if ((this._City != value))
+				{
+					this.OnCityChanging(value);
+					this.SendPropertyChanging();
+					this._City = value;
+					this.SendPropertyChanged("City");
+					this.OnCityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="NVarChar(30)", UpdateCheck=UpdateCheck.Never)]
+		public string State
+		{
+			get
+			{
+				return this._State;
+			}
+			set
+			{
+				if ((this._State != value))
+				{
+					this.OnStateChanging(value);
+					this.SendPropertyChanging();
+					this._State = value;
+					this.SendPropertyChanged("State");
+					this.OnStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Country", DbType="NVarChar(25)", UpdateCheck=UpdateCheck.Never)]
+		public string Country
+		{
+			get
+			{
+				return this._Country;
+			}
+			set
+			{
+				if ((this._Country != value))
+				{
+					this.OnCountryChanging(value);
+					this.SendPropertyChanging();
+					this._Country = value;
+					this.SendPropertyChanged("Country");
+					this.OnCountryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Postal_Code", DbType="NVarChar(10)", UpdateCheck=UpdateCheck.Never)]
+		public string Postal_Code
+		{
+			get
+			{
+				return this._Postal_Code;
+			}
+			set
+			{
+				if ((this._Postal_Code != value))
+				{
+					this.OnPostal_CodeChanging(value);
+					this.SendPropertyChanging();
+					this._Postal_Code = value;
+					this.SendPropertyChanged("Postal_Code");
+					this.OnPostal_CodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contact_person", DbType="NVarChar(50)", UpdateCheck=UpdateCheck.Never)]
+		public string Contact_person
+		{
+			get
+			{
+				return this._Contact_person;
+			}
+			set
+			{
+				if ((this._Contact_person != value))
+				{
+					this.OnContact_personChanging(value);
+					this.SendPropertyChanging();
+					this._Contact_person = value;
+					this.SendPropertyChanged("Contact_person");
+					this.OnContact_personChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone1", DbType="NVarChar(25)", UpdateCheck=UpdateCheck.Never)]
+		public string Phone1
+		{
+			get
+			{
+				return this._Phone1;
+			}
+			set
+			{
+				if ((this._Phone1 != value))
+				{
+					this.OnPhone1Changing(value);
+					this.SendPropertyChanging();
+					this._Phone1 = value;
+					this.SendPropertyChanged("Phone1");
+					this.OnPhone1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone2", DbType="NVarChar(25)", UpdateCheck=UpdateCheck.Never)]
+		public string Phone2
+		{
+			get
+			{
+				return this._Phone2;
+			}
+			set
+			{
+				if ((this._Phone2 != value))
+				{
+					this.OnPhone2Changing(value);
+					this.SendPropertyChanging();
+					this._Phone2 = value;
+					this.SendPropertyChanged("Phone2");
+					this.OnPhone2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fax", DbType="NVarChar(25)", UpdateCheck=UpdateCheck.Never)]
+		public string Fax
+		{
+			get
+			{
+				return this._Fax;
+			}
+			set
+			{
+				if ((this._Fax != value))
+				{
+					this.OnFaxChanging(value);
+					this.SendPropertyChanging();
+					this._Fax = value;
+					this.SendPropertyChanged("Fax");
+					this.OnFaxChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created", DbType="SmallDateTime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> Created
+		{
+			get
+			{
+				return this._Created;
+			}
+			set
+			{
+				if ((this._Created != value))
+				{
+					this.OnCreatedChanging(value);
+					this.SendPropertyChanging();
+					this._Created = value;
+					this.SendPropertyChanged("Created");
+					this.OnCreatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedWorkstation", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
+		public string CreatedWorkstation
+		{
+			get
+			{
+				return this._CreatedWorkstation;
+			}
+			set
+			{
+				if ((this._CreatedWorkstation != value))
+				{
+					this.OnCreatedWorkstationChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedWorkstation = value;
+					this.SendPropertyChanged("CreatedWorkstation");
+					this.OnCreatedWorkstationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Modified", DbType="SmallDateTime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> Modified
+		{
+			get
+			{
+				return this._Modified;
+			}
+			set
+			{
+				if ((this._Modified != value))
+				{
+					this.OnModifiedChanging(value);
+					this.SendPropertyChanging();
+					this._Modified = value;
+					this.SendPropertyChanged("Modified");
+					this.OnModifiedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedBy", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
+		public string ModifiedBy
+		{
+			get
+			{
+				return this._ModifiedBy;
+			}
+			set
+			{
+				if ((this._ModifiedBy != value))
+				{
+					this.OnModifiedByChanging(value);
+					this.SendPropertyChanging();
+					this._ModifiedBy = value;
+					this.SendPropertyChanged("ModifiedBy");
+					this.OnModifiedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Version
+		{
+			get
+			{
+				return this._Version;
+			}
+			set
+			{
+				if ((this._Version != value))
+				{
+					this.OnVersionChanging(value);
+					this.SendPropertyChanging();
+					this._Version = value;
+					this.SendPropertyChanged("Version");
+					this.OnVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedWorkstation", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
+		public string ModifiedWorkstation
+		{
+			get
+			{
+				return this._ModifiedWorkstation;
+			}
+			set
+			{
+				if ((this._ModifiedWorkstation != value))
+				{
+					this.OnModifiedWorkstationChanging(value);
+					this.SendPropertyChanging();
+					this._ModifiedWorkstation = value;
+					this.SendPropertyChanged("ModifiedWorkstation");
+					this.OnModifiedWorkstationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contractor_Bill", Storage="_Bills", ThisKey="ContractorId", OtherKey="ContractorId")]
+		public EntitySet<Bill> Bills
+		{
+			get
+			{
+				return this._Bills;
+			}
+			set
+			{
+				this._Bills.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Bills(Bill entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contractor = this;
+		}
+		
+		private void detach_Bills(Bill entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contractor = null;
 		}
 	}
 }
