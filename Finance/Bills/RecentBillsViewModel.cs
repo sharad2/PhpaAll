@@ -18,18 +18,16 @@ namespace PhpaAll.Bills
         internal BillModel(Bill bill)
         {
             Amount = bill.Amount;
-            ApprovedBy = bill.ApprovedBy;
+            Particulars = bill.Particulars;
             BillNumber = bill.BillNumber;
-            ApprovedDate = bill.ApprovedOn;
             BillDate = bill.BillDate;
             //BillImage = model.BillImage,          
             ContractorId = bill.ContractorId;
-            DivisionId = bill.DivisionId;
+            SubmittedToDivisionId = bill.SubmitedToDivisionId;
             DueDate = bill.DueDate;
-            PaidDate = bill.PaidOn;
+            PaidDate = bill.PaidDate;
             Remarks = bill.Remarks;
-            DivisionSubmittedDate = bill.SubmittedToDivision;
-            FinanceSubmittedDate = bill.SubmittedToFinance;
+            SubmittedOnDate = bill.SubmittedOnDate;
             Id = bill.Id;
         }
         //For internal use to retrive row for editing
@@ -44,7 +42,7 @@ namespace PhpaAll.Bills
         public DateTime? DueDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime? DivisionSubmittedDate { get; set; }
+        public DateTime? SubmittedOnDate { get; set; }
 
          [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? FinanceSubmittedDate { get; set; }
@@ -53,11 +51,13 @@ namespace PhpaAll.Bills
         public DateTime? PaidDate { get; set; }
 
 
-        public int? DivisionId { get; set; }
+        public int? SubmittedToDivisionId { get; set; }
 
         public int? ContractorId { get; set; }
 
-        
+        public string Particulars { get; set; }
+
+
         public Decimal? Amount { get; set; }
 
         public string ApprovedBy { get; set; }

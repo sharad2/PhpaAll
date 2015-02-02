@@ -29,11 +29,7 @@ namespace PhpaAll.Bills
 
         [Display(Name = "Submitted to division")]
         [DataType(DataType.Date)]
-        public DateTime? DivisionSubmittedDate { get; set; }
-
-        [Display(Name = "Submitted to finance")]
-        [DataType(DataType.Date)]
-        public DateTime? FinanceSubmittedDate { get; set; }
+        public DateTime? SubmittedOnDate { get; set; }
 
         [Display(Name = "Pro Date")]
         [DataType(DataType.Date)]
@@ -45,7 +41,7 @@ namespace PhpaAll.Bills
 
         [Display(Name = "Division Id")]
         [Required (ErrorMessage="Division Id is required.")]
-        public int? DivisionId { get; set; }
+        public int? SubmittedToDivisionId { get; set; }
 
         [Display(Name = "Contractor Id")]
         public int? ContractorId { get; set; }
@@ -54,14 +50,11 @@ namespace PhpaAll.Bills
         [Required (ErrorMessage="Amount is required.")]
         public Decimal? Amount { get; set; }
 
-        [Display(Name = "Approved by")]
-        [StringLength(50, ErrorMessage = "You can insert only 50 characters ")]
-        public string ApprovedBy { get; set; }
+        [Display(Name = "Bill For")]
+        [StringLength(255, ErrorMessage = "You can insert only 255 characters ")]
+        public string Particulars { get; set; }
 
-        [Display(Name = "Approved date")]
-        [DataType(DataType.Date)]
-        public DateTime? ApprovedDate { get; set; }
-
+       
         [Display(Name = "Remarks")]
         [StringLength(255, ErrorMessage = "Max limit is 255 characters")]
         public string Remarks { get; set; }

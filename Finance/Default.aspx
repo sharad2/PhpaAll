@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" Inherits="_Default" EnableViewState="false"
-    CodeBehind="Default.aspx.cs" Title="PHPA Home Page" %>
+    CodeBehind="Default.aspx.cs" Title="PHPA Home Page" AutoEventWireup="True" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style type="text/css">

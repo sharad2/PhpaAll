@@ -6,15 +6,21 @@
       <Column Name="BillNumber" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
       <Column Name="BillDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="DueDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="SubmittedToDivision" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="PaidDate" Storage="_PaidOn" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="SubmittedToDivisionId" Storage="_DivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubmittedOnDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="PaidDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="SubmitedToDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ContractorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="ApprovedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="ApprovedOn" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="Remarks" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="BillImage" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="BillImage" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

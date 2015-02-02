@@ -76,19 +76,17 @@ namespace PhpaAll.Controllers
 
             var bill = new Bill
             {
-                Amount = model.Amount,
-                ApprovedBy = model.ApprovedBy,
+                Amount = model.Amount,           
                 BillNumber = model.BillNumber,
-                ApprovedOn = model.ApprovedDate,
+                Particulars = model.Particulars,
                 BillDate = model.BillDate,
                 BillImage = imageData,               
                 ContractorId = model.ContractorId,
-                DivisionId = model.DivisionId,
+                SubmitedToDivisionId = model.SubmittedToDivisionId,
                 DueDate = model.DueDate,
-                PaidOn = model.PaidDate,
+                PaidDate = model.PaidDate,
                 Remarks = model.Remarks,
-                SubmittedToDivision = model.DivisionSubmittedDate,
-                SubmittedToFinance = model.FinanceSubmittedDate,
+                SubmittedOnDate = model.SubmittedOnDate,               
                 Id= model.Id
             };   
             if (model.isEditMode)
@@ -134,17 +132,14 @@ namespace PhpaAll.Controllers
             {
                 Id = bill.Id,
                 Amount = bill.Amount,
-                ApprovedBy = bill.ApprovedBy,
-                BillNumber = bill.BillNumber,
-                ApprovedDate = bill.ApprovedOn,
+                BillNumber = bill.BillNumber,              
                 BillDate = bill.BillDate,             
                 ContractorId = bill.ContractorId,
-                DivisionId = bill.DivisionId,
+                SubmittedToDivisionId = bill.SubmitedToDivisionId,
                 DueDate = bill.DueDate,
-                PaidDate = bill.PaidOn,
+                PaidDate = bill.PaidDate,
                 Remarks = bill.Remarks,
-                DivisionSubmittedDate = bill.SubmittedToDivision,
-                FinanceSubmittedDate = bill.SubmittedToFinance,
+                SubmittedOnDate = bill.SubmittedOnDate,             
                 isEditMode = true
 
             };

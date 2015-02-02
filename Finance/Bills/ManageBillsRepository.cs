@@ -62,18 +62,16 @@ namespace PhpaAll.Bills
                            select bill).SingleOrDefault();
 
             edit.Amount = model.Amount;
-            edit.ApprovedBy = model.ApprovedBy;
+            edit.Particulars = model.Particulars;
             edit.BillNumber = model.BillNumber;
-            edit.ApprovedOn = model.ApprovedOn;
             edit.BillDate = model.BillDate;
             edit.BillImage = model.BillImage;
             edit.ContractorId = model.ContractorId;
-            edit.DivisionId = model.DivisionId;
+            edit.SubmitedToDivisionId = model.SubmitedToDivisionId;
             edit.DueDate = model.DueDate;
-            edit.PaidOn = model.PaidOn;
+            edit.PaidDate = model.PaidDate;
             edit.Remarks = model.Remarks;
-            edit.SubmittedToDivision = model.SubmittedToDivision;
-            edit.SubmittedToFinance = model.SubmittedToFinance;
+            edit.SubmittedOnDate = model.SubmittedOnDate;        
 
             _db.SubmitChanges();
         }

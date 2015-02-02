@@ -38,23 +38,9 @@
                     </small>
                 </h4>
                 <p class="list-group-item-text">
-                    <abrr title="Division Submitted Date">Division Submitted Date</abrr>
+                    <abrr title="Division Submitted Date">Submitted Date</abrr>
                 </p>
-            </div>
-            <div class="col-md-4">
-                <h4 class="list-group-item-heading">
-                    Approved by
-                    <span class="pull-right">
-                        <button class="btn btn-sm btn-default" disabled>Action</button>
-                    </span>
-                    <small>
-                        Approved Date
-                    </small>
-                </h4>
-                <p class="list-group-item-text">
-                    <abrr title="Finance Submitted Date">Finance Submitted Date</abrr>
-                </p>
-            </div>
+            </div>           
         </div>
         <em><small>Remark</small></em>
     </li>
@@ -75,8 +61,8 @@
                     </h4>
                     <p class="list-group-item-text">
                        
-                            <span class="@(Model.Bills[i].DivisionId.HasValue ? "label label-info":null)">
-                                @Html.DisplayFor(m => m.Bills[i].DivisionId)
+                            <span class="@(Model.Bills[i].SubmittedToDivisionId.HasValue ? "label label-info":null)">
+                                @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionId)
                             </span>                      
                         &nbsp;                       
                             <span class="@(Model.Bills[i].ContractorId.HasValue ? "label label-success": null)">
@@ -100,7 +86,7 @@
                     </h4>
                     <p class="list-group-item-text">
                         <abrr title="Division Submitted Date">
-                            @Html.DisplayFor(m => m.Bills[i].DivisionSubmittedDate)
+                            @Html.DisplayFor(m => m.Bills[i].SubmittedOnDate)
                         </abrr>
                     </p>
                 </div>
@@ -131,16 +117,8 @@
                            
                             </div>
                         </div>
-                        <small>
-                            @Html.DisplayFor(m => m.Bills[i].ApprovedDate)
-                        </small>
+                       
                     </div>
-                    <p class="list-group-item-text">
-                        <abrr title="Finance Submitted Date">
-                            @Html.DisplayFor(m => m.Bills[i].FinanceSubmittedDate)
-                        </abrr>
-                    </p>
-
 
                 </div>
             </div>
