@@ -8,7 +8,7 @@
 
 <h2 style="margin-top:0">
 
-        <span>Edit Bill <mark class="small">@Html.DisplayFor(m => m.BillNumber)</mark></span>   
+    <span>Edit Bill <mark class="small">@Html.DisplayFor(m => m.BillNumber)</mark></span>
 </h2>
 
 <p>
@@ -193,10 +193,23 @@
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-               
-                    <button type="submit" class="btn btn-primary">Save</button>               
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">                
+                    Delete
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation" style="text-align:center">
+                        <div>
+                            Sure ?
+                            <a href="@Url.Action(MVC.ManageBills.Delete(Model.Id))" class="btn btn-primary">
+                                Yes
+                            </a>
+                        </div>
+                    </li>
+                </ul>
                 <a href="@Url.Action(MVC.ManageBills.Bill(Model.Id))">Cancel</a>
-                <button href="@Url.Action(MVC.ManageBills.Delete(Model.Id))">Delete</button>
+
             </div>
         </div>
     </div>
