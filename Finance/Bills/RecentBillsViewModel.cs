@@ -10,26 +10,27 @@ namespace PhpaAll.Bills
 {
     public class BillModel
     {
-        public BillModel()
-        {
+        //public BillModel()
+        //{
 
-        }
+        //}
    
-        internal BillModel(Bill bill)
-        {
-            Amount = bill.Amount;
-            Particulars = bill.Particulars;
-            BillNumber = bill.BillNumber;
-            BillDate = bill.BillDate;
-            //BillImage = model.BillImage,          
-            ContractorId = bill.ContractorId;
-            SubmittedToDivisionId = bill.SubmitedToDivisionId;
-            DueDate = bill.DueDate;
-            PaidDate = bill.PaidDate;
-            Remarks = bill.Remarks;
-            SubmittedOnDate = bill.SubmittedOnDate;
-            Id = bill.Id;
-        }
+        //[Obsolete]
+        //internal BillModel(Bill bill)
+        //{
+        //    Amount = bill.Amount;
+        //    Particulars = bill.Particulars;
+        //    BillNumber = bill.BillNumber;
+        //    BillDate = bill.BillDate;
+        //    //BillImage = model.BillImage,          
+        //    ContractorId = bill.ContractorId;
+        //    SubmittedToDivisionId = bill.SubmitedToDivisionId;
+        //    DueDate = bill.DueDate;
+        //    PaidDate = bill.PaidDate;
+        //    Remarks = bill.Remarks;
+        //    SubmittedOnDate = bill.SubmittedOnDate;
+        //    Id = bill.Id;
+        //}
         //For internal use to retrive row for editing
         public int Id { get; set; }
 
@@ -53,11 +54,15 @@ namespace PhpaAll.Bills
 
         public int? SubmittedToDivisionId { get; set; }
 
+        public string SubmittedToDivisionName { get; set; }
+
         public int? ContractorId { get; set; }
+
+        public string ContractorName { get; set; }
 
         public string Particulars { get; set; }
 
-
+        [DisplayFormat(DataFormatString = "{0:N2}")]
         public Decimal? Amount { get; set; }
 
         public string ApprovedBy { get; set; }

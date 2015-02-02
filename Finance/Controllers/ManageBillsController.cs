@@ -48,7 +48,23 @@ namespace PhpaAll.Controllers
             {
                 Bills = (from bill in _service.Value.Bills
                          orderby bill.BillDate descending
-                         select new BillModel(bill)).ToList()
+                         select new BillModel
+                         {
+                             Amount = bill.Amount,
+                             Particulars = bill.Particulars,
+                             BillNumber = bill.BillNumber,
+                             BillDate = bill.BillDate,
+                             //BillImage = model.BillImage,          
+                             ContractorId = bill.ContractorId,
+                             ContractorName = bill.Contractor.ContractorName,
+                             SubmittedToDivisionId = bill.SubmitedToDivisionId,
+                             SubmittedToDivisionName = bill.Division.DivisionName,
+                             DueDate = bill.DueDate,
+                             PaidDate = bill.PaidDate,
+                             Remarks = bill.Remarks,
+                             SubmittedOnDate = bill.SubmittedOnDate,
+                             Id = bill.Id,
+                         }).ToList()
             };
             return View(Views.RecentBills, model);
         }

@@ -10,135 +10,38 @@
 </h2>
 <pre>
 Approved By: Mgr 1 (22) Mgr2 (26)  Not Approved
-
 Station: S1(23) S2(25) ....
-
 Submitted to Division: ....
-
 Currently in Division: ....
-
 Contractor: ....
-
 Paid / Unpaid
-
+</pre>
+<pre>
+TODO: Amounts of approved bills will display in green
 </pre>
 <ul class="list-group">
-    <li class="list-group-item list-group-item-success">
-        <div class="row">
-            <div class="col-md-5">
-                <h4 class="list-group-item-heading">
-                    Bill Number
-                    <small>
-                        <em>Particulars</em>
-                        <span class="badge"> Date</span>
-                    </small>
-                </h4>
-                <p class="list-group-item-text">
-                    <span class="label label-info">Division Id</span>
-                    <span class="label label-success">Contractor Id</span>
-                </p>
-            </div>
-            <div class="col-md-3">
-                <h4 class="list-group-item-heading">
-                    Amount(Nu)
-                    <small>
-                        Paid Date
-                        <em>
-                            <mark>
-                                Due Date
-                            </mark>
-                        </em>
-                    </small>
-                </h4>
-                <p class="list-group-item-text">
-                    <abrr title="Division Submitted Date">Submitted Date</abrr>
-                </p>
-            </div>
-        </div>
-        <em><small>Remark</small></em>
-    </li>
     @for (var i = 0; i < Model.Bills.Count; ++i)
     {
-
         <li class="list-group-item">
             <div class="row">
-                <div class="col-md-5">
-                    <h4 class="list-group-item-heading">
-                        @Html.DisplayFor(m => m.Bills[i].BillNumber)
-                        <small>
-                            <em>@Html.DisplayFor(p => p.Bills[i].Particulars)</em>
-                            <span class="@(Model.Bills[i].BillDate.HasValue ? "badge":null)">
-                                @Html.DisplayFor(m => m.Bills[i].BillDate)
-                            </span>
-                        </small>
-                    </h4>
-                    <p class="list-group-item-text">
-
-                        <span class="@(Model.Bills[i].SubmittedToDivisionId.HasValue ? "label label-info":null)">
-                            @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionId)
-                        </span>
-                        &nbsp;
-                        <span class="@(Model.Bills[i].ContractorId.HasValue ? "label label-success": null)">
-                            @Html.DisplayFor(m => m.Bills[i].ContractorId)
-                        </span>
-                    </p>
+                <div class="col-md-1">
+                    @Html.DisplayFor(m => m.Bills[i].BillDate)
+                </div>
+                <div class="col-md-2">
+                    <em>@Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)</em>
                 </div>
                 <div class="col-md-3">
-                    <h4 class="list-group-item-heading">
-                        @Html.DisplayFor(m => m.Bills[i].Amount)
-                        <small>
-                            @Html.DisplayFor(m => m.Bills[i].PaidDate)
-                            <em>
-                                @if (Model.Bills[i].DueDate.HasValue)
-                                {
-                                    <mark>@Html.DisplayFor(m => m.Bills[i].DueDate)</mark>
-                                }
-                            </em>
-                        </small>
-                    </h4>
-                    <p class="list-group-item-text">
-                        <abrr title="Division Submitted Date">
-                            @Html.DisplayFor(m => m.Bills[i].SubmittedOnDate)
-                        </abrr>
-                    </p>
+                    @Html.DisplayFor(m => m.Bills[i].ContractorName)
                 </div>
-                <div class="col-md-4">
-                    <div class="list-group-item-heading h4">
-                        @Html.DisplayFor(m => m.Bills[i].ApprovedBy)
-                        <div class="pull-right">
-                            <div class="btn-group btn-group-sm" role="group">
-                                <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                    Edit
-                                </a>
-
-                                <a href="@Url.Action(MVC.ManageBills.Bill(Model.Bills[i].Id))" class="btn btn-default">
-                                    View
-                                </a>
-                                @*<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                        Delete
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                        <li role="presentation" style="text-align:center">
-                                            <div>
-                                                Sure ?
-                                                <a href="@Url.Action(MVC.ManageBills.Delete(Model.Bills[i].Id))" class="btn btn-primary">
-                                                    Yes
-                                                </a>
-                                            </div>
-                                        </li>
-                                    </ul>*@
-
-                            </div>
-                        </div>
-
+                <div class="col-md-offset-4 col-md-2">
+                    <span class="label label-info">Due @Html.DisplayFor(m => m.Bills[i].DueDate)</span>
+                    <div class="pull-right">
+                        @Html.DisplayFor(m => m.Bills[i].Amount)
                     </div>
                 </div>
             </div>
-            <em><small>@Html.DisplayFor(m => m.Bills[i].Remarks)</small></em>
+            <small><em>@Html.DisplayFor(m => m.Bills[i].BillNumber)</em></small>
+            @Html.DisplayFor(m => m.Bills[i].Particulars)
         </li>
-
     }
 </ul>
