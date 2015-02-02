@@ -11,10 +11,7 @@
     <span>Edit Bill <mark class="small">@Html.DisplayFor(m => m.BillNumber)</mark></span>
 </h2>
 
-<p>
-    The bill is created as soon as it is received by the division. Creation of the bill imples that it has been approved for payment by the division.
-    It becomes visible to finance as soon as it is created. Finance must then approve it for payment.
-</p>
+
 
 <form class="form-horizontal" action="@Url.Action(MVC.ManageBills.Edit())" method="post" enctype="multipart/form-data">
     @Html.HiddenFor(m => m.Id)
