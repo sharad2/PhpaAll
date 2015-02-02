@@ -17,6 +17,10 @@
     }
 </h2>
 
+<p>
+    The bill is created as soon as it is received by the division. Creation of the bill imples that it has been approved for payment by the division.
+    It becomes visible to finance as soon as it is created. Finance must then approve it for payment.
+</p>
 
 <form class="form-horizontal" action="@Url.Action(MVC.ManageBills.CreateUpdateBill())" method="post" enctype="multipart/form-data">
     @Html.HiddenFor(m=> m.Id)
@@ -25,7 +29,7 @@
     <div class="well well-sm">
         <div class="form-group form-group-sm">
             <label for="billNumber" class="col-sm-2 control-label">Bill No. *</label>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
              
                     @Html.TextBoxFor(m => m.BillNumber, new
                                    {
@@ -43,7 +47,7 @@
                 
             </div>
 
-            <label for="billType" class="col-sm-1 control-label">Type</label>
+            @*<label for="billType" class="col-sm-1 control-label">Type</label>
             <div class="col-sm-2">
                 @Html.TextBoxFor(m => m.BillType, new
            {
@@ -56,10 +60,10 @@
                @class = "help-block"
            })
 
-            </div>
+            </div>*@
 
-            <label for="billDate" class="col-sm-2 control-label">Date *</label>
-            <div class="col-sm-2">
+            <label for="billDate" class="col-sm-2 control-label">Bill Date *</label>
+            <div class="col-sm-4">
                 @Html.TextBoxFor(m => m.BillDate, new
            {
                id = "billDate",
@@ -78,7 +82,7 @@
         <div class="form-group form-group-sm">
 
             <label for="amount" class="col-sm-2 control-label">Amount *</label>
-            <div class="col-sm-2">
+            <div class="col-sm-4">
                 @Html.TextBoxFor(m => m.Amount, new
            {
                id = "amount",
@@ -95,8 +99,8 @@
 
             </div>
 
-            <label for="approvedBy" class="col-sm-2 control-label">Approved by</label>
-            <div class="col-sm-2">
+            <label for="approvedBy" class="col-sm-2 control-label">Particulars</label>
+            <div class="col-sm-4">
                 @Html.TextBoxFor(m => m.ApprovedBy, new
            {
                id = "approvedBy",
@@ -111,7 +115,7 @@
 
             </div>
 
-            <label for="approvedOn" class="col-sm-2 control-label">Approved Date</label>
+            @*<label for="approvedOn" class="col-sm-2 control-label">Approved Date</label>
             <div class="col-sm-2">
                 @Html.TextBoxFor(m => m.ApprovedDate, new
            {
@@ -126,11 +130,11 @@
                @class = "help-block"
            })
 
-            </div>
+            </div>*@
         </div>
 
         <div class="form-group form-group-sm">
-            <label for="divId" class="col-sm-2 control-label">Division Id *</label>
+            <label for="divId" class="col-sm-2 control-label">Received by Division *</label>
             <div class="col-sm-2">
                 @Html.TextBoxFor(m => m.DivisionId, new
            {
@@ -147,7 +151,8 @@
 
             </div>
 
-            <label for="divSubDate" class="col-sm-2 control-label">To Division</label>
+
+            <label for="divSubDate" class="col-sm-2 control-label">on</label>
             <div class="col-sm-2">
                 @Html.TextBoxFor(m => m.DivisionSubmittedDate, new
            {
@@ -161,11 +166,11 @@
                @class = "help-block"
            })
 
-                <small class="help-block">*Submitted to division date</small>
+                <strong class="help-block text-warning">*This column need to be rename in backend</strong>
             </div>
 
 
-            <label for="finSubDate" class="col-sm-2 control-label">To Finance</label>
+            @*<label for="finSubDate" class="col-sm-2 control-label">To Finance</label>
             <div class="col-sm-2">
                 @Html.TextBoxFor(m => m.FinanceSubmittedDate, new
            {
@@ -180,7 +185,7 @@
                @class = "help-block"
            })
                 <small class="help-block">*Submitted to finance date</small>
-            </div>
+            </div>*@
         </div>
 
         <div class="form-group form-group-sm">
@@ -215,7 +220,7 @@
 
             </div>
 
-            <label for="paidDate" class="col-sm-2 control-label">Paid Date</label>
+            @*<label for="paidDate" class="col-sm-2 control-label">Paid Date</label>
             <div class="col-sm-2">
                 @Html.TextBoxFor(m => m.PaidDate, new
            {
@@ -230,7 +235,7 @@
                @class = "help-block"
            })
 
-            </div>
+            </div>*@
         </div>
 
         <div class="form-group">

@@ -1,8 +1,50 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-
 <h2>Index</h2>
+<p>
+    A bill is an invoice sent by a contractor to PHPA. Approving authority authorizes its payment and then a voucher can be created for it.
+</p>
+<div class="row">
+    <div class="col-md-4">
+        <div class="well">
+            <h2>Data Entry</h2>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="@Url.Action(MVC.ManageBills.Create())">Create new Bill</a></li>
+                <li class="list-group-item"><a href="@Url.Action(MVC.ManageBills.RecentBills())">Recently Entered</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="well">
+            <h2>Manage</h2>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="#">Approve for Payment</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="well">
+            <h2>Plan and Analyze</h2>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="#">Outstanding and Overdue Bills</a></li>
+                <li class="list-group-item"><a href="#">Fund Requirements</a></li>
+            </ul>
+        </div>
+    </div>
 
-<a href="@Url.Action(MVC.ManageBills.RecentBills())" class="btn btn-default">See Recent Bills</a>
-<a href="@Url.Action(MVC.ManageBills.Create())" class="btn btn-default">Create new Bills</a>
+
+</div>
+
+<pre>
+Main features of the Bill Management module include:
+•	Top management will be able to see outstanding bills by contractor, division, station or any combination thereof.
+•	Estimate future fund requirements based on the entered bills. This will improve cash flow planning.
+•	Scanned image of the bill will be captured for future reference.
+•	Authorized managers will have the capability to approve, reject or delay payment of the bill.
+•	Full audit trail of the approval process will be visible.
+•	Capability to search for any bill based on multiple criteria.
+•	Capability to enter future bills. This will help in planning future expenses.
+•	Will help in ensuring that bills are paid by their due date.
+•	Capability to view overdue bills
+</pre>
