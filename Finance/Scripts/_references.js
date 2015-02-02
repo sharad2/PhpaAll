@@ -13,3 +13,6 @@
 /// <reference path="jquery.validate.unobtrusive.min.js" />
 /// <reference path="npm.js" />
 /// <reference path="bootstrap.min.js" />
+/// <reference path="moment-with-locales.min.js" />
+/// <reference path="moment.min.js" />
+/// <reference path="bootstrap-datetimepicker.min.js" />

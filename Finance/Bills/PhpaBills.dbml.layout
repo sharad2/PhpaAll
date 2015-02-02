@@ -1,12 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="PhpaBills">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.5, 8.5" name="PhpaBills">
   <DataContextMoniker Name="/PhpaBillsDataContext" />
   <nestedChildShapes>
-    <classShape Id="2ee83468-3245-4d09-84fd-a4bea28c4bc9" absoluteBounds="2.25, 2, 2, 4.4631168619791666">
+    <classShape Id="5b712c17-b10d-4c6f-83c1-e4b4f2560889" absoluteBounds="5.125, 2.375, 2, 4.4631168619791666">
       <DataClassMoniker Name="/PhpaBillsDataContext/Bill" />
       <nestedChildShapes>
-        <elementListCompartment Id="6a5ef163-be6f-4811-8cec-5fb47373384b" absoluteBounds="2.265, 2.46, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="3462c436-48c8-448f-98b7-fc03edd1024f" absoluteBounds="5.14, 2.835, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="764c8fb1-477d-4675-9ef2-7b2c7a8d7262" absoluteBounds="11.25, 4.25, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/PhpaBillsDataContext/BillWorkflow" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0cbbcd84-b1cb-4372-ac26-f9f0e541665f" absoluteBounds="11.265, 4.71, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.125 : 5.42390055338542); (11.25 : 5.42390055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PhpaBillsDataContext/Bill/Bill_BillWorkflow" />
+      <nodes>
+        <classShapeMoniker Id="5b712c17-b10d-4c6f-83c1-e4b4f2560889" />
+        <classShapeMoniker Id="764c8fb1-477d-4675-9ef2-7b2c7a8d7262" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

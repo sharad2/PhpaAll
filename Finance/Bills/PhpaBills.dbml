@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PHPA2151114" Class="PhpaBillsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=w12obama;Initial Catalog=PHPA2151114;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PHPA2151114ConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=w12obama;Initial Catalog=PHPA2151114;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PHPA2151114ConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Bill" Member="Bills">
     <Type Name="Bill">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -21,6 +21,20 @@
       <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="Bill_BillWorkflow" Member="BillWorkflows" ThisKey="Id" OtherKey="BillId" Type="BillWorkflow" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BillWorkflow" Member="BillWorkflows">
+    <Type Name="BillWorkflow">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BillId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ActivityType" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="FromDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ToDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ActivityDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ActivityBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="Bill_BillWorkflow" Member="Bill" ThisKey="BillId" OtherKey="Id" Type="Bill" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
