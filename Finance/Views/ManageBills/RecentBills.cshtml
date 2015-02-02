@@ -8,7 +8,28 @@
         <a href="@Url.Action(MVC.ManageBills.Create())">Create new bill</a>
     </small>
 </h2>
+
 <pre>
+TODO: Amounts of approved bills will display in green
+</pre>
+<div class="row">
+    <div class="col-md-3">
+        <fieldset>
+            <legend>Approved by</legend>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="">
+                    Mgr 1
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="" disabled>
+                    Mgr 2
+                </label>
+            </div>
+        </fieldset>
+        <pre>
 Approved By: Mgr 1 (22) Mgr2 (26)  Not Approved
 Station: S1(23) S2(25) ....
 Submitted to Division: ....
@@ -16,32 +37,36 @@ Currently in Division: ....
 Contractor: ....
 Paid / Unpaid
 </pre>
-<pre>
-TODO: Amounts of approved bills will display in green
-</pre>
-<ul class="list-group">
-    @for (var i = 0; i < Model.Bills.Count; ++i)
-    {
-        <li class="list-group-item">
-            <div class="row">
-                <div class="col-md-1">
-                    @Html.DisplayFor(m => m.Bills[i].BillDate)
-                </div>
-                <div class="col-md-2">
-                    <em>@Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)</em>
-                </div>
-                <div class="col-md-3">
-                    @Html.DisplayFor(m => m.Bills[i].ContractorName)
-                </div>
-                <div class="col-md-offset-4 col-md-2">
-                    <span class="label label-info">Due @Html.DisplayFor(m => m.Bills[i].DueDate)</span>
-                    <div class="pull-right">
-                        @Html.DisplayFor(m => m.Bills[i].Amount)
+    </div>
+    <div class="col-md-9">
+        <ul class="list-group">
+            @for (var i = 0; i < Model.Bills.Count; ++i)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-1">
+                            @Html.DisplayFor(m => m.Bills[i].BillDate)
+                        </div>
+                        <div class="col-md-2">
+                            <em>@Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)</em>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DisplayFor(m => m.Bills[i].ContractorName)
+                        </div>
+                        <div class="col-md-4">
+                            <span class="label label-info">Due @Html.DisplayFor(m => m.Bills[i].DueDate)</span>
+                            <div class="pull-right">
+                                @Html.DisplayFor(m => m.Bills[i].Amount)
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <small><em>@Html.DisplayFor(m => m.Bills[i].BillNumber)</em></small>
-            @Html.DisplayFor(m => m.Bills[i].Particulars)
-        </li>
-    }
-</ul>
+                    <small><em>@Html.DisplayFor(m => m.Bills[i].BillNumber)</em></small>
+                    @Html.DisplayFor(m => m.Bills[i].Particulars)
+                </li>
+            }
+        </ul>
+
+
+
+    </div>
+</div>
