@@ -100,6 +100,9 @@
                 HeaderText="BDFC Acc No." HeaderStyle-Width="2in" />
             <eclipse:MultiBoundField DataFields="BLAccNo" AccessibleHeaderText="BL" Visible="false"
                 HeaderText="Bank Loan Acc No." HeaderStyle-Width="2in" />
+            <eclipse:MultiBoundField DataFields="SalaryPeriodStartDate" HeaderText="For"
+                DataFormatString="{0:MMM yyyy}"  Visible="false" ItemStyle-Wrap="false" AccessibleHeaderText="SalaryPeriodDate">
+            </eclipse:MultiBoundField>
             <asp:BoundField HeaderText="Remarks" HeaderStyle-Width="2in" DataField="PolicyNumber"/>
         </Columns>
         <EmptyDataTemplate>
