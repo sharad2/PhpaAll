@@ -342,6 +342,7 @@
       <DependentUpon>Security.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Bills\BillViewModel.cs" />
     <Compile Include="Bills\CreateViewModel.cs" />
     <Compile Include="Bills\PhpaBills1.designer.cs">
       <AutoGen>True</AutoGen>

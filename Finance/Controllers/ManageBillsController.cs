@@ -196,7 +196,29 @@ namespace PhpaAll.Controllers
 
         public virtual ActionResult Bill(int id)
         {
-            return View(Views.Bill);
+
+            var model = (from bill in _service.Value.Bills
+                         where bill.Id == id
+                         select new BillViewModel
+                         {
+                             Id = bill.Id,
+                             Amount = bill.Amount,
+                             BillNumber = bill.BillNumber,
+                             Particulars = bill.Particulars,
+                             BillDate = bill.BillDate,
+                             ContractorId = bill.ContractorId,
+                             SubmittedToDivisionId = bill.SubmitedToDivisionId,
+                             DueDate = bill.DueDate,
+                             PaidDate = bill.PaidDate,
+                             Remarks = bill.Remarks,
+                             SubmittedOnDate = bill.SubmittedOnDate,
+                             isEditMode = true,
+                             SubmittedToDivisionName = bill.Division.DivisionName,
+                             ContractorName = bill.Contractor.ContractorName
+                         }).FirstOrDefault();
+
+
+            return View(Views.Bill, model);
         }
     }
 }
