@@ -149,7 +149,7 @@
            })
 
             </div>
-            <label for="amount" class="col-sm-1 control-label">Amount(Nu) *</label>
+            <label for="amount" class="col-sm-1 control-label">Amount *</label>
             <div class="col-sm-3">
                 @Html.TextBoxFor(m => m.Amount, new
            {
@@ -157,7 +157,8 @@
                @class = "form-control",
                min = "0",
                type = "number",
-               @required = "required"
+               @required = "required",
+               placeholder="Amount(Nu)"
 
            })
                 @Html.ValidationMessageFor(m => m.Amount, null, new
