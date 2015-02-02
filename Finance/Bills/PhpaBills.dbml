@@ -6,11 +6,9 @@
       <Column Name="BillNumber" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Column Name="BillDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="DueDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="SubmittedToDivision" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="SubmittedToFinance" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="PaidOn" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="BillType" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="DivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubmittedToDivision" Member="SubmittedOnDate" Storage="_SubmittedToDivision" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="PaidOn" Member="PaidDate" Storage="_PaidOn" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="DivisionId" Member="SubmitedToDivisionId" Storage="_DivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ContractorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="ApprovedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
