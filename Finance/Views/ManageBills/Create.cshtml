@@ -6,15 +6,8 @@
     Html.EnableUnobtrusiveJavaScript();
 }
 
-<h2 style="margin-top:0">
-    @if (Model.isEditMode)
-    {
-           <span>Edit Bill <mark class="small">@Html.DisplayFor(m => m.BillNumber)</mark></span>
-    }
-    else
-    {
-        <span>Create Bill</span>
-    }
+<h2 style="margin-top:0">    
+        <span>Create Bill</span>    
 </h2>
 
 <p>
@@ -22,10 +15,8 @@
     It becomes visible to finance as soon as it is created. Finance must then approve it for payment.
 </p>
 
-<form class="form-horizontal" action="@Url.Action(MVC.ManageBills.CreateUpdateBill())" method="post" enctype="multipart/form-data">
+<form class="form-horizontal" action="@Url.Action(MVC.ManageBills.CreateBill())" method="post" enctype="multipart/form-data">
     @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.isEditMode)
-
     <div class="well well-sm">
         <div class="form-group form-group-sm">
             <label for="billNumber" class="col-sm-2 control-label">Bill No. *</label>
@@ -199,17 +190,9 @@
         </div>
 
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                @if (Model.isEditMode)
-                {
-                    <button type="submit" class="btn btn-primary">Save</button>
-                }
-                else
-                {
-                    <button type="submit" class="btn btn-primary">Add Bill</button>
-                }
+            <div class="col-sm-offset-2 col-sm-10">               
+                    <button type="submit" class="btn btn-primary">Add Bill</button>              
                 <a href="@Url.Action(MVC.ManageBills.Bill(Model.Id))">Cancel</a>
-                <button href="@Url.Action(MVC.ManageBills.Delete(Model.Id))">Delete</button>
             </div>
         </div>
     </div>
