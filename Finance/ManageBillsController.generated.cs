@@ -75,6 +75,12 @@ namespace PhpaAll.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Bill()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Bill);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ManageBillsController Actions { get { return MVC.ManageBills; } }
@@ -97,6 +103,7 @@ namespace PhpaAll.Controllers
             public readonly string CreateUpdateBill = "CreateUpdateBill";
             public readonly string Edit = "Edit";
             public readonly string Delete = "Delete";
+            public readonly string Bill = "Bill";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -108,6 +115,7 @@ namespace PhpaAll.Controllers
             public const string CreateUpdateBill = "CreateUpdateBill";
             public const string Edit = "Edit";
             public const string Delete = "Delete";
+            public const string Bill = "Bill";
         }
 
 
@@ -135,6 +143,14 @@ namespace PhpaAll.Controllers
         {
             public readonly string id = "id";
         }
+        static readonly ActionParamsClass_Bill s_params_Bill = new ActionParamsClass_Bill();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Bill BillParams { get { return s_params_Bill; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Bill
+        {
+            public readonly string id = "id";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -145,10 +161,12 @@ namespace PhpaAll.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string Bill = "Bill";
                 public readonly string Create = "Create";
                 public readonly string Index = "Index";
                 public readonly string RecentBills = "RecentBills";
             }
+            public readonly string Bill = "~/Views/ManageBills/Bill.cshtml";
             public readonly string Create = "~/Views/ManageBills/Create.cshtml";
             public readonly string Index = "~/Views/ManageBills/Index.cshtml";
             public readonly string RecentBills = "~/Views/ManageBills/RecentBills.cshtml";
@@ -226,6 +244,18 @@ namespace PhpaAll.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             DeleteOverride(callInfo, id);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void BillOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Bill(int id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Bill);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            BillOverride(callInfo, id);
             return callInfo;
         }
 

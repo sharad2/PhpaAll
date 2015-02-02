@@ -23,7 +23,7 @@ namespace PhpaAll.Bills
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="PHPA2151114")]
-	public partial class PhpaBillsDataContext : System.Data.Linq.DataContext
+	internal partial class PhpaBillsDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();

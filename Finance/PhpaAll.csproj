@@ -324,6 +324,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jqueryval.js.bundle" />
     <Content Include="Views\ManageBills\Index.cshtml" />
+    <Content Include="Views\ManageBills\Bill.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">

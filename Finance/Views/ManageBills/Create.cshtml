@@ -208,7 +208,8 @@
                 {
                     <button type="submit" class="btn btn-primary">Add Bill</button>
                 }
-                <a href="@Url.Action(MVC.ManageBills.Index())">Cancel</a>
+                <a href="@Url.Action(MVC.ManageBills.Bill(Model.Id))">Cancel</a>
+                <button href="@Url.Action(MVC.ManageBills.Delete(Model.Id))">Delete</button>
             </div>
         </div>
     </div>

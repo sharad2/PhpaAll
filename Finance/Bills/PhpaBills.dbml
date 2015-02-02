@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PHPA2151114" Class="PhpaBillsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PHPA2151114" Class="PhpaBillsDataContext" AccessModifier="Internal" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=w12obama;Initial Catalog=PHPA2151114;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PHPA2151114ConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Bill" Member="Bills">
     <Type Name="Bill">

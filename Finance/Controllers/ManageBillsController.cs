@@ -161,5 +161,10 @@ namespace PhpaAll.Controllers
         }
 
 
+
+        public virtual ActionResult Bill(int id)
+        {
+            return View(Views.Bill);
+        }
     }
 }
