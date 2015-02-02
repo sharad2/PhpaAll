@@ -148,8 +148,8 @@
             </ItemTemplate>
         </asp:TemplateField>
             <eclipse:MultiBoundField DataFields="Employee.CitizenCardNo" HeaderText="Citizen Card No." />
-            <eclipse:MultiBoundField DataFields="Bank.BankName" HeaderText="Bank" AccessibleHeaderText="Bank"
-                 />
+            <%--<eclipse:MultiBoundField DataFields="Bank.BankName" HeaderText="Bank" AccessibleHeaderText="Bank"
+                 />--%>
             <eclipse:MultiBoundField SortExpression="BasicPay" AccessibleHeaderText="BasicPay"
                 DataFields="BasicPay" HeaderText="Basic Salary" DataFormatString="{0:N0}">
                 <FooterStyle HorizontalAlign="Right" CssClass="noprint"></FooterStyle>

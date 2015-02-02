@@ -63,7 +63,7 @@ namespace PhpaAll.Payroll.Reports
                         && (selectedType == 0 || pea.EmployeePeriod.Employee.EmployeeType.EmployeeTypeId == selectedType)
                        && pea.Adjustment.AdjustmentId == Convert.ToInt32(tbRecovery.Value)
                        && (selectedDepartment==string.Empty || pea.EmployeePeriod.Employee.ParentOrganization.Contains(tbDepartment.Text))
-                       orderby pea.EmployeePeriod.Employee.FirstName, pea.EmployeePeriod.Employee.LastName
+                       orderby pea.EmployeePeriod.Employee.FirstName, pea.EmployeePeriod.Employee.LastName, pea.EmployeePeriod.SalaryPeriod.SalaryPeriodStart
                        select new
                        {
                            EmpName = pea.EmployeePeriod.Employee.FullName,
@@ -74,7 +74,8 @@ namespace PhpaAll.Payroll.Reports
                            Amount = string.Format("{0:N0}", pea.Amount ?? 0),
                            Department = pea.EmployeePeriod.Employee.ParentOrganization,
                            BankId = pea.EmployeePeriod.BankId ?? pea.EmployeePeriod.Employee.BankId,
-                           PolicyNumber=pea.Comment
+                           PolicyNumber=pea.Comment,
+                           SalaryPeriodStartDate = pea.EmployeePeriod.SalaryPeriod.SalaryPeriodStart
                        };
             if (!string.IsNullOrEmpty(ddlBankName.Value))
             {
@@ -105,6 +106,14 @@ namespace PhpaAll.Payroll.Reports
             else
             {
                 gvRecoveries.Caption = string.Format("<b>Schedule of Recovery of {0} for the period from {1: dd MMMM yyyy} to {2:dd MMMM yyyy}</b>", tbRecovery.Text, tbFromDate.ValueAsDate, tbToDate.ValueAsDate);
+            }
+
+            if (Convert.ToDateTime(tbFromDate.Value).ToString("yyyyMM") != Convert.ToDateTime(tbToDate.Value).ToString("yyyyMM"))
+            {
+                DataControlField column = (from DataControlField col in gvRecoveries.Columns
+                                           where col.AccessibleHeaderText == "SalaryPeriodDate"
+                                           select col).Single();
+                column.Visible = true;
             }
         }
     }
