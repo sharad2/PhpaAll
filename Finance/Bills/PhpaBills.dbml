@@ -3,13 +3,12 @@
   <Table Name="dbo.Bill" Member="Bills">
     <Type Name="Bill">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="BillNumber" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="BillNumber" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
       <Column Name="BillDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="DueDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="SubmittedToDivision" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="SubmittedToFinance" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="PaidOn" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="DivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PaidDate" Storage="_PaidOn" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="SubmittedToDivisionId" Storage="_DivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ContractorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="ApprovedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
