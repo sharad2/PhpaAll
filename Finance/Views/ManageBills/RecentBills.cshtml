@@ -15,7 +15,8 @@
             <div class="col-md-5">
                 <h4 class="list-group-item-heading">
                     Bill Number
-                    <small>                        
+                    <small>
+                        <em>Particulars</em>
                         <span class="badge"> Date</span>
                     </small>
                 </h4>
@@ -54,6 +55,7 @@
                     <h4 class="list-group-item-heading">
                         @Html.DisplayFor(m => m.Bills[i].BillNumber)
                         <small>
+                            <em>@Html.DisplayFor(p=>p.Bills[i].Particulars)</em>
                             <span class="@(Model.Bills[i].BillDate.HasValue ? "badge":null)">
                                 @Html.DisplayFor(m => m.Bills[i].BillDate)
                             </span>
