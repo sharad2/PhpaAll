@@ -12,28 +12,37 @@
 </head>
 <body>
     <div class="navbar navbar-default">
-        <div class="container-fluid bg-info">
+        <div class="container-fluid">
             <div class="navbar-header">
-                <!--Visible on mobile device only-->
-                <a class="navbar-brand bg-danger visible-xs pull-right" data-toggle="collapse" data-target=".navbar-collapse" title="App Setting">
-                    <span class="glyphicon glyphicon-align-justify" style="cursor:default"></span>
-                </a>
-
-
-                <!--Visible on mobile device only-->
-                <a class="visible-xs btn navbar-brand pull-right" data-toggle="modal" href="#searchModal">
-                    <span class="glyphicon glyphicon-search"></span>
-                </a>
-
-
-                <a class="navbar-brand bg-success" href="@Url.Content("~")" style="padding-right:5px;padding-left:2px;">
-                    <span class="glyphicon glyphicon-home"></span> PHPA Bills
-                </a>
-
-
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-layout-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Content("~")">PHPA</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <form action="#" method="get" role="search" class="hidden-xs navbar-form navbar-left">
+            <div class="navbar-collapse collapse" id="bs-layout-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <div class="btn-group navbar-btn">
+                            <a class="btn btn-default" href="@Url.Action(MVC.ManageBills.Index())">Bills</a>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                @foreach (SiteMapNode node in SiteMap.RootNode.ChildNodes)
+                                {
+                                    <li><a href="@Url.Content(node.Url)">@node.Title</a></li>
+                                }
+                            </ul>
+
+                        </div>
+
+                    </li>
+                </ul>
+                <form action="#" method="get" role="search" class="navbar-form navbar-left">
                     <div class="input-group">
                         <input type="search" class="form-control" name="id" placeholder="Search PHPA">
                         <span class="input-group-btn">
@@ -41,11 +50,6 @@
                         </span>
                     </div><!-- /input-group -->
                 </form>
-                @*<ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("About", MVC.Home.About())</li>
-                    <li>@Html.ActionLink("Contact", MVC.Home.Contact())</li>
-                </ul>
-                @Html.Partial(MVC.SharedViews.Views._LoginPartial)*@
             </div>
         </div>
     </div>
@@ -57,7 +61,7 @@
         </footer>
     </div>
 
-    <!--Visible on mobile device only, it is opened as popoup-->
+    @*<!--Visible on mobile device only, it is opened as popoup-->
     <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
         <form action="#" method="get" role="search">
             <div class="input-group input-group-lg" style="margin-top:20px;margin-left:10px;margin-right:10px;">
@@ -67,7 +71,7 @@
                 </span>
             </div><!-- /input-group -->
         </form>
-    </div>
+    </div>*@
 
 
     <script type="text/javascript" src="@Links.Scripts.jquery_1_11_2_js"></script>
