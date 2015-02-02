@@ -33,7 +33,7 @@ namespace PhpaAll.Controllers
 
         public virtual ActionResult Index()
         {
-        
+
             return View(Views.Index);
         }
 
@@ -59,22 +59,16 @@ namespace PhpaAll.Controllers
             return View(Views.Create, model);
         }
 
-        /// <summary>
-        /// This method update existing bill and create new bills
-        /// based on the id(primary key corresponding to Bill Number)
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public virtual ActionResult CreateUpdateBill(CreateViewModel model)
-        {
 
+        [HttpPost]
+        public virtual ActionResult CreateBill(CreateViewModel model)
+        {
             if (!ModelState.IsValid)
             {
                 return View(Views.Create, model);
             }
             byte[] imageData = null;
-           
+
             if (model.BillImage != null && model.BillImage.ContentLength > 0)
             {
                 // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/  
@@ -82,102 +76,99 @@ namespace PhpaAll.Controllers
                 model.BillImage.InputStream.CopyTo(ms);
                 imageData = ms.ToArray();
             }
-
             var bill = new Bill
             {
-                Amount = model.Amount,           
+                Amount = model.Amount,
                 BillNumber = model.BillNumber,
                 Particulars = model.Particulars,
                 BillDate = model.BillDate,
-                BillImage = imageData,               
+                BillImage = imageData,
                 ContractorId = model.ContractorId,
                 SubmitedToDivisionId = model.SubmittedToDivisionId,
                 DueDate = model.DueDate,
                 PaidDate = model.PaidDate,
                 Remarks = model.Remarks,
-                SubmittedOnDate = model.SubmittedOnDate,               
-                Id= model.Id
-            };   
-            if (model.isEditMode)
-            {
-                
-                try
-                {
-                    if (ModelState.IsValid)
-                    {
-                        //update the existing bill same id
-                        _service.Value.UpdateBill(bill);
-                        return RedirectToAction(MVC.ManageBills.RecentBills());
-                    }
-                }
-                catch (DataException)
-                {
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-                }
-                return RedirectToAction(MVC.ManageBills.RecentBills());
+                SubmittedOnDate = model.SubmittedOnDate,
+                Id = model.Id
+            };
+            _service.Value.InsertBill(bill);
+            return RedirectToAction(MVC.ManageBills.RecentBills());
 
-            }
-            else
-            {
-               //if no bill is there than insert new bill
-                _service.Value.InsertBill(bill);
-                return RedirectToAction(MVC.ManageBills.RecentBills());
-            }
         }
 
 
 
         // GET:Edit
-        /// <summary>
-        /// Get the form to update a bill
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        [HttpGet]
         public virtual ActionResult Edit(int id)
         {
-
-           // var bill = _service.Value.GetBillNumber(id);
-
             var model = (from bill in _service.Value.Bills
-                        where bill.Id == id
-                        select new CreateViewModel
-                        {
-                            Id = bill.Id,
-                            Amount = bill.Amount,
-                            BillNumber = bill.BillNumber,
-                            Particulars = bill.Particulars,
-                            BillDate = bill.BillDate,
-                            ContractorId = bill.ContractorId,
-                            SubmittedToDivisionId = bill.SubmitedToDivisionId,
-                            DueDate = bill.DueDate,
-                            PaidDate = bill.PaidDate,
-                            Remarks = bill.Remarks,
-                            SubmittedOnDate = bill.SubmittedOnDate,
-                            isEditMode = true,
-                            SubmittedToDivisionName = bill.Division.DivisionName,
-                            ContractorName = bill.Contractor.ContractorName
-                        }).FirstOrDefault();
+                         where bill.Id == id
+                         select new EditViewModel
+                         {
+                             Id = bill.Id,
+                             Amount = bill.Amount,
+                             BillNumber = bill.BillNumber,
+                             Particulars = bill.Particulars,
+                             BillDate = bill.BillDate,
+                             ContractorId = bill.ContractorId,
+                             SubmittedToDivisionId = bill.SubmitedToDivisionId,
+                             DueDate = bill.DueDate,
+                             PaidDate = bill.PaidDate,
+                             Remarks = bill.Remarks,
+                             SubmittedOnDate = bill.SubmittedOnDate,
+                             SubmittedToDivisionName = bill.Division.DivisionName,
+                             ContractorName = bill.Contractor.ContractorName
+                         }).FirstOrDefault();
 
-            //var model = new CreateViewModel
-            //{
-            //    Id = bill.Id,
-            //    Amount = bill.Amount,
-            //    BillNumber = bill.BillNumber, 
-            //    Particulars= bill.Particulars,
-            //    BillDate = bill.BillDate,             
-            //    ContractorId = bill.ContractorId,
-            //    SubmittedToDivisionId = bill.SubmitedToDivisionId,
-            //    DueDate = bill.DueDate,
-            //    PaidDate = bill.PaidDate,
-            //    Remarks = bill.Remarks,
-            //    SubmittedOnDate = bill.SubmittedOnDate,             
-            //    isEditMode = true,
-            //    SubmittedToDivisionName = bill.Division.DivisionName,
-            //    ContractorName = bill.Contractor.ContractorName
-
-            //};
-            return View(Views.Create, model);
+            return View(Views.Edit, model);
         }
+
+        [HttpPost]
+        public virtual ActionResult Edit(EditViewModel model)
+        {
+
+            try
+            {
+                byte[] imageData = null;
+
+                if (model.BillImage != null && model.BillImage.ContentLength > 0)
+                {
+                    // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/  
+                    var ms = new MemoryStream(model.BillImage.ContentLength);
+                    model.BillImage.InputStream.CopyTo(ms);
+                    imageData = ms.ToArray();
+                }
+
+                var bill = new Bill
+                {
+                    Amount = model.Amount,
+                    BillNumber = model.BillNumber,
+                    Particulars = model.Particulars,
+                    BillDate = model.BillDate,
+                    BillImage = imageData,
+                    ContractorId = model.ContractorId,
+                    SubmitedToDivisionId = model.SubmittedToDivisionId,
+                    DueDate = model.DueDate,
+                    PaidDate = model.PaidDate,
+                    Remarks = model.Remarks,
+                    SubmittedOnDate = model.SubmittedOnDate,
+                    Id = model.Id
+                };
+                _service.Value.UpdateBill(bill);
+                return RedirectToAction(MVC.ManageBills.RecentBills());
+
+
+            }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
+            return RedirectToAction(MVC.ManageBills.Bill());
+        }
+
+
+
 
         public virtual ActionResult Delete(int id)
         {
@@ -196,7 +187,29 @@ namespace PhpaAll.Controllers
 
         public virtual ActionResult Bill(int id)
         {
-            return View(Views.Bill);
+
+            var model = (from bill in _service.Value.Bills
+                         where bill.Id == id
+                         select new BillViewModel
+                         {
+                             Id = bill.Id,
+                             Amount = bill.Amount,
+                             BillNumber = bill.BillNumber,
+                             Particulars = bill.Particulars,
+                             BillDate = bill.BillDate,
+                             ContractorId = bill.ContractorId,
+                             SubmittedToDivisionId = bill.SubmitedToDivisionId,
+                             DueDate = bill.DueDate,
+                             PaidDate = bill.PaidDate,
+                             Remarks = bill.Remarks,
+                             SubmittedOnDate = bill.SubmittedOnDate,
+                             isEditMode = true,
+                             SubmittedToDivisionName = bill.Division.DivisionName,
+                             ContractorName = bill.Contractor.ContractorName
+                         }).FirstOrDefault();
+
+
+            return View(Views.Bill, model);
         }
     }
 }

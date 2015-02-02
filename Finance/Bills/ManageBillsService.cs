@@ -58,13 +58,7 @@ namespace PhpaAll.Bills
         }
 
 
-        [Obsolete]
-        public Bill GetBillNumber(int id)
-        {
-            return (from bill in _db.Bills
-                    where bill.Id == id
-                    select bill).FirstOrDefault();
-        }
+       
 
         public void UpdateBill(Bill bill)
         {

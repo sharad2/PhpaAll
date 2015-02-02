@@ -59,9 +59,9 @@ namespace PhpaAll.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult CreateUpdateBill()
+        public virtual System.Web.Mvc.ActionResult CreateBill()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateUpdateBill);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateBill);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -100,7 +100,7 @@ namespace PhpaAll.Controllers
             public readonly string Index = "Index";
             public readonly string RecentBills = "RecentBills";
             public readonly string Create = "Create";
-            public readonly string CreateUpdateBill = "CreateUpdateBill";
+            public readonly string CreateBill = "CreateBill";
             public readonly string Edit = "Edit";
             public readonly string Delete = "Delete";
             public readonly string Bill = "Bill";
@@ -112,18 +112,18 @@ namespace PhpaAll.Controllers
             public const string Index = "Index";
             public const string RecentBills = "RecentBills";
             public const string Create = "Create";
-            public const string CreateUpdateBill = "CreateUpdateBill";
+            public const string CreateBill = "CreateBill";
             public const string Edit = "Edit";
             public const string Delete = "Delete";
             public const string Bill = "Bill";
         }
 
 
-        static readonly ActionParamsClass_CreateUpdateBill s_params_CreateUpdateBill = new ActionParamsClass_CreateUpdateBill();
+        static readonly ActionParamsClass_CreateBill s_params_CreateBill = new ActionParamsClass_CreateBill();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CreateUpdateBill CreateUpdateBillParams { get { return s_params_CreateUpdateBill; } }
+        public ActionParamsClass_CreateBill CreateBillParams { get { return s_params_CreateBill; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CreateUpdateBill
+        public class ActionParamsClass_CreateBill
         {
             public readonly string model = "model";
         }
@@ -134,6 +134,7 @@ namespace PhpaAll.Controllers
         public class ActionParamsClass_Edit
         {
             public readonly string id = "id";
+            public readonly string model = "model";
         }
         static readonly ActionParamsClass_Delete s_params_Delete = new ActionParamsClass_Delete();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -163,11 +164,13 @@ namespace PhpaAll.Controllers
             {
                 public readonly string Bill = "Bill";
                 public readonly string Create = "Create";
+                public readonly string Edit = "Edit";
                 public readonly string Index = "Index";
                 public readonly string RecentBills = "RecentBills";
             }
             public readonly string Bill = "~/Views/ManageBills/Bill.cshtml";
             public readonly string Create = "~/Views/ManageBills/Create.cshtml";
+            public readonly string Edit = "~/Views/ManageBills/Edit.cshtml";
             public readonly string Index = "~/Views/ManageBills/Index.cshtml";
             public readonly string RecentBills = "~/Views/ManageBills/RecentBills.cshtml";
         }
@@ -212,14 +215,14 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void CreateUpdateBillOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, PhpaAll.Bills.CreateViewModel model);
+        partial void CreateBillOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, PhpaAll.Bills.CreateViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult CreateUpdateBill(PhpaAll.Bills.CreateViewModel model)
+        public override System.Web.Mvc.ActionResult CreateBill(PhpaAll.Bills.CreateViewModel model)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateUpdateBill);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateBill);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            CreateUpdateBillOverride(callInfo, model);
+            CreateBillOverride(callInfo, model);
             return callInfo;
         }
 
@@ -232,6 +235,18 @@ namespace PhpaAll.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             EditOverride(callInfo, id);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, PhpaAll.Controllers.EditViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Edit(PhpaAll.Controllers.EditViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            EditOverride(callInfo, model);
             return callInfo;
         }
 

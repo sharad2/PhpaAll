@@ -1,4 +1,5 @@
-﻿
+﻿@model PhpaAll.Bills.BillViewModel
+
 @{
     ViewBag.Title = "View Bill 80";
 }
@@ -10,10 +11,190 @@ Display all bill details including audit
 </pre>
 
 
-<ul>
-    <li><a href="@Url.Action(MVC.ManageBills.Edit(80))">Edit</a></li>
-    <li><button>Receive in Division...</button></li>
-    <li><button>Send to Division...</button></li>
-    <li><button>Approve for Payment...</button></li>
+@*<ul>
+        <li><a href="@Url.Action(MVC.ManageBills.Edit(80))">Edit</a></li>
+        <li><button>Receive in Division...</button></li>
+        <li><button>Send to Division...</button></li>
+        <li><button>Approve for Payment...</button></li>
 
-</ul>
+    </ul>*@
+<h2 style="margin-top:0"> 
+            <span>Bill Number  <mark class="small">@Html.DisplayFor(m => m.BillNumber)</mark></span>    
+    </h2>
+ 
+<form class="form-horizontal" action="@Url.Action(MVC.ManageBills.Bill())" method="post" enctype="multipart/form-data">
+
+    <div class="well well-sm">
+        <div class="form-group form-group-sm">
+            <label for="billNumber" class="col-sm-2 control-label">Bill No. *</label>
+            <div class="col-sm-3">
+
+                @Html.DisplayFor(m => m.BillNumber, new
+                                   {
+                                       id = "billNumber",
+                                       maxlength = "60",
+                                       @class = "form-control",
+                                       @required = "required"
+                                   })
+
+                @Html.ValidationMessageFor(m => m.BillNumber, null, new
+                                   {
+                                       @class = "help-block"
+                                   })
+
+
+            </div>
+
+            <label for="particulars" class="col-sm-1 control-label">Particulars</label>
+            <div class="col-sm-3">
+                @Html.DisplayFor(m => m.Particulars, new
+           {
+               id = "particulars",
+               @class = "form-control",
+               maxlength = "255"
+
+           })
+
+ 
+            </div>
+
+
+
+
+
+
+
+            <label for="billDate" class="col-sm-1 control-label">Bill Date *</label>
+            <div class="col-sm-2">
+                @Html.DisplayFor(m => m.BillDate, new
+           {
+               id = "billDate",
+               @class = "form-control",
+               @required = "required",
+               @placeholder = "dd/mm/yyyy"
+           })
+                @Html.ValidationMessageFor(m => m.BillDate, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label for="divId" class="col-sm-2 control-label">Received by Division *</label>
+            <div class="col-sm-3">
+                @Html.DisplayFor(m => m.SubmittedToDivisionName, new
+           {
+               id = "divId",
+               @class = "form-control",
+               type = "numeric",
+               @required = "required"
+
+           })
+                @Html.ValidationMessageFor(m => m.SubmittedToDivisionId, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+
+
+            <label for="divSubDate" class="col-sm-1 control-label">on date</label>
+            <div class="col-sm-3">
+                @Html.DisplayFor(m => m.SubmittedOnDate, new
+           {
+               id = "divSubDate",
+               @class = "form-control",
+               type = "date",
+               @placeholder = "dd/mm/yyyy"
+           })
+                @Html.ValidationMessageFor(m => m.SubmittedOnDate, null, new
+           {
+               @class = "help-block"
+           })
+            </div>
+
+            <label for="dueDate" class="col-sm-1 control-label">Due Date</label>
+            <div class="col-sm-2">
+                @Html.DisplayFor(m => m.DueDate, new
+           {
+               id = "dueDate",
+               @class = "form-control",
+               type = "date",
+               @placeholder = "dd/mm/yyyy"
+           })
+                @Html.ValidationMessageFor(m => m.DueDate, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label for="conId" class="col-sm-2 control-label">Contractor Id</label>
+            <div class="col-sm-3">
+                @Html.DisplayFor(m => m.ContractorName, new
+           {
+               id = "conId",
+               @class = "form-control",
+               type = "numeric"
+
+           })
+                @Html.ValidationMessageFor(m => m.ContractorId, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+            <label for="amount" class="col-sm-1 control-label">Amount *</label>
+            <div class="col-sm-3">
+                @Html.DisplayFor(m => m.Amount, new
+           {
+               id = "amount",
+               @class = "form-control",
+               min = "0",
+               type = "number",
+               @required = "required",
+               placeholder = "Amount(Nu)"
+
+           })
+                @Html.ValidationMessageFor(m => m.Amount, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+
+            <label for="image" class="col-sm-1 control-label">Image</label>
+            <div class="col-sm-2">
+                @Html.DisplayFor(m => m.BillImage, new
+           {
+               id = "image",
+               @class = "form-control",
+               type = "File"
+
+           })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="remarks" class="col-sm-2 control-label">Remark</label>
+            <div class="col-sm-7">
+                @Html.DisplayFor(m => m.Remarks, new
+           {
+               id = "remarks",
+               @class = "form-control",
+               maxlength = "255"
+           })
+                @Html.ValidationMessageFor(m => m.Remarks, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+        </div>
+
+    </div>
+</form>

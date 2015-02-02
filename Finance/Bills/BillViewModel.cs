@@ -7,20 +7,19 @@ using System.Drawing;
 
 namespace PhpaAll.Bills
 {
-
-    public class CreateViewModel
+    public class BillViewModel
     {
-        //For internal use to retrive row for editing
+
         public int Id { get; set; }
 
         [Display(Name = "Bill")]
         [StringLength(60, ErrorMessage = "The Bill number cannot exceed 60 characters.")]
-        [Required (ErrorMessage="Bill number is required.")]
+        [Required(ErrorMessage = "Bill number is required.")]
         public string BillNumber { get; set; }
 
         [Display(Name = "Bill Date")]
         [DataType(DataType.Date)]
-        [Required(ErrorMessage="Bill date is required.")]
+        [Required(ErrorMessage = "Bill date is required.")]
         public DateTime? BillDate { get; set; }
 
         [Display(Name = "Due Date")]
@@ -40,7 +39,7 @@ namespace PhpaAll.Bills
         public string BillType { get; set; }
 
         [Display(Name = "Division Id")]
-        [Required (ErrorMessage="Division Id is required.")]
+        [Required(ErrorMessage = "Division Id is required.")]
         public int? SubmittedToDivisionId { get; set; }
 
         public string SubmittedToDivisionName { get; set; }
@@ -52,14 +51,14 @@ namespace PhpaAll.Bills
 
 
         [Display(Name = "Amount")]
-        [Required (ErrorMessage="Amount is required.")]
+        [Required(ErrorMessage = "Amount is required.")]
         public Decimal? Amount { get; set; }
 
         [Display(Name = "Bill For")]
         [StringLength(255, ErrorMessage = "You can insert only 255 characters ")]
         public string Particulars { get; set; }
 
-       
+
         [Display(Name = "Remarks")]
         [StringLength(255, ErrorMessage = "Max limit is 255 characters")]
         public string Remarks { get; set; }
@@ -68,7 +67,7 @@ namespace PhpaAll.Bills
         public HttpPostedFileBase BillImage { get; set; }
 
         //Weather it is edit mode or not
-        [Obsolete]
         public bool isEditMode { get; set; }
     }
+    
 }
