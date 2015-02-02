@@ -132,7 +132,8 @@ namespace PhpaAll.Controllers
             {
                 Id = bill.Id,
                 Amount = bill.Amount,
-                BillNumber = bill.BillNumber,              
+                BillNumber = bill.BillNumber, 
+                Particulars= bill.Particulars,
                 BillDate = bill.BillDate,             
                 ContractorId = bill.ContractorId,
                 SubmittedToDivisionId = bill.SubmitedToDivisionId,
