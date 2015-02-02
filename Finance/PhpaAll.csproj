@@ -326,6 +326,7 @@
     <Content Include="Views\ManageBills\Index.cshtml" />
     <Content Include="Views\ManageBills\Bill.cshtml" />
     <Content Include="Views\ManageBills\Edit.cshtml" />
+    <Content Include="Views\BillReports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">
@@ -343,6 +344,9 @@
       <DependentUpon>Security.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BillReportsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Bills\BillViewModel.cs" />
     <Compile Include="Bills\CreateViewModel.cs" />
     <Compile Include="Bills\PhpaBills1.designer.cs">
@@ -353,6 +357,7 @@
     <Compile Include="Bills\RecentBillsViewModel.cs" />
     <Compile Include="Bills\ManageBillsService.cs" />
     <Compile Include="Bills\EditViewModel.cs" />
+    <Compile Include="Controllers\BillReportsController.cs" />
     <Compile Include="Controllers\ManageBillsController.cs" />
     <Compile Include="Controls\SearchEmployee.ascx.cs">
       <DependentUpon>SearchEmployee.ascx</DependentUpon>
