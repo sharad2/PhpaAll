@@ -7,32 +7,33 @@ namespace PhpaAll.Bills
 {
     internal class ManageBillsService:IDisposable
     {
-        private readonly ManageBillsRepository _repos;
+        private readonly PhpaBillsDataContext _db;
 
         public ManageBillsService(string connectStringName)
         {
             var connectString = ConfigurationManager.ConnectionStrings[connectStringName].ConnectionString;
-            _repos = new ManageBillsRepository(connectString);
+            _db = new PhpaBillsDataContext(connectString);
         }
 
         public void Dispose()
         {
-            if (_repos != null)
+            if (_db != null)
             {
-                _repos.Dispose();
+                _db.Dispose();
             }
         }
 
         public void InsertBill(Bill bill)
         {
-            _repos.InsertBill(bill);
+            _db.Bills.InsertOnSubmit(bill);
+            _db.SubmitChanges();
         }
 
         public IQueryable<Bill> Bills
         {
             get
             {
-                return _repos.Bills;
+                return _db.Bills;
             }
         }
 
@@ -40,17 +41,37 @@ namespace PhpaAll.Bills
 
         public Bill GetBillNumber(int id)
         {
-            return _repos.GetBillNumber(id);
+            return (from bill in _db.Bills
+                    where bill.Id == id
+                    select bill).FirstOrDefault();
         }
 
-        public void UpdateBill(Bill billmodel)
+        public void UpdateBill(Bill bill)
         {
-            _repos.UpdateBill(billmodel);
+            var edit = (from b in _db.Bills
+                        where b.Id == bill.Id
+                        select b).SingleOrDefault();
+
+            edit.Amount = bill.Amount;
+            edit.Particulars = bill.Particulars;
+            edit.BillNumber = bill.BillNumber;
+            edit.BillDate = bill.BillDate;
+            edit.BillImage = bill.BillImage;
+            edit.ContractorId = bill.ContractorId;
+            edit.SubmitedToDivisionId = bill.SubmitedToDivisionId;
+            edit.DueDate = bill.DueDate;
+            edit.PaidDate = bill.PaidDate;
+            edit.Remarks = bill.Remarks;
+            edit.SubmittedOnDate = bill.SubmittedOnDate;
+
+            _db.SubmitChanges();
         }
 
         public void DeleteBill(int id)
         {
-            _repos.DeleteBill(id);
+            Bill edit = _db.Bills.Where(bill => bill.Id == id).SingleOrDefault();
+            _db.Bills.DeleteOnSubmit(edit);
+            _db.SubmitChanges();
         }
     }
 }

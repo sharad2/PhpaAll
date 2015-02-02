@@ -348,7 +348,6 @@
       <DependentUpon>PhpaBills.dbml</DependentUpon>
     </Compile>
     <Compile Include="Bills\RecentBillsViewModel.cs" />
-    <Compile Include="Bills\ManageBillsRepository.cs" />
     <Compile Include="Bills\ManageBillsService.cs" />
     <Compile Include="Controllers\ManageBillsController.cs" />
     <Compile Include="Controls\SearchEmployee.ascx.cs">
