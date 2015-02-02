@@ -325,6 +325,7 @@
     <Content Include="Scripts\jqueryval.js.bundle" />
     <Content Include="Views\ManageBills\Index.cshtml" />
     <Content Include="Views\ManageBills\Bill.cshtml" />
+    <Content Include="Views\ManageBills\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">
@@ -350,6 +351,7 @@
     </Compile>
     <Compile Include="Bills\RecentBillsViewModel.cs" />
     <Compile Include="Bills\ManageBillsService.cs" />
+    <Compile Include="Bills\EditViewModel.cs" />
     <Compile Include="Controllers\ManageBillsController.cs" />
     <Compile Include="Controls\SearchEmployee.ascx.cs">
       <DependentUpon>SearchEmployee.ascx</DependentUpon>
