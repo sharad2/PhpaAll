@@ -1,5 +1,6 @@
 ﻿//using PhpaBills.Database;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Linq;
 using System.IO;
@@ -76,6 +77,19 @@ namespace PhpaAll.Bills
             Bill edit = _db.Bills.Where(bill => bill.Id == id).SingleOrDefault();
             _db.Bills.DeleteOnSubmit(edit);
             _db.SubmitChanges();
+        }
+
+        /// <summary>
+        /// To get division list for division Auto Complete text box
+        /// </summary>
+        /// <param name="searchText">
+        /// Search term is passed to populate the list
+        /// </param>
+        /// <returns></returns>        
+        public IList<Tuple<string, string>> GetDivisions(string searchId, string searchDescription)
+        {
+            throw new NotImplementedException();
+
         }
     }
 }

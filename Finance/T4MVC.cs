@@ -59,6 +59,19 @@ internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.Action
     public string Protocol { get; set; }
     public RouteValueDictionary RouteValueDictionary { get; set; }
 }
+[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+internal partial class T4MVC_System_Web_Mvc_JsonResult : System.Web.Mvc.JsonResult, IT4MVCActionResult
+{
+    public T4MVC_System_Web_Mvc_JsonResult(string area, string controller, string action, string protocol = null): base()
+    {
+        this.InitMVCT4Result(area, controller, action, protocol);
+    }
+    
+    public string Controller { get; set; }
+    public string Action { get; set; }
+    public string Protocol { get; set; }
+    public RouteValueDictionary RouteValueDictionary { get; set; }
+}
 
 
 
@@ -88,6 +101,8 @@ namespace Links
         public static readonly string moment_with_locales_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/moment-with-locales.min.js") ? Url("moment-with-locales.min.js") : Url("moment-with-locales.js");
         public static readonly string moment_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/moment.min.js") ? Url("moment.min.js") : Url("moment.js");
         public static readonly string npm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/npm.min.js") ? Url("npm.min.js") : Url("npm.js");
+        public static readonly string typeahead_bundle_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.bundle.min.js") ? Url("typeahead.bundle.min.js") : Url("typeahead.bundle.js");
+        public static readonly string typeahead_jquery_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.jquery.min.js") ? Url("typeahead.jquery.min.js") : Url("typeahead.jquery.js");
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -175,6 +190,8 @@ namespace Links
         
         }
     
+        public static readonly string typeahead_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.min.css") ? Url("typeahead.min.css") : Url("typeahead.css");
+             
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
