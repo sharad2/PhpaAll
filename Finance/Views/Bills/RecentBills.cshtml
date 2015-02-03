@@ -15,20 +15,43 @@ TODO: Amounts of approved bills will display in green
 <div class="row">
     <div class="col-md-3">
         <fieldset>
-            <legend>Approved by</legend>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="">
-                    Mgr 1
-                </label>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="" disabled>
-                    Mgr 2
-                </label>
-            </div>
+            <legend>Submitted to Division</legend>
+            @for (var i = 0; i < Model.Divisions.Count; ++i)
+            {
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="@Model.Divisions[i].Id">
+                        @Html.DisplayFor(m => m.Divisions[i].Name) <small><em>@Html.DisplayFor(m => m.Divisions[i].Count)</em></small>
+                    </label>
+                </div>
+            }
         </fieldset>
+        <fieldset>
+            <legend>Contractors</legend>
+            @for (var i = 0; i < Model.Contractors.Count; ++i)
+            {
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="@Model.Contractors[i].Id">
+                        @Html.DisplayFor(m => m.Contractors[i].Name) <small><em>@Html.DisplayFor(m => m.Contractors[i].Count)</em></small>
+                    </label>
+                </div>
+            }
+        </fieldset>
+
+        <fieldset>
+            <legend>Contractors</legend>
+            @for (var i = 0; i < Model.Approvers.Count; ++i)
+            {
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="@Model.Approvers[i].Id">
+                        @Html.DisplayFor(m => m.Approvers[i].Name) <small><em>@Html.DisplayFor(m => m.Approvers[i].Count)</em></small>
+                    </label>
+                </div>
+            }
+        </fieldset>
+
         <pre>
 Approved By: Mgr 1 (22) Mgr2 (26)  Not Approved
 Station: S1(23) S2(25) ....

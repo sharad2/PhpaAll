@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Drawing;
-using System.Linq;
-using System.Web;
 
 namespace PhpaAll.Bills
 {
@@ -75,9 +72,26 @@ namespace PhpaAll.Bills
         //public Image BillImage { get; set; }
     }
 
+    public class RecentBillsFilterModel
+    {
+        public string Id { get; set; }
+
+        [DisplayFormat(NullDisplayText="(Not Set)")]
+        public string Name { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int Count { get; set; }
+    }
+
 
     public class RecentBillsViewModel
     {
+        public IList<RecentBillsFilterModel> Divisions { get; set; }
+
+        public IList<RecentBillsFilterModel> Contractors { get; set; }
+
+        public IList<RecentBillsFilterModel> Approvers { get; set; }
+
         public IList<BillModel> Bills { get; set; }
     }
 }

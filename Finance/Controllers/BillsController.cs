@@ -46,8 +46,57 @@ namespace PhpaAll.Controllers
         /// <returns></returns>
         public virtual ActionResult RecentBills()
         {
+            //var query = from bill in _db.Value.Bills
+            //            group bill by 1 into g
+            //            select new
+            //            {
+            //                x = g.Select(p => p.ApprovedBy).Distinct(),
+            //                y = g.Select(p => p.ApprovedBy).Distinct()
+            //            };
+
+            var aggQuery = (from bill in _db.Value.Bills
+                            group bill by new
+                            {
+                                bill.ApprovedBy,
+                                bill.Division,
+                                bill.Contractor
+                            } into g
+                            select new
+                            {
+                                g.Key.ApprovedBy,
+                                DivisionId = g.Key.Division == null ? (int?)null : g.Key.Division.DivisionId,
+                                ContractorId = g.Key.Contractor == null ? (int?)null : g.Key.Contractor.ContractorId,
+                                g.Key.Division.DivisionName,
+                                g.Key.Contractor.ContractorName,
+                                Count = g.Count()
+                            }).ToList();
+
             var model = new RecentBillsViewModel
             {
+                Divisions = (from d in aggQuery
+                             group d by d.DivisionId into g
+                             select new RecentBillsFilterModel
+                             {
+                                 Id = string.Format("{0}", g.Key),
+                                 Name = g.Select(p => p.DivisionName).FirstOrDefault(),
+                                 Count = g.Sum(p => p.Count)
+                             }).ToList(),
+                Contractors = (from d in aggQuery
+                               group d by d.ContractorId into g
+                               select new RecentBillsFilterModel
+                               {
+                                   Id = string.Format("{0}", g.Key),
+                                   Name = g.Select(p => p.ContractorName).FirstOrDefault(),
+                                   Count = g.Sum(p => p.Count)
+                               }).ToList(),
+                Approvers = (from d in aggQuery
+                             group d by d.ApprovedBy into g
+                             select new RecentBillsFilterModel
+                             {
+                                 Id = g.Key,
+                                 Name = g.Key,
+                                 Count = g.Sum(p => p.Count)
+                             }).ToList(),
                 Bills = (from bill in _db.Value.Bills
                          orderby bill.BillDate descending
                          select new BillModel
