@@ -235,7 +235,7 @@ namespace PhpaAll.Controllers
         {
 
             var data = from e in _db.Value.Contractors
-                       where e.ContractorName.StartsWith(term)
+                       where e.ContractorName.Contains(term)
                        orderby e.ContractorName
                        select new
                        {

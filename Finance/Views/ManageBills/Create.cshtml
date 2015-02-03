@@ -117,7 +117,8 @@
                 <label for="tbDivision">Division *</label>
 
                 <div class="input-group input-group-sm">
-                    <input type="text" id="tbDivision" class="form-control typeahead" value="@Model.SubmittedToDivisionName" required placeholder="Start typing..." />
+                    <input type="text" id="tbDivision" class="form-control typeahead" value="@Model.SubmittedToDivisionName" required placeholder="Start typing..."
+                           data-url="@Url.Action(MVC.ManageBills.GetDivision("~"))" />
                     <span class="input-group-btn ">
                         <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
@@ -129,7 +130,6 @@
            })
                 @Html.TextBoxFor(m => m.SubmittedToDivisionId, new
                {
-                   id = "hfDivisionId",
                    style = "height:0; width:0; border:none"
                })
 
@@ -142,7 +142,8 @@
                 <label for="tbContractor">Contractor</label>
 
                 <div class="input-group input-group-sm">
-                    <input type="text" id="tbContractor" class="form-control typeahead" value="@Model.ContractorName" required placeholder="Start typing..." />
+                    <input type="text" id="tbContractor" class="form-control typeahead" value="@Model.ContractorName" required placeholder="Start typing..."
+                           data-url="@Url.Action(MVC.ManageBills.GetContractor("~"))" />
                     <span class="input-group-btn ">
                         <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
@@ -153,8 +154,7 @@
            })
                 @Html.TextBoxFor(m => m.ContractorId, new
                {
-                   id = "hfContractorId",
-                   style = "height:0; width:0; border:none"
+                         style = "height:0; width:0; border:none"
                })
 
             </div>
@@ -235,36 +235,41 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $('#tbDivision').typeahead(null, {
-                name: 'Division',
-                displayKey: 'label',
-                source: function (query, cb) {
-                    var url = '@Url.Action(MVC.ManageBills.GetDivision("~"))'.replace('~', query);
-                    $.get(url).done(function (data, textStatus, jqXHR) {
-                        this.cb(data);
-                    }.bind({ cb: cb })).fail(function (jqXHR, textStatus, errorThrown) {
-                        if (jqXHR.status == 500) {
-                            this.cb([{ label: 'Error ' + (jqXHR.responseText || errorThrown), value: '' }]);
-                        } else {
-                            this.cb([{ label: 'Http Error ' + jqXHR.status + ': ' + errorThrown + ' ' + this.url, value: '' }]);
-                        }
-                    }.bind({ cb: cb, url: url }));
-                },
-                templates: {
-                    empty: 'No matching division found'
-                }
-            }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
-                // Store the id of the selected division in the hdden field
-                $('#hfDivisionId').val(sug.value);
-            }).on('input', function (e) {
-                // When user changes the divisionId, empty the hidden field
-                $('#hfDivisionId').val('');
+            "use strict";
+            $('#tbDivision,#tbContractor').each(function (index, elem) {
+                $(elem).typeahead(null, {
+                    //name: 'Division',
+                    displayKey: 'label',
+                    source: function (query, cb) {
+                        var url = $(elem).attr('data-url').replace('~', query);
+                        $.get(url).done(function (data, textStatus, jqXHR) {
+                            this.cb(data);
+                        }.bind({ cb: cb })).fail(function (jqXHR, textStatus, errorThrown) {
+                            if (jqXHR.status == 500) {
+                                this.cb([{ label: 'Error ' + (jqXHR.responseText || errorThrown), value: '' }]);
+                            } else {
+                                this.cb([{ label: 'Http Error ' + jqXHR.status + ': ' + errorThrown + ' ' + this.url, value: '' }]);
+                            }
+                        }.bind({ cb: cb, url: url }));
+                    },
+                    templates: {
+                        empty: 'No matching results found'
+                    }
+                }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
+                    // Store the id of the selected division in the hdden field
+                    //$('#hfDivisionId').val(sug.value);
+                    $(this).closest('div.form-group').find('input:not(".typeahead")').val(sug.value);
+                }).on('input', function (e) {
+                    // When user changes the divisionId, empty the hidden field
+                    $(this).closest('div.form-group').find('input:not(".typeahead")').val('');
+                });
+
             });
 
 
 
 
-            $('#tbContractor').typeahead(null, {
+            @*$('#tbContractor').typeahead(null, {
                 name: 'Contractor',
                 displayKey: 'label',
                 source: function (query, cb) {
@@ -288,7 +293,7 @@
             }).on('input', function (e) {
                 // When user changes the divisionId, empty the hidden field
                 $('#hfContractorId').val('');
-            });
+            });*@
 
 
 
