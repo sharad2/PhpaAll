@@ -126,20 +126,23 @@
         </div>
 
         <div class="form-group form-group-sm">
-            <label for="conId" class="col-sm-2 control-label">Contractor Id</label>
+            <label for="tbContractor" class="col-sm-2 control-label">Contractor Id</label>
             <div class="col-sm-3">
-                @Html.TextBoxFor(m => m.ContractorName, new
-           {
-               id = "conId",
-               @class = "form-control",
-               type = "numeric"
-
-           })
+                <div class="input-group input-group-sm">
+                    <input type="text" id="tbContractor" class="form-control typeahead" value="@Model.ContractorName" required />
+                    <span class="input-group-btn ">
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div>
                 @Html.ValidationMessageFor(m => m.ContractorId, null, new
            {
                @class = "help-block"
            })
-
+                @Html.TextBoxFor(m => m.ContractorId, new
+               {
+                   id = "hfContractor",
+                   style = "height:0; width:0; border:none"
+               })
             </div>
             <label for="amount" class="col-sm-1 control-label">Amount *</label>
             <div class="col-sm-3">
@@ -204,6 +207,7 @@
 
 
 @section scripts {
+
     <link href="~Views/Shared/typeahed.css.bundle" type="text/css" rel="stylesheet" />
 
     <script type="text/javascript" src="@Links.Scripts.jqueryval_js"></script>
@@ -213,7 +217,7 @@
 
         $(document).ready(function () {
             $('#tbDivision').typeahead(null, {
-                name: 'division',
+                name: 'Division',
                 displayKey: 'label',
                 source: function (query, cb) {
                     var url = '@Url.Action(MVC.Bills.GetDivision("~"))'.replace('~', query);
@@ -232,11 +236,46 @@
                 }
             }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
                 // Store the id of the selected division in the hdden field
-                $('#hfDivId').val(sug.value);
+                $('#hfDivisionId').val(sug.value);
             }).on('input', function (e) {
                 // When user changes the divisionId, empty the hidden field
-                $('#hfDivId').val('');
+                $('#hfDivisionId').val('');
             });
+
+
+
+
+            $('#tbContractor').typeahead(null, {
+                name: 'Contractor',
+                displayKey: 'label',
+                source: function (query, cb) {
+                    var url = '@Url.Action(MVC.Bills.GetContractor("~"))'.replace('~', query);
+                    $.get(url).done(function (data, textStatus, jqXHR) {
+                        this.cb(data);
+                    }.bind({ cb: cb })).fail(function (jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.status == 500) {
+                            this.cb([{ label: 'Error ' + (jqXHR.responseText || errorThrown), value: '' }]);
+                        } else {
+                            this.cb([{ label: 'Http Error ' + jqXHR.status + ': ' + errorThrown + ' ' + this.url, value: '' }]);
+                        }
+                    }.bind({ cb: cb, url: url }));
+                },
+                templates: {
+                    empty: 'No matching contractor found'
+                }
+            }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
+                // Store the id of the selected division in the hdden field
+                $('#hfContractorId').val(sug.value);
+            }).on('input', function (e) {
+                // When user changes the divisionId, empty the hidden field
+                $('#hfContractorId').val('');
+            });
+
+
+
+
+
+
 
         });
     </script>

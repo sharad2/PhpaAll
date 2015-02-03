@@ -75,6 +75,12 @@ namespace PhpaAll.Controllers
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetDivision);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult GetContractor()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetContractor);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public BillsController Actions { get { return MVC.Bills; } }
@@ -95,6 +101,7 @@ namespace PhpaAll.Controllers
             public readonly string Search = "Search";
             public readonly string RecentBills = "RecentBills";
             public readonly string GetDivision = "GetDivision";
+            public readonly string GetContractor = "GetContractor";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -104,6 +111,7 @@ namespace PhpaAll.Controllers
             public const string Search = "Search";
             public const string RecentBills = "RecentBills";
             public const string GetDivision = "GetDivision";
+            public const string GetContractor = "GetContractor";
         }
 
 
@@ -129,6 +137,14 @@ namespace PhpaAll.Controllers
         public ActionParamsClass_GetDivision GetDivisionParams { get { return s_params_GetDivision; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_GetDivision
+        {
+            public readonly string term = "term";
+        }
+        static readonly ActionParamsClass_GetContractor s_params_GetContractor = new ActionParamsClass_GetContractor();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_GetContractor GetContractorParams { get { return s_params_GetContractor; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_GetContractor
         {
             public readonly string term = "term";
         }
@@ -202,6 +218,18 @@ namespace PhpaAll.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetDivision);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
             GetDivisionOverride(callInfo, term);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GetContractorOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string term);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult GetContractor(string term)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetContractor);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
+            GetContractorOverride(callInfo, term);
             return callInfo;
         }
 
