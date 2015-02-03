@@ -327,6 +327,7 @@
     <Content Include="Views\Bills\Index.cshtml" />
     <Content Include="Views\ManageBills\Bill.cshtml" />
     <Content Include="Views\ManageBills\Edit.cshtml" />
+    <Content Include="Views\Bills\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">
@@ -349,6 +350,9 @@
     </Compile>
     <Compile Include="Bills\BillViewModel.cs" />
     <Compile Include="Bills\CreateViewModel.cs" />
+    <Compile Include="Bills\PhpaBills.cs">
+      <DependentUpon>PhpaBills.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Bills\PhpaBills1.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

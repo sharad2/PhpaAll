@@ -77,7 +77,7 @@ namespace PhpaAll.Bills
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Bill> Bills
+		internal System.Data.Linq.Table<Bill> Bills
 		{
 			get
 			{
@@ -85,7 +85,7 @@ namespace PhpaAll.Bills
 			}
 		}
 		
-		public System.Data.Linq.Table<BillWorkflow> BillWorkflows
+		internal System.Data.Linq.Table<BillWorkflow> BillWorkflows
 		{
 			get
 			{
@@ -93,7 +93,7 @@ namespace PhpaAll.Bills
 			}
 		}
 		
-		public System.Data.Linq.Table<Division> Divisions
+		internal System.Data.Linq.Table<Division> Divisions
 		{
 			get
 			{
@@ -101,7 +101,7 @@ namespace PhpaAll.Bills
 			}
 		}
 		
-		public System.Data.Linq.Table<Contractor> Contractors
+		internal System.Data.Linq.Table<Contractor> Contractors
 		{
 			get
 			{
@@ -119,7 +119,7 @@ namespace PhpaAll.Bills
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Bill")]
-	public partial class Bill : INotifyPropertyChanging, INotifyPropertyChanged
+	internal partial class Bill : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -723,7 +723,7 @@ namespace PhpaAll.Bills
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BillWorkflow")]
-	public partial class BillWorkflow : INotifyPropertyChanging, INotifyPropertyChanged
+	internal partial class BillWorkflow : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -1076,32 +1076,18 @@ namespace PhpaAll.Bills
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Division")]
-	public partial class Division : INotifyPropertyChanging, INotifyPropertyChanged
+	internal partial class Division : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _DivisionId;
+		private int _DivisionId = default(int);
 		
-		private string _DivisionCode;
+		private string _DivisionCode = default(string);
 		
-		private string _DivisionGroup;
+		private string _DivisionGroup = default(string);
 		
-		private string _DivisionName;
-		
-		private System.Nullable<System.DateTime> _Created;
-		
-		private string _CreatedBy;
-		
-		private string _CreatedWorkstation;
-		
-		private System.Nullable<System.DateTime> _Modified;
-		
-		private string _ModifiedWorkstation;
-		
-		private string _ModifiedBy;
-		
-		private System.Data.Linq.Binary _Version;
+		private string _DivisionName = default(string);
 		
 		private EntitySet<Bill> _Bills;
 		
@@ -1113,28 +1099,6 @@ namespace PhpaAll.Bills
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnDivisionIdChanging(int value);
-    partial void OnDivisionIdChanged();
-    partial void OnDivisionCodeChanging(string value);
-    partial void OnDivisionCodeChanged();
-    partial void OnDivisionGroupChanging(string value);
-    partial void OnDivisionGroupChanged();
-    partial void OnDivisionNameChanging(string value);
-    partial void OnDivisionNameChanged();
-    partial void OnCreatedChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedChanged();
-    partial void OnCreatedByChanging(string value);
-    partial void OnCreatedByChanged();
-    partial void OnCreatedWorkstationChanging(string value);
-    partial void OnCreatedWorkstationChanged();
-    partial void OnModifiedChanging(System.Nullable<System.DateTime> value);
-    partial void OnModifiedChanged();
-    partial void OnModifiedWorkstationChanging(string value);
-    partial void OnModifiedWorkstationChanged();
-    partial void OnModifiedByChanging(string value);
-    partial void OnModifiedByChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
     #endregion
 		
 		public Division()
@@ -1152,17 +1116,6 @@ namespace PhpaAll.Bills
 			{
 				return this._DivisionId;
 			}
-			set
-			{
-				if ((this._DivisionId != value))
-				{
-					this.OnDivisionIdChanging(value);
-					this.SendPropertyChanging();
-					this._DivisionId = value;
-					this.SendPropertyChanged("DivisionId");
-					this.OnDivisionIdChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivisionCode", DbType="NVarChar(25) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
@@ -1171,17 +1124,6 @@ namespace PhpaAll.Bills
 			get
 			{
 				return this._DivisionCode;
-			}
-			set
-			{
-				if ((this._DivisionCode != value))
-				{
-					this.OnDivisionCodeChanging(value);
-					this.SendPropertyChanging();
-					this._DivisionCode = value;
-					this.SendPropertyChanged("DivisionCode");
-					this.OnDivisionCodeChanged();
-				}
 			}
 		}
 		
@@ -1192,17 +1134,6 @@ namespace PhpaAll.Bills
 			{
 				return this._DivisionGroup;
 			}
-			set
-			{
-				if ((this._DivisionGroup != value))
-				{
-					this.OnDivisionGroupChanging(value);
-					this.SendPropertyChanging();
-					this._DivisionGroup = value;
-					this.SendPropertyChanged("DivisionGroup");
-					this.OnDivisionGroupChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivisionName", DbType="NVarChar(80) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
@@ -1211,157 +1142,6 @@ namespace PhpaAll.Bills
 			get
 			{
 				return this._DivisionName;
-			}
-			set
-			{
-				if ((this._DivisionName != value))
-				{
-					this.OnDivisionNameChanging(value);
-					this.SendPropertyChanging();
-					this._DivisionName = value;
-					this.SendPropertyChanged("DivisionName");
-					this.OnDivisionNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created", DbType="SmallDateTime", UpdateCheck=UpdateCheck.Never)]
-		public System.Nullable<System.DateTime> Created
-		{
-			get
-			{
-				return this._Created;
-			}
-			set
-			{
-				if ((this._Created != value))
-				{
-					this.OnCreatedChanging(value);
-					this.SendPropertyChanging();
-					this._Created = value;
-					this.SendPropertyChanged("Created");
-					this.OnCreatedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
-		public string CreatedBy
-		{
-			get
-			{
-				return this._CreatedBy;
-			}
-			set
-			{
-				if ((this._CreatedBy != value))
-				{
-					this.OnCreatedByChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedBy = value;
-					this.SendPropertyChanged("CreatedBy");
-					this.OnCreatedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedWorkstation", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
-		public string CreatedWorkstation
-		{
-			get
-			{
-				return this._CreatedWorkstation;
-			}
-			set
-			{
-				if ((this._CreatedWorkstation != value))
-				{
-					this.OnCreatedWorkstationChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedWorkstation = value;
-					this.SendPropertyChanged("CreatedWorkstation");
-					this.OnCreatedWorkstationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Modified", DbType="SmallDateTime", UpdateCheck=UpdateCheck.Never)]
-		public System.Nullable<System.DateTime> Modified
-		{
-			get
-			{
-				return this._Modified;
-			}
-			set
-			{
-				if ((this._Modified != value))
-				{
-					this.OnModifiedChanging(value);
-					this.SendPropertyChanging();
-					this._Modified = value;
-					this.SendPropertyChanged("Modified");
-					this.OnModifiedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedWorkstation", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
-		public string ModifiedWorkstation
-		{
-			get
-			{
-				return this._ModifiedWorkstation;
-			}
-			set
-			{
-				if ((this._ModifiedWorkstation != value))
-				{
-					this.OnModifiedWorkstationChanging(value);
-					this.SendPropertyChanging();
-					this._ModifiedWorkstation = value;
-					this.SendPropertyChanged("ModifiedWorkstation");
-					this.OnModifiedWorkstationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedBy", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
-		public string ModifiedBy
-		{
-			get
-			{
-				return this._ModifiedBy;
-			}
-			set
-			{
-				if ((this._ModifiedBy != value))
-				{
-					this.OnModifiedByChanging(value);
-					this.SendPropertyChanging();
-					this._ModifiedBy = value;
-					this.SendPropertyChanged("ModifiedBy");
-					this.OnModifiedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary Version
-		{
-			get
-			{
-				return this._Version;
-			}
-			set
-			{
-				if ((this._Version != value))
-				{
-					this.OnVersionChanging(value);
-					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
-				}
 			}
 		}
 		
@@ -1462,50 +1242,36 @@ namespace PhpaAll.Bills
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Contractor")]
-	public partial class Contractor : INotifyPropertyChanging, INotifyPropertyChanged
+	internal partial class Contractor : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _ContractorId;
+		private int _ContractorId = default(int);
 		
-		private string _ContractorName;
+		private string _ContractorName = default(string);
 		
-		private string _ContractorCode;
+		private string _ContractorCode = default(string);
 		
-		private string _Nationality;
+		private string _Nationality = default(string);
 		
-		private string _Address;
+		private string _Address = default(string);
 		
-		private string _City;
+		private string _City = default(string);
 		
-		private string _State;
+		private string _State = default(string);
 		
-		private string _Country;
+		private string _Country = default(string);
 		
-		private string _Postal_Code;
+		private string _Postal_Code = default(string);
 		
-		private string _Contact_person;
+		private string _Contact_person = default(string);
 		
-		private string _Phone1;
+		private string _Phone1 = default(string);
 		
-		private string _Phone2;
+		private string _Phone2 = default(string);
 		
-		private string _Fax;
-		
-		private System.Nullable<System.DateTime> _Created;
-		
-		private string _CreatedBy;
-		
-		private string _CreatedWorkstation;
-		
-		private System.Nullable<System.DateTime> _Modified;
-		
-		private string _ModifiedBy;
-		
-		private System.Data.Linq.Binary _Version;
-		
-		private string _ModifiedWorkstation;
+		private string _Fax = default(string);
 		
 		private EntitySet<Bill> _Bills;
 		
@@ -1513,46 +1279,6 @@ namespace PhpaAll.Bills
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnContractorIdChanging(int value);
-    partial void OnContractorIdChanged();
-    partial void OnContractorNameChanging(string value);
-    partial void OnContractorNameChanged();
-    partial void OnContractorCodeChanging(string value);
-    partial void OnContractorCodeChanged();
-    partial void OnNationalityChanging(string value);
-    partial void OnNationalityChanged();
-    partial void OnAddressChanging(string value);
-    partial void OnAddressChanged();
-    partial void OnCityChanging(string value);
-    partial void OnCityChanged();
-    partial void OnStateChanging(string value);
-    partial void OnStateChanged();
-    partial void OnCountryChanging(string value);
-    partial void OnCountryChanged();
-    partial void OnPostal_CodeChanging(string value);
-    partial void OnPostal_CodeChanged();
-    partial void OnContact_personChanging(string value);
-    partial void OnContact_personChanged();
-    partial void OnPhone1Changing(string value);
-    partial void OnPhone1Changed();
-    partial void OnPhone2Changing(string value);
-    partial void OnPhone2Changed();
-    partial void OnFaxChanging(string value);
-    partial void OnFaxChanged();
-    partial void OnCreatedChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedChanged();
-    partial void OnCreatedByChanging(string value);
-    partial void OnCreatedByChanged();
-    partial void OnCreatedWorkstationChanging(string value);
-    partial void OnCreatedWorkstationChanged();
-    partial void OnModifiedChanging(System.Nullable<System.DateTime> value);
-    partial void OnModifiedChanged();
-    partial void OnModifiedByChanging(string value);
-    partial void OnModifiedByChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
-    partial void OnModifiedWorkstationChanging(string value);
-    partial void OnModifiedWorkstationChanged();
     #endregion
 		
 		public Contractor()
@@ -1568,17 +1294,6 @@ namespace PhpaAll.Bills
 			{
 				return this._ContractorId;
 			}
-			set
-			{
-				if ((this._ContractorId != value))
-				{
-					this.OnContractorIdChanging(value);
-					this.SendPropertyChanging();
-					this._ContractorId = value;
-					this.SendPropertyChanged("ContractorId");
-					this.OnContractorIdChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContractorName", DbType="NVarChar(120) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
@@ -1587,17 +1302,6 @@ namespace PhpaAll.Bills
 			get
 			{
 				return this._ContractorName;
-			}
-			set
-			{
-				if ((this._ContractorName != value))
-				{
-					this.OnContractorNameChanging(value);
-					this.SendPropertyChanging();
-					this._ContractorName = value;
-					this.SendPropertyChanged("ContractorName");
-					this.OnContractorNameChanged();
-				}
 			}
 		}
 		
@@ -1608,17 +1312,6 @@ namespace PhpaAll.Bills
 			{
 				return this._ContractorCode;
 			}
-			set
-			{
-				if ((this._ContractorCode != value))
-				{
-					this.OnContractorCodeChanging(value);
-					this.SendPropertyChanging();
-					this._ContractorCode = value;
-					this.SendPropertyChanged("ContractorCode");
-					this.OnContractorCodeChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nationality", DbType="NVarChar(2) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
@@ -1627,17 +1320,6 @@ namespace PhpaAll.Bills
 			get
 			{
 				return this._Nationality;
-			}
-			set
-			{
-				if ((this._Nationality != value))
-				{
-					this.OnNationalityChanging(value);
-					this.SendPropertyChanging();
-					this._Nationality = value;
-					this.SendPropertyChanged("Nationality");
-					this.OnNationalityChanged();
-				}
 			}
 		}
 		
@@ -1648,17 +1330,6 @@ namespace PhpaAll.Bills
 			{
 				return this._Address;
 			}
-			set
-			{
-				if ((this._Address != value))
-				{
-					this.OnAddressChanging(value);
-					this.SendPropertyChanging();
-					this._Address = value;
-					this.SendPropertyChanged("Address");
-					this.OnAddressChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_City", DbType="NVarChar(25)", UpdateCheck=UpdateCheck.Never)]
@@ -1667,17 +1338,6 @@ namespace PhpaAll.Bills
 			get
 			{
 				return this._City;
-			}
-			set
-			{
-				if ((this._City != value))
-				{
-					this.OnCityChanging(value);
-					this.SendPropertyChanging();
-					this._City = value;
-					this.SendPropertyChanged("City");
-					this.OnCityChanged();
-				}
 			}
 		}
 		
@@ -1688,17 +1348,6 @@ namespace PhpaAll.Bills
 			{
 				return this._State;
 			}
-			set
-			{
-				if ((this._State != value))
-				{
-					this.OnStateChanging(value);
-					this.SendPropertyChanging();
-					this._State = value;
-					this.SendPropertyChanged("State");
-					this.OnStateChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Country", DbType="NVarChar(25)", UpdateCheck=UpdateCheck.Never)]
@@ -1707,17 +1356,6 @@ namespace PhpaAll.Bills
 			get
 			{
 				return this._Country;
-			}
-			set
-			{
-				if ((this._Country != value))
-				{
-					this.OnCountryChanging(value);
-					this.SendPropertyChanging();
-					this._Country = value;
-					this.SendPropertyChanged("Country");
-					this.OnCountryChanged();
-				}
 			}
 		}
 		
@@ -1728,17 +1366,6 @@ namespace PhpaAll.Bills
 			{
 				return this._Postal_Code;
 			}
-			set
-			{
-				if ((this._Postal_Code != value))
-				{
-					this.OnPostal_CodeChanging(value);
-					this.SendPropertyChanging();
-					this._Postal_Code = value;
-					this.SendPropertyChanged("Postal_Code");
-					this.OnPostal_CodeChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contact_person", DbType="NVarChar(50)", UpdateCheck=UpdateCheck.Never)]
@@ -1747,17 +1374,6 @@ namespace PhpaAll.Bills
 			get
 			{
 				return this._Contact_person;
-			}
-			set
-			{
-				if ((this._Contact_person != value))
-				{
-					this.OnContact_personChanging(value);
-					this.SendPropertyChanging();
-					this._Contact_person = value;
-					this.SendPropertyChanged("Contact_person");
-					this.OnContact_personChanged();
-				}
 			}
 		}
 		
@@ -1768,17 +1384,6 @@ namespace PhpaAll.Bills
 			{
 				return this._Phone1;
 			}
-			set
-			{
-				if ((this._Phone1 != value))
-				{
-					this.OnPhone1Changing(value);
-					this.SendPropertyChanging();
-					this._Phone1 = value;
-					this.SendPropertyChanged("Phone1");
-					this.OnPhone1Changed();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone2", DbType="NVarChar(25)", UpdateCheck=UpdateCheck.Never)]
@@ -1788,17 +1393,6 @@ namespace PhpaAll.Bills
 			{
 				return this._Phone2;
 			}
-			set
-			{
-				if ((this._Phone2 != value))
-				{
-					this.OnPhone2Changing(value);
-					this.SendPropertyChanging();
-					this._Phone2 = value;
-					this.SendPropertyChanged("Phone2");
-					this.OnPhone2Changed();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fax", DbType="NVarChar(25)", UpdateCheck=UpdateCheck.Never)]
@@ -1807,157 +1401,6 @@ namespace PhpaAll.Bills
 			get
 			{
 				return this._Fax;
-			}
-			set
-			{
-				if ((this._Fax != value))
-				{
-					this.OnFaxChanging(value);
-					this.SendPropertyChanging();
-					this._Fax = value;
-					this.SendPropertyChanged("Fax");
-					this.OnFaxChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created", DbType="SmallDateTime", UpdateCheck=UpdateCheck.Never)]
-		public System.Nullable<System.DateTime> Created
-		{
-			get
-			{
-				return this._Created;
-			}
-			set
-			{
-				if ((this._Created != value))
-				{
-					this.OnCreatedChanging(value);
-					this.SendPropertyChanging();
-					this._Created = value;
-					this.SendPropertyChanged("Created");
-					this.OnCreatedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
-		public string CreatedBy
-		{
-			get
-			{
-				return this._CreatedBy;
-			}
-			set
-			{
-				if ((this._CreatedBy != value))
-				{
-					this.OnCreatedByChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedBy = value;
-					this.SendPropertyChanged("CreatedBy");
-					this.OnCreatedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedWorkstation", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
-		public string CreatedWorkstation
-		{
-			get
-			{
-				return this._CreatedWorkstation;
-			}
-			set
-			{
-				if ((this._CreatedWorkstation != value))
-				{
-					this.OnCreatedWorkstationChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedWorkstation = value;
-					this.SendPropertyChanged("CreatedWorkstation");
-					this.OnCreatedWorkstationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Modified", DbType="SmallDateTime", UpdateCheck=UpdateCheck.Never)]
-		public System.Nullable<System.DateTime> Modified
-		{
-			get
-			{
-				return this._Modified;
-			}
-			set
-			{
-				if ((this._Modified != value))
-				{
-					this.OnModifiedChanging(value);
-					this.SendPropertyChanging();
-					this._Modified = value;
-					this.SendPropertyChanged("Modified");
-					this.OnModifiedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedBy", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
-		public string ModifiedBy
-		{
-			get
-			{
-				return this._ModifiedBy;
-			}
-			set
-			{
-				if ((this._ModifiedBy != value))
-				{
-					this.OnModifiedByChanging(value);
-					this.SendPropertyChanging();
-					this._ModifiedBy = value;
-					this.SendPropertyChanged("ModifiedBy");
-					this.OnModifiedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary Version
-		{
-			get
-			{
-				return this._Version;
-			}
-			set
-			{
-				if ((this._Version != value))
-				{
-					this.OnVersionChanging(value);
-					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedWorkstation", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
-		public string ModifiedWorkstation
-		{
-			get
-			{
-				return this._ModifiedWorkstation;
-			}
-			set
-			{
-				if ((this._ModifiedWorkstation != value))
-				{
-					this.OnModifiedWorkstationChanging(value);
-					this.SendPropertyChanging();
-					this._ModifiedWorkstation = value;
-					this.SendPropertyChanged("ModifiedWorkstation");
-					this.OnModifiedWorkstationChanged();
-				}
 			}
 		}
 		
