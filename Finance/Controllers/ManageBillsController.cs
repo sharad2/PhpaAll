@@ -192,7 +192,11 @@ namespace PhpaAll.Controllers
                              SubmittedOnDate = bill.SubmittedOnDate,
                              isEditMode = true,
                              SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
-                             ContractorName = bill.Contractor.ContractorName
+                             ContractorName = bill.Contractor.ContractorName,
+                             ApprovedDate = bill.ApprovedOn,
+                             ApprovedBy = bill.ApprovedBy,
+                             StationName = bill.Station.StationName
+                            
                          }).FirstOrDefault();
 
             //// Dummy Code: TODO: Put where clause.  
