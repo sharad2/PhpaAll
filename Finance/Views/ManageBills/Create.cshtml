@@ -6,8 +6,8 @@
     Html.EnableUnobtrusiveJavaScript();
 }
 
-<h2 style="margin-top:0">    
-        <span>Create Bill</span>    
+<h2 style="margin-top:0">
+    <span>Create Bill</span>
 </h2>
 
 <p>
@@ -74,23 +74,24 @@
             </div>
         </div>
         <div class="form-group form-group-sm">
-            <label for="divId" class="col-sm-2 control-label">Received by Division *</label>
+            <label for="tbDivision" class="col-sm-2 control-label">Received by Division *</label>
             <div class="col-sm-3">
-                @Html.TextBoxFor(m => m.SubmittedToDivisionName, new
-           {
-               id = "divId",
-               @class = "form-control",
-               type = "numeric",
-               @required = "required"
-
-           })
+                <div class="input-group input-group-sm">
+                    <input type="text" id="tbDivision" class="form-control typeahead" value="@Model.SubmittedToDivisionName" required />
+                    <span class="input-group-btn ">
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div>
                 @Html.ValidationMessageFor(m => m.SubmittedToDivisionId, null, new
            {
                @class = "help-block"
            })
-
+                @Html.TextBoxFor(m => m.SubmittedToDivisionId, new
+               {
+                   id = "hfDivId",
+                   style = "height:0; width:0; border:none"
+               })
             </div>
-
 
             <label for="divSubDate" class="col-sm-1 control-label">on date</label>
             <div class="col-sm-3">
@@ -121,7 +122,7 @@
                @class = "help-block"
            })
 
-            </div>           
+            </div>
         </div>
 
         <div class="form-group form-group-sm">
@@ -149,7 +150,7 @@
                min = "0",
                type = "number",
                @required = "required",
-               placeholder="Amount(Nu)"
+               placeholder = "Amount(Nu)"
 
            })
                 @Html.ValidationMessageFor(m => m.Amount, null, new
@@ -186,12 +187,12 @@
                @class = "help-block"
            })
 
-            </div>           
+            </div>
         </div>
 
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">               
-                    <button type="submit" class="btn btn-primary">Add Bill</button>              
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Add Bill</button>
                 <a href="@Url.Action(MVC.Bills.RecentBills())">Cancel</a>
             </div>
         </div>
@@ -203,5 +204,40 @@
 
 
 @section scripts {
+    <link href="~Views/Shared/typeahed.css.bundle" type="text/css" rel="stylesheet" />
+
     <script type="text/javascript" src="@Links.Scripts.jqueryval_js"></script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#tbDivision').typeahead(null, {
+                name: 'division',
+                displayKey: 'label',
+                source: function (query, cb) {
+                    var url = '@Url.Action(MVC.Bills.GetDivision("~"))'.replace('~', query);
+                    $.get(url).done(function (data, textStatus, jqXHR) {
+                        this.cb(data);
+                    }.bind({ cb: cb })).fail(function (jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.status == 500) {
+                            this.cb([{ label: 'Error ' + (jqXHR.responseText || errorThrown), value: '' }]);
+                        } else {
+                            this.cb([{ label: 'Http Error ' + jqXHR.status + ': ' + errorThrown + ' ' + this.url, value: '' }]);
+                        }
+                    }.bind({ cb: cb, url: url }));
+                },
+                templates: {
+                    empty: 'No matching division found'
+                }
+            }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
+                // Store the id of the selected division in the hdden field
+                $('#hfDivId').val(sug.value);
+            }).on('input', function (e) {
+                // When user changes the divisionId, empty the hidden field
+                $('#hfDivId').val('');
+            });
+
+        });
+    </script>
 }
