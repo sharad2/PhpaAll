@@ -30,16 +30,6 @@ namespace PhpaAll.Controllers
             base.Dispose(disposing);
         }
 
-
-        //public virtual ActionResult Index()
-        //{
-
-        //    return View(Views.Index);
-        //}
-
-
-
-
         public virtual ActionResult Create()
         {
             var model = new CreateViewModel();
@@ -115,6 +105,7 @@ namespace PhpaAll.Controllers
         public virtual ActionResult Edit(EditViewModel model)
         {
 
+
             try
             {
                 byte[] imageData = null;
@@ -127,22 +118,22 @@ namespace PhpaAll.Controllers
                     imageData = ms.ToArray();
                 }
 
-                var bill = new Bill
-                {
-                    Amount = model.Amount,
-                    BillNumber = model.BillNumber,
-                    Particulars = model.Particulars,
-                    BillDate = model.BillDate,
-                    BillImage = imageData,
-                    ContractorId = model.ContractorId,
-                    SubmitedToDivisionId = model.SubmittedToDivisionId,
-                    DueDate = model.DueDate,
-                    PaidDate = model.PaidDate,
-                    Remarks = model.Remarks,
-                    SubmittedOnDate = model.SubmittedOnDate,
-                    Id = model.Id
-                };
-                _service.Value.UpdateBill(bill);
+                var edit = (from b in _service.Value.Bills
+                            where b.Id == model.Id
+                            select b).SingleOrDefault();
+
+                edit.Amount = model.Amount;
+                edit.Particulars = model.Particulars;
+                edit.BillNumber = model.BillNumber;
+                edit.BillDate = model.BillDate;
+                edit.BillImage = imageData;
+                edit.ContractorId = model.ContractorId;
+                edit.SubmitedToDivisionId = model.SubmittedToDivisionId;
+                edit.DueDate = model.DueDate;
+                edit.PaidDate = model.PaidDate;
+                edit.Remarks = model.Remarks;
+                edit.SubmittedOnDate = model.SubmittedOnDate;
+                _service.Value.UpdateBill(edit);
                 return RedirectToAction(MVC.Bills.RecentBills());
 
 
@@ -151,7 +142,7 @@ namespace PhpaAll.Controllers
             {
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
-            return RedirectToAction(MVC.ManageBills.Bill());
+            return RedirectToAction(MVC.ManageBills.ShowBill());
         }
 
 
@@ -172,7 +163,7 @@ namespace PhpaAll.Controllers
 
 
 
-        public virtual ActionResult Bill(int id)
+        public virtual ActionResult ShowBill(int id)
         {
 
             var model = (from bill in _service.Value.Bills

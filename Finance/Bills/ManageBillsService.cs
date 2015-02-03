@@ -62,22 +62,6 @@ namespace PhpaAll.Bills
 
         public void UpdateBill(Bill bill)
         {
-            var edit = (from b in _db.Bills
-                        where b.Id == bill.Id
-                        select b).SingleOrDefault();
-
-            edit.Amount = bill.Amount;
-            edit.Particulars = bill.Particulars;
-            edit.BillNumber = bill.BillNumber;
-            edit.BillDate = bill.BillDate;
-            edit.BillImage = bill.BillImage;
-            edit.ContractorId = bill.ContractorId;
-            edit.SubmitedToDivisionId = bill.SubmitedToDivisionId;
-            edit.DueDate = bill.DueDate;
-            edit.PaidDate = bill.PaidDate;
-            edit.Remarks = bill.Remarks;
-            edit.SubmittedOnDate = bill.SubmittedOnDate;
-
             _db.SubmitChanges();
         }
 
