@@ -63,7 +63,7 @@ Paid / Unpaid
                     <small><em>@Html.DisplayFor(m => m.Bills[i].BillNumber)</em></small>
                     @Html.DisplayFor(m => m.Bills[i].Particulars)
                     <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn btn-default">Edit</a>
-                    <a href="@Url.Action(MVC.ManageBills.BillDetail(Model.Bills[i].Id))" class="btn btn-default">View</a>
+                    <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))" class="btn btn-default">View</a>
                 </li>
             }
         </ul>
