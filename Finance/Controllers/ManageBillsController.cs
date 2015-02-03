@@ -94,7 +94,7 @@ namespace PhpaAll.Controllers
                              PaidDate = bill.PaidDate,
                              Remarks = bill.Remarks,
                              SubmittedOnDate = bill.SubmittedOnDate,
-                             SubmittedToDivisionName = bill.Division.DivisionName,
+                             SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
                              ContractorName = bill.Contractor.ContractorName
                          }).FirstOrDefault();
 
@@ -182,7 +182,7 @@ namespace PhpaAll.Controllers
                              Remarks = bill.Remarks,
                              SubmittedOnDate = bill.SubmittedOnDate,
                              isEditMode = true,
-                             SubmittedToDivisionName = bill.Division.DivisionName,
+                             SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
                              ContractorName = bill.Contractor.ContractorName
                          }).FirstOrDefault();
 

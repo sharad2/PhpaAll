@@ -50,15 +50,15 @@ namespace PhpaAll.Controllers
                         group bill by new
                         {
                             bill.ApprovedBy,
-                            bill.Division,
+                            bill.SubmittedToDivision,
                             bill.Contractor
                         } into g
                         select new
                         {
                             g.Key.ApprovedBy,
-                            DivisionId = g.Key.Division == null ? (int?)null : g.Key.Division.DivisionId,
+                            SubmittedToDivisionId = g.Key.SubmittedToDivision == null ? (int?)null : g.Key.SubmittedToDivision.DivisionId,
                             ContractorId = g.Key.Contractor == null ? (int?)null : g.Key.Contractor.ContractorId,
-                            g.Key.Division.DivisionName,
+                            g.Key.SubmittedToDivision.DivisionName,
                             g.Key.Contractor.ContractorName,
                             Count = g.Count()
                         };
@@ -69,7 +69,7 @@ namespace PhpaAll.Controllers
             var model = new RecentBillsViewModel
             {
                 Divisions = (from d in aggQuery
-                             group d by d.DivisionId into g
+                             group d by d.SubmittedToDivisionId into g
                              select new RecentBillsFilterModel
                              {
                                  Id = string.Format("{0}", g.Key),
@@ -130,7 +130,7 @@ namespace PhpaAll.Controllers
                                ContractorId = bill.ContractorId,
                                ContractorName = bill.Contractor.ContractorName,
                                SubmittedToDivisionId = bill.SubmitedToDivisionId,
-                               SubmittedToDivisionName = bill.Division.DivisionName,
+                               SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
                                DueDate = bill.DueDate,
                                PaidDate = bill.PaidDate,
                                Remarks = bill.Remarks,
