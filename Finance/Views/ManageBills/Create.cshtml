@@ -18,11 +18,32 @@
 <form class="form-horizontal" action="@Url.Action(MVC.ManageBills.CreateBill())" method="post" enctype="multipart/form-data">
     @Html.HiddenFor(m => m.Id)
     <div class="well well-sm">
-        <div class="form-group form-group-sm">
-            <label for="billNumber" class="col-sm-2 control-label">Bill No. *</label>
-            <div class="col-sm-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group form-group-sm">
+                    <label for="billDate" class="col-md-6 control-label">Bill Date *</label>
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.BillDate, new
+           {
+               id = "billDate",
+               @class = "form-control",
+               @required = "required",
+               @placeholder = "dd/mm/yyyy"
+           })
+                        @Html.ValidationMessageFor(m => m.BillDate, null, new
+           {
+               @class = "help-block"
+           })
+                    </div>
+                </div>
+            </div>
 
-                @Html.TextBoxFor(m => m.BillNumber, new
+            <div class="col-md-4">
+                <div class="form-group form-group-sm">
+                    <label for="billNumber" class="col-md-6 control-label">Bill No. *</label>
+                    <div class="col-md-6">
+
+                        @Html.TextBoxFor(m => m.BillNumber, new
                                    {
                                        id = "billNumber",
                                        maxlength = "60",
@@ -30,58 +51,67 @@
                                        @required = "required"
                                    })
 
-                @Html.ValidationMessageFor(m => m.BillNumber, null, new
+                        @Html.ValidationMessageFor(m => m.BillNumber, null, new
                                    {
                                        @class = "help-block"
                                    })
 
 
+                    </div>
+
+                </div>
             </div>
+            <div class="col-md-4">
+                <div class="form-group form-group-sm">
 
-            <label for="particulars" class="col-sm-1 control-label">Particulars</label>
-            <div class="col-sm-3">
-                @Html.TextBoxFor(m => m.Particulars, new
+                    <label for="dueDate" class="col-md-6 control-label">Due Date</label>
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.DueDate, new
            {
-               id = "particulars",
+               id = "dueDate",
                @class = "form-control",
-               maxlength = "255"
-
-           })
-
-                <small class="help-block">*You can mention the subject of the bill</small>
-            </div>
-
-
-
-
-
-
-
-            <label for="billDate" class="col-sm-1 control-label">Bill Date *</label>
-            <div class="col-sm-2">
-                @Html.TextBoxFor(m => m.BillDate, new
-           {
-               id = "billDate",
-               @class = "form-control",
-               @required = "required",
+               type = "date",
                @placeholder = "dd/mm/yyyy"
            })
-                @Html.ValidationMessageFor(m => m.BillDate, null, new
+                        @Html.ValidationMessageFor(m => m.DueDate, null, new
            {
                @class = "help-block"
            })
 
+                    </div>
+                </div>
             </div>
+
         </div>
+
+
+
         <div class="form-group form-group-sm">
-            <label for="tbDivision" class="col-sm-2 control-label">Received by Division *</label>
+            <label for="particulars" class="col-sm-1 control-label">Particulars</label>
+            <div class="col-sm-11">
+                @Html.TextBoxFor(m => m.Particulars, new
+           {
+               id = "particulars",
+               @class = "form-control",
+               maxlength = "255",
+               placeholder = "You can mention the subject of the bill"
+
+           })
+
+            </div>
+
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label for="tbDivision" class="col-sm-1 control-label">Division *</label>
             <div class="col-sm-3">
                 <div class="input-group input-group-sm">
-                    <input type="text" id="tbDivision" class="form-control typeahead" value="@Model.SubmittedToDivisionName" required />
+                    <input type="text" id="tbDivision" class="form-control typeahead" value="@Model.SubmittedToDivisionName" required placeholder="Start typing..." />
                     <span class="input-group-btn ">
                         <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
                 </div>
+                <small class="help-block">The division which received this bill.</small>
                 @Html.ValidationMessageFor(m => m.SubmittedToDivisionId, null, new
            {
                @class = "help-block"
@@ -91,6 +121,7 @@
                    id = "hfDivisionId",
                    style = "height:0; width:0; border:none"
                })
+
             </div>
 
             <label for="divSubDate" class="col-sm-1 control-label">on date</label>
@@ -108,28 +139,13 @@
            })
             </div>
 
-            <label for="dueDate" class="col-sm-1 control-label">Due Date</label>
-            <div class="col-sm-2">
-                @Html.TextBoxFor(m => m.DueDate, new
-           {
-               id = "dueDate",
-               @class = "form-control",
-               type = "date",
-               @placeholder = "dd/mm/yyyy"
-           })
-                @Html.ValidationMessageFor(m => m.DueDate, null, new
-           {
-               @class = "help-block"
-           })
-
-            </div>
         </div>
 
         <div class="form-group form-group-sm">
-            <label for="tbContractor" class="col-sm-2 control-label">Contractor Id</label>
+            <label for="tbContractor" class="col-sm-1 control-label">Contractor</label>
             <div class="col-sm-3">
                 <div class="input-group input-group-sm">
-                    <input type="text" id="tbContractor" class="form-control typeahead" value="@Model.ContractorName" required />
+                    <input type="text" id="tbContractor" class="form-control typeahead" value="@Model.ContractorName" required placeholder="Start typing..." />
                     <span class="input-group-btn ">
                         <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
@@ -141,7 +157,7 @@
                 @Html.TextBoxFor(m => m.ContractorId, new
                {
                    id = "hfContractorId",
-                  style = "height:0; width:0; border:none"
+                   style = "height:0; width:0; border:none"
                })
             </div>
             <label for="amount" class="col-sm-1 control-label">Amount *</label>
@@ -164,7 +180,7 @@
             </div>
 
             <label for="image" class="col-sm-1 control-label">Image</label>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 @Html.TextBoxFor(m => m.BillImage, new
            {
                id = "image",
@@ -177,8 +193,8 @@
         </div>
 
         <div class="form-group">
-            <label for="remarks" class="col-sm-2 control-label">Remark</label>
-            <div class="col-sm-10">
+            <label for="remarks" class="col-sm-1 control-label">Remarks</label>
+            <div class="col-sm-11">
                 @Html.TextAreaFor(m => m.Remarks, new
            {
                id = "remarks",
