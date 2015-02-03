@@ -185,9 +185,20 @@ namespace PhpaAll.Controllers
                              SubmittedToDivisionName = bill.Division.DivisionName,
                              ContractorName = bill.Contractor.ContractorName
                          }).FirstOrDefault();
+            
+            //// Dummy Code: TODO: Put where clause.  
+            model.BillHistory = (from ba in _service.Value.BillAudit
+                                 where ba.BillId == id
+                                 select new BillAuditViewModel
+                                 {
+                                     BillCreatedBy = ba.CreatedBy,
+                                     DateCreated = ba.Created
 
+                                 }).ToList();
 
             return View(Views.Bill, model);
         }
+
+
     }
 }
