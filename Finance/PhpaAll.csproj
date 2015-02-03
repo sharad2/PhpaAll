@@ -192,6 +192,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\typeahead.css" />
     <Content Include="Default.aspx" />
     <Content Include="Doc\Adjustment.doc.aspx" />
     <Content Include="Doc\BalanceProjectCost.doc.aspx" />
@@ -301,6 +302,9 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
     <Content Include="Services\Adjustments.asmx" />
     <Content Include="Services\Contractors.asmx" />
     <Content Include="Services\Divisions.asmx" />
@@ -351,6 +355,7 @@
     <Compile Include="BillsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Bills\BillAuditViewModel.cs" />
     <Compile Include="Bills\BillViewModel.cs" />
     <Compile Include="Bills\CreateViewModel.cs" />
     <Compile Include="Bills\PhpaBills.cs">

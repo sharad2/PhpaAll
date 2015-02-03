@@ -69,12 +69,6 @@ namespace PhpaAll.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RecentBills);
         }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.JsonResult GetDivision()
-        {
-            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetDivision);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public BillsController Actions { get { return MVC.Bills; } }
@@ -94,7 +88,6 @@ namespace PhpaAll.Controllers
             public readonly string Index = "Index";
             public readonly string Search = "Search";
             public readonly string RecentBills = "RecentBills";
-            public readonly string GetDivision = "GetDivision";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -103,7 +96,6 @@ namespace PhpaAll.Controllers
             public const string Index = "Index";
             public const string Search = "Search";
             public const string RecentBills = "RecentBills";
-            public const string GetDivision = "GetDivision";
         }
 
 
@@ -126,14 +118,6 @@ namespace PhpaAll.Controllers
             public readonly string contractors = "contractors";
             public readonly string stations = "stations";
             public readonly string exportToExcel = "exportToExcel";
-        }
-        static readonly ActionParamsClass_GetDivision s_params_GetDivision = new ActionParamsClass_GetDivision();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_GetDivision GetDivisionParams { get { return s_params_GetDivision; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetDivision
-        {
-            public readonly string term = "term";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -196,18 +180,6 @@ namespace PhpaAll.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "stations", stations);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "exportToExcel", exportToExcel);
             RecentBillsOverride(callInfo, approvers, divisions, contractors, stations, exportToExcel);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void GetDivisionOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string term);
-
-        [NonAction]
-        public override System.Web.Mvc.JsonResult GetDivision(string term)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetDivision);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
-            GetDivisionOverride(callInfo, term);
             return callInfo;
         }
 

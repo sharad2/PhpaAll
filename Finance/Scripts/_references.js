@@ -16,6 +16,5 @@
 /// <reference path="moment-with-locales.min.js" />
 /// <reference path="moment.min.js" />
 /// <reference path="bootstrap-datetimepicker.min.js" />
-/// <reference path="typeahead.jquery.js" />
 /// <reference path="typeahead.bundle.min.js" />
-/// <reference path="bloodhound.js" />
+/// <reference path="typeahead.jquery.js" />

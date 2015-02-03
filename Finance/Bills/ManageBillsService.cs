@@ -9,6 +9,7 @@ using System.Web;
 
 namespace PhpaAll.Bills
 {
+    [Obsolete]
     internal class ManageBillsService:IDisposable
     {
         private readonly PhpaBillsDataContext _db;
@@ -58,7 +59,13 @@ namespace PhpaAll.Bills
             }
         }
 
-
+        public IQueryable<BillAudit> BillAudit
+        {
+            get
+            {
+                return _db.BillAudits;
+            }
+        }
        
 
         public void UpdateBill(Bill bill)

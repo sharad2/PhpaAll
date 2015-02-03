@@ -68,6 +68,8 @@ namespace PhpaAll.Bills
 
         //Weather it is edit mode or not
         public bool isEditMode { get; set; }
+
+        public IList<BillAuditViewModel> BillHistory { get; set; }
     }
     
 }
