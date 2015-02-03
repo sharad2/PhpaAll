@@ -81,6 +81,11 @@ namespace PhpaAll.Bills
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int Count { get; set; }
+
+        /// <summary>
+        /// Whether this option should be initially selected
+        /// </summary>
+        public bool Selected { get; set; }
     }
 
 

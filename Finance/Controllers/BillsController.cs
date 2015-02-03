@@ -44,7 +44,7 @@ namespace PhpaAll.Controllers
         /// Display recent bills. Option to create new bill
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult RecentBills()
+        public virtual ActionResult RecentBills(string[] approvers)
         {
             //var query = from bill in _db.Value.Bills
             //            group bill by 1 into g
@@ -54,22 +54,24 @@ namespace PhpaAll.Controllers
             //                y = g.Select(p => p.ApprovedBy).Distinct()
             //            };
 
-            var aggQuery = (from bill in _db.Value.Bills
-                            group bill by new
-                            {
-                                bill.ApprovedBy,
-                                bill.Division,
-                                bill.Contractor
-                            } into g
-                            select new
-                            {
-                                g.Key.ApprovedBy,
-                                DivisionId = g.Key.Division == null ? (int?)null : g.Key.Division.DivisionId,
-                                ContractorId = g.Key.Contractor == null ? (int?)null : g.Key.Contractor.ContractorId,
-                                g.Key.Division.DivisionName,
-                                g.Key.Contractor.ContractorName,
-                                Count = g.Count()
-                            }).ToList();
+            var query = from bill in _db.Value.Bills
+                        group bill by new
+                        {
+                            bill.ApprovedBy,
+                            bill.Division,
+                            bill.Contractor
+                        } into g
+                        select new
+                        {
+                            g.Key.ApprovedBy,
+                            DivisionId = g.Key.Division == null ? (int?)null : g.Key.Division.DivisionId,
+                            ContractorId = g.Key.Contractor == null ? (int?)null : g.Key.Contractor.ContractorId,
+                            g.Key.Division.DivisionName,
+                            g.Key.Contractor.ContractorName,
+                            Count = g.Count()
+                        };
+
+            var aggQuery = query.ToList();
 
             var model = new RecentBillsViewModel
             {
@@ -95,28 +97,38 @@ namespace PhpaAll.Controllers
                              {
                                  Id = g.Key,
                                  Name = g.Key,
-                                 Count = g.Sum(p => p.Count)
-                             }).ToList(),
-                Bills = (from bill in _db.Value.Bills
-                         orderby bill.BillDate descending
-                         select new BillModel
-                         {
-                             Amount = bill.Amount,
-                             Particulars = bill.Particulars,
-                             BillNumber = bill.BillNumber,
-                             BillDate = bill.BillDate,
-                             //BillImage = model.BillImage,          
-                             ContractorId = bill.ContractorId,
-                             ContractorName = bill.Contractor.ContractorName,
-                             SubmittedToDivisionId = bill.SubmitedToDivisionId,
-                             SubmittedToDivisionName = bill.Division.DivisionName,
-                             DueDate = bill.DueDate,
-                             PaidDate = bill.PaidDate,
-                             Remarks = bill.Remarks,
-                             SubmittedOnDate = bill.SubmittedOnDate,
-                             Id = bill.Id,
-                         }).ToList()
+                                 Count = g.Sum(p => p.Count),
+                                 Selected = approvers != null && approvers.Contains(g.Key)
+                             }).ToList()
             };
+
+            IQueryable<Bill> filteredBills = _db.Value.Bills;
+
+            if (approvers != null)
+            {
+                filteredBills = filteredBills.Where(p => approvers.Contains(p.ApprovedBy));
+            }
+
+            model.Bills = (from bill in filteredBills
+                           orderby bill.BillDate descending
+                           select new BillModel
+                           {
+                               Amount = bill.Amount,
+                               Particulars = bill.Particulars,
+                               BillNumber = bill.BillNumber,
+                               BillDate = bill.BillDate,
+                               //BillImage = model.BillImage,          
+                               ContractorId = bill.ContractorId,
+                               ContractorName = bill.Contractor.ContractorName,
+                               SubmittedToDivisionId = bill.SubmitedToDivisionId,
+                               SubmittedToDivisionName = bill.Division.DivisionName,
+                               DueDate = bill.DueDate,
+                               PaidDate = bill.PaidDate,
+                               Remarks = bill.Remarks,
+                               SubmittedOnDate = bill.SubmittedOnDate,
+                               Id = bill.Id,
+                           }).ToList();
+
             return View(Views.RecentBills, model);
         }
     }
