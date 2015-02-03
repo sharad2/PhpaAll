@@ -95,10 +95,10 @@ namespace PhpaAll.Controllers
                              group d by d.ApprovedBy into g
                              select new RecentBillsFilterModel
                              {
-                                 Id = g.Key,
+                                 Id = string.Format("{0}", g.Key),
                                  Name = g.Key,
                                  Count = g.Sum(p => p.Count),
-                                 Selected = approvers != null && approvers.Contains(g.Key)
+                                 Selected = approvers != null && approvers.Contains(g.Key ?? "")
                              }).ToList()
             };
 
@@ -106,7 +106,7 @@ namespace PhpaAll.Controllers
 
             if (approvers != null)
             {
-                filteredBills = filteredBills.Where(p => approvers.Contains(p.ApprovedBy));
+                filteredBills = filteredBills.Where(p => approvers.Contains(p.ApprovedBy ?? ""));
             }
 
             model.Bills = (from bill in filteredBills
