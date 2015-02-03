@@ -1,11 +1,11 @@
-﻿//using PhpaBills.Database;
+﻿using PhpaAll.Bills;
+//using PhpaBills.Database;
 using System;
-using System.Web.Mvc;
-using System.Web.Routing;
-using System.Linq;
-using PhpaAll.Bills;
 using System.Data;
 using System.IO;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace PhpaAll.Controllers
 {
@@ -38,36 +38,7 @@ namespace PhpaAll.Controllers
         //}
 
 
-        /// <summary>
-        /// Display recent bills. Option to create new bill
-        /// </summary>
-        /// <returns></returns>
-        public virtual ActionResult RecentBills()
-        {
-            var model = new RecentBillsViewModel
-            {
-                Bills = (from bill in _service.Value.Bills
-                         orderby bill.BillDate descending
-                         select new BillModel
-                         {
-                             Amount = bill.Amount,
-                             Particulars = bill.Particulars,
-                             BillNumber = bill.BillNumber,
-                             BillDate = bill.BillDate,
-                             //BillImage = model.BillImage,          
-                             ContractorId = bill.ContractorId,
-                             ContractorName = bill.Contractor.ContractorName,
-                             SubmittedToDivisionId = bill.SubmitedToDivisionId,
-                             SubmittedToDivisionName = bill.Division.DivisionName,
-                             DueDate = bill.DueDate,
-                             PaidDate = bill.PaidDate,
-                             Remarks = bill.Remarks,
-                             SubmittedOnDate = bill.SubmittedOnDate,
-                             Id = bill.Id,
-                         }).ToList()
-            };
-            return View(Views.RecentBills, model);
-        }
+
 
         public virtual ActionResult Create()
         {
@@ -108,7 +79,7 @@ namespace PhpaAll.Controllers
                 Id = model.Id
             };
             _service.Value.InsertBill(bill);
-            return RedirectToAction(MVC.ManageBills.RecentBills());
+            return RedirectToAction(MVC.Bills.RecentBills());
 
         }
 
@@ -172,7 +143,7 @@ namespace PhpaAll.Controllers
                     Id = model.Id
                 };
                 _service.Value.UpdateBill(bill);
-                return RedirectToAction(MVC.ManageBills.RecentBills());
+                return RedirectToAction(MVC.Bills.RecentBills());
 
 
             }
@@ -196,7 +167,7 @@ namespace PhpaAll.Controllers
             {
                 ModelState.AddModelError("", "Unable delete. Try again, and if the problem persists see your system administrator.");
             }
-            return RedirectToAction(MVC.ManageBills.RecentBills());
+            return RedirectToAction(MVC.Bills.RecentBills());
         }
 
 

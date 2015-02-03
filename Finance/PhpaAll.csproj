@@ -321,7 +321,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\web.config" />
     <Content Include="Views\ManageBills\Create.cshtml" />
-    <Content Include="Views\ManageBills\RecentBills.cshtml" />
+    <Content Include="Views\Bills\RecentBills.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jqueryval.js.bundle" />
     <Content Include="Views\Bills\Index.cshtml" />

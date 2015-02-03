@@ -97,7 +97,6 @@ namespace PhpaAll.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string RecentBills = "RecentBills";
             public readonly string Create = "Create";
             public readonly string CreateBill = "CreateBill";
             public readonly string Edit = "Edit";
@@ -108,7 +107,6 @@ namespace PhpaAll.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string RecentBills = "RecentBills";
             public const string Create = "Create";
             public const string CreateBill = "CreateBill";
             public const string Edit = "Edit";
@@ -163,12 +161,10 @@ namespace PhpaAll.Controllers
                 public readonly string Bill = "Bill";
                 public readonly string Create = "Create";
                 public readonly string Edit = "Edit";
-                public readonly string RecentBills = "RecentBills";
             }
             public readonly string Bill = "~/Views/ManageBills/Bill.cshtml";
             public readonly string Create = "~/Views/ManageBills/Create.cshtml";
             public readonly string Edit = "~/Views/ManageBills/Edit.cshtml";
-            public readonly string RecentBills = "~/Views/ManageBills/RecentBills.cshtml";
         }
     }
 
@@ -176,17 +172,6 @@ namespace PhpaAll.Controllers
     public partial class T4MVC_ManageBillsController : PhpaAll.Controllers.ManageBillsController
     {
         public T4MVC_ManageBillsController() : base(Dummy.Instance) { }
-
-        [NonAction]
-        partial void RecentBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult RecentBills()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RecentBills);
-            RecentBillsOverride(callInfo);
-            return callInfo;
-        }
 
         [NonAction]
         partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
