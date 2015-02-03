@@ -130,44 +130,41 @@ Paid / Unpaid
 
         <table class="table">
             <caption>Sample tabular layout</caption>
-            @for (var i = 0; i < Model.Bills.Count; ++i)
-            {
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(m => m.Bills[i].BillDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.Bills[i].BillNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.Bills[i].Particulars)
-                    </td>
-                    <td>
-                        sdfsdf sdf sdf sdf sdf sdf sd f
-                    </td>
-                    <td>
-                        sdfsdf sdf sdf sdf sdf sdf sd f
-                    </td>
-                    <td>
-                        sdfsdf sdf sdf sdf sdf sdf sd f
-                    </td>
-                    <td>
-                        sdfsdf sdf sdf sdf sdf sdf sd f
-                    </td>
-                    <td>
-                        sdfsdf sdf sdf sdf sdf sdf sd f
-                    </td>
-
-
-                    <td>
-                        @Html.DisplayFor(m => m.Bills[i].Amount)
-                    </td>
-
+                    <td class="label-info">Bill Date</td>
+                    <td class="label-info">Contractor</td>
+                    <td class="label-info">Division</td>
+                    <td class="label-info">Amount</td>
+                    <td class="label-info">Action</td>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.Bills.Count; ++i)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => m.Bills[i].BillDate)
+                        </td>
+                        <td>
+                            <small>@Html.DisplayFor(m => m.Bills[i].ContractorName)</small>
+</td>
+                        <td>
+                            @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)
+                        </td>
+                        <td style="text-align:right">
+                            @Html.DisplayFor(m => m.Bills[i].Amount)
+                        </td>
+                        <td>
+                            <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn btn-default"><span class="glyphicon glyphicon-edit" aria-hidden="true" title="Edit this bill" ></span></a>
+                            <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))" class="btn btn-default"><span class="glyphicon glyphicon-eye-open" aria-hidden="true" title="View this bill"></span></a>
+                        </td>
+                    </tr>
+                    <tr style="border-top:hidden">
+                        <td colspan="5" style="color:gray">@Html.DisplayFor(m => m.Bills[i].Particulars) - <small><strong>@Html.DisplayFor(m => m.Bills[i].BillNumber)</strong></small> Due On : <em>@Html.DisplayFor(m => m.Bills[i].DueDate)</em></td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 </div>
