@@ -44,7 +44,7 @@ namespace PhpaAll.Controllers
         /// Display recent bills. Option to create new bill
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult RecentBills(string[] approvers, int?[] divisions)
+        public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors)
         {
             var query = from bill in _db.Value.Bills
                         group bill by new
@@ -83,7 +83,8 @@ namespace PhpaAll.Controllers
                                {
                                    Id = string.Format("{0}", g.Key),
                                    Name = g.Select(p => p.ContractorName).FirstOrDefault(),
-                                   Count = g.Sum(p => p.Count)
+                                   Count = g.Sum(p => p.Count),
+                                   Selected = contractors == null || contractors.Contains(g.Key)
                                }).ToList(),
                 Approvers = (from d in aggQuery
                              group d by d.ApprovedBy into g
@@ -106,7 +107,13 @@ namespace PhpaAll.Controllers
 
             if (divisions != null && divisions.Length > 0)
             {
-                filteredBills = filteredBills.Where(p => divisions.Contains(p.Division.DivisionId));
+                filteredBills = filteredBills.Where(p => divisions.Contains(p.SubmitedToDivisionId));
+                model.IsFiltered = true;
+            }
+
+            if (contractors != null && contractors.Length > 0)
+            {
+                filteredBills = filteredBills.Where(p => contractors.Contains(p.ContractorId));
                 model.IsFiltered = true;
             }
 

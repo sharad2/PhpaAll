@@ -45,8 +45,8 @@ TODO: Amounts of approved bills will display in green
                     {
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" value="@Model.Contractors[i].Id">
-                                @Html.DisplayFor(m => m.Contractors[i].Name) <small><em>@Html.DisplayFor(m => m.Contractors[i].Count)</em></small>
+                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.contractors" value="@Model.Contractors[i].Id" checked="@Model.Contractors[i].Selected" />
+                                       @Html.DisplayFor(m => m.Contractors[i].Name)><small><em>@Html.DisplayFor(m => m.Contractors[i].Count)</em></small>
                             </label>
                         </div>
                     }
