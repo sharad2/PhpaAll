@@ -25,7 +25,7 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static partial class MVC
 {
-    public static PhpaAll.Controllers.BillReportsController BillReports = new PhpaAll.Controllers.T4MVC_BillReportsController();
+    public static PhpaAll.Controllers.BillsController Bills = new PhpaAll.Controllers.T4MVC_BillsController();
     public static PhpaAll.Controllers.ManageBillsController ManageBills = new PhpaAll.Controllers.T4MVC_ManageBillsController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }

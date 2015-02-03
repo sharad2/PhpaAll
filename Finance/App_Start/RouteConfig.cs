@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 //using Microsoft.AspNet.FriendlyUrls;
 
@@ -20,7 +17,7 @@ namespace PhpaAll
             routes.MapRoute(
                     name: "Default",
                     url: "{controller}/{action}/{id}",
-                    defaults: new { action = "Index", id = UrlParameter.Optional }
+                    defaults: new { action = MVC.Bills.ActionNames.Index, id = UrlParameter.Optional }
                 );  
         }
     }

@@ -23,13 +23,13 @@ using System.Web.Routing;
 using T4MVC;
 namespace PhpaAll.Controllers
 {
-    public partial class BillReportsController
+    public partial class BillsController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public BillReportsController() { }
+        public BillsController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected BillReportsController(Dummy d) { }
+        protected BillsController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -59,13 +59,13 @@ namespace PhpaAll.Controllers
 
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public BillReportsController Actions { get { return MVC.BillReports; } }
+        public BillsController Actions { get { return MVC.Bills; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "BillReports";
+        public readonly string Name = "Bills";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "BillReports";
+        public const string NameConst = "Bills";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -95,14 +95,14 @@ namespace PhpaAll.Controllers
             {
                 public readonly string Index = "Index";
             }
-            public readonly string Index = "~/Views/BillReports/Index.cshtml";
+            public readonly string Index = "~/Views/Bills/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_BillReportsController : PhpaAll.Controllers.BillReportsController
+    public partial class T4MVC_BillsController : PhpaAll.Controllers.BillsController
     {
-        public T4MVC_BillReportsController() : base(Dummy.Instance) { }
+        public T4MVC_BillsController() : base(Dummy.Instance) { }
 
         [NonAction]
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);

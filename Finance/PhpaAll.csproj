@@ -13,6 +13,7 @@
     <RootNamespace>PhpaAll</RootNamespace>
     <AssemblyName>PhpaAll</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>
@@ -56,6 +57,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <MvcBuildViews>true</MvcBuildViews>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -322,10 +324,9 @@
     <Content Include="Views\ManageBills\RecentBills.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jqueryval.js.bundle" />
-    <Content Include="Views\ManageBills\Index.cshtml" />
+    <Content Include="Views\Bills\Index.cshtml" />
     <Content Include="Views\ManageBills\Bill.cshtml" />
     <Content Include="Views\ManageBills\Edit.cshtml" />
-    <Content Include="Views\BillReports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">
@@ -343,7 +344,7 @@
       <DependentUpon>Security.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="BillReportsController.generated.cs">
+    <Compile Include="BillsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Bills\BillViewModel.cs" />
@@ -356,7 +357,7 @@
     <Compile Include="Bills\RecentBillsViewModel.cs" />
     <Compile Include="Bills\ManageBillsService.cs" />
     <Compile Include="Bills\EditViewModel.cs" />
-    <Compile Include="Controllers\BillReportsController.cs" />
+    <Compile Include="Controllers\BillsController.cs" />
     <Compile Include="Controllers\ManageBillsController.cs" />
     <Compile Include="Controls\SearchEmployee.ascx.cs">
       <DependentUpon>SearchEmployee.ascx</DependentUpon>
@@ -1987,6 +1988,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">

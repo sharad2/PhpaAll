@@ -31,11 +31,11 @@ namespace PhpaAll.Controllers
         }
 
 
-        public virtual ActionResult Index()
-        {
+        //public virtual ActionResult Index()
+        //{
 
-            return View(Views.Index);
-        }
+        //    return View(Views.Index);
+        //}
 
 
         /// <summary>
