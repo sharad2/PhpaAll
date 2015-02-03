@@ -435,7 +435,7 @@ namespace PhpaAll.Payroll
 //                        }
 //                        gvEmployeesForperiod.Caption = caption;
 //                    }
-                gvEmployeesForperiod.Caption = string.Format("This is a list of employees of {3} who will be paid a salary during the period from {0:d} To {1:d} through {2}", m_sp.SalaryPeriodStart, m_sp.SalaryPeriodEnd, m_sp.BankName, m_sp.Station);
+                gvEmployeesForperiod.Caption = string.Format("This is a list of employees of {3} who will be paid a salary during the period from {0:d} To {1:d} through {2}", m_sp.SalaryPeriodStart, m_sp.SalaryPeriodEnd, m_sp.BankName, m_sp.Station.StationName);
                 pnlMessage.Visible = true;
                 lblamount.Text = string.Format("{0:N0}", m_Netpay);
                 NumberToEnglish number = new NumberToEnglish();
