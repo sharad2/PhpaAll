@@ -3,7 +3,7 @@
     ViewBag.Title = "Recent Bills";
 }
 <h2>
-    @ViewBag.title
+    @ViewBag.Title
     <small>
         <a href="@Url.Action(MVC.ManageBills.Create())">Create new bill</a>
     </small>
@@ -16,6 +16,7 @@ TODO: Amounts of approved bills will display in green
     <div class="col-md-3">
         <form method="get" action="@Url.Action(MVC.Bills.RecentBills())">
             <button type="submit">Apply</button>
+            <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
             <fieldset>
                 <legend>Submitted to Division</legend>
                 @for (var i = 0; i < Model.Divisions.Count; ++i)

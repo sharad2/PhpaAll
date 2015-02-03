@@ -46,14 +46,6 @@ namespace PhpaAll.Controllers
         /// <returns></returns>
         public virtual ActionResult RecentBills(string[] approvers)
         {
-            //var query = from bill in _db.Value.Bills
-            //            group bill by 1 into g
-            //            select new
-            //            {
-            //                x = g.Select(p => p.ApprovedBy).Distinct(),
-            //                y = g.Select(p => p.ApprovedBy).Distinct()
-            //            };
-
             var query = from bill in _db.Value.Bills
                         group bill by new
                         {
@@ -98,7 +90,7 @@ namespace PhpaAll.Controllers
                                  Id = string.Format("{0}", g.Key),
                                  Name = g.Key,
                                  Count = g.Sum(p => p.Count),
-                                 Selected = approvers != null && approvers.Contains(g.Key ?? "")
+                                 Selected = approvers == null || approvers.Contains(g.Key ?? "")
                              }).ToList()
             };
 
