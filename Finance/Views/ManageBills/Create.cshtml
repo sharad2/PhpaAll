@@ -20,57 +20,74 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label for="billDate">Bill Date *</label>
-
-                @Html.TextBoxFor(m => m.BillDate, new
+                <div class='input-group date' id='billDatePicker'>
+                    @Html.TextBoxFor(m => m.BillDate, new
            {
                id = "billDate",
                @class = "form-control",
                @required = "required",
                @placeholder = "dd/mm/yyyy"
            })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
                 @Html.ValidationMessageFor(m => m.BillDate, null, new
            {
                @class = "help-block"
            })
             </div>
+           
+
+
+
+
         </div>
         <div class="col-md-3">
             <div class="form-group">
                 <label for="divSubDate">Received on</label>
-
-                @Html.TextBoxFor(m => m.SubmittedOnDate, new
+                <div class='input-group date' id='divSubDatePicker'>
+                    @Html.TextBoxFor(m => m.SubmittedOnDate, new
            {
                id = "divSubDate",
                @class = "form-control",
                type = "date",
                @placeholder = "dd/mm/yyyy"
            })
-                @Html.ValidationMessageFor(m => m.SubmittedOnDate, null, new
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                    @Html.ValidationMessageFor(m => m.SubmittedOnDate, null, new
            {
                @class = "help-block"
            })
 
-            </div>
+                </div>
 
         </div>
         <div class="col-md-3">
             <div class="form-group">
                 <label for="dueDate">Payment Due Date</label>
-
-                @Html.TextBoxFor(m => m.DueDate, new
+                <div class='input-group date' id='dueDatePicker'>
+                    @Html.TextBoxFor(m => m.DueDate, new
            {
                id = "dueDate",
                @class = "form-control",
                type = "date",
                @placeholder = "dd/mm/yyyy"
            })
-                @Html.ValidationMessageFor(m => m.DueDate, null, new
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                    @Html.ValidationMessageFor(m => m.DueDate, null, new
            {
                @class = "help-block"
            })
 
 
-            </div>
+                </div>
         </div>
 
         <div class="col-md-3">
@@ -154,7 +171,7 @@
            })
                 @Html.TextBoxFor(m => m.ContractorId, new
                {
-                         style = "height:0; width:0; border:none"
+                   style = "height:0; width:0; border:none"
                })
 
             </div>
@@ -228,7 +245,7 @@
 
 @section scripts {
     <link href="@Links.Content.typeahead_css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="@Links.Content.bootstrap_datetimepicker_css" />
     <script type="text/javascript" src="@Links.Scripts.jqueryval_js"></script>
 
 
@@ -267,34 +284,9 @@
             });
 
 
-
-
-            @*$('#tbContractor').typeahead(null, {
-                name: 'Contractor',
-                displayKey: 'label',
-                source: function (query, cb) {
-                    var url = '@Url.Action(MVC.ManageBills.GetContractor("~"))'.replace('~', query);
-                    $.get(url).done(function (data, textStatus, jqXHR) {
-                        this.cb(data);
-                    }.bind({ cb: cb })).fail(function (jqXHR, textStatus, errorThrown) {
-                        if (jqXHR.status == 500) {
-                            this.cb([{ label: 'Error ' + (jqXHR.responseText || errorThrown), value: '' }]);
-                        } else {
-                            this.cb([{ label: 'Http Error ' + jqXHR.status + ': ' + errorThrown + ' ' + this.url, value: '' }]);
-                        }
-                    }.bind({ cb: cb, url: url }));
-                },
-                templates: {
-                    empty: 'No matching contractor found'
-                }
-            }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
-                // Store the id of the selected division in the hdden field
-                $('#hfContractorId').val(sug.value);
-            }).on('input', function (e) {
-                // When user changes the divisionId, empty the hidden field
-                $('#hfContractorId').val('');
-            });*@
-
+            $("#billDatePicker,#divSubDatePicker,#dueDatePicker").datetimepicker({
+                format: 'D/M/YYYY'
+            });
 
 
 
