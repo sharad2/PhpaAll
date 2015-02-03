@@ -1,8 +1,8 @@
 ﻿using PhpaAll.Bills;
 using System;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Linq;
 
 namespace PhpaAll.Controllers
 {
@@ -12,20 +12,20 @@ namespace PhpaAll.Controllers
     public partial class BillsController : Controller
     {
 
-        private Lazy<ManageBillsService> _service;
+        private Lazy<PhpaBillsDataContext> _db;
 
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
 
-            _service = new Lazy<ManageBillsService>(() => new ManageBillsService("default", requestContext.HttpContext.Trace));
+            _db = new Lazy<PhpaBillsDataContext>(() => new PhpaBillsDataContext(requestContext.HttpContext.Trace));
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (_service != null && _service.IsValueCreated)
+            if (_db != null && _db.IsValueCreated)
             {
-                _service.Value.Dispose();
+                _db.Value.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -33,6 +33,11 @@ namespace PhpaAll.Controllers
         public virtual ActionResult Index()
         {
             return View(Views.Index);
+        }
+
+        public virtual ActionResult Search(string id)
+        {
+            return View(Views.Search);
         }
 
         /// <summary>
@@ -43,7 +48,7 @@ namespace PhpaAll.Controllers
         {
             var model = new RecentBillsViewModel
             {
-                Bills = (from bill in _service.Value.Bills
+                Bills = (from bill in _db.Value.Bills
                          orderby bill.BillDate descending
                          select new BillModel
                          {
