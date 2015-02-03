@@ -30,10 +30,6 @@ namespace PhpaAll.Bills
         [DataType(DataType.Date)]
         public DateTime? SubmittedOnDate { get; set; }
 
-        [Display(Name = "Pro Date")]
-        [DataType(DataType.Date)]
-        public DateTime? PaidDate { get; set; }
-
         [Display(Name = "Bill Type")]
         [StringLength(10, ErrorMessage = "The Bill Type value cannot exceed 10 characters. ")]
         public string BillType { get; set; }
@@ -67,9 +63,26 @@ namespace PhpaAll.Bills
         public HttpPostedFileBase BillImage { get; set; }
 
         //Weather it is edit mode or not
-        public bool isEditMode { get; set; }
+        public bool isEditMode { get; set; } 
 
         public IList<BillAuditViewModel> BillHistory { get; set; }
+
+        /// <summary>
+        /// Skumar :- Adding new columns
+        /// </summary>
+        
+        [Display(Name = "Paid On")]
+        [DataType(DataType.Date)]
+        public DateTime? PaidDate { get; set; }
+
+        public DateTime? ApprovedDate { get; set; }
+
+        public string ApprovedBy { get; set; }
+
+        public string StationName { get; set; }
+        
+
+
     }
     
 }

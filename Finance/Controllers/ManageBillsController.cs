@@ -11,8 +11,8 @@ namespace PhpaAll.Controllers
 {
     public partial class ManageBillsController : Controller
     {
-        [Obsolete]
-        private Lazy<ManageBillsService> _service;
+        //[Obsolete]
+        //private Lazy<ManageBillsService> _service;
 
         private Lazy<PhpaBillsDataContext> _db;
 
@@ -20,16 +20,16 @@ namespace PhpaAll.Controllers
         {
             base.Initialize(requestContext);
 
-            _service = new Lazy<ManageBillsService>(() => new ManageBillsService("default", requestContext.HttpContext.Trace));
+            //_service = new Lazy<ManageBillsService>(() => new ManageBillsService("default", requestContext.HttpContext.Trace));
             _db = new Lazy<PhpaBillsDataContext>(() => new PhpaBillsDataContext(requestContext.HttpContext.Trace));
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (_service != null && _service.IsValueCreated)
-            {
-                _service.Value.Dispose();
-            }
+            //if (_service != null && _service.IsValueCreated)
+            //{
+            //    _service.Value.Dispose();
+            //}
 
             if (_db != null && _db.IsValueCreated)
             {
@@ -74,9 +74,11 @@ namespace PhpaAll.Controllers
                 PaidDate = model.PaidDate,
                 Remarks = model.Remarks,
                 SubmittedOnDate = model.SubmittedOnDate,
-                Id = model.Id
+                Id = model.Id,
+                StationId = 1  //TODO
             };
-            _service.Value.InsertBill(bill);
+            _db.Value.Bills.InsertOnSubmit(bill);
+            _db.Value.SubmitChanges();
             return RedirectToAction(MVC.Bills.RecentBills());
 
         }
@@ -87,7 +89,7 @@ namespace PhpaAll.Controllers
         [HttpGet]
         public virtual ActionResult Edit(int id)
         {
-            var model = (from bill in _service.Value.Bills
+            var model = (from bill in _db.Value.Bills
                          where bill.Id == id
                          select new EditViewModel
                          {
@@ -126,7 +128,7 @@ namespace PhpaAll.Controllers
                     imageData = ms.ToArray();
                 }
 
-                var edit = (from b in _service.Value.Bills
+                var edit = (from b in _db.Value.Bills
                             where b.Id == model.Id
                             select b).SingleOrDefault();
 
@@ -141,7 +143,7 @@ namespace PhpaAll.Controllers
                 edit.PaidDate = model.PaidDate;
                 edit.Remarks = model.Remarks;
                 edit.SubmittedOnDate = model.SubmittedOnDate;
-                _service.Value.UpdateBill(edit);
+                _db.Value.SubmitChanges();
                 return RedirectToAction(MVC.Bills.RecentBills());
 
 
@@ -155,17 +157,16 @@ namespace PhpaAll.Controllers
 
 
 
-
+        [HttpPost]
         public virtual ActionResult Delete(int id)
         {
-            try
+            Bill edit = _db.Value.Bills.Where(bill => bill.Id == id).SingleOrDefault();
+            if (edit != null)
             {
-                _service.Value.DeleteBill(id);
+                _db.Value.Bills.DeleteOnSubmit(edit);
+                _db.Value.SubmitChanges();
             }
-            catch (DataException)
-            {
-                ModelState.AddModelError("", "Unable delete. Try again, and if the problem persists see your system administrator.");
-            }
+
             return RedirectToAction(MVC.Bills.RecentBills());
         }
 
@@ -174,7 +175,7 @@ namespace PhpaAll.Controllers
         public virtual ActionResult ShowBill(int id)
         {
 
-            var model = (from bill in _service.Value.Bills
+            var model = (from bill in _db.Value.Bills
                          where bill.Id == id
                          select new BillViewModel
                          {
@@ -195,7 +196,7 @@ namespace PhpaAll.Controllers
                          }).FirstOrDefault();
 
             //// Dummy Code: TODO: Put where clause.  
-            model.BillHistory = (from ba in _service.Value.BillAudit
+            model.BillHistory = (from ba in _db.Value.BillAudits
                                  where ba.BillId == id
                                  select new BillAuditViewModel
                                  {
