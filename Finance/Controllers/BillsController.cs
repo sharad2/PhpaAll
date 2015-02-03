@@ -1,4 +1,5 @@
 ﻿using PhpaAll.Bills;
+using PhpaAll.MvcHelpers;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -44,7 +45,7 @@ namespace PhpaAll.Controllers
         /// Display recent bills. Option to create new bill
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations)
+        public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations, bool exportToExcel = false)
         {
             var query = from bill in _db.Value.Bills
                         group bill by new
@@ -108,6 +109,7 @@ namespace PhpaAll.Controllers
                                 Count = g.Sum(p => p.Count),
                                 Selected = stations == null || stations.Contains(g.Key)
                             }).ToList(),
+                UrlExcel = Request.RawUrl
             };
 
             IQueryable<Bill> filteredBills = _db.Value.Bills;
@@ -136,6 +138,16 @@ namespace PhpaAll.Controllers
                 model.IsFiltered = true;
             }
 
+            if (model.UrlExcel.Contains("?"))
+            {
+                model.UrlExcel += "&";
+            }
+            else
+            {
+                model.UrlExcel += "?";
+            }
+            model.UrlExcel += Actions.RecentBillsParams.exportToExcel + "=true";
+
             // Max 200 bills
             model.Bills = (from bill in filteredBills
                            orderby bill.BillDate descending
@@ -159,6 +171,12 @@ namespace PhpaAll.Controllers
                                StationName = bill.Station.StationName
                            }).Take(200).ToList();
 
+            if (exportToExcel)
+            {
+                var result = new ExcelResult("List of Bills");
+                result.AddWorkSheet(model.Bills, "Bills", "My Heading");
+                return result;
+            }
             return View(Views.RecentBills, model);
         }
 

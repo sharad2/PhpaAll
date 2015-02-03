@@ -125,6 +125,7 @@ namespace PhpaAll.Controllers
             public readonly string divisions = "divisions";
             public readonly string contractors = "contractors";
             public readonly string stations = "stations";
+            public readonly string exportToExcel = "exportToExcel";
         }
         static readonly ActionParamsClass_GetDivision s_params_GetDivision = new ActionParamsClass_GetDivision();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -183,17 +184,18 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void RecentBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string[] approvers, int?[] divisions, int?[] contractors, int?[] stations);
+        partial void RecentBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string[] approvers, int?[] divisions, int?[] contractors, int?[] stations, bool exportToExcel);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations)
+        public override System.Web.Mvc.ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations, bool exportToExcel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RecentBills);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "approvers", approvers);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "divisions", divisions);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "contractors", contractors);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "stations", stations);
-            RecentBillsOverride(callInfo, approvers, divisions, contractors, stations);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "exportToExcel", exportToExcel);
+            RecentBillsOverride(callInfo, approvers, divisions, contractors, stations, exportToExcel);
             return callInfo;
         }
 
