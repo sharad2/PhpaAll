@@ -121,11 +121,12 @@ namespace PhpaAll.Controllers
 
             }
 
-            var data = _service.Value.GetDivisions(searchId, searchDescription).Select(p => new
-            {
-                label = string.Format("{0}: {1}", p.Item1, p.Item2),
-                value = p.Item1
-            }); ;
+            //var data = from division in _db.Value.Divisions.Select(p => new
+            //{
+            //    label = string.Format("{0}: {1}", p.DivisionId, p.DivisionName),
+            //    value = p.DivisionId
+            //})
+            var data = "xyz:1234" ;
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
