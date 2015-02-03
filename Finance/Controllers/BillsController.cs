@@ -44,23 +44,26 @@ namespace PhpaAll.Controllers
         /// Display recent bills. Option to create new bill
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors)
+        public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations)
         {
             var query = from bill in _db.Value.Bills
                         group bill by new
                         {
                             bill.ApprovedBy,
                             bill.SubmittedToDivision,
-                            bill.Contractor
+                            bill.Contractor,
+                            bill.Station
                         } into g
                         select new
                         {
-                            g.Key.ApprovedBy,
+                            ApprovedBy = g.Key.ApprovedBy,
                             SubmittedToDivisionId = g.Key.SubmittedToDivision == null ? (int?)null : g.Key.SubmittedToDivision.DivisionId,
                             ContractorId = g.Key.Contractor == null ? (int?)null : g.Key.Contractor.ContractorId,
-                            g.Key.SubmittedToDivision.DivisionName,
-                            g.Key.Contractor.ContractorName,
-                            Count = g.Count()
+                            DivisionName = g.Key.SubmittedToDivision.DivisionName,
+                            ContractorName = g.Key.Contractor.ContractorName,
+                            Count = g.Count(),
+                            StationId = g.Key.Station == null ? (int?)null : g.Key.Station.StationId,
+                            StationName = g.Key.Station.StationName
                         };
 
             // By taking ToList(), we execute the query here. Later we manipulate in memory version of the data
@@ -94,7 +97,17 @@ namespace PhpaAll.Controllers
                                  Name = g.Key,
                                  Count = g.Sum(p => p.Count),
                                  Selected = approvers == null || approvers.Contains(g.Key ?? "")
-                             }).ToList()
+                             }).ToList(),
+
+                Stations = (from d in aggQuery
+                            group d by d.StationId into g
+                            select new RecentBillsFilterModel
+                            {
+                                Id = string.Format("{0}", g.Key),
+                                Name = g.Select(p => p.StationName).FirstOrDefault(),
+                                Count = g.Sum(p => p.Count),
+                                Selected = stations == null || stations.Contains(g.Key)
+                            }).ToList(),
             };
 
             IQueryable<Bill> filteredBills = _db.Value.Bills;
@@ -114,6 +127,12 @@ namespace PhpaAll.Controllers
             if (contractors != null && contractors.Length > 0)
             {
                 filteredBills = filteredBills.Where(p => contractors.Contains(p.ContractorId));
+                model.IsFiltered = true;
+            }
+
+            if (stations != null && stations.Length > 0)
+            {
+                filteredBills = filteredBills.Where(p => stations.Contains(p.StationId));
                 model.IsFiltered = true;
             }
 
@@ -154,7 +173,7 @@ namespace PhpaAll.Controllers
         /// </summary>
         /// <param name="term"></param>
         /// <returns></returns>
-           public virtual JsonResult GetDivision(string term)
+        public virtual JsonResult GetDivision(string term)
         {
             // Change null to empty string
             term = term ?? string.Empty;
@@ -198,7 +217,7 @@ namespace PhpaAll.Controllers
             //    label = string.Format("{0}: {1}", p.DivisionId, p.DivisionName),
             //    value = p.DivisionId
             //})
-            var data = "xyz:1234" ;
+            var data = "xyz:1234";
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 

@@ -69,6 +69,22 @@ TODO: Amounts of approved bills will display in green
                     }
                 </fieldset>
             }
+            @if (Model.Stations.Count > 1)
+            {
+                <fieldset>
+                    <legend>Stations</legend>
+                    @for (var i = 0; i < Model.Stations.Count; ++i)
+                    {
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.stations" value="@Model.Stations[i].Id" checked="@Model.Stations[i].Selected" />
+                                @Html.DisplayFor(m => m.Stations[i].Name)<small><em>@Html.DisplayFor(m => m.Stations[i].Count)</em></small>
+                                <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.stations, Model.Stations[i].Id))">only</a></small>
+                            </label>
+                        </div>
+                    }
+                </fieldset>
+            }
         </form>
         <pre>
 Approved By: Mgr 1 (22) Mgr2 (26)  Not Approved
