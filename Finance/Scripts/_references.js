@@ -18,3 +18,4 @@
 /// <reference path="bootstrap-datetimepicker.min.js" />
 /// <reference path="typeahead.bundle.min.js" />
 /// <reference path="typeahead.jquery.js" />
+/// <reference path="bloodhound.js" />
