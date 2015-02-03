@@ -79,6 +79,28 @@ Display all bill details including audit
         @Html.DisplayFor(m => m.Remarks)
 
     </li>
+
+    <li class="list-group-item">
+        <label style="padding-right:1mm">Paid On</label>
+        @Html.DisplayFor(m => m.PaidDate)
+
+    </li>
+
+    <li class="list-group-item">
+        <label style="padding-right:1mm">Approved Date</label>
+        @Html.DisplayFor(m => m.ApprovedDate)
+
+    </li>
+    <li class="list-group-item">
+        <label style="padding-right:1mm">Approved By</label>
+        @Html.DisplayFor(m => m.ApprovedBy)
+
+    </li>
+    <li class="list-group-item">
+        <label style="padding-right:1mm">Station</label>
+        @Html.DisplayFor(m => m.StationName)
+
+    </li>
 </ul>
 
 <h2 style="margin-top:0">
