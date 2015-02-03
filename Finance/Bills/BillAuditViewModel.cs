@@ -16,7 +16,7 @@ namespace PhpaAll.Bills
 
        public string BillCreatedBy { get; set; }
 
-       public DateTime DateCreated { get; set; }
+       public DateTime? DateCreated { get; set; }
 
 
     }

@@ -186,13 +186,13 @@ namespace PhpaAll.Controllers
                              ContractorName = bill.Contractor.ContractorName
                          }).FirstOrDefault();
             
-            //// Dummy Code: TODO: Get values from actual table.  
-            model.BillHistory = (from Ba in _service.Value.BillAudit
+            //// Dummy Code: TODO: Put where clause.  
+            model.BillHistory = (from ba in _service.Value.BillAudit
                                  //where Ba.Id == id
                                  select new BillAuditViewModel
                                  {
-                                     BillCreatedBy = "Sanjeev",
-                                     DateCreated = DateTime.Now
+                                     BillCreatedBy = ba.CreatedBy,
+                                     DateCreated = ba.Created
 
                                  }).ToList();
 
