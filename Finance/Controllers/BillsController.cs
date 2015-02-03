@@ -104,6 +104,7 @@ namespace PhpaAll.Controllers
                 model.IsFiltered = true;
             }
 
+            // Max 200 bills
             model.Bills = (from bill in filteredBills
                            orderby bill.BillDate descending
                            select new BillModel
@@ -122,7 +123,7 @@ namespace PhpaAll.Controllers
                                Remarks = bill.Remarks,
                                SubmittedOnDate = bill.SubmittedOnDate,
                                Id = bill.Id,
-                           }).ToList();
+                           }).Take(200).ToList();
 
             return View(Views.RecentBills, model);
         }

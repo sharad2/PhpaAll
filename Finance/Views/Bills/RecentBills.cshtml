@@ -20,7 +20,7 @@ TODO: Amounts of approved bills will display in green
             {
                 <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
             }
-            @if (Model.Divisions.Count > 1)
+            @if (Model.Divisions.Count > 0)
             {
                 <fieldset>
                     <legend>Submitted to Division</legend>
@@ -80,30 +80,72 @@ Paid / Unpaid
         <ul class="list-group">
             @for (var i = 0; i < Model.Bills.Count; ++i)
             {
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-md-1">
-                            @Html.DisplayFor(m => m.Bills[i].BillDate)
-                        </div>
-                        <div class="col-md-2">
-                            <em>@Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)</em>
-                        </div>
-                        <div class="col-md-5">
-                            @Html.DisplayFor(m => m.Bills[i].ContractorName)
-                        </div>
-                        <div class="col-md-4">
-                            <span class="label label-info">Due @Html.DisplayFor(m => m.Bills[i].DueDate)</span>
-                            <div class="pull-right">
-                                @Html.DisplayFor(m => m.Bills[i].Amount)
-                            </div>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-1">
+                        @Html.DisplayFor(m => m.Bills[i].BillDate)
+                    </div>
+                    <div class="col-md-2">
+                        <em>@Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)</em>
+                    </div>
+                    <div class="col-md-5">
+                        @Html.DisplayFor(m => m.Bills[i].ContractorName)
+                    </div>
+                    <div class="col-md-4">
+                        <span class="label label-info">Due @Html.DisplayFor(m => m.Bills[i].DueDate)</span>
+                        <div class="pull-right">
+                            @Html.DisplayFor(m => m.Bills[i].Amount)
                         </div>
                     </div>
-                    <small><em>@Html.DisplayFor(m => m.Bills[i].BillNumber)</em></small>
-                    @Html.DisplayFor(m => m.Bills[i].Particulars)
-                    <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn btn-default">Edit</a>
-                    <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))" class="btn btn-default">View</a>
-                </li>
+                </div>
+                <small><em>@Html.DisplayFor(m => m.Bills[i].BillNumber)</em></small>
+                @Html.DisplayFor(m => m.Bills[i].Particulars)
+                <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn btn-default">Edit</a>
+                <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))" class="btn btn-default">View</a>
+            </li>
             }
         </ul>
+
+        <table class="table">
+            <caption>Sample tabular layout</caption>
+            @for (var i = 0; i < Model.Bills.Count; ++i)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => m.Bills[i].BillDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Bills[i].BillNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Bills[i].Particulars)
+                    </td>
+                    <td>
+                        sdfsdf sdf sdf sdf sdf sdf sd f
+                    </td>
+                    <td>
+                        sdfsdf sdf sdf sdf sdf sdf sd f
+                    </td>
+                    <td>
+                        sdfsdf sdf sdf sdf sdf sdf sd f
+                    </td>
+                    <td>
+                        sdfsdf sdf sdf sdf sdf sdf sd f
+                    </td>
+                    <td>
+                        sdfsdf sdf sdf sdf sdf sdf sd f
+                    </td>
+
+
+                    <td>
+                        @Html.DisplayFor(m => m.Bills[i].Amount)
+                    </td>
+
+                </tr>
+            }
+        </table>
     </div>
 </div>
