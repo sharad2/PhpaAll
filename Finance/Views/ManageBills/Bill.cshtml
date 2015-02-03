@@ -1,34 +1,21 @@
 ﻿@model PhpaAll.Bills.BillViewModel
 
 @{
-    ViewBag.Title = "View Bill 80";
+    ViewBag.Title = "View Bill";
 }
 
-<h2>@ViewBag.Title</h2>
-<pre>
-TODO:
-Display all bill details including audit
-</pre>
 
 
-
-<a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-default">Edit</a>
-@*<ul>
-        <li><a href="@Url.Action(MVC.ManageBills.Edit(80))">Edit</a></li>
-        <li><button>Receive in Division...</button></li>
-        <li><button>Send to Division...</button></li>
-        <li><button>Approve for Payment...</button></li>
-
-    </ul>*@
-@*<ul class="list-group">
-        <li class="list-group-item">Cras justo odio</li>
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Morbi leo risus</li>
-        <li class="list-group-item">Porta ac consectetur ac</li>
-        <li class="list-group-item">Vestibulum at eros</li>
-    </ul>*@
 <h2 style="margin-top:0">
     <span>Bill Number  <mark class="small">@Html.DisplayFor(m => m.BillNumber)</mark></span>
+
+    <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-edit"></span>
+        Edit
+    </a>
+    <a href="@Url.Action(MVC.Bills.RecentBills())" class="btn btn-default btn-sm">       
+        Recent Bills
+    </a>
 </h2>
 
 <ul class="list-group">
