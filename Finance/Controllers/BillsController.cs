@@ -131,10 +131,6 @@ namespace PhpaAll.Controllers
 
 
 
-
-
-
-
         /// <summary>
         /// Get matching divisions
         /// </summary>
@@ -142,99 +138,35 @@ namespace PhpaAll.Controllers
         /// <returns></returns>
         public virtual JsonResult GetDivision(string term)
         {
-            // Change null to empty string
-            term = term ?? string.Empty;
-
-            var tokens = term.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim())
-                .Where(p => !string.IsNullOrWhiteSpace(p))
-                .ToList();
-
-            string searchId;
-            string searchDescription;
-
-            switch (tokens.Count)
-            {
-                case 0:
-                    // All division
-                    searchId = searchDescription = string.Empty;
-                    break;
-
-                case 1:
-                    // Try to match term with either id or description
-                    searchId = searchDescription = tokens[0];
-                    break;
-
-                case 2:
-                    // Try to match first token with id and second with description
-                    searchId = tokens[0];
-                    searchDescription = tokens[1];
-                    break;
-
-                default:
-                    // For now, ignore everything after the second :
-                    searchId = tokens[0];
-                    searchDescription = tokens[1];
-                    break;
-
-
-            }
-
-            //var data = from division in _db.Value.Divisions.Select(p => new
-            //{
-            //    label = string.Format("{0}: {1}", p.DivisionId, p.DivisionName),
-            //    value = p.DivisionId
-            //})
+           
             var data = from e in _db.Value.Divisions
-                       where e.DivisionName.StartsWith(searchDescription) || e.DivisionId.ToString().StartsWith(searchId)
+                       where e.DivisionName.Contains(term)
                        orderby e.DivisionName
-                       select e.DivisionName;
+                       select new { 
+                       label = e.DivisionName,
+                       value=e.DivisionId
+                       };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
 
 
+        /// <summary>
+        /// Get matching contractor
+        /// </summary>
+        /// <param name="term"></param>
+        /// <returns></returns>
         public virtual JsonResult GetContractor(string term)
         {
-            // Change null to empty string
-            term = term ?? string.Empty;
-
-            var tokens = term.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim())
-                .Where(p => !string.IsNullOrWhiteSpace(p))
-                .ToList();
-
-            string searchId;
-            string searchDescription;
-
-            switch (tokens.Count)
-            {
-                case 0:
-                    // All division
-                    searchId = searchDescription = string.Empty;
-                    break;
-
-                case 1:
-                    // Try to match term with either id or description
-                    searchId = searchDescription = tokens[0];
-                    break;
-
-                case 2:
-                    // Try to match first token with id and second with description
-                    searchId = tokens[0];
-                    searchDescription = tokens[1];
-                    break;
-
-                default:
-                    // For now, ignore everything after the second :
-                    searchId = tokens[0];
-                    searchDescription = tokens[1];
-                    break;
-
-
-            }
+           
             var data = from e in _db.Value.Contractors
-                       where e.ContractorName.StartsWith(searchDescription) || e.ContractorId.ToString().StartsWith(searchId)
+                       where e.ContractorName.StartsWith(term) 
                        orderby e.ContractorName
-                       select e.ContractorName;
+                       select new
+                       {
+                           label = e.ContractorName,
+                           value = e.ContractorId
+                       };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 

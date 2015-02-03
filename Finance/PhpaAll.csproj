@@ -318,12 +318,6 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <None Include="T4MVC.tt.settings.xml" />
-    <Content Include="Views\Shared\typeahed.css">
-      <DependentUpon>typeahed.css.bundle</DependentUpon>
-    </Content>
-    <Content Include="Views\Shared\typeahed.min.css">
-      <DependentUpon>typeahed.css</DependentUpon>
-    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -338,7 +332,6 @@
     <Content Include="Views\ManageBills\Bill.cshtml" />
     <Content Include="Views\ManageBills\Edit.cshtml" />
     <Content Include="Views\Bills\Search.cshtml" />
-    <Content Include="Views\Shared\typeahed.css.bundle" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">
