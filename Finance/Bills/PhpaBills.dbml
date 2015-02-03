@@ -44,6 +44,8 @@
       <Association Name="Division_BillWorkflow" Member="Division" ThisKey="ToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
       <Association Name="Division_BillWorkflow1" Member="Division1" ThisKey="FromDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
       <Association Name="Bill_BillWorkflow" Member="Bill" ThisKey="BillId" OtherKey="Id" Type="Bill" IsForeignKey="true" />
+      <Association Name="Station_BillWorkflow" Member="Station" ThisKey="FromStationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
+      <Association Name="Station_BillWorkflow1" Member="Station1" ThisKey="ToStationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Bill" Member="Bills" AccessModifier="Internal">
@@ -67,10 +69,11 @@
       <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="StationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StationId" Type="System.Int32" DbType="Int" CanBeNull="false" />
       <Association Name="Bill_BillWorkflow" Member="BillWorkflows" ThisKey="Id" OtherKey="BillId" Type="BillWorkflow" />
       <Association Name="Contractor_Bill" Member="Contractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="Contractor" IsForeignKey="true" />
       <Association Name="Division_Bill" Member="Division" ThisKey="SubmitedToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+      <Association Name="Station_Bill" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.BillAudit" Member="BillAudits" AccessModifier="Internal">
@@ -105,6 +108,22 @@
       <Column Name="BillId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="StationIdOld" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="StationIdNew" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="PIS.Station" Member="Stations" AccessModifier="Internal">
+    <Type Name="Station" AccessModifier="Internal">
+      <Column Name="StationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StationName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Station_BillWorkflow" Member="BillWorkflows" ThisKey="StationId" OtherKey="FromStationId" Type="BillWorkflow" />
+      <Association Name="Station_BillWorkflow1" Member="BillWorkflows1" ThisKey="StationId" OtherKey="ToStationId" Type="BillWorkflow" />
+      <Association Name="Station_Bill" Member="Bills" ThisKey="StationId" OtherKey="StationId" Type="Bill" />
     </Type>
   </Table>
 </Database>

@@ -31,6 +31,10 @@ namespace PhpaAll.Bills
         //For internal use to retrive row for editing
         public int Id { get; set; }
 
+        public int StationId { get; set; }
+
+        public string StationName { get; set; }
+
         public string BillNumber { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]

@@ -104,6 +104,12 @@ namespace PhpaAll.Controllers
                 model.IsFiltered = true;
             }
 
+            if (divisions != null && divisions.Length > 0)
+            {
+                filteredBills = filteredBills.Where(p => divisions.Contains(p.Division.DivisionId));
+                model.IsFiltered = true;
+            }
+
             // Max 200 bills
             model.Bills = (from bill in filteredBills
                            orderby bill.BillDate descending
@@ -123,6 +129,8 @@ namespace PhpaAll.Controllers
                                Remarks = bill.Remarks,
                                SubmittedOnDate = bill.SubmittedOnDate,
                                Id = bill.Id,
+                               StationId = bill.StationId,
+                               StationName = bill.Station.StationName
                            }).Take(200).ToList();
 
             return View(Views.RecentBills, model);

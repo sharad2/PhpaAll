@@ -30,7 +30,9 @@ TODO: Amounts of approved bills will display in green
                             <label>
                                 <input type="checkbox" name="@MVC.Bills.RecentBillsParams.divisions" value="@Model.Divisions[i].Id" checked="@Model.Divisions[i].Selected">
                                 @Html.DisplayFor(m => m.Divisions[i].Name) <small><em>@Html.DisplayFor(m => m.Divisions[i].Count)</em></small>
+                                <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.divisions, Model.Divisions[i].Id))">only</a></small>
                             </label>
+                            
                         </div>
                     }
                 </fieldset>
@@ -87,6 +89,7 @@ Paid / Unpaid
                     </div>
                     <div class="col-md-2">
                         <em>@Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)</em>
+                        @Html.DisplayFor(m => m.Bills[i].StationName)
                     </div>
                     <div class="col-md-5">
                         @Html.DisplayFor(m => m.Bills[i].ContractorName)
