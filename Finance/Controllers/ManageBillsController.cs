@@ -188,7 +188,7 @@ namespace PhpaAll.Controllers
             
             //// Dummy Code: TODO: Put where clause.  
             model.BillHistory = (from ba in _service.Value.BillAudit
-                                 //where Ba.Id == id
+                                 where ba.BillId == id
                                  select new BillAuditViewModel
                                  {
                                      BillCreatedBy = ba.CreatedBy,

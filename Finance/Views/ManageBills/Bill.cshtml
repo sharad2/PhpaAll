@@ -12,7 +12,7 @@ Display all bill details including audit
 
 
 
- <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-default">Edit</a>
+<a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-default">Edit</a>
 @*<ul>
         <li><a href="@Url.Action(MVC.ManageBills.Edit(80))">Edit</a></li>
         <li><button>Receive in Division...</button></li>
@@ -21,85 +21,79 @@ Display all bill details including audit
 
     </ul>*@
 @*<ul class="list-group">
-    <li class="list-group-item">Cras justo odio</li>
-    <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Morbi leo risus</li>
-    <li class="list-group-item">Porta ac consectetur ac</li>
-    <li class="list-group-item">Vestibulum at eros</li>
-</ul>*@
-<h2 style="margin-top:0"> 
-            <span>Bill Number  <mark class="small">@Html.DisplayFor(m => m.BillNumber)</mark></span>    
-    </h2>
- 
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Morbi leo risus</li>
+        <li class="list-group-item">Porta ac consectetur ac</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+    </ul>*@
+<h2 style="margin-top:0">
+    <span>Bill Number  <mark class="small">@Html.DisplayFor(m => m.BillNumber)</mark></span>
+</h2>
+
 <ul class="list-group">
-    
+
     <li class="list-group-item">
         <label for="billNumber" style="padding-right:1mm">Bill No.</label>
-            @Html.DisplayFor(m => m.BillNumber)
+        @Html.DisplayFor(m => m.BillNumber)
     </li>
     <li class="list-group-item">
         <label for="particulars" style="padding-right:1mm">Particulars</label>@Html.DisplayFor(m => m.Particulars)
     </li>
-    <li class="list-group-item"><label style="padding-right:1mm">Bill Date </label>
-    @Html.DisplayFor(m => m.BillDate)
-   
-</li>
-    <li class="list-group-item"><label style="padding-right:1mm">Received by Division </label>
-    @Html.DisplayFor(m => m.SubmittedToDivisionName)
-    
-</li>
-    <li class="list-group-item"><label style="padding-right:1mm">on date</label>
-    @Html.DisplayFor(m => m.SubmittedOnDate)
-    
-</li>
+    <li class="list-group-item">
+        <label style="padding-right:1mm">Bill Date </label>
+        @Html.DisplayFor(m => m.BillDate)
+
+    </li>
+    <li class="list-group-item">
+        <label style="padding-right:1mm">Received by Division </label>
+        @Html.DisplayFor(m => m.SubmittedToDivisionName)
+
+    </li>
+    <li class="list-group-item">
+        <label style="padding-right:1mm">on date</label>
+        @Html.DisplayFor(m => m.SubmittedOnDate)
+
+    </li>
     <li class="list-group-item">
         <label style="padding-right:1mm">Due Date</label>
-                   @Html.DisplayFor(m => m.DueDate)
+        @Html.DisplayFor(m => m.DueDate)
     </li>
     <li class="list-group-item">
         <label style="padding-right:1mm">Contractor</label>
-            @Html.DisplayFor(m => m.ContractorName)
+        @Html.DisplayFor(m => m.ContractorName)
 
     </li>
 
     <li class="list-group-item">
         <label style="padding-right:1mm">Amount</label>
-            @Html.DisplayFor(m => m.Amount)
+        @Html.DisplayFor(m => m.Amount)
     </li>
 
     <li class="list-group-item">
         <label style="padding-right:1mm">Image</label>
-            @Html.DisplayFor(m => m.BillImage)
+        @Html.DisplayFor(m => m.BillImage)
     </li>
     <li class="list-group-item">
         <label style="padding-right:1mm">Remark</label>
-            @Html.DisplayFor(m => m.Remarks)
+        @Html.DisplayFor(m => m.Remarks)
 
     </li>
 </ul>
 
-       
+<h2 style="margin-top:0">
+    Audit
+</h2>
 
-            <h2 style="margin-top:0">
-                Audit
-            </h2>
-<div class="col-md-9">
-    <ul class="list-group">
-        @for (var i = 0; i < Model.BillHistory.Count; ++i)
-        {
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-md-1">
-                        @Html.DisplayFor(m => m.BillHistory[i].DateCreated)
-                    </div>
-                    <div class="col-md-2">
-                        <em>@Html.DisplayFor(m => m.BillHistory[i].BillCreatedBy)</em>
-                    </div>
-                </div>
-            </li>
-        }
-    </ul>
+<ul class="list-group">
+    @for (var i = 0; i < Model.BillHistory.Count; ++i)
+    {
+        <li class="list-group-item">
 
+            @Html.DisplayFor(m => m.BillHistory[i].DateCreated)
 
+            @Html.DisplayFor(m => m.BillHistory[i].BillCreatedBy)
 
-</div>
+        </li>
+    }
+</ul>
