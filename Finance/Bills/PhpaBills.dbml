@@ -1,5 +1,51 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PHPA2151114" Class="PhpaBillsDataContext" AccessModifier="Internal" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=w12obama;Initial Catalog=PHPA2151114;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PHPA2151114ConnectionString1" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PHPADEV" Class="PhpaBillsDataContext" AccessModifier="Internal" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=w12obama;Initial Catalog=PHPADEV;Persist Security Info=True;User ID=sa;MultipleActiveResultSets=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="default" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Division" Member="Divisions" AccessModifier="Internal">
+    <Type Name="Division" AccessModifier="Internal">
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DivisionCode" Type="System.String" DbType="NVarChar(25) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="DivisionGroup" Type="System.String" DbType="NVarChar(30) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="DivisionName" Type="System.String" DbType="NVarChar(80) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Association Name="Division_BillWorkflow" Member="BillWorkflows" ThisKey="DivisionId" OtherKey="ToDivisionId" Type="BillWorkflow" />
+      <Association Name="Division_BillWorkflow1" Member="BillWorkflows1" ThisKey="DivisionId" OtherKey="FromDivisionId" Type="BillWorkflow" />
+      <Association Name="Division_Bill" Member="Bills" ThisKey="DivisionId" OtherKey="SubmitedToDivisionId" Type="Bill" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contractor" Member="Contractors" AccessModifier="Internal">
+    <Type Name="Contractor" AccessModifier="Internal">
+      <Column Name="ContractorId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ContractorName" Type="System.String" DbType="NVarChar(120) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="ContractorCode" Type="System.String" DbType="NVarChar(20) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="Nationality" Type="System.String" DbType="NVarChar(2) NOT NULL" IsReadOnly="true" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(250)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(25)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(30)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(25)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Postal_Code" Type="System.String" DbType="NVarChar(10)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Contact_person" Type="System.String" DbType="NVarChar(50)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Phone1" Type="System.String" DbType="NVarChar(25)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Phone2" Type="System.String" DbType="NVarChar(25)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(25)" IsReadOnly="true" CanBeNull="true" />
+      <Association Name="Contractor_Bill" Member="Bills" ThisKey="ContractorId" OtherKey="ContractorId" Type="Bill" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BillWorkflow" Member="BillWorkflows" AccessModifier="Internal">
+    <Type Name="BillWorkflow" AccessModifier="Internal">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BillId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ActivityType" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="FromDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ToDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ActivityDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ActivityBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="FromStationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ToStationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Division_BillWorkflow" Member="Division" ThisKey="ToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+      <Association Name="Division_BillWorkflow1" Member="Division1" ThisKey="FromDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+      <Association Name="Bill_BillWorkflow" Member="Bill" ThisKey="BillId" OtherKey="Id" Type="Bill" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Bill" Member="Bills" AccessModifier="Internal">
     <Type Name="Bill" AccessModifier="Internal">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -21,57 +67,14 @@
       <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="StationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Bill_BillWorkflow" Member="BillWorkflows" ThisKey="Id" OtherKey="BillId" Type="BillWorkflow" />
-      <Association Name="Division_Bill" Member="Division" ThisKey="SubmitedToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
       <Association Name="Contractor_Bill" Member="Contractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="Contractor" IsForeignKey="true" />
+      <Association Name="Division_Bill" Member="Division" ThisKey="SubmitedToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.BillWorkflow" Member="BillWorkflows" AccessModifier="Internal">
-    <Type Name="BillWorkflow" AccessModifier="Internal">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="BillId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ActivityType" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Column Name="FromDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ToDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ActivityDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="ActivityBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="ShortDescription" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Association Name="Bill_BillWorkflow" Member="Bill" ThisKey="BillId" OtherKey="Id" Type="Bill" IsForeignKey="true" />
-      <Association Name="Division_BillWorkflow" Member="Division" ThisKey="ToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
-      <Association Name="Division_BillWorkflow1" Member="Division1" ThisKey="FromDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Division" Member="Divisions" AccessModifier="Internal">
-    <Type Name="Division" AccessModifier="Internal">
-      <Column Name="DivisionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="DivisionCode" Type="System.String" DbType="NVarChar(25) NOT NULL" IsReadOnly="true" CanBeNull="false" />
-      <Column Name="DivisionGroup" Type="System.String" DbType="NVarChar(30) NOT NULL" IsReadOnly="true" CanBeNull="false" />
-      <Column Name="DivisionName" Type="System.String" DbType="NVarChar(80) NOT NULL" IsReadOnly="true" CanBeNull="false" />
-      <Association Name="Division_Bill" Member="Bills" ThisKey="DivisionId" OtherKey="SubmitedToDivisionId" Type="Bill" />
-      <Association Name="Division_BillWorkflow" Member="BillWorkflows" ThisKey="DivisionId" OtherKey="ToDivisionId" Type="BillWorkflow" />
-      <Association Name="Division_BillWorkflow1" Member="BillWorkflows1" ThisKey="DivisionId" OtherKey="FromDivisionId" Type="BillWorkflow" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Contractor" Member="Contractors" AccessModifier="Internal">
-    <Type Name="Contractor" AccessModifier="Internal">
-      <Column Name="ContractorId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ContractorName" Type="System.String" DbType="NVarChar(120) NOT NULL" IsReadOnly="true" CanBeNull="false" />
-      <Column Name="ContractorCode" Type="System.String" DbType="NVarChar(20) NOT NULL" IsReadOnly="true" CanBeNull="false" />
-      <Column Name="Nationality" Type="System.String" DbType="NVarChar(2) NOT NULL" IsReadOnly="true" CanBeNull="false" />
-      <Column Name="Address" Type="System.String" DbType="NVarChar(250)" IsReadOnly="true" CanBeNull="true" />
-      <Column Name="City" Type="System.String" DbType="NVarChar(25)" IsReadOnly="true" CanBeNull="true" />
-      <Column Name="State" Type="System.String" DbType="NVarChar(30)" IsReadOnly="true" CanBeNull="true" />
-      <Column Name="Country" Type="System.String" DbType="NVarChar(25)" IsReadOnly="true" CanBeNull="true" />
-      <Column Name="Postal_Code" Type="System.String" DbType="NVarChar(10)" IsReadOnly="true" CanBeNull="true" />
-      <Column Name="Contact_person" Type="System.String" DbType="NVarChar(50)" IsReadOnly="true" CanBeNull="true" />
-      <Column Name="Phone1" Type="System.String" DbType="NVarChar(25)" IsReadOnly="true" CanBeNull="true" />
-      <Column Name="Phone2" Type="System.String" DbType="NVarChar(25)" IsReadOnly="true" CanBeNull="true" />
-      <Column Name="Fax" Type="System.String" DbType="NVarChar(25)" IsReadOnly="true" CanBeNull="true" />
-      <Association Name="Contractor_Bill" Member="Bills" ThisKey="ContractorId" OtherKey="ContractorId" Type="Bill" />
-    </Type>
-  </Table>
-  <Table Name="dbo.BillAudit" Member="BillAudits">
-    <Type Name="BillAudit">
+  <Table Name="dbo.BillAudit" Member="BillAudits" AccessModifier="Internal">
+    <Type Name="BillAudit" AccessModifier="Internal">
       <Column Name="BillNumberOld" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
       <Column Name="BillNumberNew" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
       <Column Name="BillDateOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
@@ -97,6 +100,11 @@
       <Column Name="ParticularsOld" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="ParticularsNew" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="BillId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StationIdOld" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StationIdNew" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
