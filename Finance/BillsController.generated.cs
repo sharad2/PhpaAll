@@ -63,6 +63,12 @@ namespace PhpaAll.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult RecentBills()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RecentBills);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public BillsController Actions { get { return MVC.Bills; } }
@@ -100,6 +106,14 @@ namespace PhpaAll.Controllers
         public class ActionParamsClass_Search
         {
             public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_RecentBills s_params_RecentBills = new ActionParamsClass_RecentBills();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_RecentBills RecentBillsParams { get { return s_params_RecentBills; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_RecentBills
+        {
+            public readonly string approvers = "approvers";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -150,13 +164,14 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void RecentBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void RecentBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string[] approvers);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult RecentBills()
+        public override System.Web.Mvc.ActionResult RecentBills(string[] approvers)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RecentBills);
-            RecentBillsOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "approvers", approvers);
+            RecentBillsOverride(callInfo, approvers);
             return callInfo;
         }
 
