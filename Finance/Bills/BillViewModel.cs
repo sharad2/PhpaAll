@@ -30,9 +30,9 @@ namespace PhpaAll.Bills
         [DataType(DataType.Date)]
         public DateTime? SubmittedOnDate { get; set; }
 
-        [Display(Name = "Bill Type")]
-        [StringLength(10, ErrorMessage = "The Bill Type value cannot exceed 10 characters. ")]
-        public string BillType { get; set; }
+        //[Display(Name = "Bill Type")]
+        //[StringLength(10, ErrorMessage = "The Bill Type value cannot exceed 10 characters. ")]
+        //public string BillType { get; set; }
 
         [Display(Name = "Division Id")]
         [Required(ErrorMessage = "Division Id is required.")]
@@ -58,19 +58,21 @@ namespace PhpaAll.Bills
         [Display(Name = "Remarks")]
         [StringLength(255, ErrorMessage = "Max limit is 255 characters")]
         public string Remarks { get; set; }
-
+        /// <summary>
+        /// TODO: Map image
+        /// </summary>
         [Display(Name = "Image")]
         public HttpPostedFileBase BillImage { get; set; }
 
         //Weather it is edit mode or not
-        public bool isEditMode { get; set; } 
+        public bool isEditMode { get; set; }
 
         public IList<BillAuditViewModel> BillHistory { get; set; }
 
         /// <summary>
         /// Skumar :- Adding new columns
         /// </summary>
-        
+
         [Display(Name = "Paid On")]
         [DataType(DataType.Date)]
         public DateTime? PaidDate { get; set; }
@@ -80,9 +82,7 @@ namespace PhpaAll.Bills
         public string ApprovedBy { get; set; }
 
         public string StationName { get; set; }
-        
-
 
     }
-    
+
 }
