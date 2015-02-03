@@ -30,16 +30,6 @@ namespace PhpaAll.Controllers
             base.Dispose(disposing);
         }
 
-
-        //public virtual ActionResult Index()
-        //{
-
-        //    return View(Views.Index);
-        //}
-
-
-
-
         public virtual ActionResult Create()
         {
             var model = new CreateViewModel();
@@ -144,7 +134,7 @@ namespace PhpaAll.Controllers
                 edit.Remarks = model.Remarks;
                 edit.SubmittedOnDate = model.SubmittedOnDate;
                 _service.Value.UpdateBill(edit);
-                return RedirectToAction(MVC.ManageBills.RecentBills());
+                return RedirectToAction(MVC.Bills.RecentBills());
 
 
             }
