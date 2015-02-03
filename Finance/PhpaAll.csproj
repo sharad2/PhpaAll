@@ -348,6 +348,7 @@
     <Compile Include="BillsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Bills\BillAuditViewModel.cs" />
     <Compile Include="Bills\BillViewModel.cs" />
     <Compile Include="Bills\CreateViewModel.cs" />
     <Compile Include="Bills\PhpaBills.cs">

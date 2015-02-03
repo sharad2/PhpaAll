@@ -57,7 +57,13 @@ namespace PhpaAll.Bills
             }
         }
 
-
+        public IQueryable<BillAudit> BillAudit
+        {
+            get
+            {
+                return _db.BillAudits;
+            }
+        }
        
 
         public void UpdateBill(Bill bill)

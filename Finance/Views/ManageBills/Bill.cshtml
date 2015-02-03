@@ -10,6 +10,8 @@ TODO:
 Display all bill details including audit
 </pre>
 
+
+
  <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-default">Edit</a>
 @*<ul>
         <li><a href="@Url.Action(MVC.ManageBills.Edit(80))">Edit</a></li>
@@ -18,362 +20,86 @@ Display all bill details including audit
         <li><button>Approve for Payment...</button></li>
 
     </ul>*@
+@*<ul class="list-group">
+    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item">Dapibus ac facilisis in</li>
+    <li class="list-group-item">Morbi leo risus</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+</ul>*@
 <h2 style="margin-top:0"> 
             <span>Bill Number  <mark class="small">@Html.DisplayFor(m => m.BillNumber)</mark></span>    
     </h2>
  
-<form class="form-horizontal" action="@Url.Action(MVC.ManageBills.ShowBill())" method="post" enctype="multipart/form-data">
-
-    <div class="well well-sm">
-        <div class="form-group form-group-sm">
-            <label for="billNumber" class="col-sm-2 control-label">Bill No. *</label>
-            <div class="col-sm-3">
-
-                @Html.DisplayFor(m => m.BillNumber, new
-                                   {
-                                       id = "billNumber",
-                                       maxlength = "60",
-                                       @class = "form-control",
-                                       @required = "required"
-                                   })
-
-                @Html.ValidationMessageFor(m => m.BillNumber, null, new
-                                   {
-                                       @class = "help-block"
-                                   })
-
-
-            </div>
-
-            <label for="particulars" class="col-sm-1 control-label">Particulars</label>
-            <div class="col-sm-3">
-                @Html.DisplayFor(m => m.Particulars, new
-           {
-               id = "particulars",
-               @class = "form-control",
-               maxlength = "255"
-
-           })
-
- 
-            </div>
-
-
-
-
-
-
-
-            <label for="billDate" class="col-sm-1 control-label">Bill Date *</label>
-            <div class="col-sm-2">
-                @Html.DisplayFor(m => m.BillDate, new
-           {
-               id = "billDate",
-               @class = "form-control",
-               @required = "required",
-               @placeholder = "dd/mm/yyyy"
-           })
-                @Html.ValidationMessageFor(m => m.BillDate, null, new
-           {
-               @class = "help-block"
-           })
-
-            </div>
-        </div>
-        <div class="form-group form-group-sm">
-            <label for="divId" class="col-sm-2 control-label">Received by Division *</label>
-            <div class="col-sm-3">
-                @Html.DisplayFor(m => m.SubmittedToDivisionName, new
-           {
-               id = "divId",
-               @class = "form-control",
-               type = "numeric",
-               @required = "required"
-
-           })
-                @Html.ValidationMessageFor(m => m.SubmittedToDivisionId, null, new
-           {
-               @class = "help-block"
-           })
-
-            </div>
-
-
-            <label for="divSubDate" class="col-sm-1 control-label">on date</label>
-            <div class="col-sm-3">
-                @Html.DisplayFor(m => m.SubmittedOnDate, new
-           {
-               id = "divSubDate",
-               @class = "form-control",
-               type = "date",
-               @placeholder = "dd/mm/yyyy"
-           })
-                @Html.ValidationMessageFor(m => m.SubmittedOnDate, null, new
-           {
-               @class = "help-block"
-           })
-            </div>
-
-            <label for="dueDate" class="col-sm-1 control-label">Due Date</label>
-            <div class="col-sm-2">
-                @Html.DisplayFor(m => m.DueDate, new
-           {
-               id = "dueDate",
-               @class = "form-control",
-               type = "date",
-               @placeholder = "dd/mm/yyyy"
-           })
-                @Html.ValidationMessageFor(m => m.DueDate, null, new
-           {
-               @class = "help-block"
-           })
-
-            </div>
-        </div>
-
-        <div class="form-group form-group-sm">
-            <label for="conId" class="col-sm-2 control-label">Contractor Id</label>
-            <div class="col-sm-3">
-                @Html.DisplayFor(m => m.ContractorName, new
-           {
-               id = "conId",
-               @class = "form-control",
-               type = "numeric"
-
-           })
-                @Html.ValidationMessageFor(m => m.ContractorId, null, new
-           {
-               @class = "help-block"
-           })
-
-            </div>
-            <label for="amount" class="col-sm-1 control-label">Amount *</label>
-            <div class="col-sm-3">
-                @Html.DisplayFor(m => m.Amount, new
-           {
-               id = "amount",
-               @class = "form-control",
-               min = "0",
-               type = "number",
-               @required = "required",
-               placeholder = "Amount(Nu)"
-
-           })
-                @Html.ValidationMessageFor(m => m.Amount, null, new
-           {
-               @class = "help-block"
-           })
-
-            </div>
-
-            <label for="image" class="col-sm-1 control-label">Image</label>
-            <div class="col-sm-2">
-                @Html.DisplayFor(m => m.BillImage, new
-           {
-               id = "image",
-               @class = "form-control",
-               type = "File"
-
-           })
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="remarks" class="col-sm-2 control-label">Remark</label>
-            <div class="col-sm-7">
-                @Html.DisplayFor(m => m.Remarks, new
-           {
-               id = "remarks",
-               @class = "form-control",
-               maxlength = "255"
-           })
-                @Html.ValidationMessageFor(m => m.Remarks, null, new
-           {
-               @class = "help-block"
-           })
-
-            </div>
-        </div>
-
-    </div>
-</form>
-<h2 style="margin-top:0">
-    Audit
-</h2>
-<form class="form-horizontal" action="@Url.Action(MVC.ManageBills.ShowBill())" method="post" enctype="multipart/form-data">
-
-    <div class="well well-sm">
-        <div class="form-group form-group-sm">
-            <label for="billNumber" class="col-sm-2 control-label">Bill No. *</label>
-            <div class="col-sm-3">
-
-                @Html.DisplayFor(m => m.BillNumber, new
-                                   {
-                                       id = "billNumber",
-                                       maxlength = "60",
-                                       @class = "form-control",
-                                       @required = "required"
-                                   })
-
-                @Html.ValidationMessageFor(m => m.BillNumber, null, new
-                                   {
-                                       @class = "help-block"
-                                   })
-
-
-            </div>
-
-            <label for="particulars" class="col-sm-1 control-label">Particulars</label>
-            <div class="col-sm-3">
-                @Html.DisplayFor(m => m.Particulars, new
-           {
-               id = "particulars",
-               @class = "form-control",
-               maxlength = "255"
-
-           })
-
-
-            </div>
-
-
-
-
-
-
-
-            <label for="billDate" class="col-sm-1 control-label">Bill Date *</label>
-            <div class="col-sm-2">
-                @Html.DisplayFor(m => m.BillDate, new
-           {
-               id = "billDate",
-               @class = "form-control",
-               @required = "required",
-               @placeholder = "dd/mm/yyyy"
-           })
-                @Html.ValidationMessageFor(m => m.BillDate, null, new
-           {
-               @class = "help-block"
-           })
-
-            </div>
-        </div>
-        <div class="form-group form-group-sm">
-            <label for="divId" class="col-sm-2 control-label">Received by Division *</label>
-            <div class="col-sm-3">
-                @Html.DisplayFor(m => m.SubmittedToDivisionName, new
-           {
-               id = "divId",
-               @class = "form-control",
-               type = "numeric",
-               @required = "required"
-
-           })
-                @Html.ValidationMessageFor(m => m.SubmittedToDivisionId, null, new
-           {
-               @class = "help-block"
-           })
-
-            </div>
-
-
-            <label for="divSubDate" class="col-sm-1 control-label">on date</label>
-            <div class="col-sm-3">
-                @Html.DisplayFor(m => m.SubmittedOnDate, new
-           {
-               id = "divSubDate",
-               @class = "form-control",
-               type = "date",
-               @placeholder = "dd/mm/yyyy"
-           })
-                @Html.ValidationMessageFor(m => m.SubmittedOnDate, null, new
-           {
-               @class = "help-block"
-           })
-            </div>
-
-            <label for="dueDate" class="col-sm-1 control-label">Due Date</label>
-            <div class="col-sm-2">
-                @Html.DisplayFor(m => m.DueDate, new
-           {
-               id = "dueDate",
-               @class = "form-control",
-               type = "date",
-               @placeholder = "dd/mm/yyyy"
-           })
-                @Html.ValidationMessageFor(m => m.DueDate, null, new
-           {
-               @class = "help-block"
-           })
-
-            </div>
-        </div>
-
-        <div class="form-group form-group-sm">
-            <label for="conId" class="col-sm-2 control-label">Contractor Id</label>
-            <div class="col-sm-3">
-                @Html.DisplayFor(m => m.ContractorName, new
-           {
-               id = "conId",
-               @class = "form-control",
-               type = "numeric"
-
-           })
-                @Html.ValidationMessageFor(m => m.ContractorId, null, new
-           {
-               @class = "help-block"
-           })
-
-            </div>
-            <label for="amount" class="col-sm-1 control-label">Amount *</label>
-            <div class="col-sm-3">
-                @Html.DisplayFor(m => m.Amount, new
-           {
-               id = "amount",
-               @class = "form-control",
-               min = "0",
-               type = "number",
-               @required = "required",
-               placeholder = "Amount(Nu)"
-
-           })
-                @Html.ValidationMessageFor(m => m.Amount, null, new
-           {
-               @class = "help-block"
-           })
-
-            </div>
-
-            <label for="image" class="col-sm-1 control-label">Image</label>
-            <div class="col-sm-2">
-                @Html.DisplayFor(m => m.BillImage, new
-           {
-               id = "image",
-               @class = "form-control",
-               type = "File"
-
-           })
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="remarks" class="col-sm-2 control-label">Remark</label>
-            <div class="col-sm-7">
-                @Html.DisplayFor(m => m.Remarks, new
-           {
-               id = "remarks",
-               @class = "form-control",
-               maxlength = "255"
-           })
-                @Html.ValidationMessageFor(m => m.Remarks, null, new
-           {
-               @class = "help-block"
-           })
-
-            </div>
-        </div>
-
-    </div>
-</form>
+<ul class="list-group">
+    
+    <li class="list-group-item">
+        <label for="billNumber" style="padding-right:1mm">Bill No.</label>
+            @Html.DisplayFor(m => m.BillNumber)
+    </li>
+    <li class="list-group-item">
+        <label for="particulars" style="padding-right:1mm">Particulars</label>@Html.DisplayFor(m => m.Particulars)
+    </li>
+    <li class="list-group-item"><label style="padding-right:1mm">Bill Date </label>
+    @Html.DisplayFor(m => m.BillDate)
+   
+</li>
+    <li class="list-group-item"><label style="padding-right:1mm">Received by Division </label>
+    @Html.DisplayFor(m => m.SubmittedToDivisionName)
+    
+</li>
+    <li class="list-group-item"><label style="padding-right:1mm">on date</label>
+    @Html.DisplayFor(m => m.SubmittedOnDate)
+    
+</li>
+    <li class="list-group-item">
+        <label style="padding-right:1mm">Due Date</label>
+                   @Html.DisplayFor(m => m.DueDate)
+    </li>
+    <li class="list-group-item">
+        <label style="padding-right:1mm">Contractor</label>
+            @Html.DisplayFor(m => m.ContractorName)
+
+    </li>
+
+    <li class="list-group-item">
+        <label style="padding-right:1mm">Amount</label>
+            @Html.DisplayFor(m => m.Amount)
+    </li>
+
+    <li class="list-group-item">
+        <label style="padding-right:1mm">Image</label>
+            @Html.DisplayFor(m => m.BillImage)
+    </li>
+    <li class="list-group-item">
+        <label style="padding-right:1mm">Remark</label>
+            @Html.DisplayFor(m => m.Remarks)
+
+    </li>
+</ul>
+
+       
+
+            <h2 style="margin-top:0">
+                Audit
+            </h2>
+<div class="col-md-9">
+    <ul class="list-group">
+        @for (var i = 0; i < Model.BillHistory.Count; ++i)
+        {
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-1">
+                        @Html.DisplayFor(m => m.BillHistory[i].DateCreated)
+                    </div>
+                    <div class="col-md-2">
+                        <em>@Html.DisplayFor(m => m.BillHistory[i].BillCreatedBy)</em>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+
+
+
+</div>
