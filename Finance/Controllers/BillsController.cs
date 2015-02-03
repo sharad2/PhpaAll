@@ -44,7 +44,7 @@ namespace PhpaAll.Controllers
         /// Display recent bills. Option to create new bill
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult RecentBills(string[] approvers)
+        public virtual ActionResult RecentBills(string[] approvers, int?[] divisions)
         {
             var query = from bill in _db.Value.Bills
                         group bill by new
@@ -63,6 +63,7 @@ namespace PhpaAll.Controllers
                             Count = g.Count()
                         };
 
+            // By taking ToList(), we execute the query here. Later we manipulate in memory version of the data
             var aggQuery = query.ToList();
 
             var model = new RecentBillsViewModel
@@ -73,7 +74,8 @@ namespace PhpaAll.Controllers
                              {
                                  Id = string.Format("{0}", g.Key),
                                  Name = g.Select(p => p.DivisionName).FirstOrDefault(),
-                                 Count = g.Sum(p => p.Count)
+                                 Count = g.Sum(p => p.Count),
+                                 Selected = divisions == null || divisions.Contains(g.Key)
                              }).ToList(),
                 Contractors = (from d in aggQuery
                                group d by d.ContractorId into g
@@ -96,9 +98,10 @@ namespace PhpaAll.Controllers
 
             IQueryable<Bill> filteredBills = _db.Value.Bills;
 
-            if (approvers != null)
+            if (approvers != null && approvers.Length > 0)
             {
                 filteredBills = filteredBills.Where(p => approvers.Contains(p.ApprovedBy ?? ""));
+                model.IsFiltered = true;
             }
 
             model.Bills = (from bill in filteredBills

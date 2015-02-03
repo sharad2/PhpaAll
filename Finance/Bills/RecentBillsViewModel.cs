@@ -98,5 +98,7 @@ namespace PhpaAll.Bills
         public IList<RecentBillsFilterModel> Approvers { get; set; }
 
         public IList<BillModel> Bills { get; set; }
+
+        public bool IsFiltered { get; set; }
     }
 }
