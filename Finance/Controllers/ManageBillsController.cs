@@ -142,7 +142,7 @@ namespace PhpaAll.Controllers
             {
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
-            return RedirectToAction(MVC.ManageBills.Bill());
+            return RedirectToAction(MVC.ManageBills.BillDetail());
         }
 
 
@@ -163,7 +163,7 @@ namespace PhpaAll.Controllers
 
 
 
-        public virtual ActionResult Bill(int id)
+        public virtual ActionResult BillDetail(int id)
         {
 
             var model = (from bill in _service.Value.Bills

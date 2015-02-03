@@ -77,9 +77,9 @@ namespace PhpaAll.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Bill()
+        public virtual System.Web.Mvc.ActionResult BillDetail()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Bill);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.BillDetail);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -101,7 +101,7 @@ namespace PhpaAll.Controllers
             public readonly string CreateBill = "CreateBill";
             public readonly string Edit = "Edit";
             public readonly string Delete = "Delete";
-            public readonly string Bill = "Bill";
+            public readonly string BillDetail = "BillDetail";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -111,7 +111,7 @@ namespace PhpaAll.Controllers
             public const string CreateBill = "CreateBill";
             public const string Edit = "Edit";
             public const string Delete = "Delete";
-            public const string Bill = "Bill";
+            public const string BillDetail = "BillDetail";
         }
 
 
@@ -140,11 +140,11 @@ namespace PhpaAll.Controllers
         {
             public readonly string id = "id";
         }
-        static readonly ActionParamsClass_Bill s_params_Bill = new ActionParamsClass_Bill();
+        static readonly ActionParamsClass_BillDetail s_params_BillDetail = new ActionParamsClass_BillDetail();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Bill BillParams { get { return s_params_Bill; } }
+        public ActionParamsClass_BillDetail BillDetailParams { get { return s_params_BillDetail; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Bill
+        public class ActionParamsClass_BillDetail
         {
             public readonly string id = "id";
         }
@@ -233,14 +233,14 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void BillOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+        partial void BillDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Bill(int id)
+        public override System.Web.Mvc.ActionResult BillDetail(int id)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Bill);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.BillDetail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            BillOverride(callInfo, id);
+            BillDetailOverride(callInfo, id);
             return callInfo;
         }
 
