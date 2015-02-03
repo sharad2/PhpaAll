@@ -31,6 +31,15 @@ namespace PhpaAll.Bills
         //For internal use to retrive row for editing
         public int Id { get; set; }
 
+        /// <summary>
+        /// ScaffoldColumn means do not display in Excel
+        /// </summary>
+        [ScaffoldColumn(false)]
+        public int StationId { get; set; }
+
+        [Display(ShortName="Station")]
+        public string StationName { get; set; }
+
         public string BillNumber { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
@@ -97,8 +106,15 @@ namespace PhpaAll.Bills
 
         public IList<RecentBillsFilterModel> Approvers { get; set; }
 
+        public IList<RecentBillsFilterModel> Stations { get; set; }
+
         public IList<BillModel> Bills { get; set; }
 
         public bool IsFiltered { get; set; }
+
+        /// <summary>
+        /// URL which will cause the current data to be displayed in Excel
+        /// </summary>
+        public string UrlExcel { get; set; }
     }
 }

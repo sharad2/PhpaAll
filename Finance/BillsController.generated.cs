@@ -69,18 +69,6 @@ namespace PhpaAll.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RecentBills);
         }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.JsonResult GetDivision()
-        {
-            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetDivision);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.JsonResult GetContractor()
-        {
-            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetContractor);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public BillsController Actions { get { return MVC.Bills; } }
@@ -100,8 +88,6 @@ namespace PhpaAll.Controllers
             public readonly string Index = "Index";
             public readonly string Search = "Search";
             public readonly string RecentBills = "RecentBills";
-            public readonly string GetDivision = "GetDivision";
-            public readonly string GetContractor = "GetContractor";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -110,8 +96,6 @@ namespace PhpaAll.Controllers
             public const string Index = "Index";
             public const string Search = "Search";
             public const string RecentBills = "RecentBills";
-            public const string GetDivision = "GetDivision";
-            public const string GetContractor = "GetContractor";
         }
 
 
@@ -131,22 +115,9 @@ namespace PhpaAll.Controllers
         {
             public readonly string approvers = "approvers";
             public readonly string divisions = "divisions";
-        }
-        static readonly ActionParamsClass_GetDivision s_params_GetDivision = new ActionParamsClass_GetDivision();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_GetDivision GetDivisionParams { get { return s_params_GetDivision; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetDivision
-        {
-            public readonly string term = "term";
-        }
-        static readonly ActionParamsClass_GetContractor s_params_GetContractor = new ActionParamsClass_GetContractor();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_GetContractor GetContractorParams { get { return s_params_GetContractor; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetContractor
-        {
-            public readonly string term = "term";
+            public readonly string contractors = "contractors";
+            public readonly string stations = "stations";
+            public readonly string exportToExcel = "exportToExcel";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -197,39 +168,18 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void RecentBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string[] approvers, int?[] divisions);
+        partial void RecentBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string[] approvers, int?[] divisions, int?[] contractors, int?[] stations, bool exportToExcel);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult RecentBills(string[] approvers, int?[] divisions)
+        public override System.Web.Mvc.ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations, bool exportToExcel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RecentBills);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "approvers", approvers);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "divisions", divisions);
-            RecentBillsOverride(callInfo, approvers, divisions);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void GetDivisionOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string term);
-
-        [NonAction]
-        public override System.Web.Mvc.JsonResult GetDivision(string term)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetDivision);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
-            GetDivisionOverride(callInfo, term);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void GetContractorOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string term);
-
-        [NonAction]
-        public override System.Web.Mvc.JsonResult GetContractor(string term)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetContractor);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
-            GetContractorOverride(callInfo, term);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "contractors", contractors);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "stations", stations);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "exportToExcel", exportToExcel);
+            RecentBillsOverride(callInfo, approvers, divisions, contractors, stations, exportToExcel);
             return callInfo;
         }
 

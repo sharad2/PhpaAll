@@ -61,6 +61,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.4.0.2\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -318,12 +321,6 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <None Include="T4MVC.tt.settings.xml" />
-    <Content Include="Views\Shared\typeahed.css">
-      <DependentUpon>typeahed.css.bundle</DependentUpon>
-    </Content>
-    <Content Include="Views\Shared\typeahed.min.css">
-      <DependentUpon>typeahed.css</DependentUpon>
-    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -338,7 +335,6 @@
     <Content Include="Views\ManageBills\Bill.cshtml" />
     <Content Include="Views\ManageBills\Edit.cshtml" />
     <Content Include="Views\Bills\Search.cshtml" />
-    <Content Include="Views\Shared\typeahed.css.bundle" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">
@@ -825,6 +821,7 @@
     <Compile Include="MIS\SummaryofFinacialProgress\PackageActivitySummary.aspx.designer.cs">
       <DependentUpon>PackageActivitySummary.aspx</DependentUpon>
     </Compile>
+    <Compile Include="MvcHelpers\ExcelResult.cs" />
     <Compile Include="Payroll\ManageEmployeePeriod.aspx.cs">
       <DependentUpon>ManageEmployeePeriod.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

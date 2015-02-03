@@ -1,4 +1,5 @@
 ﻿using PhpaAll.Bills;
+using PhpaAll.MvcHelpers;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -44,23 +45,26 @@ namespace PhpaAll.Controllers
         /// Display recent bills. Option to create new bill
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult RecentBills(string[] approvers, int?[] divisions)
+        public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations, bool exportToExcel = false)
         {
             var query = from bill in _db.Value.Bills
                         group bill by new
                         {
                             bill.ApprovedBy,
-                            bill.Division,
-                            bill.Contractor
+                            bill.SubmittedToDivision,
+                            bill.Contractor,
+                            bill.Station
                         } into g
                         select new
                         {
-                            g.Key.ApprovedBy,
-                            DivisionId = g.Key.Division == null ? (int?)null : g.Key.Division.DivisionId,
+                            ApprovedBy = g.Key.ApprovedBy,
+                            SubmittedToDivisionId = g.Key.SubmittedToDivision == null ? (int?)null : g.Key.SubmittedToDivision.DivisionId,
                             ContractorId = g.Key.Contractor == null ? (int?)null : g.Key.Contractor.ContractorId,
-                            g.Key.Division.DivisionName,
-                            g.Key.Contractor.ContractorName,
-                            Count = g.Count()
+                            DivisionName = g.Key.SubmittedToDivision.DivisionName,
+                            ContractorName = g.Key.Contractor.ContractorName,
+                            Count = g.Count(),
+                            StationId = g.Key.Station == null ? (int?)null : g.Key.Station.StationId,
+                            StationName = g.Key.Station.StationName
                         };
 
             // By taking ToList(), we execute the query here. Later we manipulate in memory version of the data
@@ -69,7 +73,7 @@ namespace PhpaAll.Controllers
             var model = new RecentBillsViewModel
             {
                 Divisions = (from d in aggQuery
-                             group d by d.DivisionId into g
+                             group d by d.SubmittedToDivisionId into g
                              select new RecentBillsFilterModel
                              {
                                  Id = string.Format("{0}", g.Key),
@@ -83,7 +87,8 @@ namespace PhpaAll.Controllers
                                {
                                    Id = string.Format("{0}", g.Key),
                                    Name = g.Select(p => p.ContractorName).FirstOrDefault(),
-                                   Count = g.Sum(p => p.Count)
+                                   Count = g.Sum(p => p.Count),
+                                   Selected = contractors == null || contractors.Contains(g.Key)
                                }).ToList(),
                 Approvers = (from d in aggQuery
                              group d by d.ApprovedBy into g
@@ -93,7 +98,18 @@ namespace PhpaAll.Controllers
                                  Name = g.Key,
                                  Count = g.Sum(p => p.Count),
                                  Selected = approvers == null || approvers.Contains(g.Key ?? "")
-                             }).ToList()
+                             }).ToList(),
+
+                Stations = (from d in aggQuery
+                            group d by d.StationId into g
+                            select new RecentBillsFilterModel
+                            {
+                                Id = string.Format("{0}", g.Key),
+                                Name = g.Select(p => p.StationName).FirstOrDefault(),
+                                Count = g.Sum(p => p.Count),
+                                Selected = stations == null || stations.Contains(g.Key)
+                            }).ToList(),
+                UrlExcel = Request.RawUrl
             };
 
             IQueryable<Bill> filteredBills = _db.Value.Bills;
@@ -103,6 +119,34 @@ namespace PhpaAll.Controllers
                 filteredBills = filteredBills.Where(p => approvers.Contains(p.ApprovedBy ?? ""));
                 model.IsFiltered = true;
             }
+
+            if (divisions != null && divisions.Length > 0)
+            {
+                filteredBills = filteredBills.Where(p => divisions.Contains(p.SubmitedToDivisionId));
+                model.IsFiltered = true;
+            }
+
+            if (contractors != null && contractors.Length > 0)
+            {
+                filteredBills = filteredBills.Where(p => contractors.Contains(p.ContractorId));
+                model.IsFiltered = true;
+            }
+
+            if (stations != null && stations.Length > 0)
+            {
+                filteredBills = filteredBills.Where(p => stations.Contains(p.StationId));
+                model.IsFiltered = true;
+            }
+
+            if (model.UrlExcel.Contains("?"))
+            {
+                model.UrlExcel += "&";
+            }
+            else
+            {
+                model.UrlExcel += "?";
+            }
+            model.UrlExcel += Actions.RecentBillsParams.exportToExcel + "=true";
 
             // Max 200 bills
             model.Bills = (from bill in filteredBills
@@ -117,17 +161,24 @@ namespace PhpaAll.Controllers
                                ContractorId = bill.ContractorId,
                                ContractorName = bill.Contractor.ContractorName,
                                SubmittedToDivisionId = bill.SubmitedToDivisionId,
-                               SubmittedToDivisionName = bill.Division.DivisionName,
+                               SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
                                DueDate = bill.DueDate,
                                PaidDate = bill.PaidDate,
                                Remarks = bill.Remarks,
                                SubmittedOnDate = bill.SubmittedOnDate,
                                Id = bill.Id,
+                               StationId = bill.StationId,
+                               StationName = bill.Station.StationName
                            }).Take(200).ToList();
 
+            if (exportToExcel)
+            {
+                var result = new ExcelResult("List of Bills");
+                result.AddWorkSheet(model.Bills, "Bills", "My Heading");
+                return result;
+            }
             return View(Views.RecentBills, model);
         }
-
 
 
 
@@ -184,57 +235,7 @@ namespace PhpaAll.Controllers
             //    label = string.Format("{0}: {1}", p.DivisionId, p.DivisionName),
             //    value = p.DivisionId
             //})
-            var data = from e in _db.Value.Divisions
-                       where e.DivisionName.StartsWith(searchDescription) || e.DivisionId.ToString().StartsWith(searchId)
-                       orderby e.DivisionName
-                       select e.DivisionName;
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
-
-
-        public virtual JsonResult GetContractor(string term)
-        {
-            // Change null to empty string
-            term = term ?? string.Empty;
-
-            var tokens = term.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim())
-                .Where(p => !string.IsNullOrWhiteSpace(p))
-                .ToList();
-
-            string searchId;
-            string searchDescription;
-
-            switch (tokens.Count)
-            {
-                case 0:
-                    // All division
-                    searchId = searchDescription = string.Empty;
-                    break;
-
-                case 1:
-                    // Try to match term with either id or description
-                    searchId = searchDescription = tokens[0];
-                    break;
-
-                case 2:
-                    // Try to match first token with id and second with description
-                    searchId = tokens[0];
-                    searchDescription = tokens[1];
-                    break;
-
-                default:
-                    // For now, ignore everything after the second :
-                    searchId = tokens[0];
-                    searchDescription = tokens[1];
-                    break;
-
-
-            }
-            var data = from e in _db.Value.Contractors
-                       where e.ContractorName.StartsWith(searchDescription) || e.ContractorId.ToString().StartsWith(searchId)
-                       orderby e.ContractorName
-                       select e.ContractorName;
+            var data = "xyz:1234";
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 

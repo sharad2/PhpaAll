@@ -11,14 +11,17 @@ namespace PhpaAll.Controllers
 {
     public partial class ManageBillsController : Controller
     {
-
+        [Obsolete]
         private Lazy<ManageBillsService> _service;
+
+        private Lazy<PhpaBillsDataContext> _db;
 
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
 
             _service = new Lazy<ManageBillsService>(() => new ManageBillsService("default", requestContext.HttpContext.Trace));
+            _db = new Lazy<PhpaBillsDataContext>(() => new PhpaBillsDataContext(requestContext.HttpContext.Trace));
         }
 
         protected override void Dispose(bool disposing)
@@ -26,6 +29,11 @@ namespace PhpaAll.Controllers
             if (_service != null && _service.IsValueCreated)
             {
                 _service.Value.Dispose();
+            }
+
+            if (_db != null && _db.IsValueCreated)
+            {
+                _db.Value.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -94,7 +102,7 @@ namespace PhpaAll.Controllers
                              PaidDate = bill.PaidDate,
                              Remarks = bill.Remarks,
                              SubmittedOnDate = bill.SubmittedOnDate,
-                             SubmittedToDivisionName = bill.Division.DivisionName,
+                             SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
                              ContractorName = bill.Contractor.ContractorName
                          }).FirstOrDefault();
 
@@ -182,10 +190,10 @@ namespace PhpaAll.Controllers
                              Remarks = bill.Remarks,
                              SubmittedOnDate = bill.SubmittedOnDate,
                              isEditMode = true,
-                             SubmittedToDivisionName = bill.Division.DivisionName,
+                             SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
                              ContractorName = bill.Contractor.ContractorName
                          }).FirstOrDefault();
-            
+
             //// Dummy Code: TODO: Put where clause.  
             model.BillHistory = (from ba in _service.Value.BillAudit
                                  where ba.BillId == id
@@ -197,6 +205,43 @@ namespace PhpaAll.Controllers
                                  }).ToList();
 
             return View(Views.Bill, model);
+        }
+
+
+        /// <summary>
+        /// Get matching divisions
+        /// </summary>
+        /// <param name="term"></param>
+        /// <returns></returns>
+        public virtual JsonResult GetDivision(string term)
+        {
+
+            var data = from e in _db.Value.Divisions
+                       where e.DivisionName.Contains(term)
+                       orderby e.DivisionName
+                       select new
+                       {
+                           label = e.DivisionName,
+                           value = e.DivisionId
+                       };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
+        public virtual JsonResult GetContractor(string term)
+        {
+
+            var data = from e in _db.Value.Contractors
+                       where e.ContractorName.StartsWith(term)
+                       orderby e.ContractorName
+                       select new
+                       {
+                           label = e.ContractorName,
+                           value = e.ContractorId
+                       };
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
 

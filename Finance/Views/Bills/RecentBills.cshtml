@@ -8,7 +8,9 @@
         <a href="@Url.Action(MVC.ManageBills.Create())">Create new bill</a>
     </small>
 </h2>
-
+<p>
+    <a href="@Model.UrlExcel">Export to Excel</a>
+</p>
 <pre>
 TODO: Amounts of approved bills will display in green
 </pre>
@@ -30,7 +32,9 @@ TODO: Amounts of approved bills will display in green
                             <label>
                                 <input type="checkbox" name="@MVC.Bills.RecentBillsParams.divisions" value="@Model.Divisions[i].Id" checked="@Model.Divisions[i].Selected">
                                 @Html.DisplayFor(m => m.Divisions[i].Name) <small><em>@Html.DisplayFor(m => m.Divisions[i].Count)</em></small>
+                                <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.divisions, Model.Divisions[i].Id))">only</a></small>
                             </label>
+                            
                         </div>
                     }
                 </fieldset>
@@ -43,8 +47,9 @@ TODO: Amounts of approved bills will display in green
                     {
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" value="@Model.Contractors[i].Id">
-                                @Html.DisplayFor(m => m.Contractors[i].Name) <small><em>@Html.DisplayFor(m => m.Contractors[i].Count)</em></small>
+                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.contractors" value="@Model.Contractors[i].Id" checked="@Model.Contractors[i].Selected" />
+                                       @Html.DisplayFor(m => m.Contractors[i].Name)<small><em>@Html.DisplayFor(m => m.Contractors[i].Count)</em></small>
+                                <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.contractors, Model.Contractors[i].Id))">only</a></small>
                             </label>
                         </div>
                     }
@@ -62,6 +67,22 @@ TODO: Amounts of approved bills will display in green
                                 @Html.DisplayFor(m => m.Approvers[i].Name) <small><em>@Html.DisplayFor(m => m.Approvers[i].Count)</em></small>
                             </label>
                             <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.approvers, Model.Approvers[i].Id))">only</a></small>
+                        </div>
+                    }
+                </fieldset>
+            }
+            @if (Model.Stations.Count > 1)
+            {
+                <fieldset>
+                    <legend>Stations</legend>
+                    @for (var i = 0; i < Model.Stations.Count; ++i)
+                    {
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.stations" value="@Model.Stations[i].Id" checked="@Model.Stations[i].Selected" />
+                                @Html.DisplayFor(m => m.Stations[i].Name)<small><em>@Html.DisplayFor(m => m.Stations[i].Count)</em></small>
+                                <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.stations, Model.Stations[i].Id))">only</a></small>
+                            </label>
                         </div>
                     }
                 </fieldset>
@@ -87,6 +108,7 @@ Paid / Unpaid
                     </div>
                     <div class="col-md-2">
                         <em>@Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)</em>
+                        @Html.DisplayFor(m => m.Bills[i].StationName)
                     </div>
                     <div class="col-md-5">
                         @Html.DisplayFor(m => m.Bills[i].ContractorName)
