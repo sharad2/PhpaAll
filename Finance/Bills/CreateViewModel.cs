@@ -40,7 +40,7 @@ namespace PhpaAll.Bills
         public string BillType { get; set; }
 
         [Display(Name = "Division Id")]
-        [Required (ErrorMessage="Division Id is required.")]
+        [Required (ErrorMessage="Division is required.")]
         public int? SubmittedToDivisionId { get; set; }
 
         public string SubmittedToDivisionName { get; set; }

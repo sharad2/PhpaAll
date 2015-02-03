@@ -146,7 +146,7 @@ namespace PhpaAll.Controllers
                        label = e.DivisionName,
                        value=e.DivisionId
                        };
-            return Json(data, JsonRequestBehavior.AllowGet);
+           return Json(data, JsonRequestBehavior.AllowGet);
         }
 
 
