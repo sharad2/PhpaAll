@@ -37,10 +37,8 @@ namespace T4MVC
             public class _ViewNamesClass
             {
                 public readonly string _Layout = "_Layout";
-                public readonly string typeahed_css = "typeahed.css";
             }
             public readonly string _Layout = "~/Views/Shared/_Layout.cshtml";
-            public readonly string typeahed_css = "~/Views/Shared/typeahed.css.bundle";
         }
     }
 
