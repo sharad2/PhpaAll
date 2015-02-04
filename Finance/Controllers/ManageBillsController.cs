@@ -41,6 +41,13 @@ namespace PhpaAll.Controllers
         public virtual ActionResult Create()
         {
             var model = new CreateViewModel();
+            var list = from stations in _db.Value.Stations select stations;
+            model.StationList = list.Select(p => new SelectListItem
+            {
+                Text = p.StationName,
+                Value = p.StationId.ToString()
+            });
+                                       
             return View(Views.Create, model);
         }
 
@@ -75,7 +82,7 @@ namespace PhpaAll.Controllers
                 Remarks = model.Remarks,
                 SubmittedOnDate = model.SubmittedOnDate,
                 Id = model.Id,
-                StationId = 1  //TODO
+                StationId = model.StationId
             };
             _db.Value.Bills.InsertOnSubmit(bill);
             _db.Value.SubmitChanges();
@@ -196,7 +203,7 @@ namespace PhpaAll.Controllers
                              ApprovedDate = bill.ApprovedOn,
                              ApprovedBy = bill.ApprovedBy,
                              StationName = bill.Station.StationName
-                            
+
                          }).FirstOrDefault();
 
             //// Dummy Code: TODO: Put where clause.  
