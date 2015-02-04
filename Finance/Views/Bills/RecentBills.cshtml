@@ -25,7 +25,9 @@
                 //alert($('input:not(value),input[value=""]', '#fsBillDates,#fsAmounts').length);
 
                 // Disable empty textboxes so that they do not get posted
-                $('input:not(value),input[value=""]', '#fsBillDates,#fsAmounts').prop('disabled', true);
+                $('input', '#fsBillDates,#fsAmounts').filter(function (index, elem) {
+                    return $(elem).val() == '';
+                }).prop('disabled', true);
                 //return false;
             });
         });
@@ -55,17 +57,21 @@ TODO: Amounts of approved bills will display in green
             <fieldset id="fsBillDates">
                 <legend>Bill Date Range</legend>
                 <div class="form-inline">
-                    <div class='input-group date' id='billDatePickerFrom'>
-                        <input type="date" class="form-control input-sm" size="6" placeholder="From" name="@MVC.Bills.RecentBillsParams.dates" value="@Html.DisplayFor(m => m.DateFrom)" />
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
+                    <div class="form-group @(Model.DateFrom.HasValue ? "has-success" : "")">
+                        <div class='input-group date' id='billDatePickerFrom'>
+                            <input type="date" class="form-control input-sm" size="6" placeholder="From" name="@MVC.Bills.RecentBillsParams.dateFrom" value="@Html.DisplayFor(m => m.DateFrom)" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
                     </div>
-                    <div class='input-group date' id='billDatePickerTo'>
-                        <input type="date" class="form-control input-sm" size="6" placeholder="To" name="@MVC.Bills.RecentBillsParams.dates" value="@Html.DisplayFor(m => m.DateTo)" />
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
+                    <div class="form-group @(Model.DateTo.HasValue ? "has-success" : "")">
+                        <div class='input-group date' id='billDatePickerTo'>
+                            <input type="date" class="form-control input-sm" size="6" placeholder="To" name="@MVC.Bills.RecentBillsParams.dateTo" value="@Html.DisplayFor(m => m.DateTo)" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </fieldset>

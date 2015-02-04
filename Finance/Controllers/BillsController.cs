@@ -46,7 +46,7 @@ namespace PhpaAll.Controllers
         /// </summary>
         /// <returns></returns>
         public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations,
-            DateTime?[] dates, Decimal?[] amounts, bool exportToExcel = false)
+            DateTime? dateFrom, DateTime? dateTo, Decimal?[] amounts, bool exportToExcel = false)
         {
             //if (dates != null)
             //{
@@ -143,26 +143,22 @@ namespace PhpaAll.Controllers
                 model.IsFiltered = true;
             }
 
-            if (dates != null)
-            {
                 // Assume that there will always be two dates
-                if (dates[0] != null)
+                if (dateFrom != null)
                 {
                     // From Date
-                    filteredBills = filteredBills.Where(p => p.BillDate >= dates[0]);
+                    filteredBills = filteredBills.Where(p => p.BillDate >= dateFrom);
                     model.IsFiltered = true;
-                    model.DateFrom = dates[0];
+                    model.DateFrom = dateFrom;
                 }
-                if (dates[1] != null)
+                if (dateTo != null)
                 {
                     // From Date
-                    filteredBills = filteredBills.Where(p => p.BillDate <= dates[1]);
+                    filteredBills = filteredBills.Where(p => p.BillDate <= dateTo);
                     model.IsFiltered = true;
-                    model.DateTo = dates[1];
+                    model.DateTo = dateTo;
                 }
-
-            }
-            if (amounts != null)
+            if (amounts != null && amounts.Length > 0)
             {
                 // Assume that there will always min and max amount value
                 if (amounts[0] != null)
@@ -172,7 +168,7 @@ namespace PhpaAll.Controllers
                     model.IsFiltered = true;
                     model.FilterMinAmount = amounts[0];
                 }
-                if (amounts[1] != null)
+                if (amounts.Length > 1 && amounts[1] != null)
                 {
                     // Max Amount
                     filteredBills = filteredBills.Where(p => p.Amount <= amounts[1]);
