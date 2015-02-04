@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Drawing;
+using System.Web.Mvc;
 
 namespace PhpaAll.Bills
 {
@@ -67,8 +68,14 @@ namespace PhpaAll.Bills
         [Display(Name = "Image")]
         public HttpPostedFileBase BillImage { get; set; }
 
-        //Weather it is edit mode or not
-        [Obsolete]
-        public bool isEditMode { get; set; }
+      
+        [Display(Name = "Station")]
+        [Required(ErrorMessage = "Station is required.")]
+        public int StationId { get; set; }
+        
+        /// <summary>
+        /// List of tyhe division.
+        /// </summary>
+        public IEnumerable<SelectListItem> StationList { get; set; }
     }
 }

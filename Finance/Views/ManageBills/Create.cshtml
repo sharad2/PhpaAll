@@ -1,13 +1,13 @@
 ﻿@model PhpaAll.Bills.CreateViewModel
 
 @{
-    ViewBag.Title = "Bill Editor";
+    ViewBag.Title = "Create Bill";
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
 }
 
 <h2 style="margin-top:0">
-    <span>Create Bill</span>
+    @ViewBag.Title
 </h2>
 
 <p>
@@ -37,7 +37,7 @@
                @class = "help-block"
            })
             </div>
-           
+
 
 
 
@@ -58,12 +58,12 @@
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
-                    @Html.ValidationMessageFor(m => m.SubmittedOnDate, null, new
+                @Html.ValidationMessageFor(m => m.SubmittedOnDate, null, new
            {
                @class = "help-block"
            })
 
-                </div>
+            </div>
 
         </div>
         <div class="col-md-3">
@@ -81,13 +81,13 @@
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
-                    @Html.ValidationMessageFor(m => m.DueDate, null, new
+                @Html.ValidationMessageFor(m => m.DueDate, null, new
            {
                @class = "help-block"
            })
 
 
-                </div>
+            </div>
         </div>
 
         <div class="col-md-3">
@@ -115,10 +115,12 @@
 
 
     </div>
-    <div class="form-group form-group-sm">
-        <label for="particulars">Particulars</label>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="form-group">
+                <label for="particulars">Particulars</label>
 
-        @Html.TextBoxFor(m => m.Particulars, new
+                @Html.TextBoxFor(m => m.Particulars, new
            {
                id = "particulars",
                @class = "form-control",
@@ -126,6 +128,20 @@
                placeholder = "You can mention the subject of the bill"
 
            })
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="particulars">Station</label>
+                @Html.DropDownListFor(m => m.StationId, Model.StationList, "Select station",
+                    new { @class = "form-control", @required = "required" })
+                @Html.ValidationMessageFor(m => m.StationId, null, new
+                                   {
+                                       @class = "help-block"
+                                   })
+            </div>
+        </div>
 
     </div>
     <div class="row">
