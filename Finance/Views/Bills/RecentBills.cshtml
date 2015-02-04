@@ -78,9 +78,13 @@ TODO: Amounts of approved bills will display in green
             <fieldset id="fsAmounts">
                 <legend>Amount</legend>
                 <div class="form-inline">
-                    <input type="number" class="form-control input-sm" size="10" placeholder="Min" name="@MVC.Bills.RecentBillsParams.amounts" value="@Model.FilterMinAmount" />
-                    <input type="number" class="form-control input-sm" size="10" placeholder="Max" name="@MVC.Bills.RecentBillsParams.amounts" value="@Model.FilterMaxAmount"
-                           min="100" />
+                    <div class="form-group @(Model.FilterMinAmount.HasValue ? "has-success" : "")">
+                        <input type="number" class="form-control input-sm" size="10" placeholder="Min" name="@MVC.Bills.RecentBillsParams.minAmount" value="@Model.FilterMinAmount" />
+                    </div>
+                    <div class="form-group @(Model.FilterMaxAmount.HasValue ? "has-success" : "")">
+                        <input type="number" class="form-control input-sm" size="10" placeholder="Max" name="@MVC.Bills.RecentBillsParams.maxAmount" value="@Model.FilterMaxAmount"
+                               min="100" />
+                    </div>
                 </div>
             </fieldset>
             @if (Model.Divisions.Count > 1)

@@ -46,7 +46,7 @@ namespace PhpaAll.Controllers
         /// </summary>
         /// <returns></returns>
         public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations,
-            DateTime? dateFrom, DateTime? dateTo, Decimal?[] amounts, bool exportToExcel = false)
+            DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount, bool exportToExcel = false)
         {
             //if (dates != null)
             //{
@@ -158,25 +158,24 @@ namespace PhpaAll.Controllers
                     model.IsFiltered = true;
                     model.DateTo = dateTo;
                 }
-            if (amounts != null && amounts.Length > 0)
-            {
+
                 // Assume that there will always min and max amount value
-                if (amounts[0] != null)
+                if (minAmount != null)
                 {
                     // Min Amount
-                    filteredBills = filteredBills.Where(p => p.Amount >= amounts[0]);
+                    filteredBills = filteredBills.Where(p => p.Amount >= minAmount);
                     model.IsFiltered = true;
-                    model.FilterMinAmount = amounts[0];
+                    model.FilterMinAmount = minAmount;
                 }
-                if (amounts.Length > 1 && amounts[1] != null)
+                if (maxAmount != null)
                 {
                     // Max Amount
-                    filteredBills = filteredBills.Where(p => p.Amount <= amounts[1]);
+                    filteredBills = filteredBills.Where(p => p.Amount <= maxAmount);
                     model.IsFiltered = true;
-                    model.FilterMaxAmount = amounts[1];
+                    model.FilterMaxAmount = maxAmount;
                 }
 
-            }
+            
 
             if (model.UrlExcel.Contains("?"))
             {
