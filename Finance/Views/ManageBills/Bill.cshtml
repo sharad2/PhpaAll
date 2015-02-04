@@ -102,8 +102,12 @@
 
     </div>
     <div class="col-md-4">
-        <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))" class="thumbnail">
-            <img src="@Model.BillImage" width="340" height="300" />
+        @*<a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))" class="thumbnail">
+            <img src="@Model.BillImage" width="340" height="300" />*@
+        <a href="@Url.Action(MVC.ManageBills.Image(Model.Id))" class="thumbnail">
+            <img src="@Url.Action(MVC.ManageBills.Image(Model.Id))" alt=" No image">
+        </a>
+
         </a>
     </div>
 </div>
@@ -139,16 +143,16 @@
                             {
                                 <li>
                                     <label style="padding-right:1mm">Bill Number Changed</label>
-                                     @Html.DisplayFor(m => m.BillHistory[i].BillNumberOld) <strong>To </strong>  @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
+                                    @Html.DisplayFor(m => m.BillHistory[i].BillNumberOld) <strong>To </strong>  @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
                                 </li>
                                 @* <li>
-        <label style="padding-right:1mm">Bill Number New</label>
-        @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
-    </li>
-        <li>
-        <label style="padding-right:1mm">Bill Number Old</label>
-        @Html.DisplayFor(m => m.BillHistory[i].BillNumberOld)
-    </li>*@
+                                        <label style="padding-right:1mm">Bill Number New</label>
+                                        @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
+                                    </li>
+                                        <li>
+                                        <label style="padding-right:1mm">Bill Number Old</label>
+                                        @Html.DisplayFor(m => m.BillHistory[i].BillNumberOld)
+                                    </li>*@
                             }
                             @if (Model.BillHistory[i].BillDateOld != null && Model.BillHistory[i].BillDateNew != Model.BillHistory[i].BillDateOld)
                             {
@@ -156,15 +160,15 @@
                                     <label style="padding-right:1mm">Bill Date Changed</label>
                                     @Html.DisplayFor(m => m.BillHistory[i].BillDateOld) <strong>To </strong>  @Html.DisplayFor(m => m.BillHistory[i].BillDateNew)
                                 </li>
-                                
+
                                 @*<li>
-                                    <label style="padding-right:1mm">Bill Date New</label>
-                                    @Html.DisplayFor(m => m.BillHistory[i].BillDateNew)
-                                </li>
-                                <li>
-                                    <label style="padding-right:1mm">Bill Date Old</label>
-                                    @Html.DisplayFor(m => m.BillHistory[i].BillDateOld)
-                                </li>*@
+                                        <label style="padding-right:1mm">Bill Date New</label>
+                                        @Html.DisplayFor(m => m.BillHistory[i].BillDateNew)
+                                    </li>
+                                    <li>
+                                        <label style="padding-right:1mm">Bill Date Old</label>
+                                        @Html.DisplayFor(m => m.BillHistory[i].BillDateOld)
+                                    </li>*@
                             }
                             @if (Model.BillHistory[i].AmountOld != null && Model.BillHistory[i].AmountOld != Model.BillHistory[i].AmountNew)
                             {
@@ -284,36 +288,36 @@
     </ul>
 </div>
 @*<ul class="list-group">
-    @for (var i = 0; i < Model.BillHistory.Count; ++i)
-    {
-        <li class="list-group-item">
-            @Html.DisplayFor(m => m.BillHistory[i].DateCreated)
-            @Html.DisplayFor(m => m.BillHistory[i].BillNumberOld)
-            @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
-            @Html.DisplayFor(m => m.BillHistory[i].BillCreatedBy)
-            @Html.DisplayFor(m => m.BillHistory[i].AmountNew)
-            @Html.DisplayFor(m => m.BillHistory[i].AmountOld)
-            @Html.DisplayFor(m => m.BillHistory[i].ApprovedByNew)
-            @Html.DisplayFor(m => m.BillHistory[i].ApprovedByOld)
-            @Html.DisplayFor(m => m.BillHistory[i].BillDateNew)
-            @Html.DisplayFor(m => m.BillHistory[i].BillDateOld)
-            @Html.DisplayFor(m => m.BillHistory[i].ContractorNameNew)
-            @Html.DisplayFor(m => m.BillHistory[i].ContractorNameOld)
-            @Html.DisplayFor(m => m.BillHistory[i].DueDateNew)
-            @Html.DisplayFor(m => m.BillHistory[i].DueDateOld)
-            @Html.DisplayFor(m => m.BillHistory[i].PaidDateNew)
-            @Html.DisplayFor(m => m.BillHistory[i].PaidDateOld)
-            @Html.DisplayFor(m => m.BillHistory[i].ParticularsNew)
-            @Html.DisplayFor(m => m.BillHistory[i].ParticularsOld)
-            @Html.DisplayFor(m => m.BillHistory[i].RemarksNew)
-            @Html.DisplayFor(m => m.BillHistory[i].RemarksOld)
-            @Html.DisplayFor(m => m.BillHistory[i].StationIdNew)
-            @Html.DisplayFor(m => m.BillHistory[i].StationIdOld)
-            @Html.DisplayFor(m => m.BillHistory[i].SubmittedOnDateNew)
-            @Html.DisplayFor(m => m.BillHistory[i].SubmittedOnDateOld)
-            @Html.DisplayFor(m => m.BillHistory[i].SubmittedToDivisionNameNew)
-            @Html.DisplayFor(m => m.BillHistory[i].SubmittedToDivisionNameOld)
-        </li>
-    }
-</ul>*@
+        @for (var i = 0; i < Model.BillHistory.Count; ++i)
+        {
+            <li class="list-group-item">
+                @Html.DisplayFor(m => m.BillHistory[i].DateCreated)
+                @Html.DisplayFor(m => m.BillHistory[i].BillNumberOld)
+                @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
+                @Html.DisplayFor(m => m.BillHistory[i].BillCreatedBy)
+                @Html.DisplayFor(m => m.BillHistory[i].AmountNew)
+                @Html.DisplayFor(m => m.BillHistory[i].AmountOld)
+                @Html.DisplayFor(m => m.BillHistory[i].ApprovedByNew)
+                @Html.DisplayFor(m => m.BillHistory[i].ApprovedByOld)
+                @Html.DisplayFor(m => m.BillHistory[i].BillDateNew)
+                @Html.DisplayFor(m => m.BillHistory[i].BillDateOld)
+                @Html.DisplayFor(m => m.BillHistory[i].ContractorNameNew)
+                @Html.DisplayFor(m => m.BillHistory[i].ContractorNameOld)
+                @Html.DisplayFor(m => m.BillHistory[i].DueDateNew)
+                @Html.DisplayFor(m => m.BillHistory[i].DueDateOld)
+                @Html.DisplayFor(m => m.BillHistory[i].PaidDateNew)
+                @Html.DisplayFor(m => m.BillHistory[i].PaidDateOld)
+                @Html.DisplayFor(m => m.BillHistory[i].ParticularsNew)
+                @Html.DisplayFor(m => m.BillHistory[i].ParticularsOld)
+                @Html.DisplayFor(m => m.BillHistory[i].RemarksNew)
+                @Html.DisplayFor(m => m.BillHistory[i].RemarksOld)
+                @Html.DisplayFor(m => m.BillHistory[i].StationIdNew)
+                @Html.DisplayFor(m => m.BillHistory[i].StationIdOld)
+                @Html.DisplayFor(m => m.BillHistory[i].SubmittedOnDateNew)
+                @Html.DisplayFor(m => m.BillHistory[i].SubmittedOnDateOld)
+                @Html.DisplayFor(m => m.BillHistory[i].SubmittedToDivisionNameNew)
+                @Html.DisplayFor(m => m.BillHistory[i].SubmittedToDivisionNameOld)
+            </li>
+        }
+    </ul>*@
 

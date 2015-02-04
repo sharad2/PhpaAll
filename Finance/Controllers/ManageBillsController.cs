@@ -251,6 +251,21 @@ namespace PhpaAll.Controllers
         }
 
 
+        public virtual ActionResult Image(int id)
+        {
+            var model = (from bill in _db.Value.Bills
+                         where bill.Id == id
+                         select new BillViewModel
+                         {
+                             BillImage = bill.BillImage
+                         }).FirstOrDefault();
+
+            //MemoryStream target = new MemoryStream();
+            //model.File.InputStream.CopyTo(target);
+            byte[] data = model.BillImage.ToArray();
+            return File(data, "image/jpg");
+        }
+
         /// <summary>
         /// Get matching divisions
         /// </summary>

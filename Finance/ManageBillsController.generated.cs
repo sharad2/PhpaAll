@@ -84,6 +84,12 @@ namespace PhpaAll.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Image()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Image);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.JsonResult GetDivision()
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetDivision);
@@ -115,6 +121,7 @@ namespace PhpaAll.Controllers
             public readonly string Edit = "Edit";
             public readonly string Delete = "Delete";
             public readonly string ShowBill = "ShowBill";
+            public readonly string Image = "Image";
             public readonly string GetDivision = "GetDivision";
             public readonly string GetContractor = "GetContractor";
         }
@@ -127,6 +134,7 @@ namespace PhpaAll.Controllers
             public const string Edit = "Edit";
             public const string Delete = "Delete";
             public const string ShowBill = "ShowBill";
+            public const string Image = "Image";
             public const string GetDivision = "GetDivision";
             public const string GetContractor = "GetContractor";
         }
@@ -162,6 +170,14 @@ namespace PhpaAll.Controllers
         public ActionParamsClass_ShowBill ShowBillParams { get { return s_params_ShowBill; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ShowBill
+        {
+            public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_Image s_params_Image = new ActionParamsClass_Image();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Image ImageParams { get { return s_params_Image; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Image
         {
             public readonly string id = "id";
         }
@@ -274,6 +290,18 @@ namespace PhpaAll.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ShowBill);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             ShowBillOverride(callInfo, id);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ImageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Image(int id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Image);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            ImageOverride(callInfo, id);
             return callInfo;
         }
 
