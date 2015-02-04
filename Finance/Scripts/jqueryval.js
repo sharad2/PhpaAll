@@ -1893,192 +1893,206 @@ $.extend($.fn, {
 }(jQuery));
 ///#source 1 1 /Scripts/typeahead.jquery.js
 /*!
- * typeahead.js 0.10.0
+ * typeahead.js 0.10.5
  * https://github.com/twitter/typeahead.js
- * Copyright 2013 Twitter, Inc. and other contributors; Licensed MIT
+ * Copyright 2013-2014 Twitter, Inc. and other contributors; Licensed MIT
  */
 
 (function($) {
-    var _ = {
-        isMsie: function() {
-            return /(msie|trident)/i.test(navigator.userAgent) ? navigator.userAgent.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
-        },
-        isBlankString: function(str) {
-            return !str || /^\s*$/.test(str);
-        },
-        escapeRegExChars: function(str) {
-            return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-        },
-        isString: function(obj) {
-            return typeof obj === "string";
-        },
-        isNumber: function(obj) {
-            return typeof obj === "number";
-        },
-        isArray: $.isArray,
-        isFunction: $.isFunction,
-        isObject: $.isPlainObject,
-        isUndefined: function(obj) {
-            return typeof obj === "undefined";
-        },
-        bind: $.proxy,
-        each: function(collection, cb) {
-            $.each(collection, reverseArgs);
-            function reverseArgs(index, value) {
-                return cb(value, index);
-            }
-        },
-        map: $.map,
-        filter: $.grep,
-        every: function(obj, test) {
-            var result = true;
-            if (!obj) {
-                return result;
-            }
-            $.each(obj, function(key, val) {
-                if (!(result = test.call(null, val, key, obj))) {
-                    return false;
+    var _ = function() {
+        "use strict";
+        return {
+            isMsie: function() {
+                return /(msie|trident)/i.test(navigator.userAgent) ? navigator.userAgent.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
+            },
+            isBlankString: function(str) {
+                return !str || /^\s*$/.test(str);
+            },
+            escapeRegExChars: function(str) {
+                return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+            },
+            isString: function(obj) {
+                return typeof obj === "string";
+            },
+            isNumber: function(obj) {
+                return typeof obj === "number";
+            },
+            isArray: $.isArray,
+            isFunction: $.isFunction,
+            isObject: $.isPlainObject,
+            isUndefined: function(obj) {
+                return typeof obj === "undefined";
+            },
+            toStr: function toStr(s) {
+                return _.isUndefined(s) || s === null ? "" : s + "";
+            },
+            bind: $.proxy,
+            each: function(collection, cb) {
+                $.each(collection, reverseArgs);
+                function reverseArgs(index, value) {
+                    return cb(value, index);
                 }
-            });
-            return !!result;
-        },
-        some: function(obj, test) {
-            var result = false;
-            if (!obj) {
-                return result;
-            }
-            $.each(obj, function(key, val) {
-                if (result = test.call(null, val, key, obj)) {
-                    return false;
+            },
+            map: $.map,
+            filter: $.grep,
+            every: function(obj, test) {
+                var result = true;
+                if (!obj) {
+                    return result;
                 }
-            });
-            return !!result;
-        },
-        mixin: $.extend,
-        getUniqueId: function() {
-            var counter = 0;
-            return function() {
-                return counter++;
-            };
-        }(),
-        templatify: function templatify(obj) {
-            return $.isFunction(obj) ? obj : template;
-            function template() {
-                return String(obj);
-            }
-        },
-        defer: function(fn) {
-            setTimeout(fn, 0);
-        },
-        debounce: function(func, wait, immediate) {
-            var timeout, result;
-            return function() {
-                var context = this, args = arguments, later, callNow;
-                later = function() {
-                    timeout = null;
-                    if (!immediate) {
+                $.each(obj, function(key, val) {
+                    if (!(result = test.call(null, val, key, obj))) {
+                        return false;
+                    }
+                });
+                return !!result;
+            },
+            some: function(obj, test) {
+                var result = false;
+                if (!obj) {
+                    return result;
+                }
+                $.each(obj, function(key, val) {
+                    if (result = test.call(null, val, key, obj)) {
+                        return false;
+                    }
+                });
+                return !!result;
+            },
+            mixin: $.extend,
+            getUniqueId: function() {
+                var counter = 0;
+                return function() {
+                    return counter++;
+                };
+            }(),
+            templatify: function templatify(obj) {
+                return $.isFunction(obj) ? obj : template;
+                function template() {
+                    return String(obj);
+                }
+            },
+            defer: function(fn) {
+                setTimeout(fn, 0);
+            },
+            debounce: function(func, wait, immediate) {
+                var timeout, result;
+                return function() {
+                    var context = this, args = arguments, later, callNow;
+                    later = function() {
+                        timeout = null;
+                        if (!immediate) {
+                            result = func.apply(context, args);
+                        }
+                    };
+                    callNow = immediate && !timeout;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                    if (callNow) {
                         result = func.apply(context, args);
                     }
+                    return result;
                 };
-                callNow = immediate && !timeout;
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-                if (callNow) {
-                    result = func.apply(context, args);
-                }
-                return result;
-            };
-        },
-        throttle: function(func, wait) {
-            var context, args, timeout, result, previous, later;
-            previous = 0;
-            later = function() {
-                previous = new Date();
-                timeout = null;
-                result = func.apply(context, args);
-            };
-            return function() {
-                var now = new Date(), remaining = wait - (now - previous);
-                context = this;
-                args = arguments;
-                if (remaining <= 0) {
-                    clearTimeout(timeout);
+            },
+            throttle: function(func, wait) {
+                var context, args, timeout, result, previous, later;
+                previous = 0;
+                later = function() {
+                    previous = new Date();
                     timeout = null;
-                    previous = now;
                     result = func.apply(context, args);
-                } else if (!timeout) {
-                    timeout = setTimeout(later, remaining);
-                }
-                return result;
-            };
-        },
-        noop: function() {}
-    };
-    var html = {
-        wrapper: '<span class="twitter-typeahead"></span>',
-        dropdown: '<span class="tt-dropdown-menu"></span>',
-        dataset: '<div class="tt-dataset-%CLASS%"></div>',
-        suggestions: '<span class="tt-suggestions"></span>',
-        suggestion: '<div class="tt-suggestion">%BODY%</div>'
-    };
-    var css = {
-        wrapper: {
-            position: "relative",
-            display: "inline-block"
-        },
-        hint: {
-            position: "absolute",
-            top: "0",
-            left: "0",
-            borderColor: "transparent",
-            boxShadow: "none"
-        },
-        input: {
-            position: "relative",
-            verticalAlign: "top",
-            backgroundColor: "transparent"
-        },
-        inputWithNoHint: {
-            position: "relative",
-            verticalAlign: "top"
-        },
-        dropdown: {
-            position: "absolute",
-            top: "100%",
-            left: "0",
-            zIndex: "100",
-            display: "none"
-        },
-        suggestions: {
-            display: "block"
-        },
-        suggestion: {
-            whiteSpace: "nowrap",
-            cursor: "pointer"
-        },
-        suggestionChild: {
-            whiteSpace: "normal"
-        },
-        ltr: {
-            left: "0",
-            right: "auto"
-        },
-        rtl: {
-            left: "auto",
-            right: " 0"
+                };
+                return function() {
+                    var now = new Date(), remaining = wait - (now - previous);
+                    context = this;
+                    args = arguments;
+                    if (remaining <= 0) {
+                        clearTimeout(timeout);
+                        timeout = null;
+                        previous = now;
+                        result = func.apply(context, args);
+                    } else if (!timeout) {
+                        timeout = setTimeout(later, remaining);
+                    }
+                    return result;
+                };
+            },
+            noop: function() {}
+        };
+    }();
+    var html = function() {
+        return {
+            wrapper: '<span class="twitter-typeahead"></span>',
+            dropdown: '<span class="tt-dropdown-menu"></span>',
+            dataset: '<div class="tt-dataset-%CLASS%"></div>',
+            suggestions: '<span class="tt-suggestions"></span>',
+            suggestion: '<div class="tt-suggestion"></div>'
+        };
+    }();
+    var css = function() {
+        "use strict";
+        var css = {
+            wrapper: {
+                position: "relative",
+                display: "inline-block"
+            },
+            hint: {
+                position: "absolute",
+                top: "0",
+                left: "0",
+                borderColor: "transparent",
+                boxShadow: "none",
+                opacity: "1"
+            },
+            input: {
+                position: "relative",
+                verticalAlign: "top",
+                backgroundColor: "transparent"
+            },
+            inputWithNoHint: {
+                position: "relative",
+                verticalAlign: "top"
+            },
+            dropdown: {
+                position: "absolute",
+                top: "100%",
+                left: "0",
+                zIndex: "100",
+                display: "none"
+            },
+            suggestions: {
+                display: "block"
+            },
+            suggestion: {
+                whiteSpace: "nowrap",
+                cursor: "pointer"
+            },
+            suggestionChild: {
+                whiteSpace: "normal"
+            },
+            ltr: {
+                left: "0",
+                right: "auto"
+            },
+            rtl: {
+                left: "auto",
+                right: " 0"
+            }
+        };
+        if (_.isMsie()) {
+            _.mixin(css.input, {
+                backgroundImage: "url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)"
+            });
         }
-    };
-    if (_.isMsie()) {
-        _.mixin(css.input, {
-            backgroundImage: "url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)"
-        });
-    }
-    if (_.isMsie() && _.isMsie() <= 7) {
-        _.mixin(css.input, {
-            marginTop: "-1px"
-        });
-    }
+        if (_.isMsie() && _.isMsie() <= 7) {
+            _.mixin(css.input, {
+                marginTop: "-1px"
+            });
+        }
+        return css;
+    }();
     var EventBus = function() {
+        "use strict";
         var namespace = "typeahead:";
         function EventBus(o) {
             if (!o || !o.el) {
@@ -2095,6 +2109,7 @@ $.extend($.fn, {
         return EventBus;
     }();
     var EventEmitter = function() {
+        "use strict";
         var splitter = /\s+/, nextTick = getNextTick();
         return {
             onSync: onSync,
@@ -2137,7 +2152,7 @@ $.extend($.fn, {
             return this;
         }
         function trigger(types) {
-            var that = this, type, callbacks, args, syncFlush, asyncFlush;
+            var type, callbacks, args, syncFlush, asyncFlush;
             if (!this._callbacks) {
                 return this;
             }
@@ -2154,14 +2169,14 @@ $.extend($.fn, {
             return flush;
             function flush() {
                 var cancelled;
-                for (var i = 0; !cancelled && i < callbacks.length; i += 1) {
+                for (var i = 0, len = callbacks.length; !cancelled && i < len; i += 1) {
                     cancelled = callbacks[i].apply(context, args) === false;
                 }
                 return !cancelled;
             }
         }
         function getNextTick() {
-            var nextTickFn, messageChannel;
+            var nextTickFn;
             if (window.setImmediate) {
                 nextTickFn = function nextTickSetImmediate(fn) {
                     setImmediate(function() {
@@ -2184,6 +2199,7 @@ $.extend($.fn, {
         }
     }();
     var highlight = function(doc) {
+        "use strict";
         var defaults = {
             node: null,
             pattern: null,
@@ -2202,7 +2218,7 @@ $.extend($.fn, {
             regex = getRegex(o.pattern, o.caseSensitive, o.wordsOnly);
             traverse(o.node, hightlightTextNode);
             function hightlightTextNode(textNode) {
-                var match, patternNode;
+                var match, patternNode, wrapperNode;
                 if (match = regex.exec(textNode.data)) {
                     wrapperNode = doc.createElement(o.tagName);
                     o.className && (wrapperNode.className = o.className);
@@ -2227,7 +2243,7 @@ $.extend($.fn, {
         };
         function getRegex(patterns, caseSensitive, wordsOnly) {
             var escapedPatterns = [], regexStr;
-            for (var i = 0; i < patterns.length; i++) {
+            for (var i = 0, len = patterns.length; i < len; i++) {
                 escapedPatterns.push(_.escapeRegExChars(patterns[i]));
             }
             regexStr = wordsOnly ? "\\b(" + escapedPatterns.join("|") + ")\\b" : "(" + escapedPatterns.join("|") + ")";
@@ -2235,6 +2251,7 @@ $.extend($.fn, {
         }
     }(window.document);
     var Input = function() {
+        "use strict";
         var specialKeyCodeMap;
         specialKeyCodeMap = {
             9: "tab",
@@ -2258,7 +2275,7 @@ $.extend($.fn, {
             this.$hint = $(o.hint);
             this.$input = $(o.input).on("blur.tt", onBlur).on("focus.tt", onFocus).on("keydown.tt", onKeydown);
             if (this.$hint.length === 0) {
-                this.setHintValue = this.getHintValue = this.clearHint = _.noop;
+                this.setHint = this.getHint = this.clearHint = this.clearHintIfInvalid = _.noop;
             }
             if (!_.isMsie()) {
                 this.$input.on("input.tt", onInput);
@@ -2277,11 +2294,11 @@ $.extend($.fn, {
             return (str || "").replace(/^\s*/g, "").replace(/\s{2,}/g, " ");
         };
         _.mixin(Input.prototype, EventEmitter, {
-            _onBlur: function onBlur($e) {
+            _onBlur: function onBlur() {
                 this.resetInputValue();
                 this.trigger("blurred");
             },
-            _onFocus: function onFocus($e) {
+            _onFocus: function onFocus() {
                 this.trigger("focused");
             },
             _onKeydown: function onKeydown($e) {
@@ -2291,14 +2308,14 @@ $.extend($.fn, {
                     this.trigger(keyName + "Keyed", $e);
                 }
             },
-            _onInput: function onInput($e) {
+            _onInput: function onInput() {
                 this._checkInputValue();
             },
             _managePreventDefault: function managePreventDefault(keyName, $e) {
                 var preventDefault, hintValue, inputValue;
                 switch (keyName) {
                   case "tab":
-                    hintValue = this.getHintValue();
+                    hintValue = this.getHint();
                     inputValue = this.getInputValue();
                     preventDefault = hintValue && hintValue !== inputValue && !withModifier($e);
                     break;
@@ -2330,8 +2347,9 @@ $.extend($.fn, {
                 inputValue = this.getInputValue();
                 areEquivalent = areQueriesEquivalent(inputValue, this.query);
                 hasDifferentWhitespace = areEquivalent ? this.query.length !== inputValue.length : false;
+                this.query = inputValue;
                 if (!areEquivalent) {
-                    this.trigger("queryChanged", this.query = inputValue);
+                    this.trigger("queryChanged", this.query);
                 } else if (hasDifferentWhitespace) {
                     this.trigger("whitespaceChanged", this.query);
                 }
@@ -2353,19 +2371,27 @@ $.extend($.fn, {
             },
             setInputValue: function setInputValue(value, silent) {
                 this.$input.val(value);
-                !silent && this._checkInputValue();
-            },
-            getHintValue: function getHintValue() {
-                return this.$hint.val();
-            },
-            setHintValue: function setHintValue(value) {
-                this.$hint.val(value);
+                silent ? this.clearHint() : this._checkInputValue();
             },
             resetInputValue: function resetInputValue() {
-                this.$input.val(this.query);
+                this.setInputValue(this.query, true);
+            },
+            getHint: function getHint() {
+                return this.$hint.val();
+            },
+            setHint: function setHint(value) {
+                this.$hint.val(value);
             },
             clearHint: function clearHint() {
-                this.$hint.val("");
+                this.setHint("");
+            },
+            clearHintIfInvalid: function clearHintIfInvalid() {
+                var val, hint, valIsPrefixOfHint, isValid;
+                val = this.getInputValue();
+                hint = this.getHint();
+                valIsPrefixOfHint = val !== hint && hint.indexOf(val) === 0;
+                isValid = val !== "" && valIsPrefixOfHint && !this.hasOverflow();
+                !isValid && this.clearHint();
             },
             getLanguageDirection: function getLanguageDirection() {
                 return (this.$input.css("direction") || "ltr").toLowerCase();
@@ -2399,7 +2425,7 @@ $.extend($.fn, {
             return $('<pre aria-hidden="true"></pre>').css({
                 position: "absolute",
                 visibility: "hidden",
-                whiteSpace: "nowrap",
+                whiteSpace: "pre",
                 fontFamily: $input.css("font-family"),
                 fontSize: $input.css("font-size"),
                 fontStyle: $input.css("font-style"),
@@ -2420,6 +2446,7 @@ $.extend($.fn, {
         }
     }();
     var Dataset = function() {
+        "use strict";
         var datasetKey = "ttDataset", valueKey = "ttValue", datumKey = "ttDatum";
         function Dataset(o) {
             o = o || {};
@@ -2427,12 +2454,15 @@ $.extend($.fn, {
             if (!o.source) {
                 $.error("missing source");
             }
+            if (o.name && !isValidName(o.name)) {
+                $.error("invalid dataset name: " + o.name);
+            }
             this.query = null;
             this.highlight = !!o.highlight;
             this.name = o.name || _.getUniqueId();
             this.source = o.source;
-            this.valueKey = o.displayKey || "value";
-            this.templates = getTemplates(o.templates, this.valueKey);
+            this.displayFn = getDisplayFn(o.display || o.displayKey);
+            this.templates = getTemplates(o.templates, this.displayFn);
             this.$el = $(html.dataset.replace("%CLASS%", this.name));
         }
         Dataset.extractDatasetName = function extractDatasetName(el) {
@@ -2460,22 +2490,24 @@ $.extend($.fn, {
                 this.trigger("rendered");
                 function getEmptyHtml() {
                     return that.templates.empty({
-                        query: query
+                        query: query,
+                        isEmpty: true
                     });
                 }
                 function getSuggestionsHtml() {
-                    var $suggestions;
-                    $suggestions = $(html.suggestions).css(css.suggestions).append(_.map(suggestions, getSuggestionNode));
+                    var $suggestions, nodes;
+                    $suggestions = $(html.suggestions).css(css.suggestions);
+                    nodes = _.map(suggestions, getSuggestionNode);
+                    $suggestions.append.apply($suggestions, nodes);
                     that.highlight && highlight({
+                        className: "tt-highlight",
                         node: $suggestions[0],
                         pattern: query
                     });
                     return $suggestions;
                     function getSuggestionNode(suggestion) {
-                        var $el, innerHtml, outerHtml;
-                        innerHtml = that.templates.suggestion(suggestion);
-                        outerHtml = html.suggestion.replace("%BODY%", innerHtml);
-                        $el = $(outerHtml).data(datasetKey, that.name).data(valueKey, suggestion[that.valueKey]).data(datumKey, suggestion);
+                        var $el;
+                        $el = $(html.suggestion).append(that.templates.suggestion(suggestion)).data(datasetKey, that.name).data(valueKey, that.displayFn(suggestion)).data(datumKey, suggestion);
                         $el.children().each(function() {
                             $(this).css(css.suggestionChild);
                         });
@@ -2501,13 +2533,21 @@ $.extend($.fn, {
             update: function update(query) {
                 var that = this;
                 this.query = query;
-                this.source(query, renderIfQueryIsSame);
-                function renderIfQueryIsSame(suggestions) {
-                    query === that.query && that._render(query, suggestions);
+                this.canceled = false;
+                this.source(query, render);
+                function render(suggestions) {
+                    if (!that.canceled && query === that.query) {
+                        that._render(query, suggestions);
+                    }
                 }
             },
+            cancel: function cancel() {
+                this.canceled = true;
+            },
             clear: function clear() {
-                this._render(this.query || "");
+                this.cancel();
+                this.$el.empty();
+                this.trigger("rendered");
             },
             isEmpty: function isEmpty() {
                 return this.$el.is(":empty");
@@ -2517,7 +2557,14 @@ $.extend($.fn, {
             }
         });
         return Dataset;
-        function getTemplates(templates, valueKey) {
+        function getDisplayFn(display) {
+            display = display || "value";
+            return _.isFunction(display) ? display : displayFn;
+            function displayFn(obj) {
+                return obj[display];
+            }
+        }
+        function getTemplates(templates, displayFn) {
             return {
                 empty: templates.empty && _.templatify(templates.empty),
                 header: templates.header && _.templatify(templates.header),
@@ -2525,39 +2572,34 @@ $.extend($.fn, {
                 suggestion: templates.suggestion || suggestionTemplate
             };
             function suggestionTemplate(context) {
-                return "<p>" + context[valueKey] + "</p>";
+                return "<p>" + displayFn(context) + "</p>";
             }
+        }
+        function isValidName(str) {
+            return /^[_a-zA-Z0-9-]+$/.test(str);
         }
     }();
     var Dropdown = function() {
+        "use strict";
         function Dropdown(o) {
-            var that = this, onMouseEnter, onMouseLeave, onSuggestionClick, onSuggestionMouseEnter, onSuggestionMouseLeave;
+            var that = this, onSuggestionClick, onSuggestionMouseEnter, onSuggestionMouseLeave;
             o = o || {};
             if (!o.menu) {
                 $.error("menu is required");
             }
             this.isOpen = false;
             this.isEmpty = true;
-            this.isMouseOverDropdown = false;
             this.datasets = _.map(o.datasets, initializeDataset);
-            onMouseEnter = _.bind(this._onMouseEnter, this);
-            onMouseLeave = _.bind(this._onMouseLeave, this);
             onSuggestionClick = _.bind(this._onSuggestionClick, this);
             onSuggestionMouseEnter = _.bind(this._onSuggestionMouseEnter, this);
             onSuggestionMouseLeave = _.bind(this._onSuggestionMouseLeave, this);
-            this.$menu = $(o.menu).on("mouseenter.tt", onMouseEnter).on("mouseleave.tt", onMouseLeave).on("click.tt", ".tt-suggestion", onSuggestionClick).on("mouseenter.tt", ".tt-suggestion", onSuggestionMouseEnter).on("mouseleave.tt", ".tt-suggestion", onSuggestionMouseLeave);
+            this.$menu = $(o.menu).on("click.tt", ".tt-suggestion", onSuggestionClick).on("mouseenter.tt", ".tt-suggestion", onSuggestionMouseEnter).on("mouseleave.tt", ".tt-suggestion", onSuggestionMouseLeave);
             _.each(this.datasets, function(dataset) {
                 that.$menu.append(dataset.getRoot());
                 dataset.onSync("rendered", that._onRendered, that);
             });
         }
         _.mixin(Dropdown.prototype, EventEmitter, {
-            _onMouseEnter: function onMouseEnter($e) {
-                this.isMouseOverDropdown = true;
-            },
-            _onMouseLeave: function onMouseLeave($e) {
-                this.isMouseOverDropdown = false;
-            },
             _onSuggestionClick: function onSuggestionClick($e) {
                 this.trigger("suggestionClicked", $($e.currentTarget));
             },
@@ -2565,7 +2607,7 @@ $.extend($.fn, {
                 this._removeCursor();
                 this._setCursor($($e.currentTarget), true);
             },
-            _onSuggestionMouseLeave: function onSuggestionMouseLeave($e) {
+            _onSuggestionMouseLeave: function onSuggestionMouseLeave() {
                 this._removeCursor();
             },
             _onRendered: function onRendered() {
@@ -2628,7 +2670,7 @@ $.extend($.fn, {
             },
             close: function close() {
                 if (this.isOpen) {
-                    this.isOpen = this.isMouseOverDropdown = false;
+                    this.isOpen = false;
                     this._removeCursor();
                     this._hide();
                     this.trigger("closed");
@@ -2675,6 +2717,7 @@ $.extend($.fn, {
             },
             empty: function empty() {
                 _.each(this.datasets, clearDataset);
+                this.isEmpty = true;
                 function clearDataset(dataset) {
                     dataset.clear();
                 }
@@ -2697,19 +2740,37 @@ $.extend($.fn, {
         }
     }();
     var Typeahead = function() {
+        "use strict";
         var attrsKey = "ttAttrs";
         function Typeahead(o) {
-            var $menu, $input, $hint, datasets;
+            var $menu, $input, $hint;
             o = o || {};
             if (!o.input) {
                 $.error("missing input");
             }
+            this.isActivated = false;
             this.autoselect = !!o.autoselect;
             this.minLength = _.isNumber(o.minLength) ? o.minLength : 1;
-            this.$node = buildDomStructure(o.input, o.withHint);
+            this.$node = buildDom(o.input, o.withHint);
             $menu = this.$node.find(".tt-dropdown-menu");
             $input = this.$node.find(".tt-input");
             $hint = this.$node.find(".tt-hint");
+            $input.on("blur.tt", function($e) {
+                var active, isActive, hasActive;
+                active = document.activeElement;
+                isActive = $menu.is(active);
+                hasActive = $menu.has(active).length > 0;
+                if (_.isMsie() && (isActive || hasActive)) {
+                    $e.preventDefault();
+                    $e.stopImmediatePropagation();
+                    _.defer(function() {
+                        $input.focus();
+                    });
+                }
+            });
+            $menu.on("mousedown.tt", function($e) {
+                $e.preventDefault();
+            });
             this.eventBus = o.eventBus || new EventBus({
                 el: $input
             });
@@ -2721,15 +2782,7 @@ $.extend($.fn, {
                 input: $input,
                 hint: $hint
             }).onSync("focused", this._onFocused, this).onSync("blurred", this._onBlurred, this).onSync("enterKeyed", this._onEnterKeyed, this).onSync("tabKeyed", this._onTabKeyed, this).onSync("escKeyed", this._onEscKeyed, this).onSync("upKeyed", this._onUpKeyed, this).onSync("downKeyed", this._onDownKeyed, this).onSync("leftKeyed", this._onLeftKeyed, this).onSync("rightKeyed", this._onRightKeyed, this).onSync("queryChanged", this._onQueryChanged, this).onSync("whitespaceChanged", this._onWhitespaceChanged, this);
-            $menu.on("mousedown.tt", function($e) {
-                if (_.isMsie() && _.isMsie() < 9) {
-                    $input[0].onbeforedeactivate = function() {
-                        window.event.returnValue = false;
-                        $input[0].onbeforedeactivate = null;
-                    };
-                }
-                $e.preventDefault();
-            });
+            this._setLanguageDirection();
         }
         _.mixin(Typeahead.prototype, {
             _onSuggestionClicked: function onSuggestionClicked(type, $el) {
@@ -2740,7 +2793,6 @@ $.extend($.fn, {
             },
             _onCursorMoved: function onCursorMoved() {
                 var datum = this.dropdown.getDatumForCursor();
-                this.input.clearHint();
                 this.input.setInputValue(datum.value, true);
                 this.eventBus.trigger("cursorchanged", datum.raw, datum.datasetName);
             },
@@ -2760,10 +2812,13 @@ $.extend($.fn, {
                 this.eventBus.trigger("closed");
             },
             _onFocused: function onFocused() {
+                this.isActivated = true;
                 this.dropdown.open();
             },
             _onBlurred: function onBlurred() {
-                !this.dropdown.isMouseOverDropdown && this.dropdown.close();
+                this.isActivated = false;
+                this.dropdown.empty();
+                this.dropdown.close();
             },
             _onEnterKeyed: function onEnterKeyed(type, $e) {
                 var cursorDatum, topSuggestionDatum;
@@ -2783,7 +2838,7 @@ $.extend($.fn, {
                     this._select(datum);
                     $e.preventDefault();
                 } else {
-                    this._autocomplete();
+                    this._autocomplete(true);
                 }
             },
             _onEscKeyed: function onEscKeyed() {
@@ -2792,19 +2847,13 @@ $.extend($.fn, {
             },
             _onUpKeyed: function onUpKeyed() {
                 var query = this.input.getQuery();
-                if (!this.dropdown.isOpen && query.length >= this.minLength) {
-                    this.dropdown.update(query);
-                }
+                this.dropdown.isEmpty && query.length >= this.minLength ? this.dropdown.update(query) : this.dropdown.moveCursorUp();
                 this.dropdown.open();
-                this.dropdown.moveCursorUp();
             },
             _onDownKeyed: function onDownKeyed() {
                 var query = this.input.getQuery();
-                if (!this.dropdown.isOpen && query.length >= this.minLength) {
-                    this.dropdown.update(query);
-                }
+                this.dropdown.isEmpty && query.length >= this.minLength ? this.dropdown.update(query) : this.dropdown.moveCursorDown();
                 this.dropdown.open();
-                this.dropdown.moveCursorDown();
             },
             _onLeftKeyed: function onLeftKeyed() {
                 this.dir === "rtl" && this._autocomplete();
@@ -2813,9 +2862,8 @@ $.extend($.fn, {
                 this.dir === "ltr" && this._autocomplete();
             },
             _onQueryChanged: function onQueryChanged(e, query) {
-                this.input.clearHint();
-                this.dropdown.empty();
-                query.length >= this.minLength && this.dropdown.update(query);
+                this.input.clearHintIfInvalid();
+                query.length >= this.minLength ? this.dropdown.update(query) : this.dropdown.empty();
                 this.dropdown.open();
                 this._setLanguageDirection();
             },
@@ -2832,35 +2880,37 @@ $.extend($.fn, {
                 }
             },
             _updateHint: function updateHint() {
-                var datum, inputValue, query, escapedQuery, frontMatchRegEx, match;
+                var datum, val, query, escapedQuery, frontMatchRegEx, match;
                 datum = this.dropdown.getDatumForTopSuggestion();
                 if (datum && this.dropdown.isVisible() && !this.input.hasOverflow()) {
-                    inputValue = this.input.getInputValue();
-                    query = Input.normalizeQuery(inputValue);
+                    val = this.input.getInputValue();
+                    query = Input.normalizeQuery(val);
                     escapedQuery = _.escapeRegExChars(query);
-                    frontMatchRegEx = new RegExp("^(?:" + escapedQuery + ")(.*$)", "i");
+                    frontMatchRegEx = new RegExp("^(?:" + escapedQuery + ")(.+$)", "i");
                     match = frontMatchRegEx.exec(datum.value);
-                    this.input.setHintValue(inputValue + (match ? match[1] : ""));
+                    match ? this.input.setHint(val + match[1]) : this.input.clearHint();
+                } else {
+                    this.input.clearHint();
                 }
             },
-            _autocomplete: function autocomplete() {
-                var hint, query, datum;
-                hint = this.input.getHintValue();
+            _autocomplete: function autocomplete(laxCursor) {
+                var hint, query, isCursorAtEnd, datum;
+                hint = this.input.getHint();
                 query = this.input.getQuery();
-                if (hint && query !== hint && this.input.isCursorAtEnd()) {
+                isCursorAtEnd = laxCursor || this.input.isCursorAtEnd();
+                if (hint && query !== hint && isCursorAtEnd) {
                     datum = this.dropdown.getDatumForTopSuggestion();
                     datum && this.input.setInputValue(datum.value);
                     this.eventBus.trigger("autocompleted", datum.raw, datum.datasetName);
                 }
             },
             _select: function select(datum) {
-                this.input.clearHint();
                 this.input.setQuery(datum.value);
                 this.input.setInputValue(datum.value, true);
-                this.dropdown.empty();
                 this._setLanguageDirection();
-                _.defer(_.bind(this.dropdown.close, this.dropdown));
                 this.eventBus.trigger("selected", datum.raw, datum.datasetName);
+                this.dropdown.close();
+                _.defer(_.bind(this.dropdown.empty, this.dropdown));
             },
             open: function open() {
                 this.dropdown.open();
@@ -2868,11 +2918,18 @@ $.extend($.fn, {
             close: function close() {
                 this.dropdown.close();
             },
-            getQuery: function getQuery() {
-                return this.input.getQuery();
+            setVal: function setVal(val) {
+                val = _.toStr(val);
+                if (this.isActivated) {
+                    this.input.setInputValue(val);
+                } else {
+                    this.input.setQuery(val);
+                    this.input.setInputValue(val, true);
+                }
+                this._setLanguageDirection();
             },
-            setQuery: function setQuery(val) {
-                this.input.setInputValue(val);
+            getVal: function getVal() {
+                return this.input.getQuery();
             },
             destroy: function destroy() {
                 this.input.destroy();
@@ -2882,15 +2939,16 @@ $.extend($.fn, {
             }
         });
         return Typeahead;
-        function buildDomStructure(input, withHint) {
+        function buildDom(input, withHint) {
             var $input, $wrapper, $dropdown, $hint;
             $input = $(input);
             $wrapper = $(html.wrapper).css(css.wrapper);
             $dropdown = $(html.dropdown).css(css.dropdown);
             $hint = $input.clone().css(css.hint).css(getBackgroundStyles($input));
-            $hint.removeData().addClass("tt-hint").removeAttr("id name placeholder").prop("disabled", true).attr({
+            $hint.val("").removeData().addClass("tt-hint").removeAttr("id name placeholder required").prop("readonly", true).attr({
                 autocomplete: "off",
-                spellcheck: "false"
+                spellcheck: "false",
+                tabindex: -1
             });
             $input.data(attrsKey, {
                 dir: $input.attr("dir"),
@@ -2929,11 +2987,13 @@ $.extend($.fn, {
         }
     }();
     (function() {
-        var typeaheadKey, methods;
+        "use strict";
+        var old, typeaheadKey, methods;
+        old = $.fn.typeahead;
         typeaheadKey = "ttTypeahead";
         methods = {
-            initialize: function initialize(o) {
-                var datasets = [].slice.call(arguments, 1);
+            initialize: function initialize(o, datasets) {
+                datasets = _.isArray(datasets) ? datasets : [].slice.call(arguments, 1);
                 o = o || {};
                 return this.each(attach);
                 function attach() {
@@ -2952,13 +3012,6 @@ $.extend($.fn, {
                         datasets: datasets
                     });
                     $input.data(typeaheadKey, typeahead);
-                    function trigger(eventName) {
-                        return function() {
-                            _.defer(function() {
-                                eventBus.trigger(eventName);
-                            });
-                        };
-                    }
                 }
             },
             open: function open() {
@@ -2980,17 +3033,17 @@ $.extend($.fn, {
                 }
             },
             val: function val(newVal) {
-                return _.isString(newVal) ? this.each(setQuery) : this.map(getQuery).get();
-                function setQuery() {
+                return !arguments.length ? getVal(this.first()) : this.each(setVal);
+                function setVal() {
                     var $input = $(this), typeahead;
                     if (typeahead = $input.data(typeaheadKey)) {
-                        typeahead.setQuery(newVal);
+                        typeahead.setVal(newVal);
                     }
                 }
-                function getQuery() {
-                    var $input = $(this), typeahead, query;
+                function getVal($input) {
+                    var typeahead, query;
                     if (typeahead = $input.data(typeaheadKey)) {
-                        query = typeahead.getQuery();
+                        query = typeahead.getVal();
                     }
                     return query;
                 }
@@ -3006,18 +3059,26 @@ $.extend($.fn, {
                 }
             }
         };
-        jQuery.fn.typeahead = function(method) {
-            if (methods[method]) {
-                return methods[method].apply(this, [].slice.call(arguments, 1));
+        $.fn.typeahead = function(method) {
+            var tts;
+            if (methods[method] && method !== "initialize") {
+                tts = this.filter(function() {
+                    return !!$(this).data(typeaheadKey);
+                });
+                return methods[method].apply(tts, [].slice.call(arguments, 1));
             } else {
                 return methods.initialize.apply(this, arguments);
             }
+        };
+        $.fn.typeahead.noConflict = function noConflict() {
+            $.fn.typeahead = old;
+            return this;
         };
     })();
 })(window.jQuery);
 ///#source 1 1 /Scripts/moment.js
 //! moment.js
-//! version : 2.8.4
+//! version : 2.9.0
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -3028,9 +3089,9 @@ $.extend($.fn, {
     ************************************/
 
     var moment,
-        VERSION = '2.8.4',
+        VERSION = '2.9.0',
         // the global-scope this is NOT the global object in Node.js
-        globalScope = typeof global !== 'undefined' ? global : this,
+        globalScope = (typeof global !== 'undefined' && (typeof window === 'undefined' || window === global.window)) ? global : this,
         oldGlobalMoment,
         round = Math.round,
         hasOwnProperty = Object.prototype.hasOwnProperty,
@@ -3107,7 +3168,7 @@ $.extend($.fn, {
             ['HH', /(T| )\d\d/]
         ],
 
-        // timezone chunker '+10:00' > ['10', '00'] or '-1530' > ['-15', '30']
+        // timezone chunker '+10:00' > ['10', '00'] or '-1530' > ['-', '15', '30']
         parseTimezoneChunker = /([\+\-]|\d\d)/gi,
 
         // getter and setter names
@@ -3267,7 +3328,7 @@ $.extend($.fn, {
                 return leftZeroFill(this.milliseconds(), 3);
             },
             Z    : function () {
-                var a = -this.zone(),
+                var a = this.utcOffset(),
                     b = '+';
                 if (a < 0) {
                     a = -a;
@@ -3276,7 +3337,7 @@ $.extend($.fn, {
                 return b + leftZeroFill(toInt(a / 60), 2) + ':' + leftZeroFill(toInt(a) % 60, 2);
             },
             ZZ   : function () {
-                var a = -this.zone(),
+                var a = this.utcOffset(),
                     b = '+';
                 if (a < 0) {
                     a = -a;
@@ -3303,7 +3364,9 @@ $.extend($.fn, {
 
         deprecations = {},
 
-        lists = ['months', 'monthsShort', 'weekdays', 'weekdaysShort', 'weekdaysMin'];
+        lists = ['months', 'monthsShort', 'weekdays', 'weekdaysShort', 'weekdaysMin'],
+
+        updateInProgress = false;
 
     // Pick the first defined of two or three arguments. dfl comes from
     // default.
@@ -3372,6 +3435,26 @@ $.extend($.fn, {
         };
     }
 
+    function monthDiff(a, b) {
+        // difference in months
+        var wholeMonthDiff = ((b.year() - a.year()) * 12) + (b.month() - a.month()),
+            // b is in (anchor - 1 month, anchor + 1 month)
+            anchor = a.clone().add(wholeMonthDiff, 'months'),
+            anchor2, adjust;
+
+        if (b - anchor < 0) {
+            anchor2 = a.clone().add(wholeMonthDiff - 1, 'months');
+            // linear across the month
+            adjust = (b - anchor) / (anchor - anchor2);
+        } else {
+            anchor2 = a.clone().add(wholeMonthDiff + 1, 'months');
+            // linear across the month
+            adjust = (b - anchor) / (anchor2 - anchor);
+        }
+
+        return -(wholeMonthDiff + adjust);
+    }
+
     while (ordinalizeTokens.length) {
         i = ordinalizeTokens.pop();
         formatTokenFunctions[i + 'o'] = ordinalizeToken(formatTokenFunctions[i], i);
@@ -3382,6 +3465,31 @@ $.extend($.fn, {
     }
     formatTokenFunctions.DDDD = padToken(formatTokenFunctions.DDD, 3);
 
+
+    function meridiemFixWrap(locale, hour, meridiem) {
+        var isPm;
+
+        if (meridiem == null) {
+            // nothing to do
+            return hour;
+        }
+        if (locale.meridiemHour != null) {
+            return locale.meridiemHour(hour, meridiem);
+        } else if (locale.isPM != null) {
+            // Fallback
+            isPm = locale.isPM(meridiem);
+            if (isPm && hour < 12) {
+                hour += 12;
+            }
+            if (!isPm && hour === 12) {
+                hour = 0;
+            }
+            return hour;
+        } else {
+            // thie is not supposed to happen
+            return hour;
+        }
+    }
 
     /************************************
         Constructors
@@ -3397,6 +3505,13 @@ $.extend($.fn, {
         }
         copyConfig(this, config);
         this._d = new Date(+config._d);
+        // Prevent infinite loop in case updateOffset creates new moment
+        // objects.
+        if (updateInProgress === false) {
+            updateInProgress = true;
+            moment.updateOffset(this);
+            updateInProgress = false;
+        }
     }
 
     // Duration Constructor
@@ -3800,7 +3915,8 @@ $.extend($.fn, {
         return locales[name];
     }
 
-    // Return a moment from input, that is local/utc/zone equivalent to model.
+    // Return a moment from input, that is local/utc/utcOffset equivalent to
+    // model.
     function makeAs(input, model) {
         var res, diff;
         if (model._isUTC) {
@@ -3949,6 +4065,7 @@ $.extend($.fn, {
             }
         },
 
+
         _calendar : {
             sameDay : '[Today at] LT',
             nextDay : '[Tomorrow at] LT',
@@ -4011,6 +4128,14 @@ $.extend($.fn, {
         _week : {
             dow : 0, // Sunday is the first day of the week.
             doy : 6  // The week that contains Jan 1st is the first week of the year.
+        },
+
+        firstDayOfWeek : function () {
+            return this._week.dow;
+        },
+
+        firstDayOfYear : function () {
+            return this._week.doy;
         },
 
         _invalidDate: 'Invalid date',
@@ -4179,14 +4304,14 @@ $.extend($.fn, {
         }
     }
 
-    function timezoneMinutesFromString(string) {
+    function utcOffsetFromString(string) {
         string = string || '';
         var possibleTzMatches = (string.match(parseTokenTimezone) || []),
             tzChunk = possibleTzMatches[possibleTzMatches.length - 1] || [],
             parts = (tzChunk + '').match(parseTimezoneChunker) || ['-', 0, 0],
             minutes = +(parts[1] * 60) + toInt(parts[2]);
 
-        return parts[0] === '+' ? -minutes : minutes;
+        return parts[0] === '+' ? minutes : -minutes;
     }
 
     // function to convert string input to date
@@ -4250,7 +4375,8 @@ $.extend($.fn, {
         // AM / PM
         case 'a' : // fall through to A
         case 'A' :
-            config._isPm = config._locale.isPM(input);
+            config._meridiem = input;
+            // config._isPm = config._locale.isPM(input);
             break;
         // HOUR
         case 'h' : // fall through to hh
@@ -4290,7 +4416,7 @@ $.extend($.fn, {
         case 'Z' : // fall through to ZZ
         case 'ZZ' :
             config._useUTC = true;
-            config._tzm = timezoneMinutesFromString(input);
+            config._tzm = utcOffsetFromString(input);
             break;
         // WEEKDAY - human
         case 'dd':
@@ -4428,10 +4554,10 @@ $.extend($.fn, {
         }
 
         config._d = (config._useUTC ? makeUTCDate : makeDate).apply(null, input);
-        // Apply timezone offset from input. The actual zone can be changed
+        // Apply timezone offset from input. The actual utcOffset can be changed
         // with parseZone.
         if (config._tzm != null) {
-            config._d.setUTCMinutes(config._d.getUTCMinutes() + config._tzm);
+            config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
         }
 
         if (config._nextDay) {
@@ -4527,14 +4653,9 @@ $.extend($.fn, {
         if (config._pf.bigHour === true && config._a[HOUR] <= 12) {
             config._pf.bigHour = undefined;
         }
-        // handle am pm
-        if (config._isPm && config._a[HOUR] < 12) {
-            config._a[HOUR] += 12;
-        }
-        // if is 12 am, change hours to 0
-        if (config._isPm === false && config._a[HOUR] === 12) {
-            config._a[HOUR] = 0;
-        }
+        // handle meridiem
+        config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR],
+                config._meridiem);
         dateFromConfig(config);
         checkOverflow(config);
     }
@@ -4976,6 +5097,8 @@ $.extend($.fn, {
                 s: parseIso(match[7]),
                 w: parseIso(match[8])
             };
+        } else if (duration == null) {// checks for null or undefined
+            duration = {};
         } else if (typeof duration === 'object' &&
                 ('from' in duration || 'to' in duration)) {
             diffRes = momentsDifference(moment(duration.from), moment(duration.to));
@@ -5140,6 +5263,8 @@ $.extend($.fn, {
         return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
     };
 
+    moment.isDate = isDate;
+
     /************************************
         Moment Prototype
     ************************************/
@@ -5152,7 +5277,7 @@ $.extend($.fn, {
         },
 
         valueOf : function () {
-            return +this._d + ((this._offset || 0) * 60000);
+            return +this._d - ((this._offset || 0) * 60000);
         },
 
         unix : function () {
@@ -5215,16 +5340,16 @@ $.extend($.fn, {
         },
 
         utc : function (keepLocalTime) {
-            return this.zone(0, keepLocalTime);
+            return this.utcOffset(0, keepLocalTime);
         },
 
         local : function (keepLocalTime) {
             if (this._isUTC) {
-                this.zone(0, keepLocalTime);
+                this.utcOffset(0, keepLocalTime);
                 this._isUTC = false;
 
                 if (keepLocalTime) {
-                    this.add(this._dateTzOffset(), 'm');
+                    this.subtract(this._dateUtcOffset(), 'm');
                 }
             }
             return this;
@@ -5241,29 +5366,20 @@ $.extend($.fn, {
 
         diff : function (input, units, asFloat) {
             var that = makeAs(input, this),
-                zoneDiff = (this.zone() - that.zone()) * 6e4,
-                diff, output, daysAdjust;
+                zoneDiff = (that.utcOffset() - this.utcOffset()) * 6e4,
+                anchor, diff, output, daysAdjust;
 
             units = normalizeUnits(units);
 
-            if (units === 'year' || units === 'month') {
-                // average number of days in the months in the given dates
-                diff = (this.daysInMonth() + that.daysInMonth()) * 432e5; // 24 * 60 * 60 * 1000 / 2
-                // difference in months
-                output = ((this.year() - that.year()) * 12) + (this.month() - that.month());
-                // adjust by taking difference in days, average number of days
-                // and dst in the given months.
-                daysAdjust = (this - moment(this).startOf('month')) -
-                    (that - moment(that).startOf('month'));
-                // same as above but with zones, to negate all dst
-                daysAdjust -= ((this.zone() - moment(this).startOf('month').zone()) -
-                        (that.zone() - moment(that).startOf('month').zone())) * 6e4;
-                output += daysAdjust / diff;
-                if (units === 'year') {
+            if (units === 'year' || units === 'month' || units === 'quarter') {
+                output = monthDiff(this, that);
+                if (units === 'quarter') {
+                    output = output / 3;
+                } else if (units === 'year') {
                     output = output / 12;
                 }
             } else {
-                diff = (this - that);
+                diff = this - that;
                 output = units === 'second' ? diff / 1e3 : // 1000
                     units === 'minute' ? diff / 6e4 : // 1000 * 60
                     units === 'hour' ? diff / 36e5 : // 1000 * 60 * 60
@@ -5284,7 +5400,8 @@ $.extend($.fn, {
 
         calendar : function (time) {
             // We want to compare the start of today, vs this.
-            // Getting start-of-today depends on whether we're zone'd or not.
+            // Getting start-of-today depends on whether we're locat/utc/offset
+            // or not.
             var now = time || moment(),
                 sod = makeAs(now, this).startOf('day'),
                 diff = this.diff(sod, 'days', true),
@@ -5302,8 +5419,8 @@ $.extend($.fn, {
         },
 
         isDST : function () {
-            return (this.zone() < this.clone().month(0).zone() ||
-                this.zone() < this.clone().month(5).zone());
+            return (this.utcOffset() > this.clone().month(0).utcOffset() ||
+                this.utcOffset() > this.clone().month(5).utcOffset());
         },
 
         day : function (input) {
@@ -5393,6 +5510,10 @@ $.extend($.fn, {
             }
         },
 
+        isBetween: function (from, to, units) {
+            return this.isAfter(from, units) && this.isBefore(to, units);
+        },
+
         isSame: function (input, units) {
             var inputMs;
             units = normalizeUnits(units || 'millisecond');
@@ -5421,9 +5542,27 @@ $.extend($.fn, {
                 }
         ),
 
+        zone : deprecate(
+                'moment().zone is deprecated, use moment().utcOffset instead. ' +
+                'https://github.com/moment/moment/issues/1779',
+                function (input, keepLocalTime) {
+                    if (input != null) {
+                        if (typeof input !== 'string') {
+                            input = -input;
+                        }
+
+                        this.utcOffset(input, keepLocalTime);
+
+                        return this;
+                    } else {
+                        return -this.utcOffset();
+                    }
+                }
+        ),
+
         // keepLocalTime = true means only change the timezone, without
-        // affecting the local hour. So 5:31:26 +0300 --[zone(2, true)]-->
-        // 5:31:26 +0200 It is possible that 5:31:26 doesn't exist int zone
+        // affecting the local hour. So 5:31:26 +0300 --[utcOffset(2, true)]-->
+        // 5:31:26 +0200 It is possible that 5:31:26 doesn't exist with offset
         // +0200, so we adjust the time as needed, to be valid.
         //
         // Keeping the time actually adds/subtracts (one hour)
@@ -5431,38 +5570,51 @@ $.extend($.fn, {
         // a second time. In case it wants us to change the offset again
         // _changeInProgress == true case, then we have to adjust, because
         // there is no such time in the given timezone.
-        zone : function (input, keepLocalTime) {
+        utcOffset : function (input, keepLocalTime) {
             var offset = this._offset || 0,
                 localAdjust;
             if (input != null) {
                 if (typeof input === 'string') {
-                    input = timezoneMinutesFromString(input);
+                    input = utcOffsetFromString(input);
                 }
                 if (Math.abs(input) < 16) {
                     input = input * 60;
                 }
                 if (!this._isUTC && keepLocalTime) {
-                    localAdjust = this._dateTzOffset();
+                    localAdjust = this._dateUtcOffset();
                 }
                 this._offset = input;
                 this._isUTC = true;
                 if (localAdjust != null) {
-                    this.subtract(localAdjust, 'm');
+                    this.add(localAdjust, 'm');
                 }
                 if (offset !== input) {
                     if (!keepLocalTime || this._changeInProgress) {
                         addOrSubtractDurationFromMoment(this,
-                                moment.duration(offset - input, 'm'), 1, false);
+                                moment.duration(input - offset, 'm'), 1, false);
                     } else if (!this._changeInProgress) {
                         this._changeInProgress = true;
                         moment.updateOffset(this, true);
                         this._changeInProgress = null;
                     }
                 }
+
+                return this;
             } else {
-                return this._isUTC ? offset : this._dateTzOffset();
+                return this._isUTC ? offset : this._dateUtcOffset();
             }
-            return this;
+        },
+
+        isLocal : function () {
+            return !this._isUTC;
+        },
+
+        isUtcOffset : function () {
+            return this._isUTC;
+        },
+
+        isUtc : function () {
+            return this._isUTC && this._offset === 0;
         },
 
         zoneAbbr : function () {
@@ -5475,9 +5627,9 @@ $.extend($.fn, {
 
         parseZone : function () {
             if (this._tzm) {
-                this.zone(this._tzm);
+                this.utcOffset(this._tzm);
             } else if (typeof this._i === 'string') {
-                this.zone(this._i);
+                this.utcOffset(utcOffsetFromString(this._i));
             }
             return this;
         },
@@ -5487,10 +5639,10 @@ $.extend($.fn, {
                 input = 0;
             }
             else {
-                input = moment(input).zone();
+                input = moment(input).utcOffset();
             }
 
-            return (this.zone() - input) % 60 === 0;
+            return (this.utcOffset() - input) % 60 === 0;
         },
 
         daysInMonth : function () {
@@ -5553,9 +5705,17 @@ $.extend($.fn, {
         },
 
         set : function (units, value) {
-            units = normalizeUnits(units);
-            if (typeof this[units] === 'function') {
-                this[units](value);
+            var unit;
+            if (typeof units === 'object') {
+                for (unit in units) {
+                    this.set(unit, units[unit]);
+                }
+            }
+            else {
+                units = normalizeUnits(units);
+                if (typeof this[units] === 'function') {
+                    this[units](value);
+                }
             }
             return this;
         },
@@ -5592,11 +5752,12 @@ $.extend($.fn, {
             return this._locale;
         },
 
-        _dateTzOffset : function () {
+        _dateUtcOffset : function () {
             // On Firefox.24 Date#getTimezoneOffset returns a floating point.
             // https://github.com/moment/moment/pull/1871
-            return Math.round(this._d.getTimezoneOffset() / 15) * 15;
+            return -Math.round(this._d.getTimezoneOffset() / 15) * 15;
         }
+
     });
 
     function rawMonthSetter(mom, value) {
@@ -5664,6 +5825,9 @@ $.extend($.fn, {
 
     // add aliased format methods
     moment.fn.toJSON = moment.fn.toISOString;
+
+    // alias isUtc for dev-friendliness
+    moment.fn.isUTC = moment.fn.isUtc;
 
     /************************************
         Duration Prototype
@@ -5852,6 +6016,10 @@ $.extend($.fn, {
 
         localeData : function () {
             return this._locale;
+        },
+
+        toJSON : function () {
+            return this.toISOString();
         }
     });
 
@@ -5939,7 +6107,7 @@ $.extend($.fn, {
     if (hasModule) {
         module.exports = moment;
     } else if (typeof define === 'function' && define.amd) {
-        define('moment', function (require, exports, module) {
+        define(function (require, exports, module) {
             if (module.config && module.config() && module.config().noGlobal === true) {
                 // release the global variable
                 globalScope.moment = oldGlobalMoment;
