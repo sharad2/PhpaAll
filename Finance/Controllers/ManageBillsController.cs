@@ -205,7 +205,9 @@ namespace PhpaAll.Controllers
                                  select new BillAuditViewModel
                                  {
                                      BillCreatedBy = ba.CreatedBy,
-                                     DateCreated = ba.Created
+                                     DateCreated = ba.Created,
+                                     BillNumberOld = ba.BillNumberOld,
+                                     BillNumberNew =ba.BillNumberNew
 
                                  }).ToList();
 
