@@ -17,6 +17,7 @@
         </label>
 
     }
+
     &nbsp;
     <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-default btn-sm">
         <span class="glyphicon glyphicon-edit"></span>
@@ -26,6 +27,11 @@
         Recent Bills
     </a>
 </h2>
+
+
+
+
+
 
 
 <hr />
@@ -85,6 +91,10 @@
                 <label>Remarks:</label>
                 @Html.DisplayFor(m => m.Remarks)
             </small>
+            <label class="label label-info">
+                Currently in division
+                @Html.DisplayFor(m => m.CurrentDivision)
+            </label>
         </em>
         <br />
         <br />
@@ -92,9 +102,9 @@
 
     </div>
     <div class="col-md-4">
-        This is hardwired image
-        <img src="~/Images/Its demoimageDeleteit.jpg" width="340" height="300" />
-        @Html.DisplayFor(m => m.BillImage)
+        <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))" class="thumbnail">
+            <img src="@Model.BillImage" width="340" height="300" />
+        </a>
     </div>
 </div>
 

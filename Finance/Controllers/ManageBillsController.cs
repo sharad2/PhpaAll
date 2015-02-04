@@ -177,7 +177,7 @@ namespace PhpaAll.Controllers
             return RedirectToAction(MVC.Bills.RecentBills());
         }
 
-
+      
 
         public virtual ActionResult ShowBill(int id)
         {
@@ -188,6 +188,7 @@ namespace PhpaAll.Controllers
                          {
                              Id = bill.Id,
                              Amount = bill.Amount,
+                             BillImage= bill.BillImage,
                              BillNumber = bill.BillNumber,
                              Particulars = bill.Particulars,
                              BillDate = bill.BillDate,
@@ -202,8 +203,12 @@ namespace PhpaAll.Controllers
                              ContractorName = bill.Contractor.ContractorName,
                              ApprovedDate = bill.ApprovedOn,
                              ApprovedBy = bill.ApprovedBy,
-                             StationName = bill.Station.StationName
-
+                             StationName = bill.Station.StationName,
+                             CurrentDivision =  (from d in _db.Value.Divisions
+                                                where bill.CurrentDivisionId == d.DivisionId.ToString()
+                                                || bill.Id == d.Bills.Select(p=>p.Id).First()
+                                                select d.DivisionName).FirstOrDefault()
+                            
                          }).FirstOrDefault();
 
             // Getting Bill history from Bill Audit.  
