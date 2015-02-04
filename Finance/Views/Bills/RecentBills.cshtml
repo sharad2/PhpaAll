@@ -45,6 +45,12 @@
 <pre>
 TODO: Amounts of approved bills will display in green
 </pre>
+@if (Model.IsFiltered)
+{
+    <div class="alert alert-info" role="alert">
+        Filters have been applied. <a class="alert-link" href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
+    </div>
+}
 <div class="row">
     <div class="col-md-3">
         <form id="frmFilters" method="get" action="@Url.Action(MVC.Bills.RecentBills())">
