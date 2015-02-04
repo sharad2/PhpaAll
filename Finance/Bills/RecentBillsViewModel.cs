@@ -11,7 +11,7 @@ namespace PhpaAll.Bills
         //{
 
         //}
-   
+
         //[Obsolete]
         //internal BillModel(Bill bill)
         //{
@@ -37,7 +37,7 @@ namespace PhpaAll.Bills
         [ScaffoldColumn(false)]
         public int StationId { get; set; }
 
-        [Display(ShortName="Station")]
+        [Display(ShortName = "Station")]
         public string StationName { get; set; }
 
         public string BillNumber { get; set; }
@@ -51,7 +51,7 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? SubmittedOnDate { get; set; }
 
-         [DisplayFormat(DataFormatString = "{0:d}")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? FinanceSubmittedDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
@@ -85,7 +85,7 @@ namespace PhpaAll.Bills
     {
         public string Id { get; set; }
 
-        [DisplayFormat(NullDisplayText="(Not Set)")]
+        [DisplayFormat(NullDisplayText = "(Not Set)")]
         public string Name { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
@@ -117,6 +117,12 @@ namespace PhpaAll.Bills
 
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? DateTo { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N2}")]
+        public Decimal? MinAmount { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N2}")]
+        public Decimal? MaxAmount { get; set; }
 
         /// <summary>
         /// URL which will cause the current data to be displayed in Excel

@@ -30,7 +30,13 @@ TODO: Amounts of approved bills will display in green
                     <input type="date" class="form-control input-sm" size="6" placeholder="To" name="@MVC.Bills.RecentBillsParams.dates" value="@Html.DisplayFor(m => m.DateTo)" />
                 </div>
             </fieldset>
-
+            <fieldset>
+                <legend>Amount</legend>
+                <div class="form-inline">
+                    <input type="number" class="form-control input-sm" size="10" placeholder="Min" name="@MVC.Bills.RecentBillsParams.amounts" value="@Html.DisplayFor(m => m.MinAmount)" />
+                    <input type="number" class="form-control input-sm" size="10" placeholder="Max" name="@MVC.Bills.RecentBillsParams.amounts" value="@Html.DisplayFor(m => m.MaxAmount)" />
+                </div>
+            </fieldset>
             @if (Model.Divisions.Count > 0)
             {
                 <fieldset>

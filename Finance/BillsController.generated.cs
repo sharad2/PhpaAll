@@ -119,6 +119,7 @@ namespace PhpaAll.Controllers
             public readonly string contractors = "contractors";
             public readonly string stations = "stations";
             public readonly string dates = "dates";
+            public readonly string amounts = "amounts";
             public readonly string exportToExcel = "exportToExcel";
         }
         static readonly ViewsClass s_views = new ViewsClass();
@@ -170,10 +171,10 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void RecentBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string[] approvers, int?[] divisions, int?[] contractors, int?[] stations, System.DateTime?[] dates, bool exportToExcel);
+        partial void RecentBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string[] approvers, int?[] divisions, int?[] contractors, int?[] stations, System.DateTime?[] dates, decimal?[] amounts, bool exportToExcel);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations, System.DateTime?[] dates, bool exportToExcel)
+        public override System.Web.Mvc.ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations, System.DateTime?[] dates, decimal?[] amounts, bool exportToExcel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RecentBills);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "approvers", approvers);
@@ -181,8 +182,9 @@ namespace PhpaAll.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "contractors", contractors);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "stations", stations);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dates", dates);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "amounts", amounts);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "exportToExcel", exportToExcel);
-            RecentBillsOverride(callInfo, approvers, divisions, contractors, stations, dates, exportToExcel);
+            RecentBillsOverride(callInfo, approvers, divisions, contractors, stations, dates, amounts, exportToExcel);
             return callInfo;
         }
 
