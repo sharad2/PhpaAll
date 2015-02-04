@@ -17,19 +17,41 @@
         Recent Bills
     </a>
 </h2>
-
-<ul class="list-group">
-
-    @*<li class="list-group-item">
-            <label for="billNumber" style="padding-right:1mm">Bill No.</label>
-            @Html.DisplayFor(m => m.BillNumber)
-        </li>*@
-
-    @*<li class="list-group-item">
-            <label style="padding-right:1mm">Bill Date </label>
-            @Html.DisplayFor(m => m.BillDate)
-
-        </li>*@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="col-lg-6">
+            <label style="padding-right:1mm">Amount</label>
+            @Html.DisplayFor(m => m.Amount) <br />
+            <label style="padding-right:1mm">Received by Division </label>
+            @Html.DisplayFor(m => m.SubmittedToDivisionName)  on @Html.DisplayFor(m => m.SubmittedOnDate)<br />
+            <label style="padding-right:1mm">Contractor</label>
+            @Html.DisplayFor(m => m.ContractorName)
+            <br />
+            <label style="padding-right:1mm">Station</label>
+            @Html.DisplayFor(m => m.StationName)
+        </div>
+        <div class="col-lg-6">
+            <label style="padding-right:1mm">Due Date</label>
+            @Html.DisplayFor(m => m.DueDate)
+            <br />
+            <label style="padding-right:1mm">Paid On</label>
+            @Html.DisplayFor(m => m.PaidDate)
+            <br />
+            <label style="padding-right:1mm">Approved Date</label>
+            @Html.DisplayFor(m => m.ApprovedDate)<br />
+            <label style="padding-right:1mm">Approved By</label>
+            @Html.DisplayFor(m => m.ApprovedBy)
+        </div>
+    </div>
+</div>
+<div class="alert alert-info" role="alert">
+    <label for="particulars" style="padding-right:1mm">Particulars:- </label>@Html.DisplayFor(m => m.Particulars)
+</div>
+<div class="alert alert-info" role="alert">
+    <label style="padding-right:1mm">Remark:- </label>
+    @Html.DisplayFor(m => m.Remarks)
+</div>
+@*<ul class="list-group">
 
     <li class="list-group-item">
         <label style="padding-right:1mm">Amount</label>
@@ -41,11 +63,6 @@
         @Html.DisplayFor(m => m.SubmittedToDivisionName)  on @Html.DisplayFor(m => m.SubmittedOnDate)
 
     </li>
-    @*<li class="list-group-item">
-            <label style="padding-right:1mm">on date</label>
-            @Html.DisplayFor(m => m.SubmittedOnDate)
-
-        </li>*@
     <li class="list-group-item">
         <label style="padding-right:1mm">Contractor</label>
         @Html.DisplayFor(m => m.ContractorName)
@@ -88,7 +105,7 @@
         <label style="padding-right:1mm">Image</label>
         @Html.DisplayFor(m => m.BillImage)
     </li>
-</ul>
+</ul>*@
 
 <h2 style="margin-top:0">
     Audit

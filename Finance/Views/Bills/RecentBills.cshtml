@@ -34,7 +34,7 @@ TODO: Amounts of approved bills will display in green
                                 @Html.DisplayFor(m => m.Divisions[i].Name) <small><em>@Html.DisplayFor(m => m.Divisions[i].Count)</em></small>
                                 <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.divisions, Model.Divisions[i].Id))">only</a></small>
                             </label>
-                            
+
                         </div>
                     }
                 </fieldset>
@@ -48,7 +48,7 @@ TODO: Amounts of approved bills will display in green
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" name="@MVC.Bills.RecentBillsParams.contractors" value="@Model.Contractors[i].Id" checked="@Model.Contractors[i].Selected" />
-                                       @Html.DisplayFor(m => m.Contractors[i].Name)<small><em>@Html.DisplayFor(m => m.Contractors[i].Count)</em></small>
+                                @Html.DisplayFor(m => m.Contractors[i].Name)<small><em>@Html.DisplayFor(m => m.Contractors[i].Count)</em></small>
                                 <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.contractors, Model.Contractors[i].Id))">only</a></small>
                             </label>
                         </div>
@@ -99,44 +99,100 @@ Paid / Unpaid
     </div>
     <div class="col-md-9">
         <ul class="list-group">
-            @for (var i = 0; i < Model.Bills.Count; ++i)
-            {
-            <li class="list-group-item">
+            <li class="list-group-item list-group-item-success">
                 <div class="row">
-                    <div class="col-md-1">
-                        @Html.DisplayFor(m => m.Bills[i].BillDate)
-                    </div>
                     <div class="col-md-2">
-                        <em>@Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)</em>
-                        @Html.DisplayFor(m => m.Bills[i].StationName)
-                    </div>
-                    <div class="col-md-5">
-                        @Html.DisplayFor(m => m.Bills[i].ContractorName)
+                       Bill Date
+                        <br />
+                        <em style="white-space:nowrap"><small>Due Date</small></em>
                     </div>
                     <div class="col-md-4">
-                        <span class="label label-info">Due @Html.DisplayFor(m => m.Bills[i].DueDate)</span>
-                        <div class="pull-right">
-                            @Html.DisplayFor(m => m.Bills[i].Amount)
+                        Division
+                        <br />
+                        <small>Contractor</small>
+                    </div>
+                    <div class="col-md-4">
+                        <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
+                            Bill Number
+                            <br />@@
+                            Station
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="text-right">
+                            <strong>Amount</strong>
                         </div>
                     </div>
                 </div>
-                <small><em>@Html.DisplayFor(m => m.Bills[i].BillNumber)</em></small>
-                @Html.DisplayFor(m => m.Bills[i].Particulars)
-                <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn btn-default">Edit</a>
-                <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))" class="btn btn-default">View</a>
             </li>
+            @for (var i = 0; i < Model.Bills.Count; ++i)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-2">
+                            @Html.DisplayFor(m => m.Bills[i].BillDate)
+                            <br />
+                            <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.Bills[i].DueDate)</small></em>
+                            <br />
+                            <span class="label label-success">Approved 1/1/1111</span>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)
+                            <br />
+                            <small>     @Html.DisplayFor(m => m.Bills[i].ContractorName)</small>
+                        </div>
+                        <div class="col-md-4">
+                            <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
+                                <span title="@Model.Bills[i].BillNumber">@Html.DisplayFor(m => m.Bills[i].BillNumber)</span>
+                                <br />@@
+                                @Html.DisplayFor(m => m.Bills[i].StationName)
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="text-right">
+                                <strong>                @Html.DisplayFor(m => m.Bills[i].Amount)</strong>
+                            </div>
+                            <div class="text-right">
+                                <div class="btn-group">
+                                    <a class="btn btn-default btn-xs" href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))"><span class="glyphicon glyphicon-zoom-in"></span></a>
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))"><span class="glyphicon glyphicon-zoom-in"></span> View</a></li>
+                                        <li><a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))"><span class="glyphicon glyphicon-pencil"></span> Edit</a></li>
+                                        <li><a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))"><span class="glyphicon glyphicon-thumbs-up"></span> Approve</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            @*<div class="center-block1">
+                                    <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                        <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))" class="btn"><span class="glyphicon glyphicon-zoom-in"></span> View</a>
+                                        <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+                                        <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn"><span class="glyphicon glyphicon-thumbs-up"></span> Approve</a>
+                                    </div>
+                                </div>*@
+                        </div>
+                    </div>
+                    <span style="color:gray">
+                        @Html.DisplayFor(m => m.Bills[i].Particulars)
+                    </span>
+                </li>
             }
         </ul>
 
         <table class="table">
             <caption>Sample tabular layout</caption>
             <thead>
-                <tr>
-                    <td class="label-info">Bill Date</td>
-                    <td class="label-info">Contractor</td>
-                    <td class="label-info">Division</td>
-                    <td class="label-info">Amount</td>
-                    <td class="label-info">Action</td>
+                <tr class="active">
+                    <td>Bill Date</td>
+                    <td>Contractor</td>
+                    <td>Division</td>
+                    <td>Amount</td>
+                    <td>Action</td>
                 </tr>
             </thead>
             <tbody>
@@ -148,7 +204,7 @@ Paid / Unpaid
                         </td>
                         <td>
                             <small>@Html.DisplayFor(m => m.Bills[i].ContractorName)</small>
-</td>
+                        </td>
                         <td>
                             @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)
                         </td>
@@ -156,7 +212,7 @@ Paid / Unpaid
                             @Html.DisplayFor(m => m.Bills[i].Amount)
                         </td>
                         <td>
-                            <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn btn-default"><span class="glyphicon glyphicon-edit" aria-hidden="true" title="Edit this bill" ></span></a>
+                            <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn btn-default"><span class="glyphicon glyphicon-edit" aria-hidden="true" title="Edit this bill"></span></a>
                             <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))" class="btn btn-default"><span class="glyphicon glyphicon-eye-open" aria-hidden="true" title="View this bill"></span></a>
                         </td>
                     </tr>
