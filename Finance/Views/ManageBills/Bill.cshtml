@@ -128,24 +128,33 @@
                             @if (Model.BillHistory[i].BillNumberOld != null && Model.BillHistory[i].BillNumberNew != Model.BillHistory[i].BillNumberOld)
                             {
                                 <li>
-                                    <label style="padding-right:1mm">Bill Number New</label>
-                                    @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
+                                    <label style="padding-right:1mm">Bill Number Changed</label>
+                                     @Html.DisplayFor(m => m.BillHistory[i].BillNumberOld) To @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
                                 </li>
-                                <li>
-                                    <label style="padding-right:1mm">Bill Number Old</label>
-                                    @Html.DisplayFor(m => m.BillHistory[i].BillNumberOld)
-                                </li>
+                                @* <li>
+        <label style="padding-right:1mm">Bill Number New</label>
+        @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
+    </li>
+        <li>
+        <label style="padding-right:1mm">Bill Number Old</label>
+        @Html.DisplayFor(m => m.BillHistory[i].BillNumberOld)
+    </li>*@
                             }
                             @if (Model.BillHistory[i].BillDateOld != null && Model.BillHistory[i].BillDateNew != Model.BillHistory[i].BillDateOld)
                             {
                                 <li>
+                                    <label style="padding-right:1mm">Bill Date Changed</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].BillDateOld) To  @Html.DisplayFor(m => m.BillHistory[i].BillDateNew)
+                                </li>
+                                
+                                @*<li>
                                     <label style="padding-right:1mm">Bill Date New</label>
                                     @Html.DisplayFor(m => m.BillHistory[i].BillDateNew)
                                 </li>
                                 <li>
                                     <label style="padding-right:1mm">Bill Date Old</label>
                                     @Html.DisplayFor(m => m.BillHistory[i].BillDateOld)
-                                </li>
+                                </li>*@
                             }
                             @if (Model.BillHistory[i].AmountOld != null && Model.BillHistory[i].AmountOld != Model.BillHistory[i].AmountNew)
                             {
