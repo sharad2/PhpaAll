@@ -36,9 +36,6 @@ namespace PhpaAll.Bills
     partial void InsertContractor(Contractor instance);
     partial void UpdateContractor(Contractor instance);
     partial void DeleteContractor(Contractor instance);
-    partial void InsertBillWorkflow(BillWorkflow instance);
-    partial void UpdateBillWorkflow(BillWorkflow instance);
-    partial void DeleteBillWorkflow(BillWorkflow instance);
     partial void InsertBill(Bill instance);
     partial void UpdateBill(Bill instance);
     partial void DeleteBill(Bill instance);
@@ -48,6 +45,9 @@ namespace PhpaAll.Bills
     partial void InsertStation(Station instance);
     partial void UpdateStation(Station instance);
     partial void DeleteStation(Station instance);
+    partial void InsertBillWorkflow(BillWorkflow instance);
+    partial void UpdateBillWorkflow(BillWorkflow instance);
+    partial void DeleteBillWorkflow(BillWorkflow instance);
     #endregion
 		
 		public PhpaBillsDataContext() : 
@@ -96,14 +96,6 @@ namespace PhpaAll.Bills
 			}
 		}
 		
-		internal System.Data.Linq.Table<BillWorkflow> BillWorkflows
-		{
-			get
-			{
-				return this.GetTable<BillWorkflow>();
-			}
-		}
-		
 		internal System.Data.Linq.Table<Bill> Bills
 		{
 			get
@@ -127,6 +119,14 @@ namespace PhpaAll.Bills
 				return this.GetTable<Station>();
 			}
 		}
+		
+		internal System.Data.Linq.Table<BillWorkflow> BillWorkflows
+		{
+			get
+			{
+				return this.GetTable<BillWorkflow>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Division")]
@@ -143,11 +143,11 @@ namespace PhpaAll.Bills
 		
 		private string _DivisionName = default(string);
 		
+		private EntitySet<Bill> _Bills;
+		
 		private EntitySet<BillWorkflow> _BillWorkflows;
 		
 		private EntitySet<BillWorkflow> _BillWorkflows1;
-		
-		private EntitySet<Bill> _Bills;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -157,9 +157,9 @@ namespace PhpaAll.Bills
 		
 		public Division()
 		{
+			this._Bills = new EntitySet<Bill>(new Action<Bill>(this.attach_Bills), new Action<Bill>(this.detach_Bills));
 			this._BillWorkflows = new EntitySet<BillWorkflow>(new Action<BillWorkflow>(this.attach_BillWorkflows), new Action<BillWorkflow>(this.detach_BillWorkflows));
 			this._BillWorkflows1 = new EntitySet<BillWorkflow>(new Action<BillWorkflow>(this.attach_BillWorkflows1), new Action<BillWorkflow>(this.detach_BillWorkflows1));
-			this._Bills = new EntitySet<Bill>(new Action<Bill>(this.attach_Bills), new Action<Bill>(this.detach_Bills));
 			OnCreated();
 		}
 		
@@ -199,6 +199,19 @@ namespace PhpaAll.Bills
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_Bill", Storage="_Bills", ThisKey="DivisionId", OtherKey="SubmitedToDivisionId")]
+		public EntitySet<Bill> Bills
+		{
+			get
+			{
+				return this._Bills;
+			}
+			set
+			{
+				this._Bills.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_BillWorkflow", Storage="_BillWorkflows", ThisKey="DivisionId", OtherKey="ToDivisionId")]
 		public EntitySet<BillWorkflow> BillWorkflows
 		{
@@ -225,19 +238,6 @@ namespace PhpaAll.Bills
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_Bill", Storage="_Bills", ThisKey="DivisionId", OtherKey="SubmitedToDivisionId")]
-		public EntitySet<Bill> Bills
-		{
-			get
-			{
-				return this._Bills;
-			}
-			set
-			{
-				this._Bills.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -256,6 +256,18 @@ namespace PhpaAll.Bills
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Bills(Bill entity)
+		{
+			this.SendPropertyChanging();
+			entity.SubmittedToDivision = this;
+		}
+		
+		private void detach_Bills(Bill entity)
+		{
+			this.SendPropertyChanging();
+			entity.SubmittedToDivision = null;
 		}
 		
 		private void attach_BillWorkflows(BillWorkflow entity)
@@ -280,18 +292,6 @@ namespace PhpaAll.Bills
 		{
 			this.SendPropertyChanging();
 			entity.Division1 = null;
-		}
-		
-		private void attach_Bills(Bill entity)
-		{
-			this.SendPropertyChanging();
-			entity.SubmittedToDivision = this;
-		}
-		
-		private void detach_Bills(Bill entity)
-		{
-			this.SendPropertyChanging();
-			entity.SubmittedToDivision = null;
 		}
 	}
 	
@@ -501,489 +501,6 @@ namespace PhpaAll.Bills
 		{
 			this.SendPropertyChanging();
 			entity.Contractor = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BillWorkflow")]
-	internal partial class BillWorkflow : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private System.Nullable<int> _BillId;
-		
-		private string _ActivityType;
-		
-		private System.Nullable<int> _FromDivisionId;
-		
-		private System.Nullable<int> _ToDivisionId;
-		
-		private System.Nullable<System.DateTime> _ActivityDate;
-		
-		private string _ActivityBy;
-		
-		private string _ShortDescription;
-		
-		private System.Nullable<int> _FromStationId;
-		
-		private System.Nullable<int> _ToStationId;
-		
-		private EntityRef<Division> _Division;
-		
-		private EntityRef<Division> _Division1;
-		
-		private EntityRef<Bill> _Bill;
-		
-		private EntityRef<Station> _Station;
-		
-		private EntityRef<Station> _Station1;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnBillIdChanging(System.Nullable<int> value);
-    partial void OnBillIdChanged();
-    partial void OnActivityTypeChanging(string value);
-    partial void OnActivityTypeChanged();
-    partial void OnFromDivisionIdChanging(System.Nullable<int> value);
-    partial void OnFromDivisionIdChanged();
-    partial void OnToDivisionIdChanging(System.Nullable<int> value);
-    partial void OnToDivisionIdChanged();
-    partial void OnActivityDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnActivityDateChanged();
-    partial void OnActivityByChanging(string value);
-    partial void OnActivityByChanged();
-    partial void OnShortDescriptionChanging(string value);
-    partial void OnShortDescriptionChanged();
-    partial void OnFromStationIdChanging(System.Nullable<int> value);
-    partial void OnFromStationIdChanged();
-    partial void OnToStationIdChanging(System.Nullable<int> value);
-    partial void OnToStationIdChanged();
-    #endregion
-		
-		public BillWorkflow()
-		{
-			this._Division = default(EntityRef<Division>);
-			this._Division1 = default(EntityRef<Division>);
-			this._Bill = default(EntityRef<Bill>);
-			this._Station = default(EntityRef<Station>);
-			this._Station1 = default(EntityRef<Station>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillId", DbType="Int")]
-		public System.Nullable<int> BillId
-		{
-			get
-			{
-				return this._BillId;
-			}
-			set
-			{
-				if ((this._BillId != value))
-				{
-					if (this._Bill.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnBillIdChanging(value);
-					this.SendPropertyChanging();
-					this._BillId = value;
-					this.SendPropertyChanged("BillId");
-					this.OnBillIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActivityType", DbType="NVarChar(10)")]
-		public string ActivityType
-		{
-			get
-			{
-				return this._ActivityType;
-			}
-			set
-			{
-				if ((this._ActivityType != value))
-				{
-					this.OnActivityTypeChanging(value);
-					this.SendPropertyChanging();
-					this._ActivityType = value;
-					this.SendPropertyChanged("ActivityType");
-					this.OnActivityTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FromDivisionId", DbType="Int")]
-		public System.Nullable<int> FromDivisionId
-		{
-			get
-			{
-				return this._FromDivisionId;
-			}
-			set
-			{
-				if ((this._FromDivisionId != value))
-				{
-					if (this._Division1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnFromDivisionIdChanging(value);
-					this.SendPropertyChanging();
-					this._FromDivisionId = value;
-					this.SendPropertyChanged("FromDivisionId");
-					this.OnFromDivisionIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToDivisionId", DbType="Int")]
-		public System.Nullable<int> ToDivisionId
-		{
-			get
-			{
-				return this._ToDivisionId;
-			}
-			set
-			{
-				if ((this._ToDivisionId != value))
-				{
-					if (this._Division.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnToDivisionIdChanging(value);
-					this.SendPropertyChanging();
-					this._ToDivisionId = value;
-					this.SendPropertyChanged("ToDivisionId");
-					this.OnToDivisionIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActivityDate", DbType="SmallDateTime")]
-		public System.Nullable<System.DateTime> ActivityDate
-		{
-			get
-			{
-				return this._ActivityDate;
-			}
-			set
-			{
-				if ((this._ActivityDate != value))
-				{
-					this.OnActivityDateChanging(value);
-					this.SendPropertyChanging();
-					this._ActivityDate = value;
-					this.SendPropertyChanged("ActivityDate");
-					this.OnActivityDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActivityBy", DbType="NVarChar(255)")]
-		public string ActivityBy
-		{
-			get
-			{
-				return this._ActivityBy;
-			}
-			set
-			{
-				if ((this._ActivityBy != value))
-				{
-					this.OnActivityByChanging(value);
-					this.SendPropertyChanging();
-					this._ActivityBy = value;
-					this.SendPropertyChanged("ActivityBy");
-					this.OnActivityByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShortDescription", DbType="NVarChar(255)")]
-		public string ShortDescription
-		{
-			get
-			{
-				return this._ShortDescription;
-			}
-			set
-			{
-				if ((this._ShortDescription != value))
-				{
-					this.OnShortDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._ShortDescription = value;
-					this.SendPropertyChanged("ShortDescription");
-					this.OnShortDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FromStationId", DbType="Int")]
-		public System.Nullable<int> FromStationId
-		{
-			get
-			{
-				return this._FromStationId;
-			}
-			set
-			{
-				if ((this._FromStationId != value))
-				{
-					if (this._Station.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnFromStationIdChanging(value);
-					this.SendPropertyChanging();
-					this._FromStationId = value;
-					this.SendPropertyChanged("FromStationId");
-					this.OnFromStationIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToStationId", DbType="Int")]
-		public System.Nullable<int> ToStationId
-		{
-			get
-			{
-				return this._ToStationId;
-			}
-			set
-			{
-				if ((this._ToStationId != value))
-				{
-					if (this._Station1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnToStationIdChanging(value);
-					this.SendPropertyChanging();
-					this._ToStationId = value;
-					this.SendPropertyChanged("ToStationId");
-					this.OnToStationIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_BillWorkflow", Storage="_Division", ThisKey="ToDivisionId", OtherKey="DivisionId", IsForeignKey=true)]
-		public Division Division
-		{
-			get
-			{
-				return this._Division.Entity;
-			}
-			set
-			{
-				Division previousValue = this._Division.Entity;
-				if (((previousValue != value) 
-							|| (this._Division.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Division.Entity = null;
-						previousValue.BillWorkflows.Remove(this);
-					}
-					this._Division.Entity = value;
-					if ((value != null))
-					{
-						value.BillWorkflows.Add(this);
-						this._ToDivisionId = value.DivisionId;
-					}
-					else
-					{
-						this._ToDivisionId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Division");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_BillWorkflow1", Storage="_Division1", ThisKey="FromDivisionId", OtherKey="DivisionId", IsForeignKey=true)]
-		public Division Division1
-		{
-			get
-			{
-				return this._Division1.Entity;
-			}
-			set
-			{
-				Division previousValue = this._Division1.Entity;
-				if (((previousValue != value) 
-							|| (this._Division1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Division1.Entity = null;
-						previousValue.BillWorkflows1.Remove(this);
-					}
-					this._Division1.Entity = value;
-					if ((value != null))
-					{
-						value.BillWorkflows1.Add(this);
-						this._FromDivisionId = value.DivisionId;
-					}
-					else
-					{
-						this._FromDivisionId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Division1");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Bill_BillWorkflow", Storage="_Bill", ThisKey="BillId", OtherKey="Id", IsForeignKey=true)]
-		public Bill Bill
-		{
-			get
-			{
-				return this._Bill.Entity;
-			}
-			set
-			{
-				Bill previousValue = this._Bill.Entity;
-				if (((previousValue != value) 
-							|| (this._Bill.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Bill.Entity = null;
-						previousValue.BillWorkflows.Remove(this);
-					}
-					this._Bill.Entity = value;
-					if ((value != null))
-					{
-						value.BillWorkflows.Add(this);
-						this._BillId = value.Id;
-					}
-					else
-					{
-						this._BillId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Bill");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_BillWorkflow", Storage="_Station", ThisKey="FromStationId", OtherKey="StationId", IsForeignKey=true)]
-		public Station Station
-		{
-			get
-			{
-				return this._Station.Entity;
-			}
-			set
-			{
-				Station previousValue = this._Station.Entity;
-				if (((previousValue != value) 
-							|| (this._Station.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Station.Entity = null;
-						previousValue.BillWorkflows.Remove(this);
-					}
-					this._Station.Entity = value;
-					if ((value != null))
-					{
-						value.BillWorkflows.Add(this);
-						this._FromStationId = value.StationId;
-					}
-					else
-					{
-						this._FromStationId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Station");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_BillWorkflow1", Storage="_Station1", ThisKey="ToStationId", OtherKey="StationId", IsForeignKey=true)]
-		public Station Station1
-		{
-			get
-			{
-				return this._Station1.Entity;
-			}
-			set
-			{
-				Station previousValue = this._Station1.Entity;
-				if (((previousValue != value) 
-							|| (this._Station1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Station1.Entity = null;
-						previousValue.BillWorkflows1.Remove(this);
-					}
-					this._Station1.Entity = value;
-					if ((value != null))
-					{
-						value.BillWorkflows1.Add(this);
-						this._ToStationId = value.StationId;
-					}
-					else
-					{
-						this._ToStationId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Station1");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -2438,10 +1955,6 @@ namespace PhpaAll.Bills
 		
 		private System.Data.Linq.Binary _Version;
 		
-		private EntitySet<BillWorkflow> _BillWorkflows;
-		
-		private EntitySet<BillWorkflow> _BillWorkflows1;
-		
 		private EntitySet<Bill> _Bills;
 		
     #region Extensibility Method Definitions
@@ -2470,8 +1983,6 @@ namespace PhpaAll.Bills
 		
 		public Station()
 		{
-			this._BillWorkflows = new EntitySet<BillWorkflow>(new Action<BillWorkflow>(this.attach_BillWorkflows), new Action<BillWorkflow>(this.detach_BillWorkflows));
-			this._BillWorkflows1 = new EntitySet<BillWorkflow>(new Action<BillWorkflow>(this.attach_BillWorkflows1), new Action<BillWorkflow>(this.detach_BillWorkflows1));
 			this._Bills = new EntitySet<Bill>(new Action<Bill>(this.attach_Bills), new Action<Bill>(this.detach_Bills));
 			OnCreated();
 		}
@@ -2656,32 +2167,6 @@ namespace PhpaAll.Bills
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_BillWorkflow", Storage="_BillWorkflows", ThisKey="StationId", OtherKey="FromStationId")]
-		public EntitySet<BillWorkflow> BillWorkflows
-		{
-			get
-			{
-				return this._BillWorkflows;
-			}
-			set
-			{
-				this._BillWorkflows.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_BillWorkflow1", Storage="_BillWorkflows1", ThisKey="StationId", OtherKey="ToStationId")]
-		public EntitySet<BillWorkflow> BillWorkflows1
-		{
-			get
-			{
-				return this._BillWorkflows1;
-			}
-			set
-			{
-				this._BillWorkflows1.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Station_Bill", Storage="_Bills", ThisKey="StationId", OtherKey="StationId")]
 		public EntitySet<Bill> Bills
 		{
@@ -2715,30 +2200,6 @@ namespace PhpaAll.Bills
 			}
 		}
 		
-		private void attach_BillWorkflows(BillWorkflow entity)
-		{
-			this.SendPropertyChanging();
-			entity.Station = this;
-		}
-		
-		private void detach_BillWorkflows(BillWorkflow entity)
-		{
-			this.SendPropertyChanging();
-			entity.Station = null;
-		}
-		
-		private void attach_BillWorkflows1(BillWorkflow entity)
-		{
-			this.SendPropertyChanging();
-			entity.Station1 = this;
-		}
-		
-		private void detach_BillWorkflows1(BillWorkflow entity)
-		{
-			this.SendPropertyChanging();
-			entity.Station1 = null;
-		}
-		
 		private void attach_Bills(Bill entity)
 		{
 			this.SendPropertyChanging();
@@ -2749,6 +2210,431 @@ namespace PhpaAll.Bills
 		{
 			this.SendPropertyChanging();
 			entity.Station = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BillWorkflow")]
+	internal partial class BillWorkflow : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private System.Nullable<int> _BillId;
+		
+		private string _ActivityType;
+		
+		private System.Nullable<int> _FromDivisionId;
+		
+		private System.Nullable<int> _ToDivisionId;
+		
+		private System.Nullable<System.DateTime> _ActivityDate;
+		
+		private string _ActivityBy;
+		
+		private string _ShortDescription;
+		
+		private System.Nullable<System.DateTime> _Created;
+		
+		private string _CreatedBy;
+		
+		private System.Data.Linq.Binary _Version;
+		
+		private EntityRef<Bill> _Bill;
+		
+		private EntityRef<Division> _Division;
+		
+		private EntityRef<Division> _Division1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnBillIdChanging(System.Nullable<int> value);
+    partial void OnBillIdChanged();
+    partial void OnActivityTypeChanging(string value);
+    partial void OnActivityTypeChanged();
+    partial void OnFromDivisionIdChanging(System.Nullable<int> value);
+    partial void OnFromDivisionIdChanged();
+    partial void OnToDivisionIdChanging(System.Nullable<int> value);
+    partial void OnToDivisionIdChanged();
+    partial void OnActivityDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnActivityDateChanged();
+    partial void OnActivityByChanging(string value);
+    partial void OnActivityByChanged();
+    partial void OnShortDescriptionChanging(string value);
+    partial void OnShortDescriptionChanged();
+    partial void OnCreatedChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnVersionChanging(System.Data.Linq.Binary value);
+    partial void OnVersionChanged();
+    #endregion
+		
+		public BillWorkflow()
+		{
+			this._Bill = default(EntityRef<Bill>);
+			this._Division = default(EntityRef<Division>);
+			this._Division1 = default(EntityRef<Division>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillId", DbType="Int", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<int> BillId
+		{
+			get
+			{
+				return this._BillId;
+			}
+			set
+			{
+				if ((this._BillId != value))
+				{
+					if (this._Bill.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnBillIdChanging(value);
+					this.SendPropertyChanging();
+					this._BillId = value;
+					this.SendPropertyChanged("BillId");
+					this.OnBillIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActivityType", DbType="NVarChar(10)", UpdateCheck=UpdateCheck.Never)]
+		public string ActivityType
+		{
+			get
+			{
+				return this._ActivityType;
+			}
+			set
+			{
+				if ((this._ActivityType != value))
+				{
+					this.OnActivityTypeChanging(value);
+					this.SendPropertyChanging();
+					this._ActivityType = value;
+					this.SendPropertyChanged("ActivityType");
+					this.OnActivityTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FromDivisionId", DbType="Int", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<int> FromDivisionId
+		{
+			get
+			{
+				return this._FromDivisionId;
+			}
+			set
+			{
+				if ((this._FromDivisionId != value))
+				{
+					if (this._Division1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFromDivisionIdChanging(value);
+					this.SendPropertyChanging();
+					this._FromDivisionId = value;
+					this.SendPropertyChanged("FromDivisionId");
+					this.OnFromDivisionIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToDivisionId", DbType="Int", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<int> ToDivisionId
+		{
+			get
+			{
+				return this._ToDivisionId;
+			}
+			set
+			{
+				if ((this._ToDivisionId != value))
+				{
+					if (this._Division.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnToDivisionIdChanging(value);
+					this.SendPropertyChanging();
+					this._ToDivisionId = value;
+					this.SendPropertyChanged("ToDivisionId");
+					this.OnToDivisionIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActivityDate", DbType="SmallDateTime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> ActivityDate
+		{
+			get
+			{
+				return this._ActivityDate;
+			}
+			set
+			{
+				if ((this._ActivityDate != value))
+				{
+					this.OnActivityDateChanging(value);
+					this.SendPropertyChanging();
+					this._ActivityDate = value;
+					this.SendPropertyChanged("ActivityDate");
+					this.OnActivityDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActivityBy", DbType="NVarChar(255)", UpdateCheck=UpdateCheck.Never)]
+		public string ActivityBy
+		{
+			get
+			{
+				return this._ActivityBy;
+			}
+			set
+			{
+				if ((this._ActivityBy != value))
+				{
+					this.OnActivityByChanging(value);
+					this.SendPropertyChanging();
+					this._ActivityBy = value;
+					this.SendPropertyChanged("ActivityBy");
+					this.OnActivityByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShortDescription", DbType="NVarChar(255)", UpdateCheck=UpdateCheck.Never)]
+		public string ShortDescription
+		{
+			get
+			{
+				return this._ShortDescription;
+			}
+			set
+			{
+				if ((this._ShortDescription != value))
+				{
+					this.OnShortDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._ShortDescription = value;
+					this.SendPropertyChanged("ShortDescription");
+					this.OnShortDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created", DbType="SmallDateTime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> Created
+		{
+			get
+			{
+				return this._Created;
+			}
+			set
+			{
+				if ((this._Created != value))
+				{
+					this.OnCreatedChanging(value);
+					this.SendPropertyChanging();
+					this._Created = value;
+					this.SendPropertyChanged("Created");
+					this.OnCreatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="NVarChar(255)", UpdateCheck=UpdateCheck.Never)]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Version
+		{
+			get
+			{
+				return this._Version;
+			}
+			set
+			{
+				if ((this._Version != value))
+				{
+					this.OnVersionChanging(value);
+					this.SendPropertyChanging();
+					this._Version = value;
+					this.SendPropertyChanged("Version");
+					this.OnVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Bill_BillWorkflow", Storage="_Bill", ThisKey="BillId", OtherKey="Id", IsForeignKey=true)]
+		public Bill Bill
+		{
+			get
+			{
+				return this._Bill.Entity;
+			}
+			set
+			{
+				Bill previousValue = this._Bill.Entity;
+				if (((previousValue != value) 
+							|| (this._Bill.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Bill.Entity = null;
+						previousValue.BillWorkflows.Remove(this);
+					}
+					this._Bill.Entity = value;
+					if ((value != null))
+					{
+						value.BillWorkflows.Add(this);
+						this._BillId = value.Id;
+					}
+					else
+					{
+						this._BillId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Bill");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_BillWorkflow", Storage="_Division", ThisKey="ToDivisionId", OtherKey="DivisionId", IsForeignKey=true)]
+		public Division Division
+		{
+			get
+			{
+				return this._Division.Entity;
+			}
+			set
+			{
+				Division previousValue = this._Division.Entity;
+				if (((previousValue != value) 
+							|| (this._Division.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Division.Entity = null;
+						previousValue.BillWorkflows.Remove(this);
+					}
+					this._Division.Entity = value;
+					if ((value != null))
+					{
+						value.BillWorkflows.Add(this);
+						this._ToDivisionId = value.DivisionId;
+					}
+					else
+					{
+						this._ToDivisionId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Division");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_BillWorkflow1", Storage="_Division1", ThisKey="FromDivisionId", OtherKey="DivisionId", IsForeignKey=true)]
+		public Division Division1
+		{
+			get
+			{
+				return this._Division1.Entity;
+			}
+			set
+			{
+				Division previousValue = this._Division1.Entity;
+				if (((previousValue != value) 
+							|| (this._Division1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Division1.Entity = null;
+						previousValue.BillWorkflows1.Remove(this);
+					}
+					this._Division1.Entity = value;
+					if ((value != null))
+					{
+						value.BillWorkflows1.Add(this);
+						this._FromDivisionId = value.DivisionId;
+					}
+					else
+					{
+						this._FromDivisionId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Division1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

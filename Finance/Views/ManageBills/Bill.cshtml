@@ -7,85 +7,17 @@
 
 <h2 style="margin-top:0" class="text-center">
     @Html.DisplayFor(m => m.ContractorName)
-</h2>
-<hr />
+    @if (Model.ApprovedDate != null)
+    {
 
-<div class="row">
-    <div class="col-md-8 well well-sm">
+        <label class="label label-success">
+            Approved on
+            @Html.DisplayFor(m => m.ApprovedDate)
+            <em>by  @Html.DisplayFor(m => m.ApprovedBy) </em>
+        </label>
 
-        <div class="row">
-            <div class="col-md-8">
-                <strong>No: @Html.DisplayFor(m => m.BillNumber)</strong>
-            </div>
-            <div class="col-md-4">
-                <strong class="pull-right">Dated: @Html.DisplayFor(m => m.BillDate)</strong>
-            </div>
-        </div>
-        <br />
-        <br />
-        <div>
-            <label>Particulars:</label>   @Html.DisplayFor(m => m.Particulars)
-        </div>
-        <br />
-
-
-        <div class="row">
-            <div class="col-md-3">
-                <label>Received on</label>
-                @Html.DisplayFor(m => m.SubmittedOnDate)
-            </div>
-            <div class="col-md-3">
-                <label for="dueDate">Payment Due Date</label>
-                @Html.DisplayFor(m => m.DueDate)
-            </div>
-            <div class="col-md-3">
-                <label>Amount</label>
-                @Html.DisplayFor(m => m.Amount)
-
-                <label>Paid on</label>
-                @Html.DisplayFor(m => m.PaidDate)
-
-            </div>
-
-        </div>
-        <div>
-            <label for="remarks">Remarks</label>
-
-            @Html.DisplayFor(m => m.Remarks)
-        </div>
-        <br />
-        <br />
-
-        <div class="row">
-            <div class="col-md-3 col-md-offset-9">
-                <label>Division</label>
-                @Html.DisplayFor(m => m.SubmittedToDivisionName)
-                @@Station @Html.DisplayFor(m => m.StationName)
-                <br />
-
-                <label>Approved By</label>  @Html.DisplayFor(m => m.ApprovedBy)
-                <label>Approved Date</label>
-                @Html.DisplayFor(m => m.ApprovedDate)
-
-
-            </div>
-
-        </div>
-        <br />
-
-     
-      
-    </div>
-    <div class="col-md-4">
-
-        <img src="~/Images/Its demoimageDeleteit.jpg" width="300" height="380"/>
-        @Html.DisplayFor(m => m.BillImage)
-    </div>
-</div>
-
-
-<h2 style="margin-top:0">
-
+    }
+    &nbsp;
     <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-default btn-sm">
         <span class="glyphicon glyphicon-edit"></span>
         Edit
@@ -94,6 +26,77 @@
         Recent Bills
     </a>
 </h2>
+
+
+<hr />
+
+<div class="row">
+    <div class="col-md-8 well well-sm">
+        <div class="row">
+            <div class="col-md-8">
+                <strong>No: @Html.DisplayFor(m => m.BillNumber)</strong>
+            </div>
+            <div class="col-md-4" style="text-align:right">
+                <strong class="pull-right1">Dated: @Html.DisplayFor(m => m.BillDate)</strong>
+                @if (Model.DueDate < DateTime.Now)
+                {
+                    <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
+                }
+                else
+                {
+                    <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
+                }
+            </div>
+        </div>
+        <br />
+        <small class="text-info">
+            <strong>Particulars:</strong> @Html.DisplayFor(m => m.Particulars)
+        </small>
+        <br />
+        <br />
+
+        <blockquote class="blockquote-reverse">
+
+            <p>
+                <strong>Amount(Nu.) @Html.DisplayFor(m => m.Amount)</strong>
+                @if (Model.PaidDate != null)
+                {
+                    <span>
+                        paid on @Html.DisplayFor(m => m.PaidDate)
+                    </span>
+                }
+            </p>
+
+            <small>
+                <label>Received at division</label>
+                @Html.DisplayFor(m => m.SubmittedToDivisionName)
+                <em>on @Html.DisplayFor(m => m.SubmittedOnDate)</em>
+                <strong>@@Station</strong>
+                @Html.DisplayFor(m => m.StationName)
+
+            </small>
+        </blockquote>
+
+
+
+        <hr />
+        <em class="text-muted">
+            <small>
+                <label>Remarks:</label>
+                @Html.DisplayFor(m => m.Remarks)
+            </small>
+        </em>
+        <br />
+        <br />
+
+
+    </div>
+    <div class="col-md-4">
+        This is hardwired image
+        <img src="~/Images/Its demoimageDeleteit.jpg" width="340" height="300" />
+        @Html.DisplayFor(m => m.BillImage)
+    </div>
+</div>
 
 
 <h2 style="margin-top:0">
