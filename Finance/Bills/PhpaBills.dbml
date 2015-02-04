@@ -105,8 +105,8 @@
       <Association Name="Station_Bill" Member="Bills" ThisKey="StationId" OtherKey="StationId" Type="Bill" />
     </Type>
   </Table>
-  <Table Name="dbo.BillWorkflow" Member="BillWorkflows">
-    <Type Name="BillWorkflow">
+  <Table Name="dbo.BillWorkflow" Member="BillWorkflows" AccessModifier="Internal">
+    <Type Name="BillWorkflow" AccessModifier="Internal">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="BillId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ActivityType" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
