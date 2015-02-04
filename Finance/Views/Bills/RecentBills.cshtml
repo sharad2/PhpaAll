@@ -26,8 +26,18 @@ TODO: Amounts of approved bills will display in green
             <fieldset>
                 <legend>Bill Date Range</legend>
                 <div class="form-inline">
-                    <input type="date" class="form-control input-sm" size="6" placeholder="From" name="@MVC.Bills.RecentBillsParams.dates" value="@Html.DisplayFor(m => m.DateFrom)" />
-                    <input type="date" class="form-control input-sm" size="6" placeholder="To" name="@MVC.Bills.RecentBillsParams.dates" value="@Html.DisplayFor(m => m.DateTo)" />
+                    <div class='input-group date' id='billDatePickerFrom'>
+                        <input type="date" class="form-control input-sm" size="6" placeholder="From" name="@MVC.Bills.RecentBillsParams.dates" value="@Html.DisplayFor(m => m.DateFrom)" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                    <div class='input-group date' id='billDatePickerTo'>
+                        <input type="date" class="form-control input-sm" size="6" placeholder="To" name="@MVC.Bills.RecentBillsParams.dates" value="@Html.DisplayFor(m => m.DateTo)" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
                 </div>
             </fieldset>
             <fieldset>
@@ -225,3 +235,22 @@ Paid / Unpaid
         </ul>
     </div>
 </div>
+@section scripts {
+    <link href="@Links.Content.typeahead_css" rel="stylesheet" />
+    <link rel="stylesheet" href="@Links.Content.bootstrap_datetimepicker_css" />
+    <script type="text/javascript" src="@Links.Scripts.jqueryval_js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#billDatePickerFrom").datetimepicker({
+                format: 'D/M/YYYY'
+            });
+        });
+
+        $(document).ready(function () {
+            $("#billDatePickerTo").datetimepicker({
+                format: 'D/M/YYYY'
+            });
+        });
+    </script>
+}
