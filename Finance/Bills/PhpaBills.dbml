@@ -45,10 +45,10 @@
       <Column Name="Remarks" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="BillImage" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
-      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" IsReadOnly="true" CanBeNull="true" />
       <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="StationId" Type="System.Int32" DbType="Int" CanBeNull="false" />
       <Association Name="Bill_BillWorkflow" Member="BillWorkflows" ThisKey="Id" OtherKey="BillId" Type="BillWorkflow" />
@@ -115,8 +115,8 @@
       <Column Name="ActivityDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="ActivityBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="ShortDescription" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(255)" IsReadOnly="true" CanBeNull="true" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
       <Association Name="Bill_BillWorkflow" Member="Bill" ThisKey="BillId" OtherKey="Id" Type="Bill" IsForeignKey="true" />
       <Association Name="Division_BillWorkflow" Member="Division" ThisKey="ToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />

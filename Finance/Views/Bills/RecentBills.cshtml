@@ -2,6 +2,35 @@
 @{
     ViewBag.Title = "Recent Bills";
 }
+@section scripts {
+    <link rel="stylesheet" href="@Links.Content.bootstrap_datetimepicker_css" />
+    <script type="text/javascript" src="@Links.Scripts.jqueryval_js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+            $("#billDatePickerTo,#billDatePickerFrom").datetimepicker({
+                format: 'D/M/YYYY'
+            });
+
+            // Code to clean up the URL by not posting unnecessary filters
+            $('#frmFilters').on('submit', function (e) {
+                // If all checkboxes in a group are checked, uncheck all so that they do not get posted
+                $('#fsDivisions,#fsContractors,#fsApprovers,#fsStations').each(function (index, elem) {
+                    if ($('input:not(:checked)', elem).length == 0) {
+                        //alert('Hi');
+                        $('input:checked', elem).prop('checked', false);
+                    }
+                });
+                //alert($('input:not(value),input[value=""]', '#fsBillDates,#fsAmounts').length);
+
+                // Disable empty textboxes so that they do not get posted
+                $('input:not(value),input[value=""]', '#fsBillDates,#fsAmounts').prop('disabled', true);
+                //return false;
+            });
+        });
+    </script>
+}
 <h2>
     @ViewBag.Title
     <small>
@@ -16,14 +45,14 @@ TODO: Amounts of approved bills will display in green
 </pre>
 <div class="row">
     <div class="col-md-3">
-        <form method="get" action="@Url.Action(MVC.Bills.RecentBills())">
+        <form id="frmFilters" method="get" action="@Url.Action(MVC.Bills.RecentBills())">
             <button type="submit" class="btn btn-primary">Apply Filters</button>
             @if (Model.IsFiltered)
             {
                 <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
             }
 
-            <fieldset>
+            <fieldset id="fsBillDates">
                 <legend>Bill Date Range</legend>
                 <div class="form-inline">
                     <div class='input-group date' id='billDatePickerFrom'>
@@ -40,16 +69,17 @@ TODO: Amounts of approved bills will display in green
                     </div>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset id="fsAmounts">
                 <legend>Amount</legend>
                 <div class="form-inline">
-                    <input type="number" class="form-control input-sm" size="10" placeholder="Min" name="@MVC.Bills.RecentBillsParams.amounts" value="@Html.DisplayFor(m => m.MinAmount)" />
-                    <input type="number" class="form-control input-sm" size="10" placeholder="Max" name="@MVC.Bills.RecentBillsParams.amounts" value="@Html.DisplayFor(m => m.MaxAmount)" />
+                    <input type="number" class="form-control input-sm" size="10" placeholder="Min" name="@MVC.Bills.RecentBillsParams.amounts" value="@Model.FilterMinAmount" />
+                    <input type="number" class="form-control input-sm" size="10" placeholder="Max" name="@MVC.Bills.RecentBillsParams.amounts" value="@Model.FilterMaxAmount"
+                           min="100" />
                 </div>
             </fieldset>
             @if (Model.Divisions.Count > 0)
             {
-                <fieldset>
+                <fieldset id="fsDivisions">
                     <legend>Submitted to Division</legend>
                     @for (var i = 0; i < Model.Divisions.Count; ++i)
                     {
@@ -66,7 +96,7 @@ TODO: Amounts of approved bills will display in green
             }
             @if (Model.Contractors.Count > 1)
             {
-                <fieldset>
+                <fieldset id="fsContractors">
                     <legend>Contractors</legend>
                     @for (var i = 0; i < Model.Contractors.Count; ++i)
                     {
@@ -82,7 +112,7 @@ TODO: Amounts of approved bills will display in green
             }
             @if (Model.Approvers.Count > 1)
             {
-                <fieldset>
+                <fieldset id="fsApprovers">
                     <legend>Approvers</legend>
                     @for (var i = 0; i < Model.Approvers.Count; ++i)
                     {
@@ -98,7 +128,7 @@ TODO: Amounts of approved bills will display in green
             }
             @if (Model.Stations.Count > 1)
             {
-                <fieldset>
+                <fieldset id="fsStations">
                     <legend>Stations</legend>
                     @for (var i = 0; i < Model.Stations.Count; ++i)
                     {
@@ -235,22 +265,3 @@ Paid / Unpaid
         </ul>
     </div>
 </div>
-@section scripts {
-    <link href="@Links.Content.typeahead_css" rel="stylesheet" />
-    <link rel="stylesheet" href="@Links.Content.bootstrap_datetimepicker_css" />
-    <script type="text/javascript" src="@Links.Scripts.jqueryval_js"></script>
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-            $("#billDatePickerFrom").datetimepicker({
-                format: 'D/M/YYYY'
-            });
-        });
-
-        $(document).ready(function () {
-            $("#billDatePickerTo").datetimepicker({
-                format: 'D/M/YYYY'
-            });
-        });
-    </script>
-}

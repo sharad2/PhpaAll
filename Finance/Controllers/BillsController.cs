@@ -170,14 +170,14 @@ namespace PhpaAll.Controllers
                     // Min Amount
                     filteredBills = filteredBills.Where(p => p.Amount >= amounts[0]);
                     model.IsFiltered = true;
-                    model.MinAmount = amounts[0];
+                    model.FilterMinAmount = amounts[0];
                 }
                 if (amounts[1] != null)
                 {
                     // Max Amount
                     filteredBills = filteredBills.Where(p => p.Amount <= amounts[1]);
                     model.IsFiltered = true;
-                    model.MaxAmount = amounts[1];
+                    model.FilterMaxAmount = amounts[1];
                 }
 
             }

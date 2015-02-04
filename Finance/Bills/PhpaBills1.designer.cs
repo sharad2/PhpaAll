@@ -538,13 +538,13 @@ namespace PhpaAll.Bills
 		
 		private System.Data.Linq.Binary _Version;
 		
-		private System.Nullable<System.DateTime> _Created;
+		private System.Nullable<System.DateTime> _Created = default(System.Nullable<System.DateTime>);
 		
-		private string _CreatedBy;
+		private string _CreatedBy = default(string);
 		
-		private System.Nullable<System.DateTime> _Modified;
+		private System.Nullable<System.DateTime> _Modified = default(System.Nullable<System.DateTime>);
 		
-		private string _ModifiedBy;
+		private string _ModifiedBy = default(string);
 		
 		private string _Particulars;
 		
@@ -590,14 +590,6 @@ namespace PhpaAll.Bills
     partial void OnBillImageChanged();
     partial void OnVersionChanging(System.Data.Linq.Binary value);
     partial void OnVersionChanged();
-    partial void OnCreatedChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedChanged();
-    partial void OnCreatedByChanging(string value);
-    partial void OnCreatedByChanged();
-    partial void OnModifiedChanging(System.Nullable<System.DateTime> value);
-    partial void OnModifiedChanged();
-    partial void OnModifiedByChanging(string value);
-    partial void OnModifiedByChanged();
     partial void OnParticularsChanging(string value);
     partial void OnParticularsChanged();
     partial void OnStationIdChanging(int value);
@@ -908,17 +900,6 @@ namespace PhpaAll.Bills
 			{
 				return this._Created;
 			}
-			set
-			{
-				if ((this._Created != value))
-				{
-					this.OnCreatedChanging(value);
-					this.SendPropertyChanging();
-					this._Created = value;
-					this.SendPropertyChanged("Created");
-					this.OnCreatedChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
@@ -927,17 +908,6 @@ namespace PhpaAll.Bills
 			get
 			{
 				return this._CreatedBy;
-			}
-			set
-			{
-				if ((this._CreatedBy != value))
-				{
-					this.OnCreatedByChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedBy = value;
-					this.SendPropertyChanged("CreatedBy");
-					this.OnCreatedByChanged();
-				}
 			}
 		}
 		
@@ -948,17 +918,6 @@ namespace PhpaAll.Bills
 			{
 				return this._Modified;
 			}
-			set
-			{
-				if ((this._Modified != value))
-				{
-					this.OnModifiedChanging(value);
-					this.SendPropertyChanging();
-					this._Modified = value;
-					this.SendPropertyChanged("Modified");
-					this.OnModifiedChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedBy", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
@@ -967,17 +926,6 @@ namespace PhpaAll.Bills
 			get
 			{
 				return this._ModifiedBy;
-			}
-			set
-			{
-				if ((this._ModifiedBy != value))
-				{
-					this.OnModifiedByChanging(value);
-					this.SendPropertyChanging();
-					this._ModifiedBy = value;
-					this.SendPropertyChanged("ModifiedBy");
-					this.OnModifiedByChanged();
-				}
 			}
 		}
 		
@@ -2235,9 +2183,9 @@ namespace PhpaAll.Bills
 		
 		private string _ShortDescription;
 		
-		private System.Nullable<System.DateTime> _Created;
+		private System.Nullable<System.DateTime> _Created = default(System.Nullable<System.DateTime>);
 		
-		private string _CreatedBy;
+		private string _CreatedBy = default(string);
 		
 		private System.Data.Linq.Binary _Version;
 		
@@ -2267,10 +2215,6 @@ namespace PhpaAll.Bills
     partial void OnActivityByChanged();
     partial void OnShortDescriptionChanging(string value);
     partial void OnShortDescriptionChanged();
-    partial void OnCreatedChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedChanged();
-    partial void OnCreatedByChanging(string value);
-    partial void OnCreatedByChanged();
     partial void OnVersionChanging(System.Data.Linq.Binary value);
     partial void OnVersionChanged();
     #endregion
@@ -2462,17 +2406,6 @@ namespace PhpaAll.Bills
 			{
 				return this._Created;
 			}
-			set
-			{
-				if ((this._Created != value))
-				{
-					this.OnCreatedChanging(value);
-					this.SendPropertyChanging();
-					this._Created = value;
-					this.SendPropertyChanged("Created");
-					this.OnCreatedChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="NVarChar(255)", UpdateCheck=UpdateCheck.Never)]
@@ -2481,17 +2414,6 @@ namespace PhpaAll.Bills
 			get
 			{
 				return this._CreatedBy;
-			}
-			set
-			{
-				if ((this._CreatedBy != value))
-				{
-					this.OnCreatedByChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedBy = value;
-					this.SendPropertyChanged("CreatedBy");
-					this.OnCreatedByChanged();
-				}
 			}
 		}
 		

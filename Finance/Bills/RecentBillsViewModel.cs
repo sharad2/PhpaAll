@@ -119,10 +119,10 @@ namespace PhpaAll.Bills
         public DateTime? DateTo { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N2}")]
-        public Decimal? MinAmount { get; set; }
+        public Decimal? FilterMinAmount { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N2}")]
-        public Decimal? MaxAmount { get; set; }
+        public Decimal? FilterMaxAmount { get; set; }
 
         /// <summary>
         /// URL which will cause the current data to be displayed in Excel
