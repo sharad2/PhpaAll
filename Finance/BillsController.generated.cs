@@ -70,6 +70,12 @@ namespace PhpaAll.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RecentBills);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ApproveBills()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ApproveBills);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public BillsController Actions { get { return MVC.Bills; } }
@@ -89,6 +95,7 @@ namespace PhpaAll.Controllers
             public readonly string Index = "Index";
             public readonly string Search = "Search";
             public readonly string RecentBills = "RecentBills";
+            public readonly string ApproveBills = "ApproveBills";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -97,6 +104,7 @@ namespace PhpaAll.Controllers
             public const string Index = "Index";
             public const string Search = "Search";
             public const string RecentBills = "RecentBills";
+            public const string ApproveBills = "ApproveBills";
         }
 
 
@@ -123,6 +131,14 @@ namespace PhpaAll.Controllers
             public readonly string minAmount = "minAmount";
             public readonly string maxAmount = "maxAmount";
             public readonly string exportToExcel = "exportToExcel";
+        }
+        static readonly ActionParamsClass_ApproveBills s_params_ApproveBills = new ActionParamsClass_ApproveBills();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ApproveBills ApproveBillsParams { get { return s_params_ApproveBills; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ApproveBills
+        {
+            public readonly string listBillId = "listBillId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -189,6 +205,18 @@ namespace PhpaAll.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "maxAmount", maxAmount);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "exportToExcel", exportToExcel);
             RecentBillsOverride(callInfo, approvers, divisions, contractors, stations, dateFrom, dateTo, minAmount, maxAmount, exportToExcel);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ApproveBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int[] listBillId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ApproveBills(int[] listBillId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ApproveBills);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "listBillId", listBillId);
+            ApproveBillsOverride(callInfo, listBillId);
             return callInfo;
         }
 

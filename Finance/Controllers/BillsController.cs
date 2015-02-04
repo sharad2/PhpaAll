@@ -220,8 +220,19 @@ namespace PhpaAll.Controllers
             return View(Views.RecentBills, model);
         }
 
-
-
+        [HttpPost]
+        public virtual ActionResult ApproveBills(int[] listBillId)
+        {
+            throw new NotImplementedException(listBillId == null ? "null" : listBillId.Length.ToString());
+            var query = from bill in _db.Value.Bills
+                        where listBillId.Contains(bill.Id)
+                        select bill;
+            foreach (var bill in query)
+            {
+                bill.ApprovedOn = DateTime.Now;
+            }
+            _db.Value.SubmitChanges();
+        }
 
     }
 }
