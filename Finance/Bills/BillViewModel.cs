@@ -77,6 +77,7 @@ namespace PhpaAll.Bills
         [DataType(DataType.Date)]
         public DateTime? PaidDate { get; set; }
 
+          [DataType(DataType.Date)]
         public DateTime? ApprovedDate { get; set; }
 
         public string ApprovedBy { get; set; }
