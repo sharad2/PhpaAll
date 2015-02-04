@@ -2,93 +2,102 @@
 @{
     ViewBag.Title = "Recent Bills";
 }
-    <h2>
-        @ViewBag.Title
-        <small>
-            <a href="@Url.Action(MVC.ManageBills.Create())">Create new bill</a>
-        </small>
-    </h2>
-    <p>
-        <a href="@Model.UrlExcel">Export to Excel</a>
-    </p>
+<h2>
+    @ViewBag.Title
+    <small>
+        <a href="@Url.Action(MVC.ManageBills.Create())">Create new bill</a>
+    </small>
+</h2>
+<p>
+    <a href="@Model.UrlExcel">Export to Excel</a>
+</p>
 <pre>
 TODO: Amounts of approved bills will display in green
 </pre>
-    <div class="row">
-        <div class="col-md-3">
-            <form method="get" action="@Url.Action(MVC.Bills.RecentBills())">
-                <button type="submit">Apply</button>
-                @if (Model.IsFiltered)
-                {
-                    <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
-                }
-                @if (Model.Divisions.Count > 0)
-                {
-                    <fieldset>
-                        <legend>Submitted to Division</legend>
-                        @for (var i = 0; i < Model.Divisions.Count; ++i)
-                        {
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.divisions" value="@Model.Divisions[i].Id" checked="@Model.Divisions[i].Selected">
-                                    @Html.DisplayFor(m => m.Divisions[i].Name) <small><em>@Html.DisplayFor(m => m.Divisions[i].Count)</em></small>
-                                    <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.divisions, Model.Divisions[i].Id))">only</a></small>
-                                </label>
+<div class="row">
+    <div class="col-md-3">
+        <form method="get" action="@Url.Action(MVC.Bills.RecentBills())">
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
+            @if (Model.IsFiltered)
+            {
+                <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
+            }
 
-                            </div>
-                        }
-                    </fieldset>
-                }
-                @if (Model.Contractors.Count > 1)
-                {
-                    <fieldset>
-                        <legend>Contractors</legend>
-                        @for (var i = 0; i < Model.Contractors.Count; ++i)
-                        {
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.contractors" value="@Model.Contractors[i].Id" checked="@Model.Contractors[i].Selected" />
-                                    @Html.DisplayFor(m => m.Contractors[i].Name)<small><em>@Html.DisplayFor(m => m.Contractors[i].Count)</em></small>
-                                    <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.contractors, Model.Contractors[i].Id))">only</a></small>
-                                </label>
-                            </div>
-                        }
-                    </fieldset>
-                }
-                @if (Model.Approvers.Count > 1)
-                {
-                    <fieldset>
-                        <legend>Approvers</legend>
-                        @for (var i = 0; i < Model.Approvers.Count; ++i)
-                        {
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.approvers" value="@Model.Approvers[i].Id" checked="@Model.Approvers[i].Selected">
-                                    @Html.DisplayFor(m => m.Approvers[i].Name) <small><em>@Html.DisplayFor(m => m.Approvers[i].Count)</em></small>
-                                </label>
-                                <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.approvers, Model.Approvers[i].Id))">only</a></small>
-                            </div>
-                        }
-                    </fieldset>
-                }
-                @if (Model.Stations.Count > 1)
-                {
-                    <fieldset>
-                        <legend>Stations</legend>
-                        @for (var i = 0; i < Model.Stations.Count; ++i)
-                        {
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.stations" value="@Model.Stations[i].Id" checked="@Model.Stations[i].Selected" />
-                                    @Html.DisplayFor(m => m.Stations[i].Name)<small><em>@Html.DisplayFor(m => m.Stations[i].Count)</em></small>
-                                    <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.stations, Model.Stations[i].Id))">only</a></small>
-                                </label>
-                            </div>
-                        }
-                    </fieldset>
-                }
-            </form>
-            <pre>
+            <fieldset>
+                <legend>Bill Date Range</legend>
+                <div class="form-inline">
+                    <input type="date" class="form-control input-sm" size="6" placeholder="From" name="@MVC.Bills.RecentBillsParams.dates" value="@Html.DisplayFor(m => m.DateFrom)" />
+                    <input type="date" class="form-control input-sm" size="6" placeholder="To" name="@MVC.Bills.RecentBillsParams.dates" value="@Html.DisplayFor(m => m.DateTo)" />
+                </div>
+            </fieldset>
+
+            @if (Model.Divisions.Count > 0)
+            {
+                <fieldset>
+                    <legend>Submitted to Division</legend>
+                    @for (var i = 0; i < Model.Divisions.Count; ++i)
+                    {
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.divisions" value="@Model.Divisions[i].Id" checked="@Model.Divisions[i].Selected">
+                                @Html.DisplayFor(m => m.Divisions[i].Name) <small><em>@Html.DisplayFor(m => m.Divisions[i].Count)</em></small>
+                                <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.divisions, Model.Divisions[i].Id))">only</a></small>
+                            </label>
+
+                        </div>
+                    }
+                </fieldset>
+            }
+            @if (Model.Contractors.Count > 1)
+            {
+                <fieldset>
+                    <legend>Contractors</legend>
+                    @for (var i = 0; i < Model.Contractors.Count; ++i)
+                    {
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.contractors" value="@Model.Contractors[i].Id" checked="@Model.Contractors[i].Selected" />
+                                @Html.DisplayFor(m => m.Contractors[i].Name)<small><em>@Html.DisplayFor(m => m.Contractors[i].Count)</em></small>
+                                <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.contractors, Model.Contractors[i].Id))">only</a></small>
+                            </label>
+                        </div>
+                    }
+                </fieldset>
+            }
+            @if (Model.Approvers.Count > 1)
+            {
+                <fieldset>
+                    <legend>Approvers</legend>
+                    @for (var i = 0; i < Model.Approvers.Count; ++i)
+                    {
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.approvers" value="@Model.Approvers[i].Id" checked="@Model.Approvers[i].Selected">
+                                @Html.DisplayFor(m => m.Approvers[i].Name) <small><em>@Html.DisplayFor(m => m.Approvers[i].Count)</em></small>
+                            </label>
+                            <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.approvers, Model.Approvers[i].Id))">only</a></small>
+                        </div>
+                    }
+                </fieldset>
+            }
+            @if (Model.Stations.Count > 1)
+            {
+                <fieldset>
+                    <legend>Stations</legend>
+                    @for (var i = 0; i < Model.Stations.Count; ++i)
+                    {
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.stations" value="@Model.Stations[i].Id" checked="@Model.Stations[i].Selected" />
+                                @Html.DisplayFor(m => m.Stations[i].Name)<small><em>@Html.DisplayFor(m => m.Stations[i].Count)</em></small>
+                                <small><a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.stations, Model.Stations[i].Id))">only</a></small>
+                            </label>
+                        </div>
+                    }
+                </fieldset>
+            }
+        </form>
+        <pre>
 Approved By: Mgr 1 (22) Mgr2 (26)  Not Approved
 Station: S1(23) S2(25) ....
 Submitted to Division: ....
@@ -96,117 +105,117 @@ Currently in Division: ....
 Contractor: ....
 Paid / Unpaid
 </pre>
-        </div>
-        <div class="col-md-9">
-            <ul class="list-group">
-                <li class="list-group-item list-group-item-info">
+    </div>
+    <div class="col-md-9">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-info">
+                <div class="row">
+                    <div class="col-md-2">
+                        <strong>Bill Date</strong>
+                        <br />
+                        <em style="white-space:nowrap"><small><strong>Due Date</strong></small></em>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>
+                            Division
+                            <br />@@
+                            Station
+                        </strong>
+                    </div>
+                    <div class="col-md-4">
+                        <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
+                            <strong>
+                                Contractor
+                                <br />
+                                Bill Number
+                            </strong>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="text-right">
+                            <strong>Amount(Nu.)</strong>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            @for (var i = 0; i < Model.Bills.Count; ++i)
+            {
+                <li class="list-group-item">
                     <div class="row">
                         <div class="col-md-2">
-                            <strong>Bill Date</strong>
+                            @Html.DisplayFor(m => m.Bills[i].BillDate)
                             <br />
-                            <em style="white-space:nowrap"><small><strong>Due Date</strong></small></em>
+                            @{
+                if (Model.Bills[i].DueDate < DateTime.Now)
+                {
+                    <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.Bills[i].DueDate)</small></em><br />
+                }
+                else
+                {
+                    <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.Bills[i].DueDate)</small></em><br />
+                }
+                            }
+
+                            @{
+                if (Model.Bills[i].ApprovedDate != null)
+                {
+                    <span class="label label-success">Approved @Html.DisplayFor(m => m.Bills[i].ApprovedDate)</span>
+                }
+                            }
+
                         </div>
                         <div class="col-md-4">
-                            <strong>
-                                Division
-                                <br />@@
-                                Station
-                            </strong>
+                            @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)
+                            <br />@@
+                            @Html.DisplayFor(m => m.Bills[i].StationName)
                         </div>
                         <div class="col-md-4">
                             <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
-                                <strong>
-                                    Contractor
-                                    <br />
-                                    Bill Number
-                                </strong>
+                                <span title="@Model.Bills[i].ContractorName">@Html.DisplayFor(m => m.Bills[i].ContractorName)</span>
+                                <br />
+                                <small title="@Model.Bills[i].BillNumber">@Html.DisplayFor(m => m.Bills[i].BillNumber)</small>
                             </div>
                         </div>
 
                         <div class="col-md-2">
                             <div class="text-right">
-                                <strong>Amount(Nu.)</strong>
+                                <strong>@Html.DisplayFor(m => m.Bills[i].Amount)</strong>
                             </div>
+                            <div class="text-right">
+                                <div class="btn-group">
+                                    <a class="btn btn-default btn-xs" href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))"><span class="glyphicon glyphicon-zoom-in"></span></a>
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))"><span class="glyphicon glyphicon-zoom-in"></span> View</a></li>
+                                        <li><a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))"><span class="glyphicon glyphicon-pencil"></span> Edit</a></li>
+                                        @{
+                if (Model.Bills[i].ApprovedDate == null)
+                {
+                    <li><a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))"><span class="glyphicon glyphicon-thumbs-up"></span> Approve</a></li>
+                }
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+                            @*<div class="center-block1">
+                                    <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                        <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))" class="btn"><span class="glyphicon glyphicon-zoom-in"></span> View</a>
+                                        <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+                                        <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn"><span class="glyphicon glyphicon-thumbs-up"></span> Approve</a>
+                                    </div>
+                                </div>*@
                         </div>
                     </div>
+                    <span style="color:gray">
+                        @Html.DisplayFor(m => m.Bills[i].Particulars)
+                    </span>
                 </li>
-                @for (var i = 0; i < Model.Bills.Count; ++i)
-                {
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-md-2">
-                                @Html.DisplayFor(m => m.Bills[i].BillDate)
-                                <br />
-                                @{
-                    if (Model.Bills[i].DueDate < DateTime.Now)
-                    {
-                        <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.Bills[i].DueDate)</small></em><br />
-                    }
-                    else
-                    {
-                        <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.Bills[i].DueDate)</small></em><br />
-                    }
-                                }
-
-                                @{
-                    if (Model.Bills[i].ApprovedDate != null)
-                    {
-                        <span class="label label-success">Approved @Html.DisplayFor(m => m.Bills[i].ApprovedDate)</span>
-                    }
-                                }
-
-                            </div>
-                            <div class="col-md-4">
-                                @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)
-                                <br />@@
-                                @Html.DisplayFor(m => m.Bills[i].StationName)
-                            </div>
-                            <div class="col-md-4">
-                                <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
-                                    <span title="@Model.Bills[i].ContractorName">@Html.DisplayFor(m => m.Bills[i].ContractorName)</span>
-                                    <br />
-                                    <small title="@Model.Bills[i].BillNumber">@Html.DisplayFor(m => m.Bills[i].BillNumber)</small>
-                                </div>
-                            </div>
-
-                            <div class="col-md-2">
-                                <div class="text-right">
-                                    <strong>@Html.DisplayFor(m => m.Bills[i].Amount)</strong>
-                                </div>
-                                <div class="text-right">
-                                    <div class="btn-group">
-                                        <a class="btn btn-default btn-xs" href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))"><span class="glyphicon glyphicon-zoom-in"></span></a>
-                                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                            <span class="caret"></span>
-                                            <span class="sr-only">Toggle Dropdown</span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))"><span class="glyphicon glyphicon-zoom-in"></span> View</a></li>
-                                            <li><a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))"><span class="glyphicon glyphicon-pencil"></span> Edit</a></li>
-                                            @{
-                    if (Model.Bills[i].ApprovedDate == null)
-                    {
-                        <li><a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))"><span class="glyphicon glyphicon-thumbs-up"></span> Approve</a></li>
-                    }
-                                            }
-
-                                        </ul>
-                                    </div>
-                                </div>
-                                @*<div class="center-block1">
-                                        <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                            <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))" class="btn"><span class="glyphicon glyphicon-zoom-in"></span> View</a>
-                                            <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-                                            <a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))" class="btn"><span class="glyphicon glyphicon-thumbs-up"></span> Approve</a>
-                                        </div>
-                                    </div>*@
-                            </div>
-                        </div>
-                        <span style="color:gray">
-                            @Html.DisplayFor(m => m.Bills[i].Particulars)
-                        </span>
-                    </li>
-                }
-            </ul>
-        </div>
+            }
+        </ul>
     </div>
+</div>

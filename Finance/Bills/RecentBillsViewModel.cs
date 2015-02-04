@@ -112,6 +112,12 @@ namespace PhpaAll.Bills
 
         public bool IsFiltered { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTime? DateFrom { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTime? DateTo { get; set; }
+
         /// <summary>
         /// URL which will cause the current data to be displayed in Excel
         /// </summary>

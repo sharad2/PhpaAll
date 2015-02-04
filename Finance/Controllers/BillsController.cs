@@ -45,8 +45,13 @@ namespace PhpaAll.Controllers
         /// Display recent bills. Option to create new bill
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations, bool exportToExcel = false)
+        public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations,
+            DateTime?[] dates, bool exportToExcel = false)
         {
+            //if (dates != null)
+            //{
+            //    throw new NotImplementedException(string.Format("Dates {0}", dates[0]));
+            //}
             var query = from bill in _db.Value.Bills
                         group bill by new
                         {
@@ -136,6 +141,26 @@ namespace PhpaAll.Controllers
             {
                 filteredBills = filteredBills.Where(p => stations.Contains(p.StationId));
                 model.IsFiltered = true;
+            }
+
+            if (dates != null)
+            {
+                // Assume that there will always be two dates
+                if (dates[0] != null)
+                {
+                    // From Date
+                    filteredBills = filteredBills.Where(p => p.BillDate >= dates[0]);
+                    model.IsFiltered = true;
+                    model.DateFrom = dates[0];
+                }
+                if (dates[1] != null)
+                {
+                    // From Date
+                    filteredBills = filteredBills.Where(p => p.BillDate <= dates[1]);
+                    model.IsFiltered = true;
+                    model.DateTo = dates[1];
+                }
+
             }
 
             if (model.UrlExcel.Contains("?"))
