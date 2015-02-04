@@ -4,8 +4,87 @@
     ViewBag.Title = "View Bill";
 }
 
+
+<h2 style="margin-top:0" class="text-center">
+    @Html.DisplayFor(m => m.ContractorName)
+</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-8 well well-sm">
+
+        <div class="row">
+            <div class="col-md-8">
+                <strong>No: @Html.DisplayFor(m => m.BillNumber)</strong>
+            </div>
+            <div class="col-md-4">
+                <strong class="pull-right">Dated: @Html.DisplayFor(m => m.BillDate)</strong>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div>
+            <label>Particulars:</label>   @Html.DisplayFor(m => m.Particulars)
+        </div>
+        <br />
+
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Received on</label>
+                @Html.DisplayFor(m => m.SubmittedOnDate)
+            </div>
+            <div class="col-md-3">
+                <label for="dueDate">Payment Due Date</label>
+                @Html.DisplayFor(m => m.DueDate)
+            </div>
+            <div class="col-md-3">
+                <label>Amount</label>
+                @Html.DisplayFor(m => m.Amount)
+
+                <label>Paid on</label>
+                @Html.DisplayFor(m => m.PaidDate)
+
+            </div>
+
+        </div>
+        <div>
+            <label for="remarks">Remarks</label>
+
+            @Html.DisplayFor(m => m.Remarks)
+        </div>
+        <br />
+        <br />
+
+        <div class="row">
+            <div class="col-md-3 col-md-offset-9">
+                <label>Division</label>
+                @Html.DisplayFor(m => m.SubmittedToDivisionName)
+                @@Station @Html.DisplayFor(m => m.StationName)
+                <br />
+
+                <label>Approved By</label>  @Html.DisplayFor(m => m.ApprovedBy)
+                <label>Approved Date</label>
+                @Html.DisplayFor(m => m.ApprovedDate)
+
+
+            </div>
+
+        </div>
+        <br />
+
+     
+      
+    </div>
+    <div class="col-md-4">
+
+        <img src="~/Images/Its demoimageDeleteit.jpg" width="300" height="380"/>
+        @Html.DisplayFor(m => m.BillImage)
+    </div>
+</div>
+
+
 <h2 style="margin-top:0">
-    <span>Bill Number  <mark class="small">@Html.DisplayFor(m => m.BillNumber) dated @Html.DisplayFor(m => m.BillDate)</mark></span>
 
     <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-default btn-sm">
         <span class="glyphicon glyphicon-edit"></span>
@@ -15,120 +94,7 @@
         Recent Bills
     </a>
 </h2>
-<div class="well well-sm">
-    <div class="row">
-        <div class="col-md-3">
-            <div>
-                <label for="billDate">Bill Date</label>
-                <div class='input-group date' id='billDatePicker'>
-                    @Html.DisplayFor(m => m.BillDate)
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div>
-                <label for="divSubDate">Received on</label>
-                <div class='input-group date' id='divSubDatePicker'>
-                    @Html.DisplayFor(m => m.SubmittedOnDate)
-                </div>
-            </div>
 
-        </div>
-        <div class="col-md-3">
-            <div>
-                <label for="dueDate">Payment Due Date</label>
-                <div class='input-group date' id='dueDatePicker'>
-                    @Html.DisplayFor(m => m.DueDate)
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div >
-                <label for="billNumber">Bill No.</label>
-                <div class='input-group date'>
-                    @Html.DisplayFor(m => m.BillNumber)
-                </div>
-            </div>
-        </div>
-    </div>
-    <div >
-        <label for="particulars">Particulars</label>
-        @Html.DisplayFor(m => m.Particulars)
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <div >
-                <label for="tbDivision">Division</label>
-                <div class="input-group input-group-sm">
-                    @Html.DisplayFor(m => m.SubmittedToDivisionName)
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div >
-                <label for="tbContractor">Contractor</label>
-
-                <div class="input-group input-group-sm">
-                    @Html.DisplayFor(m => m.SubmittedToDivisionName)
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div >
-                <label for="amount">Amount</label>
-                <div class="input-group input-group-sm">
-                    @Html.DisplayFor(m => m.Amount)
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div >
-                <label>Paid Date</label>
-                <div class="input-group input-group-sm">
-                    @Html.DisplayFor(m => m.PaidDate)
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <div >
-                <label>Approved Date</label>
-
-                <div class="input-group input-group-sm">
-                    @Html.DisplayFor(m => m.ApprovedDate)
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div >
-                <label>Approved By</label>
-                <div class="input-group input-group-sm">
-                    @Html.DisplayFor(m => m.ApprovedBy)
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div >
-                <label>Station Name</label>
-                <div class="input-group input-group-sm">
-                    @Html.DisplayFor(m => m.StationName)
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div >
-                <label for="image">Image: TODO</label>
-                @Html.DisplayFor(m => m.BillImage)
-            </div>
-        </div>
-    </div>
-    <div >
-        <label for="remarks">Remarks</label>
-
-        @Html.DisplayFor(m => m.Remarks)
-    </div>
-</div>
 
 <h2 style="margin-top:0">
     Audit
