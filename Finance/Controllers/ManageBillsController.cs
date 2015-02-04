@@ -199,10 +199,10 @@ namespace PhpaAll.Controllers
                             
                          }).FirstOrDefault();
 
-            //// Dummy Code: TODO: Put where clause.  
+            // Getting Bill history from Bill Audit.  
             model.BillHistory = (from ba in _db.Value.BillAudits
                                  where ba.BillId == id
-                                 select new BillAuditViewModel
+                                 select new BillAuditModel
                                  {
                                      BillCreatedBy = ba.CreatedBy,
                                      DateCreated = ba.Created,

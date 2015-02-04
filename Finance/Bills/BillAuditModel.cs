@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace PhpaAll.Bills
 {
-    public class BillAuditViewModel
+    public class BillAuditModel
     {
         //public BillAuditViewModel()
         //{
