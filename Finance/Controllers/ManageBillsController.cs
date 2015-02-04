@@ -47,7 +47,7 @@ namespace PhpaAll.Controllers
                 Text = p.StationName,
                 Value = p.StationId.ToString()
             });
-                                       
+
             return View(Views.Create, model);
         }
 
@@ -214,7 +214,31 @@ namespace PhpaAll.Controllers
                                      BillCreatedBy = ba.CreatedBy,
                                      DateCreated = ba.Created,
                                      BillNumberOld = ba.BillNumberOld,
-                                     BillNumberNew =ba.BillNumberNew
+                                     BillNumberNew = ba.BillNumberNew,
+                                     DueDateNew = ba.DueDateNew,
+                                     DueDateOld = ba.DueDateOld,
+                                     AmountNew = ba.AmountNew,
+                                     AmountOld = ba.AmountOld,
+                                     ApprovedByNew = ba.ApprovedByNew,
+                                     ApprovedByOld = ba.ApprovedByOld,
+                                     ApprovedOnNew = ba.ApprovedOnNew,
+                                     ApprovedOnOld = ba.ApprovedOnOld,
+                                     BillDateNew = ba.BillDateNew,
+                                     BillDateOld = ba.BillDateOld,
+                                     ContractorNameNew = ba.ContractorNameNew,
+                                     ContractorNameOld = ba.ContractorNameOld,
+                                     PaidDateNew = ba.PaidDateNew,
+                                     PaidDateOld = ba.PaidDateOld,
+                                     ParticularsNew = ba.ParticularsNew,
+                                     ParticularsOld = ba.ParticularsOld,
+                                     RemarksNew = ba.RemarksNew,
+                                     RemarksOld = ba.RemarksOld,
+                                     StationIdNew = ba.StationIdNew,
+                                     StationIdOld = ba.StationIdOld,
+                                     SubmittedOnDateNew = ba.SubmittedOnDateNew,
+                                     SubmittedOnDateOld = ba.SubmittedOnDateOld,
+                                     SubmittedToDivisionNameNew = ba.SubmittedToDivisionNameNew,
+                                     SubmittedToDivisionNameOld = ba.SubmittedToDivisionNameOld
 
                                  }).ToList();
 
