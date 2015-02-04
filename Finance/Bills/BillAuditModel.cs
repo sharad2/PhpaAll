@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace PhpaAll.Bills
 {
-    public class BillAuditViewModel
+    public class BillAuditModel
     {
         //public BillAuditViewModel()
         //{
@@ -18,6 +18,8 @@ namespace PhpaAll.Bills
 
        public DateTime? DateCreated { get; set; }
 
+       public string BillNumberOld { get; set; }
 
+       public string BillNumberNew { get; set; }
     }
 }

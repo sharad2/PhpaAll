@@ -23,7 +23,7 @@
             <label style="padding-right:1mm">Amount</label>
             @Html.DisplayFor(m => m.Amount) <br />
             <label style="padding-right:1mm">Received by Division </label>
-            @Html.DisplayFor(m => m.SubmittedToDivisionName)  on @Html.DisplayFor(m => m.SubmittedOnDate)<br />
+            @Html.DisplayFor(m => m.SubmittedToDivisionName)  on @Html.DisplayFor(m => m.SubmittedOnDate)<br/>
             <label style="padding-right:1mm">Contractor</label>
             @Html.DisplayFor(m => m.ContractorName)
             <br />
@@ -115,11 +115,10 @@
     @for (var i = 0; i < Model.BillHistory.Count; ++i)
     {
         <li class="list-group-item">
-
             @Html.DisplayFor(m => m.BillHistory[i].DateCreated)
-
-            @Html.DisplayFor(m => m.BillHistory[i].BillCreatedBy)
-
+            @Html.DisplayFor(m => m.BillHistory[i].BillNumberOld)
+            @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
         </li>
     }
 </ul>
+
