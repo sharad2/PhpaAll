@@ -17,39 +17,119 @@
         Recent Bills
     </a>
 </h2>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="col-lg-6">
-            <label style="padding-right:1mm">Amount</label>
-            @Html.DisplayFor(m => m.Amount) <br />
-            <label style="padding-right:1mm">Received by Division </label>
-            @Html.DisplayFor(m => m.SubmittedToDivisionName)  on @Html.DisplayFor(m => m.SubmittedOnDate)<br/>
-            <label style="padding-right:1mm">Contractor</label>
-            @Html.DisplayFor(m => m.ContractorName)
-            <br />
-            <label style="padding-right:1mm">Station</label>
-            @Html.DisplayFor(m => m.StationName)
+<div class="well well-sm">
+    <div class="row">
+        <div class="col-md-3">
+            <div>
+                <label for="billDate">Bill Date</label>
+                <div class='input-group date' id='billDatePicker'>
+                    @Html.DisplayFor(m => m.BillDate)
+                </div>
+            </div>
         </div>
-        <div class="col-lg-6">
-            <label style="padding-right:1mm">Due Date</label>
-            @Html.DisplayFor(m => m.DueDate)
-            <br />
-            <label style="padding-right:1mm">Paid On</label>
-            @Html.DisplayFor(m => m.PaidDate)
-            <br />
-            <label style="padding-right:1mm">Approved Date</label>
-            @Html.DisplayFor(m => m.ApprovedDate)<br />
-            <label style="padding-right:1mm">Approved By</label>
-            @Html.DisplayFor(m => m.ApprovedBy)
+        <div class="col-md-3">
+            <div>
+                <label for="divSubDate">Received on</label>
+                <div class='input-group date' id='divSubDatePicker'>
+                    @Html.DisplayFor(m => m.SubmittedOnDate)
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div>
+                <label for="dueDate">Payment Due Date</label>
+                <div class='input-group date' id='dueDatePicker'>
+                    @Html.DisplayFor(m => m.DueDate)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div >
+                <label for="billNumber">Bill No.</label>
+                <div class='input-group date'>
+                    @Html.DisplayFor(m => m.BillNumber)
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div class="alert alert-info" role="alert">
-    <label for="particulars" style="padding-right:1mm">Particulars:- </label>@Html.DisplayFor(m => m.Particulars)
-</div>
-<div class="alert alert-info" role="alert">
-    <label style="padding-right:1mm">Remark:- </label>
-    @Html.DisplayFor(m => m.Remarks)
+    <div >
+        <label for="particulars">Particulars</label>
+        @Html.DisplayFor(m => m.Particulars)
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div >
+                <label for="tbDivision">Division</label>
+                <div class="input-group input-group-sm">
+                    @Html.DisplayFor(m => m.SubmittedToDivisionName)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div >
+                <label for="tbContractor">Contractor</label>
+
+                <div class="input-group input-group-sm">
+                    @Html.DisplayFor(m => m.SubmittedToDivisionName)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div >
+                <label for="amount">Amount</label>
+                <div class="input-group input-group-sm">
+                    @Html.DisplayFor(m => m.Amount)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div >
+                <label>Paid Date</label>
+                <div class="input-group input-group-sm">
+                    @Html.DisplayFor(m => m.PaidDate)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div >
+                <label>Approved Date</label>
+
+                <div class="input-group input-group-sm">
+                    @Html.DisplayFor(m => m.ApprovedDate)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div >
+                <label>Approved By</label>
+                <div class="input-group input-group-sm">
+                    @Html.DisplayFor(m => m.ApprovedBy)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div >
+                <label>Station Name</label>
+                <div class="input-group input-group-sm">
+                    @Html.DisplayFor(m => m.StationName)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div >
+                <label for="image">Image: TODO</label>
+                @Html.DisplayFor(m => m.BillImage)
+            </div>
+        </div>
+    </div>
+    <div >
+        <label for="remarks">Remarks</label>
+
+        @Html.DisplayFor(m => m.Remarks)
+    </div>
 </div>
 @*<ul class="list-group">
 
