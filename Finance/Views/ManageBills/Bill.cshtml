@@ -102,7 +102,168 @@
 <h2 style="margin-top:0">
     Audit
 </h2>
-
+<div class="row">
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-info">
+            <div class="row">
+                <div class="col-md-2">
+                    <strong>Bill Modified Date</strong>
+                </div>
+                <div class="col-md-10">
+                    <strong style="padding-left:8mm">
+                        Changed Fields
+                    </strong>
+                </div>
+            </div>
+        </li>
+        @for (var i = 0; i < Model.BillHistory.Count; ++i)
+        {
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-2">
+                        @Html.DisplayFor(m => m.BillDate)
+                    </div>
+                    <div class="col-md-10">
+                        <ul>
+                            @if (Model.BillHistory[i].BillNumberOld !=null && Model.BillHistory[i].BillNumberNew != Model.BillHistory[i].BillNumberOld)
+                            {
+                                <li>
+                                    <label style="padding-right:1mm">Bill Number New</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
+                                </li>
+                                <li>
+                                    <label style="padding-right:1mm">Bill Number Old</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].BillNumberOld)
+                                </li>
+                            }
+                            @if (Model.BillHistory[i].BillDateOld !=null && Model.BillHistory[i].BillDateNew != Model.BillHistory[i].BillDateOld)
+                            {
+                                <li>
+                                    <label style="padding-right:1mm">Bill Date New</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].BillDateNew)
+                                </li>
+                                <li>
+                                    <label style="padding-right:1mm">Bill Date Old</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].BillDateOld)
+                                </li>
+                            }
+                            @if (Model.BillHistory[i].AmountOld != null && Model.BillHistory[i].AmountOld != Model.BillHistory[i].AmountNew)
+                            {
+                                <li>
+                                    <label style="padding-right:1mm">Amount New</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].AmountNew)
+                                </li>
+                                <li>
+                                    <label style="padding-right:1mm">Amount Old</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].AmountOld)
+                                </li>
+                            }
+                            @if (Model.BillHistory[i].ContractorNameOld != null && Model.BillHistory[i].ContractorNameNew != Model.BillHistory[i].ContractorNameOld)
+                            {
+                                <li>
+                                    <label style="padding-right:1mm">Contractor Name New</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
+                                </li>
+                                <li>
+                                    <label style="padding-right:1mm">Contractor Name Old</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].ContractorNameNew)
+                                </li>
+                            }
+                            @if (Model.BillHistory[i].SubmittedToDivisionNameOld !=null && Model.BillHistory[i].SubmittedToDivisionNameNew != Model.BillHistory[i].SubmittedToDivisionNameOld)
+                            {
+                                <li>
+                                    <label style="padding-right:1mm">Division New</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].SubmittedToDivisionNameNew)
+                                </li>
+                                <li>
+                                    <label style="padding-right:1mm">Division Old</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].SubmittedToDivisionNameOld)
+                                </li>
+                            }
+                            @if (Model.BillHistory[i].PaidDateOld != null && Model.BillHistory[i].PaidDateNew != Model.BillHistory[i].PaidDateOld) 
+                            {
+                                <li>
+                                    <label style="padding-right:1mm">Paid Date New</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].PaidDateNew)
+                                </li>
+                                <li>
+                                    <label style="padding-right:1mm">Paid Date Old</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].PaidDateOld)
+                                </li>
+                            }
+                            @if (Model.BillHistory[i].ApprovedByOld != null && Model.BillHistory[i].ApprovedByNew != Model.BillHistory[i].ApprovedByOld)
+                            {
+                                <li>
+                                    <label style="padding-right:1mm">Approved By New</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].ApprovedByNew)
+                                </li>
+                                <li>
+                                    <label style="padding-right:1mm">Approved By  Old</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].ApprovedByOld)
+                                </li>
+                            }
+                            @*@if (Model.BillHistory[i].BillDateOld != null && Model.BillHistory[i].BillDateNew != Model.BillHistory[i].BillDateOld)
+                            {
+                                <li>
+                                    <label style="padding-right:1mm">Bill Date New</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].BillDateNew)
+                                </li>
+                                <li>
+                                    <label style="padding-right:1mm">Bill Date Old</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].BillDateOld)
+                                </li>
+                            }
+                            @if (Model.BillHistory[i].AmountOld != null && Model.BillHistory[i].AmountOld != Model.BillHistory[i].AmountNew)
+                            {
+                                <li>
+                                    <label style="padding-right:1mm">Amount New</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].AmountNew)
+                                </li>
+                                <li>
+                                    <label style="padding-right:1mm">Amount Old</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].AmountOld)
+                                </li>
+                            }
+                            @if (Model.BillHistory[i].ContractorNameOld != null && Model.BillHistory[i].ContractorNameNew != Model.BillHistory[i].ContractorNameOld)
+                            {
+                                <li>
+                                    <label style="padding-right:1mm">Contractor Name New</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
+                                </li>
+                                <li>
+                                    <label style="padding-right:1mm">Contractor Name Old</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].ContractorNameNew)
+                                </li>
+                            }
+                            @if (Model.BillHistory[i].SubmittedToDivisionNameNew != Model.BillHistory[i].SubmittedToDivisionNameOld)
+                            {
+                                <li>
+                                    <label style="padding-right:1mm">Division New</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].SubmittedToDivisionNameNew)
+                                </li>
+                                <li>
+                                    <label style="padding-right:1mm">Division Old</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].SubmittedToDivisionNameOld)
+                                </li>
+                            }
+                            @if (Model.BillHistory[i].PaidDateOld != null && Model.BillHistory[i].PaidDateNew != Model.BillHistory[i].PaidDateOld)
+                            {
+                                <li>
+                                    <label style="padding-right:1mm">Paid Date New</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].PaidDateNew)
+                                </li>
+                                <li>
+                                    <label style="padding-right:1mm">Paid Date Old</label>
+                                    @Html.DisplayFor(m => m.BillHistory[i].PaidDateOld)
+                                </li>
+                            }*@
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
 <ul class="list-group">
     @for (var i = 0; i < Model.BillHistory.Count; ++i)
     {
