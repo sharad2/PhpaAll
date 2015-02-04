@@ -129,7 +129,7 @@
                             {
                                 <li>
                                     <label style="padding-right:1mm">Bill Number Changed</label>
-                                     @Html.DisplayFor(m => m.BillHistory[i].BillNumberOld) To @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
+                                     @Html.DisplayFor(m => m.BillHistory[i].BillNumberOld) <strong>To </strong>  @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
                                 </li>
                                 @* <li>
         <label style="padding-right:1mm">Bill Number New</label>
@@ -144,7 +144,7 @@
                             {
                                 <li>
                                     <label style="padding-right:1mm">Bill Date Changed</label>
-                                    @Html.DisplayFor(m => m.BillHistory[i].BillDateOld) To  @Html.DisplayFor(m => m.BillHistory[i].BillDateNew)
+                                    @Html.DisplayFor(m => m.BillHistory[i].BillDateOld) <strong>To </strong>  @Html.DisplayFor(m => m.BillHistory[i].BillDateNew)
                                 </li>
                                 
                                 @*<li>
@@ -273,7 +273,7 @@
         }
     </ul>
 </div>
-<ul class="list-group">
+@*<ul class="list-group">
     @for (var i = 0; i < Model.BillHistory.Count; ++i)
     {
         <li class="list-group-item">
@@ -305,5 +305,5 @@
             @Html.DisplayFor(m => m.BillHistory[i].SubmittedToDivisionNameOld)
         </li>
     }
-</ul>
+</ul>*@
 
