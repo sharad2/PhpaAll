@@ -41,6 +41,10 @@ namespace PhpaAll.Bills
 
         public string SubmittedToDivisionName { get; set; }
 
+        public int? CurrentDivisionId { get; set; }
+
+        public string CurrentDivisionName { get; set; }
+
         public int? ContractorId { get; set; }
 
         public string ContractorName { get; set; }
@@ -80,6 +84,8 @@ namespace PhpaAll.Bills
     public class RecentBillsViewModel
     {
         public IList<RecentBillsFilterModel> Divisions { get; set; }
+
+        public IList<RecentBillsFilterModel> CurrentDivisions { get; set; }
 
         public IList<RecentBillsFilterModel> Contractors { get; set; }
 

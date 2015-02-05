@@ -57,7 +57,7 @@ TODO: Amounts of approved bills will display in green
             <button type="submit" class="btn btn-primary">Apply Filters</button>
             @if (Model.IsFiltered)
             {
-            <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
+                <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
             }
 
             <fieldset id="fsBillDates">
@@ -95,100 +95,123 @@ TODO: Amounts of approved bills will display in green
             </fieldset>
             @if (Model.Divisions.Count > 1)
             {
-            <fieldset id="fsDivisions">
-                <legend>Submitted to Division</legend>
-                @for (var i = 0; i < Model.Divisions.Count; ++i)
+                <fieldset id="fsDivisions">
+                    <legend>Submitted to Division</legend>
+                    @for (var i = 0; i < Model.Divisions.Count; ++i)
                     {
-                    <div class="@(Model.Divisions[i].Selected ? "has-success" : (string)null)">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.divisions" value="@Model.Divisions[i].Id" checked="@Model.Divisions[i].Selected">
-                                @Html.DisplayFor(m => m.Divisions[i].Name)
-                                <small style="white-space:nowrap">
-                                    <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.divisions, Model.Divisions[i].Id))">
-                                        only
-                                        <span class="badge"> @Html.DisplayFor(m => m.Divisions[i].Count)</span>
-                                    </a>
-                                </small>
-                            </label>
+                        <div class="@(Model.Divisions[i].Selected ? "has-success" : (string)null)">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.divisions" value="@Model.Divisions[i].Id" checked="@Model.Divisions[i].Selected">
+                                    @Html.DisplayFor(m => m.Divisions[i].Name)
+                                    <small style="white-space:nowrap">
+                                        <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.divisions, Model.Divisions[i].Id))">
+                                            only
+                                            <span class="badge"> @Html.DisplayFor(m => m.Divisions[i].Count)</span>
+                                        </a>
+                                    </small>
+                                </label>
+                            </div>
                         </div>
-                    </div>
                     }
-            </fieldset>
+                </fieldset>
+            }
+            @if (Model.CurrentDivisions.Count > 1)
+            {
+                <fieldset id="fscurrentDivisions">
+                    <legend>Currently In Division</legend>
+                    @for (var i = 0; i < Model.CurrentDivisions.Count; ++i)
+                    {
+                        <div class="@(Model.CurrentDivisions[i].Selected ? "has-success" : (string)null)">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.currentDivisions" value="@Model.CurrentDivisions[i].Id" checked="@Model.CurrentDivisions[i].Selected">
+                                    @Html.DisplayFor(m => m.CurrentDivisions[i].Name)
+                                    <small style="white-space:nowrap">
+                                        <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.currentDivisions, Model.CurrentDivisions[i].Id))">
+                                            only
+                                            <span class="badge"> @Html.DisplayFor(m => m.CurrentDivisions[i].Count)</span>
+                                        </a>
+                                    </small>
+                                </label>
+                            </div>
+                        </div>
+                    }
+                </fieldset>
             }
             @if (Model.Contractors.Count > 1)
             {
-            <fieldset id="fsContractors">
-                <legend>Contractors</legend>
-                @for (var i = 0; i < Model.Contractors.Count; ++i)
+                <fieldset id="fsContractors">
+                    <legend>Contractors</legend>
+                    @for (var i = 0; i < Model.Contractors.Count; ++i)
                     {
-                    <div class="@(Model.Contractors[i].Selected ? "has-success" : (string)null)">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.contractors" value="@Model.Contractors[i].Id" checked="@Model.Contractors[i].Selected" />
-                                @Html.DisplayFor(m => m.Contractors[i].Name)
-                                <small style="white-space:nowrap">
-                                    <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.contractors, Model.Contractors[i].Id))">
-                                        only
-                                        <span class="badge">@Html.DisplayFor(m => m.Contractors[i].Count)</span>
-                                    </a>
-                                </small>
-                            </label>
+                        <div class="@(Model.Contractors[i].Selected ? "has-success" : (string)null)">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.contractors" value="@Model.Contractors[i].Id" checked="@Model.Contractors[i].Selected" />
+                                    @Html.DisplayFor(m => m.Contractors[i].Name)
+                                    <small style="white-space:nowrap">
+                                        <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.contractors, Model.Contractors[i].Id))">
+                                            only
+                                            <span class="badge">@Html.DisplayFor(m => m.Contractors[i].Count)</span>
+                                        </a>
+                                    </small>
+                                </label>
+                            </div>
                         </div>
-                    </div>
                     }
-            </fieldset>
+                </fieldset>
             }
             @if (Model.Approvers.Count > 1)
             {
-            <fieldset id="fsApprovers">
-                <legend>Approvers</legend>
-                @for (var i = 0; i < Model.Approvers.Count; ++i)
+                <fieldset id="fsApprovers">
+                    <legend>Approvers</legend>
+                    @for (var i = 0; i < Model.Approvers.Count; ++i)
                     {
-                    <div class="@(Model.Approvers[i].Selected ? "has-success" : (string)null)">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.approvers" value="@Model.Approvers[i].Id" checked="@Model.Approvers[i].Selected">
-                                @Html.DisplayFor(m => m.Approvers[i].Name)
-                            </label>
-                            <small style="white-space:nowrap">
-                                <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.approvers, Model.Approvers[i].Id))">
-                                    only
-                                    <span class="badge">@Html.DisplayFor(m => m.Approvers[i].Count)</span>
-                                </a>
-                            </small>
+                        <div class="@(Model.Approvers[i].Selected ? "has-success" : (string)null)">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.approvers" value="@Model.Approvers[i].Id" checked="@Model.Approvers[i].Selected">
+                                    @Html.DisplayFor(m => m.Approvers[i].Name)
+                                </label>
+                                <small style="white-space:nowrap">
+                                    <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.approvers, Model.Approvers[i].Id))">
+                                        only
+                                        <span class="badge">@Html.DisplayFor(m => m.Approvers[i].Count)</span>
+                                    </a>
+                                </small>
+                            </div>
                         </div>
-                    </div>
                     }
-            </fieldset>
+                </fieldset>
             }
             @if (Model.Stations.Count > 1)
             {
-            <fieldset id="fsStations">
-                <legend>Stations</legend>
-                @for (var i = 0; i < Model.Stations.Count; ++i)
+                <fieldset id="fsStations">
+                    <legend>Stations</legend>
+                    @for (var i = 0; i < Model.Stations.Count; ++i)
                     {
-                    <div class="@(Model.Stations[i].Selected ? "has-success" : (string)null)">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.stations" value="@Model.Stations[i].Id" checked="@Model.Stations[i].Selected" />
-                                @Html.DisplayFor(m => m.Stations[i].Name)
-                                <small style="white-space:nowrap">
-                                    <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.stations, Model.Stations[i].Id))">
-                                        only
-                                        <span class="badge">@Html.DisplayFor(m => m.Stations[i].Count)</span>
-                                    </a>
-                                </small>
-                            </label>
+                        <div class="@(Model.Stations[i].Selected ? "has-success" : (string)null)">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.stations" value="@Model.Stations[i].Id" checked="@Model.Stations[i].Selected" />
+                                    @Html.DisplayFor(m => m.Stations[i].Name)
+                                    <small style="white-space:nowrap">
+                                        <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.stations, Model.Stations[i].Id))">
+                                            only
+                                            <span class="badge">@Html.DisplayFor(m => m.Stations[i].Count)</span>
+                                        </a>
+                                    </small>
+                                </label>
+                            </div>
                         </div>
-                    </div>
                     }
-            </fieldset>
+                </fieldset>
             }
             <button type="submit" class="btn btn-primary">Apply Filters</button>
             @if (Model.IsFiltered)
             {
-            <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
+                <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
             }
         </form>
         <pre>
@@ -215,6 +238,13 @@ Paid / Unpaid
                     foreach (var item in Model.Divisions.Where(p => p.Selected))
                     {
                         <input type="hidden" name="@MVC.Bills.ApproveBillsParams.divisions" value="@item.Id" />
+                    }
+                }
+                @if (Model.CurrentDivisions.Any(p => !p.Selected))
+                {
+                    foreach (var item in Model.CurrentDivisions.Where(p => p.Selected))
+                    {
+                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.currentDivisions" value="@item.Id" />
                     }
                 }
                 @if (Model.Contractors.Any(p => !p.Selected))
@@ -274,9 +304,15 @@ Paid / Unpaid
                         </div>
                         <div class="col-md-4">
                             <strong>
-                                Division
-                                <br />@@
-                                Station
+                                Current Division
+                                <br />
+                                <em>
+                                    <small>
+                                        Submitted To Division
+                                        <br />@@
+                                        Station
+                                    </small>
+                                </em>
                             </strong>
                         </div>
                         <div class="col-md-4">
@@ -313,20 +349,24 @@ Paid / Unpaid
                                     <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.Bills[i].DueDate)</small></em><br />
                                 }
 
-
-
                                 @if (Model.Bills[i].ApprovedDate != null)
                                 {
-                                    <span class="label label-success">Approved @Html.DisplayFor(m => m.Bills[i].ApprovedDate) By @Html.DisplayFor(m => m.Bills[i].ApprovedBy)</span>
+                                    <span class="label label-success" title="Approved by :- @Html.DisplayFor(m => m.Bills[i].ApprovedBy)">Approved @Html.DisplayFor(m => m.Bills[i].ApprovedDate)</span>
                                 }
 
 
                             </div>
                             <div class="col-md-4">
-                                @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)
-                                <br />@@
-                                @Html.DisplayFor(m => m.Bills[i].StationName)
-                            </div>
+                                @Html.DisplayFor(m => m.Bills[i].CurrentDivisionName)
+                                <br />
+                                <em>
+                                    <small>
+                                        @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)
+                                    <br />@@
+                                    @Html.DisplayFor(m => m.Bills[i].StationName)
+                                </small>
+                            </em>
+                        </div>
                             <div class="col-md-4">
                                 <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
                                     <span title="@Model.Bills[i].ContractorName">@Html.DisplayFor(m => m.Bills[i].ContractorName)</span>
