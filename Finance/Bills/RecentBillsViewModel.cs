@@ -85,6 +85,8 @@ namespace PhpaAll.Bills
     {
         public IList<RecentBillsFilterModel> Divisions { get; set; }
 
+        public IList<RecentBillsFilterModel> CurrentDivisions { get; set; }
+
         public IList<RecentBillsFilterModel> Contractors { get; set; }
 
         public IList<RecentBillsFilterModel> Approvers { get; set; }

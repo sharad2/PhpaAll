@@ -116,6 +116,29 @@ TODO: Amounts of approved bills will display in green
                     }
                 </fieldset>
             }
+            @if (Model.CurrentDivisions.Count > 1)
+            {
+                <fieldset id="fscurrentDivisions">
+                    <legend>Currently In Division</legend>
+                    @for (var i = 0; i < Model.CurrentDivisions.Count; ++i)
+                    {
+                        <div class="@(Model.CurrentDivisions[i].Selected ? "has-success" : (string)null)">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.currentDivisions" value="@Model.CurrentDivisions[i].Id" checked="@Model.CurrentDivisions[i].Selected">
+                                    @Html.DisplayFor(m => m.CurrentDivisions[i].Name)
+                                    <small style="white-space:nowrap">
+                                        <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.currentDivisions, Model.CurrentDivisions[i].Id))">
+                                            only
+                                            <span class="badge"> @Html.DisplayFor(m => m.CurrentDivisions[i].Count)</span>
+                                        </a>
+                                    </small>
+                                </label>
+                            </div>
+                        </div>
+                    }
+                </fieldset>
+            }
             @if (Model.Contractors.Count > 1)
             {
                 <fieldset id="fsContractors">
@@ -215,6 +238,13 @@ Paid / Unpaid
                     foreach (var item in Model.Divisions.Where(p => p.Selected))
                     {
                         <input type="hidden" name="@MVC.Bills.ApproveBillsParams.divisions" value="@item.Id" />
+                    }
+                }
+                @if (Model.CurrentDivisions.Any(p => !p.Selected))
+                {
+                    foreach (var item in Model.CurrentDivisions.Where(p => p.Selected))
+                    {
+                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.currentDivisions" value="@item.Id" />
                     }
                 }
                 @if (Model.Contractors.Any(p => !p.Selected))
