@@ -51,6 +51,10 @@ namespace PhpaAll.Controllers
         public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations,
             DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount, bool exportToExcel = false)
         {
+            if (!ModelState.IsValid)
+            {
+                throw new ArgumentException("Are dates being properly validated by client script?");
+            }
             //if (dates != null)
             //{
             //    throw new NotImplementedException(string.Format("Dates {0}", dates[0]));
@@ -270,6 +274,7 @@ namespace PhpaAll.Controllers
                 dict.Add(Actions.RecentBillsParams.divisions, divisions);
                 //url += "?" + string.Join("&", divisions.Select(p => string.Format("{0}={1}", Actions.RecentBillsParams.divisions, p)));
             }
+
             if (dict.Count > 0)
             {
                 var query = from item in dict
