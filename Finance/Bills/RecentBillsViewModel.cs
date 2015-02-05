@@ -41,6 +41,10 @@ namespace PhpaAll.Bills
 
         public string SubmittedToDivisionName { get; set; }
 
+        public int? CurrentDivisionId { get; set; }
+
+        public string CurrentDivisionName { get; set; }
+
         public int? ContractorId { get; set; }
 
         public string ContractorName { get; set; }

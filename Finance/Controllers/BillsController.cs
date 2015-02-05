@@ -212,7 +212,9 @@ namespace PhpaAll.Controllers
                                SubmittedOnDate = bill.SubmittedOnDate,
                                Id = bill.Id,
                                StationId = bill.StationId,
-                               StationName = bill.Station.StationName
+                               StationName = bill.Station.StationName,
+                               CurrentDivisionId = bill.CurrentDivisionId,
+                               CurrentDivisionName = bill.CurrentDivision.DivisionName
                            }).Take(200).ToList();
 
             if (exportToExcel)
