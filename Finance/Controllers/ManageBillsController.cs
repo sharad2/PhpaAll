@@ -188,7 +188,7 @@ namespace PhpaAll.Controllers
                          {
                              Id = bill.Id,
                              Amount = bill.Amount,
-                             BillImage= bill.BillImage,
+                             //BillImage= bill.BillImage,
                              BillNumber = bill.BillNumber,
                              Particulars = bill.Particulars,
                              BillDate = bill.BillDate,

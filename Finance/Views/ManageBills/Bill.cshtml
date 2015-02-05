@@ -95,16 +95,32 @@
 
     </div>
     <div class="col-md-4">
-        @*<a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))" class="thumbnail">
+        <div class="row">
+            <div class="col-md-4">
+                @*<a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))" class="thumbnail">
+                    <img src="@Model.BillImage" width="340" height="300" />   </a>*@
+                <a href="@Url.Action(MVC.ManageBills.Image(Model.Id))" class="thumbnail">
+                    <img src="@Url.Action(MVC.ManageBills.Image(Model.Id))" alt=" No image">
+                </a>
+            </div>
+            <div class="col-md-4">
+                @*<a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))" class="thumbnail">
             <img src="@Model.BillImage" width="340" height="300" />   </a>*@
-        <a href="@Url.Action(MVC.ManageBills.Image(Model.Id))" class="thumbnail">
-            <img src="@Url.Action(MVC.ManageBills.Image(Model.Id))" alt=" No image">
-        </a>
-
-
+                <a href="@Url.Action(MVC.ManageBills.Image(Model.Id))" class="thumbnail">
+                    <img src="@Url.Action(MVC.ManageBills.Image(Model.Id))" alt=" No image">
+                </a>
+            </div>
+            <div class="col-md-4">
+                @*<a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))" class="thumbnail">
+            <img src="@Model.BillImage" width="340" height="300" />   </a>*@
+                <a href="@Url.Action(MVC.ManageBills.Image(Model.Id))" class="thumbnail">
+                    <img src="@Url.Action(MVC.ManageBills.Image(Model.Id))" alt=" No image">
+                </a>
+            </div>
+        </div>
     </div>
-</div>
 
+</div>
 
 <h2 style="margin-top:0">
     Audit
@@ -131,7 +147,7 @@
                         @Html.DisplayFor(m => m.BillDate)
                     </div>
                     <div class="col-md-10">
-                        Changes here
+                        Changes
                         <ul>
                             @for (var j = 0; j < Model.BillHistory[i].FieldChanges.Count; ++j)
                             {
@@ -141,7 +157,7 @@
                                 </li>
                             }
                         </ul>
-                       
+
                     </div>
                 </div>
             </li>
