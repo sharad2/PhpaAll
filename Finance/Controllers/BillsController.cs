@@ -254,10 +254,13 @@ namespace PhpaAll.Controllers
 
             var ar = MVC.Bills.RecentBills();
 
-            foreach (var item in approvers)
+            if (approvers != null)
             {
-                // MVC does not add empty string to route values. So we are sending a space insted.
-                ar.AddRouteValue(Actions.RecentBillsParams.approvers, string.IsNullOrEmpty(item) ? " " : item);
+                foreach (var item in approvers)
+                {
+                    // MVC does not add empty string to route values. So we are sending a space insted.
+                    ar.AddRouteValue(Actions.RecentBillsParams.approvers, string.IsNullOrEmpty(item) ? " " : item);
+                }
             }
 
 
