@@ -251,9 +251,6 @@ namespace PhpaAll.Controllers
                     bill.ApprovedBy = User.Identity.Name;
                 }
                 _db.Value.SubmitChanges();
-
-
-                
             }
 
             // Passing array as routevalues
@@ -270,7 +267,6 @@ namespace PhpaAll.Controllers
             if (divisions != null)
             {
                 dict.Add(Actions.RecentBillsParams.divisions, divisions);
-                //url += "?" + string.Join("&", divisions.Select(p => string.Format("{0}={1}", Actions.RecentBillsParams.divisions, p)));
             }
 
             if (contractors != null)
@@ -282,6 +278,24 @@ namespace PhpaAll.Controllers
             {
                 dict.Add(Actions.RecentBillsParams.stations, stations);
             }
+            if (maxAmount != null)
+            {
+                dict.Add(Actions.RecentBillsParams.maxAmount, new decimal [] {maxAmount.Value});
+            }
+            if (minAmount != null)
+            {
+                dict.Add(Actions.RecentBillsParams.minAmount, new decimal[] { minAmount.Value });
+            }
+
+            if (dateFrom != null)
+            {
+                dict.Add(Actions.RecentBillsParams.dateFrom, new DateTime[] { dateFrom.Value });
+            }
+
+            if (dateTo != null)
+            {
+                dict.Add(Actions.RecentBillsParams.dateTo, new DateTime[] { dateTo.Value });
+            }
 
             if (dict.Count > 0)
             {
@@ -290,29 +304,8 @@ namespace PhpaAll.Controllers
                             select string.Format("{0}={1}", item.Key, val);
                 url += "?" + string.Join("&", query);
             }
-            if (maxAmount != null) 
-            {
-                url += "?" + string.Format("{0}={1}", Actions.RecentBillsParams.maxAmount, maxAmount.Value);  
-            }
-            if (minAmount != null)
-            {
-                url += "?" + string.Format("{0}={1}", Actions.RecentBillsParams.minAmount, minAmount.Value);
-            }
-
-            if (dateFrom != null)
-            {
-                url += "?" + string.Format("{0}={1}", Actions.RecentBillsParams.dateFrom, dateFrom.Value);
-            }
-
-            if (dateTo != null)
-            {
-                url += "?" + string.Format("{0}={1}", Actions.RecentBillsParams.dateTo, dateTo.Value);
-            }
-           
 
             return Redirect(url);
-
-           // return RedirectToAction(ar);
         }
 
     }
