@@ -65,8 +65,9 @@ namespace PhpaAll.Bills
         [StringLength(255, ErrorMessage = "Max limit is 255 characters")]
         public string Remarks { get; set; }
 
-        [Display(Name = "Image")]
-        public HttpPostedFileBase BillImage { get; set; }
+        //[Display(Name = "Image")]
+        //[Obsolete]
+        //public HttpPostedFileBase BillImage { get; set; }
 
       
         [Display(Name = "Station")]

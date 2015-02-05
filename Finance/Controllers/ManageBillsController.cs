@@ -59,22 +59,22 @@ namespace PhpaAll.Controllers
             {
                 return View(Views.Create, model);
             }
-            byte[] imageData = null;
+            //byte[] imageData = null;
 
-            if (model.BillImage != null && model.BillImage.ContentLength > 0)
-            {
-                // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/  
-                var ms = new MemoryStream(model.BillImage.ContentLength);
-                model.BillImage.InputStream.CopyTo(ms);
-                imageData = ms.ToArray();
-            }
+            //if (model.BillImage != null && model.BillImage.ContentLength > 0)
+            //{
+            //    // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/  
+            //    var ms = new MemoryStream(model.BillImage.ContentLength);
+            //    model.BillImage.InputStream.CopyTo(ms);
+            //    imageData = ms.ToArray();
+            //}
             var bill = new Bill
             {
                 Amount = model.Amount,
                 BillNumber = model.BillNumber,
                 Particulars = model.Particulars,
                 BillDate = model.BillDate,
-                BillImage = imageData,
+                //BillImage = imageData,
                 ContractorId = model.ContractorId,
                 SubmitedToDivisionId = model.SubmittedToDivisionId,
                 DueDate = model.DueDate,
