@@ -51,10 +51,6 @@ namespace PhpaAll.Controllers
         public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations,
             DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount, bool exportToExcel = false)
         {
-            if (!ModelState.IsValid)
-            {
-                throw new ArgumentException("Are dates being properly validated by client script?");
-            }
             //if (dates != null)
             //{
             //    throw new NotImplementedException(string.Format("Dates {0}", dates[0]));
@@ -211,6 +207,7 @@ namespace PhpaAll.Controllers
                                DueDate = bill.DueDate,
                                PaidDate = bill.PaidDate,
                                ApprovedDate = bill.ApprovedOn,
+                               ApprovedBy = bill.ApprovedBy,
                                Remarks = bill.Remarks,
                                SubmittedOnDate = bill.SubmittedOnDate,
                                Id = bill.Id,
@@ -235,7 +232,8 @@ namespace PhpaAll.Controllers
         /// <param name="approvers">Used to pass to Recent Bills while redirecting</param>
         /// <returns></returns>
         [HttpPost]
-        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate, string[] approvers, int[] divisions)
+        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate, string[] approvers, int[] divisions,int[] contractors, 
+                                                int[] stations, DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount)
         {
             if (string.IsNullOrWhiteSpace(User.Identity.Name))
             {
@@ -253,9 +251,6 @@ namespace PhpaAll.Controllers
                     bill.ApprovedBy = User.Identity.Name;
                 }
                 _db.Value.SubmitChanges();
-
-
-                
             }
 
             // Passing array as routevalues
@@ -272,7 +267,34 @@ namespace PhpaAll.Controllers
             if (divisions != null)
             {
                 dict.Add(Actions.RecentBillsParams.divisions, divisions);
-                //url += "?" + string.Join("&", divisions.Select(p => string.Format("{0}={1}", Actions.RecentBillsParams.divisions, p)));
+            }
+
+            if (contractors != null)
+            {
+                dict.Add(Actions.RecentBillsParams.contractors, contractors);
+            }
+
+            if (stations != null)
+            {
+                dict.Add(Actions.RecentBillsParams.stations, stations);
+            }
+            if (maxAmount != null)
+            {
+                dict.Add(Actions.RecentBillsParams.maxAmount, new decimal [] {maxAmount.Value});
+            }
+            if (minAmount != null)
+            {
+                dict.Add(Actions.RecentBillsParams.minAmount, new decimal[] { minAmount.Value });
+            }
+
+            if (dateFrom != null)
+            {
+                dict.Add(Actions.RecentBillsParams.dateFrom, new DateTime[] { dateFrom.Value });
+            }
+
+            if (dateTo != null)
+            {
+                dict.Add(Actions.RecentBillsParams.dateTo, new DateTime[] { dateTo.Value });
             }
 
             if (dict.Count > 0)
@@ -284,8 +306,6 @@ namespace PhpaAll.Controllers
             }
 
             return Redirect(url);
-
-           // return RedirectToAction(ar);
         }
 
     }
