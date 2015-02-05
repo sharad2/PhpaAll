@@ -7,27 +7,6 @@ namespace PhpaAll.Bills
 {
     public class BillModel
     {
-        //public BillModel()
-        //{
-
-        //}
-
-        //[Obsolete]
-        //internal BillModel(Bill bill)
-        //{
-        //    Amount = bill.Amount;
-        //    Particulars = bill.Particulars;
-        //    BillNumber = bill.BillNumber;
-        //    BillDate = bill.BillDate;
-        //    //BillImage = model.BillImage,          
-        //    ContractorId = bill.ContractorId;
-        //    SubmittedToDivisionId = bill.SubmitedToDivisionId;
-        //    DueDate = bill.DueDate;
-        //    PaidDate = bill.PaidDate;
-        //    Remarks = bill.Remarks;
-        //    SubmittedOnDate = bill.SubmittedOnDate;
-        //    Id = bill.Id;
-        //}
         //For internal use to retrive row for editing
         public int Id { get; set; }
 
