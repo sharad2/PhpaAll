@@ -46,50 +46,16 @@
       <Column Name="BillImage" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
       <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" IsReadOnly="true" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" IsReadOnly="true" CanBeNull="true" />
-      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" IsReadOnly="true" CanBeNull="true" />
-      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" IsReadOnly="true" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="StationId" Type="System.Int32" DbType="Int" CanBeNull="false" />
-      <Column Member="CurrentDivisionId" Type="System.String" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="CurrentDivisionId" Type="System.String" CanBeNull="false" UpdateCheck="Always" />
       <Association Name="Bill_BillWorkflow" Member="BillWorkflows" ThisKey="Id" OtherKey="BillId" Type="BillWorkflow" />
       <Association Name="Contractor_Bill" Member="Contractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="Contractor" IsForeignKey="true" />
       <Association Name="Division_Bill" Member="SubmittedToDivision" Storage="_Division" ThisKey="SubmitedToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
       <Association Name="Station_Bill" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.BillAudit" Member="BillAudits" AccessModifier="Internal">
-    <Type Name="BillAudit" AccessModifier="Internal">
-      <Column Name="BillNumberOld" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
-      <Column Name="BillNumberNew" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
-      <Column Name="BillDateOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="BillDateNew" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="DueDateOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="DueDateNew" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="SubmittedOnDateOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="SubmittedOnDateNew" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="PaidDateOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="PaidDateNew" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="SubmittedToDivisionNameOld" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
-      <Column Name="SubmittedToDivisionNameNew" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
-      <Column Name="ContractorNameOld" Type="System.String" DbType="NVarChar(120)" CanBeNull="true" />
-      <Column Name="ContractorNameNew" Type="System.String" DbType="NVarChar(120)" CanBeNull="true" />
-      <Column Name="AmountOld" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="AmountNew" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ApprovedByOld" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ApprovedByNew" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ApprovedOnOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="ApprovedOnNew" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="RemarksOld" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="RemarksNew" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="ParticularsOld" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="ParticularsNew" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="BillId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StationIdOld" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StationIdNew" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="PIS.Station" Member="Stations" AccessModifier="Internal">
@@ -122,6 +88,40 @@
       <Association Name="Bill_BillWorkflow" Member="Bill" ThisKey="BillId" OtherKey="Id" Type="Bill" IsForeignKey="true" />
       <Association Name="Division_BillWorkflow" Member="Division" ThisKey="ToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
       <Association Name="Division_BillWorkflow1" Member="Division1" ThisKey="FromDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BillAudit" Member="BillAudits">
+    <Type Name="BillAudit">
+      <Column Name="BillNumberOld" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="BillNumberNew" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="BillDateOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="BillDateNew" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="DueDateOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="DueDateNew" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="SubmittedOnDateOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="SubmittedOnDateNew" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="PaidDateOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="PaidDateNew" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="SubmittedToDivisionNameOld" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
+      <Column Name="SubmittedToDivisionNameNew" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
+      <Column Name="ContractorNameOld" Type="System.String" DbType="NVarChar(120)" CanBeNull="true" />
+      <Column Name="ContractorNameNew" Type="System.String" DbType="NVarChar(120)" CanBeNull="true" />
+      <Column Name="AmountOld" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="AmountNew" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ApprovedByOld" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ApprovedByNew" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ApprovedOnOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ApprovedOnNew" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="RemarksOld" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="RemarksNew" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ParticularsOld" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ParticularsNew" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="BillId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StationNameOld" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StationNameNew" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

@@ -269,15 +269,15 @@
                                     @Html.DisplayFor(m => m.BillHistory[i].SubmittedOnDateOld)
                                 </li>
                             }
-                            @if (Model.BillHistory[i].StationIdOld != null && Model.BillHistory[i].StationIdNew != Model.BillHistory[i].StationIdOld)
+                            @if (Model.BillHistory[i].StationNameOld != null && Model.BillHistory[i].StationNameNew != Model.BillHistory[i].StationNameOld)
                             {
                                 <li>
                                     <label style="padding-right:1mm">Station New</label>
-                                    @Html.DisplayFor(m => m.BillHistory[i].StationIdNew)
+                                    @Html.DisplayFor(m => m.BillHistory[i].StationNameNew)
                                 </li>
                                 <li>
                                     <label style="padding-right:1mm">Station Old</label>
-                                    @Html.DisplayFor(m => m.BillHistory[i].StationIdOld)
+                                    @Html.DisplayFor(m => m.BillHistory[i].StationNameOld)
                                 </li>
                             }
                         </ul>

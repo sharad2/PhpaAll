@@ -67,9 +67,9 @@ namespace PhpaAll.Bills
 
         public string RemarksOld { get; set; }
 
-        public int? StationIdNew { get; set; }
+        public string StationNameNew { get; set; }
 
-        public int? StationIdOld { get; set; }
+        public string StationNameOld { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? SubmittedOnDateNew { get; set; }
