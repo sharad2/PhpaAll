@@ -242,5 +242,32 @@ namespace PhpaAll.Controllers
             return RedirectToAction(MVC.Bills.RecentBills());
         }
 
+        public virtual ActionResult OutstandingBills()
+        {
+            var model = new OutstandingBillsViewModel
+            {
+
+            };
+
+            var query = from bill in _db.Value.Bills
+                        where bill.PaidDate == null
+                        orderby bill.DueDate descending
+                        select new OutstandingBillModel
+                        {
+                            BillId = bill.Id,
+                            BillNumber = bill.BillNumber,
+                            SubmittedToDivisionId = bill.SubmitedToDivisionId,
+                            SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
+                            ContractorId = bill.ContractorId,
+                            ContractorName = bill.Contractor.ContractorName,
+                            BillDate = bill.BillDate,
+                            DueDate = bill.DueDate,
+                            Amount = bill.Amount
+                        };
+
+            model.Bills = query.Take(100).ToList();
+            return View(Views.OutstandingBills, model);
+        }
     }
+
 }

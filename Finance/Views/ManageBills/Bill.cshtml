@@ -135,7 +135,7 @@
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-md-2">
-                        @Html.DisplayFor(m => m.BillDate)
+                        @Html.DisplayFor(m => m.BillHistory[i].DateCreated)
                     </div>
                     <div class="col-md-10">
                         <ul>
@@ -157,7 +157,7 @@
                             @if (Model.BillHistory[i].BillDateOld != null && Model.BillHistory[i].BillDateNew != Model.BillHistory[i].BillDateOld)
                             {
                                 <li>
-                                    <label style="padding-right:1mm">Bill Date Changed</label>
+                                    <label style="padding-right:1mm">Bill Date Changed From </label>
                                     @Html.DisplayFor(m => m.BillHistory[i].BillDateOld) <strong>To </strong>  @Html.DisplayFor(m => m.BillHistory[i].BillDateNew)
                                 </li>
 

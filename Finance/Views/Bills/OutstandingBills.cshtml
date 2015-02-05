@@ -1,0 +1,32 @@
+﻿@model PhpaAll.Bills.OutstandingBillsViewModel
+@{
+    ViewBag.Title = "Outstanding Bills";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td><strong>#</strong></td>
+            <td><strong>Bill No.</strong></td>
+            <td><strong>Bill Date</strong></td>
+            <td><strong>Due Date</strong></td>
+            <td><strong>Division</strong></td>
+            <td><strong>Contractor</strong></td>
+            <td><strong>Amount</strong></td>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.Bills.Count; ++i)
+        {
+            <tr>
+                <td>@i</td>
+                <td>@Html.DisplayFor(m => m.Bills[i].BillNumber)</td>
+                <td>@Html.DisplayFor(m => m.Bills[i].BillDate)</td>
+                <td>@Html.DisplayFor(m => m.Bills[i].DueDate)</td>
+                <td>@Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)</td>
+                <td>@Html.DisplayFor(m => m.Bills[i].ContractorName)</td>
+                <td style="text-align:right">@Html.DisplayFor(m => m.Bills[i].Amount)</td>
+            </tr>
+        }
+    </tbody>
+</table>

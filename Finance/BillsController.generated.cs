@@ -96,6 +96,7 @@ namespace PhpaAll.Controllers
             public readonly string Search = "Search";
             public readonly string RecentBills = "RecentBills";
             public readonly string ApproveBills = "ApproveBills";
+            public readonly string OutstandingBills = "OutstandingBills";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -105,6 +106,7 @@ namespace PhpaAll.Controllers
             public const string Search = "Search";
             public const string RecentBills = "RecentBills";
             public const string ApproveBills = "ApproveBills";
+            public const string OutstandingBills = "OutstandingBills";
         }
 
 
@@ -152,10 +154,12 @@ namespace PhpaAll.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
+                public readonly string OutstandingBills = "OutstandingBills";
                 public readonly string RecentBills = "RecentBills";
                 public readonly string Search = "Search";
             }
             public readonly string Index = "~/Views/Bills/Index.cshtml";
+            public readonly string OutstandingBills = "~/Views/Bills/OutstandingBills.cshtml";
             public readonly string RecentBills = "~/Views/Bills/RecentBills.cshtml";
             public readonly string Search = "~/Views/Bills/Search.cshtml";
         }
@@ -219,6 +223,17 @@ namespace PhpaAll.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "listBillId", listBillId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "approvalDate", approvalDate);
             ApproveBillsOverride(callInfo, listBillId, approvalDate);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void OutstandingBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult OutstandingBills()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.OutstandingBills);
+            OutstandingBillsOverride(callInfo);
             return callInfo;
         }
 

@@ -347,6 +347,7 @@
     <Content Include="Views\ManageBills\Bill.cshtml" />
     <Content Include="Views\ManageBills\Edit.cshtml" />
     <Content Include="Views\Bills\Search.cshtml" />
+    <Content Include="Views\Bills\OutstandingBills.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">
@@ -370,6 +371,7 @@
     <Compile Include="Bills\BillAuditModel.cs" />
     <Compile Include="Bills\BillViewModel.cs" />
     <Compile Include="Bills\CreateViewModel.cs" />
+    <Compile Include="Bills\OutstandingBillsViewModel.cs" />
     <Compile Include="Bills\PhpaBills.cs">
       <DependentUpon>PhpaBills.dbml</DependentUpon>
     </Compile>
