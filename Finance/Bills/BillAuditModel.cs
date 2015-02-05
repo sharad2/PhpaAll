@@ -52,7 +52,7 @@ namespace PhpaAll.Bills
             {
                 _fieldChanges.Add(new BillAuditFieldChangeModel
                 {
-                    FieldName = "Due Date",
+                    FieldName = "Paid Date",
                     OldValue = string.Format("{0:d}",entity.PaidDateOld),
                     NewValue = string.Format("{0:d}",entity.PaidDateNew)
                 });
