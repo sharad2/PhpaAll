@@ -1,6 +1,8 @@
 ﻿using PhpaAll.Bills;
 using PhpaAll.MvcHelpers;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -252,28 +254,33 @@ namespace PhpaAll.Controllers
                 
             }
 
-            var ar = MVC.Bills.RecentBills();
+            // Passing array as routevalues
+            // http://stackoverflow.com/questions/8391055/passing-an-array-to-routevalues-and-have-it-render-model-binder-friendly-url
+            var url = Url.Action(MVC.Bills.RecentBills());
+
+            var dict = new Dictionary<string, IEnumerable>();
 
             if (approvers != null)
             {
-                foreach (var item in approvers)
-                {
-                    // MVC does not add empty string to route values. So we are sending a space insted.
-                    ar.AddRouteValue(Actions.RecentBillsParams.approvers, string.IsNullOrEmpty(item) ? " " : item);
-                }
+                dict.Add(Actions.RecentBillsParams.approvers, approvers);
             }
 
             if (divisions != null)
             {
-                //foreach (var item in divisions)
-                {
-                    ar.AddRouteValue(Actions.RecentBillsParams.divisions, divisions);
-                }
+                dict.Add(Actions.RecentBillsParams.divisions, divisions);
+                //url += "?" + string.Join("&", divisions.Select(p => string.Format("{0}={1}", Actions.RecentBillsParams.divisions, p)));
+            }
+            if (dict.Count > 0)
+            {
+                var query = from item in dict
+                            from object val in item.Value
+                            select string.Format("{0}={1}", item.Key, val);
+                url += "?" + string.Join("&", query);
             }
 
+            return Redirect(url);
 
-
-            return RedirectToAction(ar);
+           // return RedirectToAction(ar);
         }
 
     }
