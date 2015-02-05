@@ -9,7 +9,7 @@
         $(document).ready(function () {
 
 
-            $("#billDatePickerTo,#billDatePickerFrom").datetimepicker({
+            $("#billDatePickerTo,#billDatePickerFrom,#billApproveDatePicker").datetimepicker({
                 format: 'D/M/YYYY'
             });
 
@@ -203,15 +203,16 @@ Paid / Unpaid
     <div class="col-md-9">
         <form action="@Url.Action(MVC.Bills.ApproveBills())" method="post">
             <div class="form-inline">
-                <div class="form-group">
-                    @*<label for="exampleInputName2">Name</label>*@
-                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Date of Approval">
+                <div class='input-group date' id='billApproveDatePicker'>
+                    <input type="date" title="Select bill approval date" class="form-control input-sm" size="12" placeholder="Date of Approval" name="@MVC.Bills.ApproveBillsParams.approvalDate" value="@DateTime.Now">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
                 </div>
                 <div class="form-group">
-                    @*<label for="exampleInputEmail2">Email</label>*@
-                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Approval comment">
+                    <input type="text" class="form-control" id="approvalComment" placeholder="Approval comment">
                 </div>
-                <button type="submit" class="btn btn-default">Approve Selected</button>
+                <button type="submit" class="btn btn-primary">Approve Selected</button>
             </div>
             <ul class="list-group">
                 <li class="list-group-item list-group-item-info">

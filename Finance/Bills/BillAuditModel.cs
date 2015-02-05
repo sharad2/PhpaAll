@@ -1,23 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using System.Drawing;
 
 namespace PhpaAll.Bills
 {
+    public class BillAuditFieldChangeModel
+    {
+        public string FieldName { get; set; }
+
+        public string OldValue { get; set; }
+
+        public string NewValue { get; set; }
+    }
+
     public class BillAuditModel
     {
-        //public BillAuditViewModel()
-        //{
+        private readonly IList<BillAuditFieldChangeModel> _fieldChanges;
+        internal BillAuditModel(BillAudit entity)
+        {
+            _fieldChanges = new List<BillAuditFieldChangeModel>();
+            if (entity.RemarksOld != entity.RemarksNew)
+            {
+                _fieldChanges.Add(new BillAuditFieldChangeModel
+                {
+                    FieldName = "Remarks",
+                    OldValue = entity.RemarksOld,
+                    NewValue = entity.RemarksNew
+                });
+            }
 
-        //}
-
-        public string BillCreatedBy { get; set; }
+            if (entity.SubmittedOnDateOld != entity.SubmittedOnDateNew)
+            {
+                _fieldChanges.Add(new BillAuditFieldChangeModel
+                {
+                    FieldName = "Submit Date",
+                    OldValue = string.Format("{0:d}", entity.SubmittedOnDateOld),
+                    NewValue = string.Format("{0:d}", entity.SubmittedOnDateNew)
+                });
+            }
+        }
 
         [DataType(DataType.Date)]
         public DateTime? DateCreated { get; set; }
+
+        public IList<BillAuditFieldChangeModel> FieldChanges
+        {
+            get
+            {
+                return _fieldChanges;
+            }
+        }
 
         public string BillNumberOld { get; set; }
 

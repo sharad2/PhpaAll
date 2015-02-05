@@ -4,6 +4,7 @@ using System;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -57,24 +58,25 @@ namespace PhpaAll.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(Views.Create, model);
+                var x = ModelState.SelectMany(p => p.Value.Errors).Select(p => p.ErrorMessage);
+                throw new NotImplementedException(string.Join(";", x));
             }
-            byte[] imageData = null;
+            //byte[] imageData = null;
 
-            if (model.BillImage != null && model.BillImage.ContentLength > 0)
-            {
-                // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/  
-                var ms = new MemoryStream(model.BillImage.ContentLength);
-                model.BillImage.InputStream.CopyTo(ms);
-                imageData = ms.ToArray();
-            }
+            //if (model.BillImage != null && model.BillImage.ContentLength > 0)
+            //{
+            //    // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/  
+            //    var ms = new MemoryStream(model.BillImage.ContentLength);
+            //    model.BillImage.InputStream.CopyTo(ms);
+            //    imageData = ms.ToArray();
+            //}
             var bill = new Bill
             {
                 Amount = model.Amount,
                 BillNumber = model.BillNumber,
                 Particulars = model.Particulars,
                 BillDate = model.BillDate,
-                BillImage = imageData,
+                //BillImage = imageData,
                 ContractorId = model.ContractorId,
                 SubmitedToDivisionId = model.SubmittedToDivisionId,
                 DueDate = model.DueDate,
@@ -121,19 +123,17 @@ namespace PhpaAll.Controllers
         [HttpPost]
         public virtual ActionResult Edit(EditViewModel model)
         {
-
-
             try
             {
-                byte[] imageData = null;
+                //byte[] imageData = null;
 
-                if (model.BillImage != null && model.BillImage.ContentLength > 0)
-                {
-                    // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/  
-                    var ms = new MemoryStream(model.BillImage.ContentLength);
-                    model.BillImage.InputStream.CopyTo(ms);
-                    imageData = ms.ToArray();
-                }
+                //if (model.BillImage != null && model.BillImage.ContentLength > 0)
+                //{
+                //    // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/  
+                //    var ms = new MemoryStream(model.BillImage.ContentLength);
+                //    model.BillImage.InputStream.CopyTo(ms);
+                //    imageData = ms.ToArray();
+                //}
 
                 var edit = (from b in _db.Value.Bills
                             where b.Id == model.Id
@@ -143,7 +143,7 @@ namespace PhpaAll.Controllers
                 edit.Particulars = model.Particulars;
                 edit.BillNumber = model.BillNumber;
                 edit.BillDate = model.BillDate;
-                edit.BillImage = imageData;
+                //edit.BillImage = imageData;
                 edit.ContractorId = model.ContractorId;
                 edit.SubmitedToDivisionId = model.SubmittedToDivisionId;
                 edit.DueDate = model.DueDate;
@@ -214,9 +214,9 @@ namespace PhpaAll.Controllers
             // Getting Bill history from Bill Audit.  
             model.BillHistory = (from ba in _db.Value.BillAudits
                                  where ba.BillId == id
-                                 select new BillAuditModel
+                                 select new BillAuditModel(ba)
                                  {
-                                     BillCreatedBy = ba.CreatedBy,
+                                     //BillCreatedBy = ba.CreatedBy,
                                      DateCreated = ba.Created,
                                      BillNumberOld = ba.BillNumberOld,
                                      BillNumberNew = ba.BillNumberNew,
@@ -250,22 +250,50 @@ namespace PhpaAll.Controllers
             return View(Views.Bill, model);
         }
 
-
+        #region Image
         public virtual ActionResult Image(int id)
         {
-            var model = (from bill in _db.Value.Bills
-                         where bill.Id == id
-                         select new BillViewModel
-                         {
-                             BillImage = bill.BillImage
-                         }).FirstOrDefault();
+            //var model = (from bill in _db.Value.Bills
+            //             where bill.Id == id
+            //             select new BillViewModel
+            //             {
+            //                 BillImage = bill.BillImage
+            //             }).FirstOrDefault();
 
-            //MemoryStream target = new MemoryStream();
-            //model.File.InputStream.CopyTo(target);
-            byte[] data = model.BillImage.ToArray();
-            return File(data, "image/jpg");
+            ////MemoryStream target = new MemoryStream();
+            ////model.File.InputStream.CopyTo(target);
+            //byte[] data = model.BillImage.ToArray();
+            //return File(data, "image/jpg");
+
+            var image = (from bill in _db.Value.Bills
+                         where bill.Id == id
+                         select bill.BillImage).FirstOrDefault();
+            if (image == null)
+            {
+                throw new NotImplementedException();
+            }
+            // TODO: Get mime type from db
+            return File(image.ToArray(), "image/jpg");
+
         }
 
+        [HttpPost]
+        public virtual ActionResult UploadImage(int billId, HttpPostedFileBase file)
+        {
+            var input = new byte[file.ContentLength];
+            file.InputStream.Read(input, 0, file.ContentLength);
+
+            foreach (var bill in _db.Value.Bills.Where(p => p.Id == billId))
+            {
+                bill.BillImage = input;
+            }
+            _db.Value.SubmitChanges();
+            return Json("Done");
+        }
+
+        #endregion
+
+        #region Autocomplete
         /// <summary>
         /// Get matching divisions
         /// </summary>
@@ -301,7 +329,7 @@ namespace PhpaAll.Controllers
                        };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
+        #endregion
 
     }
 }

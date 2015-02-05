@@ -143,39 +143,39 @@ namespace PhpaAll.Controllers
                 model.IsFiltered = true;
             }
 
-                // Assume that there will always be two dates
-                if (dateFrom != null)
-                {
-                    // From Date
-                    filteredBills = filteredBills.Where(p => p.BillDate >= dateFrom);
-                    model.IsFiltered = true;
-                    model.DateFrom = dateFrom;
-                }
-                if (dateTo != null)
-                {
-                    // From Date
-                    filteredBills = filteredBills.Where(p => p.BillDate <= dateTo);
-                    model.IsFiltered = true;
-                    model.DateTo = dateTo;
-                }
+            // Assume that there will always be two dates
+            if (dateFrom != null)
+            {
+                // From Date
+                filteredBills = filteredBills.Where(p => p.BillDate >= dateFrom);
+                model.IsFiltered = true;
+                model.DateFrom = dateFrom;
+            }
+            if (dateTo != null)
+            {
+                // From Date
+                filteredBills = filteredBills.Where(p => p.BillDate <= dateTo);
+                model.IsFiltered = true;
+                model.DateTo = dateTo;
+            }
 
-                // Assume that there will always min and max amount value
-                if (minAmount != null)
-                {
-                    // Min Amount
-                    filteredBills = filteredBills.Where(p => p.Amount >= minAmount);
-                    model.IsFiltered = true;
-                    model.FilterMinAmount = minAmount;
-                }
-                if (maxAmount != null)
-                {
-                    // Max Amount
-                    filteredBills = filteredBills.Where(p => p.Amount <= maxAmount);
-                    model.IsFiltered = true;
-                    model.FilterMaxAmount = maxAmount;
-                }
+            // Assume that there will always min and max amount value
+            if (minAmount != null)
+            {
+                // Min Amount
+                filteredBills = filteredBills.Where(p => p.Amount >= minAmount);
+                model.IsFiltered = true;
+                model.FilterMinAmount = minAmount;
+            }
+            if (maxAmount != null)
+            {
+                // Max Amount
+                filteredBills = filteredBills.Where(p => p.Amount <= maxAmount);
+                model.IsFiltered = true;
+                model.FilterMaxAmount = maxAmount;
+            }
 
-            
+
 
             if (model.UrlExcel.Contains("?"))
             {
@@ -221,17 +221,21 @@ namespace PhpaAll.Controllers
         }
 
         [HttpPost]
-        public virtual ActionResult ApproveBills(int[] listBillId)
+        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate)
         {
-            throw new NotImplementedException(listBillId == null ? "null" : listBillId.Length.ToString());
             var query = from bill in _db.Value.Bills
                         where listBillId.Contains(bill.Id)
                         select bill;
+
             foreach (var bill in query)
             {
-                bill.ApprovedOn = DateTime.Now;
+                bill.ApprovedOn = approvalDate;
+                bill.ApprovedBy = User.Identity.Name;
             }
             _db.Value.SubmitChanges();
+
+
+            return RedirectToAction(MVC.Bills.RecentBills());
         }
 
     }

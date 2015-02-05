@@ -20,14 +20,14 @@
         <elementListCompartment Id="6dc7985f-d78b-41e9-9403-d602528c4b4d" absoluteBounds="4.015, 4.585, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 2.40465413411458); (5 : 2.40465413411458); (5 : 4.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 2.1875); (5 : 2.1875); (5 : 4.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/PhpaBillsDataContext/Contractor/Contractor_Bill" />
       <nodes>
         <classShapeMoniker Id="985da267-7841-4f17-9366-c5f8018755b0" />
         <classShapeMoniker Id="a440a664-948a-4200-9dc7-e0e6f3a4b840" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 6.41429768880208); (3.41666666666667 : 6.41429768880208 : JumpStart); (3.58333333333333 : 6.41429768880208 : JumpEnd); (4 : 6.41429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 6.41429768880208); (3.41666666666667 : 6.41429768880208 : JumpStart); (3.58333333333333 : 6.41429768880208 : JumpEnd); (4 : 6.41429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PhpaBillsDataContext/Division/Division_Bill" />
       <nodes>
         <classShapeMoniker Id="9dc8795f-8380-4320-8688-80ec77656a27" />
@@ -60,14 +60,14 @@
         <classShapeMoniker Id="16c7729d-c8be-4573-8485-b6a0fd8fd50e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 5.98839684440104); (3.41666666666667 : 5.98839684440104 : JumpStart); (3.58333333333333 : 5.98839684440104 : JumpEnd); (3.75 : 5.98839684440104); (3.75 : 3.875); (4.91666666666667 : 3.875 : JumpStart); (5.08333333333333 : 3.875 : JumpEnd); (8.01041466666667 : 3.875 : JumpStart); (8.17708133333333 : 3.875 : JumpEnd); (8.625 : 3.875); (8.625 : 4.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 5.98839684440104); (3.41666666666667 : 5.98839684440104 : JumpStart); (3.58333333333333 : 5.98839684440104 : JumpEnd); (3.75 : 5.98839684440104); (3.75 : 3.875); (4.91666666666667 : 3.875 : JumpStart); (5.08333333333333 : 3.875 : JumpEnd); (8.01041466666667 : 3.875 : JumpStart); (8.17708133333333 : 3.875 : JumpEnd); (8.625 : 3.875); (8.625 : 4.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PhpaBillsDataContext/Division/Division_BillWorkflow" />
       <nodes>
         <classShapeMoniker Id="9dc8795f-8380-4320-8688-80ec77656a27" />
         <classShapeMoniker Id="16c7729d-c8be-4573-8485-b6a0fd8fd50e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 6.84019853320313); (3.5 : 6.84019853320313); (3.5 : 3.625); (4.91666666666667 : 3.625 : JumpStart); (5.08333333333333 : 3.625 : JumpEnd); (8.093748 : 3.625); (8.093748 : 4.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 6.84019853320313); (3.5 : 6.84019853320313); (3.5 : 3.625); (4.91666666666667 : 3.625 : JumpStart); (5.08333333333333 : 3.625 : JumpEnd); (8.093748 : 3.625); (8.093748 : 4.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PhpaBillsDataContext/Division/Division_BillWorkflow1" />
       <nodes>
         <classShapeMoniker Id="9dc8795f-8380-4320-8688-80ec77656a27" />
