@@ -139,6 +139,7 @@ namespace PhpaAll.Controllers
         public class ActionParamsClass_ApproveBills
         {
             public readonly string listBillId = "listBillId";
+            public readonly string approvalDate = "approvalDate";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -209,14 +210,15 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void ApproveBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int[] listBillId);
+        partial void ApproveBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int[] listBillId, System.DateTime? approvalDate);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult ApproveBills(int[] listBillId)
+        public override System.Web.Mvc.ActionResult ApproveBills(int[] listBillId, System.DateTime? approvalDate)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ApproveBills);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "listBillId", listBillId);
-            ApproveBillsOverride(callInfo, listBillId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "approvalDate", approvalDate);
+            ApproveBillsOverride(callInfo, listBillId, approvalDate);
             return callInfo;
         }
 
