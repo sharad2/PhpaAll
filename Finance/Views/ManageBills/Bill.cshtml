@@ -39,9 +39,7 @@
             <li data-target="#carousel-example-generic" data-slide-to="@i" class="@(i == 0 ? "active" : null)"></li>
         }
         <li data-target="#carousel-example-generic" data-slide-to="@Model.AttachedImageCount" class="@(Model.AttachedImageCount == 0 ? "active" : null)"></li>
-        @*<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>*@
+       
     </ol>
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
@@ -49,15 +47,18 @@
         {
             <div class="item @(i == 0 ? "active" : "")">
                 <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="...">
-                <div class="carousel-caption">
-                    <button class="btn btn-danger btn-xs">Delete me</button>
+                <div class="carousel-caption">                   
+                    <h1 class="text-success">
+                        @(i + 1)
+                    </h1>
+                    <form method="post" action="@Url.Action(MVC.ManageBills.DeleteImageofBill(Model.Id, i))">
+                        <button class="btn btn-danger btn-xs">Delete me</button>
+                    </form>
+                   
                 </div>
             </div>
         }
-        <div class="item @(Model.AttachedImageCount == 0 ? "active" : "")">
-            <p>
-                Hello everyone
-            </p>
+        <div class="item @(Model.AttachedImageCount == 0 ? "active" : "")">          
             <form action="@Url.Action(MVC.ManageBills.UploadImage())"
                   class="dropzone"
                   id="my-dropzone">
@@ -150,14 +151,7 @@
 
 
     </div>
-    <div class="col-md-4">
-        @for (var i = 0; i < Model.AttachedImageCount; ++i)
-        {
-            <div class="thumbnail">
-                <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt=" No image">
-            </div>
-        }
-    </div>
+    
 </div>
 
 

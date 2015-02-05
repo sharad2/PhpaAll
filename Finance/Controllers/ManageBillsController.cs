@@ -305,6 +305,11 @@ namespace PhpaAll.Controllers
             });
         }
 
+        /// <summary>
+        /// Deletes the passed image given the ID of Bill Image table
+        /// </summary>
+        /// <param name="billImageId"></param>
+        /// <returns></returns>
         [HttpPost]
         public virtual ActionResult DeleteImage(int billImageId)
         {
@@ -314,6 +319,22 @@ namespace PhpaAll.Controllers
             _db.Value.BillImages.DeleteOnSubmit(query);
             _db.Value.SubmitChanges();
             return Json("Done");
+        }
+
+        /// <summary>
+        /// Deletes the passed image given the ID of Bill Image table
+        /// </summary>
+        /// <param name="billImageId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual ActionResult DeleteImageofBill(int billId, int index)
+        {
+            var query = (from image in _db.Value.BillImages
+                         where image.BillId == billId
+                         select image).Skip(index).FirstOrDefault();
+            _db.Value.BillImages.DeleteOnSubmit(query);
+            _db.Value.SubmitChanges();
+            return RedirectToAction(MVC.ManageBills.ShowBill(billId));
         }
 
         #endregion
