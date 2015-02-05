@@ -1,7 +1,10 @@
 ﻿using PhpaAll.Bills;
 using PhpaAll.MvcHelpers;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -55,7 +58,7 @@ namespace PhpaAll.Controllers
             var query = from bill in _db.Value.Bills
                         group bill by new
                         {
-                            bill.ApprovedBy,
+                            ApprovedBy = (bill.ApprovedBy ?? "").Trim() == ""  ? "" : bill.ApprovedBy,
                             bill.SubmittedToDivision,
                             bill.Contractor,
                             bill.Station
@@ -102,7 +105,7 @@ namespace PhpaAll.Controllers
                                  Id = string.Format("{0}", g.Key),
                                  Name = g.Key,
                                  Count = g.Sum(p => p.Count),
-                                 Selected = approvers == null || approvers.Contains(g.Key ?? "")
+                                 Selected = approvers == null || approvers.Any(p => string.Compare(p.Trim(), g.Key, true) == 0)
                              }).ToList(),
 
                 Stations = (from d in aggQuery
@@ -220,9 +223,20 @@ namespace PhpaAll.Controllers
             return View(Views.RecentBills, model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="listBillId"></param>
+        /// <param name="approvalDate"></param>
+        /// <param name="approvers">Used to pass to Recent Bills while redirecting</param>
+        /// <returns></returns>
         [HttpPost]
-        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate)
+        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate, string[] approvers, int[] divisions)
         {
+            if (string.IsNullOrWhiteSpace(User.Identity.Name))
+            {
+                throw new HttpException("You must be logged in to approve bills");
+            }
             if (listBillId != null)
             {
                 var query = from bill in _db.Value.Bills
@@ -239,7 +253,34 @@ namespace PhpaAll.Controllers
 
                 
             }
-            return RedirectToAction(MVC.Bills.RecentBills());
+
+            // Passing array as routevalues
+            // http://stackoverflow.com/questions/8391055/passing-an-array-to-routevalues-and-have-it-render-model-binder-friendly-url
+            var url = Url.Action(MVC.Bills.RecentBills());
+
+            var dict = new Dictionary<string, IEnumerable>();
+
+            if (approvers != null)
+            {
+                dict.Add(Actions.RecentBillsParams.approvers, approvers);
+            }
+
+            if (divisions != null)
+            {
+                dict.Add(Actions.RecentBillsParams.divisions, divisions);
+                //url += "?" + string.Join("&", divisions.Select(p => string.Format("{0}={1}", Actions.RecentBillsParams.divisions, p)));
+            }
+            if (dict.Count > 0)
+            {
+                var query = from item in dict
+                            from object val in item.Value
+                            select string.Format("{0}={1}", item.Key, val);
+                url += "?" + string.Join("&", query);
+            }
+
+            return Redirect(url);
+
+           // return RedirectToAction(ar);
         }
 
     }
