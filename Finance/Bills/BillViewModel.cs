@@ -59,7 +59,7 @@ namespace PhpaAll.Bills
         [Display(Name = "Remarks")]
         [StringLength(255, ErrorMessage = "Max limit is 255 characters")]
         public string Remarks { get; set; }
-     
+
 
 
         [Display(Name = "Image")]
@@ -78,7 +78,7 @@ namespace PhpaAll.Bills
         [DataType(DataType.Date)]
         public DateTime? PaidDate { get; set; }
 
-          [DataType(DataType.Date)]
+        [DataType(DataType.Date)]
         public DateTime? ApprovedDate { get; set; }
 
         public string ApprovedBy { get; set; }

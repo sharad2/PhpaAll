@@ -214,9 +214,9 @@ namespace PhpaAll.Controllers
             // Getting Bill history from Bill Audit.  
             model.BillHistory = (from ba in _db.Value.BillAudits
                                  where ba.BillId == id
-                                 select new BillAuditModel
+                                 select new BillAuditModel(ba)
                                  {
-                                     BillCreatedBy = ba.CreatedBy,
+                                     //BillCreatedBy = ba.CreatedBy,
                                      DateCreated = ba.Created,
                                      BillNumberOld = ba.BillNumberOld,
                                      BillNumberNew = ba.BillNumberNew,
