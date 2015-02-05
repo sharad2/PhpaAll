@@ -188,6 +188,7 @@ namespace PhpaAll.Controllers
         public class ActionParamsClass_Image
         {
             public readonly string id = "id";
+            public readonly string index = "index";
         }
         static readonly ActionParamsClass_UploadImage s_params_UploadImage = new ActionParamsClass_UploadImage();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -311,14 +312,15 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void ImageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+        partial void ImageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id, int index);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Image(int id)
+        public override System.Web.Mvc.ActionResult Image(int id, int index)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Image);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            ImageOverride(callInfo, id);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "index", index);
+            ImageOverride(callInfo, id, index);
             return callInfo;
         }
 

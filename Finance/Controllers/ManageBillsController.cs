@@ -188,7 +188,6 @@ namespace PhpaAll.Controllers
                          {
                              Id = bill.Id,
                              Amount = bill.Amount,
-                             //BillImage= bill.BillImage,
                              BillNumber = bill.BillNumber,
                              Particulars = bill.Particulars,
                              BillDate = bill.BillDate,
@@ -204,7 +203,8 @@ namespace PhpaAll.Controllers
                              ApprovedDate = bill.ApprovedOn,
                              ApprovedBy = bill.ApprovedBy,
                              StationName = bill.Station.StationName,
-                             CurrentDivision =  bill.CurrentDivision.DivisionName
+                             CurrentDivision =  bill.CurrentDivision.DivisionName,
+                             AttachedImageCount = bill.BillImages.Count
                          }).FirstOrDefault();
 
             // Getting Bill history from Bill Audit.  
@@ -247,7 +247,7 @@ namespace PhpaAll.Controllers
         }
 
         #region Image
-        public virtual ActionResult Image(int id)
+        public virtual ActionResult Image(int id, int index)
         {
             //var model = (from bill in _db.Value.Bills
             //             where bill.Id == id
@@ -263,13 +263,17 @@ namespace PhpaAll.Controllers
 
             var image = (from bill in _db.Value.BillImages
                          where bill.BillId == id
-                         select bill.BillImageData).FirstOrDefault();
+                         select new
+                         {
+                             ImageContentType = bill.ImageContentType,
+                             Data = bill.BillImageData
+                         }).Skip(index).FirstOrDefault();
             if (image == null)
             {
                 throw new NotImplementedException();
             }
             // TODO: Get mime type from db
-            return File(image.ToArray(), "image/jpg");
+            return File(image.Data.ToArray(), image.ImageContentType);
 
         }
 

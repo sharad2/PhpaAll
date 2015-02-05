@@ -94,13 +94,15 @@
 
 
     </div>
-    <div class="col-md-4 thumbnail" >
-        @*<a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))" class="thumbnail">
-            <img src="@Model.BillImage" width="340" height="300" />   </a>*@
-        <img src="@Url.Action(MVC.ManageBills.Image(Model.Id))" alt=" No image">
-
+    <div class="col-md-4">
+        @for (var i = 0; i < Model.AttachedImageCount; ++i)
+        {
+            <div class="thumbnail">
+                <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt=" No image">
+            </div>
+        }
     </div>
-    </div>
+</div>
 
 
 
