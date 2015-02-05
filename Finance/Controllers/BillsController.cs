@@ -2,6 +2,7 @@
 using PhpaAll.MvcHelpers;
 using System;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -55,7 +56,7 @@ namespace PhpaAll.Controllers
             var query = from bill in _db.Value.Bills
                         group bill by new
                         {
-                            bill.ApprovedBy,
+                            ApprovedBy = (bill.ApprovedBy ?? "").Trim() == ""  ? "" : bill.ApprovedBy,
                             bill.SubmittedToDivision,
                             bill.Contractor,
                             bill.Station
@@ -102,7 +103,7 @@ namespace PhpaAll.Controllers
                                  Id = string.Format("{0}", g.Key),
                                  Name = g.Key,
                                  Count = g.Sum(p => p.Count),
-                                 Selected = approvers == null || approvers.Contains(g.Key ?? "")
+                                 Selected = approvers == null || approvers.Any(p => string.Compare(p.Trim(), g.Key, true) == 0)
                              }).ToList(),
 
                 Stations = (from d in aggQuery
@@ -220,9 +221,20 @@ namespace PhpaAll.Controllers
             return View(Views.RecentBills, model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="listBillId"></param>
+        /// <param name="approvalDate"></param>
+        /// <param name="approvers">Used to pass to Recent Bills while redirecting</param>
+        /// <returns></returns>
         [HttpPost]
-        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate)
+        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate, string[] approvers)
         {
+            if (string.IsNullOrWhiteSpace(User.Identity.Name))
+            {
+                throw new HttpException("You must be logged in to approve bills");
+            }
             if (listBillId != null)
             {
                 var query = from bill in _db.Value.Bills
@@ -239,7 +251,17 @@ namespace PhpaAll.Controllers
 
                 
             }
-            return RedirectToAction(MVC.Bills.RecentBills());
+
+            var ar = MVC.Bills.RecentBills();
+
+            foreach (var item in approvers)
+            {
+                // MVC does not add empty string to route values. So we are sending a space insted.
+                ar.AddRouteValue(Actions.RecentBillsParams.approvers, string.IsNullOrEmpty(item) ? " " : item);
+            }
+
+
+            return RedirectToAction(ar);
         }
 
     }

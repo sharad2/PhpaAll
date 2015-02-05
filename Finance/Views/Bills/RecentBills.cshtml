@@ -203,6 +203,10 @@ Paid / Unpaid
     <div class="col-md-9">
         <form action="@Url.Action(MVC.Bills.ApproveBills())" method="post">
             <div class="form-inline">
+                @foreach (var item in Model.Approvers.Where(p => p.Selected))
+                {
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.approvers" value="@item.Id" />
+                }
                 <div class='input-group date' id='billApproveDatePicker'>
                     <input type="date" title="Select bill approval date" class="form-control input-sm" size="12" placeholder="Date of Approval" name="@MVC.Bills.ApproveBillsParams.approvalDate" value="@DateTime.Now">
                     <span class="input-group-addon">
@@ -319,4 +323,5 @@ Paid / Unpaid
             </ul>
         </form>
     </div>
+
 </div>
