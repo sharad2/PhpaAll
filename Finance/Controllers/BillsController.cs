@@ -207,6 +207,7 @@ namespace PhpaAll.Controllers
                                DueDate = bill.DueDate,
                                PaidDate = bill.PaidDate,
                                ApprovedDate = bill.ApprovedOn,
+                               ApprovedBy = bill.ApprovedBy,
                                Remarks = bill.Remarks,
                                SubmittedOnDate = bill.SubmittedOnDate,
                                Id = bill.Id,
@@ -231,7 +232,8 @@ namespace PhpaAll.Controllers
         /// <param name="approvers">Used to pass to Recent Bills while redirecting</param>
         /// <returns></returns>
         [HttpPost]
-        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate, string[] approvers, int[] divisions)
+        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate, string[] approvers, int[] divisions,int[] contractors, 
+                                                int[] stations, DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount)
         {
             if (string.IsNullOrWhiteSpace(User.Identity.Name))
             {
@@ -270,6 +272,17 @@ namespace PhpaAll.Controllers
                 dict.Add(Actions.RecentBillsParams.divisions, divisions);
                 //url += "?" + string.Join("&", divisions.Select(p => string.Format("{0}={1}", Actions.RecentBillsParams.divisions, p)));
             }
+
+            if (contractors != null)
+            {
+                dict.Add(Actions.RecentBillsParams.contractors, contractors);
+            }
+
+            if (stations != null)
+            {
+                dict.Add(Actions.RecentBillsParams.stations, stations);
+            }
+
             if (dict.Count > 0)
             {
                 var query = from item in dict
@@ -277,6 +290,25 @@ namespace PhpaAll.Controllers
                             select string.Format("{0}={1}", item.Key, val);
                 url += "?" + string.Join("&", query);
             }
+            if (maxAmount != null) 
+            {
+                url += "?" + string.Format("{0}={1}", Actions.RecentBillsParams.maxAmount, maxAmount.Value);  
+            }
+            if (minAmount != null)
+            {
+                url += "?" + string.Format("{0}={1}", Actions.RecentBillsParams.minAmount, minAmount.Value);
+            }
+
+            if (dateFrom != null)
+            {
+                url += "?" + string.Format("{0}={1}", Actions.RecentBillsParams.dateFrom, dateFrom.Value);
+            }
+
+            if (dateTo != null)
+            {
+                url += "?" + string.Format("{0}={1}", Actions.RecentBillsParams.dateTo, dateTo.Value);
+            }
+           
 
             return Redirect(url);
 
