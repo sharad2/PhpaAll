@@ -141,6 +141,7 @@ namespace PhpaAll.Controllers
             public readonly string listBillId = "listBillId";
             public readonly string approvalDate = "approvalDate";
             public readonly string approvers = "approvers";
+            public readonly string divisions = "divisions";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -211,16 +212,17 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void ApproveBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int[] listBillId, System.DateTime? approvalDate, string[] approvers);
+        partial void ApproveBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int[] listBillId, System.DateTime? approvalDate, string[] approvers, int[] divisions);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult ApproveBills(int[] listBillId, System.DateTime? approvalDate, string[] approvers)
+        public override System.Web.Mvc.ActionResult ApproveBills(int[] listBillId, System.DateTime? approvalDate, string[] approvers, int[] divisions)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ApproveBills);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "listBillId", listBillId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "approvalDate", approvalDate);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "approvers", approvers);
-            ApproveBillsOverride(callInfo, listBillId, approvalDate, approvers);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "divisions", divisions);
+            ApproveBillsOverride(callInfo, listBillId, approvalDate, approvers, divisions);
             return callInfo;
         }
 

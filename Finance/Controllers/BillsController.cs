@@ -229,7 +229,7 @@ namespace PhpaAll.Controllers
         /// <param name="approvers">Used to pass to Recent Bills while redirecting</param>
         /// <returns></returns>
         [HttpPost]
-        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate, string[] approvers)
+        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate, string[] approvers, int[] divisions)
         {
             if (string.IsNullOrWhiteSpace(User.Identity.Name))
             {
@@ -262,6 +262,15 @@ namespace PhpaAll.Controllers
                     ar.AddRouteValue(Actions.RecentBillsParams.approvers, string.IsNullOrEmpty(item) ? " " : item);
                 }
             }
+
+            if (divisions != null)
+            {
+                //foreach (var item in divisions)
+                {
+                    ar.AddRouteValue(Actions.RecentBillsParams.divisions, divisions);
+                }
+            }
+
 
 
             return RedirectToAction(ar);
