@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 15.375" name="PhpaBills">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 15.125" name="PhpaBills">
   <DataContextMoniker Name="/PhpaBillsDataContext" />
   <nestedChildShapes>
     <classShape Id="9dc8795f-8380-4320-8688-80ec77656a27" absoluteBounds="0.75, 5.625, 2, 1.5785953776041666">
@@ -20,26 +20,20 @@
         <elementListCompartment Id="6dc7985f-d78b-41e9-9403-d602528c4b4d" absoluteBounds="4.015, 4.585, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 2.40465413411458); (5 : 2.40465413411458); (5 : 4.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 2.1875); (5 : 2.1875); (5 : 4.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/PhpaBillsDataContext/Contractor/Contractor_Bill" />
       <nodes>
         <classShapeMoniker Id="985da267-7841-4f17-9366-c5f8018755b0" />
         <classShapeMoniker Id="a440a664-948a-4200-9dc7-e0e6f3a4b840" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 6.41429768880208); (4 : 6.41429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 6.41429768880208); (3.41666666666667 : 6.41429768880208 : JumpStart); (3.58333333333333 : 6.41429768880208 : JumpEnd); (4 : 6.41429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PhpaBillsDataContext/Division/Division_Bill" />
       <nodes>
         <classShapeMoniker Id="9dc8795f-8380-4320-8688-80ec77656a27" />
         <classShapeMoniker Id="a440a664-948a-4200-9dc7-e0e6f3a4b840" />
       </nodes>
     </associationConnector>
-    <classShape Id="f708f7af-36c5-4d7b-b2f1-14ebd47d5c9a" absoluteBounds="6.75, 8.875, 2, 6.1938297526041666">
-      <DataClassMoniker Name="/PhpaBillsDataContext/BillAudit" />
-      <nestedChildShapes>
-        <elementListCompartment Id="8610291e-78c5-427e-800e-e6f782a0c342" absoluteBounds="6.7650000000000006, 9.335, 1.9700000000000002, 5.6338297526041661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="0a9f786c-fac4-4617-88e0-e5476bf95940" absoluteBounds="4.25, 9.875, 2, 2.5401025390625">
       <DataClassMoniker Name="/PhpaBillsDataContext/Station" />
       <nestedChildShapes>
@@ -66,7 +60,7 @@
         <classShapeMoniker Id="16c7729d-c8be-4573-8485-b6a0fd8fd50e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 5.98839684440104); (3.75 : 5.98839684440104); (3.75 : 3.875); (4.91666666666667 : 3.875 : JumpStart); (5.08333333333333 : 3.875 : JumpEnd); (8.625 : 3.875); (8.625 : 4.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 5.98839684440104); (3.41666666666667 : 5.98839684440104 : JumpStart); (3.58333333333333 : 5.98839684440104 : JumpEnd); (3.75 : 5.98839684440104); (3.75 : 3.875); (4.91666666666667 : 3.875 : JumpStart); (5.08333333333333 : 3.875 : JumpEnd); (8.01041466666667 : 3.875 : JumpStart); (8.17708133333333 : 3.875 : JumpEnd); (8.625 : 3.875); (8.625 : 4.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PhpaBillsDataContext/Division/Division_BillWorkflow" />
       <nodes>
         <classShapeMoniker Id="9dc8795f-8380-4320-8688-80ec77656a27" />
@@ -80,5 +74,11 @@
         <classShapeMoniker Id="16c7729d-c8be-4573-8485-b6a0fd8fd50e" />
       </nodes>
     </associationConnector>
+    <classShape Id="e5af3f88-a01c-41e3-90bb-6421131bf4b4" absoluteBounds="7.625, 8.25, 2, 6.5784326171875">
+      <DataClassMoniker Name="/PhpaBillsDataContext/BillAudit" />
+      <nestedChildShapes>
+        <elementListCompartment Id="56ee0771-b4f7-4b62-8c24-e22740bc44be" absoluteBounds="7.6400000000000006, 8.71, 1.9700000000000002, 6.0184326171875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
