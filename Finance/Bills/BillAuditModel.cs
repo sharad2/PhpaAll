@@ -174,6 +174,10 @@ namespace PhpaAll.Bills
 
         public string RemarksOld { get; set; }
 
+        public string StationNameNew { get; set; }
+
+        public string StationNameOld { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime? SubmittedOnDateNew { get; set; }
 

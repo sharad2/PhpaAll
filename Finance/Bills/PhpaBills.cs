@@ -1,3 +1,4 @@
+using System;
 using System.Configuration;
 using System.IO;
 using System.Web;
@@ -29,6 +30,19 @@ namespace PhpaAll.Bills
             {
                 _trace.Write(_sw.ToString());
             }
+        }
+
+        partial void UpdateBill(Bill instance)
+        {
+            instance.ModifiedBy = HttpContext.Current.User.Identity.Name;
+            instance.Modified = DateTime.Now;
+            ExecuteDynamicUpdate(instance);
+        }
+
+        partial void InsertBill(PhpaAll.Bills.Bill instance)
+        {
+            instance.CreatedBy = HttpContext.Current.User.Identity.Name;
+            ExecuteDynamicInsert(instance);
         }
 
     }

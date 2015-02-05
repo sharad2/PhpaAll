@@ -51,6 +51,14 @@
                     <asp:HyperLink ID="HyperLink5" runat="server" CssClass="ImageLink" ImageUrl="~/Images/MIS.png"
                         NavigateUrl="~/MIS/Default.aspx">MIS</asp:HyperLink>
                 </asp:TableCell>
+                <asp:TableCell>
+                    <asp:HyperLink ID="HyperLink11" runat="server" NavigateUrl="~/Bills/Index">BILL</asp:HyperLink>
+                </asp:TableCell>
+                <asp:TableCell Width="5em">
+                    <asp:HyperLink ID="HyperLink12" runat="server" CssClass="ImageLink" ImageUrl="~/Images/bill2.png"
+                        NavigateUrl="~/Bills/Index">Bills</asp:HyperLink>
+                </asp:TableCell>
+
             </asp:TableRow>
         </asp:Table>
         </font>
