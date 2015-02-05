@@ -8,14 +8,6 @@
     <span>Edit Bill <mark class="small">@Html.DisplayFor(m => m.BillNumber)</mark></span>
 </h2>
 
-<form action="@Url.Action(MVC.ManageBills.UploadImage())"
-      class="dropzone"
-      id="my-dropzone">
-    <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
-    <div class="fallback">
-        <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
-    </div>
-</form>
 
 <form action="@Url.Action(MVC.ManageBills.Edit())" method="post" enctype="multipart/form-data">
     @Html.HiddenFor(m => m.Id)
@@ -236,10 +228,10 @@
 @section scripts {
     <link href="@Links.Content.typeahead_css" rel="stylesheet" />
     <link rel="stylesheet" href="@Links.Content.bootstrap_datetimepicker_css" />
-    <link rel="stylesheet" href="@Links.Scripts.dropzone.dropzone_css" />
+ 
     @*<link rel="stylesheet" href="@Links.Scripts.dropzone.basic_css" />*@
     <script type="text/javascript" src="@Links.Scripts.jqueryval_js"></script>
-    <script type="text/javascript" src="@Links.Scripts.dropzone.dropzone_js"></script>
+  
 
     <script type="text/javascript">
 
@@ -280,61 +272,6 @@
                 format: 'D/M/YYYY'
             });
 
-
-            Dropzone.options.myDropzone = {
-                init: function () {
-                    this.on("addedfile", function (file) {
-                        // Create the remove button
-                        var removeButton = Dropzone.createElement("<div style='text-align:center'><button class='btn btn-sm btn-info'>Remove file</button><div>");
-
-                        // Capture the Dropzone instance as closure.
-                        var _this = this;
-
-                        // Listen to the click event
-                        removeButton.addEventListener("click", function (e) {
-                            // Make sure the button click doesn't submit the form:
-                            e.preventDefault();
-                            e.stopPropagation();
-                            // Remove the file preview.
-                            _this.removeFile(file);
-                            // If you want to the delete the file on the server as well,
-                            // you can do the AJAX request here.
-                            //var name = file.name;
-                            //$.ajax({
-                            //    type: 'POST',
-                            //    url: '',
-                            //    data: "id=" + name,
-                            //    dataType: 'html'
-                            //});
-
-                            //var _ref;
-                            //return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
-
-
-                            // Create the mock file:
-                            var mockFile = { name: "Filename", size: 12345 };
-
-                            // Call the default addedfile event handler
-                            myDropzone.emit("addedfile", mockFile);
-
-                            // And optionally show the thumbnail of the file:
-                            myDropzone.emit("thumbnail", mockFile, "/image/url");
-
-                            // If you use the maxFiles option, make sure you adjust it to the
-                            // correct amount:
-                            var existingFileCount = 1; // The number of files already uploaded
-                            myDropzone.options.maxFiles = myDropzone.options.maxFiles - existingFileCount;
-
-
-                        });
-
-                        // Add the button to the file preview element.
-                        file.previewElement.appendChild(removeButton);
-                    });
-                }
-
-
-            };
 
 
 

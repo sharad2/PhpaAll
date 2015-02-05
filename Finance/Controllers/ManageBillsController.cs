@@ -299,6 +299,20 @@ namespace PhpaAll.Controllers
             };
             _db.Value.BillImages.InsertOnSubmit(bill);
             _db.Value.SubmitChanges();
+            return Json(new
+            {
+                DeleteUrl = Url.Action(Actions.DeleteImage(bill.id))
+            });
+        }
+
+        [HttpPost]
+        public virtual ActionResult DeleteImage(int billImageId)
+        {
+            var query = (from image in _db.Value.BillImages
+                        where image.id == billImageId
+                        select image).FirstOrDefault();
+            _db.Value.BillImages.DeleteOnSubmit(query);
+            _db.Value.SubmitChanges();
             return Json("Done");
         }
 

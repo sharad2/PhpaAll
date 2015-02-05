@@ -29,6 +29,51 @@
 </h2>
 <hr />
 
+
+<form action="@Url.Action(MVC.ManageBills.UploadImage())"
+      class="dropzone"
+      id="my-dropzone">
+    <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
+    <div class="fallback">
+        <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
+    </div>
+</form>
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    </ol>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, 0))" alt="...">
+            <div class="carousel-caption">
+                ...
+            </div>
+        </div>
+        <div class="item">
+            <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, 1))" alt="...">
+            <div class="carousel-caption">
+                ...
+            </div>
+        </div>
+        ...
+    </div>
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+
+
 <div class="row">
     <div class="col-md-8 well well-sm">
         <div class="row">
@@ -148,37 +193,99 @@
         }
     </ul>
 </div>
-@*<ul class="list-group">
-        @for (var i = 0; i < Model.BillHistory.Count; ++i)
-        {
-            <li class="list-group-item">
-                @Html.DisplayFor(m => m.BillHistory[i].DateCreated)
-                @Html.DisplayFor(m => m.BillHistory[i].BillNumberOld)
-                @Html.DisplayFor(m => m.BillHistory[i].BillNumberNew)
-                @Html.DisplayFor(m => m.BillHistory[i].BillCreatedBy)
-                @Html.DisplayFor(m => m.BillHistory[i].AmountNew)
-                @Html.DisplayFor(m => m.BillHistory[i].AmountOld)
-                @Html.DisplayFor(m => m.BillHistory[i].ApprovedByNew)
-                @Html.DisplayFor(m => m.BillHistory[i].ApprovedByOld)
-                @Html.DisplayFor(m => m.BillHistory[i].BillDateNew)
-                @Html.DisplayFor(m => m.BillHistory[i].BillDateOld)
-                @Html.DisplayFor(m => m.BillHistory[i].ContractorNameNew)
-                @Html.DisplayFor(m => m.BillHistory[i].ContractorNameOld)
-                @Html.DisplayFor(m => m.BillHistory[i].DueDateNew)
-                @Html.DisplayFor(m => m.BillHistory[i].DueDateOld)
-                @Html.DisplayFor(m => m.BillHistory[i].PaidDateNew)
-                @Html.DisplayFor(m => m.BillHistory[i].PaidDateOld)
-                @Html.DisplayFor(m => m.BillHistory[i].ParticularsNew)
-                @Html.DisplayFor(m => m.BillHistory[i].ParticularsOld)
-                @Html.DisplayFor(m => m.BillHistory[i].RemarksNew)
-                @Html.DisplayFor(m => m.BillHistory[i].RemarksOld)
-                @Html.DisplayFor(m => m.BillHistory[i].StationIdNew)
-                @Html.DisplayFor(m => m.BillHistory[i].StationIdOld)
-                @Html.DisplayFor(m => m.BillHistory[i].SubmittedOnDateNew)
-                @Html.DisplayFor(m => m.BillHistory[i].SubmittedOnDateOld)
-                @Html.DisplayFor(m => m.BillHistory[i].SubmittedToDivisionNameNew)
-                @Html.DisplayFor(m => m.BillHistory[i].SubmittedToDivisionNameOld)
-            </li>
-        }
-    </ul>*@
 
+
+
+
+
+
+
+
+
+
+
+@section scripts {
+    <link rel="stylesheet" href="@Links.Scripts.dropzone.dropzone_css" />
+    <script type="text/javascript" src="@Links.Scripts.dropzone.dropzone_js"></script>
+
+
+
+
+
+    <script type="text/javascript">
+        // Removing file from server http://stackoverflow.com/questions/17452662/dropzone-js-how-to-delete-files-from-server
+        $(document).ready(function () {
+            "use strict";
+            Dropzone.options.myDropzone = {
+                init: function () {
+                    this.on("success", function (file, response) {
+                        // response must contain the user of the file which can be used for deleting it
+                        alert(response.DeleteUrl);
+                        $('a.dz-remove', file.previewTemplate).attr('data-dz-remove', response.DeleteUrl);
+                    });
+                    this.on("removedfile", function (file) {
+                        var url = $('a.dz-remove', file.previewTemplate).attr('data-dz-remove');
+                        alert(url);
+                        //TODO: How to handle post error. We do not want the file to get removed from dropzone UI.
+                        $.post(url);
+                    });
+                },
+                addRemoveLinks: true
+                //init: function () {
+                //    this.on("addedfile", function (file) {
+                //        // Create the remove button
+                //        var removeButton = Dropzone.createElement("<div style='text-align:center'>  <button class='btn btn-sm btn-info'>Remove file</button><div>");
+
+                //        // Capture the Dropzone instance as closure.
+                //        var _this = this;
+
+                //        // Listen to the click event
+                //        removeButton.addEventListener("click", function (e) {
+                //            // Make sure the button click doesn't submit the form:
+                //            e.preventDefault();
+                //            e.stopPropagation();
+                //            // Remove the file preview.
+                //            _this.removeFile(file);
+                //            // If you want to the delete the file on the server as well,
+                //            // you can do the AJAX request here.
+                //            //var name = file.name;
+                //            //$.ajax({
+                //            //    type: 'POST',
+                //            //    url: '',
+                //            //    data: "id=" + name,
+                //            //    dataType: 'html'
+                //            //});
+
+                //            //var _ref;
+                //            //return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+
+
+                //            // Create the mock file:
+                //            var mockFile = { name: "Filename", size: 12345 };
+
+                //            // Call the default addedfile event handler
+                //            myDropzone.emit("addedfile", mockFile);
+
+                //            // And optionally show the thumbnail of the file:
+                //            myDropzone.emit("thumbnail", mockFile, "/image/url");
+
+                //            // If you use the maxFiles option, make sure you adjust it to the
+                //            // correct amount:
+                //            var existingFileCount = 1; // The number of files already uploaded
+                //            myDropzone.options.maxFiles = myDropzone.options.maxFiles - existingFileCount;
+
+
+                //        });
+
+                //        // Add the button to the file preview element.
+                //        file.previewElement.appendChild(removeButton);
+                //    });
+                //}
+
+
+            };
+
+
+        });
+    </script>
+}
