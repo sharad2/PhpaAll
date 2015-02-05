@@ -62,8 +62,8 @@ namespace PhpaAll.Bills
 
 
 
-        [Display(Name = "Image")]
-        public Binary BillImage { get; set; }
+        //[Display(Name = "Image")]
+        //public Binary BillImage { get; set; }
 
         //Weather it is edit mode or not
         public bool isEditMode { get; set; }

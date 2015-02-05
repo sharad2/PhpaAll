@@ -364,6 +364,7 @@
     <Compile Include="Admin\Security.aspx.designer.cs">
       <DependentUpon>Security.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\BindingConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BillsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>

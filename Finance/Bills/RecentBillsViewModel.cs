@@ -7,27 +7,6 @@ namespace PhpaAll.Bills
 {
     public class BillModel
     {
-        //public BillModel()
-        //{
-
-        //}
-
-        //[Obsolete]
-        //internal BillModel(Bill bill)
-        //{
-        //    Amount = bill.Amount;
-        //    Particulars = bill.Particulars;
-        //    BillNumber = bill.BillNumber;
-        //    BillDate = bill.BillDate;
-        //    //BillImage = model.BillImage,          
-        //    ContractorId = bill.ContractorId;
-        //    SubmittedToDivisionId = bill.SubmitedToDivisionId;
-        //    DueDate = bill.DueDate;
-        //    PaidDate = bill.PaidDate;
-        //    Remarks = bill.Remarks;
-        //    SubmittedOnDate = bill.SubmittedOnDate;
-        //    Id = bill.Id;
-        //}
         //For internal use to retrive row for editing
         public int Id { get; set; }
 
@@ -61,6 +40,10 @@ namespace PhpaAll.Bills
         public int? SubmittedToDivisionId { get; set; }
 
         public string SubmittedToDivisionName { get; set; }
+
+        public int? CurrentDivisionId { get; set; }
+
+        public string CurrentDivisionName { get; set; }
 
         public int? ContractorId { get; set; }
 
@@ -101,6 +84,8 @@ namespace PhpaAll.Bills
     public class RecentBillsViewModel
     {
         public IList<RecentBillsFilterModel> Divisions { get; set; }
+
+        public IList<RecentBillsFilterModel> CurrentDivisions { get; set; }
 
         public IList<RecentBillsFilterModel> Contractors { get; set; }
 

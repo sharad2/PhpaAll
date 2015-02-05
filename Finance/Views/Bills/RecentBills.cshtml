@@ -116,6 +116,29 @@ TODO: Amounts of approved bills will display in green
                     }
                 </fieldset>
             }
+            @if (Model.CurrentDivisions.Count > 1)
+            {
+                <fieldset id="fscurrentDivisions">
+                    <legend>Currently In Division</legend>
+                    @for (var i = 0; i < Model.CurrentDivisions.Count; ++i)
+                    {
+                        <div class="@(Model.CurrentDivisions[i].Selected ? "has-success" : (string)null)">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.currentDivisions" value="@Model.CurrentDivisions[i].Id" checked="@Model.CurrentDivisions[i].Selected">
+                                    @Html.DisplayFor(m => m.CurrentDivisions[i].Name)
+                                    <small style="white-space:nowrap">
+                                        <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.currentDivisions, Model.CurrentDivisions[i].Id))">
+                                            only
+                                            <span class="badge"> @Html.DisplayFor(m => m.CurrentDivisions[i].Count)</span>
+                                        </a>
+                                    </small>
+                                </label>
+                            </div>
+                        </div>
+                    }
+                </fieldset>
+            }
             @if (Model.Contractors.Count > 1)
             {
                 <fieldset id="fsContractors">
@@ -203,16 +226,73 @@ Paid / Unpaid
     <div class="col-md-9">
         <form action="@Url.Action(MVC.Bills.ApproveBills())" method="post">
             <div class="form-inline">
-                <div class='input-group date' id='billApproveDatePicker'>
-                    <input type="date" title="Select bill approval date" class="form-control input-sm" size="12" placeholder="Date of Approval" name="@MVC.Bills.ApproveBillsParams.approvalDate" value="@DateTime.Now">
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+                @if (Model.Approvers.Any(p => !p.Selected))
+                {
+                    foreach (var item in Model.Approvers.Where(p => p.Selected))
+                    {
+                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.approvers" value="@item.Id" />
+                    }
+                }
+                @if (Model.Divisions.Any(p => !p.Selected))
+                {
+                    foreach (var item in Model.Divisions.Where(p => p.Selected))
+                    {
+                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.divisions" value="@item.Id" />
+                    }
+                }
+                @if (Model.CurrentDivisions.Any(p => !p.Selected))
+                {
+                    foreach (var item in Model.CurrentDivisions.Where(p => p.Selected))
+                    {
+                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.currentDivisions" value="@item.Id" />
+                    }
+                }
+                @if (Model.Contractors.Any(p => !p.Selected))
+                {
+                    foreach (var item in Model.Contractors.Where(p => p.Selected))
+                    {
+                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.contractors" value="@item.Id" />
+                    }
+                }
+                @if (Model.Stations.Any(p => !p.Selected))
+                {
+                    foreach (var item in Model.Stations.Where(p => p.Selected))
+                    {
+                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.stations" value="@item.Id" />
+                    }
+                }
+                @if (Model.DateFrom != null)
+                {
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dateFrom" value="@Model.DateFrom.Value" />
+                }
+                @if (Model.DateTo != null)
+                {
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dateTo" value="@Model.DateTo.Value" />
+                }
+                @if (Model.FilterMinAmount != null)
+                {
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.minAmount" value="@Model.FilterMinAmount.Value" />
+                }
+                @if (Model.FilterMaxAmount != null)
+                {
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.maxAmount" value="@Model.FilterMaxAmount.Value" />
+                }
+                <div class="form-group form-group-sm">
+                    <label for="tbActivityDate">Date</label>
+                    <div class='input-group date' id='billApproveDatePicker'>
+
+                        <input id="tbActivityDate" type="date" title="Select bill approval date" class="form-control" size="12" placeholder="Date of Approval"
+                               name="@MVC.Bills.ApproveBillsParams.approvalDate" value="@DateTime.Now">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="approvalComment" placeholder="Approval comment">
-                </div>
-                <button type="submit" class="btn btn-primary">Approve Selected</button>
+
+                @*<div class="form-group">
+                        <input type="text" class="form-control" id="approvalComment" placeholder="Approval comment">
+                    </div>*@
+                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span> Approve Selected</button>
             </div>
             <ul class="list-group">
                 <li class="list-group-item list-group-item-info">
@@ -224,9 +304,15 @@ Paid / Unpaid
                         </div>
                         <div class="col-md-4">
                             <strong>
-                                Division
-                                <br />@@
-                                Station
+                                Current Division
+                                <br />
+                                <em>
+                                    <small>
+                                        Submitted To Division
+                                        <br />@@
+                                        Station
+                                    </small>
+                                </em>
                             </strong>
                         </div>
                         <div class="col-md-4">
@@ -263,20 +349,24 @@ Paid / Unpaid
                                     <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.Bills[i].DueDate)</small></em><br />
                                 }
 
-
-
                                 @if (Model.Bills[i].ApprovedDate != null)
                                 {
-                                    <span class="label label-success">Approved @Html.DisplayFor(m => m.Bills[i].ApprovedDate)</span>
+                                    <span class="label label-success" title="Approved by :- @Html.DisplayFor(m => m.Bills[i].ApprovedBy)">Approved @Html.DisplayFor(m => m.Bills[i].ApprovedDate)</span>
                                 }
 
 
                             </div>
                             <div class="col-md-4">
-                                @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)
-                                <br />@@
-                                @Html.DisplayFor(m => m.Bills[i].StationName)
-                            </div>
+                                @Html.DisplayFor(m => m.Bills[i].CurrentDivisionName)
+                                <br />
+                                <em>
+                                    <small>
+                                        @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)
+                                    <br />@@
+                                    @Html.DisplayFor(m => m.Bills[i].StationName)
+                                </small>
+                            </em>
+                        </div>
                             <div class="col-md-4">
                                 <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
                                     <span title="@Model.Bills[i].ContractorName">@Html.DisplayFor(m => m.Bills[i].ContractorName)</span>
@@ -318,5 +408,7 @@ Paid / Unpaid
                 }
             </ul>
         </form>
+
     </div>
+
 </div>

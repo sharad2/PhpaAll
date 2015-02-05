@@ -7,8 +7,7 @@
       <Column Name="DivisionGroup" Type="System.String" DbType="NVarChar(30) NOT NULL" IsReadOnly="true" CanBeNull="false" />
       <Column Name="DivisionName" Type="System.String" DbType="NVarChar(80) NOT NULL" IsReadOnly="true" CanBeNull="false" />
       <Association Name="Division_Bill" Member="Bills" ThisKey="DivisionId" OtherKey="SubmitedToDivisionId" Type="Bill" />
-      <Association Name="Division_BillWorkflow" Member="BillWorkflows" ThisKey="DivisionId" OtherKey="ToDivisionId" Type="BillWorkflow" />
-      <Association Name="Division_BillWorkflow1" Member="BillWorkflows1" ThisKey="DivisionId" OtherKey="FromDivisionId" Type="BillWorkflow" />
+      <Association Name="Division_Bill1" Member="Bills1" ThisKey="DivisionId" OtherKey="CurrentDivisionId" Type="Bill" />
     </Type>
   </Table>
   <Table Name="dbo.Contractor" Member="Contractors" AccessModifier="Internal">
@@ -43,7 +42,6 @@
       <Column Name="ApprovedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="ApprovedOn" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="Remarks" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="BillImage" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
       <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" IsReadOnly="true" CanBeNull="true" />
       <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
@@ -51,11 +49,12 @@
       <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="StationId" Type="System.Int32" DbType="Int" CanBeNull="false" />
-      <Column Name="CurrentDivisionId" Type="System.String" CanBeNull="false" UpdateCheck="Always" />
-      <Association Name="Bill_BillWorkflow" Member="BillWorkflows" ThisKey="Id" OtherKey="BillId" Type="BillWorkflow" />
+      <Column Name="CurrentDivisionId" Type="System.Int32" CanBeNull="true" />
+      <Association Name="Bill_BillImage" Member="BillImages" ThisKey="Id" OtherKey="BillId" Type="BillImage" />
       <Association Name="Contractor_Bill" Member="Contractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="Contractor" IsForeignKey="true" />
       <Association Name="Division_Bill" Member="SubmittedToDivision" Storage="_Division" ThisKey="SubmitedToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
       <Association Name="Station_Bill" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
+      <Association Name="Division_Bill1" Member="CurrentDivision" ThisKey="CurrentDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="PIS.Station" Member="Stations" AccessModifier="Internal">
@@ -70,24 +69,6 @@
       <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
       <Association Name="Station_Bill" Member="Bills" ThisKey="StationId" OtherKey="StationId" Type="Bill" />
-    </Type>
-  </Table>
-  <Table Name="dbo.BillWorkflow" Member="BillWorkflows" AccessModifier="Internal">
-    <Type Name="BillWorkflow" AccessModifier="Internal">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="BillId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ActivityType" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Column Name="FromDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ToDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ActivityDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="ActivityBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="ShortDescription" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" IsReadOnly="true" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(255)" IsReadOnly="true" CanBeNull="true" />
-      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
-      <Association Name="Bill_BillWorkflow" Member="Bill" ThisKey="BillId" OtherKey="Id" Type="Bill" IsForeignKey="true" />
-      <Association Name="Division_BillWorkflow" Member="Division" ThisKey="ToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
-      <Association Name="Division_BillWorkflow1" Member="Division1" ThisKey="FromDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.BillAudit" Member="BillAudits">
@@ -122,6 +103,15 @@
       <Column Name="BillId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="StationNameOld" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="StationNameNew" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BillImage" Member="BillImages" AccessModifier="Internal">
+    <Type Name="BillImage" AccessModifier="Internal">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BillId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BillImageData" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="ImageContentType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Bill_BillImage" Member="Bill" ThisKey="BillId" OtherKey="Id" Type="Bill" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

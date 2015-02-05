@@ -188,7 +188,7 @@ namespace PhpaAll.Controllers
                          {
                              Id = bill.Id,
                              Amount = bill.Amount,
-                             BillImage= bill.BillImage,
+                             //BillImage= bill.BillImage,
                              BillNumber = bill.BillNumber,
                              Particulars = bill.Particulars,
                              BillDate = bill.BillDate,
@@ -204,11 +204,7 @@ namespace PhpaAll.Controllers
                              ApprovedDate = bill.ApprovedOn,
                              ApprovedBy = bill.ApprovedBy,
                              StationName = bill.Station.StationName,
-                             CurrentDivision =  (from d in _db.Value.Divisions
-                                                where bill.CurrentDivisionId == d.DivisionId.ToString()
-                                                || bill.Id == d.Bills.Select(p=>p.Id).First()
-                                                select d.DivisionName).FirstOrDefault()
-                            
+                             CurrentDivision =  bill.CurrentDivision.DivisionName
                          }).FirstOrDefault();
 
             // Getting Bill history from Bill Audit.  
@@ -265,9 +261,9 @@ namespace PhpaAll.Controllers
             //byte[] data = model.BillImage.ToArray();
             //return File(data, "image/jpg");
 
-            var image = (from bill in _db.Value.Bills
-                         where bill.Id == id
-                         select bill.BillImage).FirstOrDefault();
+            var image = (from bill in _db.Value.BillImages
+                         where bill.BillId == id
+                         select bill.BillImageData).FirstOrDefault();
             if (image == null)
             {
                 throw new NotImplementedException();
@@ -280,13 +276,24 @@ namespace PhpaAll.Controllers
         [HttpPost]
         public virtual ActionResult UploadImage(int billId, HttpPostedFileBase file)
         {
+
+
             var input = new byte[file.ContentLength];
             file.InputStream.Read(input, 0, file.ContentLength);
 
-            foreach (var bill in _db.Value.Bills.Where(p => p.Id == billId))
+            //foreach (var bill in _db.Value.BillImages.Where(p => p.BillId == billId))
+            //{
+            //    bill.BillImageData = input;
+            //}
+
+
+            var bill = new BillImage
             {
-                bill.BillImage = input;
-            }
+                BillImageData = input,
+                BillId = billId,
+                ImageContentType = file.ContentType
+            };
+            _db.Value.BillImages.InsertOnSubmit(bill);
             _db.Value.SubmitChanges();
             return Json("Done");
         }
