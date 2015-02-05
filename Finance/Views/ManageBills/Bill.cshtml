@@ -27,13 +27,6 @@
         Recent Bills
     </a>
 </h2>
-
-
-
-
-
-
-
 <hr />
 
 <div class="row">
@@ -103,12 +96,12 @@
     </div>
     <div class="col-md-4">
         @*<a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))" class="thumbnail">
-    <img src="@Model.BillImage" width="340" height="300" />   </a>*@
+            <img src="@Model.BillImage" width="340" height="300" />   </a>*@
         <a href="@Url.Action(MVC.ManageBills.Image(Model.Id))" class="thumbnail">
             <img src="@Url.Action(MVC.ManageBills.Image(Model.Id))" alt=" No image">
         </a>
 
-     
+
     </div>
 </div>
 
@@ -138,6 +131,16 @@
                         @Html.DisplayFor(m => m.BillDate)
                     </div>
                     <div class="col-md-10">
+                        Changes here
+                        <ul>
+                            @for (var j = 0; j < Model.BillHistory[i].FieldChanges.Count; ++j)
+                            {
+                                <li>
+                                    @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].FieldName) changed from @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].OldValue)
+                                    to @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)
+                                </li>
+                            }
+                        </ul>
                         <ul>
                             @if (Model.BillHistory[i].BillNumberOld != null && Model.BillHistory[i].BillNumberNew != Model.BillHistory[i].BillNumberOld)
                             {
@@ -267,17 +270,6 @@
                                 <li>
                                     <label style="padding-right:1mm">Submitted Date Old</label>
                                     @Html.DisplayFor(m => m.BillHistory[i].SubmittedOnDateOld)
-                                </li>
-                            }
-                            @if (Model.BillHistory[i].StationIdOld != null && Model.BillHistory[i].StationIdNew != Model.BillHistory[i].StationIdOld)
-                            {
-                                <li>
-                                    <label style="padding-right:1mm">Station New</label>
-                                    @Html.DisplayFor(m => m.BillHistory[i].StationIdNew)
-                                </li>
-                                <li>
-                                    <label style="padding-right:1mm">Station Old</label>
-                                    @Html.DisplayFor(m => m.BillHistory[i].StationIdOld)
                                 </li>
                             }
                         </ul>
