@@ -64,6 +64,7 @@ namespace PhpaAll.Controllers
         public string Remarks { get; set; }
 
         [Display(Name = "Image")]
+       [Obsolete]
         public HttpPostedFileBase BillImage { get; set; }
 
     }
