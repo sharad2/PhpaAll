@@ -94,17 +94,12 @@
 
 
     </div>
-    <div class="col-md-4">
-        
-            <div class="col-md-4">
-                @*<a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))" class="thumbnail">
+    <div class="col-md-4 thumbnail" >
+        @*<a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))" class="thumbnail">
             <img src="@Model.BillImage" width="340" height="300" />   </a>*@
-                <a href="@Url.Action(MVC.ManageBills.Image(Model.Id))" class="thumbnail">
-                    <img src="@Url.Action(MVC.ManageBills.Image(Model.Id))" alt=" No image">
-                </a>
-            </div>
-            
-        </div>
+        <img src="@Url.Action(MVC.ManageBills.Image(Model.Id))" alt=" No image">
+
+    </div>
     </div>
 
 
