@@ -38,7 +38,7 @@
         <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
     </div>
 </form>
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
     <!-- Indicators -->
     <ol class="carousel-indicators">
         @for (var i = 0; i < Model.AttachedImageCount; ++i)
@@ -56,7 +56,7 @@
             <div class="item @(i == 0 ? "active" : "")">
                 <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="...">
                 <div class="carousel-caption">
-                    ...
+                    <button class="btn btn-danger btn-xs">Delete me</button>
                 </div>
             </div>
         }
@@ -242,9 +242,10 @@
                     });
                     this.on("removedfile", function (file) {
                         var url = $('a.dz-remove', file.previewTemplate).attr('data-dz-remove');
-                        alert(url);
+                        //$('a.dz-remove', file.previewTemplate).attr('data-dz-errormessage', 'Something went wrong');
+                        //alert(url);
                         //TODO: How to handle post error. We do not want the file to get removed from dropzone UI.
-                        $.post(url);
+                        //$.post(url);
                     });
                 },
                 addRemoveLinks: true
