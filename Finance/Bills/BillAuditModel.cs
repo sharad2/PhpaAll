@@ -67,8 +67,10 @@ namespace PhpaAll.Bills
 
         public string RemarksOld { get; set; }
 
+        [Obsolete]
         public int? StationIdNew { get; set; }
 
+        [Obsolete]
         public int? StationIdOld { get; set; }
 
         [DataType(DataType.Date)]

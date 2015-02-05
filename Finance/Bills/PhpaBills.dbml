@@ -51,7 +51,7 @@
       <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" IsReadOnly="true" CanBeNull="true" />
       <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="StationId" Type="System.Int32" DbType="Int" CanBeNull="false" />
-      <Column Member="CurrentDivisionId" Type="System.String" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="CurrentDivisionId" Type="System.String" CanBeNull="false" UpdateCheck="Always" />
       <Association Name="Bill_BillWorkflow" Member="BillWorkflows" ThisKey="Id" OtherKey="BillId" Type="BillWorkflow" />
       <Association Name="Contractor_Bill" Member="Contractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="Contractor" IsForeignKey="true" />
       <Association Name="Division_Bill" Member="SubmittedToDivision" Storage="_Division" ThisKey="SubmitedToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
@@ -88,8 +88,6 @@
       <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="BillId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StationIdOld" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StationIdNew" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="PIS.Station" Member="Stations" AccessModifier="Internal">

@@ -87,6 +87,19 @@ namespace Links
         public static readonly string bloodhound_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bloodhound.min.js") ? Url("bloodhound.min.js") : Url("bloodhound.js");
         public static readonly string bootstrap_datetimepicker_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-datetimepicker.min.js") ? Url("bootstrap-datetimepicker.min.js") : Url("bootstrap-datetimepicker.js");
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class dropzone {
+            private const string URLPATH = "~/Scripts/dropzone";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string basic_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/basic.min.css") ? Url("basic.min.css") : Url("basic.css");
+                 
+            public static readonly string dropzone_amd_module_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dropzone-amd-module.min.js") ? Url("dropzone-amd-module.min.js") : Url("dropzone-amd-module.js");
+            public static readonly string dropzone_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dropzone.min.css") ? Url("dropzone.min.css") : Url("dropzone.css");
+                 
+            public static readonly string dropzone_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dropzone.min.js") ? Url("dropzone.min.js") : Url("dropzone.js");
+        }
+    
         public static readonly string jquery_1_11_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.11.2.min.js") ? Url("jquery-1.11.2.min.js") : Url("jquery-1.11.2.js");
         public static readonly string jquery_ui_1_11_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.11.2.min.js") ? Url("jquery-ui-1.11.2.min.js") : Url("jquery-ui-1.11.2.js");
         public static readonly string jquery_hoverIntent_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.hoverIntent.min.js") ? Url("jquery.hoverIntent.min.js") : Url("jquery.hoverIntent.js");
