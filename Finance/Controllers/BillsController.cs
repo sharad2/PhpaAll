@@ -223,18 +223,22 @@ namespace PhpaAll.Controllers
         [HttpPost]
         public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate)
         {
-            var query = from bill in _db.Value.Bills
-                        where listBillId.Contains(bill.Id)
-                        select bill;
-
-            foreach (var bill in query)
+            if (listBillId != null)
             {
-                bill.ApprovedOn = approvalDate;
-                bill.ApprovedBy = User.Identity.Name;
+                var query = from bill in _db.Value.Bills
+                            where listBillId.Contains(bill.Id)
+                            select bill;
+
+                foreach (var bill in query)
+                {
+                    bill.ApprovedOn = approvalDate;
+                    bill.ApprovedBy = User.Identity.Name;
+                }
+                _db.Value.SubmitChanges();
+
+
+                
             }
-            _db.Value.SubmitChanges();
-
-
             return RedirectToAction(MVC.Bills.RecentBills());
         }
 
