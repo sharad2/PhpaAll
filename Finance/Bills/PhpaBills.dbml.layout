@@ -27,7 +27,7 @@
         <classShapeMoniker Id="a440a664-948a-4200-9dc7-e0e6f3a4b840" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 6.41429768880208); (3.41666666666667 : 6.41429768880208 : JumpStart); (3.58333333333333 : 6.41429768880208 : JumpEnd); (4 : 6.41429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 6.41429768880208); (4 : 6.41429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PhpaBillsDataContext/Division/Division_Bill" />
       <nodes>
         <classShapeMoniker Id="9dc8795f-8380-4320-8688-80ec77656a27" />
@@ -80,5 +80,18 @@
         <elementListCompartment Id="56ee0771-b4f7-4b62-8c24-e22740bc44be" absoluteBounds="7.6400000000000006, 8.71, 1.9700000000000002, 6.0184326171875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="59318a46-485b-43cc-b030-5dc4560218a5" absoluteBounds="1.625, 8.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/PhpaBillsDataContext/BillImage" />
+      <nestedChildShapes>
+        <elementListCompartment Id="91b56918-c74f-4a0a-95a0-a4dff1032860" absoluteBounds="1.6400000000000001, 8.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4 : 8.73635986328125); (3.625 : 8.73635986328125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PhpaBillsDataContext/Bill/Bill_BillImage" />
+      <nodes>
+        <classShapeMoniker Id="a440a664-948a-4200-9dc7-e0e6f3a4b840" />
+        <classShapeMoniker Id="59318a46-485b-43cc-b030-5dc4560218a5" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
