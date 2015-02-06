@@ -107,19 +107,36 @@
 
 
 
-<p>@Html.DisplayFor(m => m.AttachedImageCount) Images TODO Show total size <a id="addImage" href="#">Add Image</a></p>
+<p>@Html.DisplayFor(m => m.AttachedImageCount) Images TODO Show total size <a id="addImage" href="#" data-target="#carousel-attachment" data-slide-to="0">Add Image</a></p>
 
-
-<div id="carousel-attachment" class="carousel slide" data-ride="carousel" data-interval="false" >
+<nav>
+    <ul class="pagination">
+        <li>
+            <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        @for (var i = 0; i < Model.AttachedImageCount; ++i)
+        {
+            <li><a href="#" data-target="#carousel-attachment" data-slide-to="@(i+1)">@(i+1)</a></li>
+        }
+        <li>
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div id="carousel-attachment" class="carousel slide" data-ride="carousel" data-interval="false">
     <!-- Indicators -->
-    <ol class="carousel-indicators">
+    @*<ol class="carousel-indicators">
         <li data-target="#carousel-attachment" data-slide-to="0" class="@(Model.AttachedImageCount == 0 ? "active" : null)"></li>
         @for (var i = 0; i < Model.AttachedImageCount; ++i)
         {
             <li data-target="#carousel-attachment" data-slide-to="@(i + 1)" class="@(i == 0 ? "active" : null)"></li>
         }
 
-    </ol>
+    </ol>*@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
         <div class="item @(Model.AttachedImageCount == 0 ? "active" : "")">
@@ -135,7 +152,7 @@
         @for (var i = 0; i < Model.AttachedImageCount; ++i)
         {
             <div class="item @(i == 0 ? "active" : "")">
-                <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="..." >
+                <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="...">
                 <div class="carousel-caption">
                     <h3 class="text-danger">
                         Image @(i + 1)
@@ -175,7 +192,7 @@
                 <strong>Bill Date</strong>
             </div>
             <div class="col-md-8">
-                <strong>Change log</strong> 
+                <strong>Change log</strong>
             </div>
         </div>
     </li>
@@ -213,14 +230,10 @@
 @section scripts {
     <style type="text/css">
         /*Styleing form thead crousel indicator aside cite was not visible over thead white background*/
-        .carousel-indicators li, .carousel-control span.glyphicon {
-            border-color: #4196c7;
+        .carousel-control span.glyphicon {
             color: #0b4e75;
         }
 
-        .carousel-indicators .active {
-            background-color: #4196c7;
-        }
         /*Styling form the crousel upload dragable area*/
         #my-dropzone {
             border: 5px dashed #4196c7;
@@ -259,10 +272,10 @@
                 acceptedFiles: "image/*"
             };
 
-            // Show dropzone slide
-            $('#addImage').on('click', function (e) {
-                $('#carousel-attachment').carousel(0);
-            });
+            //// Show dropzone slide
+            //$('#addImage').on('click', function (e) {
+            //    $('#carousel-attachment').carousel(0);
+            //});
 
         });
     </script>
