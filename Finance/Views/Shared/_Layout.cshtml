@@ -20,7 +20,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="@Url.Content("~")">PHPA</a>
+                <a id="logo" class="navbar-brand" href="@Url.Content("~")" style="padding:0">
+                    <img class="" src="@Url.Content(System.Configuration.ConfigurationManager.AppSettings["logo"])" height="100" width="100" />
+                </a>
             </div>
             <div class="navbar-collapse collapse" id="bs-layout-navbar-collapse-1">
                 <ul class="nav navbar-nav">
@@ -34,7 +36,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 @foreach (SiteMapNode node in SiteMap.RootNode.ChildNodes)
                                 {
-                                <li><a href="@Url.Content(node.Url)">@node.Title</a></li>
+                                    <li><a href="@Url.Content(node.Url)">@node.Title</a></li>
                                 }
                             </ul>
 
@@ -75,26 +77,13 @@
 
         </div>
     </div>
-    <div class="container">
+    <div class="container-fluid">
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Eclipse Systems Pvt. Ltd.</p>
         </footer>
     </div>
-
-    @*<!--Visible on mobile device only, it is opened as popoup-->
-        <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <form action="#" method="get" role="search">
-                <div class="input-group input-group-lg" style="margin-top:20px;margin-left:10px;margin-right:10px;">
-                    <input type="search" class="form-control" name="id" placeholder="Search PHPA">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                    </span>
-                </div><!-- /input-group -->
-            </form>
-        </div>*@
-
 
     <script type="text/javascript" src="@Links.Scripts.jquery_1_11_2_js"></script>
     <script type="text/javascript" src="@Links.Scripts.bootstrap_js"></script>
