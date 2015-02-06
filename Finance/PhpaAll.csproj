@@ -369,6 +369,9 @@
     <Compile Include="BillsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="BillsHomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Bills\BillAuditModel.cs" />
     <Compile Include="Bills\BillViewModel.cs" />
     <Compile Include="Bills\CreateViewModel.cs" />
@@ -384,6 +387,7 @@
     <Compile Include="Bills\RecentBillsViewModel.cs" />
     <Compile Include="Bills\EditViewModel.cs" />
     <Compile Include="Controllers\BillsController.cs" />
+    <Compile Include="Controllers\BillsHomeController.cs" />
     <Compile Include="Controllers\ManageBillsController.cs" />
     <Compile Include="Controls\SearchEmployee.ascx.cs">
       <DependentUpon>SearchEmployee.ascx</DependentUpon>
@@ -1973,6 +1977,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\BillsHome\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MIS\NestedMIS.master" />

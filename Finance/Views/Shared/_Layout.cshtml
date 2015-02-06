@@ -34,7 +34,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 @foreach (SiteMapNode node in SiteMap.RootNode.ChildNodes)
                                 {
-                                    <li><a href="@Url.Content(node.Url)">@node.Title</a></li>
+                                <li><a href="@Url.Content(node.Url)">@node.Title</a></li>
                                 }
                             </ul>
 
@@ -50,7 +50,19 @@
                         </span>
                     </div><!-- /input-group -->
                 </form>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (this.ViewContext.HttpContext.User.Identity.IsAuthenticated)
+                    {
+                        <li><a href="@Url.Content("~/Admin/ChangePassword.aspx")">Welcome @ViewContext.HttpContext.User.Identity.Name</a></li>
+                        <li><a href="@Url.Action(MVC.BillsHome.Logoff())">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@string.Format("{0}?returnUrl={1}", FormsAuthentication.LoginUrl, Url.Encode(Url.Action(MVC.BillsHome.Index())))">Login</a></li>
+                    }
+                </ul>
             </div>
+
         </div>
     </div>
     <div class="container">
@@ -62,16 +74,16 @@
     </div>
 
     @*<!--Visible on mobile device only, it is opened as popoup-->
-    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <form action="#" method="get" role="search">
-            <div class="input-group input-group-lg" style="margin-top:20px;margin-left:10px;margin-right:10px;">
-                <input type="search" class="form-control" name="id" placeholder="Search PHPA">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                </span>
-            </div><!-- /input-group -->
-        </form>
-    </div>*@
+        <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <form action="#" method="get" role="search">
+                <div class="input-group input-group-lg" style="margin-top:20px;margin-left:10px;margin-right:10px;">
+                    <input type="search" class="form-control" name="id" placeholder="Search PHPA">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div><!-- /input-group -->
+            </form>
+        </div>*@
 
 
     <script type="text/javascript" src="@Links.Scripts.jquery_1_11_2_js"></script>
