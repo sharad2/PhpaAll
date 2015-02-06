@@ -21,6 +21,7 @@ namespace PhpaAll.Bills
         [Display(Name = "Bill Date")]
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Bill date is required.")]
+        [DisplayFormat(DataFormatString="{0:g}")]
         public DateTime? BillDate { get; set; }
 
         [Display(Name = "Due Date")]

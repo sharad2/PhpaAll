@@ -8,8 +8,10 @@ namespace PhpaAll.Bills
     {
         public string FieldName { get; set; }
 
+        [DisplayFormat(NullDisplayText = "(Not Set)")]
         public string OldValue { get; set; }
 
+        [DisplayFormat(NullDisplayText = "(Not Set)")]
         public string NewValue { get; set; }
     }
 
@@ -53,8 +55,8 @@ namespace PhpaAll.Bills
                 _fieldChanges.Add(new BillAuditFieldChangeModel
                 {
                     FieldName = "Due Date",
-                    OldValue = string.Format("{0:d}",entity.PaidDateOld),
-                    NewValue = string.Format("{0:d}",entity.PaidDateNew)
+                    OldValue = string.Format("{0:d}", entity.PaidDateOld),
+                    NewValue = string.Format("{0:d}", entity.PaidDateNew)
                 });
             }
             if (entity.DueDateNew != entity.DueDateNew)
@@ -89,8 +91,8 @@ namespace PhpaAll.Bills
                 _fieldChanges.Add(new BillAuditFieldChangeModel
                 {
                     FieldName = "Bill Date",
-                    OldValue =string.Format("{0:d}", entity.BillDateOld),
-                    NewValue =string.Format("{0:d}",entity.BillDateNew)
+                    OldValue = string.Format("{0:d}", entity.BillDateOld),
+                    NewValue = string.Format("{0:d}", entity.BillDateNew)
                 });
             }
             if (entity.ApprovedOnNew != entity.ApprovedOnOld)
@@ -116,6 +118,7 @@ namespace PhpaAll.Bills
         }
 
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString="{0:g}")]
         public DateTime? DateCreated { get; set; }
 
         public IList<BillAuditFieldChangeModel> FieldChanges

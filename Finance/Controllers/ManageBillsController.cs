@@ -280,7 +280,7 @@ namespace PhpaAll.Controllers
         [HttpPost]
         public virtual ActionResult UploadImage(int billId, HttpPostedFileBase file)
         {
-            throw new NotImplementedException("Sorry");
+            //throw new NotImplementedException("Sorry");
             var input = new byte[file.ContentLength];
             file.InputStream.Read(input, 0, file.ContentLength);
 

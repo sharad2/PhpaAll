@@ -30,11 +30,11 @@
                     <strong class="pull-right1">Dated: @Html.DisplayFor(m => m.BillDate)</strong>
                     @if (Model.DueDate < DateTime.Now)
                     {
-                        <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
+                    <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
                     }
                     else
                     {
-                        <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
+                    <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
                     }
                 </div>
             </div>
@@ -48,9 +48,9 @@
 
                     @if (Model.PaidDate != null)
                     {
-                        <span>
-                            paid on @Html.DisplayFor(m => m.PaidDate)
-                        </span>
+                    <span>
+                        paid on @Html.DisplayFor(m => m.PaidDate)
+                    </span>
                     }
 
                     <small>
@@ -80,24 +80,20 @@
     </div>
     <div class="col-md-2">
         <div class="btn-group-vertical" role="group" aria-label="...">
-            <button type="button" class="btn btn-lg btn-primary" disabled>
-                Actions
+            <button type="button" class="btn btn-success">
+                <spn class="glyphicon glyphicon-thumbs-up"></spn> Approve
             </button>
-            <button type="button" class="btn btn-default">
-                <spn class="glyphicon glyphicon-thumbs-up"></spn> Approve Bill
-
+            <button type="button" class="btn btn-danger">
+                <spn class="glyphicon glyphicon-thumbs-down"></spn> Unapprove
             </button>
-            <button type="button" class="btn btn-default">
-                <spn class="glyphicon glyphicon-thumbs-down"></spn> Cancel  Approvel
-            </button>
-            <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-default">
+            <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-link">
                 <span class="glyphicon glyphicon-edit"></span>
                 Edit
             </a>
-            <a href="~/Finance/InsertVoucher.aspx" class="btn btn-default">
+            <a href="~/Finance/InsertVoucher.aspx" class="btn btn-link">
                 Create Voucher
             </a>
-            <a href="@Url.Action(MVC.Bills.RecentBills())" class="btn btn-default">
+            <a href="@Url.Action(MVC.Bills.RecentBills())" class="btn btn-link">
                 Recent Bills
             </a>
         </div>
@@ -108,16 +104,16 @@
 <nav>
     <ul class="pagination">
         <li>
-            <a href="#" aria-label="Previous">
+            <a href="#" aria-label="Previous" data-target="#carousel-attachment" data-slide-to="0">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
         @for (var i = 0; i < Model.AttachedImageCount; ++i)
         {
-            <li><a href="#" data-target="#carousel-attachment" data-slide-to="@(i+1)">@(i + 1)</a></li>
+            <li><a href="#" data-target="#carousel-attachment" data-slide-to="@i">@(i + 1)</a></li>
         }
         <li>
-            <a href="#" aria-label="Next">
+            <a href="#" aria-label="Next" data-target="#carousel-attachment" data-slide-to="@(Model.AttachedImageCount - 1)">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
@@ -126,14 +122,14 @@
 
 @if (Model.AttachedImageCount <= 10)
 {
-<form action="@Url.Action(MVC.ManageBills.UploadImage())"
-      class="dropzone"
-      id="my-dropzone">
-    <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
-    <div class="fallback">
-        <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
-    </div>
-</form>
+    <form action="@Url.Action(MVC.ManageBills.UploadImage())"
+          class="dropzone"
+          id="my-dropzone">
+        <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
+        <div class="fallback">
+            <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
+        </div>
+    </form>
 }
 else
 {
@@ -186,7 +182,7 @@ else
     <li class="list-group-item list-group-item-success">
         <div class="row">
             <div class="col-md-2">
-                <strong>Bill Date</strong>
+                <strong>Date</strong>
             </div>
             <div class="col-md-8">
                 <strong>Change log</strong>
@@ -199,23 +195,34 @@ else
         <li class="list-group-item">
             <div class="row">
                 <div class="col-md-2">
-                    <strong>@Html.DisplayFor(m => m.BillDate)</strong>
+                    <strong>@Html.DisplayFor(m => m.BillHistory[i].DateCreated)</strong>
                 </div>
                 <div class="col-md-8">
-                    @for (var j = 0; j < Model.BillHistory[i].FieldChanges.Count; ++j)
-                    {
-                        <ul>
+                    <dl class="dl-horizontal">
+                        @for (var j = 0; j < Model.BillHistory[i].FieldChanges.Count; ++j)
+                        {
 
-                            <li>
+                            <dt>
                                 @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].FieldName)
-                                <span class="bg-warning">
-                                    @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].OldValue)
-                                </span>
-                                <span style="color:green" class="glyphicon glyphicon-arrow-right"></span>
-                                <span class="bg-success">@Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)</span>
-                            </li>
-                        </ul>
-                    }
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].OldValue)
+                                &rarr;
+                                @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)
+                            </dd>
+
+                            @*<ul class="list-inline">
+                                    <li>
+
+                                        <span class="bg-warning">
+                                            @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].OldValue)
+                                        </span>
+                                        <span style="color:green" class="glyphicon glyphicon-arrow-right"></span>
+                                        <span class="bg-success">@Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)</span>
+                                    </li>
+                                </ul>*@
+                        }
+                    </dl>
                 </div>
             </div>
         </li>
@@ -225,27 +232,8 @@ else
 
 
 @section scripts {
-    @*<style type="text/css">
-            /*Styleing form thead crousel indicator aside cite was not visible over thead white background*/
-            .carousel-control span.glyphicon {
-                color: #0b4e75;
-            }
-
-            /*Styling form the crousel upload dragable area*/
-            #my-dropzone {
-                border: 5px dashed #4196c7;
-                background-color: rgba(241, 236, 212, 0.48);
-            }
-        </style>*@
-
-
-
     <link rel="stylesheet" href="@Links.Scripts.dropzone.dropzone_css" />
     <script type="text/javascript" src="@Links.Scripts.dropzone.dropzone_js"></script>
-
-
-
-
 
     <script type="text/javascript">
         // Removing file from server http://stackoverflow.com/questions/17452662/dropzone-js-how-to-delete-files-from-server
