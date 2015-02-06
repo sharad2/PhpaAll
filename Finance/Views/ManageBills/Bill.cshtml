@@ -150,7 +150,7 @@
     </div>
     <!-- Controls -->
     <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"  aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
     </a>
     <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
@@ -165,76 +165,52 @@
 
 
 
-<h2 style="margin-top:0">
+<h2>
     Audit
 </h2>
-<div class="row">
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-info">
-            <div class="row">
-                <div class="col-md-2">
-                    <strong>Bill Modified Date</strong>
-                </div>
-                <div class="col-md-10">
-                    <strong style="padding-left:8mm">
-                        Changed Fields
-                    </strong>
-                </div>
-            </div>
+<ul class="list-group">
+    @for (var i = 0; i < Model.BillHistory.Count; ++i)
+    {
+        
+        <li class="list-group-item">
+            <span class="badge">Changed on @Html.DisplayFor(m => m.BillDate)</span>
+            @for (var j = 0; j < Model.BillHistory[i].FieldChanges.Count; ++j)
+            {
+                <dl class="dl-horizontal">
+                    <dt>@Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].FieldName)</dt>
+                    <dd>
+                        <span class="bg-warning">
+                            @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].OldValue)
+                        </span>
+                        <span style="color:green" class="glyphicon glyphicon-arrow-right"></span>
+                        <span class="bg-success">@Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)</span>
+                    </dd>
+                </dl>
+            }
+
         </li>
-        @for (var i = 0; i < Model.BillHistory.Count; ++i)
-        {
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-md-2">
-                        @Html.DisplayFor(m => m.BillDate)
-                    </div>
-                    <div class="col-md-10">
-                        Changes
-                        <ul>
-                            @for (var j = 0; j < Model.BillHistory[i].FieldChanges.Count; ++j)
-                            {
-                                <li>
-                                    @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].FieldName) changed from @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].OldValue)
-                                    to @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)
-                                </li>
-                            }
-                        </ul>
-
-                    </div>
-                </div>
-            </li>
-        }
-    </ul>
-</div>
-
-
-
-
-
-
-
-
+    }
+</ul>
 
 
 
 @section scripts {
-   <style type="text/css">
-    /*Styleing form thead crousel indicator aside cite was not visible over thead white background*/
-    .carousel-indicators li, .carousel-control span.glyphicon {
-        border-color: #4196c7;
-        color: #0b4e75;
-    }
+    <style type="text/css">
+        /*Styleing form thead crousel indicator aside cite was not visible over thead white background*/
+        .carousel-indicators li, .carousel-control span.glyphicon {
+            border-color: #4196c7;
+            color: #0b4e75;
+        }
 
-    .carousel-indicators .active {
-        background-color: #4196c7;
-    }
-    /*Styling form the crousel upload dragable area*/
-    #my-dropzone {
-        border: 5px dashed #4196c7;
-        background-color: rgba(241, 236, 212, 0.48);
-    }
-</style>
+        .carousel-indicators .active {
+            background-color: #4196c7;
+        }
+        /*Styling form the crousel upload dragable area*/
+        #my-dropzone {
+            border: 5px dashed #4196c7;
+            background-color: rgba(241, 236, 212, 0.48);
+        }
+    </style>
 
 
 
@@ -252,7 +228,7 @@
             Dropzone.options.myDropzone = {
                 init: function () {
                     this.on("success", function (file, response) {
-                        // response must contain the user of the file which can be used for deleting it                       
+                        // response must contain the user of the file which can be used for deleting it
                         $('a.dz-remove', file.previewTemplate).attr('data-dz-remove', response.DeleteUrl);
                     });
                     this.on("removedfile", function (file) {
