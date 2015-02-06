@@ -16,7 +16,7 @@
             // Code to clean up the URL by not posting unnecessary filters
             $('#frmFilters').on('submit', function (e) {
                 // If all checkboxes in a group are checked, uncheck all so that they do not get posted
-                $('#fsDivisions,#fsContractors,#fsApprovers,#fsStations').each(function (index, elem) {
+                $('#fsDivisions,#fsContractors,#fsApprovers,#fsStations,#fscurrentDivisions').each(function (index, elem) {
                     if ($('input:not(:checked)', elem).length == 0) {
                         //alert('Hi');
                         $('input:checked', elem).prop('checked', false);
@@ -60,27 +60,67 @@ TODO: Amounts of approved bills will display in green
                 <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
             }
 
-            <fieldset id="fsBillDates">
-                <legend>Bill Date Range</legend>
-                <div class="form-inline">
-                    <div class="form-group @(Model.DateFrom.HasValue ? "has-success" : "")">
-                        <div class='input-group date' id='billDatePickerFrom'>
-                            <input type="date" class="form-control input-sm" size="6" placeholder="From" name="@MVC.Bills.RecentBillsParams.dateFrom" value="@Html.DisplayFor(m => m.DateFrom)" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" href="#fsBillDates" aria-expanded="false" aria-controls="fsBillDates">
+                            Bill Dates
+                        </a>
                     </div>
-                    <div class="form-group @(Model.DateTo.HasValue ? "has-success" : "")">
-                        <div class='input-group date' id='billDatePickerTo'>
-                            <input type="date" class="form-control input-sm" size="6" placeholder="To" name="@MVC.Bills.RecentBillsParams.dateTo" value="@Html.DisplayFor(m => m.DateTo)" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
+                </div>
+                <div id="fsBillDates" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body" style="padding-left:1mm; padding-right:1mm">
+                        <div class="form-inline">
+                            <div class="form-group @(Model.DateFrom.HasValue ? "has-success" : "")">
+                                <div class='input-group input-group-sm date' id='billDatePickerFrom'>
+                                    <input type="date" class="form-control input-sm" size="7" placeholder="From" name="@MVC.Bills.RecentBillsParams.dateFrom" value="@Html.DisplayFor(m => m.DateFrom)" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group @(Model.DateTo.HasValue ? "has-success" : "")">
+                                <div class='input-group input-group-sm date' id='billDatePickerTo'>
+                                    <input type="date" class="form-control input-sm" size="7" placeholder="To" name="@MVC.Bills.RecentBillsParams.dateTo" value="@Html.DisplayFor(m => m.DateTo)" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </fieldset>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Collapsible Group Item #2
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Collapsible Group Item #3
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="panel-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                </div>
+            </div>
+
             <fieldset id="fsAmounts">
                 <legend>Amount</legend>
                 <div class="form-inline">
@@ -362,11 +402,11 @@ Paid / Unpaid
                                 <em>
                                     <small>
                                         @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)
-                                    <br />@@
-                                    @Html.DisplayFor(m => m.Bills[i].StationName)
-                                </small>
-                            </em>
-                        </div>
+                                        <br />@@
+                                        @Html.DisplayFor(m => m.Bills[i].StationName)
+                                    </small>
+                                </em>
+                            </div>
                             <div class="col-md-4">
                                 <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
                                     <span title="@Model.Bills[i].ContractorName">@Html.DisplayFor(m => m.Bills[i].ContractorName)</span>
