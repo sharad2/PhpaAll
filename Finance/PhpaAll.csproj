@@ -381,6 +381,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PhpaBills.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Bills\SearchViewModel.cs" />
     <Compile Include="Bills\RecentBillsViewModel.cs" />
     <Compile Include="Bills\EditViewModel.cs" />
     <Compile Include="Controllers\BillsController.cs" />
