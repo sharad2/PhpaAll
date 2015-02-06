@@ -343,7 +343,7 @@
     <Content Include="Views\Bills\RecentBills.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jqueryval.js.bundle" />
-    <Content Include="Views\Bills\Index.cshtml" />
+    <Content Include="Views\BillsHome\Index.cshtml" />
     <Content Include="Views\ManageBills\Bill.cshtml" />
     <Content Include="Views\ManageBills\Edit.cshtml" />
     <Content Include="Views\Bills\Search.cshtml" />
@@ -1977,7 +1977,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\BillsHome\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MIS\NestedMIS.master" />

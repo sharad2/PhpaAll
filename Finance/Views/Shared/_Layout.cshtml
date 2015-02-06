@@ -11,7 +11,7 @@
     <meta name="description" content="Phpa Bills Module" />
 </head>
 <body>
-    <div class="navbar navbar-default">
+    <div class="navbar navbar-default navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-layout-navbar-collapse-1">
@@ -26,7 +26,7 @@
                 <ul class="nav navbar-nav">
                     <li>
                         <div class="btn-group navbar-btn">
-                            <a class="btn btn-default" href="@Url.Action(MVC.Bills.Index())">Bills</a>
+                            <a class="btn btn-default" href="@Url.Action(MVC.BillsHome.Index())">Bills</a>
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
@@ -39,17 +39,27 @@
                             </ul>
 
                         </div>
-
+                    </li>
+                    <li>
+                        <form action="@Url.Action(MVC.Bills.Search())" method="get" role="search" class="navbar-form navbar-left">
+                            <div class="input-group">
+                                <input type="search" class="form-control" name="id" placeholder="Search PHPA" required>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </form>
+                    </li>
+                    <li>
+                        <div class="navbar-text"
+                             style="max-width: 40em; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap">
+                            <span class="h3">
+                                @System.Configuration.ConfigurationManager.AppSettings["title"]
+                            </span>
+                        </div>
                     </li>
                 </ul>
-                <form action="@Url.Action(MVC.Bills.Search())" method="get" role="search" class="navbar-form navbar-left">
-                    <div class="input-group">
-                        <input type="search" class="form-control" name="id" placeholder="Search PHPA" required>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                        </span>
-                    </div><!-- /input-group -->
-                </form>
+
                 <ul class="nav navbar-nav navbar-right">
                     @if (this.ViewContext.HttpContext.User.Identity.IsAuthenticated)
                     {

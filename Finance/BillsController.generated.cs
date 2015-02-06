@@ -92,7 +92,6 @@ namespace PhpaAll.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Index = "Index";
             public readonly string Search = "Search";
             public readonly string RecentBills = "RecentBills";
             public readonly string ApproveBills = "ApproveBills";
@@ -102,7 +101,6 @@ namespace PhpaAll.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Index = "Index";
             public const string Search = "Search";
             public const string RecentBills = "RecentBills";
             public const string ApproveBills = "ApproveBills";
@@ -163,12 +161,10 @@ namespace PhpaAll.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string Index = "Index";
                 public readonly string OutstandingBills = "OutstandingBills";
                 public readonly string RecentBills = "RecentBills";
                 public readonly string Search = "Search";
             }
-            public readonly string Index = "~/Views/Bills/Index.cshtml";
             public readonly string OutstandingBills = "~/Views/Bills/OutstandingBills.cshtml";
             public readonly string RecentBills = "~/Views/Bills/RecentBills.cshtml";
             public readonly string Search = "~/Views/Bills/Search.cshtml";
@@ -179,17 +175,6 @@ namespace PhpaAll.Controllers
     public partial class T4MVC_BillsController : PhpaAll.Controllers.BillsController
     {
         public T4MVC_BillsController() : base(Dummy.Instance) { }
-
-        [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
-            return callInfo;
-        }
 
         [NonAction]
         partial void SearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id);

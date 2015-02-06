@@ -8,7 +8,7 @@ namespace PhpaAll.Controllers
         // GET: BillsHome
         public virtual ActionResult Index()
         {
-            return View();
+            return View(Views.Index);
         }
 
         public virtual ActionResult Logoff()
