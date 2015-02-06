@@ -35,11 +35,6 @@ namespace PhpaAll.Controllers
             base.Dispose(disposing);
         }
 
-        public virtual ActionResult Index()
-        {
-            return View(Views.Index);
-        }
-
         public virtual ActionResult Search(string id)
         {
 
