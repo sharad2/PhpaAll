@@ -280,16 +280,8 @@ namespace PhpaAll.Controllers
         [HttpPost]
         public virtual ActionResult UploadImage(int billId, HttpPostedFileBase file)
         {
-
-
             var input = new byte[file.ContentLength];
             file.InputStream.Read(input, 0, file.ContentLength);
-
-            //foreach (var bill in _db.Value.BillImages.Where(p => p.BillId == billId))
-            //{
-            //    bill.BillImageData = input;
-            //}
-
 
             var bill = new BillImage
             {
