@@ -195,7 +195,8 @@ else
         <li class="list-group-item">
             <div class="row">
                 <div class="col-md-2">
-                    <strong>@Html.DisplayFor(m => m.BillHistory[i].DateCreated)</strong>
+                    @Html.DisplayFor(m => m.BillHistory[i].DateCreated) by 
+                    @Html.DisplayFor(m => m.BillHistory[i].CreatedBy)
                 </div>
                 <div class="col-md-8">
                     <dl class="dl-horizontal">
