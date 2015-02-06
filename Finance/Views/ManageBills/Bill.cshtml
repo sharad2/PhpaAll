@@ -94,7 +94,7 @@
                 <span class="glyphicon glyphicon-edit"></span>
                 Edit
             </a>
-            <a href="#" class="btn btn-default">
+            <a href="~/Finance/InsertVoucher.aspx" class="btn btn-default">
                 Create Voucher
             </a>
             <a href="@Url.Action(MVC.Bills.RecentBills())" class="btn btn-default">
@@ -110,7 +110,7 @@
 
 
 
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false" style="height:500px;">
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
     <!-- Indicators -->
     <ol class="carousel-indicators">
         @for (var i = 0; i < Model.AttachedImageCount; ++i)
@@ -140,7 +140,7 @@
         <div class="item @(Model.AttachedImageCount == 0 ? "active" : "")">
             <form action="@Url.Action(MVC.ManageBills.UploadImage())"
                   class="dropzone"
-                  id="my-dropzone" style="height:500px;">
+                  id="my-dropzone" style="min-height:700px;">
                 <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
                 <div class="fallback">
                     <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
@@ -169,25 +169,41 @@
     Audit
 </h2>
 <ul class="list-group">
+    <li class="list-group-item list-group-item-success">
+        <div class="row">
+            <div class="col-md-2">
+                <strong>Bill Date</strong>
+            </div>
+            <div class="col-md-8">
+                <strong>Change log</strong> 
+            </div>
+        </div>
+    </li>
     @for (var i = 0; i < Model.BillHistory.Count; ++i)
     {
-        
-        <li class="list-group-item">
-            <span class="badge">Changed on @Html.DisplayFor(m => m.BillDate)</span>
-            @for (var j = 0; j < Model.BillHistory[i].FieldChanges.Count; ++j)
-            {
-                <dl class="dl-horizontal">
-                    <dt>@Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].FieldName)</dt>
-                    <dd>
-                        <span class="bg-warning">
-                            @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].OldValue)
-                        </span>
-                        <span style="color:green" class="glyphicon glyphicon-arrow-right"></span>
-                        <span class="bg-success">@Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)</span>
-                    </dd>
-                </dl>
-            }
 
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-md-2">
+                    <strong>@Html.DisplayFor(m => m.BillDate)</strong>
+                </div>
+                <div class="col-md-8">
+                    @for (var j = 0; j < Model.BillHistory[i].FieldChanges.Count; ++j)
+                    {
+                        <ul>
+
+                            <li>
+                                @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].FieldName)
+                                <span class="bg-warning">
+                                    @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].OldValue)
+                                </span>
+                                <span style="color:green" class="glyphicon glyphicon-arrow-right"></span>
+                                <span class="bg-success">@Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)</span>
+                            </li>
+                        </ul>
+                    }
+                </div>
+            </div>
         </li>
     }
 </ul>
