@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace PhpaAll.Bills
 {
@@ -84,6 +85,22 @@ namespace PhpaAll.Bills
     public class RecentBillsViewModel
     {
         public IList<RecentBillsFilterModel> Divisions { get; set; }
+
+        /// <summary>
+        /// Returns null if all divisions are selected. Else retuns the count of selected divisions
+        /// </summary>
+        [DisplayFormat(DataFormatString="{0:N0}")]
+        public int? SelectedDivisionsCount
+        {
+            get
+            {
+                if (Divisions.All(p => p.Selected))
+                {
+                    return null;
+                }
+                return Divisions.Count(p => p.Selected);
+            }
+        }
 
         public IList<RecentBillsFilterModel> CurrentDivisions { get; set; }
 
