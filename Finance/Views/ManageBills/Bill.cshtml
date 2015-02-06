@@ -124,6 +124,8 @@
     </ul>
 </nav>
 
+@if (Model.AttachedImageCount <= 10)
+{
 <form action="@Url.Action(MVC.ManageBills.UploadImage())"
       class="dropzone"
       id="my-dropzone">
@@ -132,6 +134,11 @@
         <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
     </div>
 </form>
+}
+else
+{
+    <p>Max 10 files allowed. Remove some to add more.</p>
+}
 
 <div id="carousel-attachment" class="carousel slide" data-ride="carousel" data-interval="false">
 
@@ -261,7 +268,8 @@
                 addRemoveLinks: true,
                 // Files of all other types will be rejected
                 acceptedFiles: "image/*",
-                maxFilesize: 5  // MB
+                maxFilesize: 5,  // MB
+                maxFiles: 10            // Max 10 files
             };
 
             // Set the src attribute of image so that it now gets loaded
