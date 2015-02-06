@@ -65,16 +65,21 @@ TODO: Amounts of approved bills will display in green
                 <div class="panel-heading" role="tab" id="headingOne">
                     <div class="panel-title">
                         <a data-toggle="collapse" href="#fsBillDates" aria-expanded="false" aria-controls="fsBillDates">
-                            Bill Dates
+                            <span class="glyphicon glyphicon-plus"></span>  Bill Dates
                         </a>
+                        @if (Model.DateFrom != null || Model.DateTo != null)
+                        {
+                            <em><span class="glyphicon glyphicon-filter"></span> <small>From @Html.DisplayFor(m => m.DateFrom) to @Html.DisplayFor(m => m.DateTo)</small></em>
+                        }
                     </div>
                 </div>
-                <div id="fsBillDates" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div id="fsBillDates" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body" style="padding-left:1mm; padding-right:1mm">
                         <div class="form-inline">
                             <div class="form-group @(Model.DateFrom.HasValue ? "has-success" : "")">
                                 <div class='input-group input-group-sm date' id='billDatePickerFrom'>
-                                    <input type="date" class="form-control input-sm" size="7" placeholder="From" name="@MVC.Bills.RecentBillsParams.dateFrom" value="@Html.DisplayFor(m => m.DateFrom)" />
+                                    <input type="date" class="form-control input-sm" size="7" placeholder="From" name="@MVC.Bills.RecentBillsParams.dateFrom"
+                                           value="@Html.DisplayFor(m => m.DateFrom)" />
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
