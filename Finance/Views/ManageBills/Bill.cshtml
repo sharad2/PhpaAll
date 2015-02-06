@@ -110,7 +110,7 @@
 
 
 
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false" style="height:500px;">
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
     <!-- Indicators -->
     <ol class="carousel-indicators">
         @for (var i = 0; i < Model.AttachedImageCount; ++i)
@@ -126,7 +126,7 @@
         {
             <div class="item @(i == 0 ? "active" : "")">
                 <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="...">
-                <div class="carousel-caption">
+                <div class="carousel-caption" >
                     <h3 class="text-danger">
                         Image 00@(i + 1)
                     </h3>
@@ -140,7 +140,7 @@
         <div class="item @(Model.AttachedImageCount == 0 ? "active" : "")">
             <form action="@Url.Action(MVC.ManageBills.UploadImage())"
                   class="dropzone"
-                  id="my-dropzone" style="height:500px;">
+                  id="my-dropzone" style="min-height:700px;">
                 <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
                 <div class="fallback">
                     <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
