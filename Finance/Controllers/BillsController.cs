@@ -13,6 +13,7 @@ namespace PhpaAll.Controllers
     /// <summary>
     /// This controller contains all readonly bill actions
     /// </summary>
+    [Authorize(Roles="Bills")]
     public partial class BillsController : Controller
     {
 
@@ -36,14 +37,34 @@ namespace PhpaAll.Controllers
 
         public virtual ActionResult Search(string id)
         {
-            return View(Views.Search);
+
+            var query =
+                (from bill in _db.Value.Bills
+                 where bill.BillNumber == id
+                 orderby bill.BillDate descending
+                 select new SearchModel
+                 {
+                     BillNumber = bill.BillNumber,
+                     BillDate = bill.BillDate,
+                     Id = bill.Id,
+                 }).Take(50).ToList();
+
+            SearchViewModel model = new SearchViewModel
+            {
+
+            };
+
+            model.Bills = query;
+
+            return View(Views.Search, model);
         }
 
         /// <summary>
         /// Display recent bills. Option to create new bill
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] currentDivisions, int?[] contractors, int?[] stations,
+       [Authorize(Roles = "BillsExecutive")]
+         public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] currentDivisions, int?[] contractors, int?[] stations,
             DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount, bool exportToExcel = false)
         {
             //if (dates != null)
@@ -75,7 +96,7 @@ namespace PhpaAll.Controllers
 
             // By taking ToList(), we execute the query here. Later we manipulate in memory version of the data
             var aggQuery = query.ToList();
-
+          
             var model = new RecentBillsViewModel
             {
                 Divisions = (from d in aggQuery
@@ -241,12 +262,14 @@ namespace PhpaAll.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Only manager can approve the bills.
         /// </summary>
         /// <param name="listBillId"></param>
         /// <param name="approvalDate"></param>
         /// <param name="approvers">Used to pass to Recent Bills while redirecting</param>
         /// <returns></returns>
+        /// 
+        [Authorize(Roles = "BillsManager")]
         [HttpPost]
         public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate, string[] approvers, int[] divisions, int[] currentDivisions, int[] contractors, 
                                                 int[] stations, DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount)
@@ -329,6 +352,10 @@ namespace PhpaAll.Controllers
             return Redirect(url);
         }
 
+        /// <summary>
+        /// Display outstanding bills.
+        /// </summary>
+          [Authorize(Roles = "BillsExecutive")]
         public virtual ActionResult OutstandingBills()
         {
             var model = new OutstandingBillsViewModel

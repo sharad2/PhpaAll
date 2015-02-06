@@ -79,10 +79,10 @@
         </div>
     </div>
     <div class="col-md-2">
-         <div class="btn-group-vertical" role="group" aria-label="...">
-             <button type="button" class="btn btn-lg btn-primary" disabled>
+        <div class="btn-group-vertical" role="group" aria-label="...">
+            <button type="button" class="btn btn-lg btn-primary" disabled>
                 Actions
-             </button>
+            </button>
             <button type="button" class="btn btn-default">
                 <spn class="glyphicon glyphicon-thumbs-up"></spn> Approve Bill
 
@@ -97,11 +97,11 @@
             <a href="#" class="btn btn-default">
                 Create Voucher
             </a>
-             <a href="@Url.Action(MVC.Bills.RecentBills())" class="btn btn-default">
-                 Recent Bills
-             </a>
+            <a href="@Url.Action(MVC.Bills.RecentBills())" class="btn btn-default">
+                Recent Bills
+            </a>
         </div>
-       
+
     </div>
 </div>
 
@@ -110,7 +110,7 @@
 
 
 
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false" style="height:500px;">
     <!-- Indicators -->
     <ol class="carousel-indicators">
         @for (var i = 0; i < Model.AttachedImageCount; ++i)
@@ -127,9 +127,9 @@
             <div class="item @(i == 0 ? "active" : "")">
                 <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="...">
                 <div class="carousel-caption">
-                    <h1 class="text-success">
-                        @(i + 1)
-                    </h1>
+                    <h3 class="text-danger">
+                        Image 00@(i + 1)
+                    </h3>
                     <form method="post" action="@Url.Action(MVC.ManageBills.DeleteImageofBill(Model.Id, i))">
                         <button class="btn btn-danger btn-xs">Delete me</button>
                     </form>
@@ -140,7 +140,7 @@
         <div class="item @(Model.AttachedImageCount == 0 ? "active" : "")">
             <form action="@Url.Action(MVC.ManageBills.UploadImage())"
                   class="dropzone"
-                  id="my-dropzone">
+                  id="my-dropzone" style="height:500px;">
                 <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
                 <div class="fallback">
                     <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
@@ -165,60 +165,55 @@
 
 
 
-<h2 style="margin-top:0">
+<h2>
     Audit
 </h2>
-<div class="row">
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-info">
-            <div class="row">
-                <div class="col-md-2">
-                    <strong>Bill Modified Date</strong>
-                </div>
-                <div class="col-md-10">
-                    <strong style="padding-left:8mm">
-                        Changed Fields
-                    </strong>
-                </div>
-            </div>
+<ul class="list-group">
+    @for (var i = 0; i < Model.BillHistory.Count; ++i)
+    {
+        
+        <li class="list-group-item">
+            <span class="badge">Changed on @Html.DisplayFor(m => m.BillDate)</span>
+            @for (var j = 0; j < Model.BillHistory[i].FieldChanges.Count; ++j)
+            {
+                <dl class="dl-horizontal">
+                    <dt>@Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].FieldName)</dt>
+                    <dd>
+                        <span class="bg-warning">
+                            @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].OldValue)
+                        </span>
+                        <span style="color:green" class="glyphicon glyphicon-arrow-right"></span>
+                        <span class="bg-success">@Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)</span>
+                    </dd>
+                </dl>
+            }
+
         </li>
-        @for (var i = 0; i < Model.BillHistory.Count; ++i)
-        {
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-md-2">
-                        @Html.DisplayFor(m => m.BillDate)
-                    </div>
-                    <div class="col-md-10">
-                        Changes
-                        <ul>
-                            @for (var j = 0; j < Model.BillHistory[i].FieldChanges.Count; ++j)
-                            {
-                                <li>
-                                    @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].FieldName) changed from @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].OldValue)
-                                    to @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)
-                                </li>
-                            }
-                        </ul>
-
-                    </div>
-                </div>
-            </li>
-        }
-    </ul>
-</div>
-
-
-
-
-
-
-
-
+    }
+</ul>
 
 
 
 @section scripts {
+    <style type="text/css">
+        /*Styleing form thead crousel indicator aside cite was not visible over thead white background*/
+        .carousel-indicators li, .carousel-control span.glyphicon {
+            border-color: #4196c7;
+            color: #0b4e75;
+        }
+
+        .carousel-indicators .active {
+            background-color: #4196c7;
+        }
+        /*Styling form the crousel upload dragable area*/
+        #my-dropzone {
+            border: 5px dashed #4196c7;
+            background-color: rgba(241, 236, 212, 0.48);
+        }
+    </style>
+
+
+
     <link rel="stylesheet" href="@Links.Scripts.dropzone.dropzone_css" />
     <script type="text/javascript" src="@Links.Scripts.dropzone.dropzone_js"></script>
 
@@ -234,7 +229,6 @@
                 init: function () {
                     this.on("success", function (file, response) {
                         // response must contain the user of the file which can be used for deleting it
-                        alert(response.DeleteUrl);
                         $('a.dz-remove', file.previewTemplate).attr('data-dz-remove', response.DeleteUrl);
                     });
                     this.on("removedfile", function (file) {
@@ -242,60 +236,12 @@
                         //$('a.dz-remove', file.previewTemplate).attr('data-dz-errormessage', 'Something went wrong');
                         //alert(url);
                         //TODO: How to handle post error. We do not want the file to get removed from dropzone UI.
-                        //$.post(url);
+                        $.post(url);
                     });
                 },
-                addRemoveLinks: true
-                //init: function () {
-                //    this.on("addedfile", function (file) {
-                //        // Create the remove button
-                //        var removeButton = Dropzone.createElement("<div style='text-align:center'>  <button class='btn btn-sm btn-info'>Remove file</button><div>");
+                addRemoveLinks: true,
+                acceptedFiles: "image/*"
 
-                //        // Capture the Dropzone instance as closure.
-                //        var _this = this;
-
-                //        // Listen to the click event
-                //        removeButton.addEventListener("click", function (e) {
-                //            // Make sure the button click doesn't submit the form:
-                //            e.preventDefault();
-                //            e.stopPropagation();
-                //            // Remove the file preview.
-                //            _this.removeFile(file);
-                //            // If you want to the delete the file on the server as well,
-                //            // you can do the AJAX request here.
-                //            //var name = file.name;
-                //            //$.ajax({
-                //            //    type: 'POST',
-                //            //    url: '',
-                //            //    data: "id=" + name,
-                //            //    dataType: 'html'
-                //            //});
-
-                //            //var _ref;
-                //            //return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
-
-
-                //            // Create the mock file:
-                //            var mockFile = { name: "Filename", size: 12345 };
-
-                //            // Call the default addedfile event handler
-                //            myDropzone.emit("addedfile", mockFile);
-
-                //            // And optionally show the thumbnail of the file:
-                //            myDropzone.emit("thumbnail", mockFile, "/image/url");
-
-                //            // If you use the maxFiles option, make sure you adjust it to the
-                //            // correct amount:
-                //            var existingFileCount = 1; // The number of files already uploaded
-                //            myDropzone.options.maxFiles = myDropzone.options.maxFiles - existingFileCount;
-
-
-                //        });
-
-                //        // Add the button to the file preview element.
-                //        file.previewElement.appendChild(removeButton);
-                //    });
-                //}
 
 
             };
