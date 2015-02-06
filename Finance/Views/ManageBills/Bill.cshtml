@@ -17,17 +17,96 @@
         </label>
 
     }
-
-    &nbsp;
-    <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-default btn-sm">
-        <span class="glyphicon glyphicon-edit"></span>
-        Edit
-    </a>
-    <a href="@Url.Action(MVC.Bills.RecentBills())" class="btn btn-default btn-sm">
-        Recent Bills
-    </a>
 </h2>
 <hr />
+<div class="row">
+    <div class="col-md-10">
+        <div class="well">
+            <div class="row">
+                <div class="col-md-8">
+                    <strong><mark>No: @Html.DisplayFor(m => m.BillNumber)</mark></strong>
+                </div>
+                <div class="col-md-4" style="text-align:right">
+                    <strong class="pull-right1">Dated: @Html.DisplayFor(m => m.BillDate)</strong>
+                    @if (Model.DueDate < DateTime.Now)
+                    {
+                        <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
+                    }
+                    else
+                    {
+                        <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
+                    }
+                </div>
+            </div>
+
+            <small class="text-info">
+                <strong>Particulars:</strong> @Html.DisplayFor(m => m.Particulars)
+            </small>
+            <blockquote class="blockquote-reverse">
+                <p>
+                    <strong>Amount(Nu.) @Html.DisplayFor(m => m.Amount)</strong>
+
+                    @if (Model.PaidDate != null)
+                    {
+                        <span>
+                            paid on @Html.DisplayFor(m => m.PaidDate)
+                        </span>
+                    }
+
+                    <small>
+                        <label>Received at division</label>
+                        @Html.DisplayFor(m => m.SubmittedToDivisionName)
+                        <em>on @Html.DisplayFor(m => m.SubmittedOnDate)</em>
+                        <strong>@@Station</strong>
+                        @Html.DisplayFor(m => m.StationName)
+
+                    </small>
+                </p>
+            </blockquote>
+
+            <label class="label label-info">
+                Processing Division:
+                @Html.DisplayFor(m => m.CurrentDivision)
+            </label>
+            <br />
+            <em class="text-muted">
+                <small>
+                    <label>Remarks:</label>
+                    @Html.DisplayFor(m => m.Remarks)
+                </small>
+            </em>
+
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="btn-group-vertical" role="group" aria-label="...">
+            <button type="button" class="btn btn-lg btn-primary" disabled>
+                Actions
+            </button>
+            <button type="button" class="btn btn-default">
+                <spn class="glyphicon glyphicon-thumbs-up"></spn> Approve Bill
+
+            </button>
+            <button type="button" class="btn btn-default">
+                <spn class="glyphicon glyphicon-thumbs-down"></spn> Cancel  Approvel
+            </button>
+            <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-default">
+                <span class="glyphicon glyphicon-edit"></span>
+                Edit
+            </a>
+            <a href="#" class="btn btn-default">
+                Create Voucher
+            </a>
+            <a href="@Url.Action(MVC.Bills.RecentBills())" class="btn btn-default">
+                Recent Bills
+            </a>
+        </div>
+
+    </div>
+</div>
+
+
+
 
 
 
@@ -39,7 +118,7 @@
             <li data-target="#carousel-example-generic" data-slide-to="@i" class="@(i == 0 ? "active" : null)"></li>
         }
         <li data-target="#carousel-example-generic" data-slide-to="@Model.AttachedImageCount" class="@(Model.AttachedImageCount == 0 ? "active" : null)"></li>
-       
+
     </ol>
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
@@ -47,18 +126,18 @@
         {
             <div class="item @(i == 0 ? "active" : "")">
                 <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="...">
-                <div class="carousel-caption">                   
-                    <h1 class="text-success">
-                        @(i + 1)
-                    </h1>
+                <div class="carousel-caption">
+                    <h3 class="text-danger">
+                      Image 00@(i + 1)
+                    </h3>
                     <form method="post" action="@Url.Action(MVC.ManageBills.DeleteImageofBill(Model.Id, i))">
                         <button class="btn btn-danger btn-xs">Delete me</button>
                     </form>
-                   
+
                 </div>
             </div>
         }
-        <div class="item @(Model.AttachedImageCount == 0 ? "active" : "")">          
+        <div class="item @(Model.AttachedImageCount == 0 ? "active" : "")">
             <form action="@Url.Action(MVC.ManageBills.UploadImage())"
                   class="dropzone"
                   id="my-dropzone">
@@ -83,76 +162,6 @@
 
 
 
-
-
-
-<div class="row">
-    <div class="col-md-8 well well-sm">
-        <div class="row">
-            <div class="col-md-8">
-                <strong>No: @Html.DisplayFor(m => m.BillNumber)</strong>
-            </div>
-            <div class="col-md-4" style="text-align:right">
-                <strong class="pull-right1">Dated: @Html.DisplayFor(m => m.BillDate)</strong>
-                @if (Model.DueDate < DateTime.Now)
-                {
-                    <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
-                }
-                else
-                {
-                    <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
-                }
-            </div>
-        </div>
-        <br />
-        <small class="text-info">
-            <strong>Particulars:</strong> @Html.DisplayFor(m => m.Particulars)
-        </small>
-        <br />
-        <br />
-
-        <blockquote class="blockquote-reverse">
-
-            <p>
-                <strong>Amount(Nu.) @Html.DisplayFor(m => m.Amount)</strong>
-                @if (Model.PaidDate != null)
-                {
-                    <span>
-                        paid on @Html.DisplayFor(m => m.PaidDate)
-                    </span>
-                }
-            </p>
-
-            <small>
-                <label>Received at division</label>
-                @Html.DisplayFor(m => m.SubmittedToDivisionName)
-                <em>on @Html.DisplayFor(m => m.SubmittedOnDate)</em>
-                <strong>@@Station</strong>
-                @Html.DisplayFor(m => m.StationName)
-
-            </small>
-        </blockquote>
-
-
-
-        <hr />
-        <em class="text-muted">
-            <small>
-                <label>Remarks:</label>
-                @Html.DisplayFor(m => m.Remarks)
-            </small>
-            <label class="label label-info">
-                Currently in division
-                @Html.DisplayFor(m => m.CurrentDivision)
-            </label>
-        </em>
-        <br />
-        <br />
-
-
-    </div>
-    
-</div>
 
 
 
@@ -210,6 +219,16 @@
 
 
 @section scripts {
+    <style type="text/css">        
+        .carousel-indicators li {
+           border-color: #ff0000;
+        }
+
+        .carousel-indicators .active {
+            background-color: #ff0000;
+        }
+    </style>
+
     <link rel="stylesheet" href="@Links.Scripts.dropzone.dropzone_css" />
     <script type="text/javascript" src="@Links.Scripts.dropzone.dropzone_js"></script>
 
