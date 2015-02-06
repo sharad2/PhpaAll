@@ -54,7 +54,7 @@ namespace Eclipse.PhpaLibrary.Web.Providers
 
         public PhpaRoleProvider()
         {
-            _moduleNames = new string[] { "Finance", "Payroll", "Stores", "Personnel", "MC-1", "MC-2", "MC-3", "Infra Works" };
+            _moduleNames = new string[] {"Bills", "Finance", "Payroll", "Stores", "Personnel", "MC-1", "MC-2", "MC-3", "Infra Works" };
             _duties = new List<Duty>();
             _duties.Add(new Duty { Name = "Administrator", Seniority = 100, ModuleSpecific = false });
             _duties.Add(new Duty { Name = "Manager", Seniority = 90, ModuleSpecific = true });
