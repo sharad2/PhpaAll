@@ -53,7 +53,7 @@ TODO: Amounts of approved bills will display in green
 }
 <div class="row">
     <div class="col-md-3">
-        <form id="frmFilters" method="get" action="@Url.Action(MVC.Bills.RecentBills())">
+        <form id="frmFilters" method="get" action="@Url.Action(MVC.Bills.RecentBills())" style="font-size:0.95em">
             <button type="submit" class="btn btn-primary">Apply Filters</button>
             @if (Model.IsFiltered)
             {
@@ -268,11 +268,6 @@ TODO: Amounts of approved bills will display in green
             }
         </form>
         <pre>
-Approved By: Mgr 1 (22) Mgr2 (26)  Not Approved
-Station: S1(23) S2(25) ....
-Submitted to Division: ....
-Currently in Division: ....
-Contractor: ....
 Paid / Unpaid
 </pre>
     </div>
