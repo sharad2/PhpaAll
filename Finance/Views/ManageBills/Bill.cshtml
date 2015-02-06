@@ -105,10 +105,6 @@
     </div>
 </div>
 
-
-
-<p>@Html.DisplayFor(m => m.AttachedImageCount) Images TODO Show total size <a id="addImage" href="#" data-target="#carousel-attachment" data-slide-to="0">Add Image</a></p>
-
 <nav>
     <ul class="pagination">
         <li>
@@ -118,7 +114,7 @@
         </li>
         @for (var i = 0; i < Model.AttachedImageCount; ++i)
         {
-            <li><a href="#" data-target="#carousel-attachment" data-slide-to="@(i+1)">@(i+1)</a></li>
+            <li><a href="#" data-target="#carousel-attachment" data-slide-to="@(i+1)">@(i + 1)</a></li>
         }
         <li>
             <a href="#" aria-label="Next">
@@ -127,32 +123,32 @@
         </li>
     </ul>
 </nav>
-<div id="carousel-attachment" class="carousel slide" data-ride="carousel" data-interval="false">
-    <!-- Indicators -->
-    @*<ol class="carousel-indicators">
-        <li data-target="#carousel-attachment" data-slide-to="0" class="@(Model.AttachedImageCount == 0 ? "active" : null)"></li>
-        @for (var i = 0; i < Model.AttachedImageCount; ++i)
-        {
-            <li data-target="#carousel-attachment" data-slide-to="@(i + 1)" class="@(i == 0 ? "active" : null)"></li>
-        }
 
-    </ol>*@
+<form action="@Url.Action(MVC.ManageBills.UploadImage())"
+      class="dropzone"
+      id="my-dropzone">
+    <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
+    <div class="fallback">
+        <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
+    </div>
+</form>
+
+<div id="carousel-attachment" class="carousel slide" data-ride="carousel" data-interval="false">
+
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
-        <div class="item @(Model.AttachedImageCount == 0 ? "active" : "")">
-            <form action="@Url.Action(MVC.ManageBills.UploadImage())"
-                  class="dropzone"
-                  id="my-dropzone" style="min-height:700px;">
-                <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
-                <div class="fallback">
-                    <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
-                </div>
-            </form>
-        </div>
         @for (var i = 0; i < Model.AttachedImageCount; ++i)
         {
             <div class="item @(i == 0 ? "active" : "")">
-                <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="...">
+                @if (i == 0)
+                {
+                    <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="..." />
+                }
+                else
+                {
+                    <img data-src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="..." />
+                }
+
                 <div class="carousel-caption">
                     <h3 class="text-danger">
                         Image @(i + 1)
@@ -175,12 +171,6 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-
-
-
-
-
-
 
 <h2>
     Audit
@@ -228,18 +218,18 @@
 
 
 @section scripts {
-    <style type="text/css">
-        /*Styleing form thead crousel indicator aside cite was not visible over thead white background*/
-        .carousel-control span.glyphicon {
-            color: #0b4e75;
-        }
+    @*<style type="text/css">
+            /*Styleing form thead crousel indicator aside cite was not visible over thead white background*/
+            .carousel-control span.glyphicon {
+                color: #0b4e75;
+            }
 
-        /*Styling form the crousel upload dragable area*/
-        #my-dropzone {
-            border: 5px dashed #4196c7;
-            background-color: rgba(241, 236, 212, 0.48);
-        }
-    </style>
+            /*Styling form the crousel upload dragable area*/
+            #my-dropzone {
+                border: 5px dashed #4196c7;
+                background-color: rgba(241, 236, 212, 0.48);
+            }
+        </style>*@
 
 
 
@@ -269,14 +259,17 @@
                     });
                 },
                 addRemoveLinks: true,
-                acceptedFiles: "image/*"
+                // Files of all other types will be rejected
+                acceptedFiles: "image/*",
+                maxFilesize: 5  // MB
             };
 
-            //// Show dropzone slide
-            //$('#addImage').on('click', function (e) {
-            //    $('#carousel-attachment').carousel(0);
-            //});
-
+            // Set the src attribute of image so that it now gets loaded
+            // Then remove the data-src attribute so that the image does not get loaded again
+            $('#carousel-attachment').on('slide.bs.carousel', function (arg) {
+                var $img = $('img[data-src]', arg.relatedTarget);
+                $img.attr('src', $img.attr('data-src')).removeAttr('data-src');
+            })
         });
     </script>
 }
