@@ -501,12 +501,12 @@ Paid / Unpaid
                         </span>
                     </li>
                 }
-                <br />
-                @if(Model.Bills.Count() < 1)
-                {
-                   <span style="color:red"><i>No Bill Avaliable</i></span>
-                }
             </ul>
+            <br />
+            @if (Model.Bills.Count() < 1)
+            {
+                <span style="color:red"><i>No Bill Avaliable</i></span>
+            }
         </form>
 
     </div>
