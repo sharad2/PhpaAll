@@ -1,3 +1,57 @@
+
+Bill Module 6 Feb 2015
+-------------------------------
+A bill is for a division/station. Hereinafter whenever we say division, we mean division/station.
+
+ It is either raised by a contractor, or it is raised internally.  The payment made by finance will be on behalf of this division.
+Then the bill is routed to other divisions until it finally reaches the finance division. For each bill we capture the division it currently is in. This division is called the
+ActionDivision implying that this division is responsible for acting on the division.
+
+
+When a bill is received, the action division is the same as the bill division. The UI provides the ability to change the action division of a bill.
+ In real life, the people of the responsible division can 
+be asked to change the action division at some point (push). Or the people in the finance division can choose to change the action divison to finance when they desire (pull).
+The software itself does not care whether the push or the pull method is used.
+
+A bill needs to be approved before it can be paid. A bill can be approved at any time after it is received. Only managers can approve bills. A bill cannot be edited after it has been approved.
+A bill can be unapproved at any time as long as it has not already been paid.
+
+A voucher can be created against an approved bill. Now the bill is deemed to have been paid. After a bill is paid, it is completely frozen and no changes can be made to it.
+
+
+Security: Visitor rights on the Bills package will allow the user readonly access to all sreens of the bills module except reports.
+BillsExecutive role is required to view the bill reports.
+BillsOperator role is required to create, edit and delete bills.
+BillsManager role is needed to approve bills.
+
+
+Changes
+Rename SubmittedToDivision to Division
+Rename CurrentDivion to ProcessingDivision
+
+Update create screen
+
+SB - Create edit, view nomenclature and layout
+HKV - Outstanding bills
+Sanjeev - feedback
+MB - recent bill. Make collapsible, div and station adjacent. Division nomenclature. Unapprove on recent page
+Anil - Image.  Create voucher link on view page. Audit in view
+Dinesh - Security
+DB - Search
+SS - Voucher entry, login links, logo on layout
+
+
+TODO:
+Approve/Unapprove on view page
+Voucher date entry modifications for bill
+Fund requirement on home page
+
+
+
+
+
+
+
 Feature :- Job Payment Register
 
 
