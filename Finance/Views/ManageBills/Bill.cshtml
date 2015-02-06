@@ -79,10 +79,10 @@
         </div>
     </div>
     <div class="col-md-2">
-         <div class="btn-group-vertical" role="group" aria-label="...">
-             <button type="button" class="btn btn-lg btn-primary" disabled>
+        <div class="btn-group-vertical" role="group" aria-label="...">
+            <button type="button" class="btn btn-lg btn-primary" disabled>
                 Actions
-             </button>
+            </button>
             <button type="button" class="btn btn-default">
                 <spn class="glyphicon glyphicon-thumbs-up"></spn> Approve Bill
 
@@ -97,11 +97,11 @@
             <a href="#" class="btn btn-default">
                 Create Voucher
             </a>
-             <a href="@Url.Action(MVC.Bills.RecentBills())" class="btn btn-default">
-                 Recent Bills
-             </a>
+            <a href="@Url.Action(MVC.Bills.RecentBills())" class="btn btn-default">
+                Recent Bills
+            </a>
         </div>
-       
+
     </div>
 </div>
 
@@ -127,9 +127,9 @@
             <div class="item @(i == 0 ? "active" : "")">
                 <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="...">
                 <div class="carousel-caption">
-                    <h1 class="text-success">
-                        @(i + 1)
-                    </h1>
+                    <h3 class="text-danger">
+                      Image 00@(i + 1)
+                    </h3>
                     <form method="post" action="@Url.Action(MVC.ManageBills.DeleteImageofBill(Model.Id, i))">
                         <button class="btn btn-danger btn-xs">Delete me</button>
                     </form>
@@ -219,6 +219,16 @@
 
 
 @section scripts {
+    <style type="text/css">        
+        .carousel-indicators li {
+           border-color: #ff0000;
+        }
+
+        .carousel-indicators .active {
+            background-color: #ff0000;
+        }
+    </style>
+
     <link rel="stylesheet" href="@Links.Scripts.dropzone.dropzone_css" />
     <script type="text/javascript" src="@Links.Scripts.dropzone.dropzone_js"></script>
 
