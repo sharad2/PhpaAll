@@ -2,7 +2,7 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
 	<siteMapNode url="~/Default.aspx" title="PHPA Home"  description="">
 		<siteMapNode siteMapFile="Finance.sitemap" />
-    <siteMapNode url="~/Bills/Index" title="Bills"  />
+    <siteMapNode url="~/BillsHome/Index" title="Bills"  />
 		<siteMapNode siteMapFile="Payroll.sitemap" />
 		<siteMapNode siteMapFile="Store.sitemap"/>
 		<siteMapNode siteMapFile="MIS.sitemap" />

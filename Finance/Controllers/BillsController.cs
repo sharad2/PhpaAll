@@ -35,22 +35,36 @@ namespace PhpaAll.Controllers
             base.Dispose(disposing);
         }
 
-        public virtual ActionResult Index()
-        {
-            return View(Views.Index);
-        }
-
         public virtual ActionResult Search(string id)
         {
-            return View(Views.Search);
+
+            var query =
+                (from bill in _db.Value.Bills
+                 where bill.BillNumber == id
+                 orderby bill.BillDate descending
+                 select new SearchModel
+                 {
+                     BillNumber = bill.BillNumber,
+                     BillDate = bill.BillDate,
+                     Id = bill.Id,
+                 }).Take(50).ToList();
+
+            SearchViewModel model = new SearchViewModel
+            {
+
+            };
+
+            model.Bills = query;
+
+            return View(Views.Search, model);
         }
 
         /// <summary>
         /// Display recent bills. Option to create new bill
         /// </summary>
         /// <returns></returns>
-       [Authorize(Roles = "BillsExecutive")]
-         public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] currentDivisions, int?[] contractors, int?[] stations,
+        [Authorize(Roles = "BillsExecutive")]
+        public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] processingDivisions, int?[] contractors, int?[] stations,
             DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount, bool exportToExcel = false)
         {
             //if (dates != null)
@@ -82,7 +96,7 @@ namespace PhpaAll.Controllers
 
             // By taking ToList(), we execute the query here. Later we manipulate in memory version of the data
             var aggQuery = query.ToList();
-          
+
             var model = new RecentBillsViewModel
             {
                 Divisions = (from d in aggQuery
@@ -94,14 +108,14 @@ namespace PhpaAll.Controllers
                                  Count = g.Sum(p => p.Count),
                                  Selected = divisions == null || divisions.Contains(g.Key)
                              }).ToList(),
-                CurrentDivisions = (from d in aggQuery
+                ProcessingDivisions = (from d in aggQuery
                              group d by d.CurrentDivisionId into g
                              select new RecentBillsFilterModel
                              {
                                  Id = string.Format("{0}", g.Key),
                                  Name = g.Select(p => p.CurrentDivisionName).FirstOrDefault(),
                                  Count = g.Sum(p => p.Count),
-                                 Selected = currentDivisions == null || currentDivisions.Contains(g.Key)
+                                 Selected = processingDivisions == null || processingDivisions.Contains(g.Key)
                              }).ToList(),
                 Contractors = (from d in aggQuery
                                group d by d.ContractorId into g
@@ -148,9 +162,9 @@ namespace PhpaAll.Controllers
                 model.IsFiltered = true;
             }
 
-            if (currentDivisions != null && currentDivisions.Length > 0)
+            if (processingDivisions != null && processingDivisions.Length > 0)
             {
-                filteredBills = filteredBills.Where(p => currentDivisions.Contains(p.CurrentDivisionId));
+                filteredBills = filteredBills.Where(p => processingDivisions.Contains(p.CurrentDivisionId));
                 model.IsFiltered = true;
             }
 
@@ -254,10 +268,9 @@ namespace PhpaAll.Controllers
         /// <param name="approvalDate"></param>
         /// <param name="approvers">Used to pass to Recent Bills while redirecting</param>
         /// <returns></returns>
-        /// 
         [Authorize(Roles = "BillsManager")]
         [HttpPost]
-        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate, string[] approvers, int[] divisions, int[] currentDivisions, int[] contractors, 
+        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors, 
                                                 int[] stations, DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount)
         {
             if (string.IsNullOrWhiteSpace(User.Identity.Name))
@@ -294,9 +307,9 @@ namespace PhpaAll.Controllers
                 dict.Add(Actions.RecentBillsParams.divisions, divisions);
             }
 
-            if (currentDivisions != null)
+            if (processingDivisions != null)
             {
-                dict.Add(Actions.RecentBillsParams.currentDivisions, currentDivisions);
+                dict.Add(Actions.RecentBillsParams.processingDivisions, processingDivisions);
             }
 
             if (contractors != null)
@@ -341,7 +354,7 @@ namespace PhpaAll.Controllers
         /// <summary>
         /// Display outstanding bills.
         /// </summary>
-          [Authorize(Roles = "BillsExecutive")]
+        [Authorize(Roles = "BillsExecutive")]
         public virtual ActionResult OutstandingBills()
         {
             var model = new OutstandingBillsViewModel

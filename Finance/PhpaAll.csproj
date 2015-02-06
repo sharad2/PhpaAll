@@ -343,7 +343,7 @@
     <Content Include="Views\Bills\RecentBills.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jqueryval.js.bundle" />
-    <Content Include="Views\Bills\Index.cshtml" />
+    <Content Include="Views\BillsHome\Index.cshtml" />
     <Content Include="Views\ManageBills\Bill.cshtml" />
     <Content Include="Views\ManageBills\Edit.cshtml" />
     <Content Include="Views\Bills\Search.cshtml" />
@@ -369,6 +369,9 @@
     <Compile Include="BillsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="BillsHomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Bills\BillAuditModel.cs" />
     <Compile Include="Bills\BillViewModel.cs" />
     <Compile Include="Bills\CreateViewModel.cs" />
@@ -381,9 +384,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PhpaBills.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Bills\SearchViewModel.cs" />
     <Compile Include="Bills\RecentBillsViewModel.cs" />
     <Compile Include="Bills\EditViewModel.cs" />
     <Compile Include="Controllers\BillsController.cs" />
+    <Compile Include="Controllers\BillsHomeController.cs" />
     <Compile Include="Controllers\ManageBillsController.cs" />
     <Compile Include="Controls\SearchEmployee.ascx.cs">
       <DependentUpon>SearchEmployee.ascx</DependentUpon>
