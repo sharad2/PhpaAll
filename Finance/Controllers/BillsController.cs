@@ -42,7 +42,26 @@ namespace PhpaAll.Controllers
 
         public virtual ActionResult Search(string id)
         {
-            return View(Views.Search);
+
+            var query =
+                (from bill in _db.Value.Bills
+                 where bill.BillNumber == id
+                 orderby bill.BillDate descending
+                 select new SearchModel
+                 {
+                     BillNumber = bill.BillNumber,
+                     BillDate = bill.BillDate,
+                     Id = bill.Id,
+                 }).Take(50).ToList();
+
+            SearchViewModel model = new SearchViewModel
+            {
+
+            };
+
+            model.Bills = query;
+
+            return View(Views.Search, model);
         }
 
         /// <summary>
