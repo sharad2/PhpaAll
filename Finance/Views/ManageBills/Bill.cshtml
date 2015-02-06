@@ -128,7 +128,7 @@
                 <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="...">
                 <div class="carousel-caption">
                     <h3 class="text-danger">
-                      Image 00@(i + 1)
+                        Image 00@(i + 1)
                     </h3>
                     <form method="post" action="@Url.Action(MVC.ManageBills.DeleteImageofBill(Model.Id, i))">
                         <button class="btn btn-danger btn-xs">Delete me</button>
@@ -140,7 +140,7 @@
         <div class="item @(Model.AttachedImageCount == 0 ? "active" : "")">
             <form action="@Url.Action(MVC.ManageBills.UploadImage())"
                   class="dropzone"
-                  id="my-dropzone" style="height:500px;">             
+                  id="my-dropzone" style="height:500px;">
                 <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
                 <div class="fallback">
                     <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
@@ -219,13 +219,19 @@
 
 
 @section scripts {
-    <style type="text/css">        
+    <style type="text/css">
+
+        /*Styleing form thead crousel indicator aside cite was not visible over thead white background*/
         .carousel-indicators li {
-           border-color: #ff0000;
+            border-color: #4196c7;
         }
 
         .carousel-indicators .active {
-            background-color: #ff0000;
+            background-color: #4196c7;
+        }
+        /*Styling form the crousel upload dragable area*/
+        #my-dropzone {
+            border: 5px dashed #4196c7;           
         }
     </style>
 
@@ -257,7 +263,7 @@
                 },
                 addRemoveLinks: true,
                 acceptedFiles: "image/*"
-               
+
 
 
             };
