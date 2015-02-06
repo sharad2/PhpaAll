@@ -110,7 +110,7 @@
 
 
 
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false" style="height:500px;">
     <!-- Indicators -->
     <ol class="carousel-indicators">
         @for (var i = 0; i < Model.AttachedImageCount; ++i)
@@ -140,7 +140,7 @@
         <div class="item @(Model.AttachedImageCount == 0 ? "active" : "")">
             <form action="@Url.Action(MVC.ManageBills.UploadImage())"
                   class="dropzone"
-                  id="my-dropzone">
+                  id="my-dropzone" style="height:500px;">             
                 <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
                 <div class="fallback">
                     <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
@@ -255,57 +255,9 @@
                         //$.post(url);
                     });
                 },
-                addRemoveLinks: true
-                //init: function () {
-                //    this.on("addedfile", function (file) {
-                //        // Create the remove button
-                //        var removeButton = Dropzone.createElement("<div style='text-align:center'>  <button class='btn btn-sm btn-info'>Remove file</button><div>");
-
-                //        // Capture the Dropzone instance as closure.
-                //        var _this = this;
-
-                //        // Listen to the click event
-                //        removeButton.addEventListener("click", function (e) {
-                //            // Make sure the button click doesn't submit the form:
-                //            e.preventDefault();
-                //            e.stopPropagation();
-                //            // Remove the file preview.
-                //            _this.removeFile(file);
-                //            // If you want to the delete the file on the server as well,
-                //            // you can do the AJAX request here.
-                //            //var name = file.name;
-                //            //$.ajax({
-                //            //    type: 'POST',
-                //            //    url: '',
-                //            //    data: "id=" + name,
-                //            //    dataType: 'html'
-                //            //});
-
-                //            //var _ref;
-                //            //return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
-
-
-                //            // Create the mock file:
-                //            var mockFile = { name: "Filename", size: 12345 };
-
-                //            // Call the default addedfile event handler
-                //            myDropzone.emit("addedfile", mockFile);
-
-                //            // And optionally show the thumbnail of the file:
-                //            myDropzone.emit("thumbnail", mockFile, "/image/url");
-
-                //            // If you use the maxFiles option, make sure you adjust it to the
-                //            // correct amount:
-                //            var existingFileCount = 1; // The number of files already uploaded
-                //            myDropzone.options.maxFiles = myDropzone.options.maxFiles - existingFileCount;
-
-
-                //        });
-
-                //        // Add the button to the file preview element.
-                //        file.previewElement.appendChild(removeButton);
-                //    });
-                //}
+                addRemoveLinks: true,
+                acceptedFiles: "image/*"
+               
 
 
             };
