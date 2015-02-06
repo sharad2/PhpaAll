@@ -1,0 +1,54 @@
+﻿@model PhpaAll.Bills.OutstandingBillsViewModel
+@{
+    ViewBag.Title = "Outstanding Bills";
+}
+<h2>
+    @ViewBag.Title
+</h2>
+<div class="row">
+<div class="col-md-3">
+    <form id="frmFilters" method="get" action="@Url.Action(MVC.Bills.OutstandingBills())">
+        <fieldset id="fsFilter">
+            <legend>Show report by:</legend>
+            <input type="radio" name="ReportType" id="rgDivision">By Division
+            <br/>
+            <input type="radio" name="ReportType" id="rgStation">By Station
+            <br />
+            <input type="radio" name="ReportType" id="rgContractor">By Contractor
+        </fieldset>
+        <br />
+        <br />
+        <br />
+        <button type="submit" class="btn btn-primary">Apply Filters</button>
+        </form>
+</div>
+    <div class="col-lg-9">
+        <table class="table table-striped">
+            <thead>
+                <tr class="bg-info">
+                    <td><strong>#</strong></td>
+                    <td><strong>Bill No.</strong></td>
+                    <td><strong>Bill Date</strong></td>
+                    <td><strong>Due Date</strong></td>
+                    <td><strong>Division</strong></td>
+                    <td><strong>Contractor</strong></td>
+                    <td><strong>Amount</strong></td>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.Bills.Count; ++i)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td>@Html.DisplayFor(m => m.Bills[i].BillNumber)</td>
+                        <td>@Html.DisplayFor(m => m.Bills[i].BillDate)</td>
+                        <td>@Html.DisplayFor(m => m.Bills[i].DueDate)</td>
+                        <td>@Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)</td>
+                        <td>@Html.DisplayFor(m => m.Bills[i].ContractorName)</td>
+                        <td style="text-align:right">@Html.DisplayFor(m => m.Bills[i].Amount)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

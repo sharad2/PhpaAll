@@ -86,6 +86,8 @@ namespace PhpaAll.Bills
 
         public string StationName { get; set; }
 
+        public int AttachedImageCount { get; set; }
+
 
     }
 

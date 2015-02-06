@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace PhpaAll.Bills
 {
@@ -40,6 +41,10 @@ namespace PhpaAll.Bills
         public int? SubmittedToDivisionId { get; set; }
 
         public string SubmittedToDivisionName { get; set; }
+
+        public int? CurrentDivisionId { get; set; }
+
+        public string CurrentDivisionName { get; set; }
 
         public int? ContractorId { get; set; }
 
@@ -81,11 +86,93 @@ namespace PhpaAll.Bills
     {
         public IList<RecentBillsFilterModel> Divisions { get; set; }
 
+        /// <summary>
+        /// Returns null if all divisions are selected. Else retuns the count of selected divisions
+        /// </summary>
+        [DisplayFormat(DataFormatString="{0:N0}")]
+        public int? SelectedDivisionsCount
+        {
+            get
+            {
+                if (Divisions.All(p => p.Selected))
+                {
+                    return null;
+                }
+                return Divisions.Count(p => p.Selected);
+            }
+        }
+
+        public IList<RecentBillsFilterModel> ProcessingDivisions { get; set; }
+
+        /// <summary>
+        /// Returns null if all contractors are selected. Else retuns the count of selected contractors.
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? SelectedProcessingDivisionsCount
+        {
+            get
+            {
+                if (ProcessingDivisions.All(p => p.Selected))
+                {
+                    return null;
+                }
+                return ProcessingDivisions.Count(p => p.Selected);
+            }
+        }
+
         public IList<RecentBillsFilterModel> Contractors { get; set; }
+
+        /// <summary>
+        /// Returns null if all contractors are selected. Else retuns the count of selected contractors.
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? SelectedContracatorsCount
+        {
+            get
+            {
+                if (Contractors.All(p => p.Selected))
+                {
+                    return null;
+                }
+                return Contractors.Count(p => p.Selected);
+            }
+        }
 
         public IList<RecentBillsFilterModel> Approvers { get; set; }
 
+        /// <summary>
+        /// Returns null if all approvers are selected. Else retuns the count of selected approvers.
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? SelectedApproversCount
+        {
+            get
+            {
+                if (Approvers.All(p => p.Selected))
+                {
+                    return null;
+                }
+                return Approvers.Count(p => p.Selected);
+            }
+        }
+
         public IList<RecentBillsFilterModel> Stations { get; set; }
+
+        /// <summary>
+        /// Returns null if all stations are selected. Else retuns the count of selected stations.
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? SelectedStationsCount
+        {
+            get
+            {
+                if (Stations.All(p => p.Selected))
+                {
+                    return null;
+                }
+                return Stations.Count(p => p.Selected);
+            }
+        }
 
         public IList<BillModel> Bills { get; set; }
 

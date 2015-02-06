@@ -16,7 +16,7 @@
             // Code to clean up the URL by not posting unnecessary filters
             $('#frmFilters').on('submit', function (e) {
                 // If all checkboxes in a group are checked, uncheck all so that they do not get posted
-                $('#fsDivisions,#fsContractors,#fsApprovers,#fsStations').each(function (index, elem) {
+                $('#fsDivisions,#fsContractors,#fsApprovers,#fsStations,#fsprocessingDivision').each(function (index, elem) {
                     if ($('input:not(:checked)', elem).length == 0) {
                         //alert('Hi');
                         $('input:checked', elem).prop('checked', false);
@@ -53,150 +53,268 @@ TODO: Amounts of approved bills will display in green
 }
 <div class="row">
     <div class="col-md-3">
-        <form id="frmFilters" method="get" action="@Url.Action(MVC.Bills.RecentBills())">
+        <form id="frmFilters" method="get" action="@Url.Action(MVC.Bills.RecentBills())" style="font-size:0.95em">
             <button type="submit" class="btn btn-primary">Apply Filters</button>
             @if (Model.IsFiltered)
             {
-            <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
+                <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
             }
-
-            <fieldset id="fsBillDates">
-                <legend>Bill Date Range</legend>
-                <div class="form-inline">
-                    <div class="form-group @(Model.DateFrom.HasValue ? "has-success" : "")">
-                        <div class='input-group date' id='billDatePickerFrom'>
-                            <input type="date" class="form-control input-sm" size="6" placeholder="From" name="@MVC.Bills.RecentBillsParams.dateFrom" value="@Html.DisplayFor(m => m.DateFrom)" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <div class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" href="#fsBillDates" aria-expanded="false" aria-controls="fsBillDates">
+                            <span class="glyphicon glyphicon-plus"></span>  Bill Dates
+                        </a>
+                        @if (Model.DateFrom != null || Model.DateTo != null)
+                        {
+                            <em><span class="glyphicon glyphicon-filter"></span> <small>From @Html.DisplayFor(m => m.DateFrom) to @Html.DisplayFor(m => m.DateTo)</small></em>
+                        }
                     </div>
-                    <div class="form-group @(Model.DateTo.HasValue ? "has-success" : "")">
-                        <div class='input-group date' id='billDatePickerTo'>
-                            <input type="date" class="form-control input-sm" size="6" placeholder="To" name="@MVC.Bills.RecentBillsParams.dateTo" value="@Html.DisplayFor(m => m.DateTo)" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
+                </div>
+                <div id="fsBillDates" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body" style="padding-left:1mm; padding-right:1mm">
+                        <div class="form-inline">
+                            <div class="form-group @(Model.DateFrom.HasValue ? "has-success" : "")">
+                                <div class='input-group input-group-sm date' id='billDatePickerFrom'>
+                                    <input type="date" class="form-control input-sm" size="7" placeholder="From" name="@MVC.Bills.RecentBillsParams.dateFrom"
+                                           value="@Html.DisplayFor(m => m.DateFrom)" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group @(Model.DateTo.HasValue ? "has-success" : "")">
+                                <div class='input-group input-group-sm date' id='billDatePickerTo'>
+                                    <input type="date" class="form-control input-sm" size="7" placeholder="To" name="@MVC.Bills.RecentBillsParams.dateTo" value="@Html.DisplayFor(m => m.DateTo)" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </fieldset>
-            <fieldset id="fsAmounts">
-                <legend>Amount</legend>
-                <div class="form-inline">
-                    <div class="form-group @(Model.FilterMinAmount.HasValue ? "has-success" : "")">
-                        <input type="number" class="form-control input-sm" size="10" placeholder="Min" name="@MVC.Bills.RecentBillsParams.minAmount" value="@Model.FilterMinAmount" />
-                    </div>
-                    <div class="form-group @(Model.FilterMaxAmount.HasValue ? "has-success" : "")">
-                        <input type="number" class="form-control input-sm" size="10" placeholder="Max" name="@MVC.Bills.RecentBillsParams.maxAmount" value="@Model.FilterMaxAmount"
-                               min="100" />
-                    </div>
-                </div>
-            </fieldset>
-            @if (Model.Divisions.Count > 1)
-            {
-            <fieldset id="fsDivisions">
-                <legend>Submitted to Division</legend>
-                @for (var i = 0; i < Model.Divisions.Count; ++i)
-                    {
-                    <div class="@(Model.Divisions[i].Selected ? "has-success" : (string)null)">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.divisions" value="@Model.Divisions[i].Id" checked="@Model.Divisions[i].Selected">
-                                @Html.DisplayFor(m => m.Divisions[i].Name)
-                                <small style="white-space:nowrap">
-                                    <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.divisions, Model.Divisions[i].Id))">
-                                        only
-                                        <span class="badge"> @Html.DisplayFor(m => m.Divisions[i].Count)</span>
-                                    </a>
-                                </small>
-                            </label>
-                        </div>
-                    </div>
-                    }
-            </fieldset>
-            }
+            </div>
             @if (Model.Contractors.Count > 1)
             {
-            <fieldset id="fsContractors">
-                <legend>Contractors</legend>
-                @for (var i = 0; i < Model.Contractors.Count; ++i)
-                    {
-                    <div class="@(Model.Contractors[i].Selected ? "has-success" : (string)null)">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.contractors" value="@Model.Contractors[i].Id" checked="@Model.Contractors[i].Selected" />
-                                @Html.DisplayFor(m => m.Contractors[i].Name)
-                                <small style="white-space:nowrap">
-                                    <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.contractors, Model.Contractors[i].Id))">
-                                        only
-                                        <span class="badge">@Html.DisplayFor(m => m.Contractors[i].Count)</span>
-                                    </a>
-                                </small>
-                            </label>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <div class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" href="#fsContractors" aria-expanded="false" aria-controls="fsContractors">
+                                <span class="glyphicon glyphicon-plus"></span> Contractors
+                            </a>
+                            @if (Model.SelectedContracatorsCount.HasValue)
+                            {
+                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedContracatorsCount) Contractor</em></small>
+                            }
                         </div>
                     </div>
-                    }
-            </fieldset>
-            }
-            @if (Model.Approvers.Count > 1)
-            {
-            <fieldset id="fsApprovers">
-                <legend>Approvers</legend>
-                @for (var i = 0; i < Model.Approvers.Count; ++i)
-                    {
-                    <div class="@(Model.Approvers[i].Selected ? "has-success" : (string)null)">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.approvers" value="@Model.Approvers[i].Id" checked="@Model.Approvers[i].Selected">
-                                @Html.DisplayFor(m => m.Approvers[i].Name)
-                            </label>
-                            <small style="white-space:nowrap">
-                                <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.approvers, Model.Approvers[i].Id))">
-                                    only
-                                    <span class="badge">@Html.DisplayFor(m => m.Approvers[i].Count)</span>
-                                </a>
-                            </small>
+                    <div id="fsContractors" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            @for (var i = 0; i < Model.Contractors.Count; ++i)
+                            {
+                                <div class="@(Model.Contractors[i].Selected ? "has-success" : (string)null)">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="@MVC.Bills.RecentBillsParams.contractors" value="@Model.Contractors[i].Id" checked="@Model.Contractors[i].Selected" />
+                                            @Html.DisplayFor(m => m.Contractors[i].Name)
+                                            <small style="white-space:nowrap">
+                                                <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.contractors, Model.Contractors[i].Id))">
+                                                    only
+                                                    <span class="badge">@Html.DisplayFor(m => m.Contractors[i].Count)</span>
+                                                </a>
+                                            </small>
+                                        </label>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
-                    }
-            </fieldset>
+                </div>
             }
             @if (Model.Stations.Count > 1)
             {
-            <fieldset id="fsStations">
-                <legend>Stations</legend>
-                @for (var i = 0; i < Model.Stations.Count; ++i)
-                    {
-                    <div class="@(Model.Stations[i].Selected ? "has-success" : (string)null)">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.stations" value="@Model.Stations[i].Id" checked="@Model.Stations[i].Selected" />
-                                @Html.DisplayFor(m => m.Stations[i].Name)
-                                <small style="white-space:nowrap">
-                                    <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.stations, Model.Stations[i].Id))">
-                                        only
-                                        <span class="badge">@Html.DisplayFor(m => m.Stations[i].Count)</span>
-                                    </a>
-                                </small>
-                            </label>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <div class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" href="#fsStations" aria-expanded="false" aria-controls="fsStations">
+                                <span class="glyphicon glyphicon-plus"></span> Stations
+                            </a>
+                            @if (Model.SelectedStationsCount.HasValue)
+                            {
+                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedStationsCount) Stations</em></small>
+                            }
                         </div>
                     </div>
-                    }
-            </fieldset>
+                    <div id="fsStations" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            @for (var i = 0; i < Model.Stations.Count; ++i)
+                            {
+                                <div class="@(Model.Stations[i].Selected ? "has-success" : (string)null)">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="@MVC.Bills.RecentBillsParams.stations" value="@Model.Stations[i].Id" checked="@Model.Stations[i].Selected" />
+                                            @Html.DisplayFor(m => m.Stations[i].Name)
+                                            <small style="white-space:nowrap">
+                                                <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.stations, Model.Stations[i].Id))">
+                                                    only
+                                                    <span class="badge">@Html.DisplayFor(m => m.Stations[i].Count)</span>
+                                                </a>
+                                            </small>
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
             }
+            @if (Model.Divisions.Count > 1)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <div class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" href="#fsDivisions" aria-expanded="false" aria-controls="fsDivisions">
+                                <span class="glyphicon glyphicon-plus"></span> Divisions
+                            </a>
+                            @if (Model.SelectedDivisionsCount.HasValue)
+                            {
+                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedDivisionsCount) Divisions</em></small>
+                            }
+                        </div>
+                    </div>
+                    <div id="fsDivisions" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            @for (var i = 0; i < Model.Divisions.Count; ++i)
+                            {
+                                <div class="@(Model.Divisions[i].Selected ? "has-success" : (string)null)">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="@MVC.Bills.RecentBillsParams.divisions" value="@Model.Divisions[i].Id" checked="@Model.Divisions[i].Selected">
+                                            @Html.DisplayFor(m => m.Divisions[i].Name)
+                                            <small style="white-space:nowrap">
+                                                <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.divisions, Model.Divisions[i].Id))">
+                                                    only
+                                                    <span class="badge"> @Html.DisplayFor(m => m.Divisions[i].Count)</span>
+                                                </a>
+                                            </small>
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (Model.ProcessingDivisions.Count > 1)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <div class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" href="#fsprocessingDivision" aria-expanded="false" aria-controls="fsprocessingDivision">
+                                <span class="glyphicon glyphicon-plus"></span> Processing Divisions
+                            </a>
+                            @if (Model.SelectedProcessingDivisionsCount.HasValue)
+                            {
+                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedProcessingDivisionsCount) Division</em></small>
+                            }
+                        </div>
+                    </div>
+                    <div id="fsprocessingDivision" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            @for (var i = 0; i < Model.ProcessingDivisions.Count; ++i)
+                            {
+                                <div class="@(Model.ProcessingDivisions[i].Selected ? "has-success" : (string)null)">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="@MVC.Bills.RecentBillsParams.processingDivisions" value="@Model.ProcessingDivisions[i].Id" checked="@Model.[i].Selected">
+                                            @Html.DisplayFor(m => m.ProcessingDivisions[i].Name)
+                                            <small style="white-space:nowrap">
+                                                <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.processingDivisions, Model.ProcessingDivisions[i].Id))">
+                                                    only
+                                                    <span class="badge"> @Html.DisplayFor(m => m.ProcessingDivisions[i].Count)</span>
+                                                </a>
+                                            </small>
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model.Approvers.Count > 1)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <div class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" href="#fsApprovers" aria-expanded="false" aria-controls="fsApprovers">
+                                <span class="glyphicon glyphicon-plus"></span> Approvers
+                            </a>
+                            @if (Model.SelectedApproversCount.HasValue)
+                            {
+                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedApproversCount) Approvers</em></small>
+                            }
+                        </div>
+                    </div>
+                    <div id="fsApprovers" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            @for (var i = 0; i < Model.Approvers.Count; ++i)
+                            {
+                                <div class="@(Model.Approvers[i].Selected ? "has-success" : (string)null)">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="@MVC.Bills.RecentBillsParams.approvers" value="@Model.Approvers[i].Id" checked="@Model.Approvers[i].Selected">
+                                            @Html.DisplayFor(m => m.Approvers[i].Name)
+                                        </label>
+                                        <small style="white-space:nowrap">
+                                            <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.approvers, Model.Approvers[i].Id))">
+                                                only
+                                                <span class="badge">@Html.DisplayFor(m => m.Approvers[i].Count)</span>
+                                            </a>
+                                        </small>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <div class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" href="#fsAmounts" aria-expanded="false" aria-controls="fsAmounts">
+                            <span class="glyphicon glyphicon-plus"></span>  Amount
+                        </a>
+                        @if (Model.FilterMinAmount != null || Model.FilterMaxAmount != null)
+                        {
+                            <em><span class="glyphicon glyphicon-filter"></span> <small>Min @Html.DisplayFor(m => m.FilterMinAmount) Max @Html.DisplayFor(m => m.FilterMaxAmount)</small></em>
+                        }
+                    </div>
+                </div>
+                <div id="fsAmounts" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body" style="padding-left:1mm; padding-right:1mm">
+                        <div class="form-inline">
+                            <div class="form-group @(Model.FilterMinAmount.HasValue ? "has-success" : "")">
+                                <input type="number" class="form-control input-sm" size="6" placeholder="Min" name="@MVC.Bills.RecentBillsParams.minAmount" value="@Model.FilterMinAmount" />
+                            </div>
+                            <div class="form-group @(Model.FilterMaxAmount.HasValue ? "has-success" : "")">
+                                <input type="number" class="form-control input-sm" size="6" placeholder="Max" name="@MVC.Bills.RecentBillsParams.maxAmount" value="@Model.FilterMaxAmount" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <button type="submit" class="btn btn-primary">Apply Filters</button>
             @if (Model.IsFiltered)
             {
-            <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
+                <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
             }
         </form>
         <pre>
-Approved By: Mgr 1 (22) Mgr2 (26)  Not Approved
-Station: S1(23) S2(25) ....
-Submitted to Division: ....
-Currently in Division: ....
-Contractor: ....
 Paid / Unpaid
 </pre>
     </div>
@@ -215,6 +333,13 @@ Paid / Unpaid
                     foreach (var item in Model.Divisions.Where(p => p.Selected))
                     {
                         <input type="hidden" name="@MVC.Bills.ApproveBillsParams.divisions" value="@item.Id" />
+                    }
+                }
+                @if (Model.ProcessingDivisions.Any(p => !p.Selected))
+                {
+                    foreach (var item in Model.ProcessingDivisions.Where(p => p.Selected))
+                    {
+                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.processingDivisions" value="@item.Id" />
                     }
                 }
                 @if (Model.Contractors.Any(p => !p.Selected))
@@ -274,9 +399,15 @@ Paid / Unpaid
                         </div>
                         <div class="col-md-4">
                             <strong>
-                                Division
-                                <br />@@
-                                Station
+                                Processing Division
+                                <br />
+                                <em>
+                                    <small>
+                                        Division
+                                        <br />@@
+                                        Station
+                                    </small>
+                                </em>
                             </strong>
                         </div>
                         <div class="col-md-4">
@@ -313,19 +444,23 @@ Paid / Unpaid
                                     <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.Bills[i].DueDate)</small></em><br />
                                 }
 
-
-
                                 @if (Model.Bills[i].ApprovedDate != null)
                                 {
-                                    <span class="label label-success">Approved @Html.DisplayFor(m => m.Bills[i].ApprovedDate) By @Html.DisplayFor(m => m.Bills[i].ApprovedBy)</span>
+                                    <span class="label label-success" title="Approved by :- @Html.DisplayFor(m => m.Bills[i].ApprovedBy)">Approved @Html.DisplayFor(m => m.Bills[i].ApprovedDate)</span>
                                 }
 
 
                             </div>
                             <div class="col-md-4">
-                                @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)
-                                <br />@@
-                                @Html.DisplayFor(m => m.Bills[i].StationName)
+                                @Html.DisplayFor(m => m.Bills[i].CurrentDivisionName)
+                                <br />
+                                <em>
+                                    <small>
+                                        @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)
+                                        <br />@@
+                                        @Html.DisplayFor(m => m.Bills[i].StationName)
+                                    </small>
+                                </em>
                             </div>
                             <div class="col-md-4">
                                 <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">

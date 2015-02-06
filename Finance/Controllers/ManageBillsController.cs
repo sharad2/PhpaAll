@@ -188,7 +188,6 @@ namespace PhpaAll.Controllers
                          {
                              Id = bill.Id,
                              Amount = bill.Amount,
-                             //BillImage= bill.BillImage,
                              BillNumber = bill.BillNumber,
                              Particulars = bill.Particulars,
                              BillDate = bill.BillDate,
@@ -204,7 +203,8 @@ namespace PhpaAll.Controllers
                              ApprovedDate = bill.ApprovedOn,
                              ApprovedBy = bill.ApprovedBy,
                              StationName = bill.Station.StationName,
-                             CurrentDivision =  bill.CurrentDivision.DivisionName
+                             CurrentDivision =  bill.CurrentDivision.DivisionName,
+                             AttachedImageCount = bill.BillImages.Count
                          }).FirstOrDefault();
 
             // Getting Bill history from Bill Audit.  
@@ -247,7 +247,7 @@ namespace PhpaAll.Controllers
         }
 
         #region Image
-        public virtual ActionResult Image(int id)
+        public virtual ActionResult Image(int id, int index)
         {
             //var model = (from bill in _db.Value.Bills
             //             where bill.Id == id
@@ -263,13 +263,17 @@ namespace PhpaAll.Controllers
 
             var image = (from bill in _db.Value.BillImages
                          where bill.BillId == id
-                         select bill.BillImageData).FirstOrDefault();
+                         select new
+                         {
+                             ImageContentType = bill.ImageContentType,
+                             Data = bill.BillImageData
+                         }).Skip(index).FirstOrDefault();
             if (image == null)
             {
                 throw new NotImplementedException();
             }
             // TODO: Get mime type from db
-            return File(image.ToArray(), "image/jpg");
+            return File(image.Data.ToArray(), image.ImageContentType);
 
         }
 
@@ -295,7 +299,42 @@ namespace PhpaAll.Controllers
             };
             _db.Value.BillImages.InsertOnSubmit(bill);
             _db.Value.SubmitChanges();
+            return Json(new
+            {
+                DeleteUrl = Url.Action(Actions.DeleteImage(bill.id))
+            });
+        }
+
+        /// <summary>
+        /// Deletes the passed image given the ID of Bill Image table
+        /// </summary>
+        /// <param name="billImageId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual ActionResult DeleteImage(int billImageId)
+        {
+            var query = (from image in _db.Value.BillImages
+                        where image.id == billImageId
+                        select image).FirstOrDefault();
+            _db.Value.BillImages.DeleteOnSubmit(query);
+            _db.Value.SubmitChanges();
             return Json("Done");
+        }
+
+        /// <summary>
+        /// Deletes the passed image given the ID of Bill Image table
+        /// </summary>
+        /// <param name="billImageId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual ActionResult DeleteImageofBill(int billId, int index)
+        {
+            var query = (from image in _db.Value.BillImages
+                         where image.BillId == billId
+                         select image).Skip(index).FirstOrDefault();
+            _db.Value.BillImages.DeleteOnSubmit(query);
+            _db.Value.SubmitChanges();
+            return RedirectToAction(MVC.ManageBills.ShowBill(billId));
         }
 
         #endregion

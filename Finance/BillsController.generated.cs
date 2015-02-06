@@ -92,19 +92,19 @@ namespace PhpaAll.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Index = "Index";
             public readonly string Search = "Search";
             public readonly string RecentBills = "RecentBills";
             public readonly string ApproveBills = "ApproveBills";
+            public readonly string OutstandingBills = "OutstandingBills";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Index = "Index";
             public const string Search = "Search";
             public const string RecentBills = "RecentBills";
             public const string ApproveBills = "ApproveBills";
+            public const string OutstandingBills = "OutstandingBills";
         }
 
 
@@ -124,6 +124,7 @@ namespace PhpaAll.Controllers
         {
             public readonly string approvers = "approvers";
             public readonly string divisions = "divisions";
+            public readonly string processingDivisions = "processingDivisions";
             public readonly string contractors = "contractors";
             public readonly string stations = "stations";
             public readonly string dateFrom = "dateFrom";
@@ -142,6 +143,7 @@ namespace PhpaAll.Controllers
             public readonly string approvalDate = "approvalDate";
             public readonly string approvers = "approvers";
             public readonly string divisions = "divisions";
+            public readonly string processingDivisions = "processingDivisions";
             public readonly string contractors = "contractors";
             public readonly string stations = "stations";
             public readonly string dateFrom = "dateFrom";
@@ -159,11 +161,11 @@ namespace PhpaAll.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string Index = "Index";
+                public readonly string OutstandingBills = "OutstandingBills";
                 public readonly string RecentBills = "RecentBills";
                 public readonly string Search = "Search";
             }
-            public readonly string Index = "~/Views/Bills/Index.cshtml";
+            public readonly string OutstandingBills = "~/Views/Bills/OutstandingBills.cshtml";
             public readonly string RecentBills = "~/Views/Bills/RecentBills.cshtml";
             public readonly string Search = "~/Views/Bills/Search.cshtml";
         }
@@ -173,17 +175,6 @@ namespace PhpaAll.Controllers
     public partial class T4MVC_BillsController : PhpaAll.Controllers.BillsController
     {
         public T4MVC_BillsController() : base(Dummy.Instance) { }
-
-        [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
-            return callInfo;
-        }
 
         [NonAction]
         partial void SearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id);
@@ -198,14 +189,15 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void RecentBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string[] approvers, int?[] divisions, int?[] contractors, int?[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount, bool exportToExcel);
+        partial void RecentBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string[] approvers, int?[] divisions, int?[] processingDivisions, int?[] contractors, int?[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount, bool exportToExcel);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] contractors, int?[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount, bool exportToExcel)
+        public override System.Web.Mvc.ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] processingDivisions, int?[] contractors, int?[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount, bool exportToExcel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RecentBills);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "approvers", approvers);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "divisions", divisions);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "processingDivisions", processingDivisions);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "contractors", contractors);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "stations", stations);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dateFrom", dateFrom);
@@ -213,28 +205,40 @@ namespace PhpaAll.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "minAmount", minAmount);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "maxAmount", maxAmount);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "exportToExcel", exportToExcel);
-            RecentBillsOverride(callInfo, approvers, divisions, contractors, stations, dateFrom, dateTo, minAmount, maxAmount, exportToExcel);
+            RecentBillsOverride(callInfo, approvers, divisions, processingDivisions, contractors, stations, dateFrom, dateTo, minAmount, maxAmount, exportToExcel);
             return callInfo;
         }
 
         [NonAction]
-        partial void ApproveBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int[] listBillId, System.DateTime? approvalDate, string[] approvers, int[] divisions, int[] contractors, int[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount);
+        partial void ApproveBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int[] listBillId, System.DateTime? approvalDate, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors, int[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult ApproveBills(int[] listBillId, System.DateTime? approvalDate, string[] approvers, int[] divisions, int[] contractors, int[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount)
+        public override System.Web.Mvc.ActionResult ApproveBills(int[] listBillId, System.DateTime? approvalDate, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors, int[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ApproveBills);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "listBillId", listBillId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "approvalDate", approvalDate);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "approvers", approvers);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "divisions", divisions);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "processingDivisions", processingDivisions);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "contractors", contractors);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "stations", stations);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dateFrom", dateFrom);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dateTo", dateTo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "minAmount", minAmount);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "maxAmount", maxAmount);
-            ApproveBillsOverride(callInfo, listBillId, approvalDate, approvers, divisions, contractors, stations, dateFrom, dateTo, minAmount, maxAmount);
+            ApproveBillsOverride(callInfo, listBillId, approvalDate, approvers, divisions, processingDivisions, contractors, stations, dateFrom, dateTo, minAmount, maxAmount);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void OutstandingBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult OutstandingBills()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.OutstandingBills);
+            OutstandingBillsOverride(callInfo);
             return callInfo;
         }
 

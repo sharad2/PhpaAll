@@ -96,6 +96,18 @@ namespace PhpaAll.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult DeleteImage()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteImage);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult DeleteImageofBill()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteImageofBill);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.JsonResult GetDivision()
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetDivision);
@@ -129,6 +141,8 @@ namespace PhpaAll.Controllers
             public readonly string ShowBill = "ShowBill";
             public readonly string Image = "Image";
             public readonly string UploadImage = "UploadImage";
+            public readonly string DeleteImage = "DeleteImage";
+            public readonly string DeleteImageofBill = "DeleteImageofBill";
             public readonly string GetDivision = "GetDivision";
             public readonly string GetContractor = "GetContractor";
         }
@@ -143,6 +157,8 @@ namespace PhpaAll.Controllers
             public const string ShowBill = "ShowBill";
             public const string Image = "Image";
             public const string UploadImage = "UploadImage";
+            public const string DeleteImage = "DeleteImage";
+            public const string DeleteImageofBill = "DeleteImageofBill";
             public const string GetDivision = "GetDivision";
             public const string GetContractor = "GetContractor";
         }
@@ -188,6 +204,7 @@ namespace PhpaAll.Controllers
         public class ActionParamsClass_Image
         {
             public readonly string id = "id";
+            public readonly string index = "index";
         }
         static readonly ActionParamsClass_UploadImage s_params_UploadImage = new ActionParamsClass_UploadImage();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -197,6 +214,23 @@ namespace PhpaAll.Controllers
         {
             public readonly string billId = "billId";
             public readonly string file = "file";
+        }
+        static readonly ActionParamsClass_DeleteImage s_params_DeleteImage = new ActionParamsClass_DeleteImage();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DeleteImage DeleteImageParams { get { return s_params_DeleteImage; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DeleteImage
+        {
+            public readonly string billImageId = "billImageId";
+        }
+        static readonly ActionParamsClass_DeleteImageofBill s_params_DeleteImageofBill = new ActionParamsClass_DeleteImageofBill();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DeleteImageofBill DeleteImageofBillParams { get { return s_params_DeleteImageofBill; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DeleteImageofBill
+        {
+            public readonly string billId = "billId";
+            public readonly string index = "index";
         }
         static readonly ActionParamsClass_GetDivision s_params_GetDivision = new ActionParamsClass_GetDivision();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -311,14 +345,15 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void ImageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+        partial void ImageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id, int index);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Image(int id)
+        public override System.Web.Mvc.ActionResult Image(int id, int index)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Image);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            ImageOverride(callInfo, id);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "index", index);
+            ImageOverride(callInfo, id, index);
             return callInfo;
         }
 
@@ -332,6 +367,31 @@ namespace PhpaAll.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "billId", billId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "file", file);
             UploadImageOverride(callInfo, billId, file);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void DeleteImageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int billImageId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult DeleteImage(int billImageId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteImage);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "billImageId", billImageId);
+            DeleteImageOverride(callInfo, billImageId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void DeleteImageofBillOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int billId, int index);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult DeleteImageofBill(int billId, int index)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteImageofBill);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "billId", billId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "index", index);
+            DeleteImageofBillOverride(callInfo, billId, index);
             return callInfo;
         }
 

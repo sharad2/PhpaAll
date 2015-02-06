@@ -11,7 +11,7 @@
     <meta name="description" content="Phpa Bills Module" />
 </head>
 <body>
-    <div class="navbar navbar-default">
+    <div class="navbar navbar-default navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-layout-navbar-collapse-1">
@@ -20,13 +20,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="@Url.Content("~")">PHPA</a>
+                <a id="logo" class="navbar-brand" href="@Url.Content("~")" style="padding:0">
+                    <img class="" src="@Url.Content(System.Configuration.ConfigurationManager.AppSettings["logo"])" height="100" width="100" />
+                </a>
             </div>
             <div class="navbar-collapse collapse" id="bs-layout-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
                         <div class="btn-group navbar-btn">
-                            <a class="btn btn-default" href="@Url.Action(MVC.Bills.Index())">Bills</a>
+                            <a class="btn btn-default" href="@Url.Action(MVC.BillsHome.Index())">Bills</a>
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
@@ -39,40 +41,49 @@
                             </ul>
 
                         </div>
-
+                    </li>
+                    <li>
+                        <form action="@Url.Action(MVC.Bills.Search())" method="get" role="search" class="navbar-form navbar-left">
+                            <div class="input-group">
+                                <input type="search" class="form-control" name="id" placeholder="Search PHPA" required>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </form>
+                    </li>
+                    <li>
+                        <div class="navbar-text"
+                             style="max-width: 40em; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap">
+                            <span class="h3">
+                                @System.Configuration.ConfigurationManager.AppSettings["title"]
+                            </span>
+                        </div>
                     </li>
                 </ul>
-                <form action="@Url.Action(MVC.Bills.Search())" method="get" role="search" class="navbar-form navbar-left">
-                    <div class="input-group">
-                        <input type="search" class="form-control" name="id" placeholder="Search PHPA" required>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                        </span>
-                    </div><!-- /input-group -->
-                </form>
+
+                <ul class="nav navbar-nav navbar-right">
+                    @if (this.ViewContext.HttpContext.User.Identity.IsAuthenticated)
+                    {
+                        <li><a href="@Url.Content("~/Admin/ChangePassword.aspx")">Welcome @ViewContext.HttpContext.User.Identity.Name</a></li>
+                        <li><a href="@Url.Action(MVC.BillsHome.Logoff())">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@string.Format("{0}?returnUrl={1}", FormsAuthentication.LoginUrl, Url.Encode(Url.Action(MVC.BillsHome.Index())))">Login</a></li>
+                    }
+                </ul>
             </div>
+
         </div>
     </div>
-    <div class="container">
+    <div class="container-fluid">
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Eclipse Systems Pvt. Ltd.</p>
         </footer>
     </div>
-
-    @*<!--Visible on mobile device only, it is opened as popoup-->
-    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <form action="#" method="get" role="search">
-            <div class="input-group input-group-lg" style="margin-top:20px;margin-left:10px;margin-right:10px;">
-                <input type="search" class="form-control" name="id" placeholder="Search PHPA">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                </span>
-            </div><!-- /input-group -->
-        </form>
-    </div>*@
-
 
     <script type="text/javascript" src="@Links.Scripts.jquery_1_11_2_js"></script>
     <script type="text/javascript" src="@Links.Scripts.bootstrap_js"></script>
