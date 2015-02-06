@@ -318,7 +318,7 @@ TODO: Amounts of approved bills will display in green
 Paid / Unpaid
 </pre>
     </div>
-    <div class="col-md-9">
+    <span class="col-md-9">
         <form action="@Url.Action(MVC.Bills.ApproveBills())" method="post">
             <div class="form-inline">
                 @if (Model.Approvers.Any(p => !p.Selected))
@@ -500,6 +500,11 @@ Paid / Unpaid
                             @Html.DisplayFor(m => m.Bills[i].Particulars)
                         </span>
                     </li>
+                }
+                <br />
+                @if(Model.Bills.Count() < 1)
+                {
+                   <span style="color:red"><i>No Bill Avaliable</i></span>
                 }
             </ul>
         </form>
