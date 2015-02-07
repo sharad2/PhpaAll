@@ -8,7 +8,7 @@ namespace PhpaAll.Bills
     public class SearchModel
     {
         //For internal use to retrive row for editing
-        public int Id { get; set; }
+        public int BillId { get; set; }
 
         public string BillNumber { get; set; }
 

@@ -37,8 +37,10 @@ namespace T4MVC
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _billPartial = "_billPartial";
                 public readonly string _Layout = "_Layout";
             }
+            public readonly string _billPartial = "~/Views/Shared/_billPartial.cshtml";
             public readonly string _Layout = "~/Views/Shared/_Layout.cshtml";
         }
     }

@@ -60,12 +60,6 @@ namespace PhpaAll.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Search()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult RecentBills()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RecentBills);
@@ -92,7 +86,6 @@ namespace PhpaAll.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Search = "Search";
             public readonly string RecentBills = "RecentBills";
             public readonly string ApproveBills = "ApproveBills";
             public readonly string OutstandingBills = "OutstandingBills";
@@ -101,21 +94,12 @@ namespace PhpaAll.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Search = "Search";
             public const string RecentBills = "RecentBills";
             public const string ApproveBills = "ApproveBills";
             public const string OutstandingBills = "OutstandingBills";
         }
 
 
-        static readonly ActionParamsClass_Search s_params_Search = new ActionParamsClass_Search();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Search SearchParams { get { return s_params_Search; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Search
-        {
-            public readonly string id = "id";
-        }
         static readonly ActionParamsClass_RecentBills s_params_RecentBills = new ActionParamsClass_RecentBills();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_RecentBills RecentBillsParams { get { return s_params_RecentBills; } }
@@ -164,11 +148,9 @@ namespace PhpaAll.Controllers
             {
                 public readonly string OutstandingBills = "OutstandingBills";
                 public readonly string RecentBills = "RecentBills";
-                public readonly string Search = "Search";
             }
             public readonly string OutstandingBills = "~/Views/Bills/OutstandingBills.cshtml";
             public readonly string RecentBills = "~/Views/Bills/RecentBills.cshtml";
-            public readonly string Search = "~/Views/Bills/Search.cshtml";
         }
     }
 
@@ -176,18 +158,6 @@ namespace PhpaAll.Controllers
     public partial class T4MVC_BillsController : PhpaAll.Controllers.BillsController
     {
         public T4MVC_BillsController() : base(Dummy.Instance) { }
-
-        [NonAction]
-        partial void SearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Search(string id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            SearchOverride(callInfo, id);
-            return callInfo;
-        }
 
         [NonAction]
         partial void RecentBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string[] approvers, int?[] divisions, int?[] processingDivisions, int?[] contractors, int?[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount, bool exportToExcel);

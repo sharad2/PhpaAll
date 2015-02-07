@@ -35,30 +35,6 @@ namespace PhpaAll.Controllers
             base.Dispose(disposing);
         }
 
-        public virtual ActionResult Search(string id)
-        {
-
-            var query =
-                (from bill in _db.Value.Bills
-                 where bill.BillNumber == id
-                 orderby bill.BillDate descending
-                 select new SearchModel
-                 {
-                     BillNumber = bill.BillNumber,
-                     BillDate = bill.BillDate,
-                     Id = bill.Id,
-                 }).Take(50).ToList();
-
-            SearchViewModel model = new SearchViewModel
-            {
-
-            };
-
-            model.Bills = query;
-
-            return View(Views.Search, model);
-        }
-
         /// <summary>
         /// Display recent bills. Option to create new bill
         /// </summary>
@@ -234,7 +210,6 @@ namespace PhpaAll.Controllers
                                Particulars = bill.Particulars,
                                BillNumber = bill.BillNumber,
                                BillDate = bill.BillDate,
-                               //BillImage = model.BillImage,          
                                ContractorId = bill.ContractorId,
                                ContractorName = bill.Contractor.ContractorName,
                                SubmittedToDivisionId = bill.SubmitedToDivisionId,
@@ -245,11 +220,12 @@ namespace PhpaAll.Controllers
                                ApprovedBy = bill.ApprovedBy,
                                Remarks = bill.Remarks,
                                SubmittedOnDate = bill.SubmittedOnDate,
-                               Id = bill.Id,
+                               BillId = bill.Id,
                                StationId = bill.StationId,
                                StationName = bill.Station.StationName,
                                CurrentDivisionId = bill.CurrentDivisionId,
-                               CurrentDivisionName = bill.CurrentDivision.DivisionName
+                               CurrentDivisionName = bill.CurrentDivision.DivisionName,
+                               CheckBoxName = Actions.ApproveBillsParams.listBillId
                            }).Take(200).ToList();
 
             if (exportToExcel)

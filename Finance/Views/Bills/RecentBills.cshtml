@@ -318,7 +318,7 @@ TODO: Amounts of approved bills will display in green
 Paid / Unpaid
 </pre>
     </div>
-    <span class="col-md-9">
+    <div class="col-md-9">
         <form action="@Url.Action(MVC.Bills.ApproveBills())" method="post">
             <div class="form-inline">
                 @if (Model.Approvers.Any(p => !p.Selected))
@@ -427,75 +427,7 @@ Paid / Unpaid
                 @for (var i = 0; i < Model.Bills.Count; ++i)
                 {
                     <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <input type="checkbox" name="@MVC.Bills.ApproveBillsParams.listBillId" value="@Model.Bills[i].Id" /> @Html.DisplayFor(m => m.Bills[i].BillDate)
-                                <br />
-
-                                @if (Model.Bills[i].DueDate < DateTime.Now)
-                                {
-                                    <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.Bills[i].DueDate)</small></em><br />
-                                }
-                                else
-                                {
-                                    <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.Bills[i].DueDate)</small></em><br />
-                                }
-
-                                @if (Model.Bills[i].ApprovedDate != null)
-                                {
-                                    <span class="label label-success" title="Approved by :- @Html.DisplayFor(m => m.Bills[i].ApprovedBy)">Approved @Html.DisplayFor(m => m.Bills[i].ApprovedDate)</span>
-                                }
-
-
-                            </div>
-                            <div class="col-md-4">
-                                @Html.DisplayFor(m => m.Bills[i].CurrentDivisionName)
-                                <br />
-                                <em>
-                                    <small>
-                                        @Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)
-                                        <br />@@
-                                        @Html.DisplayFor(m => m.Bills[i].StationName)
-                                    </small>
-                                </em>
-                            </div>
-                            <div class="col-md-4">
-                                <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
-                                    <span title="@Model.Bills[i].ContractorName">@Html.DisplayFor(m => m.Bills[i].ContractorName)</span>
-                                    <br />
-                                    <small title="@Model.Bills[i].BillNumber">@Html.DisplayFor(m => m.Bills[i].BillNumber)</small>
-                                </div>
-                            </div>
-
-                            <div class="col-md-2">
-                                <div class="text-right">
-                                    <strong>@Html.DisplayFor(m => m.Bills[i].Amount)</strong>
-                                </div>
-                                <div class="text-right">
-                                    <div class="btn-group">
-                                        <a class="btn btn-default btn-xs" href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))"><span class="glyphicon glyphicon-zoom-in"></span></a>
-                                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                            <span class="caret"></span>
-                                            <span class="sr-only">Toggle Dropdown</span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].Id))"><span class="glyphicon glyphicon-zoom-in"></span> View</a></li>
-                                            <li><a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))"><span class="glyphicon glyphicon-pencil"></span> Edit</a></li>
-
-                                            @if (Model.Bills[i].ApprovedDate == null)
-                                            {
-                                                <li><a href="@Url.Action(MVC.ManageBills.Edit(Model.Bills[i].Id))"><span class="glyphicon glyphicon-thumbs-up"></span> Approve</a></li>
-                                            }
-
-
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <span style="color:gray">
-                            @Html.DisplayFor(m => m.Bills[i].Particulars)
-                        </span>
+@Html.Partial(MVC.Shared.Views._billPartial, Model.Bills[i])
                     </li>
                 }
             </ul>
@@ -508,3 +440,4 @@ Paid / Unpaid
 
     </div>
 
+</div>

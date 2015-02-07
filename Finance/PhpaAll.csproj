@@ -346,8 +346,9 @@
     <Content Include="Views\BillsHome\Index.cshtml" />
     <Content Include="Views\ManageBills\Bill.cshtml" />
     <Content Include="Views\ManageBills\Edit.cshtml" />
-    <Content Include="Views\Bills\Search.cshtml" />
+    <Content Include="Views\BillsHome\Search.cshtml" />
     <Content Include="Views\Bills\OutstandingBills.cshtml" />
+    <Content Include="Views\Shared\_billPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">

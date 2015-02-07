@@ -9,7 +9,12 @@ namespace PhpaAll.Bills
     public class BillModel
     {
         //For internal use to retrive row for editing
-        public int Id { get; set; }
+        public int BillId { get; set; }
+
+        /// <summary>
+        /// If this is non null, a check box is displayed with this name and the value will be bill id
+        /// </summary>
+        public string CheckBoxName { get; set; }
 
         /// <summary>
         /// ScaffoldColumn means do not display in Excel

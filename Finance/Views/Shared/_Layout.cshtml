@@ -43,9 +43,10 @@
                         </div>
                     </li>
                     <li>
-                        <form action="@Url.Action(MVC.Bills.Search())" method="get" role="search" class="navbar-form navbar-left">
+                        <form action="@Url.Action(MVC.BillsHome.Search())" method="get" role="search" class="navbar-form navbar-left">
                             <div class="input-group">
-                                <input type="search" class="form-control" name="id" placeholder="Search PHPA" required>
+                                <input type="search" class="form-control" name="@MVC.BillsHome.SearchParams.searchText" 
+                                       placeholder="Search Bills" required autocomplete="off">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                                 </span>

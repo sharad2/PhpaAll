@@ -1,0 +1,74 @@
+﻿@model PhpaAll.Bills.BillModel
+<div class="row">
+    <div class="col-md-2">
+        @if (!string.IsNullOrWhiteSpace(Model.CheckBoxName)) { 
+        <input type="checkbox" name="@Model.CheckBoxName" value="@Model.BillId" />
+        }
+         @Html.DisplayFor(m => m.BillDate)
+        <br />
+
+        @if (Model.DueDate < DateTime.Now)
+        {
+            <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
+        }
+        else
+        {
+            <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
+        }
+
+        @if (Model.ApprovedDate != null)
+        {
+            <span class="label label-success" title="Approved by :- @Html.DisplayFor(m => m.ApprovedBy)">Approved @Html.DisplayFor(m => m.ApprovedDate)</span>
+        }
+
+
+    </div>
+    <div class="col-md-4">
+        @Html.DisplayFor(m => m.CurrentDivisionName)
+        <br />
+        <em>
+            <small>
+                @Html.DisplayFor(m => m.SubmittedToDivisionName)
+                <br />@@
+                @Html.DisplayFor(m => m.StationName)
+            </small>
+        </em>
+    </div>
+    <div class="col-md-4">
+        <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
+            <span title="@Model.ContractorName">@Html.DisplayFor(m => m.ContractorName)</span>
+            <br />
+            <small title="@Model.BillNumber">@Html.DisplayFor(m => m.BillNumber)</small>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="text-right">
+            <strong>@Html.DisplayFor(m => m.Amount)</strong>
+        </div>
+        <div class="text-right">
+            <div class="btn-group">
+                <a class="btn btn-default btn-xs" href="@Url.Action(MVC.ManageBills.ShowBill(Model.BillId))"><span class="glyphicon glyphicon-zoom-in"></span></a>
+                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="@Url.Action(MVC.ManageBills.ShowBill(Model.BillId))"><span class="glyphicon glyphicon-zoom-in"></span> View</a></li>
+                    <li><a href="@Url.Action(MVC.ManageBills.Edit(Model.BillId))"><span class="glyphicon glyphicon-pencil"></span> Edit</a></li>
+
+                    @if (Model.ApprovedDate == null)
+                    {
+                        <li><a href="@Url.Action(MVC.ManageBills.Edit(Model.BillId))"><span class="glyphicon glyphicon-thumbs-up"></span> Approve</a></li>
+                    }
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<span style="color:gray">
+    @Html.DisplayFor(m => m.Particulars)
+</span>
+

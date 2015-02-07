@@ -1,0 +1,15 @@
+﻿@model PhpaAll.Bills.SearchViewModel
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search </h2>
+<ul>
+    @for (var i = 0; i < Model.Bills.Count; ++i)
+    {
+        <li>
+            <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Bills[i].BillId))">@Html.DisplayFor(m =>m.Bills[i].BillNumber)</a>
+        </li>
+    }
+</ul>
+
