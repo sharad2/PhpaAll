@@ -202,31 +202,21 @@ namespace PhpaAll.Controllers
             model.UrlExcel += Actions.RecentBillsParams.exportToExcel + "=true";
 
             // Max 200 bills
-            model.Bills = (from bill in filteredBills
-                           orderby bill.BillDate descending
-                           select new BillModel
-                           {
-                               Amount = bill.Amount,
-                               Particulars = bill.Particulars,
-                               BillNumber = bill.BillNumber,
-                               BillDate = bill.BillDate,
-                               ContractorId = bill.ContractorId,
-                               ContractorName = bill.Contractor.ContractorName,
-                               SubmittedToDivisionId = bill.SubmitedToDivisionId,
-                               SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
-                               DueDate = bill.DueDate,
-                               PaidDate = bill.PaidDate,
-                               ApprovedDate = bill.ApprovedOn,
-                               ApprovedBy = bill.ApprovedBy,
-                               Remarks = bill.Remarks,
-                               SubmittedOnDate = bill.SubmittedOnDate,
-                               BillId = bill.Id,
-                               StationId = bill.StationId,
-                               StationName = bill.Station.StationName,
-                               CurrentDivisionId = bill.CurrentDivisionId,
-                               CurrentDivisionName = bill.CurrentDivision.DivisionName,
-                               CheckBoxName = Actions.ApproveBillsParams.listBillId
-                           }).Take(200).ToList();
+            filteredBills = filteredBills.OrderByDescending(p => p.BillDate).Take(200);
+
+            model.Bills = BillModel.FromQuery(filteredBills);
+
+            foreach (var bill in model.Bills)
+            {
+                bill.CheckBoxName = MVC.Bills.Actions.ApproveBillsParams.listBillId;
+            }
+
+            //model.Bills = (from bill in filteredBills
+            //               orderby bill.BillDate descending
+            //               select new BillModel
+            //               {
+
+            //               }).Take(200).ToList();
 
             if (exportToExcel)
             {

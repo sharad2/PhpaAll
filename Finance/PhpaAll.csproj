@@ -374,6 +374,7 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Bills\BillAuditModel.cs" />
+    <Compile Include="Bills\BillModel.cs" />
     <Compile Include="Bills\BillViewModel.cs" />
     <Compile Include="Bills\CreateViewModel.cs" />
     <Compile Include="Bills\OutstandingBillsViewModel.cs" />

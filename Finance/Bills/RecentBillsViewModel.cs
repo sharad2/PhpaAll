@@ -6,69 +6,6 @@ using System.Linq;
 
 namespace PhpaAll.Bills
 {
-    public class BillModel
-    {
-        //For internal use to retrive row for editing
-        public int BillId { get; set; }
-
-        /// <summary>
-        /// If this is non null, a check box is displayed with this name and the value will be bill id
-        /// </summary>
-        public string CheckBoxName { get; set; }
-
-        /// <summary>
-        /// ScaffoldColumn means do not display in Excel
-        /// </summary>
-        [ScaffoldColumn(false)]
-        public int StationId { get; set; }
-
-        [Display(ShortName = "Station")]
-        public string StationName { get; set; }
-
-        public string BillNumber { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime? BillDate { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime? DueDate { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime? SubmittedOnDate { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime? FinanceSubmittedDate { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime? PaidDate { get; set; }
-
-
-        public int? SubmittedToDivisionId { get; set; }
-
-        public string SubmittedToDivisionName { get; set; }
-
-        public int? CurrentDivisionId { get; set; }
-
-        public string CurrentDivisionName { get; set; }
-
-        public int? ContractorId { get; set; }
-
-        public string ContractorName { get; set; }
-
-        public string Particulars { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:N2}")]
-        public Decimal? Amount { get; set; }
-
-        public string ApprovedBy { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime? ApprovedDate { get; set; }
-
-        public string Remarks { get; set; }
-
-        //public Image BillImage { get; set; }
-    }
 
     public class RecentBillsFilterModel
     {
