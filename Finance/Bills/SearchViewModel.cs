@@ -5,21 +5,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PhpaAll.Bills
 {
-    public class SearchModel
+
+    public class SearchBillModel : BillModel
     {
-        //For internal use to retrive row for editing
-        public int BillId { get; set; }
-
-        public string BillNumber { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime? BillDate { get; set; }
 
     }
 
     public class SearchViewModel
     {
-        public IList<SearchModel> Bills { get; set; }
+        public IList<SearchBillModel> Bills { get; set; }
     }
 
 }

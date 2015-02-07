@@ -32,23 +32,48 @@ namespace PhpaAll.Controllers
             return View(Views.Index);
         }
 
+        /// <summary>
+        /// searchText can contain spaces in which case each word will be individually searched for
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <returns></returns>
         public virtual ActionResult Search(string searchText)
         {
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                throw new NotImplementedException();
+            }
+            var tokens = searchText.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (tokens.Length == 0)
+            {
+                throw new NotImplementedException();
+            }
+            //var query = (from bill in _db.Value.Bills
+            //     where  bill.BillNumber.ToLower().Contains(searchText.ToLower())
+            //     orderby bill.BillDate descending
+            //     select bill).Take(50);
+            IQueryable<Bill> query = null;
 
-            var query =
-                (from bill in _db.Value.Bills
-                 where bill.BillNumber.ToLower().Contains(searchText.ToLower())
-                 orderby bill.BillDate descending
-                 select new SearchModel
-                 {
-                     BillNumber = bill.BillNumber,
-                     BillDate = bill.BillDate,
-                     BillId = bill.Id,
-                 }).Take(50).ToList();
+            foreach (var token in tokens)
+            {
+                var query1 = from bill in _db.Value.Bills
+                         where bill.BillNumber.ToLower().Contains(token)
+                         select bill;
+                if (query == null) {
+                    query = query1;
+                }
+                else
+                {
+                    query = query.Union(query1);
+                }
+            }
+
+            // Max 200
+            query = query.OrderByDescending(p => p.BillDate).Take(200);
 
             SearchViewModel model = new SearchViewModel
             {
-                Bills = query
+                Bills = BillModel.FromQuery<SearchBillModel>(query).ToList()
             };
 
             return View(Views.Search, model);

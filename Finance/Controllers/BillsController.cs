@@ -204,7 +204,7 @@ namespace PhpaAll.Controllers
             // Max 200 bills
             filteredBills = filteredBills.OrderByDescending(p => p.BillDate).Take(200);
 
-            model.Bills = BillModel.FromQuery(filteredBills);
+            model.Bills = BillModel.FromQuery<BillModel>(filteredBills).ToList();
 
             foreach (var bill in model.Bills)
             {

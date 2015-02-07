@@ -6,12 +6,13 @@ using System.Web;
 
 namespace PhpaAll.Bills
 {
+
     public class BillModel
     {
-        internal static IList<BillModel> FromQuery(IQueryable<Bill> query)
+        internal static IQueryable<T> FromQuery<T>(IQueryable<Bill> query) where T : BillModel, new()
         {
             var results = from bill in query
-                          select new BillModel
+                          select new T
                           {
                               Amount = bill.Amount,
                               Particulars = bill.Particulars,
@@ -33,7 +34,7 @@ namespace PhpaAll.Bills
                               CurrentDivisionId = bill.CurrentDivisionId,
                               CurrentDivisionName = bill.CurrentDivision.DivisionName
                           };
-            return results.ToList();
+            return results;
         }
 
         //For internal use to retrive row for editing
