@@ -61,7 +61,11 @@ namespace PhpaAll.Controllers
                 var query1 = from bill in _db.Value.Bills
                          where bill.BillNumber.ToLower().Contains(token) ||
                             bill.Particulars.ToLower().Contains(token) ||
-                            bill.Contractor.ContractorName.ToLower().Contains(token)
+                            bill.Contractor.ContractorName.ToLower().Contains(token) ||
+                            bill.SubmittedToDivision.DivisionName.ToLower().Contains(token) ||
+                            bill.CurrentDivision.DivisionName.ToLower().Contains(token) ||
+                            bill.Remarks.ToLower().Contains(token) ||
+                            bill.Station.StationName.ToLower().Contains(token)
                          select bill;
                 // Extra point if bill number starts with a token
                 var query2 = from bill in _db.Value.Bills
