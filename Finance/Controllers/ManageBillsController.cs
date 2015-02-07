@@ -177,7 +177,7 @@ namespace PhpaAll.Controllers
             return RedirectToAction(MVC.Bills.RecentBills());
         }
 
-      
+
 
         public virtual ActionResult ShowBill(int id)
         {
@@ -203,7 +203,7 @@ namespace PhpaAll.Controllers
                              ApprovedDate = bill.ApprovedOn,
                              ApprovedBy = bill.ApprovedBy,
                              StationName = bill.Station.StationName,
-                             CurrentDivision =  bill.CurrentDivision.DivisionName,
+                             CurrentDivision = bill.CurrentDivision.DivisionName,
                              AttachedImageCount = bill.BillImages.Count
                          }).FirstOrDefault();
 
@@ -211,37 +211,7 @@ namespace PhpaAll.Controllers
             model.BillHistory = (from ba in _db.Value.BillAudits
                                  where ba.BillId == id
                                  select new BillAuditModel(ba)
-                                 {
-                                     //BillCreatedBy = ba.CreatedBy,
-                                     DateCreated = ba.Created,
-                                     BillNumberOld = ba.BillNumberOld,
-                                     BillNumberNew = ba.BillNumberNew,
-                                     DueDateNew = ba.DueDateNew,
-                                     DueDateOld = ba.DueDateOld,
-                                     AmountNew = ba.AmountNew,
-                                     AmountOld = ba.AmountOld,
-                                     ApprovedByNew = ba.ApprovedByNew,
-                                     ApprovedByOld = ba.ApprovedByOld,
-                                     ApprovedOnNew = ba.ApprovedOnNew,
-                                     ApprovedOnOld = ba.ApprovedOnOld,
-                                     BillDateNew = ba.BillDateNew,
-                                     BillDateOld = ba.BillDateOld,
-                                     ContractorNameNew = ba.ContractorNameNew,
-                                     ContractorNameOld = ba.ContractorNameOld,
-                                     PaidDateNew = ba.PaidDateNew,
-                                     PaidDateOld = ba.PaidDateOld,
-                                     ParticularsNew = ba.ParticularsNew,
-                                     ParticularsOld = ba.ParticularsOld,
-                                     RemarksNew = ba.RemarksNew,
-                                     RemarksOld = ba.RemarksOld,
-                                     StationNameNew = ba.StationNameNew,
-                                     StationNameOld = ba.StationNameOld,
-                                     SubmittedOnDateNew = ba.SubmittedOnDateNew,
-                                     SubmittedOnDateOld = ba.SubmittedOnDateOld,
-                                     SubmittedToDivisionNameNew = ba.SubmittedToDivisionNameNew,
-                                     SubmittedToDivisionNameOld = ba.SubmittedToDivisionNameOld
-
-                                 }).ToList();
+                                 ).ToList();
 
             return View(Views.Bill, model);
         }
@@ -280,16 +250,9 @@ namespace PhpaAll.Controllers
         [HttpPost]
         public virtual ActionResult UploadImage(int billId, HttpPostedFileBase file)
         {
-
-
+            //throw new NotImplementedException("Sorry");
             var input = new byte[file.ContentLength];
             file.InputStream.Read(input, 0, file.ContentLength);
-
-            //foreach (var bill in _db.Value.BillImages.Where(p => p.BillId == billId))
-            //{
-            //    bill.BillImageData = input;
-            //}
-
 
             var bill = new BillImage
             {
@@ -314,8 +277,8 @@ namespace PhpaAll.Controllers
         public virtual ActionResult DeleteImage(int billImageId)
         {
             var query = (from image in _db.Value.BillImages
-                        where image.id == billImageId
-                        select image).FirstOrDefault();
+                         where image.id == billImageId
+                         select image).FirstOrDefault();
             _db.Value.BillImages.DeleteOnSubmit(query);
             _db.Value.SubmitChanges();
             return Json("Done");

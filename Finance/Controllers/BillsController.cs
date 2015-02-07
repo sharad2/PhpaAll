@@ -13,7 +13,7 @@ namespace PhpaAll.Controllers
     /// <summary>
     /// This controller contains all readonly bill actions
     /// </summary>
-    [Authorize(Roles="Bills")]
+    [Authorize(Roles = "Bills")]
     public partial class BillsController : Controller
     {
 
@@ -74,7 +74,7 @@ namespace PhpaAll.Controllers
             var query = from bill in _db.Value.Bills
                         group bill by new
                         {
-                            ApprovedBy = (bill.ApprovedBy ?? "").Trim() == ""  ? "" : bill.ApprovedBy,
+                            ApprovedBy = (bill.ApprovedBy ?? "").Trim() == "" ? "" : bill.ApprovedBy,
                             bill.SubmittedToDivision,
                             bill.Contractor,
                             bill.Station,
@@ -109,14 +109,14 @@ namespace PhpaAll.Controllers
                                  Selected = divisions == null || divisions.Contains(g.Key)
                              }).ToList(),
                 ProcessingDivisions = (from d in aggQuery
-                             group d by d.CurrentDivisionId into g
-                             select new RecentBillsFilterModel
-                             {
-                                 Id = string.Format("{0}", g.Key),
-                                 Name = g.Select(p => p.CurrentDivisionName).FirstOrDefault(),
-                                 Count = g.Sum(p => p.Count),
-                                 Selected = processingDivisions == null || processingDivisions.Contains(g.Key)
-                             }).ToList(),
+                                       group d by d.CurrentDivisionId into g
+                                       select new RecentBillsFilterModel
+                                       {
+                                           Id = string.Format("{0}", g.Key),
+                                           Name = g.Select(p => p.CurrentDivisionName).FirstOrDefault(),
+                                           Count = g.Sum(p => p.Count),
+                                           Selected = processingDivisions == null || processingDivisions.Contains(g.Key)
+                                       }).ToList(),
                 Contractors = (from d in aggQuery
                                group d by d.ContractorId into g
                                select new RecentBillsFilterModel
@@ -270,12 +270,13 @@ namespace PhpaAll.Controllers
         /// <returns></returns>
         [Authorize(Roles = "BillsManager")]
         [HttpPost]
-        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors, 
-                                                int[] stations, DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount)
+        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors,
+                                                int[] stations, DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount,
+            bool approve)
         {
             if (string.IsNullOrWhiteSpace(User.Identity.Name))
             {
-                throw new HttpException("You must be logged in to approve bills");
+                throw new HttpException("You must be logged in to approve or disapprove bills");
             }
             if (listBillId != null)
             {
@@ -285,8 +286,17 @@ namespace PhpaAll.Controllers
 
                 foreach (var bill in query)
                 {
-                    bill.ApprovedOn = approvalDate;
-                    bill.ApprovedBy = User.Identity.Name;
+                    if (approve)
+                    {
+                        bill.ApprovedOn = approvalDate;
+                        bill.ApprovedBy = User.Identity.Name;
+                    }
+                    else
+                    {
+                        bill.ApprovedOn = null;
+                        bill.ApprovedBy = null;
+                    }
+
                 }
                 _db.Value.SubmitChanges();
             }
@@ -323,7 +333,7 @@ namespace PhpaAll.Controllers
             }
             if (maxAmount != null)
             {
-                dict.Add(Actions.RecentBillsParams.maxAmount, new decimal [] {maxAmount.Value});
+                dict.Add(Actions.RecentBillsParams.maxAmount, new decimal[] { maxAmount.Value });
             }
             if (minAmount != null)
             {

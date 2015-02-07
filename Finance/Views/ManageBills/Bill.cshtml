@@ -30,11 +30,11 @@
                     <strong class="pull-right1">Dated: @Html.DisplayFor(m => m.BillDate)</strong>
                     @if (Model.DueDate < DateTime.Now)
                     {
-                        <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
+                    <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
                     }
                     else
                     {
-                        <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
+                    <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
                     }
                 </div>
             </div>
@@ -48,9 +48,9 @@
 
                     @if (Model.PaidDate != null)
                     {
-                        <span>
-                            paid on @Html.DisplayFor(m => m.PaidDate)
-                        </span>
+                    <span>
+                        paid on @Html.DisplayFor(m => m.PaidDate)
+                    </span>
                     }
 
                     <small>
@@ -80,24 +80,20 @@
     </div>
     <div class="col-md-2">
         <div class="btn-group-vertical" role="group" aria-label="...">
-            <button type="button" class="btn btn-lg btn-primary" disabled>
-                Actions
+            <button type="button" class="btn btn-success">
+                <spn class="glyphicon glyphicon-thumbs-up"></spn> Approve
             </button>
-            <button type="button" class="btn btn-default">
-                <spn class="glyphicon glyphicon-thumbs-up"></spn> Approve Bill
-
+            <button type="button" class="btn btn-danger">
+                <spn class="glyphicon glyphicon-thumbs-down"></spn> Unapprove
             </button>
-            <button type="button" class="btn btn-default">
-                <spn class="glyphicon glyphicon-thumbs-down"></spn> Cancel  Approvel
-            </button>
-            <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-default">
+            <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-link">
                 <span class="glyphicon glyphicon-edit"></span>
                 Edit
             </a>
-            <a href="#" class="btn btn-default">
+            <a href="~/Finance/InsertVoucher.aspx" class="btn btn-link">
                 Create Voucher
             </a>
-            <a href="@Url.Action(MVC.Bills.RecentBills())" class="btn btn-default">
+            <a href="@Url.Action(MVC.Bills.RecentBills())" class="btn btn-link">
                 Recent Bills
             </a>
         </div>
@@ -105,30 +101,60 @@
     </div>
 </div>
 
-
-
-
-
-
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false" style="height:500px;">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
+<nav>
+    <ul class="pagination">
+        <li>
+            <a href="#" aria-label="Previous" data-target="#carousel-attachment" data-slide-to="0">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
         @for (var i = 0; i < Model.AttachedImageCount; ++i)
         {
-            <li data-target="#carousel-example-generic" data-slide-to="@i" class="@(i == 0 ? "active" : null)"></li>
+            <li><a href="#" data-target="#carousel-attachment" data-slide-to="@i">@(i + 1)</a></li>
         }
-        <li data-target="#carousel-example-generic" data-slide-to="@Model.AttachedImageCount" class="@(Model.AttachedImageCount == 0 ? "active" : null)"></li>
+        <li>
+            <a href="#" aria-label="Next" data-target="#carousel-attachment" data-slide-to="@(Model.AttachedImageCount - 1)">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
 
-    </ol>
+@if (Model.AttachedImageCount <= 10)
+{
+    <form action="@Url.Action(MVC.ManageBills.UploadImage())"
+          class="dropzone"
+          id="my-dropzone">
+        <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
+        <div class="fallback">
+            <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
+        </div>
+    </form>
+}
+else
+{
+    <p>Max 10 files allowed. Remove some to add more.</p>
+}
+
+<div id="carousel-attachment" class="carousel slide" data-ride="carousel" data-interval="false">
+
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
         @for (var i = 0; i < Model.AttachedImageCount; ++i)
         {
             <div class="item @(i == 0 ? "active" : "")">
-                <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="...">
+                @if (i == 0)
+                {
+                    <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="..." />
+                }
+                else
+                {
+                    <img data-src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="..." />
+                }
+
                 <div class="carousel-caption">
                     <h3 class="text-danger">
-                        Image 00@(i + 1)
+                        Image @(i + 1)
                     </h3>
                     <form method="post" action="@Url.Action(MVC.ManageBills.DeleteImageofBill(Model.Id, i))">
                         <button class="btn btn-danger btn-xs">Delete me</button>
@@ -137,57 +163,69 @@
                 </div>
             </div>
         }
-        <div class="item @(Model.AttachedImageCount == 0 ? "active" : "")">
-            <form action="@Url.Action(MVC.ManageBills.UploadImage())"
-                  class="dropzone"
-                  id="my-dropzone" style="height:500px;">
-                <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
-                <div class="fallback">
-                    <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
-                </div>
-            </form>
-        </div>
     </div>
     <!-- Controls -->
-    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <a class="left carousel-control" href="#carousel-attachment" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
     </a>
-    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <a class="right carousel-control" href="#carousel-attachment" role="button" data-slide="next">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
 </div>
 
-
-
-
-
-
-
 <h2>
     Audit
 </h2>
 <ul class="list-group">
+    <li class="list-group-item list-group-item-success">
+        <div class="row">
+            <div class="col-md-2">
+                <strong>Date</strong>
+            </div>
+            <div class="col-md-8">
+                <strong>Change log</strong>
+            </div>
+        </div>
+    </li>
     @for (var i = 0; i < Model.BillHistory.Count; ++i)
     {
-        
-        <li class="list-group-item">
-            <span class="badge">Changed on @Html.DisplayFor(m => m.BillDate)</span>
-            @for (var j = 0; j < Model.BillHistory[i].FieldChanges.Count; ++j)
-            {
-                <dl class="dl-horizontal">
-                    <dt>@Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].FieldName)</dt>
-                    <dd>
-                        <span class="bg-warning">
-                            @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].OldValue)
-                        </span>
-                        <span style="color:green" class="glyphicon glyphicon-arrow-right"></span>
-                        <span class="bg-success">@Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)</span>
-                    </dd>
-                </dl>
-            }
 
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.DisplayFor(m => m.BillHistory[i].DateCreated) by 
+                    @Html.DisplayFor(m => m.BillHistory[i].CreatedBy)
+                </div>
+                <div class="col-md-8">
+                    <dl class="dl-horizontal">
+                        @for (var j = 0; j < Model.BillHistory[i].FieldChanges.Count; ++j)
+                        {
+
+                            <dt>
+                                @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].FieldName)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].OldValue)
+                                &rarr;
+                                @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)
+                            </dd>
+
+                            @*<ul class="list-inline">
+                                    <li>
+
+                                        <span class="bg-warning">
+                                            @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].OldValue)
+                                        </span>
+                                        <span style="color:green" class="glyphicon glyphicon-arrow-right"></span>
+                                        <span class="bg-success">@Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)</span>
+                                    </li>
+                                </ul>*@
+                        }
+                    </dl>
+                </div>
+            </div>
         </li>
     }
 </ul>
@@ -195,31 +233,8 @@
 
 
 @section scripts {
-    <style type="text/css">
-        /*Styleing form thead crousel indicator aside cite was not visible over thead white background*/
-        .carousel-indicators li, .carousel-control span.glyphicon {
-            border-color: #4196c7;
-            color: #0b4e75;
-        }
-
-        .carousel-indicators .active {
-            background-color: #4196c7;
-        }
-        /*Styling form the crousel upload dragable area*/
-        #my-dropzone {
-            border: 5px dashed #4196c7;
-            background-color: rgba(241, 236, 212, 0.48);
-        }
-    </style>
-
-
-
     <link rel="stylesheet" href="@Links.Scripts.dropzone.dropzone_css" />
     <script type="text/javascript" src="@Links.Scripts.dropzone.dropzone_js"></script>
-
-
-
-
 
     <script type="text/javascript">
         // Removing file from server http://stackoverflow.com/questions/17452662/dropzone-js-how-to-delete-files-from-server
@@ -240,13 +255,18 @@
                     });
                 },
                 addRemoveLinks: true,
-                acceptedFiles: "image/*"
-
-
-
+                // Files of all other types will be rejected
+                acceptedFiles: "image/*",
+                maxFilesize: 5,  // MB
+                maxFiles: 10            // Max 10 files
             };
 
-
+            // Set the src attribute of image so that it now gets loaded
+            // Then remove the data-src attribute so that the image does not get loaded again
+            $('#carousel-attachment').on('slide.bs.carousel', function (arg) {
+                var $img = $('img[data-src]', arg.relatedTarget);
+                $img.attr('src', $img.attr('data-src')).removeAttr('data-src');
+            })
         });
     </script>
 }

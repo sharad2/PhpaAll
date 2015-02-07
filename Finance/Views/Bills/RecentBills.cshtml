@@ -105,7 +105,7 @@ TODO: Amounts of approved bills will display in green
                             </a>
                             @if (Model.SelectedContracatorsCount.HasValue)
                             {
-                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedContracatorsCount) Contractor</em></small>
+                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedContracatorsCount) Contractor(s)</em></small>
                             }
                         </div>
                     </div>
@@ -142,7 +142,7 @@ TODO: Amounts of approved bills will display in green
                             </a>
                             @if (Model.SelectedStationsCount.HasValue)
                             {
-                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedStationsCount) Stations</em></small>
+                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedStationsCount) Station(s)</em></small>
                             }
                         </div>
                     </div>
@@ -179,7 +179,7 @@ TODO: Amounts of approved bills will display in green
                             </a>
                             @if (Model.SelectedDivisionsCount.HasValue)
                             {
-                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedDivisionsCount) Divisions</em></small>
+                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedDivisionsCount) Division(s)</em></small>
                             }
                         </div>
                     </div>
@@ -216,7 +216,7 @@ TODO: Amounts of approved bills will display in green
                             </a>
                             @if (Model.SelectedProcessingDivisionsCount.HasValue)
                             {
-                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedProcessingDivisionsCount) Division</em></small>
+                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedProcessingDivisionsCount) Division(s)</em></small>
                             }
                         </div>
                     </div>
@@ -254,7 +254,7 @@ TODO: Amounts of approved bills will display in green
                             </a>
                             @if (Model.SelectedApproversCount.HasValue)
                             {
-                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedApproversCount) Approvers</em></small>
+                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedApproversCount) Approver(s)</em></small>
                             }
                         </div>
                     </div>
@@ -318,7 +318,7 @@ TODO: Amounts of approved bills will display in green
 Paid / Unpaid
 </pre>
     </div>
-    <div class="col-md-9">
+    <span class="col-md-9">
         <form action="@Url.Action(MVC.Bills.ApproveBills())" method="post">
             <div class="form-inline">
                 @if (Model.Approvers.Any(p => !p.Selected))
@@ -383,11 +383,8 @@ Paid / Unpaid
                         </span>
                     </div>
                 </div>
-
-                @*<div class="form-group">
-                        <input type="text" class="form-control" id="approvalComment" placeholder="Approval comment">
-                    </div>*@
-                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span> Approve Selected</button>
+                <button type="submit" name="@MVC.Bills.ApproveBillsParams.approve" value="true" class="btn btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span> Approve Selected</button>
+                <button type="submit" name="@MVC.Bills.ApproveBillsParams.approve" value="false" class="btn btn-primary"><span class="glyphicon glyphicon-thumbs-down"></span> Disapprove Selected</button>
             </div>
             <ul class="list-group">
                 <li class="list-group-item list-group-item-info">
@@ -502,8 +499,12 @@ Paid / Unpaid
                     </li>
                 }
             </ul>
+            <br />
+            @if (Model.Bills.Count() < 1)
+            {
+                <span style="color:red"><i>No Bill Available</i></span>
+            }
         </form>
 
     </div>
 
-</div>
