@@ -122,18 +122,55 @@ namespace PhpaAll.Controllers
 
         }
 
-
+        private class AutocompleteItem
+        {
+            public string date { get; set; }
+            public string label { get; set; }
+            public string text { get; set; }
+        }
 
         public virtual ActionResult SearchAutoComplete(string searchText)
         {
-            var query = SearchQuery(searchText).Take(50).ToList();
-            return Json(from bill in query
-                        select new
-                        {
-                            date = bill.BillDate.Value.ToShortDateString(),
-                            label = bill.BillNumber,
-                            text = bill.Particulars
-                        }, JsonRequestBehavior.AllowGet);
+            var query = SearchQuery(searchText).Take(50);
+
+            var data = new List<AutocompleteItem>();
+            var tokens = searchText.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var bill in query)
+            {
+                var item = new AutocompleteItem {
+                    date = string.Format("{0:d}", bill.BillDate),
+                    label = bill.BillNumber,
+                };
+                if (bill.BillNumber != null && tokens.Any(p => bill.BillNumber.ToLower().Contains(p)))
+                {
+                    // Bill number is always shown so we use particulars here
+                    item.text = bill.Particulars;
+                }
+                else if (bill.SubmittedToDivision != null && tokens.Any(p => bill.SubmittedToDivision.DivisionName.ToLower().Contains(p)))
+                {
+                    // Bill number is always shown so we use particulars here
+                    item.text = "For Division " + bill.SubmittedToDivision.DivisionName;
+                }
+                else if (bill.CurrentDivision != null && tokens.Any(p => bill.CurrentDivision.DivisionName.ToLower().Contains(p)))
+                {
+                    // Bill number is always shown so we use particulars here
+                    item.text = "In Division " + bill.CurrentDivision.DivisionName;
+                }
+                else if (bill.Contractor != null && tokens.Any(p => bill.Contractor.ContractorName.ToLower().Contains(p)))
+                {
+                    // Bill number is always shown so we use particulars here
+                    item.text = "Contractor " + bill.Contractor.ContractorName;
+                }
+                else
+                {
+                    // Should never happen
+                    item.text = bill.Particulars;
+                }
+                data.Add(item);
+            }
+
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public virtual ActionResult Logoff()
