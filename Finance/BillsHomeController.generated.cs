@@ -64,6 +64,12 @@ namespace PhpaAll.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SearchAutoComplete()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SearchAutoComplete);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public BillsHomeController Actions { get { return MVC.BillsHome; } }
@@ -101,6 +107,14 @@ namespace PhpaAll.Controllers
         public ActionParamsClass_Search SearchParams { get { return s_params_Search; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Search
+        {
+            public readonly string searchText = "searchText";
+        }
+        static readonly ActionParamsClass_SearchAutoComplete s_params_SearchAutoComplete = new ActionParamsClass_SearchAutoComplete();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SearchAutoComplete SearchAutoCompleteParams { get { return s_params_SearchAutoComplete; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SearchAutoComplete
         {
             public readonly string searchText = "searchText";
         }
@@ -151,13 +165,14 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void SearchAutoCompleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void SearchAutoCompleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string searchText);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult SearchAutoComplete()
+        public override System.Web.Mvc.ActionResult SearchAutoComplete(string searchText)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SearchAutoComplete);
-            SearchAutoCompleteOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "searchText", searchText);
+            SearchAutoCompleteOverride(callInfo, searchText);
             return callInfo;
         }
 

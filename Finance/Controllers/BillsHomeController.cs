@@ -124,9 +124,16 @@ namespace PhpaAll.Controllers
 
 
 
-        public virtual ActionResult SearchAutoComplete()
+        public virtual ActionResult SearchAutoComplete(string searchText)
         {
-            return Json("");
+            var query = SearchQuery(searchText).Take(50).ToList();
+            return Json(from bill in query
+                        select new
+                        {
+                            date = bill.BillDate.Value.ToShortDateString(),
+                            label = bill.BillNumber,
+                            text = bill.Particulars
+                        }, JsonRequestBehavior.AllowGet);
         }
 
         public virtual ActionResult Logoff()

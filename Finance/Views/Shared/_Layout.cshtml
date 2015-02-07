@@ -43,10 +43,11 @@
                         </div>
                     </li>
                     <li>
-                        <form action="@Url.Action(MVC.BillsHome.Search())" method="get" role="search" class="navbar-form navbar-left">
+                        <form id="frmLayoutSearch" action="@Url.Action(MVC.BillsHome.Search())" method="get" role="search" class="navbar-form navbar-left">
                             <div class="input-group">
                                 <input id="tbLayoutSearch" type="search" class="form-control" name="@MVC.BillsHome.SearchParams.searchText" 
-                                       placeholder="Search Bills" required autocomplete="off">
+                                       placeholder="Search Bills" required autocomplete="off"
+                                       data-url="@Url.Action(MVC.BillsHome.SearchAutoComplete("~"))">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                                 </span>
@@ -87,10 +88,20 @@
     </div>
 
     <script type="text/javascript" src="@Links.Views.Shared.layout_js"></script>
+    <style type="text/css">
+        #frmLayoutSearch .tt-dropdown-menu {
+            width:40em;
+            height:30em;
+            overflow-y:auto;
+        }
+    </style>
+
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#tbLayoutSearch').typeahead(null, {
-                //name: 'Division',
+            $('#tbLayoutSearch').typeahead({
+                highlight: true
+            }, {
+                name: 'layout-bill',
                 displayKey: 'label',
                 source: function (query, cb) {
                     var url = $('#tbLayoutSearch').attr('data-url').replace('~', query);
@@ -105,6 +116,9 @@
                     }.bind({ cb: cb, url: url }));
                 },
                 templates: {
+                    suggestion: function (sugg) {
+                        return sugg.date + ' <small>' + sugg.label + '</small> ' + sugg.text;
+                    },
                     empty: 'No matching results found'
                 }
             });
