@@ -4,8 +4,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="@Links.Content.bootstrap_css" type="text/css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+    <link href="@Links.Views.Shared.layout_css" type="text/css" rel="stylesheet" />
     @*<script type="text/javascript" src="@Links.Scripts.modernizr_2_8_3_js"></script>*@
 
     <meta name="description" content="Phpa Bills Module" />
@@ -86,8 +86,8 @@
         </footer>
     </div>
 
-    <script type="text/javascript" src="@Links.Scripts.jquery_1_11_2_js"></script>
-    <script type="text/javascript" src="@Links.Scripts.bootstrap_js"></script>
+    <script type="text/javascript" src="@Links.Views.Shared.layout_js"></script>
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>

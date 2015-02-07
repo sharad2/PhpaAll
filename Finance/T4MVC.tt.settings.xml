@@ -53,11 +53,10 @@ See http://mvccontrib.codeplex.com/workitem/7163 for potential issues with this 
   <AddTimestampToStaticLinks>False</AddTimestampToStaticLinks>
   <!--Folders containing static files for which links are generated (e.g. Links.Scripts.Map_js)-->
   <StaticFilesFolders>
-    <FileFolder>Scripts</FileFolder>
-    <FileFolder>Content</FileFolder>
+    <!--<FileFolder></FileFolder>-->
   </StaticFilesFolders>
   <!--If true, static file helpers are generated for all view folders. See https://t4mvc.codeplex.com/discussions/445358-->
-  <AddAllViewsFoldersToStaticFilesFolders>False</AddAllViewsFoldersToStaticFilesFolders>
+  <AddAllViewsFoldersToStaticFilesFolders>True</AddAllViewsFoldersToStaticFilesFolders>
   <!--Static files to exclude from the generated links-->
   <ExcludedStaticFileExtensions>
     <Extension>.cs</Extension>
@@ -68,6 +67,7 @@ See http://mvccontrib.codeplex.com/workitem/7163 for potential issues with this 
     <Extension>.min.js</Extension>
     <Extension>.intellisense.js</Extension>
     <Extension>.map</Extension>
+    <Extension>.bundle</Extension>
   </ExcludedStaticFileExtensions>
   <!--Files to exclude from the generated views-->
   <ExcludedViewExtensions>

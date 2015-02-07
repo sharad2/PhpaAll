@@ -300,7 +300,19 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\jqueryval.js">
+    <Content Include="Views\ManageBills\Bill.css">
+      <DependentUpon>Bill.css.bundle</DependentUpon>
+    </Content>
+    <Content Include="Views\ManageBills\Bill.js">
+      <DependentUpon>Bill.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Views\ManageBills\Bill.min.css">
+      <DependentUpon>Bill.css</DependentUpon>
+    </Content>
+    <Content Include="Views\ManageBills\Bill.min.js">
+      <DependentUpon>Bill.js</DependentUpon>
+    </Content>
+    <Content Include="Views\Shared\jqueryval.js">
       <DependentUpon>jqueryval.js.bundle</DependentUpon>
     </Content>
     <Content Include="Scripts\json2.js" />
@@ -333,6 +345,18 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <None Include="T4MVC.tt.settings.xml" />
+    <Content Include="Views\Shared\layout.css">
+      <DependentUpon>layout.css.bundle</DependentUpon>
+    </Content>
+    <Content Include="Views\Shared\layout.js">
+      <DependentUpon>layout.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Views\Shared\layout.min.css">
+      <DependentUpon>layout.css</DependentUpon>
+    </Content>
+    <Content Include="Views\Shared\layout.min.js">
+      <DependentUpon>layout.min.js.bundle</DependentUpon>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -342,13 +366,21 @@
     <Content Include="Views\ManageBills\Create.cshtml" />
     <Content Include="Views\Bills\RecentBills.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Scripts\jqueryval.js.bundle" />
+    <Content Include="Views\Shared\jqueryval.js.bundle" />
     <Content Include="Views\BillsHome\Index.cshtml" />
     <Content Include="Views\ManageBills\Bill.cshtml" />
     <Content Include="Views\ManageBills\Edit.cshtml" />
     <Content Include="Views\BillsHome\Search.cshtml" />
     <Content Include="Views\Bills\OutstandingBills.cshtml" />
     <Content Include="Views\Shared\_billPartial.cshtml" />
+    <Content Include="Views\Shared\layout.js.bundle" />
+    <Content Include="Views\Shared\layout.min.js.bundle" />
+    <Content Include="Views\ManageBills\Bill.js.bundle" />
+    <Content Include="Views\ManageBills\Bill.min.js.map">
+      <DependentUpon>Bill.min.js</DependentUpon>
+    </Content>
+    <Content Include="Views\ManageBills\Bill.css.bundle" />
+    <Content Include="Views\Shared\layout.css.bundle" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">

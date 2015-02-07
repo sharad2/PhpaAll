@@ -259,10 +259,14 @@ namespace PhpaAll.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Bill = "Bill";
+                public readonly string Bill_css = "Bill.css";
+                public readonly string Bill_js = "Bill.js";
                 public readonly string Create = "Create";
                 public readonly string Edit = "Edit";
             }
             public readonly string Bill = "~/Views/ManageBills/Bill.cshtml";
+            public readonly string Bill_css = "~/Views/ManageBills/Bill.css.bundle";
+            public readonly string Bill_js = "~/Views/ManageBills/Bill.js.bundle";
             public readonly string Create = "~/Views/ManageBills/Create.cshtml";
             public readonly string Edit = "~/Views/ManageBills/Edit.cshtml";
         }
