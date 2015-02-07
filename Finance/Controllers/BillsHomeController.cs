@@ -5,6 +5,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace PhpaAll.Controllers
 {
@@ -122,53 +123,77 @@ namespace PhpaAll.Controllers
 
         }
 
-        private class AutocompleteItem
+        private string GetAutocompleteText(Bill bill, string[] tokens)
         {
-            public string date { get; set; }
-            public string label { get; set; }
-            public string text { get; set; }
+            string text1;
+            string text2;
+            if (bill.BillNumber != null && tokens.Any(p => bill.BillNumber.ToLower().Contains(p)))
+            {
+                // Bill number is always shown so we use particulars here
+                text1 = string.Empty;
+                text2 = bill.Particulars;
+            }
+            else if (bill.SubmittedToDivision != null && tokens.Any(p => bill.SubmittedToDivision.DivisionName.ToLower().Contains(p)))
+            {
+                // Bill number is always shown so we use particulars here
+                text1 = "For Division";
+                text2 = bill.SubmittedToDivision.DivisionName;
+            }
+            else if (bill.CurrentDivision != null && tokens.Any(p => bill.CurrentDivision.DivisionName.ToLower().Contains(p)))
+            {
+                // Bill number is always shown so we use particulars here
+                text1 = "In Division";
+                text2 = bill.CurrentDivision.DivisionName;
+            }
+            else if (bill.Contractor != null && tokens.Any(p => bill.Contractor.ContractorName.ToLower().Contains(p)))
+            {
+                // Bill number is always shown so we use particulars here
+                text1 = "Contractor";
+                text2 =  bill.Contractor.ContractorName;
+            }
+            else
+            {
+                // Should never happen
+                text1 = string.Empty;
+                text2 = bill.Particulars;
+            }
+
+
+            return text1 + " " + HighlightTokens(text2, tokens);
+        }
+
+        private string HighlightTokens(string input, string[] tokens)
+        {
+            // Highlight each matching token in bill number and text
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return string.Empty;
+            }
+
+            foreach (var token in tokens)
+            {
+                // Case insensitive string replace
+                // http://stackoverflow.com/questions/6275980/string-replace-by-ignoring-case?lq=1
+                input = Regex.Replace(input, token, "<strong>" + token + "</strong>", RegexOptions.IgnoreCase);
+                //text2 = text2.Replace(token, "<strong>" + token + "</strong>");
+            }
+
+            return input;
         }
 
         public virtual ActionResult SearchAutoComplete(string searchText)
         {
             var query = SearchQuery(searchText).Take(50);
 
-            var data = new List<AutocompleteItem>();
             var tokens = searchText.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (var bill in query)
+            var data = query.AsEnumerable().Select(bill => new
             {
-                var item = new AutocompleteItem {
-                    date = string.Format("{0:d}", bill.BillDate),
-                    label = bill.BillNumber,
-                };
-                if (bill.BillNumber != null && tokens.Any(p => bill.BillNumber.ToLower().Contains(p)))
-                {
-                    // Bill number is always shown so we use particulars here
-                    item.text = bill.Particulars;
-                }
-                else if (bill.SubmittedToDivision != null && tokens.Any(p => bill.SubmittedToDivision.DivisionName.ToLower().Contains(p)))
-                {
-                    // Bill number is always shown so we use particulars here
-                    item.text = "For Division " + bill.SubmittedToDivision.DivisionName;
-                }
-                else if (bill.CurrentDivision != null && tokens.Any(p => bill.CurrentDivision.DivisionName.ToLower().Contains(p)))
-                {
-                    // Bill number is always shown so we use particulars here
-                    item.text = "In Division " + bill.CurrentDivision.DivisionName;
-                }
-                else if (bill.Contractor != null && tokens.Any(p => bill.Contractor.ContractorName.ToLower().Contains(p)))
-                {
-                    // Bill number is always shown so we use particulars here
-                    item.text = "Contractor " + bill.Contractor.ContractorName;
-                }
-                else
-                {
-                    // Should never happen
-                    item.text = bill.Particulars;
-                }
-                data.Add(item);
-            }
+                billnumber = bill.BillNumber,
+                date = string.Format("{0:d}", bill.BillDate),
+                label = HighlightTokens(bill.BillNumber, tokens),
+                text = GetAutocompleteText(bill, tokens)
+            });
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
