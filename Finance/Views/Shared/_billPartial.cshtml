@@ -29,7 +29,7 @@
         <em>
             <small>
                 @Html.DisplayFor(m => m.SubmittedToDivisionName)
-                <br />@@
+                @@
                 @Html.DisplayFor(m => m.StationName)
             </small>
         </em>
@@ -38,7 +38,7 @@
         <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
             <span title="@Model.ContractorName">@Html.DisplayFor(m => m.ContractorName)</span>
             <br />
-            <small title="@Model.BillNumber">@Html.DisplayFor(m => m.BillNumber)</small>
+            <strong title="@Model.BillNumber">@Html.DisplayFor(m => m.BillNumber)</strong>
         </div>
     </div>
 

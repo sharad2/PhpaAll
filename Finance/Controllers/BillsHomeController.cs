@@ -57,8 +57,11 @@ namespace PhpaAll.Controllers
 
             foreach (var token in tokens)
             {
+                // It is a hit if any token is contained in any of the searrch fields
                 var query1 = from bill in _db.Value.Bills
-                         where bill.BillNumber.ToLower().Contains(token)
+                         where bill.BillNumber.ToLower().Contains(token) ||
+                            bill.Particulars.ToLower().Contains(token) ||
+                            bill.Contractor.ContractorName.ToLower().Contains(token)
                          select bill;
                 // Extra point if bill number starts with a token
                 var query2 = from bill in _db.Value.Bills
@@ -83,17 +86,17 @@ namespace PhpaAll.Controllers
             // Max 200
             //query = query.OrderByDescending(p => p.BillDate);
             // Count how many times the bill was selected. If a bill is selected more times, it is more relevant
-            var query44 = from bill in query
+            // Exact matches are best
+            var queryFinal = from bill in query
                          group bill by bill into g
                          let billNumber = g.Key.BillNumber.ToLower()
                          let exactMatch = tokens.Contains(billNumber) ? 1 : 0
-                          //let startsWith = g.First().BillNumber.ToLower()
-                         orderby exactMatch descending, g.Count() descending
+                         orderby exactMatch descending, g.Count() descending, g.Key.BillDate descending
                          select g.Key;
 
             var list = new List<SearchBillModel>();
 
-            foreach (var sbm in BillModel.FromQuery<SearchBillModel>(query44).Take(200))
+            foreach (var sbm in BillModel.FromQuery<SearchBillModel>(queryFinal).Take(200))
             {
                 list.Add(sbm);
             }
