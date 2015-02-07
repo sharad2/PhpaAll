@@ -82,6 +82,7 @@ namespace PhpaAll.Controllers
         {
             public readonly string Index = "Index";
             public readonly string Search = "Search";
+            public readonly string SearchAutoComplete = "SearchAutoComplete";
             public readonly string Logoff = "Logoff";
         }
 
@@ -90,6 +91,7 @@ namespace PhpaAll.Controllers
         {
             public const string Index = "Index";
             public const string Search = "Search";
+            public const string SearchAutoComplete = "SearchAutoComplete";
             public const string Logoff = "Logoff";
         }
 
@@ -145,6 +147,17 @@ namespace PhpaAll.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "searchText", searchText);
             SearchOverride(callInfo, searchText);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SearchAutoCompleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SearchAutoComplete()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SearchAutoComplete);
+            SearchAutoCompleteOverride(callInfo);
             return callInfo;
         }
 

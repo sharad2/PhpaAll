@@ -45,7 +45,7 @@
                     <li>
                         <form action="@Url.Action(MVC.BillsHome.Search())" method="get" role="search" class="navbar-form navbar-left">
                             <div class="input-group">
-                                <input type="search" class="form-control" name="@MVC.BillsHome.SearchParams.searchText" 
+                                <input id="tbLayoutSearch" type="search" class="form-control" name="@MVC.BillsHome.SearchParams.searchText" 
                                        placeholder="Search Bills" required autocomplete="off">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
@@ -87,6 +87,29 @@
     </div>
 
     <script type="text/javascript" src="@Links.Views.Shared.layout_js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tbLayoutSearch').typeahead(null, {
+                //name: 'Division',
+                displayKey: 'label',
+                source: function (query, cb) {
+                    var url = $('#tbLayoutSearch').attr('data-url').replace('~', query);
+                    $.get(url).done(function (data, textStatus, jqXHR) {
+                        this.cb(data);
+                    }.bind({ cb: cb })).fail(function (jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.status == 500) {
+                            this.cb([{ label: 'Error ' + (jqXHR.responseText || errorThrown), value: '' }]);
+                        } else {
+                            this.cb([{ label: 'Http Error ' + jqXHR.status + ': ' + errorThrown + ' ' + this.url, value: '' }]);
+                        }
+                    }.bind({ cb: cb, url: url }));
+                },
+                templates: {
+                    empty: 'No matching results found'
+                }
+            });
+        });
+    </script>
     
     @RenderSection("scripts", required: false)
 </body>
