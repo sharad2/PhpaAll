@@ -103,26 +103,26 @@ namespace Links
             private const string URLPATH = "~/Views/ManageBills";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string Bill_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Bill.min.css") ? Url("Bill.min.css") : Url("Bill.css");
+            public static readonly string Bill_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Bill.min.css") ? Url("Bill.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Bill.min.css") : Url("Bill.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Bill.css");
                  
-            public static readonly string Bill_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Bill.min.js") ? Url("Bill.min.js") : Url("Bill.js");
-        }
+            public static readonly string Bill_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Bill.min.js") ? Url("Bill.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Bill.min.js") : Url("Bill.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Bill.js");
+                    }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Shared {
             private const string URLPATH = "~/Views/Shared";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string jqueryval_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jqueryval.min.js") ? Url("jqueryval.min.js") : Url("jqueryval.js");
-            public static readonly string layout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/layout.min.css") ? Url("layout.min.css") : Url("layout.css");
+            public static readonly string jqueryval_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jqueryval.min.js") ? Url("jqueryval.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jqueryval.min.js") : Url("jqueryval.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jqueryval.js");
+                    public static readonly string layout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/layout.min.css") ? Url("layout.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/layout.min.css") : Url("layout.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/layout.css");
                  
-            public static readonly string layout_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/layout.min.js") ? Url("layout.min.js") : Url("layout.js");
-            public static readonly string layout_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/layout.partial.min.css") ? Url("layout.partial.min.css") : Url("layout.partial.css");
+            public static readonly string layout_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/layout.min.js") ? Url("layout.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/layout.min.js") : Url("layout.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/layout.js");
+                    public static readonly string layout_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/layout.partial.min.css") ? Url("layout.partial.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/layout.partial.min.css") : Url("layout.partial.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/layout.partial.css");
                  
-            public static readonly string layout_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/layout.partial.min.js") ? Url("layout.partial.min.js") : Url("layout.partial.js");
-        }
+            public static readonly string layout_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/layout.partial.min.js") ? Url("layout.partial.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/layout.partial.min.js") : Url("layout.partial.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/layout.partial.js");
+                    }
     
-        public static readonly string web_config = Url("web.config");
+        public static readonly string web_config = Url("web.config")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/web.config");
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

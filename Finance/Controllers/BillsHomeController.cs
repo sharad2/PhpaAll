@@ -106,6 +106,8 @@ namespace PhpaAll.Controllers
                     query = query.Concat(query1);
                 }
                 query = query.Concat(query2).Concat(query3);
+
+                // If any token represnts an amount, search within 20% of bill amount
                 decimal amount;
                 if (decimal.TryParse(token, out amount))
                 {
@@ -115,6 +117,18 @@ namespace PhpaAll.Controllers
                                  select bill;
                     query = query.Concat(query4);
                 }
+
+                // If any token represents date, search for nearby bill dates
+                var date = ParseDate(token);
+                if (date.HasValue)
+                {
+                    // +/- 7 days
+                    var query5 = from bill in _db.Value.Bills
+                                 where bill.BillDate >= date.Value.AddDays(-7) && bill.BillDate <= date.Value.AddDays(7)
+                                 select bill;
+                    query = query.Concat(query5);
+                }
+
             }
 
             // Max 200
@@ -130,6 +144,23 @@ namespace PhpaAll.Controllers
 
             return queryFinal;
 
+        }
+
+        private DateTime? ParseDate(string token)
+        {
+             DateTime date;
+             if (!DateTime.TryParse(token, out date))
+             {
+                 return null;
+             }
+             if (date.Year <= 1900 || date.Year >= 9999)
+             {
+                 // Date is outside SQL server limits
+                 // http://stackoverflow.com/questions/468045/error-sqldatetime-overflow-must-be-between-1-1-1753-120000-am-and-12-31-999
+                 return null;
+             }
+            // TODO: Make sure SQL server will love this date
+             return date;
         }
 
         private string GetAutocompleteText(Bill bill, string[] tokens)
@@ -243,16 +274,38 @@ namespace PhpaAll.Controllers
         private string HighlightAmount(decimal? billAmount, string[] tokens)
         {
             string fmtString = "{0:N0}";
-            decimal amount;
-            foreach (var token in tokens)
+            if (billAmount.HasValue)
             {
-                if (decimal.TryParse(token, out amount) && billAmount >= 0.8m * billAmount && billAmount <= 1.2m * billAmount)
+                decimal amount;
+                foreach (var token in tokens)
                 {
-                    fmtString = "<span class='tt-highlight'>" + fmtString + "</span>";
-                    break;
+                    if (decimal.TryParse(token, out amount) && billAmount >= 0.8m * billAmount && billAmount <= 1.2m * billAmount)
+                    {
+                        fmtString = "<span class='tt-highlight'>" + fmtString + "</span>";
+                        break;
+                    }
                 }
             }
             return string.Format(fmtString, billAmount);
+        }
+
+        private string HighlightDate(DateTime? billDate, string[] tokens)
+        {
+            string fmtString = "{0:d}";
+            if (billDate.HasValue)
+            {
+               
+                foreach (var token in tokens)
+                {
+                    var date = ParseDate(token);
+                    if (date.HasValue && billDate >= date.Value.AddDays(-7) && billDate.Value <= date.Value.AddDays(7))
+                    {
+                        fmtString = "<span class='tt-highlight'>" + fmtString + "</span>";
+                        break;
+                    }
+                }
+            }
+            return string.Format(fmtString, billDate);
         }
 
         public virtual ActionResult SearchAutoComplete(string searchText)
@@ -270,7 +323,7 @@ namespace PhpaAll.Controllers
                 // Always displayed in the list
                 particulars = HighlightTokens(bill.Particulars, tokens),
                 billNumber = HighlightTokens(bill.BillNumber, tokens),
-                date = string.Format("{0:d}", bill.BillDate),
+                date = HighlightDate(bill.BillDate, tokens),
                 // Highlighted text containing the hit
                 text = GetAutocompleteText(bill, tokens)
             });

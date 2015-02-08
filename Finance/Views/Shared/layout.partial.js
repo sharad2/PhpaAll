@@ -11,9 +11,9 @@
                 this.cb(data);
             }.bind({ cb: cb })).fail(function (jqXHR, textStatus, errorThrown) {
                 if (jqXHR.status == 500) {
-                    this.cb([{ label: 'Error ' + (jqXHR.responseText || errorThrown), value: '' }]);
+                    this.cb([{ particulars: 'Error ' + (jqXHR.responseText || errorThrown), value: '' }]);
                 } else {
-                    this.cb([{ label: 'Http Error ' + jqXHR.status + ': ' + errorThrown + ' ' + this.url, value: '' }]);
+                    this.cb([{ particulars: 'Http Error ' + jqXHR.status + ': ' + errorThrown + ' ' + this.url, value: '' }]);
                 }
             }.bind({ cb: cb, url: url }));
         },
