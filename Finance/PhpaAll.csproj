@@ -355,9 +355,10 @@
       <DependentUpon>layout.css</DependentUpon>
     </Content>
     <Content Include="Views\Shared\layout.min.js">
-      <DependentUpon>layout.min.js.bundle</DependentUpon>
+      <DependentUpon>layout.js</DependentUpon>
     </Content>
     <Content Include="Views\Shared\layout.partial.css" />
+    <Content Include="Views\Shared\layout.partial.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -375,13 +376,15 @@
     <Content Include="Views\Bills\OutstandingBills.cshtml" />
     <Content Include="Views\Shared\_billPartial.cshtml" />
     <Content Include="Views\Shared\layout.js.bundle" />
-    <Content Include="Views\Shared\layout.min.js.bundle" />
     <Content Include="Views\ManageBills\Bill.js.bundle" />
     <Content Include="Views\ManageBills\Bill.min.js.map">
       <DependentUpon>Bill.min.js</DependentUpon>
     </Content>
     <Content Include="Views\ManageBills\Bill.css.bundle" />
     <Content Include="Views\Shared\layout.css.bundle" />
+    <Content Include="Views\Shared\layout.min.js.map">
+      <DependentUpon>layout.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">

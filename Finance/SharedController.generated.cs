@@ -42,14 +42,12 @@ namespace T4MVC
                 public readonly string jqueryval_js = "jqueryval.js";
                 public readonly string layout_css = "layout.css";
                 public readonly string layout_js = "layout.js";
-                public readonly string layout_min_js = "layout.min.js";
             }
             public readonly string _billPartial = "~/Views/Shared/_billPartial.cshtml";
             public readonly string _Layout = "~/Views/Shared/_Layout.cshtml";
             public readonly string jqueryval_js = "~/Views/Shared/jqueryval.js.bundle";
             public readonly string layout_css = "~/Views/Shared/layout.css.bundle";
             public readonly string layout_js = "~/Views/Shared/layout.js.bundle";
-            public readonly string layout_min_js = "~/Views/Shared/layout.min.js.bundle";
         }
     }
 

@@ -119,6 +119,7 @@ namespace Links
             public static readonly string layout_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/layout.min.js") ? Url("layout.min.js") : Url("layout.js");
             public static readonly string layout_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/layout.partial.min.css") ? Url("layout.partial.min.css") : Url("layout.partial.css");
                  
+            public static readonly string layout_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/layout.partial.min.js") ? Url("layout.partial.min.js") : Url("layout.partial.js");
         }
     
         public static readonly string web_config = Url("web.config");

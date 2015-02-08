@@ -132,17 +132,36 @@ TODO: Amounts of approved bills will display in green
                 </div>
             }
 
-            @if (Model.Divisions.Count > 1)
+            @if (Model.Divisions.Count > 1 || Model.Stations.Count > 1)
             {
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingTwo">
                         <div class="panel-title">
                             <a class="collapsed" data-toggle="collapse" href="#fsDivisions" aria-expanded="false" aria-controls="fsDivisions">
-                                <span class="caret"></span> Division @@Station
+                                <span class="caret"></span> Division
+                                @if (!Model.SelectedDivisionsCount.HasValue && !Model.SelectedStationsCount.HasValue)
+                                {
+                                    <span class="badge">@Model.Divisions.Count</span>
+                                }
+                                @@Station
+                                @if (!Model.SelectedDivisionsCount.HasValue && !Model.SelectedStationsCount.HasValue)
+                                {
+                                    <span class="badge">@Model.Stations.Count</span>
+                                }
                             </a>
-                            @if (Model.SelectedDivisionsCount.HasValue)
+                            @if (Model.SelectedDivisionsCount.HasValue || Model.SelectedStationsCount.HasValue)
                             {
-                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedDivisionsCount) Division(s)</em></small>
+                                <div>
+                                    <small>              <span class="glyphicon glyphicon-filter"></span></small>
+                                    @if (Model.SelectedDivisionsCount.HasValue)
+                                    {
+                                        <small> @Html.DisplayFor(m => m.SelectedDivisionsCount) Division(s)</small>
+                                    }
+                                    @if (Model.SelectedStationsCount.HasValue)
+                                    {
+                                        <small>@Html.DisplayFor(m => m.SelectedStationsCount) Stations(s)</small>
+                                    }
+                                </div>
                             }
                         </div>
                     </div>
@@ -234,7 +253,7 @@ TODO: Amounts of approved bills will display in green
                     <div class="panel-heading" role="tab" id="headingTwo">
                         <div class="panel-title">
                             <a class="collapsed" data-toggle="collapse" href="#fsApprovers" aria-expanded="false" aria-controls="fsApprovers">
-                                <span class="glyphicon glyphicon-plus"></span> Approvers
+                                <span class="caret"></span> Approvers
                             </a>
                             @if (Model.SelectedApproversCount.HasValue)
                             {
@@ -270,7 +289,7 @@ TODO: Amounts of approved bills will display in green
                 <div class="panel-heading" role="tab" id="headingOne">
                     <div class="panel-title">
                         <a class="collapsed" data-toggle="collapse" href="#fsAmounts" aria-expanded="false" aria-controls="fsAmounts">
-                            <span class="glyphicon glyphicon-plus"></span>  Amount
+                            <span class="caret"></span>  Amount
                         </a>
                         @if (Model.FilterMinAmount != null || Model.FilterMaxAmount != null)
                         {
@@ -298,6 +317,7 @@ TODO: Amounts of approved bills will display in green
                 <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
             }
         </form>
+
         <pre>
 Paid / Unpaid
 </pre>
@@ -384,7 +404,7 @@ Paid / Unpaid
                                 <br />
                                 <em>
                                     <small>
-                                       &rarr; At Division
+                                        &rarr; At Division
                                         <br />
                                     </small>
                                 </em>
@@ -410,7 +430,7 @@ Paid / Unpaid
                 @for (var i = 0; i < Model.Bills.Count; ++i)
                 {
                     <li class="list-group-item">
-@Html.Partial(MVC.Shared.Views._billPartial, Model.Bills[i])
+                        @Html.Partial(MVC.Shared.Views._billPartial, Model.Bills[i])
                     </li>
                 }
             </ul>
