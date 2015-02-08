@@ -62,7 +62,7 @@ TODO: Amounts of approved bills will display in green
                 <div class="panel-heading" role="tab" id="headingOne">
                     <div class="panel-title">
                         <a class="collapsed" data-toggle="collapse" href="#fsBillDates" aria-expanded="false" aria-controls="fsBillDates">
-                            <span class="glyphicon glyphicon-plus"></span>  Bill Dates
+                            <span class="caret"></span>  Bill Dates
                         </a>
                         @if (Model.DateFrom != null || Model.DateTo != null)
                         {
@@ -100,7 +100,7 @@ TODO: Amounts of approved bills will display in green
                     <div class="panel-heading" role="tab" id="headingTwo">
                         <div class="panel-title">
                             <a class="collapsed" data-toggle="collapse" href="#fsContractors" aria-expanded="false" aria-controls="fsContractors">
-                                <span class="glyphicon glyphicon-plus"></span> Contractors
+                                <span class="caret"></span> Contractors
                             </a>
                             @if (Model.SelectedContracatorsCount.HasValue)
                             {
@@ -131,50 +131,14 @@ TODO: Amounts of approved bills will display in green
                     </div>
                 </div>
             }
-            @if (Model.Stations.Count > 1)
-            {
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingTwo">
-                        <div class="panel-title">
-                            <a class="collapsed" data-toggle="collapse" href="#fsStations" aria-expanded="false" aria-controls="fsStations">
-                                <span class="glyphicon glyphicon-plus"></span> Stations
-                            </a>
-                            @if (Model.SelectedStationsCount.HasValue)
-                            {
-                                <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedStationsCount) Station(s)</em></small>
-                            }
-                        </div>
-                    </div>
-                    <div id="fsStations" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="panel-body">
-                            @for (var i = 0; i < Model.Stations.Count; ++i)
-                            {
-                                <div class="@(Model.Stations[i].Selected ? "has-success" : (string)null)">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="@MVC.Bills.RecentBillsParams.stations" value="@Model.Stations[i].Id" checked="@Model.Stations[i].Selected" />
-                                            @Html.DisplayFor(m => m.Stations[i].Name)
-                                            <small style="white-space:nowrap">
-                                                <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.stations, Model.Stations[i].Id))">
-                                                    only
-                                                    <span class="badge">@Html.DisplayFor(m => m.Stations[i].Count)</span>
-                                                </a>
-                                            </small>
-                                        </label>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-            }
+
             @if (Model.Divisions.Count > 1)
             {
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingTwo">
                         <div class="panel-title">
                             <a class="collapsed" data-toggle="collapse" href="#fsDivisions" aria-expanded="false" aria-controls="fsDivisions">
-                                <span class="glyphicon glyphicon-plus"></span> Divisions
+                                <span class="caret"></span> Division @@Station
                             </a>
                             @if (Model.SelectedDivisionsCount.HasValue)
                             {
@@ -201,6 +165,27 @@ TODO: Amounts of approved bills will display in green
                                     </div>
                                 </div>
                             }
+
+                            <hr />
+                            <div id="fsStations">
+                                @for (var i = 0; i < Model.Stations.Count; ++i)
+                                {
+                                    <div class="@(Model.Stations[i].Selected ? "has-success" : (string)null)">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.stations" value="@Model.Stations[i].Id" checked="@Model.Stations[i].Selected" />
+                                                @Html.DisplayFor(m => m.Stations[i].Name)
+                                                <small style="white-space:nowrap">
+                                                    <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.stations, Model.Stations[i].Id))">
+                                                        only
+                                                        <span class="badge">@Html.DisplayFor(m => m.Stations[i].Count)</span>
+                                                    </a>
+                                                </small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -211,7 +196,7 @@ TODO: Amounts of approved bills will display in green
                     <div class="panel-heading" role="tab" id="headingTwo">
                         <div class="panel-title">
                             <a class="collapsed" data-toggle="collapse" href="#fsprocessingDivision" aria-expanded="false" aria-controls="fsprocessingDivision">
-                                <span class="glyphicon glyphicon-plus"></span> Processing Divisions
+                                <span class="caret"></span> &rarr; At Division
                             </a>
                             @if (Model.SelectedProcessingDivisionsCount.HasValue)
                             {
@@ -395,13 +380,12 @@ Paid / Unpaid
                         </div>
                         <div class="col-md-4">
                             <strong>
-                                Processing Division
+                                Division @@ Station
                                 <br />
                                 <em>
                                     <small>
-                                        Division
-                                        <br />@@
-                                        Station
+                                       &rarr; At Division
+                                        <br />
                                     </small>
                                 </em>
                             </strong>
