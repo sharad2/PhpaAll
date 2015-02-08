@@ -127,11 +127,12 @@ namespace PhpaAll.Controllers
         {
             string text1;
             string text2;
-            if (bill.BillNumber != null && tokens.Any(p => bill.BillNumber.ToLower().Contains(p)))
+            if (bill.BillNumber != null && tokens.Any(p => bill.BillNumber.ToLower().Contains(p)) ||
+                bill.Particulars != null && tokens.Any(p => bill.Particulars.ToLower().Contains(p)))
             {
-                // Bill number is always shown so we use particulars here
+                // Bill number and particulars are always shown so no secondary text
                 text1 = string.Empty;
-                text2 = bill.Particulars;
+                text2 = string.Empty;
             }
             else if (bill.SubmittedToDivision != null && tokens.Any(p => bill.SubmittedToDivision.DivisionName.ToLower().Contains(p)))
             {
@@ -196,11 +197,13 @@ namespace PhpaAll.Controllers
 
             var data = query.AsEnumerable().Select(bill => new
             {
+                // Used to redirect to the bill when something chosen from the list
                 billId = bill.Id,
+                // Always displayed in the list
                 particulars = HighlightTokens(bill.Particulars, tokens),
-                billnumber = bill.BillNumber,
+                billNumber = HighlightTokens(bill.BillNumber, tokens),
                 date = string.Format("{0:d}", bill.BillDate),
-                label = HighlightTokens(bill.BillNumber, tokens),
+                // Highlighted text containing the hit
                 text = GetAutocompleteText(bill, tokens)
             });
 

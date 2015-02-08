@@ -104,8 +104,8 @@
                 highlight: false,
                 hint:false
             }, {
-                name: 'layout-bill',
-                displayKey: 'billnumber',
+                //name: 'layout-bill',
+                //displayKey: 'billnumber',
                 source: function (query, cb) {
                     var url = $('#tbLayoutSearch').attr('data-list-url').replace('~', query);
                     $.get(url).done(function (data, textStatus, jqXHR) {
@@ -120,7 +120,11 @@
                 },
                 templates: {
                     suggestion: function (sugg) {
-                        return sugg.date + ' <small>' + sugg.label + '</small> ' + sugg.particulars + '<br/>' + sugg.text;
+                        var x = $('<span>').addClass('sugg-date').html(sugg.date)
+                            .append($('<span>').addClass('sugg-number').html(sugg.billNumber))
+                            .append($('<span>').addClass('sugg-particulars').html(sugg.particulars))
+                            .append($('<span>').addClass('sugg-text').html(sugg.text));
+                        return x.html();
                     },
                     empty: 'No matching results found'
                 }
