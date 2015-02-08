@@ -46,7 +46,7 @@
                         <form id="frmLayoutSearch" action="@Url.Action(MVC.BillsHome.Search())" method="get" role="search" class="navbar-form navbar-left">
                             <div class="input-group input-group-sm">
                                 <input id="tbLayoutSearch" type="search" class="form-control" name="@MVC.BillsHome.SearchParams.searchText" size="32"
-                                       placeholder="Search Bills" autocomplete="off"
+                                       placeholder="Search Bills by amount or keyword" autocomplete="off"
                                        data-list-url="@Url.Action(MVC.BillsHome.SearchAutoComplete("~"))"
                                        data-bill-url="@Url.Action(MVC.ManageBills.ShowBill(0))">
                                 <span class="input-group-btn">

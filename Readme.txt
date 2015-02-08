@@ -1,3 +1,6 @@
+Sharad 8 Feb 2015
+-----------------
+TODO: Remove amount filter from recent pages
 
 Bill Module 6 Feb 2015
 -------------------------------

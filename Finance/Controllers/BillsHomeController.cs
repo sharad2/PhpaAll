@@ -177,17 +177,17 @@ namespace PhpaAll.Controllers
             {
                 text1 = string.Empty;
                 text2 = string.Empty;
-                // Check for amount match
-                decimal amount;
-                foreach (var token in tokens)
-                {
-                    if (decimal.TryParse(token, out amount) && bill.Amount >= 0.8m * bill.Amount && bill.Amount <= 1.2m * bill.Amount)
-                    {
-                        text1 = "Amount";
-                        text2 = string.Format("{0:N2}", bill.Amount);
-                        break;
-                    }
-                }
+                //// Check for amount match
+                //decimal amount;
+                //foreach (var token in tokens)
+                //{
+                //    if (decimal.TryParse(token, out amount) && bill.Amount >= 0.8m * bill.Amount && bill.Amount <= 1.2m * bill.Amount)
+                //    {
+                //        text1 = "Amount";
+                //        text2 = string.Format("{0:N2}", bill.Amount);
+                //        break;
+                //    }
+                //}
                 //throw new NotImplementedException();
                 // Should never happen
             }
@@ -234,16 +234,38 @@ namespace PhpaAll.Controllers
             return input;
         }
 
+        /// <summary>
+        /// If any of the tokens represents an amount, and the passed amount is within 20% of the token, highlight it
+        /// </summary>
+        /// <param name="billAmount"></param>
+        /// <param name="tokens"></param>
+        /// <returns></returns>
+        private string HighlightAmount(decimal? billAmount, string[] tokens)
+        {
+            string fmtString = "{0:N0}";
+            decimal amount;
+            foreach (var token in tokens)
+            {
+                if (decimal.TryParse(token, out amount) && billAmount >= 0.8m * billAmount && billAmount <= 1.2m * billAmount)
+                {
+                    fmtString = "<span class='tt-highlight'>" + fmtString + "</span>";
+                    break;
+                }
+            }
+            return string.Format(fmtString, billAmount);
+        }
+
         public virtual ActionResult SearchAutoComplete(string searchText)
         {
             var query = SearchQuery(searchText).Take(50);
 
             var tokens = searchText.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
+            // AsEnumerable() executes the SQL query. After that we are free to use any C# function without SQL server complaining
             var data = query.AsEnumerable().Select(bill => new
             {
                 // Used to redirect to the bill when something chosen from the list
-                amount = string.Format("{0:N0}", bill.Amount),
+                amount = HighlightAmount(bill.Amount, tokens),
                 billId = bill.Id,
                 // Always displayed in the list
                 particulars = HighlightTokens(bill.Particulars, tokens),
