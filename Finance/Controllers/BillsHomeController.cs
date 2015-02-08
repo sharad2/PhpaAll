@@ -159,6 +159,7 @@ namespace PhpaAll.Controllers
             }
             else
             {
+                throw new NotImplementedException();
                 // Should never happen
                 text1 = string.Empty;
                 text2 = bill.Particulars;
@@ -180,7 +181,7 @@ namespace PhpaAll.Controllers
             {
                 // Case insensitive string replace
                 // http://stackoverflow.com/questions/6275980/string-replace-by-ignoring-case?lq=1
-                input = Regex.Replace(input, token, "<strong>" + token + "</strong>", RegexOptions.IgnoreCase);
+                input = Regex.Replace(input, token, "<mark>" + token + "</mark>", RegexOptions.IgnoreCase);
                 //text2 = text2.Replace(token, "<strong>" + token + "</strong>");
             }
 
