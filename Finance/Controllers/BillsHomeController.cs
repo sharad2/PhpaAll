@@ -159,7 +159,7 @@ namespace PhpaAll.Controllers
             }
             else
             {
-                throw new NotImplementedException();
+                //throw new NotImplementedException();
                 // Should never happen
                 text1 = string.Empty;
                 text2 = bill.Particulars;
@@ -181,7 +181,7 @@ namespace PhpaAll.Controllers
             {
                 // Case insensitive string replace
                 // http://stackoverflow.com/questions/6275980/string-replace-by-ignoring-case?lq=1
-                input = Regex.Replace(input, token, "<mark>" + token + "</mark>", RegexOptions.IgnoreCase);
+                input = Regex.Replace(input, token, "<strong>" + token + "</strong>", RegexOptions.IgnoreCase);
                 //text2 = text2.Replace(token, "<strong>" + token + "</strong>");
             }
 
@@ -196,6 +196,8 @@ namespace PhpaAll.Controllers
 
             var data = query.AsEnumerable().Select(bill => new
             {
+                billId = bill.Id,
+                particulars = HighlightTokens(bill.Particulars, tokens),
                 billnumber = bill.BillNumber,
                 date = string.Format("{0:d}", bill.BillDate),
                 label = HighlightTokens(bill.BillNumber, tokens),
