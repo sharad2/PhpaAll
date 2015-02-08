@@ -30,6 +30,7 @@ namespace PhpaAll.Controllers
         // GET: BillsHome
         public virtual ActionResult Index()
         {
+            //SearchAutoComplete("a");
             return View(Views.Index);
         }
 
@@ -62,6 +63,18 @@ namespace PhpaAll.Controllers
             return View(Views.Search, model);
         }
 
+        private class MyClass
+        {
+
+            public bool BillContains { get; set; }
+
+            public bool BillStartsWith { get; set; }
+
+            public Bill Bill { get; set; }
+
+            public int Score { get; set; }
+        };
+
         /// <summary>
         /// Splits the passed text into space seperated words. Looks for each word in multiple fields of bill.
         /// The bill which gets most hits is ranked at the top. Bill number hit is ranked better. bill number starts with or ends with hit is even better.
@@ -80,28 +93,53 @@ namespace PhpaAll.Controllers
                 throw new NotImplementedException();
             }
 
-            IQueryable<Bill> query = null;
+            IQueryable<MyClass> query = null;
 
             foreach (var token in tokens)
             {
+                // If any token represnts an amount, search within 20% of bill amount
+                decimal amount;
+                bool isAmount = decimal.TryParse(token, out amount);
+
+                // If any token represents date, search for nearby bill dates
+                var date = ParseDate(token);
+                DateTime dateParam = date ?? DateTime.Today;
+
                 // It is a hit if any token is contained in any of the searrch fields
                 var query1 = from bill in _db.Value.Bills
-                             where bill.BillNumber.ToLower().Contains(token) ||
-                                bill.Particulars.ToLower().Contains(token) ||
-                                bill.Contractor.ContractorName.ToLower().Contains(token) ||
-                                bill.SubmittedToDivision.DivisionName.ToLower().Contains(token) ||
-                                bill.CurrentDivision.DivisionName.ToLower().Contains(token) ||
-                                bill.Remarks.ToLower().Contains(token) ||
-                                bill.Station.StationName.ToLower().Contains(token)
-                             select bill;
-                // Extra point if bill number starts with a token
-                var query2 = from bill in _db.Value.Bills
-                             where bill.BillNumber.ToLower().StartsWith(token)
-                             select bill;
-                // Extra point if bill number ends with token
-                var query3 = from bill in _db.Value.Bills
-                             where bill.BillNumber.ToLower().EndsWith(token)
-                             select bill;
+                             let dateMatch = (date.HasValue && bill.BillDate >= dateParam.AddDays(-7) && bill.BillDate <= dateParam.AddDays(7))
+                             let amountMatch = (isAmount && bill.Amount >= amount * 0.8m && bill.Amount <= 1.2m * amount)
+                             let billNumber = (bill.BillNumber ?? "").ToLower()
+                             let particularsMatch = bill.Particulars.ToLower().Contains(token)
+                             let contractorMatch = bill.Contractor.ContractorName.ToLower().Contains(token)
+                             let divisionMatch = bill.SubmittedToDivision.DivisionName.ToLower().Contains(token)
+                             let currDivMatch = bill.CurrentDivision.DivisionName.ToLower().Contains(token)
+                             let remarksMatch = bill.Remarks.ToLower().Contains(token)
+                             let stationMatch = bill.Station.StationName.ToLower().Contains(token)
+                             where billNumber.Contains(token) ||
+                                particularsMatch ||
+                                contractorMatch ||
+                                divisionMatch ||
+                                currDivMatch ||
+                                remarksMatch ||
+                                stationMatch ||
+                                amountMatch || dateMatch
+                             select new MyClass
+                             {
+                                 Score = (billNumber.StartsWith(token) ? 1 : 0) +
+                                     (billNumber.EndsWith(token) ? 1 : 0) +
+                                     (billNumber.Contains(token) ? 1 : 0) +
+                                     (billNumber == token ? 10 : 0) +
+                                     (particularsMatch ? 1 : 0) +
+                                     (contractorMatch ? 1 : 0) +
+                                     (divisionMatch ? 1 : 0) +
+                                     (currDivMatch ? 1 : 0) +
+                                     (remarksMatch ? 1 : 0) +
+                                     (stationMatch ? 1 : 0) +
+                                     (amountMatch ? 1 : 0) +
+                                     (dateMatch ? 1 : 0),
+                                 Bill = bill
+                             };
 
 
                 if (query == null)
@@ -112,41 +150,14 @@ namespace PhpaAll.Controllers
                 {
                     query = query.Concat(query1);
                 }
-                query = query.Concat(query2).Concat(query3);
-
-                // If any token represnts an amount, search within 20% of bill amount
-                decimal amount;
-                if (decimal.TryParse(token, out amount))
-                {
-                    // This token looks like an amount. Let us include bills within 20% of this amount
-                    var query4 = from bill in _db.Value.Bills
-                                 where bill.Amount >= amount * 0.8m && bill.Amount <= amount * 1.2m
-                                 select bill;
-                    query = query.Concat(query4);
-                }
-
-                // If any token represents date, search for nearby bill dates
-                var date = ParseDate(token);
-                if (date.HasValue)
-                {
-                    // +/- 7 days
-                    var query5 = from bill in _db.Value.Bills
-                                 where bill.BillDate >= date.Value.AddDays(-7) && bill.BillDate <= date.Value.AddDays(7)
-                                 select bill;
-                    query = query.Concat(query5);
-                }
-
             }
 
-            // Max 200
             //query = query.OrderByDescending(p => p.BillDate);
             // Count how many times the bill was selected. If a bill is selected more times, it is more relevant
             // Exact matches are best
-            var queryFinal = from bill in query
-                             group bill by bill into g
-                             let billNumber = g.Key.BillNumber.ToLower()
-                             let exactMatch = tokens.Contains(billNumber) ? 1 : 0
-                             orderby exactMatch descending, g.Count() descending, g.Key.BillDate descending
+            var queryFinal = from item in query
+                             group item by item.Bill into g
+                             orderby g.Sum(p => p.Score) descending, g.Key.BillDate descending
                              select g.Key;
 
             return queryFinal;
@@ -215,18 +226,6 @@ namespace PhpaAll.Controllers
             {
                 text1 = string.Empty;
                 text2 = string.Empty;
-                //// Check for amount match
-                //decimal amount;
-                //foreach (var token in tokens)
-                //{
-                //    if (decimal.TryParse(token, out amount) && bill.Amount >= 0.8m * bill.Amount && bill.Amount <= 1.2m * bill.Amount)
-                //    {
-                //        text1 = "Amount";
-                //        text2 = string.Format("{0:N2}", bill.Amount);
-                //        break;
-                //    }
-                //}
-                //throw new NotImplementedException();
                 // Should never happen
             }
 

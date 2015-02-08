@@ -12,6 +12,7 @@
         $.get(url).done(function (data, textStatus, jqXHR) {
             this.cb(data);
         }.bind({ cb: cb })).fail(function (jqXHR, textStatus, errorThrown) {
+            //alert(jqXHR.responseText);
             if (jqXHR.status == 500) {
                 this.cb([{ particulars: 'Error ' + (jqXHR.responseText || errorThrown), value: '' }]);
             } else {
@@ -32,7 +33,7 @@
         source: function (query, cb) {
             if (_isExecuting) {
                 // Do nothing
-                retrun;
+                return;
             }
             var url = $('#tbLayoutSearch').attr('data-list-url').replace('~', query);
             if (_timer) {
