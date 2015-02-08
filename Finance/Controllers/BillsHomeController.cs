@@ -158,6 +158,12 @@ namespace PhpaAll.Controllers
                 text1 = "Station";
                 text2 = bill.Station.StationName;
             }
+            else if (bill.Remarks != null && tokens.Any(p => bill.Remarks.ToLower().Contains(p)))
+            {
+                // Bill number is always shown so we use particulars here
+                text1 = "";
+                text2 = bill.Remarks;
+            }
             else
             {
                 //throw new NotImplementedException();
@@ -170,6 +176,12 @@ namespace PhpaAll.Controllers
             return text1 + " " + HighlightTokens(text2, tokens);
         }
 
+        /// <summary>
+        /// The function ensures that the hit is within first 64 characters. It truncates few leading characters if necessary
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="tokens"></param>
+        /// <returns></returns>
         private string HighlightTokens(string input, string[] tokens)
         {
             // Highlight each matching token in bill number and text
@@ -182,8 +194,21 @@ namespace PhpaAll.Controllers
             {
                 // Case insensitive string replace
                 // http://stackoverflow.com/questions/6275980/string-replace-by-ignoring-case?lq=1
-                input = Regex.Replace(input, token, "<strong>" + token + "</strong>", RegexOptions.IgnoreCase);
+                input = Regex.Replace(input, token, "<span class='tt-highlight'>" + token + "</span>", RegexOptions.IgnoreCase);
                 //text2 = text2.Replace(token, "<strong>" + token + "</strong>");
+            }
+
+            var index = input.IndexOf("<span");
+            if (index > 64)
+            {
+                // Keep at most 32 characters before the hit
+                var startAt = Math.Max(index - 32, 0);
+                input = input.Substring(startAt);
+                if (startAt > 0)
+                {
+                    // We have truncated something
+                    input = "..." + input;
+                }
             }
 
             return input;
