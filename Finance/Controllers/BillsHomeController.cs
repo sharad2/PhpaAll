@@ -116,28 +116,23 @@ namespace PhpaAll.Controllers
                              let currDivMatch = bill.CurrentDivision.DivisionName.ToLower().Contains(token)
                              let remarksMatch = bill.Remarks.ToLower().Contains(token)
                              let stationMatch = bill.Station.StationName.ToLower().Contains(token)
-                             where billNumber.Contains(token) ||
-                                particularsMatch ||
-                                contractorMatch ||
-                                divisionMatch ||
-                                currDivMatch ||
-                                remarksMatch ||
-                                stationMatch ||
+                             where billNumber.Contains(token) || particularsMatch || contractorMatch ||
+                                divisionMatch || currDivMatch || remarksMatch || stationMatch ||
                                 amountMatch || dateMatch
                              select new MyClass
                              {
-                                 Score = (billNumber.StartsWith(token) ? 1 : 0) +
-                                     (billNumber.EndsWith(token) ? 1 : 0) +
-                                     (billNumber.Contains(token) ? 1 : 0) +
-                                     (billNumber == token ? 10 : 0) +
-                                     (particularsMatch ? 1 : 0) +
-                                     (contractorMatch ? 1 : 0) +
-                                     (divisionMatch ? 1 : 0) +
-                                     (currDivMatch ? 1 : 0) +
-                                     (remarksMatch ? 1 : 0) +
-                                     (stationMatch ? 1 : 0) +
-                                     (amountMatch ? 1 : 0) +
-                                     (dateMatch ? 1 : 0),
+                                 Score = (billNumber.StartsWith(token) ? 100 : 0) +
+                                     (billNumber.EndsWith(token) ? 100 : 0) +
+                                     (billNumber.Contains(token) ? 100 : 0) +
+                                     (billNumber == token ? 1000 : 0) +
+                                     (particularsMatch ? 100 : 0) +
+                                     (contractorMatch ? 100 : 0) +
+                                     (divisionMatch ? 100 : 0) +
+                                     (currDivMatch ? 100 : 0) +
+                                     (remarksMatch ? 50 : 0) +
+                                     (stationMatch ? 100 : 0) +
+                                     (amountMatch ? 100 : 0) +
+                                     (dateMatch ? 100 : 0),
                                  Bill = bill
                              };
 
@@ -156,9 +151,9 @@ namespace PhpaAll.Controllers
             // Count how many times the bill was selected. If a bill is selected more times, it is more relevant
             // Exact matches are best
             var queryFinal = (from item in query
-                             group item by item.Bill into g
-                             orderby g.Sum(p => p.Score) descending, g.Key.BillDate descending
-                             select g.Key).Take(200);
+                              group item by item.Bill into g
+                              orderby g.Sum(p => p.Score) descending, g.Key.BillDate descending
+                              select g.Key);
 
             return queryFinal;
 
@@ -166,19 +161,19 @@ namespace PhpaAll.Controllers
 
         private DateTime? ParseDate(string token)
         {
-             DateTime date;
-             if (!DateTime.TryParse(token, out date))
-             {
-                 return null;
-             }
-             if (date.Year <= 1900 || date.Year >= 9999)
-             {
-                 // Date is outside SQL server limits
-                 // http://stackoverflow.com/questions/468045/error-sqldatetime-overflow-must-be-between-1-1-1753-120000-am-and-12-31-999
-                 return null;
-             }
+            DateTime date;
+            if (!DateTime.TryParse(token, out date))
+            {
+                return null;
+            }
+            if (date.Year <= 1900 || date.Year >= 9999)
+            {
+                // Date is outside SQL server limits
+                // http://stackoverflow.com/questions/468045/error-sqldatetime-overflow-must-be-between-1-1-1753-120000-am-and-12-31-999
+                return null;
+            }
             // TODO: Make sure SQL server will love this date
-             return date;
+            return date;
         }
 
         private string GetAutocompleteText(Bill bill, string[] tokens)
@@ -300,7 +295,7 @@ namespace PhpaAll.Controllers
             string fmtString = "{0:d}";
             if (billDate.HasValue)
             {
-               
+
                 foreach (var token in tokens)
                 {
                     var date = ParseDate(token);
@@ -332,7 +327,7 @@ namespace PhpaAll.Controllers
                 date = HighlightDate(bill.BillDate, tokens),
                 // Highlighted text containing the hit
                 text = GetAutocompleteText(bill, tokens)
-            });
+            }).ToList();
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
