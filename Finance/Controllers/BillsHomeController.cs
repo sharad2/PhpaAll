@@ -41,14 +41,11 @@ namespace PhpaAll.Controllers
         /// <returns></returns>
         public virtual ActionResult Search(string searchText)
         {
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                return RedirectToAction(MVC.Bills.RecentBills());
+            }
             var queryFinal = SearchQuery(searchText);
-
-            //var list = new List<SearchBillModel>();
-
-            //foreach (var sbm in BillModel.FromQuery<SearchBillModel>(queryFinal).Take(200))
-            //{
-            //    list.Add(sbm);
-            //}
 
             SearchViewModel model = new SearchViewModel
             {
@@ -58,21 +55,24 @@ namespace PhpaAll.Controllers
             return View(Views.Search, model);
         }
 
+        /// <summary>
+        /// Splits the passed text into space seperated words. Looks for each word in multiple fields of bill.
+        /// The bill which gets most hits is ranked at the top. Bill number hit is ranked better. bill number starts with or ends with hit is even better.
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <returns></returns>
         private IQueryable<Bill> SearchQuery(string searchText)
         {
             if (string.IsNullOrWhiteSpace(searchText))
             {
-                throw new NotImplementedException();
+                throw new ArgumentNullException("searchText");
             }
             var tokens = searchText.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             if (tokens.Length == 0)
             {
                 throw new NotImplementedException();
             }
-            //var query = (from bill in _db.Value.Bills
-            //     where  bill.BillNumber.ToLower().Contains(searchText.ToLower())
-            //     orderby bill.BillDate descending
-            //     select bill).Take(50);
+
             IQueryable<Bill> query = null;
 
             foreach (var token in tokens)
@@ -149,7 +149,13 @@ namespace PhpaAll.Controllers
             {
                 // Bill number is always shown so we use particulars here
                 text1 = "Contractor";
-                text2 =  bill.Contractor.ContractorName;
+                text2 = bill.Contractor.ContractorName;
+            }
+            else if (bill.Station != null && tokens.Any(p => bill.Station.StationName.ToLower().Contains(p)))
+            {
+                // Bill number is always shown so we use particulars here
+                text1 = "Station";
+                text2 = bill.Station.StationName;
             }
             else
             {

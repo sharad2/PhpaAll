@@ -46,7 +46,7 @@
                         <form id="frmLayoutSearch" action="@Url.Action(MVC.BillsHome.Search())" method="get" role="search" class="navbar-form navbar-left">
                             <div class="input-group">
                                 <input id="tbLayoutSearch" type="search" class="form-control" name="@MVC.BillsHome.SearchParams.searchText" 
-                                       placeholder="Search Bills" required autocomplete="off"
+                                       placeholder="Search Bills" autocomplete="off"
                                        data-url="@Url.Action(MVC.BillsHome.SearchAutoComplete("~"))">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
@@ -100,7 +100,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#tbLayoutSearch').typeahead({
-                highlight: false
+                highlight: false,
+                hint:false
             }, {
                 name: 'layout-bill',
                 displayKey: 'billnumber',

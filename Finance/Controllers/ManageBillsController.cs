@@ -151,9 +151,6 @@ namespace PhpaAll.Controllers
                 edit.Remarks = model.Remarks;
                 edit.SubmittedOnDate = model.SubmittedOnDate;
                 _db.Value.SubmitChanges();
-                return RedirectToAction(MVC.Bills.RecentBills());
-
-
             }
             catch (DataException)
             {
