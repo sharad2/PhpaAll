@@ -27,7 +27,7 @@
             <div class="navbar-collapse collapse" id="bs-layout-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <div class="btn-group navbar-btn">
+                        <div class="btn-group navbar-btn btn-group-sm">
                             <a class="btn btn-default" href="@Url.Action(MVC.BillsHome.Index())">Bills</a>
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <span class="caret"></span>
@@ -44,8 +44,8 @@
                     </li>
                     <li>
                         <form id="frmLayoutSearch" action="@Url.Action(MVC.BillsHome.Search())" method="get" role="search" class="navbar-form navbar-left">
-                            <div class="input-group">
-                                <input id="tbLayoutSearch" type="search" class="form-control" name="@MVC.BillsHome.SearchParams.searchText"
+                            <div class="input-group input-group-sm">
+                                <input id="tbLayoutSearch" type="search" class="form-control" name="@MVC.BillsHome.SearchParams.searchText" size="32"
                                        placeholder="Search Bills" autocomplete="off"
                                        data-list-url="@Url.Action(MVC.BillsHome.SearchAutoComplete("~"))"
                                        data-bill-url="@Url.Action(MVC.ManageBills.ShowBill(0))">
@@ -89,54 +89,6 @@
     </div>
 
     <script type="text/javascript" src="@Links.Views.Shared.layout_js"></script>
-    <style type="text/css">
-        .tt-dropdown-menu .tt-suggestion .tt-highlight {
-            background-color:yellow;
-        }
-
-        #frmLayoutSearch .tt-dropdown-menu {
-            width: 40em;
-            height: 30em;
-            overflow-y: auto;
-            overflow-x: hidden;
-            font-size: 0.9em;
-        }
-
-        #frmLayoutSearch .sugg-date {
-            display: inline-block;
-            width: 5.5em;
-            vertical-align: top;
-        }
-
-        #frmLayoutSearch .sugg-number {
-            /*display: inline-block;
-            width: 12em;
-            white-space: nowrap !important;
-            overflow-x: hidden;
-            -ms-text-overflow: ellipsis;
-            -o-text-overflow: ellipsis;
-            text-overflow: ellipsis;*/
-        }
-
-        #frmLayoutSearch .sugg-particulars {
-            display: block;
-            color: gray;
-            white-space: nowrap !important;
-            overflow-x: hidden;
-            -ms-text-overflow: ellipsis;
-            -o-text-overflow: ellipsis;
-            text-overflow: ellipsis;
-        }
-
-        #frmLayoutSearch .sugg-text {
-            display: block;
-            white-space: nowrap !important;
-            overflow-x: hidden;
-            -ms-text-overflow: ellipsis;
-            -o-text-overflow: ellipsis;
-            text-overflow: ellipsis;
-        }
-    </style>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -160,10 +112,16 @@
                 },
                 templates: {
                     suggestion: function (sugg) {
-                        var x = $('<span>').append($('<span>').addClass('sugg-date').html(sugg.date))
-                            .append($('<span>').addClass('sugg-number').html(sugg.billNumber))
-                            .append($('<span>').addClass('sugg-particulars').html(sugg.particulars))
-                            .append($('<span>').addClass('sugg-text').html(sugg.text));
+                        var x = $('<span>').append($('<span>').addClass('sugg-date').html(sugg.date));
+                        if (sugg.billNumber) {
+                            x = x.append($('<span>').addClass('sugg-number').html(sugg.billNumber));
+                        }
+                        if (sugg.particulars) {
+                            x = x.append($('<span>').addClass('sugg-particulars text-muted').html(sugg.particulars));
+                        }
+                        if (sugg.text) {
+                            x = x.append($('<span>').addClass('sugg-text').html(sugg.text));
+                        }
                         //var y = x.html();
                         return x.html();
                     },

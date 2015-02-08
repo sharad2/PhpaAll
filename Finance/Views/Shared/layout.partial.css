@@ -1,0 +1,33 @@
+﻿/* Highlighted text displays in yellow */
+.tt-dropdown-menu .tt-suggestion .tt-highlight {
+    background-color: yellow;
+}
+
+/* Reasonable height and width for autocomplete list. Makes font slightly smaller. */
+.tt-dropdown-menu {
+    width: 40em;
+    height: 30em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 0.9em;
+}
+
+/* Fixed width so that dates can align */
+#frmLayoutSearch .sugg-date {
+    display: inline-block;
+    width: 5.5em;
+    vertical-align: top;
+}
+
+#frmLayoutSearch .sugg-number {
+}
+
+/* Truncate very long text */
+#frmLayoutSearch .sugg-particulars, #frmLayoutSearch .sugg-text {
+    display: block;
+    white-space: nowrap !important;
+    overflow-x: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}

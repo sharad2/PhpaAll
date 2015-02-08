@@ -357,6 +357,7 @@
     <Content Include="Views\Shared\layout.min.js">
       <DependentUpon>layout.min.js.bundle</DependentUpon>
     </Content>
+    <Content Include="Views\Shared\layout.partial.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

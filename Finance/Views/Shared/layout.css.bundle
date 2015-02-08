@@ -15,7 +15,8 @@
   -->
   <files>
     <file>/Content/bootstrap.css</file>
-    <file>/Content/typeahead.css</file>    
+    <file>/Content/typeahead.css</file>
     <file>/Content/bootstrap-datetimepicker.css</file>
+    <file>layout.partial.css</file>
   </files>
 </bundle>

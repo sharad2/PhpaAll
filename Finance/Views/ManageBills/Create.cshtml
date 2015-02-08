@@ -268,7 +268,9 @@
         $(document).ready(function () {
             "use strict";
             $('#tbDivision,#tbContractor').each(function (index, elem) {
-                $(elem).typeahead(null, {
+                $(elem).typeahead({
+                    highlight:true
+                }, {
                     //name: 'Division',
                     displayKey: 'label',
                     source: function (query, cb) {
