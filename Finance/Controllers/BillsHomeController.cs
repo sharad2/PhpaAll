@@ -155,10 +155,10 @@ namespace PhpaAll.Controllers
             //query = query.OrderByDescending(p => p.BillDate);
             // Count how many times the bill was selected. If a bill is selected more times, it is more relevant
             // Exact matches are best
-            var queryFinal = from item in query
+            var queryFinal = (from item in query
                              group item by item.Bill into g
                              orderby g.Sum(p => p.Score) descending, g.Key.BillDate descending
-                             select g.Key;
+                             select g.Key).Take(200);
 
             return queryFinal;
 
@@ -285,7 +285,7 @@ namespace PhpaAll.Controllers
                 decimal amount;
                 foreach (var token in tokens)
                 {
-                    if (decimal.TryParse(token, out amount) && billAmount >= 0.8m * billAmount && billAmount <= 1.2m * billAmount)
+                    if (decimal.TryParse(token, out amount) && billAmount >= 0.8m * amount && billAmount <= 1.2m * amount)
                     {
                         fmtString = "<span class='tt-highlight'>" + fmtString + "</span>";
                         break;
