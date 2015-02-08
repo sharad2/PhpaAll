@@ -5,7 +5,7 @@
 
 /* Reasonable height and width for autocomplete list. Makes font slightly smaller. */
 .tt-dropdown-menu {
-    width: 40em;
+    width: 38em;
     height: 30em;
     overflow-y: auto;
     overflow-x: hidden;
@@ -20,6 +20,21 @@
 }
 
 #frmLayoutSearch .sugg-number {
+    display: inline-block;
+    width: 20em;
+    white-space: nowrap !important;
+    overflow-x: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+#frmLayoutSearch .sugg-amount {
+    display: inline-block;
+    width:8em;
+    font-weight: bold;
+    vertical-align: top;
+    text-align:right;
 }
 
 /* Truncate very long text */

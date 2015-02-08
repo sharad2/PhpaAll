@@ -106,6 +106,15 @@ namespace PhpaAll.Controllers
                     query = query.Concat(query1);
                 }
                 query = query.Concat(query2).Concat(query3);
+                decimal amount;
+                if (decimal.TryParse(token, out amount))
+                {
+                    // This token looks like an amount. Let us include bills within 20% of this amount
+                    var query4 = from bill in _db.Value.Bills
+                                 where bill.Amount >= amount * 0.8m && bill.Amount <= amount * 1.2m
+                                 select bill;
+                    query = query.Concat(query4);
+                }
             }
 
             // Max 200
@@ -166,10 +175,21 @@ namespace PhpaAll.Controllers
             }
             else
             {
+                text1 = string.Empty;
+                text2 = string.Empty;
+                // Check for amount match
+                decimal amount;
+                foreach (var token in tokens)
+                {
+                    if (decimal.TryParse(token, out amount) && bill.Amount >= 0.8m * bill.Amount && bill.Amount <= 1.2m * bill.Amount)
+                    {
+                        text1 = "Amount";
+                        text2 = string.Format("{0:N2}", bill.Amount);
+                        break;
+                    }
+                }
                 //throw new NotImplementedException();
                 // Should never happen
-                text1 = string.Empty;
-                text2 = bill.Particulars;
             }
 
 
@@ -223,6 +243,7 @@ namespace PhpaAll.Controllers
             var data = query.AsEnumerable().Select(bill => new
             {
                 // Used to redirect to the bill when something chosen from the list
+                amount = string.Format("{0:N0}", bill.Amount),
                 billId = bill.Id,
                 // Always displayed in the list
                 particulars = HighlightTokens(bill.Particulars, tokens),

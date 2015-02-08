@@ -116,6 +116,9 @@
                         if (sugg.billNumber) {
                             x = x.append($('<span>').addClass('sugg-number').html(sugg.billNumber));
                         }
+                        if (sugg.amount) {
+                            x = x.append($('<span>').addClass('sugg-amount').html(sugg.amount));
+                        }
                         if (sugg.particulars) {
                             x = x.append($('<span>').addClass('sugg-particulars text-muted').html(sugg.particulars));
                         }
