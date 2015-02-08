@@ -13855,6 +13855,30 @@ if (typeof jQuery === 'undefined') {
 })(window.jQuery);
 ///#source 1 1 layout.partial.js
 $(document).ready(function () {
+
+    var _timer;
+
+    // Autocomplete query is in progress
+    var _isExecuting;
+
+    function GetAutocompleteData(url, cb) {
+        //alert(url);
+        _isExecuting = true;
+        _timer = null;
+        $.get(url).done(function (data, textStatus, jqXHR) {
+            this.cb(data);
+        }.bind({ cb: cb })).fail(function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 500) {
+                this.cb([{ particulars: 'Error ' + (jqXHR.responseText || errorThrown), value: '' }]);
+            } else {
+                this.cb([{ particulars: 'Http Error ' + jqXHR.status + ': ' + errorThrown + ' ' + this.url, value: '' }]);
+            }
+        }.bind({ cb: cb, url: url })).complete(function () {
+           // alert('done');
+            _isExecuting = false;
+        });
+    }
+
     $('#tbLayoutSearch').typeahead({
         highlight: false,
         hint: false
@@ -13862,16 +13886,16 @@ $(document).ready(function () {
         //name: 'layout-bill',
         //displayKey: 'billnumber',
         source: function (query, cb) {
+            if (_isExecuting) {
+                // Do nothing
+                retrun;
+            }
             var url = $('#tbLayoutSearch').attr('data-list-url').replace('~', query);
-            $.get(url).done(function (data, textStatus, jqXHR) {
-                this.cb(data);
-            }.bind({ cb: cb })).fail(function (jqXHR, textStatus, errorThrown) {
-                if (jqXHR.status == 500) {
-                    this.cb([{ particulars: 'Error ' + (jqXHR.responseText || errorThrown), value: '' }]);
-                } else {
-                    this.cb([{ particulars: 'Http Error ' + jqXHR.status + ': ' + errorThrown + ' ' + this.url, value: '' }]);
-                }
-            }.bind({ cb: cb, url: url }));
+            if (_timer) {
+                clearTimeout(_timer);
+            }
+            // Provide 500ms delay before executing the query
+            _timer = setTimeout(GetAutocompleteData, 500, url, cb);
         },
         templates: {
             suggestion: function (sugg) {
