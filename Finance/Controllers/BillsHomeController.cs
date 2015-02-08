@@ -1,11 +1,10 @@
 ﻿using PhpaAll.Bills;
 using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace PhpaAll.Controllers
 {
@@ -39,6 +38,14 @@ namespace PhpaAll.Controllers
         /// </summary>
         /// <param name="searchText"></param>
         /// <returns></returns>
+        /// <remarks>
+        /// The passed search text is tokenized into words.
+        /// For each word a query is constructed which looks for the word in ke fields (particulars, contractor name, etc).
+        /// A union of all these queries is then executed.
+        /// The resulting union query will return the bill multiple times if a bill matches multiple words.
+        /// We count the number of times the bill is found and treat is as its relevance. The matched bills are displayed in the order of relevance.
+        /// Only the top 200 results are displayed.
+        /// </remarks>
         public virtual ActionResult Search(string searchText)
         {
             if (string.IsNullOrWhiteSpace(searchText))
