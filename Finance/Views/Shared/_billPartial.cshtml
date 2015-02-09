@@ -59,10 +59,12 @@
 
                     @if (Model.ApprovedDate == null)
                     {
-                        <li><a href="@Url.Action(MVC.ManageBills.Edit(Model.BillId))"><span class="glyphicon glyphicon-thumbs-up"></span> Approve</a></li>
+                        <li><a href="@Url.Action(MVC.ManageBills.ShowBill(Model.BillId))"><span class="glyphicon glyphicon-thumbs-up"></span> Approve</a></li>
                     }
-
-
+                    else
+                    {
+                        <li><a href="@Url.Action(MVC.ManageBills.ShowBill(Model.BillId))"><span class="glyphicon glyphicon-thumbs-down"></span> Disapprove</a></li>
+                    }
                 </ul>
             </div>
         </div>
