@@ -92,7 +92,7 @@
     <phpa:PhpaLinqDataSource ID="dsContractorPayment" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Reporting.ReportingDataContext"
         TableName="RoJobs" RenderLogVisible="false" OnSelecting="dsContractorPayment_Selecting" />
     <hr />
-                
+
     <asp:ListView runat="server" DataSourceID="dsContractorPayment">
         <LayoutTemplate>
             <asp:PlaceHolder runat="server">
@@ -306,10 +306,14 @@
                 </EmptyDataTemplate>
                 <HeaderStyle HorizontalAlign="Center" />
             </jquery:GridViewEx>
+
+            <div style="font-size: 12pt; margin-bottom: 1mm; margin-left: 85mm">
+                <asp:Label ID="lbldiffrence" runat="server" Font-Bold="true" Text='<%# string.Format("Balance {0:C}", this.Balance) %>'
+                    ToolTip="Difference in Contractor's Advance Paid(5) and Advance Adjusted(6) (Advance Paid - Advance Adjusted)" />
+            </div>
+
         </ItemTemplate>
+
     </asp:ListView>
-    <div style="font-size: 12pt; margin-bottom: 1mm; margin-left: 85mm">
-        <asp:Label ID="lbldiffrence" runat="server" Font-Bold="true" Text="Balance: "
-            ToolTip="Difference in Contractor's Advance Paid(5) and Advance Adjusted(6) (Advance Paid - Advance Adjusted)" Visible="false" />
-    </div>
+
 </asp:Content>

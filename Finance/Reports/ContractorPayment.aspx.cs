@@ -201,6 +201,9 @@ namespace PhpaAll.Reports
                 .Sum(p => (decimal?)p.NetPayment));
         }
 
+        public decimal Balance { get; set; }
+
+
         /// <summary>
         /// Calaculate footer Text.
         /// </summary>
@@ -228,9 +231,10 @@ namespace PhpaAll.Reports
                     decimal? adv = Convert.ToDecimal(advancePaid.SummaryValues[0].Value);
                     decimal? adj = Convert.ToDecimal(advanceAdjusted.SummaryValues[0].Value);
 
-                    decimal balance = (decimal)(adv - adj);
-                    lbldiffrence.Text += balance.ToString("C");
-                    lbldiffrence.Visible = true;
+                    this.Balance = (decimal)(adv - adj);
+                    //var lbldiffrence = (Label)gvContractorPayment.NamingContainer.FindControl("lbldiffrence");
+                    //lbldiffrence.Text += balance.ToString("C");
+                    //lbldiffrence.Visible = true;
                     break;
             }
         }
