@@ -84,8 +84,6 @@ namespace PhpaAll.Bills
         }
         public bool? OverDueOnly { get; set; }
 
-        [Obsolete]
-        public IList<OutstandingBillModel> Bills { get; set; }
         public IList<OutstandingBillGroupModel> BillGroups { get; set; }
 
 
@@ -95,7 +93,7 @@ namespace PhpaAll.Bills
 
             get
             {
-                return Bills.Sum(p => p.Amount);
+                return BillGroups.SelectMany(p => p.Bills).Sum(p => p.Amount);
             }
         }
     }

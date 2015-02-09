@@ -22,7 +22,7 @@
     </li>
 </ul>
 
-<table class="table table-striped">
+@*<table class="table table-striped">
     <thead>
         <tr class="bg-info">
             <th>#</th>
@@ -85,39 +85,67 @@
         </tr>
     </tfoot>
 
-</table>
+</table>*@
 
-<table>
-    <tbody>
-@for (var i = 0; i < Model.BillGroups.Count; ++i)
-{
-    <tr class="warning">
-        <td colspan="6" class="text-center"><strong>@Html.DisplayFor(m => m.OrderByDisplayName) : @Html.DisplayFor(p => p.BillGroups[i].OrderByValue)</strong></td>
-        <td style="text-align:right"><strong>@Html.DisplayFor(m => m.BillGroups[i].GroupTotal)</strong></td>
-    </tr>
-    for (var j = 0; j < Model.BillGroups[i].Bills.Count; ++j)
-    {
-        <tr>
-            <td>@(i + 1)</td>
-            <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].BillNumber)</td>
-            <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].BillDate)</td>
-            <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].DueDate)</td>
+<table class="table table-striped">
+    <thead>
+        <tr class="bg-info">
+            <th>#</th>
+            <th>Bill No.</th>
+            <th>Bill Date</th>
+            <th>Due Date</th>
             @if (Model.OrderByField != PhpaAll.Bills.OrderByField.Division)
             {
-                <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].SubmittedToDivisionName)</td>
+                <th>Division</th>
             }
             @if (Model.OrderByField != PhpaAll.Bills.OrderByField.Station)
             {
-                <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].StationName)</td>
+                <th>Station</th>
             }
             @if (Model.OrderByField != PhpaAll.Bills.OrderByField.Contractor)
             {
-                <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].ContractorName)</td>
+                <th>Contractor</th>
             }
 
-            <td style="text-align:right">@Html.DisplayFor(m => m.BillGroups[i].Bills[j].Amount)</td>
+            <th>Amount</th>
         </tr>
-    }
-}
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.BillGroups.Count; ++i)
+        {
+            <tr class="warning">
+                <td colspan="6" class="text-center"><strong>@Html.DisplayFor(m => m.OrderByDisplayName) : @Html.DisplayFor(p => p.BillGroups[i].OrderByValue)</strong></td>
+                <td style="text-align:right"><strong>@Html.DisplayFor(m => m.BillGroups[i].GroupTotal)</strong></td>
+            </tr>
+            for (var j = 0; j < Model.BillGroups[i].Bills.Count; ++j)
+            {
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].BillNumber)</td>
+                    <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].BillDate)</td>
+                    <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].DueDate)</td>
+                    @if (Model.OrderByField != PhpaAll.Bills.OrderByField.Division)
+                    {
+                        <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].SubmittedToDivisionName)</td>
+                    }
+                    @if (Model.OrderByField != PhpaAll.Bills.OrderByField.Station)
+                    {
+                        <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].StationName)</td>
+                    }
+                    @if (Model.OrderByField != PhpaAll.Bills.OrderByField.Contractor)
+                    {
+                        <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].ContractorName)</td>
+                    }
+
+                    <td style="text-align:right">@Html.DisplayFor(m => m.BillGroups[i].Bills[j].Amount)</td>
+                </tr>
+            }
+        }
     </tbody>
+    <tfoot>
+        <tr class="bg-info">
+            <th colspan="6">Total</th>
+            <th style="text-align:right">@Html.DisplayFor(m => m.TotalAmount)</th>
+        </tr>
+    </tfoot>
 </table>

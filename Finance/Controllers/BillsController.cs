@@ -347,42 +347,44 @@ namespace PhpaAll.Controllers
             switch (field)
             {
                 case OrderByField.Division:
-                    query = query.OrderBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Station.StationName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
+                    //query = query.OrderBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Station.StationName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
 
                     break;
                 case OrderByField.Station:
-                    query = query.OrderBy(p => p.Station.StationName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
+                    //query = query.OrderBy(p => p.Station.StationName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
                     break;
                 case OrderByField.Contractor:
-                    query = query.OrderBy(p => p.Contractor.ContractorName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Station.StationName).ThenBy(p => p.DueDate);
+                    //query = query.OrderBy(p => p.Contractor.ContractorName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Station.StationName).ThenBy(p => p.DueDate);
                     break;
                 default:
                     throw new NotImplementedException();
             }
             
 
-            var finalquery = from bill in query
-                             select new OutstandingBillModel
-                             {
-                                 BillId = bill.Id,
-                                 BillNumber = bill.BillNumber,
-                                 SubmittedToDivisionId = bill.SubmitedToDivisionId,
-                                 SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
-                                 ContractorId = bill.ContractorId,
-                                 ContractorName = bill.Contractor.ContractorName,
-                                 BillDate = bill.BillDate,
-                                 DueDate = bill.DueDate,
-                                 Amount = bill.Amount
-                             };
+            //var finalquery = from bill in query
+            //                 select new OutstandingBillModel
+            //                 {
+            //                     BillId = bill.Id,
+            //                     BillNumber = bill.BillNumber,
+            //                     SubmittedToDivisionId = bill.SubmitedToDivisionId,
+            //                     SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
+            //                     ContractorId = bill.ContractorId,
+            //                     ContractorName = bill.Contractor.ContractorName,
+            //                     BillDate = bill.BillDate,
+            //                     DueDate = bill.DueDate,
+            //                     Amount = bill.Amount
+            //                 };
 
             var finalquery2 = from bill2 in query
                               group bill2 by bill2.SubmittedToDivision into g
+                              orderby g.Key.DivisionName
                               select new OutstandingBillGroupModel
                               {
                                   DatabaseCount = g.Count(),
                                        GroupTotal = g.Sum(p => p.Amount),
                                        OrderByValue = g.Key.DivisionName,
                                        Bills = (from bill in g
+                                                orderby bill.DueDate descending
                                                 select new OutstandingBillModel
                                                 {
                                                     BillId = bill.Id,
@@ -404,37 +406,37 @@ namespace PhpaAll.Controllers
             //    model.Bills2[row.Division] = row.Bills.ToList();
             //}
 
-            model.Bills = finalquery.Take(5000).ToList();
+            //model.Bills = finalquery.Take(5000).ToList();
 
-            foreach (var billmodel in model.Bills)
-            {
-                switch (field)
-                {
-                    case OrderByField.Division:
-                        billmodel.OrderByValue = billmodel.SubmittedToDivisionName;
-                        break;
-                    case OrderByField.Station:
-                        billmodel.OrderByValue = billmodel.StationName;
-                        break;
-                    case OrderByField.Contractor:
-                        billmodel.OrderByValue = billmodel.ContractorName;
-                        break;
-                    default:
-                        throw new NotImplementedException();
-                }
-            }
+            //foreach (var billmodel in model.Bills)
+            //{
+            //    switch (field)
+            //    {
+            //        case OrderByField.Division:
+            //            billmodel.OrderByValue = billmodel.SubmittedToDivisionName;
+            //            break;
+            //        case OrderByField.Station:
+            //            billmodel.OrderByValue = billmodel.StationName;
+            //            break;
+            //        case OrderByField.Contractor:
+            //            billmodel.OrderByValue = billmodel.ContractorName;
+            //            break;
+            //        default:
+            //            throw new NotImplementedException();
+            //    }
+            //}
 
-            var query2 = (from item in model.Bills
-                         group item by item.OrderByValue into g
-                         select new
-                         {
-                             OrderByValue = g.Key,
-                             Amount = g.Sum(p => p.Amount)
-                         }).ToDictionary(p => p.OrderByValue??"", p => p.Amount);
-            foreach (var billmodel in model.Bills)
-            {
-                billmodel.GroupTotal = query2[billmodel.OrderByValue??""];
-            }
+            //var query2 = (from item in model.Bills
+            //             group item by item.OrderByValue into g
+            //             select new
+            //             {
+            //                 OrderByValue = g.Key,
+            //                 Amount = g.Sum(p => p.Amount)
+            //             }).ToDictionary(p => p.OrderByValue??"", p => p.Amount);
+            //foreach (var billmodel in model.Bills)
+            //{
+            //    billmodel.GroupTotal = query2[billmodel.OrderByValue??""];
+            //}
 
             return View(Views.OutstandingBills, model);
         }
