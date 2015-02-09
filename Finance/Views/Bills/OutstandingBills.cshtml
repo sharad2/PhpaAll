@@ -5,16 +5,20 @@
 <h2>
     @ViewBag.Title
 </h2>
-
+<form id="frmFilter" method="get" action="@Url.Action(MVC.Bills.OutstandingBills())">
+    <input type="checkbox" id="chkOverDue"  name="@MVC.Bills.OutstandingBillsParams.overdueOnly" value="true" checked="@Model.OverDueOnly"/>Show only Overdue Bills
+    <input type="hidden" value="@Model.OrderByField" name="@MVC.Bills.OutstandingBillsParams.field" />
+    <button type="submit">Apply</button>
+</form>
 <ul class="nav nav-tabs">
     <li role="presentation" class="@(Model.OrderByField == PhpaAll.Bills.OrderByField.Division ? "active" : null)">
-        <a href="@Url.Action(MVC.Bills.OutstandingBills(PhpaAll.Bills.OrderByField.Division))">Division</a>
+        <a href="@Url.Action(MVC.Bills.OutstandingBills(Model.OverDueOnly, PhpaAll.Bills.OrderByField.Division))">Division</a>
     </li>
     <li role="presentation" class="@(Model.OrderByField == PhpaAll.Bills.OrderByField.Station ? "active" : null)">
-        <a href="@Url.Action(MVC.Bills.OutstandingBills(PhpaAll.Bills.OrderByField.Station))">Station</a>
+        <a href="@Url.Action(MVC.Bills.OutstandingBills(Model.OverDueOnly, PhpaAll.Bills.OrderByField.Station))">Station</a>
     </li>
     <li role="presentation" class="@(Model.OrderByField == PhpaAll.Bills.OrderByField.Contractor ? "active" : null)">
-        <a href="@Url.Action(MVC.Bills.OutstandingBills(PhpaAll.Bills.OrderByField.Contractor))">Contractor</a>
+        <a href="@Url.Action(MVC.Bills.OutstandingBills(Model.OverDueOnly, PhpaAll.Bills.OrderByField.Contractor))">Contractor</a>
     </li>
 </ul>
 

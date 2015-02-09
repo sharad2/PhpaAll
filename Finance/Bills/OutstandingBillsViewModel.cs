@@ -12,6 +12,7 @@ namespace PhpaAll.Bills
         Station,
         Contractor
     }
+   
     public class OutstandingBillModel
     {
 
@@ -62,6 +63,7 @@ namespace PhpaAll.Bills
             }
 
         }
+        public bool? OverDueOnly { get; set; }
 
         public IList<OutstandingBillModel> Bills { get; set; }
 

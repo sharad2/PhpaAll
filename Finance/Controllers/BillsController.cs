@@ -331,16 +331,19 @@ namespace PhpaAll.Controllers
         /// Display outstanding bills.
         /// </summary>
         [Authorize(Roles = "BillsExecutive")]
-        public virtual ActionResult OutstandingBills(OrderByField field = OrderByField.Division)
+        [HttpGet]
+        public virtual ActionResult OutstandingBills(bool? overdueOnly, OrderByField field = OrderByField.Division)
         {
             var model = new OutstandingBillsViewModel
             {
-                OrderByField = field
+                OrderByField = field,
+                OverDueOnly = overdueOnly
             };
-
+            
             var query = from bill in _db.Value.Bills
-                        where bill.PaidDate == null
-                        select bill;
+                            where (overdueOnly?? false) ? (bill.PaidDate == null && bill.DueDate < DateTime.Now) : (bill.PaidDate == null)
+                            select bill;
+
             switch (field)
             {
                 case OrderByField.Division:
@@ -355,6 +358,8 @@ namespace PhpaAll.Controllers
                 default:
                     throw new NotImplementedException();
             }
+            
+
             var finalquery = from bill in query
                              select new OutstandingBillModel
                              {

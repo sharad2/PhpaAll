@@ -70,6 +70,12 @@ namespace PhpaAll.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ApproveBills);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult OutstandingBills()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.OutstandingBills);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public BillsController Actions { get { return MVC.Bills; } }
@@ -142,6 +148,7 @@ namespace PhpaAll.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_OutstandingBills
         {
+            public readonly string overdueOnly = "overdueOnly";
             public readonly string field = "field";
         }
         static readonly ViewsClass s_views = new ViewsClass();
@@ -212,14 +219,15 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void OutstandingBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, PhpaAll.Bills.OrderByField field);
+        partial void OutstandingBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, bool? overdueOnly, PhpaAll.Bills.OrderByField field);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult OutstandingBills(PhpaAll.Bills.OrderByField field)
+        public override System.Web.Mvc.ActionResult OutstandingBills(bool? overdueOnly, PhpaAll.Bills.OrderByField field)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.OutstandingBills);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "overdueOnly", overdueOnly);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "field", field);
-            OutstandingBillsOverride(callInfo, field);
+            OutstandingBillsOverride(callInfo, overdueOnly, field);
             return callInfo;
         }
 
