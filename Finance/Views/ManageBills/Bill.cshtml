@@ -98,27 +98,7 @@
 
 
 
-@if (Model.AttachedImageCount >0)
-{
-<nav class="text-center">
-    <ul class="pagination">
-        <li >
-            <a href="#" aria-label="Previous" data-target="#carousel-attachment" data-slide-to="0">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        @for (var i = 0; i < Model.AttachedImageCount; ++i)
-        {
-            <li><a href="#" data-target="#carousel-attachment" data-slide-to="@i">@(i + 1)</a></li>
-        }
-        <li>
-            <a href="#" aria-label="Next" data-target="#carousel-attachment" data-slide-to="@(Model.AttachedImageCount - 1)">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
-</nav>
-}
+
 @if (Model.AttachedImageCount <= 10)
 {
     <form action="@Url.Action(MVC.ManageBills.UploadImage())" 
@@ -136,6 +116,27 @@ else
 }
 
 <br/>
+@if (Model.AttachedImageCount > 0)
+{
+    <nav class="text-center">
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous" data-target="#carousel-attachment" data-slide-to="0">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            @for (var i = 0; i < Model.AttachedImageCount; ++i)
+            {
+                <li><a href="#" data-target="#carousel-attachment" data-slide-to="@i">@(i + 1)</a></li>
+            }
+            <li>
+                <a href="#" aria-label="Next" data-target="#carousel-attachment" data-slide-to="@(Model.AttachedImageCount - 1)">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+}
 <div id="carousel-attachment" class="carousel slide" data-ride="carousel" data-interval="false" >
 
     <!-- Wrapper for slides -->
