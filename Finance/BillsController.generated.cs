@@ -136,6 +136,14 @@ namespace PhpaAll.Controllers
             public readonly string maxAmount = "maxAmount";
             public readonly string approve = "approve";
         }
+        static readonly ActionParamsClass_OutstandingBills s_params_OutstandingBills = new ActionParamsClass_OutstandingBills();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_OutstandingBills OutstandingBillsParams { get { return s_params_OutstandingBills; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_OutstandingBills
+        {
+            public readonly string field = "field";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -204,13 +212,14 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void OutstandingBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void OutstandingBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, PhpaAll.Bills.OrderByField field);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult OutstandingBills()
+        public override System.Web.Mvc.ActionResult OutstandingBills(PhpaAll.Bills.OrderByField field)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.OutstandingBills);
-            OutstandingBillsOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "field", field);
+            OutstandingBillsOverride(callInfo, field);
             return callInfo;
         }
 
