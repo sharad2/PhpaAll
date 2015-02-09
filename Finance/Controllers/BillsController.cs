@@ -348,6 +348,7 @@ namespace PhpaAll.Controllers
             {
                 case OrderByField.Division:
                     query = query.OrderBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Station.StationName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
+
                     break;
                 case OrderByField.Station:
                     query = query.OrderBy(p => p.Station.StationName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
@@ -373,6 +374,35 @@ namespace PhpaAll.Controllers
                                  DueDate = bill.DueDate,
                                  Amount = bill.Amount
                              };
+
+            var finalquery2 = from bill2 in query
+                              group bill2 by bill2.SubmittedToDivision into g
+                              select new OutstandingBillGroupModel
+                              {
+                                  DatabaseCount = g.Count(),
+                                       GroupTotal = g.Sum(p => p.Amount),
+                                       OrderByValue = g.Key.DivisionName,
+                                       Bills = (from bill in g
+                                                select new OutstandingBillModel
+                                                {
+                                                    BillId = bill.Id,
+                                                    BillNumber = bill.BillNumber,
+                                                    SubmittedToDivisionId = bill.SubmitedToDivisionId,
+                                                    SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
+                                                    ContractorId = bill.ContractorId,
+                                                    ContractorName = bill.Contractor.ContractorName,
+                                                    BillDate = bill.BillDate,
+                                                    DueDate = bill.DueDate,
+                                                    Amount = bill.Amount
+                                                }).Take(2000).ToList()
+
+                              };
+
+            model.BillGroups = finalquery2.ToList();
+            //foreach (var row in finalquery2)
+            //{
+            //    model.Bills2[row.Division] = row.Bills.ToList();
+            //}
 
             model.Bills = finalquery.Take(5000).ToList();
 

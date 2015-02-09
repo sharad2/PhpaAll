@@ -12,6 +12,19 @@ namespace PhpaAll.Bills
         Station,
         Contractor
     }
+
+    public class OutstandingBillGroupModel
+    {
+        [DisplayFormat(DataFormatString = "{0:N2}")]
+        public decimal? GroupTotal { get; set; }
+
+        [DisplayFormat(NullDisplayText = "(Not Set)")]
+        public String OrderByValue { get; set; }
+
+        public IList<OutstandingBillModel> Bills { get; set; }
+
+        public int DatabaseCount { get; set; }
+    }
    
     public class OutstandingBillModel
     {
@@ -37,11 +50,13 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public Decimal? Amount { get; set; }
 
+        [Obsolete]
         [DisplayFormat(NullDisplayText="(Not Set)")]
         public String OrderByValue { get; set; }
 
         public string StationName { get; set; }
 
+        [Obsolete]
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public decimal? GroupTotal { get; set; }
     }
@@ -69,7 +84,10 @@ namespace PhpaAll.Bills
         }
         public bool? OverDueOnly { get; set; }
 
+        [Obsolete]
         public IList<OutstandingBillModel> Bills { get; set; }
+        public IList<OutstandingBillGroupModel> BillGroups { get; set; }
+
 
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public decimal? TotalAmount
