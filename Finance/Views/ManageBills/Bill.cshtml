@@ -99,7 +99,7 @@
 
 
 
-@if (Model.AttachedImageCount <= 10)
+@if (Model.AttachedImageCount < 10)
 {
     <form action="@Url.Action(MVC.ManageBills.UploadImage())" 
           class="dropzone"
