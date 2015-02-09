@@ -263,8 +263,7 @@ else
                         $.post(url);
                     });
                     this.on("maxfilesexceeded", function (file) {
-
-                      $('a.dz-remove', file.previewTemplate).attr('data-dz-errormessage', "you can upload only 10 images")
+                        alert('You can upload 10 images only');
                     });                 
                 },
 

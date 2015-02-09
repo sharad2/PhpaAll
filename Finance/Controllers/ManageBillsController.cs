@@ -251,7 +251,7 @@ namespace PhpaAll.Controllers
 
             var imagesUploadedCount = (from imageCount in _db.Value.BillImages
                                        where imageCount.BillId == billId
-                                       select imageCount).Count();
+                                       select imageCount.id).Count();
            
             if (imagesUploadedCount == 10)
             {
