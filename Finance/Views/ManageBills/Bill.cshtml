@@ -5,8 +5,8 @@
 }
 
 
-<h2 style="margin-top:0" class="text-center">
-    @Html.DisplayFor(m => m.ContractorName)
+<div  style="margin-top:0" class="text-center h2">
+    @Html.DisplayFor(m => m.ContractorName)   
     @if (Model.ApprovedDate != null)
     {
 
@@ -17,93 +17,91 @@
         </label>
 
     }
-</h2>
-<hr />
-<div class="row">
-    <div class="col-md-10">
-        <div class="well">
-            <div class="row">
-                <div class="col-md-8">
-                    <strong><mark>No: @Html.DisplayFor(m => m.BillNumber)</mark></strong>
-                </div>
-                <div class="col-md-4" style="text-align:right">
-                    <strong class="pull-right1">Dated: @Html.DisplayFor(m => m.BillDate)</strong>
-                    @if (Model.DueDate < DateTime.Now)
-                    {
-                    <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
-                    }
-                    else
-                    {
-                    <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
-                    }
-                </div>
-            </div>
-
-            <small class="text-info">
-                <strong>Particulars:</strong> @Html.DisplayFor(m => m.Particulars)
-            </small>
-            <blockquote class="blockquote-reverse">
-                <p>
-                    <strong>Amount(Nu.) @Html.DisplayFor(m => m.Amount)</strong>
-
-                    @if (Model.PaidDate != null)
-                    {
-                    <span>
-                        paid on @Html.DisplayFor(m => m.PaidDate)
-                    </span>
-                    }
-
-                    <small>
-                        <label>Received at division</label>
-                        @Html.DisplayFor(m => m.SubmittedToDivisionName)
-                        <em>on @Html.DisplayFor(m => m.SubmittedOnDate)</em>
-                        <strong>@@Station</strong>
-                        @Html.DisplayFor(m => m.StationName)
-
-                    </small>
-                </p>
-            </blockquote>
-
-            <label class="label label-info">
-                Processing Division:
-                @Html.DisplayFor(m => m.CurrentDivision)
-            </label>
-            <br />
-            <em class="text-muted">
-                <small>
-                    <label>Remarks:</label>
-                    @Html.DisplayFor(m => m.Remarks)
-                </small>
-            </em>
-
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="btn-group-vertical" role="group" aria-label="...">
-            <button type="button" class="btn btn-success">
-                <spn class="glyphicon glyphicon-thumbs-up"></spn> Approve
-            </button>
-            <button type="button" class="btn btn-danger">
-                <spn class="glyphicon glyphicon-thumbs-down"></spn> Unapprove
-            </button>
-            <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-link">
-                <span class="glyphicon glyphicon-edit"></span>
-                Edit
-            </a>
-            <a href="~/Finance/InsertVoucher.aspx" class="btn btn-link">
-                Create Voucher
-            </a>
-            <a href="@Url.Action(MVC.Bills.RecentBills())" class="btn btn-link">
-                Recent Bills
-            </a>
-        </div>
-
+    &nbsp;
+    <div class="btn-group-vertical btn-group-xs" role="group" aria-label="...">
+        <button type="button" class="btn btn-success">
+            <spn class="glyphicon glyphicon-thumbs-up"></spn> Approve
+        </button>
+        <button type="button" class="btn btn-danger">
+            <spn class="glyphicon glyphicon-thumbs-down"></spn> Unapprove
+        </button>
     </div>
 </div>
+<div class="bg-info">
+    <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-link">      
+        Edit
+    </a>
+    |
+    <a href="~/Finance/InsertVoucher.aspx" class="btn btn-link">
+        Create Voucher
+    </a>
+    |
+    <a href="@Url.Action(MVC.Bills.RecentBills())" class="btn btn-link">
+        Recent Bills
+    </a>
+</div>
+<div class="well">
+    <div class="row">
+        <div class="col-md-8">
+            <strong><mark>No: @Html.DisplayFor(m => m.BillNumber)</mark></strong>
+            &nbsp;
+            <span class="label label-info">
+                Processing Division:
+                @Html.DisplayFor(m => m.CurrentDivision)
+            </span>
+        </div>
+        <div class="col-md-4" style="text-align:right">
+            <strong class="pull-right1">Dated: @Html.DisplayFor(m => m.BillDate)</strong>
+            @if (Model.DueDate < DateTime.Now)
+            {
+                <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
+            }
+            else
+            {
+                <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
+            }
+        </div>
+    </div>
+    <small class="text-info">
+        <strong>Particulars:</strong> @Html.DisplayFor(m => m.Particulars)
+    </small>
+    <blockquote class="blockquote-reverse">
+        <p>
+            <strong>Amount(Nu.) @Html.DisplayFor(m => m.Amount)</strong>
 
-<nav>
+            @if (Model.PaidDate != null)
+            {
+                <span>
+                    paid on @Html.DisplayFor(m => m.PaidDate)
+                </span>
+            }
+
+            <small>
+                <label>Received at division</label>
+                @Html.DisplayFor(m => m.SubmittedToDivisionName)
+                <em>on @Html.DisplayFor(m => m.SubmittedOnDate)</em>
+                <strong>@@Station</strong>
+                @Html.DisplayFor(m => m.StationName)
+
+            </small>
+        </p>
+    </blockquote>
+    <em class="text-muted">
+        <small>
+            <label>Remarks:</label>
+            @Html.DisplayFor(m => m.Remarks)
+        </small>
+    </em>
+
+</div>
+
+
+
+
+
+<nav class="text-center">
     <ul class="pagination">
-        <li>
+        <li >
             <a href="#" aria-label="Previous" data-target="#carousel-attachment" data-slide-to="0">
                 <span aria-hidden="true">&laquo;</span>
             </a>
@@ -133,7 +131,7 @@
 }
 else
 {
-    <p>Max 10 files allowed. Remove some to add more.</p>
+    <p class="alert alert-info">Max 10 files allowed. Remove some to add more.</p>
 }
 
 <div id="carousel-attachment" class="carousel slide" data-ride="carousel" data-interval="false">
@@ -164,6 +162,8 @@ else
             </div>
         }
     </div>
+@if (Model.AttachedImageCount >0)
+{ 
     <!-- Controls -->
     <a class="left carousel-control" href="#carousel-attachment" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -173,6 +173,7 @@ else
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
+}
 </div>
 
 <h2>
@@ -211,17 +212,7 @@ else
                                 &rarr;
                                 @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)
                             </dd>
-
-                            @*<ul class="list-inline">
-                                    <li>
-
-                                        <span class="bg-warning">
-                                            @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].OldValue)
-                                        </span>
-                                        <span style="color:green" class="glyphicon glyphicon-arrow-right"></span>
-                                        <span class="bg-success">@Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)</span>
-                                    </li>
-                                </ul>*@
+                          
                         }
                     </dl>
                 </div>
@@ -233,6 +224,21 @@ else
 
 
 @section scripts {
+<style type="text/css">
+    /*Styleing form thead crousel indicator aside cite was not visible over thead white background*/
+   .carousel-control span.glyphicon {
+        border-color: #4196c7;
+        color: #0b4e75;
+    }
+
+    /*Styling form the crousel upload dragable area*/
+    #my-dropzone {
+        border: 5px dashed #4196c7;
+        background-color: rgba(241, 236, 212, 0.48);
+    }
+</style>
+
+
     <link rel="stylesheet" href="@Links.Views.ManageBills.Bill_css" />
     <script type="text/javascript" src="@Links.Views.ManageBills.Bill_js"></script>
 
