@@ -104,7 +104,7 @@
     <form action="@Url.Action(MVC.ManageBills.UploadImage())" 
           class="dropzone"
           id="my-dropzone">
-        <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
+        <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />      
         <div class="fallback">
             <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
         </div>
@@ -262,14 +262,19 @@ else
                         //TODO: How to handle post error. We do not want the file to get removed from dropzone UI.
                         $.post(url);
                     });
+                    this.on("maxfilesexceeded", function (file) {
+
+                      $('a.dz-remove', file.previewTemplate).attr('data-dz-errormessage', "you can upload only 10 images")
+                    });                 
                 },
+
                 addRemoveLinks: true,
                 // Files of all other types will be rejected
                 acceptedFiles: "image/*",
                 maxFilesize: 5,  // MB
                 maxFiles: 10            // Max 10 files
             };
-
+        
             // Set the src attribute of image so that it now gets loaded
             // Then remove the data-src attribute so that the image does not get loaded again
             $('#carousel-attachment').on('slide.bs.carousel', function (arg) {

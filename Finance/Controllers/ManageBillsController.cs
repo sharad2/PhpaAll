@@ -252,9 +252,10 @@ namespace PhpaAll.Controllers
             var imagesUploadedCount = (from imageCount in _db.Value.BillImages
                                        where imageCount.BillId == billId
                                        select imageCount).Count();
-            if (imagesUploadedCount >= 10)
+           
+            if (imagesUploadedCount == 10)
             {
-                return Json("You can't upload more than 10 images for 1 bill");
+                throw new NotImplementedException("You can't upload more than 10 images");
             }
             else
             {
