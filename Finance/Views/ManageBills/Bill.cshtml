@@ -102,7 +102,7 @@
 @if (Model.AttachedImageCount < 10)
 {
     <em>        
-        <small>Note: You can upload @(10 - Model.AttachedImageCount) more images</small>      
+        <small>Note: @Model.AttachedImageCount images have been uploaded</small>      
     </em>
     <form action="@Url.Action(MVC.ManageBills.UploadImage())"
           class="dropzone"
