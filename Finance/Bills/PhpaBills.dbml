@@ -111,6 +111,8 @@
       <Column Name="BillId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="BillImageData" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
       <Column Name="ImageContentType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Member="FileName" Type="System.String" CanBeNull="false" />
+      <Column Member="ContentLength" Type="System.String" CanBeNull="false" />
       <Association Name="Bill_BillImage" Member="Bill" ThisKey="BillId" OtherKey="Id" Type="Bill" IsForeignKey="true" />
     </Type>
   </Table>
