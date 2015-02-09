@@ -331,30 +331,62 @@ namespace PhpaAll.Controllers
         /// Display outstanding bills.
         /// </summary>
         [Authorize(Roles = "BillsExecutive")]
-        public virtual ActionResult OutstandingBills()
+        public virtual ActionResult OutstandingBills(OrderByField field = OrderByField.Division)
         {
             var model = new OutstandingBillsViewModel
             {
-
+                OrderByField = field
             };
 
             var query = from bill in _db.Value.Bills
                         where bill.PaidDate == null
-                        orderby bill.DueDate descending
-                        select new OutstandingBillModel
-                        {
-                            BillId = bill.Id,
-                            BillNumber = bill.BillNumber,
-                            SubmittedToDivisionId = bill.SubmitedToDivisionId,
-                            SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
-                            ContractorId = bill.ContractorId,
-                            ContractorName = bill.Contractor.ContractorName,
-                            BillDate = bill.BillDate,
-                            DueDate = bill.DueDate,
-                            Amount = bill.Amount
-                        };
+                        select bill;
+            switch (field)
+            {
+                case OrderByField.Division:
+                    query = query.OrderBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Station.StationName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
+                    break;
+                case OrderByField.Station:
+                    query = query.OrderBy(p => p.Station.StationName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
+                    break;
+                case OrderByField.Contractor:
+                    query = query.OrderBy(p => p.Contractor.ContractorName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Station.StationName).ThenBy(p => p.DueDate);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+            var finalquery = from bill in query
+                             select new OutstandingBillModel
+                             {
+                                 BillId = bill.Id,
+                                 BillNumber = bill.BillNumber,
+                                 SubmittedToDivisionId = bill.SubmitedToDivisionId,
+                                 SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
+                                 ContractorId = bill.ContractorId,
+                                 ContractorName = bill.Contractor.ContractorName,
+                                 BillDate = bill.BillDate,
+                                 DueDate = bill.DueDate,
+                                 Amount = bill.Amount,
+                             };
 
-            model.Bills = query.Take(100).ToList();
+            model.Bills = finalquery.Take(100).ToList();
+            foreach (var billmodel in model.Bills)
+            {
+                switch (field)
+                {
+                    case OrderByField.Division:
+                        billmodel.OrderByValue = billmodel.SubmittedToDivisionName;
+                        break;
+                    case OrderByField.Station:
+                        billmodel.OrderByValue = billmodel.StationName;
+                        break;
+                    case OrderByField.Contractor:
+                        billmodel.OrderByValue = billmodel.ContractorName;
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
+            }
             return View(Views.OutstandingBills, model);
         }
     }

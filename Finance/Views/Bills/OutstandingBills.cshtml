@@ -5,50 +5,79 @@
 <h2>
     @ViewBag.Title
 </h2>
-<div class="row">
-<div class="col-md-3">
-    <form id="frmFilters" method="get" action="@Url.Action(MVC.Bills.OutstandingBills())">
-        <fieldset id="fsFilter">
-            <legend>Show report by:</legend>
-            <input type="radio" name="ReportType" id="rgDivision">By Division
-            <br/>
-            <input type="radio" name="ReportType" id="rgStation">By Station
-            <br />
-            <input type="radio" name="ReportType" id="rgContractor">By Contractor
-        </fieldset>
-        <br />
-        <br />
-        <br />
-        <button type="submit" class="btn btn-primary">Apply Filters</button>
-        </form>
-</div>
-    <div class="col-lg-9">
-        <table class="table table-striped">
-            <thead>
-                <tr class="bg-info">
-                    <td><strong>#</strong></td>
-                    <td><strong>Bill No.</strong></td>
-                    <td><strong>Bill Date</strong></td>
-                    <td><strong>Due Date</strong></td>
-                    <td><strong>Division</strong></td>
-                    <td><strong>Contractor</strong></td>
-                    <td><strong>Amount</strong></td>
+
+<ul class="nav nav-tabs">
+    <li role="presentation" class="@(Model.OrderByField == PhpaAll.Bills.OrderByField.Division ? "active" : null)">
+        <a href="@Url.Action(MVC.Bills.OutstandingBills(PhpaAll.Bills.OrderByField.Division))">Division</a>
+    </li>
+    <li role="presentation" class="@(Model.OrderByField == PhpaAll.Bills.OrderByField.Station ? "active" : null)">
+        <a href="@Url.Action(MVC.Bills.OutstandingBills(PhpaAll.Bills.OrderByField.Station))">Station</a>
+    </li>
+    <li role="presentation" class="@(Model.OrderByField == PhpaAll.Bills.OrderByField.Contractor ? "active" : null)">
+        <a href="@Url.Action(MVC.Bills.OutstandingBills(PhpaAll.Bills.OrderByField.Contractor))">Contractor</a>
+    </li>
+</ul>
+
+<table class="table table-striped">
+    <thead>
+        <tr class="bg-info">
+            <th>#</th>
+            <th>Bill No.</th>
+            <th>Bill Date</th>
+            <th>Due Date</th>
+            @if (Model.OrderByField != PhpaAll.Bills.OrderByField.Division)
+            {
+                <th>Division</th>
+            }
+            @if (Model.OrderByField != PhpaAll.Bills.OrderByField.Station)
+            {
+                <th>Station</th>
+            }
+            @if (Model.OrderByField != PhpaAll.Bills.OrderByField.Contractor)
+            {
+                <th>Contractor</th>
+            }
+
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.Bills.Count; ++i)
+        {
+            if (i == 0 || Model.Bills[i - 1].OrderByValue != Model.Bills[i].OrderByValue)
+            {
+                <tr class="warning">
+                    <td colspan="7" class="text-center"><strong>@Html.DisplayFor(m => m.OrderByDisplayName) : @Html.DisplayFor(p => p.Bills[i].OrderByValue)</strong></td>
                 </tr>
-            </thead>
-            <tbody>
-                @for (var i = 0; i < Model.Bills.Count; ++i)
+            }
+
+            <tr>
+                <td>@(i + 1)</td>
+                <td>@Html.DisplayFor(m => m.Bills[i].BillNumber)</td>
+                <td>@Html.DisplayFor(m => m.Bills[i].BillDate)</td>
+                <td>@Html.DisplayFor(m => m.Bills[i].DueDate)</td>
+                @if (Model.OrderByField != PhpaAll.Bills.OrderByField.Division)
                 {
-                    <tr>
-                        <td>@i</td>
-                        <td>@Html.DisplayFor(m => m.Bills[i].BillNumber)</td>
-                        <td>@Html.DisplayFor(m => m.Bills[i].BillDate)</td>
-                        <td>@Html.DisplayFor(m => m.Bills[i].DueDate)</td>
-                        <td>@Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)</td>
-                        <td>@Html.DisplayFor(m => m.Bills[i].ContractorName)</td>
-                        <td style="text-align:right">@Html.DisplayFor(m => m.Bills[i].Amount)</td>
-                    </tr>
+                    <td>@Html.DisplayFor(m => m.Bills[i].SubmittedToDivisionName)</td>
                 }
-            </tbody>
-        </table>
-    </div>
-</div>
+                @if (Model.OrderByField != PhpaAll.Bills.OrderByField.Station)
+                {
+                    <td>@Html.DisplayFor(m => m.Bills[i].StationName)</td>
+                }
+                @if (Model.OrderByField != PhpaAll.Bills.OrderByField.Contractor)
+                {
+                    <td>@Html.DisplayFor(m => m.Bills[i].ContractorName)</td>
+                }
+
+                <td style="text-align:right">@Html.DisplayFor(m => m.Bills[i].Amount)</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr class="bg-info">
+            <th colspan="6">Total</th>
+            <th style="text-align:right">@Html.DisplayFor(m => m.TotalAmount)</th>
+        </tr>
+    </tfoot>
+
+</table>
