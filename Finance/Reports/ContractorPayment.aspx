@@ -83,11 +83,6 @@
         <i:ValidationSummary ID="ValidationSummary1" runat="server" />
     </eclipse:TwoColumnPanel>
 
-    <div style="font-size: large; margin-bottom: 1mm">
-        <%--<asp:Label ID="lblOpenBal" runat="server" Text="Opening Balance:" Visible="false" />--%>
-        <asp:Label ID="lblOpeningBalance" ToolTip="Opening balance of Job" runat="server"
-            Width="40%" />
-    </div>
 
     <phpa:PhpaLinqDataSource ID="dsContractorPayment" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Reporting.ReportingDataContext"
         TableName="RoJobs" RenderLogVisible="false" OnSelecting="dsContractorPayment_Selecting" />
@@ -101,6 +96,13 @@
             <div runat="server" id="itemPlaceHolder"></div>
         </LayoutTemplate>
         <ItemTemplate>
+
+            <div style="font-size: large; margin-bottom: 1mm">
+                <%--<asp:Label ID="lblOpenBal" runat="server" Text="Opening Balance:" Visible="false" />--%>
+                <asp:Label ID="lblOpeningBalance" ToolTip="Opening balance of Job" runat="server" Text='<%# string.Format("Opening Balance {0:C}", OpeningBalances[(int)Eval("Key.JobId")]) %>'
+                    Width="40%" />
+            </div>
+
             <div style="float: left; width: 60%">
                 <table border="1">
                     <tr>

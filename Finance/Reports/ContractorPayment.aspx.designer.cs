@@ -121,15 +121,6 @@ namespace PhpaAll.Reports {
         protected global::EclipseLibrary.Web.JQuery.Input.ValidationSummary ValidationSummary1;
         
         /// <summary>
-        /// lblOpeningBalance control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOpeningBalance;
-        
-        /// <summary>
         /// dsContractorPayment control.
         /// </summary>
         /// <remarks>

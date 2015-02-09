@@ -69,6 +69,10 @@ namespace PhpaAll.Reports
             }
         }
 
+        //protected IDictionary<int, decimal?> _dictOpeningBalancePerJob;
+
+        public IDictionary<int, decimal?> OpeningBalances { get; set; }
+
         /// <summary>
         /// Execute the query for the report.
         /// </summary>
@@ -197,8 +201,17 @@ namespace PhpaAll.Reports
 
             e.Result = query.Where(p => p.VoucherDate >= fromDate && p.VoucherDate <= toDate).ToLookup(p => p.Job, new JobComparer());
 
-            lblOpeningBalance.Text = string.Format("Opening Balance: {0:N2}", query.Where(p => p.VoucherDate < fromDate)
-                .Sum(p => (decimal?)p.NetPayment));
+            //lblOpeningBalance.Text = string.Format("Opening Balance: {0:N2}", query.Where(p => p.VoucherDate < fromDate)
+            //    .Sum(p => (decimal?)p.NetPayment));
+
+            OpeningBalances = (from item in query
+                         where item.VoucherDate < fromDate
+                         group item by item.Job.JobId into g
+                         select new
+                         {
+                             JobId = g.Key,
+                             OpeningBalance = (decimal?)g.Sum(p => p.NetPayment)
+                         }).ToDictionary(p => p.JobId, p => p.OpeningBalance);
         }
 
         public decimal Balance { get; set; }
@@ -238,6 +251,11 @@ namespace PhpaAll.Reports
                     break;
             }
         }
+
+        //protected string GetOpeningBalance(int jobId)
+        //{
+        //    return jobId.ToString();
+        //}
 
     }
 }
