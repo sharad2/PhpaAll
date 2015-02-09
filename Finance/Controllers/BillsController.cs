@@ -330,7 +330,11 @@ namespace PhpaAll.Controllers
         private class MyTestGroup
         {
 
-            public string OrderByValue { get; set; }
+            public string GroupValue { get; set; }
+
+            public int? GroupId { get; set; }
+
+            public string GroupDisplayName { get; set; }
         }
         /// <summary>
         /// Display outstanding bills.
@@ -358,23 +362,35 @@ namespace PhpaAll.Controllers
                     groupedQuery = from item in query
                                    group item by new MyTestGroup
                                    {
-                                       OrderByValue = item.SubmittedToDivision.DivisionName,
+                                       GroupId = item.SubmitedToDivisionId,
+                                       GroupValue = item.SubmittedToDivision.DivisionName,
+                                       GroupDisplayName = "Division"
                                     } into g
                             select g;
                     break;
-                //case OrderByField.Station:
-                //    //query = query.OrderBy(p => p.Station.StationName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
-                //    groupedQuery = from item in query
-                //                   group item by (int?)item.StationId into g
-                //                   select g;
-                //    break;
-                //case OrderByField.Contractor:
-                //    //query = query.OrderBy(p => p.Contractor.ContractorName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Station.StationName).ThenBy(p => p.DueDate);
-                //    groupedQuery = from item in query
-                //                   group item by (int?)item.ContractorId into g
-                //                   select g;
+                case OrderByField.Station:
+                    //query = query.OrderBy(p => p.Station.StationName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
+                    groupedQuery = from item in query
+                                   group item by new MyTestGroup
+                                   {
+                                       GroupId = item.StationId,
+                                       GroupValue = item.Station.StationName,
+                                       GroupDisplayName = "Station"
+                                   } into g
+                                   select g;
+                    break;
+                case OrderByField.Contractor:
+                    //query = query.OrderBy(p => p.Contractor.ContractorName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Station.StationName).ThenBy(p => p.DueDate);
+                    groupedQuery = from item in query
+                                   group item by new MyTestGroup
+                                   {
+                                       GroupId = item.ContractorId,
+                                       GroupValue = item.Contractor.ContractorName,
+                                       GroupDisplayName = "Contractor"
+                                   } into g
+                                   select g;
 
-                //    break;
+                    break;
                 default:
                     throw new NotImplementedException();
             }
@@ -394,12 +410,14 @@ namespace PhpaAll.Controllers
             //                     Amount = bill.Amount
             //                 };
 
-            var y = from mygroup in groupedQuery
+            var finalquery = from mygroup in groupedQuery
+                             orderby mygroup.Key.GroupValue
                     select new OutstandingBillGroupModel
                     {
                         DatabaseCount = mygroup.Count(),
                         GroupTotal = mygroup.Sum(p => p.Amount),
-                        OrderByValue = mygroup.Key.OrderByValue,
+                        OrderByValue = mygroup.Key.GroupValue,
+                        GroupDisplayName = mygroup.Key.GroupDisplayName,
                         Bills = (from bill in mygroup
                                  orderby bill.DueDate descending
                                  select new OutstandingBillModel
@@ -417,33 +435,33 @@ namespace PhpaAll.Controllers
 
                     };
 
-            var finalquery2 = from bill2 in query
-                              group bill2 by bill2.SubmittedToDivision into g
-                              orderby g.Key.DivisionName
-                              select new OutstandingBillGroupModel
-                              {
-                                  DatabaseCount = g.Count(),
-                                       GroupTotal = g.Sum(p => p.Amount),
-                                       OrderByValue = g.Key.DivisionName,
-                                       Bills = (from bill in g
-                                                orderby bill.DueDate descending
-                                                select new OutstandingBillModel
-                                                {
-                                                    BillId = bill.Id,
-                                                    BillNumber = bill.BillNumber,
-                                                    SubmittedToDivisionId = bill.SubmitedToDivisionId,
-                                                    SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
-                                                    ContractorId = bill.ContractorId,
-                                                    ContractorName = bill.Contractor.ContractorName,
-                                                    BillDate = bill.BillDate,
-                                                    DueDate = bill.DueDate,
-                                                    Amount = bill.Amount
-                                                }).Take(2000).ToList()
+            //var finalquery2 = from bill2 in query
+            //                  group bill2 by bill2.SubmittedToDivision into g
+            //                  orderby g.Key.DivisionName
+            //                  select new OutstandingBillGroupModel
+            //                  {
+            //                      DatabaseCount = g.Count(),
+            //                           GroupTotal = g.Sum(p => p.Amount),
+            //                           OrderByValue = g.Key.DivisionName,
+            //                           Bills = (from bill in g
+            //                                    orderby bill.DueDate descending
+            //                                    select new OutstandingBillModel
+            //                                    {
+            //                                        BillId = bill.Id,
+            //                                        BillNumber = bill.BillNumber,
+            //                                        SubmittedToDivisionId = bill.SubmitedToDivisionId,
+            //                                        SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
+            //                                        ContractorId = bill.ContractorId,
+            //                                        ContractorName = bill.Contractor.ContractorName,
+            //                                        BillDate = bill.BillDate,
+            //                                        DueDate = bill.DueDate,
+            //                                        Amount = bill.Amount
+            //                                    }).Take(2000).ToList()
 
-                              };
+            //                  };
 
             //model.BillGroups = finalquery2.ToList();
-            model.BillGroups = y.ToList();
+            model.BillGroups = finalquery.ToList();
             //foreach (var row in finalquery2)
             //{
             //    model.Bills2[row.Division] = row.Bills.ToList();

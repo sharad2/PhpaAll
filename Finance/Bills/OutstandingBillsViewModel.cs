@@ -20,6 +20,8 @@ namespace PhpaAll.Bills
 
         [DisplayFormat(NullDisplayText = "(Not Set)")]
         public String OrderByValue { get; set; }
+        
+        public string GroupDisplayName { get; set; }
 
         public IList<OutstandingBillModel> Bills { get; set; }
 
@@ -64,24 +66,25 @@ namespace PhpaAll.Bills
     public class OutstandingBillsViewModel
     {
         public OrderByField OrderByField { get; set; }
-        public string OrderByDisplayName
-        {
-            get
-            {
-                switch (OrderByField)
-                {
-                    case OrderByField.Division:
-                        return "Division";
-                    case OrderByField.Station:
-                        return "Station";
-                    case OrderByField.Contractor:
-                        return "Contractor";
-                    default:
-                        return "Unknown";
-                }
-            }
+        //[Obsolete]
+        //public string OrderByDisplayName
+        //{
+        //    get
+        //    {
+        //        switch (OrderByField)
+        //        {
+        //            case OrderByField.Division:
+        //                return "Division";
+        //            case OrderByField.Station:
+        //                return "Station";
+        //            case OrderByField.Contractor:
+        //                return "Contractor";
+        //            default:
+        //                return "Unknown";
+        //        }
+        //    }
 
-        }
+        //}
         public bool? OverDueOnly { get; set; }
 
         public IList<OutstandingBillGroupModel> BillGroups { get; set; }
