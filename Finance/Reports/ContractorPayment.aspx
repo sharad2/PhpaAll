@@ -16,7 +16,7 @@
         }
         function tbJobs_KeyPress() {
             var contractorId = $('#tbContractors').autocompleteEx('selectedValue');
-            if (!divisionId) {
+            if (!contractorId) {
                 alert('Please select contractor first');
                 return false;
             }
