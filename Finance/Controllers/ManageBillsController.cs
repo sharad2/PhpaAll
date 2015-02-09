@@ -88,7 +88,7 @@ namespace PhpaAll.Controllers
             };
             _db.Value.Bills.InsertOnSubmit(bill);
             _db.Value.SubmitChanges();
-            return RedirectToAction(MVC.Bills.RecentBills());
+            return RedirectToAction(MVC.ManageBills.ShowBill(bill.Id));
 
         }
 
@@ -125,16 +125,6 @@ namespace PhpaAll.Controllers
         {
             try
             {
-                //byte[] imageData = null;
-
-                //if (model.BillImage != null && model.BillImage.ContentLength > 0)
-                //{
-                //    // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/  
-                //    var ms = new MemoryStream(model.BillImage.ContentLength);
-                //    model.BillImage.InputStream.CopyTo(ms);
-                //    imageData = ms.ToArray();
-                //}
-
                 var edit = (from b in _db.Value.Bills
                             where b.Id == model.Id
                             select b).SingleOrDefault();
@@ -156,7 +146,7 @@ namespace PhpaAll.Controllers
             {
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
-            return RedirectToAction(MVC.ManageBills.ShowBill());
+            return RedirectToAction(MVC.ManageBills.ShowBill(model.Id));
         }
 
 
@@ -165,6 +155,17 @@ namespace PhpaAll.Controllers
         public virtual ActionResult Delete(int id)
         {
             Bill edit = _db.Value.Bills.Where(bill => bill.Id == id).SingleOrDefault();
+
+            //delete images first before attaimpting to delete the bill
+            var deleteImages = from image in _db.Value.BillImages
+                                          where image.BillId == id
+                                          select image;
+            foreach (var images in deleteImages)
+            {
+                _db.Value.BillImages.DeleteOnSubmit(images);
+                
+            }
+
             if (edit != null)
             {
                 _db.Value.Bills.DeleteOnSubmit(edit);
@@ -253,11 +254,11 @@ namespace PhpaAll.Controllers
             var imagesUploadedCount = (from imageCount in _db.Value.BillImages
                                        where imageCount.BillId == billId
                                        select imageCount.id).Count();
-           
+
             if (imagesUploadedCount == 10)
             {
                 throw new NotImplementedException("You can't upload more than 10 images");
-              
+
             }
             else
             {
