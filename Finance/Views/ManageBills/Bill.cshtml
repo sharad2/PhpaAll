@@ -98,7 +98,8 @@
 
 
 
-
+@if (Model.AttachedImageCount >0)
+{
 <nav class="text-center">
     <ul class="pagination">
         <li >
@@ -117,10 +118,10 @@
         </li>
     </ul>
 </nav>
-
+}
 @if (Model.AttachedImageCount <= 10)
 {
-    <form action="@Url.Action(MVC.ManageBills.UploadImage())"
+    <form action="@Url.Action(MVC.ManageBills.UploadImage())" 
           class="dropzone"
           id="my-dropzone">
         <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
@@ -134,13 +135,14 @@ else
     <p class="alert alert-info">Max 10 files allowed. Remove some to add more.</p>
 }
 
-<div id="carousel-attachment" class="carousel slide" data-ride="carousel" data-interval="false">
+<br/>
+<div id="carousel-attachment" class="carousel slide" data-ride="carousel" data-interval="false" >
 
     <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
+    <div class="carousel-inner" role="listbox" >
         @for (var i = 0; i < Model.AttachedImageCount; ++i)
         {
-            <div class="item @(i == 0 ? "active" : "")">
+            <div class="item @(i == 0 ? "active" : "")" style="border: 5px solid #4196c7">
                 @if (i == 0)
                 {
                     <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="..." />
@@ -162,18 +164,18 @@ else
             </div>
         }
     </div>
-@if (Model.AttachedImageCount >0)
-{ 
+    @if (Model.AttachedImageCount > 0)
+    {
     <!-- Controls -->
-    <a class="left carousel-control" href="#carousel-attachment" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#carousel-attachment" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-}
+        <a class="left carousel-control" href="#carousel-attachment" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-attachment" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    }
 </div>
 
 <h2>
