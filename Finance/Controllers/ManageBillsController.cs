@@ -256,6 +256,7 @@ namespace PhpaAll.Controllers
             if (imagesUploadedCount == 10)
             {
                 throw new NotImplementedException("You can't upload more than 10 images");
+              
             }
             else
             {
