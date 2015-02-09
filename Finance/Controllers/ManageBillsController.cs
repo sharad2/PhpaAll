@@ -245,24 +245,38 @@ namespace PhpaAll.Controllers
         }
 
         [HttpPost]
+        [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
         public virtual ActionResult UploadImage(int billId, HttpPostedFileBase file)
         {
             //throw new NotImplementedException("Sorry");
-            var input = new byte[file.ContentLength];
-            file.InputStream.Read(input, 0, file.ContentLength);
 
-            var bill = new BillImage
+            var imagesUploadedCount = (from imageCount in _db.Value.BillImages
+                                       where imageCount.BillId == billId
+                                       select imageCount.id).Count();
+           
+            if (imagesUploadedCount == 10)
             {
-                BillImageData = input,
-                BillId = billId,
-                ImageContentType = file.ContentType
-            };
-            _db.Value.BillImages.InsertOnSubmit(bill);
-            _db.Value.SubmitChanges();
-            return Json(new
+                throw new NotImplementedException("You can't upload more than 10 images");
+              
+            }
+            else
             {
-                DeleteUrl = Url.Action(Actions.DeleteImage(bill.id))
-            });
+                var input = new byte[file.ContentLength];
+                file.InputStream.Read(input, 0, file.ContentLength);
+
+                var bill = new BillImage
+                {
+                    BillImageData = input,
+                    BillId = billId,
+                    ImageContentType = file.ContentType
+                };
+                _db.Value.BillImages.InsertOnSubmit(bill);
+                _db.Value.SubmitChanges();
+                return Json(new
+                {
+                    DeleteUrl = Url.Action(Actions.DeleteImage(bill.id))
+                });
+            }
         }
 
         /// <summary>
