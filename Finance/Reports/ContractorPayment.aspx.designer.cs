@@ -67,6 +67,24 @@ namespace PhpaAll.Reports {
         protected global::EclipseLibrary.Web.JQuery.Input.TextBoxEx tbToDate;
         
         /// <summary>
+        /// LeftLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::EclipseLibrary.Web.UI.LeftLabel LeftLabel2;
+        
+        /// <summary>
+        /// tbContractors control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::EclipseLibrary.Web.JQuery.Input.AutoComplete tbContractors;
+        
+        /// <summary>
         /// LeftLabel18 control.
         /// </summary>
         /// <remarks>
@@ -110,50 +128,5 @@ namespace PhpaAll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Eclipse.PhpaLibrary.Web.PhpaLinqDataSource dsContractorPayment;
-        
-        /// <summary>
-        /// dsSpecificJob control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Eclipse.PhpaLibrary.Web.PhpaLinqDataSource dsSpecificJob;
-        
-        /// <summary>
-        /// fvJob control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FormView fvJob;
-        
-        /// <summary>
-        /// lblOpeningBalance control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOpeningBalance;
-        
-        /// <summary>
-        /// gvContractorPayment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::EclipseLibrary.Web.JQuery.GridViewEx gvContractorPayment;
-        
-        /// <summary>
-        /// lbldiffrence control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbldiffrence;
     }
 }
