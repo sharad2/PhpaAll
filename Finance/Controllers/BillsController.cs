@@ -371,10 +371,11 @@ namespace PhpaAll.Controllers
                                  ContractorName = bill.Contractor.ContractorName,
                                  BillDate = bill.BillDate,
                                  DueDate = bill.DueDate,
-                                 Amount = bill.Amount,
+                                 Amount = bill.Amount
                              };
 
-            model.Bills = finalquery.Take(100).ToList();
+            model.Bills = finalquery.Take(5000).ToList();
+
             foreach (var billmodel in model.Bills)
             {
                 switch (field)
@@ -392,6 +393,19 @@ namespace PhpaAll.Controllers
                         throw new NotImplementedException();
                 }
             }
+
+            var query2 = (from item in model.Bills
+                         group item by item.OrderByValue into g
+                         select new
+                         {
+                             OrderByValue = g.Key,
+                             Amount = g.Sum(p => p.Amount)
+                         }).ToDictionary(p => p.OrderByValue??"", p => p.Amount);
+            foreach (var billmodel in model.Bills)
+            {
+                billmodel.GroupTotal = query2[billmodel.OrderByValue??""];
+            }
+
             return View(Views.OutstandingBills, model);
         }
     }

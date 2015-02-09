@@ -51,7 +51,8 @@
             if (i == 0 || Model.Bills[i - 1].OrderByValue != Model.Bills[i].OrderByValue)
             {
                 <tr class="warning">
-                    <td colspan="7" class="text-center"><strong>@Html.DisplayFor(m => m.OrderByDisplayName) : @Html.DisplayFor(p => p.Bills[i].OrderByValue)</strong></td>
+                    <td colspan="6" class="text-center"><strong>@Html.DisplayFor(m => m.OrderByDisplayName) : @Html.DisplayFor(p => p.Bills[i].OrderByValue)</strong></td>
+                    <td style="text-align:right"><strong>@Html.DisplayFor(m => m.Bills[i].GroupTotal)</strong></td>
                 </tr>
             }
 

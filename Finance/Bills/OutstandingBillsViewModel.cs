@@ -37,9 +37,13 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public Decimal? Amount { get; set; }
 
+        [DisplayFormat(NullDisplayText="(Not Set)")]
         public String OrderByValue { get; set; }
 
         public string StationName { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N2}")]
+        public decimal? GroupTotal { get; set; }
     }
 
     public class OutstandingBillsViewModel
