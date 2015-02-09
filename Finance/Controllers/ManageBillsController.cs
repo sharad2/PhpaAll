@@ -245,6 +245,7 @@ namespace PhpaAll.Controllers
         }
 
         [HttpPost]
+        [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
         public virtual ActionResult UploadImage(int billId, HttpPostedFileBase file)
         {
             //throw new NotImplementedException("Sorry");
