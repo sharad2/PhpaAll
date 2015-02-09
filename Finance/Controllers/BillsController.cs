@@ -327,6 +327,11 @@ namespace PhpaAll.Controllers
             return Redirect(url);
         }
 
+        private class MyTestGroup
+        {
+
+            public string OrderByValue { get; set; }
+        }
         /// <summary>
         /// Display outstanding bills.
         /// </summary>
@@ -344,18 +349,32 @@ namespace PhpaAll.Controllers
                             where (overdueOnly?? false) ? (bill.PaidDate == null && bill.DueDate < DateTime.Now) : (bill.PaidDate == null)
                             select bill;
 
+            IQueryable<IGrouping<MyTestGroup, Bill>> groupedQuery;
+
             switch (field)
             {
                 case OrderByField.Division:
                     //query = query.OrderBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Station.StationName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
+                    groupedQuery = from item in query
+                                   group item by new MyTestGroup
+                                   {
+                                       OrderByValue = item.SubmittedToDivision.DivisionName,
+                                    } into g
+                            select g;
+                    break;
+                //case OrderByField.Station:
+                //    //query = query.OrderBy(p => p.Station.StationName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
+                //    groupedQuery = from item in query
+                //                   group item by (int?)item.StationId into g
+                //                   select g;
+                //    break;
+                //case OrderByField.Contractor:
+                //    //query = query.OrderBy(p => p.Contractor.ContractorName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Station.StationName).ThenBy(p => p.DueDate);
+                //    groupedQuery = from item in query
+                //                   group item by (int?)item.ContractorId into g
+                //                   select g;
 
-                    break;
-                case OrderByField.Station:
-                    //query = query.OrderBy(p => p.Station.StationName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
-                    break;
-                case OrderByField.Contractor:
-                    //query = query.OrderBy(p => p.Contractor.ContractorName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Station.StationName).ThenBy(p => p.DueDate);
-                    break;
+                //    break;
                 default:
                     throw new NotImplementedException();
             }
@@ -374,6 +393,29 @@ namespace PhpaAll.Controllers
             //                     DueDate = bill.DueDate,
             //                     Amount = bill.Amount
             //                 };
+
+            var y = from mygroup in groupedQuery
+                    select new OutstandingBillGroupModel
+                    {
+                        DatabaseCount = mygroup.Count(),
+                        GroupTotal = mygroup.Sum(p => p.Amount),
+                        OrderByValue = mygroup.Key.OrderByValue,
+                        Bills = (from bill in mygroup
+                                 orderby bill.DueDate descending
+                                 select new OutstandingBillModel
+                                 {
+                                     BillId = bill.Id,
+                                     BillNumber = bill.BillNumber,
+                                     SubmittedToDivisionId = bill.SubmitedToDivisionId,
+                                     SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
+                                     ContractorId = bill.ContractorId,
+                                     ContractorName = bill.Contractor.ContractorName,
+                                     BillDate = bill.BillDate,
+                                     DueDate = bill.DueDate,
+                                     Amount = bill.Amount
+                                 }).Take(2000).ToList()
+
+                    };
 
             var finalquery2 = from bill2 in query
                               group bill2 by bill2.SubmittedToDivision into g
@@ -400,7 +442,8 @@ namespace PhpaAll.Controllers
 
                               };
 
-            model.BillGroups = finalquery2.ToList();
+            //model.BillGroups = finalquery2.ToList();
+            model.BillGroups = y.ToList();
             //foreach (var row in finalquery2)
             //{
             //    model.Bills2[row.Division] = row.Bills.ToList();
