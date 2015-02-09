@@ -26,18 +26,29 @@ namespace PhpaAll.Reports
     public partial class ContractorPayment : PageBase
     {
 
-        //protected void dsSpecificJob_Selecting(object sender, LinqDataSourceSelectEventArgs e)
-        //{
-        //    if (!btnGo.IsPageValid())
-        //    {
-        //        e.Cancel = true;
-        //        return;
-        //    }
-        //    ReportingDataContext db = (ReportingDataContext)this.dsSpecificJob.Database;
-        //    DataLoadOptions dlo = new DataLoadOptions();
-        //    dlo.LoadWith<RoJob>(p => p.RoContractor);
-        //    db.LoadOptions = dlo;
-        //}
+
+        protected class GrandTotalData
+        {
+            public decimal? AdmittedAmount { get; set; }
+
+            public decimal? AdvancePaid { get; set; }
+
+            public decimal? ContractorAdvanceAdjusted { get; set; }
+
+            public decimal? ContractorTax { get; set; }
+
+            public decimal? SecurityDeposit { get; set; }
+
+            public decimal? InterestRecoverd { get; set; }
+
+            public decimal? OtherRecovery { get; set; }
+
+            public decimal? TotalRecovery { get; set; }
+
+            public decimal NetPayment { get; set; }
+        }
+
+        protected GrandTotalData GrandTotals { get; set; }
 
         //private IList<RoVoucher> m_query;
         protected override void OnLoad(EventArgs e)
@@ -174,7 +185,7 @@ namespace PhpaAll.Reports
                         let advancePaid = (decimal?)(from vd in grp
                                                      where HeadOfAccountHelpers.JobAdvances.Contains(vd.HeadOfAccount.HeadOfAccountType)
                                                      select vd.DebitAmount).Sum()
-                        select new
+                        select new 
                         {
                             Job = grp.Key.RoJob,
                             Particulars = grp.Key.RoVoucher.Particulars,
@@ -195,19 +206,24 @@ namespace PhpaAll.Reports
                             NetPayment = (admittedAmount ?? 0) + (advancePaid ?? 0) - (totalRecovery ?? 0) // Col 12
                         };
 
-            //var x = query.Where(p => p.VoucherDate >= fromDate && p.VoucherDate <= toDate).ToLookup(p => p.Job, p => new
-            //{
-            //    Vouchers = p
-            //});
-            //foreach (var item in x)
-            //{
-            //    foreach (var item2 in item)
-            //    {
-            //        var a = item2.Vouchers;
-            //    }
-            //}
+            var results = query.Where(p => p.VoucherDate >= fromDate && p.VoucherDate <= toDate).ToLookup(p => p.Job, new JobComparer());
 
-            e.Result = query.Where(p => p.VoucherDate >= fromDate && p.VoucherDate <= toDate).ToLookup(p => p.Job, new JobComparer());
+            var grandTotals = new GrandTotalData();
+            foreach (var item in results.SelectMany(p => p))
+            {
+                grandTotals.AdmittedAmount = (new[] { grandTotals.AdmittedAmount, item.AdmittedAmount }).Sum();
+                grandTotals.AdvancePaid = (new[] { grandTotals.AdvancePaid, item.AdvancePaid }).Sum();
+                grandTotals.ContractorAdvanceAdjusted = (new[] { grandTotals.ContractorAdvanceAdjusted, item.ContractorAdvanceAdjusted }).Sum();
+                grandTotals.ContractorTax = (new[] { grandTotals.ContractorTax, item.ContractorTax }).Sum();
+                grandTotals.SecurityDeposit = (new[] { grandTotals.SecurityDeposit, item.SecurityDeposit }).Sum();
+                grandTotals.InterestRecoverd = (new[] { grandTotals.InterestRecoverd, item.InterestRecoverd }).Sum();
+                grandTotals.OtherRecovery = (new[] { grandTotals.OtherRecovery, item.OtherRecovery }).Sum();
+                grandTotals.TotalRecovery = (new[] { grandTotals.TotalRecovery, item.TotalRecovery }).Sum();
+                grandTotals.NetPayment = (new[] { grandTotals.NetPayment, item.NetPayment }).Sum();
+            }
+            GrandTotals = grandTotals;
+
+            e.Result = results;
 
             //lblOpeningBalance.Text = string.Format("Opening Balance: {0:N2}", query.Where(p => p.VoucherDate < fromDate)
             //    .Sum(p => (decimal?)p.NetPayment));

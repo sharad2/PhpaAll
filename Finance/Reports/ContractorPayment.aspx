@@ -94,6 +94,73 @@
                 <h1>Payment to Contractor from <%= string.Format("{0:dd MMMM yyyy}", tbFromDate.ValueAsDate) %> to <%= string.Format("{0:dd MMMM yyyy}", tbToDate.ValueAsDate) %> </h1>
             </asp:PlaceHolder>
             <div runat="server" id="itemPlaceHolder"></div>
+            <br />
+            <hr />
+        <table border="1" width="100%">
+            <caption><h1>Grand Totals</h1></caption>
+            <thead>
+                <tr class="ui-state-default">
+                    <th>
+                        Amount
+                    </th>
+                    <th>
+                        Advance
+                    </th>
+                    <th>
+                        Adjustment
+                    </th>
+                    <th>
+                        Contract Tax
+                    </th>
+                    <th>
+                        Security Deposit
+                    </th>
+                    <th>
+                        Interest
+                    </th>
+                    <th>
+                        Others
+                    </th>
+                    <th>
+                        Total Recovery
+                    </th>
+                    <th>
+                        Net Payment
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="ui-state-active ui-widget-header">
+                    <td align="right">
+                        <asp:Label ID="lblAmount" runat="server"><%= string.Format("{0:C}", this.GrandTotals.AdmittedAmount) %></asp:Label>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="lblAdvance" runat="server"><%= string.Format("{0:C}", this.GrandTotals.AdvancePaid) %></asp:Label>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="lblAdjustmenet" runat="server"><%= string.Format("{0:C}", this.GrandTotals.ContractorAdvanceAdjusted) %></asp:Label>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="lblConTax" runat="server"><%= string.Format("{0:C}", this.GrandTotals.ContractorTax) %></asp:Label>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="lblSD" runat="server"><%= string.Format("{0:C}", this.GrandTotals.SecurityDeposit) %></asp:Label>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="lblInterest" runat="server"><%= string.Format("{0:C}", this.GrandTotals.InterestRecoverd) %></asp:Label>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="lblOthers" runat="server"><%= string.Format("{0:C}", this.GrandTotals.OtherRecovery) %></asp:Label>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="lblTotalRecovery" runat="server"><%= string.Format("{0:C}", this.GrandTotals.TotalRecovery) %></asp:Label>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="lblNetPayment" runat="server"><%= string.Format("{0:C}", this.GrandTotals.NetPayment) %></asp:Label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         </LayoutTemplate>
         <ItemTemplate>
 
