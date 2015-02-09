@@ -28,14 +28,14 @@
                 alert('Please select contractor first');
                 return false;
             }
-            $(this).autocompleteEx('option', 'parameters', { contractorId: contractorId, term: $(this).val() });
-            var badJob = $(this).autocompleteEx('validate');
-            var job = $(this).autocompleteEx('selectedValue');
-            if (!job) {
-                alert('Job is invalid or it does not belongs contractor. Please re-enter valid job');
-                $(this).val('');
-                $(this).focus();
-            }
+            //$(this).autocompleteEx('option', 'parameters', { contractorId: contractorId, term: $(this).val() });
+            //var badJob = $(this).autocompleteEx('validate');
+            //var job = $(this).autocompleteEx('selectedValue');
+            //if (!job) {
+            //    alert('Job is invalid or it does not belongs contractor. Please re-enter valid job');
+            //    $(this).val('');
+            //    $(this).focus();
+            //}
         }
     </script>
 </asp:Content>
@@ -99,7 +99,7 @@
 
             <div style="font-size: large; margin-bottom: 1mm">
                 <%--<asp:Label ID="lblOpenBal" runat="server" Text="Opening Balance:" Visible="false" />--%>
-                <asp:Label ID="lblOpeningBalance" ToolTip="Opening balance of Job" runat="server" Text='<%# string.Format("Opening Balance {0:C}", OpeningBalances[(int)Eval("Key.JobId")]) %>'
+                <asp:Label ID="lblOpeningBalance" ToolTip="Opening balance of Job" runat="server" Text='<%# string.Format("Opening Balance {0:C}", GetOpeningBalance((int)Eval("Key.JobId"))) %>'
                     Width="40%" />
             </div>
 

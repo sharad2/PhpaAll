@@ -69,9 +69,17 @@ namespace PhpaAll.Reports
             }
         }
 
-        //protected IDictionary<int, decimal?> _dictOpeningBalancePerJob;
+        protected IDictionary<int, decimal?> _dictOpeningBalancePerJob;
 
-        public IDictionary<int, decimal?> OpeningBalances { get; set; }
+        protected decimal GetOpeningBalance(int jobId)
+        {
+            decimal? val;
+            if (_dictOpeningBalancePerJob != null && _dictOpeningBalancePerJob.TryGetValue(jobId, out val))
+            {
+                return val ?? 0;
+            }
+            return 0;
+        }
 
         /// <summary>
         /// Execute the query for the report.
@@ -80,7 +88,7 @@ namespace PhpaAll.Reports
         /// <param name="e"></param>
         protected void dsContractorPayment_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
-            if (!btnGo.IsPageValid())
+            if (!btnGo.IsPageValid() || (string.IsNullOrWhiteSpace(tbJob.Value) && string.IsNullOrWhiteSpace(tbContractors.Value)))
             {
                 e.Cancel = true;
                 return;
@@ -204,7 +212,7 @@ namespace PhpaAll.Reports
             //lblOpeningBalance.Text = string.Format("Opening Balance: {0:N2}", query.Where(p => p.VoucherDate < fromDate)
             //    .Sum(p => (decimal?)p.NetPayment));
 
-            OpeningBalances = (from item in query
+            _dictOpeningBalancePerJob = (from item in query
                          where item.VoucherDate < fromDate
                          group item by item.Job.JobId into g
                          select new
