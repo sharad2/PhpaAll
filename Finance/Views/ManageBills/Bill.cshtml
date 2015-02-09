@@ -54,11 +54,11 @@
             <strong class="pull-right1">Dated: @Html.DisplayFor(m => m.BillDate)</strong>
             @if (Model.DueDate < DateTime.Now)
             {
-            <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
+                <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
             }
             else
             {
-            <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
+                <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
             }
         </div>
     </div>
@@ -71,9 +71,9 @@
 
             @if (Model.PaidDate != null)
             {
-            <span>
-                paid on @Html.DisplayFor(m => m.PaidDate)
-            </span>
+                <span>
+                    paid on @Html.DisplayFor(m => m.PaidDate)
+                </span>
             }
 
             <small>
@@ -101,8 +101,12 @@
 
 @if (Model.AttachedImageCount < 10)
 {
-    <em>        
-        <small>Note: @Model.AttachedImageCount images have been uploaded</small>      
+    <em>
+        <small>Note: @Model.AttachedImageCount images have been uploaded</small>
+        |
+        <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))">
+            <span class="glyphicon glyphicon-refresh"></span>Refresh
+        </a>
     </em>
     <form action="@Url.Action(MVC.ManageBills.UploadImage())"
           class="dropzone"
