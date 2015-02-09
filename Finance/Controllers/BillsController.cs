@@ -350,8 +350,13 @@ namespace PhpaAll.Controllers
             };
             
             var query = from bill in _db.Value.Bills
-                            where (overdueOnly?? false) ? (bill.PaidDate == null && bill.DueDate < DateTime.Now) : (bill.PaidDate == null)
+                            where bill.PaidDate == null
+                            //where (overdueOnly?? false) ? (bill.PaidDate == null && bill.DueDate < DateTime.Now) : (bill.PaidDate == null)
                             select bill;
+            if (overdueOnly == true)
+            {
+                query = query.Where(p => p.DueDate < DateTime.Today);
+            }
 
             IQueryable<IGrouping<MyTestGroup, Bill>> groupedQuery;
 
@@ -416,7 +421,7 @@ namespace PhpaAll.Controllers
                     {
                         DatabaseCount = mygroup.Count(),
                         GroupTotal = mygroup.Sum(p => p.Amount),
-                        OrderByValue = mygroup.Key.GroupValue,
+                        GroupValue = mygroup.Key.GroupValue,
                         GroupDisplayName = mygroup.Key.GroupDisplayName,
                         Bills = (from bill in mygroup
                                  orderby bill.DueDate descending

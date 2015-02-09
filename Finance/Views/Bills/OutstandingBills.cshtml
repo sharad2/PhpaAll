@@ -114,7 +114,7 @@
         @for (var i = 0; i < Model.BillGroups.Count; ++i)
         {
             <tr class="warning">
-                <td colspan="6" class="text-center"><strong>@Html.DisplayFor(m => m.BillGroups[i].GroupDisplayName) : @Html.DisplayFor(p => p.BillGroups[i].OrderByValue)</strong></td>
+                <td colspan="6" class="text-center"><strong>@Html.DisplayFor(m => m.BillGroups[i].GroupDisplayName) : @Html.DisplayFor(p => p.BillGroups[i].GroupValue)</strong></td>
                 <td style="text-align:right"><strong>@Html.DisplayFor(m => m.BillGroups[i].GroupTotal)</strong></td>
             </tr>
             for (var j = 0; j < Model.BillGroups[i].Bills.Count; ++j)

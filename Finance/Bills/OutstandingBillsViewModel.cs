@@ -19,7 +19,7 @@ namespace PhpaAll.Bills
         public decimal? GroupTotal { get; set; }
 
         [DisplayFormat(NullDisplayText = "(Not Set)")]
-        public String OrderByValue { get; set; }
+        public String GroupValue { get; set; }
         
         public string GroupDisplayName { get; set; }
 
