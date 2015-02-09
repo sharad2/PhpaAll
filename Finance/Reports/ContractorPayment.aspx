@@ -315,6 +315,11 @@
             </div>
 
         </ItemTemplate>
+        <ItemSeparatorTemplate>
+            <br />
+            <br />
+            <hr />
+        </ItemSeparatorTemplate>
 
     </asp:ListView>
 
