@@ -3,6 +3,7 @@ using PhpaAll.MvcHelpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -333,9 +334,21 @@ namespace PhpaAll.Controllers
         /// <param name="billId"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Roles = "BillsManager")]
         public virtual ActionResult ApproveBill(int billId)
         {
-            //throw new NotImplementedException(billId.ToString());
+            if (string.IsNullOrWhiteSpace(User.Identity.Name))
+            {
+                throw new HttpException("You must be logged in to approve or disapprove bills");
+            }
+            var query = (from bill in _db.Value.Bills
+                             where bill.Id == billId
+                             select bill).SingleOrDefault();
+
+            query.ApprovedOn = DateTime.Now;
+            query.ApprovedBy = User.Identity.Name;
+            _db.Value.SubmitChanges();
+            
             return Json("Done");
         }
 
@@ -362,8 +375,8 @@ namespace PhpaAll.Controllers
             };
 
             var query = from bill in _db.Value.Bills
-                            where bill.Voucher == null
-                            select bill;
+                        where bill.Voucher == null
+                        select bill;
             if (overdueOnly == true)
             {
                 query = query.Where(p => p.DueDate < DateTime.Today);
@@ -381,8 +394,8 @@ namespace PhpaAll.Controllers
                                        GroupId = item.SubmitedToDivisionId,
                                        GroupValue = item.SubmittedToDivision.DivisionName,
                                        GroupDisplayName = "Division"
-                                    } into g
-                            select g;
+                                   } into g
+                                   select g;
                     break;
                 case OrderByField.Station:
                     //query = query.OrderBy(p => p.Station.StationName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
@@ -410,7 +423,7 @@ namespace PhpaAll.Controllers
                 default:
                     throw new NotImplementedException();
             }
-            
+
 
             //var finalquery = from bill in query
             //                 select new OutstandingBillModel
@@ -428,28 +441,28 @@ namespace PhpaAll.Controllers
 
             var finalquery = from mygroup in groupedQuery
                              orderby mygroup.Key.GroupValue
-                    select new OutstandingBillGroupModel
-                    {
-                        DatabaseCount = mygroup.Count(),
-                        GroupTotal = mygroup.Sum(p => p.Amount),
-                        GroupValue = mygroup.Key.GroupValue,
-                        GroupDisplayName = mygroup.Key.GroupDisplayName,
-                        Bills = (from bill in mygroup
-                                 orderby bill.DueDate descending
-                                 select new OutstandingBillModel
-                                 {
-                                     BillId = bill.Id,
-                                     BillNumber = bill.BillNumber,
-                                     SubmittedToDivisionId = bill.SubmitedToDivisionId,
-                                     SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
-                                     ContractorId = bill.ContractorId,
-                                     ContractorName = bill.Contractor.ContractorName,
-                                     BillDate = bill.BillDate,
-                                     DueDate = bill.DueDate,
-                                     Amount = bill.Amount
-                                 }).Take(2000).ToList()
+                             select new OutstandingBillGroupModel
+                             {
+                                 DatabaseCount = mygroup.Count(),
+                                 GroupTotal = mygroup.Sum(p => p.Amount),
+                                 GroupValue = mygroup.Key.GroupValue,
+                                 GroupDisplayName = mygroup.Key.GroupDisplayName,
+                                 Bills = (from bill in mygroup
+                                          orderby bill.DueDate descending
+                                          select new OutstandingBillModel
+                                          {
+                                              BillId = bill.Id,
+                                              BillNumber = bill.BillNumber,
+                                              SubmittedToDivisionId = bill.SubmitedToDivisionId,
+                                              SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
+                                              ContractorId = bill.ContractorId,
+                                              ContractorName = bill.Contractor.ContractorName,
+                                              BillDate = bill.BillDate,
+                                              DueDate = bill.DueDate,
+                                              Amount = bill.Amount
+                                          }).Take(2000).ToList()
 
-                    };
+                             };
 
             //var finalquery2 = from bill2 in query
             //                  group bill2 by bill2.SubmittedToDivision into g
