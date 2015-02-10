@@ -335,7 +335,8 @@ namespace PhpaAll.Controllers
         [HttpPost]
         public virtual ActionResult ApproveBill(int billId)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException(billId.ToString());
+            return Json("Done");
         }
 
         private class MyTestGroup

@@ -1,5 +1,4 @@
-﻿
-@*The approve and unapprove buttons have the approve class. Their values are true and false respectively *@
+﻿@*The approve and unapprove buttons have the approve class. Their values are true and false respectively *@
 
 @model PhpaAll.Bills.BillModel
 <div class="row">
@@ -52,21 +51,13 @@
             <div class="btn-group btn-group-xs" role="group" aria-label="...">
                 @if (Model.ApprovedDate == null)
                 {
-                        <button type="button" class="btn btn-default btn-xs approve" value="true"><span class="glyphicon glyphicon-thumbs-up"></span> Approve</button>
+                    <button type="button" class="btn btn-default btn-xs approve" value="true"><span class="glyphicon glyphicon-thumbs-up"></span> <span>Approve</span></button>
                 }
                 else
                 {
-                    <div class="btn-group btn-group-xs">
-                        <div class="dropdown">
-                            <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                                <span class="glyphicon glyphicon-thumbs-up"></span> @Html.DisplayFor(m => m.ApprovedDate) by @Html.DisplayFor(m => m.ApprovedBy)
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-                                <li><button type="button" class="btn btn-danger btn-block btn-xs approve" value="false"><span class="glyphicon glyphicon-thumbs-down"></span> Unapprove</button></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <button class="btn btn-success  btn-xs disabled">
+                        <span class="glyphicon glyphicon-thumbs-up"></span> @Html.DisplayFor(m => m.ApprovedDate) by @Html.DisplayFor(m => m.ApprovedBy)
+                    </button>
                 }
             </div>
         </div>
