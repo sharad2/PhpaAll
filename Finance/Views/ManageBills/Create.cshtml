@@ -11,7 +11,7 @@
 </h2>
 
 <p>
-    The bill is created as soon as it is received by the division. Creation of the bill imples that it has been approved for payment by the division.
+    The bill is created as soon as it is received by the division. Creation of the bill implies that it has been approved for payment by the division.
     It becomes visible to finance as soon as it is created. Finance must then approve it for payment.
 </p>
 <form action="@Url.Action(MVC.ManageBills.CreateBill())" method="post" enctype="multipart/form-data">
@@ -37,59 +37,7 @@
                @class = "help-block"
            })
             </div>
-
-
-
-
-
         </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                <label for="divSubDate">Received on</label>
-                <div class='input-group date' id='divSubDatePicker'>
-                    @Html.TextBoxFor(m => m.SubmittedOnDate, new
-           {
-               id = "divSubDate",
-               @class = "form-control",
-               type = "date",
-               @placeholder = "dd/mm/yyyy"
-           })
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-                @Html.ValidationMessageFor(m => m.SubmittedOnDate, null, new
-           {
-               @class = "help-block"
-           })
-
-            </div>
-
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                <label for="dueDate">Payment Due Date</label>
-                <div class='input-group date' id='dueDatePicker'>
-                    @Html.TextBoxFor(m => m.DueDate, new
-           {
-               id = "dueDate",
-               @class = "form-control",
-               type = "date",
-               @placeholder = "dd/mm/yyyy"
-           })
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-                @Html.ValidationMessageFor(m => m.DueDate, null, new
-           {
-               @class = "help-block"
-           })
-
-
-            </div>
-        </div>
-
         <div class="col-md-3">
             <div class="form-group">
                 <label for="billNumber">Bill No. *</label>
@@ -108,43 +56,8 @@
                                        @class = "help-block"
                                    })
 
-
-
             </div>
         </div>
-
-
-    </div>
-    <div class="row">
-        <div class="col-md-9">
-            <div class="form-group">
-                <label for="particulars">Particulars</label>
-
-                @Html.TextBoxFor(m => m.Particulars, new
-           {
-               id = "particulars",
-               @class = "form-control",
-               maxlength = "255",
-               placeholder = "You can mention the subject of the bill"
-
-           })
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="form-group">
-                <label for="particulars">Station</label>
-                @Html.DropDownListFor(m => m.StationId, Model.StationList, "Select station",
-                    new { @class = "form-control", @required = "required" })
-                @Html.ValidationMessageFor(m => m.StationId, null, new
-                                   {
-                                       @class = "help-block"
-                                   })
-            </div>
-        </div>
-
-    </div>
-    <div class="row">
         <div class="col-md-3">
             <div class="form-group">
                 <label for="tbDivision">Division *</label>
@@ -193,6 +106,82 @@
             </div>
 
         </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="form-group">
+                <label for="particulars">Particulars</label>
+
+                @Html.TextBoxFor(m => m.Particulars, new
+           {
+               id = "particulars",
+               @class = "form-control",
+               maxlength = "255",
+               placeholder = "You can mention the subject of the bill"
+
+           })
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="particulars">Station</label>
+                @Html.DropDownListFor(m => m.StationId, Model.StationList, "Select station",
+                    new { @class = "form-control", @required = "required" })
+                @Html.ValidationMessageFor(m => m.StationId, null, new
+                                   {
+                                       @class = "help-block"
+                                   })
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="divSubDate">Received on</label>
+            <div class='input-group date' id='divSubDatePicker'>
+                @Html.TextBoxFor(m => m.SubmittedOnDate, new
+           {
+               id = "divSubDate",
+               @class = "form-control",
+               type = "date",
+               @placeholder = "dd/mm/yyyy"
+           })
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+            @Html.ValidationMessageFor(m => m.SubmittedOnDate, null, new
+           {
+               @class = "help-block"
+           })
+
+        </div>
+
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="dueDate">Payment Due Date</label>
+            <div class='input-group date' id='dueDatePicker'>
+                @Html.TextBoxFor(m => m.DueDate, new
+           {
+               id = "dueDate",
+               @class = "form-control",
+               type = "date",
+               @placeholder = "dd/mm/yyyy"
+           })
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+            @Html.ValidationMessageFor(m => m.DueDate, null, new
+           {
+               @class = "help-block"
+           })
+        </div>
+    </div>
+    <div class="row">
+
         <div class="col-md-offset-3 col-md-3">
             <div class="form-group">
                 <label for="amount">Amount *</label>
@@ -202,7 +191,7 @@
                id = "amount",
                @class = "form-control",
                min = "0",
-               type = "number",
+               type = "decimal",
                @required = "required",
                placeholder = "Amount(Nu)"
 
@@ -216,19 +205,19 @@
             </div>
         </div>
         @*<div class="col-md-3">
-            <div class="form-group">
-                <label for="image">Image</label>
+                <div class="form-group">
+                    <label for="image">Image</label>
 
-                @Html.TextBoxFor(m => m.BillImage, new
-           {
-               id = "image",
-               @class = "form-control",
-               type = "File"
+                    @Html.TextBoxFor(m => m.BillImage, new
+               {
+                   id = "image",
+                   @class = "form-control",
+                   type = "File"
 
-           })
+               })
 
-            </div>
-        </div>*@
+                </div>
+            </div>*@
     </div>
 
 
@@ -269,7 +258,7 @@
             "use strict";
             $('#tbDivision,#tbContractor').each(function (index, elem) {
                 $(elem).typeahead({
-                    highlight:true
+                    highlight: true
                 }, {
                     //name: 'Division',
                     displayKey: 'label',
