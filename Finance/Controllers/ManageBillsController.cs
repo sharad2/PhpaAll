@@ -111,6 +111,7 @@ namespace PhpaAll.Controllers
                              SubmittedToDivisionId = bill.SubmitedToDivisionId,
                              DueDate = bill.DueDate,
                              //PaidDate = bill.PaidDate,
+                             StationId = bill.StationId,
                              Remarks = bill.Remarks,
                              SubmittedOnDate = bill.SubmittedOnDate,
                              SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
