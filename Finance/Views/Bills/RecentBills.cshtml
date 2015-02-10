@@ -33,7 +33,22 @@
             // Handle approve and unapprove buttons
             $('#billGroup').on('click', '.approve', function (e) {
                 // Approve button was clicked
-                alert('Hi');
+                var billId = $(e.target).closest('div.row').find('input:checkbox').attr('value');
+                var url = $(e.delegateTarget).attr('data-approve-url');
+                //alert(url);
+                var data = new Object();
+                data[$(e.delegateTarget).attr('data-approve-paramname')] = billId;
+                $.post(url, data).done(function () {
+                    $(e.target).addClass('btn-success  btn-xs disabled').removeClass('btn-default approve');
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.status == 500) {
+                        // url was found but server returned error
+                        alert(jqXHR.responseText || errorThrown);
+                    } else {
+                        // Url was bad
+                        alert(jqXHR.status + ': ' + errorThrown + ' ' + this.url);
+                    }
+                });
             });
         });
     </script>
@@ -411,7 +426,7 @@ Paid / Unpaid
                         </div>
                     </div>
                 </div>
-                <ul class="list-group" id="billGroup">
+                <ul class="list-group" id="billGroup" data-approve-url="@Url.Action(MVC.Bills.ApproveBill())" data-approve-paramname="@MVC.Bills.ApproveBillParams.billId">
                     <li class="list-group-item list-group-item-info">
                         <div class="row">
                             <div class="col-md-3">

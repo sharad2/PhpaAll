@@ -36,15 +36,15 @@ namespace PhpaAll.Bills
         {
             var info = this.Bills.GetModifiedMembers(instance);
 
-            foreach (var x in info)
-            {
-                var audit = new BillAudit();
-                var y = x.OriginalValue;
-                var y1 = x.CurrentValue;
-                var y2 = x.Member.Name;
-                this.BillAudits.InsertOnSubmit(audit);
-            }
-            throw new NotImplementedException("TODO: Add update audit");
+            //foreach (var x in info)
+            //{
+            //    var audit = new BillAudit();
+            //    var y = x.OriginalValue;
+            //    var y1 = x.CurrentValue;
+            //    var y2 = x.Member.Name;
+            //    this.BillAudits.InsertOnSubmit(audit);
+            //}
+            //throw new NotImplementedException("TODO: Add update audit");
 
             instance.ModifiedBy = HttpContext.Current.User.Identity.Name;
             instance.Modified = DateTime.Now;
