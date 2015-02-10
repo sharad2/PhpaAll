@@ -13,7 +13,7 @@ namespace EclipseLibrary.Web.JQuery
     /// It is modeled after the standard <c>DataBinder</c> class and provides a overloaded public static functions
     /// <see cref="Eval(string)"/> and <see cref="Eval(string, string)"/>.
     /// </remarks>
-    [Obsolete("Use MatrixField in namespace EclipseLibrary.Web.JQuery.Matrix")]
+    //[Obsolete("Use MatrixField in namespace EclipseLibrary.Web.JQuery.Matrix")]
     public class MatrixBinder
     {
         /// <summary>
