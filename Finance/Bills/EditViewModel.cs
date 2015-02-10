@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Mvc;
 
 namespace PhpaAll.Controllers
 {
@@ -45,6 +46,14 @@ namespace PhpaAll.Controllers
 
         public string ContractorName { get; set; }
 
+        [Display(Name = "Station")]
+        [Required(ErrorMessage = "Station is required.")]
+        public int StationId { get; set; }
+
+        /// <summary>
+        /// List of station.
+        /// </summary>
+        public IEnumerable<SelectListItem> StationList { get; set; }
 
         [Display(Name = "Amount")]
         [Required(ErrorMessage = "Amount is required.")]
@@ -58,8 +67,6 @@ namespace PhpaAll.Controllers
         [Display(Name = "Remarks")]
         [StringLength(255, ErrorMessage = "Max limit is 255 characters")]
         public string Remarks { get; set; }
-
-
 
     }
 }
