@@ -51,6 +51,7 @@ namespace PhpaAll.Bills
 
         public string DivisionName { get; set; }
 
+        [DisplayFormat(NullDisplayText="(Unknown)")]
         public string CurrentDivisionName { get; set; }
 
         public string ContractorName { get; set; }
