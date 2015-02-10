@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
 
 namespace PhpaAll.Bills
 {
@@ -18,20 +16,13 @@ namespace PhpaAll.Bills
                               Particulars = bill.Particulars,
                               BillNumber = bill.BillNumber,
                               BillDate = bill.BillDate,
-                              //ContractorId = bill.ContractorId,
                               ContractorName = bill.Contractor.ContractorName,
-                              //DivisionId = bill.SubmitedToDivisionId,
                               DivisionName = bill.SubmittedToDivision.DivisionName,
                               DueDate = bill.DueDate,
-                              //PaidDate = bill.PaidDate,
                               ApprovedDate = bill.ApprovedOn,
                               ApprovedBy = bill.ApprovedBy,
-                              //Remarks = bill.Remarks,
-                              //SubmittedOnDate = bill.SubmittedOnDate,
                               BillId = bill.Id,
-                              //StationId = bill.StationId,
                               StationName = bill.Station.StationName,
-                              //CurrentDivisionId = bill.CurrentDivisionId,
                               CurrentDivisionName = bill.CurrentDivision.DivisionName,
                               VoucherDate = bill.Voucher.VoucherDate
                           };
@@ -44,13 +35,8 @@ namespace PhpaAll.Bills
         /// <summary>
         /// If this is non null, a check box is displayed with this name and the value will be bill id
         /// </summary>
+        [ScaffoldColumn(false)]
         public string CheckBoxName { get; set; }
-
-        /// <summary>
-        /// ScaffoldColumn means do not display in Excel
-        /// </summary>
-        //[ScaffoldColumn(false)]
-        //public int StationId { get; set; }
 
         [Display(ShortName = "Station")]
         public string StationName { get; set; }
@@ -63,26 +49,10 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? DueDate { get; set; }
 
-        //[DisplayFormat(DataFormatString = "{0:d}")]
-        //public DateTime? SubmittedOnDate { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime? FinanceSubmittedDate { get; set; }
-
-        [Obsolete]
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime? PaidDate { get; set; }
-
-
-        //public int? DivisionId { get; set; }
-
         public string DivisionName { get; set; }
 
-        //public int? CurrentDivisionId { get; set; }
-
+        [DisplayFormat(NullDisplayText="(Unknown)")]
         public string CurrentDivisionName { get; set; }
-
-        //public int? ContractorId { get; set; }
 
         public string ContractorName { get; set; }
 
@@ -93,10 +63,11 @@ namespace PhpaAll.Bills
 
         public string ApprovedBy { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:d}")]
+        /// <summary>
+        /// Display time as well
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTime? ApprovedDate { get; set; }
-
-        //public string Remarks { get; set; }
 
         public DateTime? VoucherDate { get; set; }
     }

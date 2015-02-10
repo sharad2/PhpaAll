@@ -29,6 +29,12 @@
                 }).prop('disabled', true);
                 //return false;
             });
+
+            // Handle approve and unapprove buttons
+            $('#billGroup').on('click', '.approve', function (e) {
+                // Approve button was clicked
+                alert('Hi');
+            });
         });
     </script>
 }
@@ -405,32 +411,31 @@ Paid / Unpaid
                         </div>
                     </div>
                 </div>
-                <ul class="list-group">
+                <ul class="list-group" id="billGroup">
                     <li class="list-group-item list-group-item-info">
                         <div class="row">
-                            <div class="col-md-2">
-                                <strong>Bill Date</strong>
+                            <div class="col-md-3">
+                                <strong>
+                                    Bill Date <em style="white-space:nowrap"><small>Due Date</small></em>
+                                </strong>
                                 <br />
-                                <em style="white-space:nowrap"><small><strong>Due Date</strong></small></em>
+                               <small>
+                                   Bill Number
+                               </small>
                             </div>
                             <div class="col-md-4">
                                 <strong>
                                     Division @@ Station
                                     <br />
-                                    <em>
-                                        <small>
-                                            &rarr; At Division
-                                            <br />
-                                        </small>
-                                    </em>
+                                    Contractor
+                                    <br />
                                 </strong>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
                                     <strong>
-                                        Contractor
+                                        &rarr; At Division
                                         <br />
-                                        Bill Number
                                     </strong>
                                 </div>
                             </div>
