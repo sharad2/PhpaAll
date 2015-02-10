@@ -18,7 +18,7 @@
 
         @if (Model.ApprovedDate != null)
         {
-            <span class="label label-success" title="Approved by :- @Html.DisplayFor(m => m.ApprovedBy)">Approved @Html.DisplayFor(m => m.ApprovedDate)</span>
+            <span class="label label-success">Approved @Html.DisplayFor(m => m.ApprovedDate) by @Html.DisplayFor(m => m.ApprovedBy)</span>
         }
 
 
