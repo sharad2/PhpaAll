@@ -56,7 +56,7 @@
     <siteMapNode url="~/Finance/Jobs.aspx" title="Jobs"  description="Project Jobs">
       <siteMapNode url="~/Doc/Jobs.doc.aspx" title="Jobs Doc"  description="Documentation for Project Jobs" Visible="False"/>
       <siteMapNode url="~/Finance/Contractor.aspx" title="Contractors"  description="Manage Contractors" />
-      <siteMapNode url="~/Reports/ContractorPaymentReport.aspx" title="Contractor Payment Register"  description="Manage Contractors expenditures" />
+      <!--<siteMapNode url="~/Reports/ContractorPaymentReport.aspx" title="Contractor Payment Register"  description="Manage Contractors expenditures" />-->
       <siteMapNode url="~/Reports/EarnedMoneyDeposit.aspx?ReportName=EMD" title="Earnest Money Deposit" description="Earnest Money Deposit">
         <siteMapNode url="~/Doc/EarnedMoneyDeposit.doc.aspx" title="Earned Money Deposit Doc"  description="Documentation for Earned Money Deposit" Visible="False"/>
       </siteMapNode>

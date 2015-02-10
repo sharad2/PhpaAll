@@ -5,8 +5,8 @@
 }
 
 
-<div  style="margin-top:0" class="text-center h2">
-    @Html.DisplayFor(m => m.ContractorName)   
+<div style="margin-top:0" class="text-center h2">
+    @Html.DisplayFor(m => m.ContractorName)
     @if (Model.ApprovedDate != null)
     {
 
@@ -28,7 +28,7 @@
     </div>
 </div>
 <div class="bg-info">
-    <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-link">      
+    <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-link">
         Edit
     </a>
     |
@@ -101,7 +101,14 @@
 
 @if (Model.AttachedImageCount < 10)
 {
-    <form action="@Url.Action(MVC.ManageBills.UploadImage())" 
+    <em>
+        <small>Note: @Model.AttachedImageCount images have been uploaded</small>
+        |
+        <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))">
+            <span class="glyphicon glyphicon-refresh"></span>Refresh
+        </a>
+    </em>
+    <form action="@Url.Action(MVC.ManageBills.UploadImage())"
           class="dropzone"
           id="my-dropzone">
         <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
@@ -112,10 +119,10 @@
 }
 else
 {
-    <p class="alert alert-info">Max 10 files allowed. Remove some to add more.</p>
+    <p class="alert alert-info">Max 10 files allowed. Remove some images to add more.</p>
 }
 
-<br/>
+<br />
 @if (Model.AttachedImageCount > 0)
 {
     <nav class="text-center">
@@ -135,12 +142,13 @@ else
                 </a>
             </li>
         </ul>
+
     </nav>
 }
-<div id="carousel-attachment" class="carousel slide" data-ride="carousel" data-interval="false" >
+<div id="carousel-attachment" class="carousel slide" data-ride="carousel" data-interval="false">
 
     <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox" >
+    <div class="carousel-inner" role="listbox">
         @for (var i = 0; i < Model.AttachedImageCount; ++i)
         {
             <div class="item @(i == 0 ? "active" : "")" style="border: 5px solid #4196c7">
@@ -199,7 +207,7 @@ else
         <li class="list-group-item">
             <div class="row">
                 <div class="col-md-2">
-                    @Html.DisplayFor(m => m.BillHistory[i].DateCreated) by 
+                    @Html.DisplayFor(m => m.BillHistory[i].DateCreated) by
                     @Html.DisplayFor(m => m.BillHistory[i].CreatedBy)
                 </div>
                 <div class="col-md-8">
@@ -215,7 +223,7 @@ else
                                 &rarr;
                                 @Html.DisplayFor(m => m.BillHistory[i].FieldChanges[j].NewValue)
                             </dd>
-                          
+
                         }
                     </dl>
                 </div>
@@ -227,19 +235,19 @@ else
 
 
 @section scripts {
-<style type="text/css">
-    /*Styleing form thead crousel indicator aside cite was not visible over thead white background*/
-   .carousel-control span.glyphicon {
-        border-color: #4196c7;
-        color: #0b4e75;
-    }
+    <style type="text/css">
+        /*Styleing form thead crousel indicator aside cite was not visible over thead white background*/
+        .carousel-control span.glyphicon {
+            border-color: #4196c7;
+            color: #0b4e75;
+        }
 
-    /*Styling form the crousel upload dragable area*/
-    #my-dropzone {
-        border: 5px dashed #4196c7;
-        background-color: rgba(241, 236, 212, 0.48);
-    }
-</style>
+        /*Styling form the crousel upload dragable area*/
+        #my-dropzone {
+            border: 5px dashed #4196c7;
+            background-color: rgba(241, 236, 212, 0.48);
+        }
+    </style>
 
 
     <link rel="stylesheet" href="@Links.Views.ManageBills.Bill_css" />
@@ -251,6 +259,7 @@ else
             "use strict";
             Dropzone.options.myDropzone = {
                 init: function () {
+
                     this.on("success", function (file, response) {
                         // response must contain the user of the file which can be used for deleting it
                         $('a.dz-remove', file.previewTemplate).attr('data-dz-remove', response.DeleteUrl);
@@ -263,6 +272,7 @@ else
                         $.post(url);
                     });
                 },
+                dictDefaultMessage: 'Drag or click to upload images (Max: 10 Images)',
                 addRemoveLinks: true,
                 // Files of all other types will be rejected
                 acceptedFiles: "image/*",
