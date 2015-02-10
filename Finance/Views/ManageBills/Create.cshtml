@@ -122,16 +122,24 @@
            })
             </div>
         </div>
-
         <div class="col-md-3">
             <div class="form-group">
-                <label for="particulars">Station</label>
-                @Html.DropDownListFor(m => m.StationId, Model.StationList, "Select station",
-                    new { @class = "form-control", @required = "required" })
-                @Html.ValidationMessageFor(m => m.StationId, null, new
-                                   {
-                                       @class = "help-block"
-                                   })
+                <label for="amount">Amount *</label>
+
+                @Html.TextBoxFor(m => m.Amount, new
+           {
+               id = "amount",
+               @class = "form-control",
+               min = "0",
+               type = "decimal",
+               @required = "required",
+               placeholder = "Amount(Nu)"
+
+           })
+                @Html.ValidationMessageFor(m => m.Amount, null, new
+           {
+               @class = "help-block"
+           })
             </div>
         </div>
 
@@ -180,30 +188,18 @@
            })
         </div>
     </div>
-    <div class="row">
-
-        <div class="col-md-offset-3 col-md-3">
-            <div class="form-group">
-                <label for="amount">Amount *</label>
-
-                @Html.TextBoxFor(m => m.Amount, new
-           {
-               id = "amount",
-               @class = "form-control",
-               min = "0",
-               type = "decimal",
-               @required = "required",
-               placeholder = "Amount(Nu)"
-
-           })
-                @Html.ValidationMessageFor(m => m.Amount, null, new
-           {
-               @class = "help-block"
-           })
-
-
-            </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="particulars">Station</label>
+            @Html.DropDownListFor(m => m.StationId, Model.StationList, "Select station",
+                    new { @class = "form-control", @required = "required" })
+            @Html.ValidationMessageFor(m => m.StationId, null, new
+                                   {
+                                       @class = "help-block"
+                                   })
         </div>
+    </div>
+    <div class="row">
         @*<div class="col-md-3">
                 <div class="form-group">
                     <label for="image">Image</label>
