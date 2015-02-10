@@ -110,7 +110,7 @@ namespace PhpaAll.Services
             return query;
         }
         [WebMethod]
-        public object[] GetJobsForContractor(string term, int contractorId)
+        public object[] GetJobsForContractor(string term, int? contractorId)
         {
             string jobCode = string.Empty;
             int index = term.IndexOf(":");
@@ -119,7 +119,7 @@ namespace PhpaAll.Services
                 jobCode = term.Substring(0, index);
             }
             var query = (from j in _db.RoJobs
-                         where j.ContractorId == contractorId && (j.Description.Contains(term) ||
+                         where (contractorId == null || j.ContractorId == contractorId) && (j.Description.Contains(term) ||
                              j.JobCode == term || j.JobCode.StartsWith(term) || j.JobCode == jobCode ||
                              j.RoContractor.ContractorName.Contains(term))
                          let relevance = (j.JobCode == term ? -10 : j.JobCode.StartsWith(term) ? -5 : 0)
