@@ -99,9 +99,10 @@
             </div>
 
         </div>
-        <div class="form-group form-group-sm">
-            <label for="particulars">Particulars</label>
-            @Html.TextBoxFor(m => m.Particulars, new
+        <div class="col-md-9">
+            <div class="form-group form-group-sm">
+                <label for="particulars">Particulars</label>
+                @Html.TextBoxFor(m => m.Particulars, new
            {
                id = "particulars",
                @class = "form-control",
@@ -109,6 +110,27 @@
                placeholder = "You can mention the subject of the bill"
 
            })
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group form-group-sm">
+                <label for="amount">Amount *</label>
+                @Html.TextBoxFor(m => m.Amount, new
+           {
+               id = "amount",
+               @class = "form-control",
+               min = "0",
+               type = "number",
+               @required = "required",
+               placeholder = "Amount(Nu)"
+
+           })
+                @Html.ValidationMessageFor(m => m.Amount, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
         </div>
         <div class="row">
             <div class="col-md-3">
@@ -154,56 +176,58 @@
                 </div>
             </div>
             <div class="col-md-offset-3 col-md-3">
-                <div class="form-group">
-                    <label for="amount">Amount *</label>
-                    @Html.TextBoxFor(m => m.Amount, new
-           {
-               id = "amount",
-               @class = "form-control",
-               min = "0",
-               type = "number",
-               @required = "required",
-               placeholder = "Amount(Nu)"
-
-           })
-                    @Html.ValidationMessageFor(m => m.Amount, null, new
+                <label for="tbContractor">Station</label>
+                <div class="input-group input-group-sm">
+                    <div class="form-group">
+                        @Html.DropDownListFor(m => m.StationId, Model.StationList, "Select station",
+                    new { @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(m => m.StationId, null, new
+                                   {
+                                       @class = "help-block"
+                                   })
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(m => m.StationId, null, new
            {
                @class = "help-block"
            })
-
-                </div>
+                @Html.TextBoxFor(m => m.ContractorId, new
+               {
+                   style = "height:0; width:0; border:none"
+               })
             </div>
-            @*<div class="col-md-3">
-                     <div class="form-group">
-                         <label for="image">Image</label>
-                         @Html.TextBoxFor(m => m.BillImage, new
-                {
-                    id = "image",
-                    @class = "form-control",
-                    type = "File"
-
-                })
-                     </div>
-                 </div>*@
         </div>
+        @*<div class="col-md-3">
+                 <div class="form-group">
+                     <label for="image">Image</label>
+                     @Html.TextBoxFor(m => m.BillImage, new
+            {
+                id = "image",
+                @class = "form-control",
+                type = "File"
 
-        <div class="form-group">
-            <label for="remarks">Remarks</label>
-            @Html.TextAreaFor(m => m.Remarks, new
+            })
+                 </div>
+             </div>*@
+    </div>
+
+    <div class="form-group">
+        <label for="remarks">Remarks</label>
+        @Html.TextAreaFor(m => m.Remarks, new
            {
                id = "remarks",
                @class = "form-control",
                maxlength = "255"
            })
-            @Html.ValidationMessageFor(m => m.Remarks, null, new
+        @Html.ValidationMessageFor(m => m.Remarks, null, new
            {
                @class = "help-block"
            })
-        </div>
-        <div class="form-group" style="display:inline-block">
-            <button type="submit" class="btn btn-primary">Save Bill</button>
-            <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))">Cancel</a>
-        </div>
+    </div>
+    <div class="form-group" style="display:inline-block">
+        <button type="submit" class="btn btn-primary">Save Bill</button>
+        <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))">Cancel</a>
+    </div>
     </div>
 </form>
 <div class="dropdown">
@@ -227,7 +251,7 @@
 </div>
 @section scripts {
     <script type="text/javascript" src="@Links.Views.Shared.jqueryval_js"></script>
-  
+
 
     <script type="text/javascript">
 
