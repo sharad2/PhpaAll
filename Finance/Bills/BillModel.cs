@@ -20,8 +20,8 @@ namespace PhpaAll.Bills
                               BillDate = bill.BillDate,
                               ContractorId = bill.ContractorId,
                               ContractorName = bill.Contractor.ContractorName,
-                              SubmittedToDivisionId = bill.SubmitedToDivisionId,
-                              SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
+                              //DivisionId = bill.SubmitedToDivisionId,
+                              DivisionName = bill.SubmittedToDivision.DivisionName,
                               DueDate = bill.DueDate,
                               //PaidDate = bill.PaidDate,
                               ApprovedDate = bill.ApprovedOn,
@@ -29,9 +29,9 @@ namespace PhpaAll.Bills
                               Remarks = bill.Remarks,
                               SubmittedOnDate = bill.SubmittedOnDate,
                               BillId = bill.Id,
-                              StationId = bill.StationId,
+                              //StationId = bill.StationId,
                               StationName = bill.Station.StationName,
-                              CurrentDivisionId = bill.CurrentDivisionId,
+                              //CurrentDivisionId = bill.CurrentDivisionId,
                               CurrentDivisionName = bill.CurrentDivision.DivisionName,
                               VoucherDate = bill.Voucher.VoucherDate
                           };
@@ -49,8 +49,8 @@ namespace PhpaAll.Bills
         /// <summary>
         /// ScaffoldColumn means do not display in Excel
         /// </summary>
-        [ScaffoldColumn(false)]
-        public int StationId { get; set; }
+        //[ScaffoldColumn(false)]
+        //public int StationId { get; set; }
 
         [Display(ShortName = "Station")]
         public string StationName { get; set; }
@@ -74,11 +74,11 @@ namespace PhpaAll.Bills
         public DateTime? PaidDate { get; set; }
 
 
-        public int? SubmittedToDivisionId { get; set; }
+        //public int? DivisionId { get; set; }
 
-        public string SubmittedToDivisionName { get; set; }
+        public string DivisionName { get; set; }
 
-        public int? CurrentDivisionId { get; set; }
+        //public int? CurrentDivisionId { get; set; }
 
         public string CurrentDivisionName { get; set; }
 
