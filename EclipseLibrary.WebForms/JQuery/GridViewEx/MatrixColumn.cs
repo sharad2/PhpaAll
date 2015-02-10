@@ -110,7 +110,7 @@ namespace EclipseLibrary.Web.JQuery
     [ParseChildren(true)]
     [PersistChildren(false)]
     [Browsable(true)]
-    [Obsolete("Use MatrixField in namespace EclipseLibrary.Web.JQuery.Matrix")]
+    //[Obsolete("Use MatrixField in namespace EclipseLibrary.Web.JQuery.Matrix")]
     public class MatrixColumn
     {
         /// <summary>

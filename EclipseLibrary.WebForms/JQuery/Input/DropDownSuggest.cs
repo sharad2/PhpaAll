@@ -58,7 +58,7 @@ namespace EclipseLibrary.Web.JQuery.Input
     /// ]]>
     /// </code>
     /// </example>
-    [Obsolete("Use AutoComplete")]
+    //[Obsolete("Use AutoComplete")]
     public class DropDownSuggest : DropDownListEx, INamingContainer
     {
         private readonly TextBoxEx _tb;

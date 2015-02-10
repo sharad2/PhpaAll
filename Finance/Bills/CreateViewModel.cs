@@ -32,9 +32,10 @@ namespace PhpaAll.Bills
         [DataType(DataType.Date)]
         public DateTime? SubmittedOnDate { get; set; }
 
-        [Display(Name = "Pro Date")]
-        [DataType(DataType.Date)]
-        public DateTime? PaidDate { get; set; }
+        //[Display(Name = "Pro Date")]
+        //[DataType(DataType.Date)]
+        //[Obsolete]
+        //public DateTime? PaidDate { get; set; }
 
         [Display(Name = "Bill Type")]
         [StringLength(10, ErrorMessage = "The Bill Type value cannot exceed 10 characters. ")]

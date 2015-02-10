@@ -77,7 +77,7 @@ namespace PhpaAll.Bills
 
         [Display(Name = "Paid On")]
         [DataType(DataType.Date)]
-        public DateTime? PaidDate { get; set; }
+        public DateTime? VoucherDate { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? ApprovedDate { get; set; }

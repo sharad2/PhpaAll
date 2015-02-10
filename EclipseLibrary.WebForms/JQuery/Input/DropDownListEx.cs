@@ -71,7 +71,7 @@ namespace EclipseLibrary.Web.JQuery.Input
     /// ]]>
     /// </code>
     /// </example>
-    [Obsolete("Use DropDownListEx2 or AjaxDropDown")]
+    //[Obsolete("Use DropDownListEx2 or AjaxDropDown")]
     public class DropDownListEx : InputControlBase
     {
         private readonly Collection<DropDownItem> _items;

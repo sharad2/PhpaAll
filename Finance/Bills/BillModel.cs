@@ -23,7 +23,7 @@ namespace PhpaAll.Bills
                               SubmittedToDivisionId = bill.SubmitedToDivisionId,
                               SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
                               DueDate = bill.DueDate,
-                              PaidDate = bill.PaidDate,
+                              //PaidDate = bill.PaidDate,
                               ApprovedDate = bill.ApprovedOn,
                               ApprovedBy = bill.ApprovedBy,
                               Remarks = bill.Remarks,
@@ -32,7 +32,8 @@ namespace PhpaAll.Bills
                               StationId = bill.StationId,
                               StationName = bill.Station.StationName,
                               CurrentDivisionId = bill.CurrentDivisionId,
-                              CurrentDivisionName = bill.CurrentDivision.DivisionName
+                              CurrentDivisionName = bill.CurrentDivision.DivisionName,
+                              VoucherDate = bill.Voucher.VoucherDate
                           };
             return results;
         }
@@ -68,6 +69,7 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? FinanceSubmittedDate { get; set; }
 
+        [Obsolete]
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? PaidDate { get; set; }
 
@@ -96,7 +98,7 @@ namespace PhpaAll.Bills
 
         public string Remarks { get; set; }
 
-        //public Image BillImage { get; set; }
+        public DateTime? VoucherDate { get; set; }
     }
 
 }

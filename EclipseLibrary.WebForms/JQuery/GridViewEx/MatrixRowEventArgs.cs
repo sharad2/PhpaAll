@@ -6,7 +6,7 @@ namespace EclipseLibrary.Web.JQuery
     /// <summary>
     /// Arguments passed with <see cref="MatrixField.MatrixRowDataBound"/> event.
     /// </summary>
-        [Obsolete("Use MatrixField in namespace EclipseLibrary.Web.JQuery.Matrix")]
+    // [Obsolete("Use MatrixField in namespace EclipseLibrary.Web.JQuery.Matrix")]
     public class MatrixRowEventArgs : EventArgs
     {
         private readonly MatrixDataCell _cell;

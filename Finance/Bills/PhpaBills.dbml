@@ -35,7 +35,6 @@
       <Column Name="BillDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="DueDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="SubmittedOnDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="PaidDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="SubmitedToDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ContractorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
@@ -51,6 +50,7 @@
       <Column Name="StationId" Type="System.Int32" DbType="Int" CanBeNull="false" />
       <Column Name="CurrentDivisionId" Type="System.Int32" CanBeNull="true" />
       <Association Name="Bill_BillImage" Member="BillImages" ThisKey="Id" OtherKey="BillId" Type="BillImage" />
+      <Association Name="Bill_Voucher" Member="Voucher" Storage="_Vouchers" ThisKey="Id" OtherKey="BillId" Type="Voucher" Cardinality="One" />
       <Association Name="Contractor_Bill" Member="Contractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="Contractor" IsForeignKey="true" />
       <Association Name="Division_Bill" Member="SubmittedToDivision" Storage="_Division" ThisKey="SubmitedToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
       <Association Name="Station_Bill" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
@@ -111,9 +111,33 @@
       <Column Name="BillId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="BillImageData" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
       <Column Name="ImageContentType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Member="FileName" Type="System.String" CanBeNull="false" />
-      <Column Member="ContentLength" Type="System.String" CanBeNull="false" />
+      <Column Name="FileName" Type="System.String" CanBeNull="false" />
+      <Column Name="ContentLength" Type="System.String" CanBeNull="false" />
       <Association Name="Bill_BillImage" Member="Bill" ThisKey="BillId" OtherKey="Id" Type="Bill" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Voucher" Member="Vouchers" AccessModifier="Internal">
+    <Type Name="Voucher" AccessModifier="Internal">
+      <Column Name="VoucherId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="VoucherType" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="VoucherDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="VoucherCode" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CheckNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PayeeName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Voucher_last_edited_by_o" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ModifiedWorkstation" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="IsChequeReconcile" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="StationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BillId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Bill_Voucher" Member="Bill" ThisKey="BillId" OtherKey="Id" Type="Bill" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

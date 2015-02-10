@@ -14,7 +14,7 @@ namespace EclipseLibrary.Web.JQuery
     /// <include file='MatrixField.xml' path='MatrixField/doc[@name="class"]/*'/>
     [ParseChildren(true)]
     [PersistChildren(false)]
-    [Obsolete("Use MatrixField in namespace EclipseLibrary.Web.JQuery.Matrix")]
+    //[Obsolete("Use MatrixField in namespace EclipseLibrary.Web.JQuery.Matrix")]
     public partial class MatrixField : DataControlField, IHasCustomCells
     {
         #region Row and column data

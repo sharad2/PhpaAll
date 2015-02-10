@@ -348,10 +348,9 @@ namespace PhpaAll.Controllers
                 OrderByField = field,
                 OverDueOnly = overdueOnly
             };
-            
+
             var query = from bill in _db.Value.Bills
-                            where bill.PaidDate == null
-                            //where (overdueOnly?? false) ? (bill.PaidDate == null && bill.DueDate < DateTime.Now) : (bill.PaidDate == null)
+                            where bill.Voucher == null
                             select bill;
             if (overdueOnly == true)
             {

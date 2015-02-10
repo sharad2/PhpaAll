@@ -80,7 +80,7 @@ namespace PhpaAll.Controllers
                 ContractorId = model.ContractorId,
                 SubmitedToDivisionId = model.SubmittedToDivisionId,
                 DueDate = model.DueDate,
-                PaidDate = model.PaidDate,
+                //PaidDate = model.PaidDate,
                 Remarks = model.Remarks,
                 SubmittedOnDate = model.SubmittedOnDate,
                 Id = model.Id,
@@ -110,7 +110,7 @@ namespace PhpaAll.Controllers
                              ContractorId = bill.ContractorId,
                              SubmittedToDivisionId = bill.SubmitedToDivisionId,
                              DueDate = bill.DueDate,
-                             PaidDate = bill.PaidDate,
+                             //PaidDate = bill.PaidDate,
                              Remarks = bill.Remarks,
                              SubmittedOnDate = bill.SubmittedOnDate,
                              SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
@@ -137,7 +137,7 @@ namespace PhpaAll.Controllers
                 edit.ContractorId = model.ContractorId;
                 edit.SubmitedToDivisionId = model.SubmittedToDivisionId;
                 edit.DueDate = model.DueDate;
-                edit.PaidDate = model.PaidDate;
+                //edit.PaidDate = model.PaidDate;
                 edit.Remarks = model.Remarks;
                 edit.SubmittedOnDate = model.SubmittedOnDate;
                 _db.Value.SubmitChanges();
@@ -192,7 +192,7 @@ namespace PhpaAll.Controllers
                              ContractorId = bill.ContractorId,
                              SubmittedToDivisionId = bill.SubmitedToDivisionId,
                              DueDate = bill.DueDate,
-                             PaidDate = bill.PaidDate,
+                             //PaidDate = bill.PaidDate,
                              Remarks = bill.Remarks,
                              SubmittedOnDate = bill.SubmittedOnDate,
                              isEditMode = true,
