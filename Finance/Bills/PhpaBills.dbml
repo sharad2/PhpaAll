@@ -140,4 +140,25 @@
       <Association Name="Bill_Voucher" Member="Bill" ThisKey="BillId" OtherKey="Id" Type="Bill" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.BillAudit2" Member="BillAudit2s" AccessModifier="Internal">
+    <Type Name="BillAudit2" AccessModifier="Internal">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BillId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Association Name="BillAudit2_BillAuditDetail" Member="BillAuditDetails" ThisKey="Id" OtherKey="BillAuditId" Type="BillAuditDetail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BillAuditDetail" Member="BillAuditDetails" AccessModifier="Internal">
+    <Type Name="BillAuditDetail" AccessModifier="Internal">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BillAuditId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FieldName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="OldValue" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="NewValue" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="BillAudit2_BillAuditDetail" Member="BillAudit2" ThisKey="BillAuditId" OtherKey="Id" Type="BillAudit2" IsForeignKey="true" />
+    </Type>
+  </Table>
 </Database>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.625, 15.125" name="PhpaBills">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.625, 15.25" name="PhpaBills">
   <DataContextMoniker Name="/PhpaBillsDataContext" />
   <nestedChildShapes>
     <classShape Id="9dc8795f-8380-4320-8688-80ec77656a27" absoluteBounds="0.75, 5.625, 2, 1.5785953776041666">
@@ -20,7 +20,7 @@
         <elementListCompartment Id="6dc7985f-d78b-41e9-9403-d602528c4b4d" absoluteBounds="4.015, 4.585, 1.9700000000000002, 3.9031168619791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 2.40465413411458); (5 : 2.40465413411458); (5 : 4.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 2.40465413411458); (5 : 2.40465413411458); (5 : 4.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/PhpaBillsDataContext/Contractor/Contractor_Bill" />
       <nodes>
         <classShapeMoniker Id="985da267-7841-4f17-9366-c5f8018755b0" />
@@ -84,6 +84,25 @@
       <nodes>
         <classShapeMoniker Id="a440a664-948a-4200-9dc7-e0e6f3a4b840" />
         <classShapeMoniker Id="101c886a-e81f-4e0d-a985-e88e0a35049d" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="fd776207-1e38-4773-97e9-7a6a9da23717" absoluteBounds="1, 12.75, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/PhpaBillsDataContext/BillAudit2" />
+      <nestedChildShapes>
+        <elementListCompartment Id="26b004ee-9ad9-460d-9731-5a502511f422" absoluteBounds="1.0150000000000001, 13.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1c0bff22-18cd-49cb-b7a9-d4212b54ee0f" absoluteBounds="3.875, 12.875, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/PhpaBillsDataContext/BillAuditDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f0cb3a17-d18b-4239-96a2-08ee3909f9c6" absoluteBounds="3.8899999999999997, 13.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3 : 13.6017976888021); (3.875 : 13.6017976888021)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PhpaBillsDataContext/BillAudit2/BillAudit2_BillAuditDetail" />
+      <nodes>
+        <classShapeMoniker Id="fd776207-1e38-4773-97e9-7a6a9da23717" />
+        <classShapeMoniker Id="1c0bff22-18cd-49cb-b7a9-d4212b54ee0f" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>
