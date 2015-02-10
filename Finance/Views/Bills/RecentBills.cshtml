@@ -101,6 +101,10 @@ TODO: Amounts of approved bills will display in green
                     <div class="panel-title">
                         <a class="collapsed" data-toggle="collapse" href="#fsContractors" aria-expanded="false" aria-controls="fsContractors">
                             <span class="caret"></span> Contractors
+                            @if (!Model.SelectedContracatorsCount.HasValue)
+                            {
+                                <span class="badge">@Model.Contractors.Count</span>
+                            }
                         </a>
                         @if (Model.SelectedContracatorsCount.HasValue)
                             {
@@ -216,6 +220,10 @@ TODO: Amounts of approved bills will display in green
                     <div class="panel-title">
                         <a class="collapsed" data-toggle="collapse" href="#fsprocessingDivision" aria-expanded="false" aria-controls="fsprocessingDivision">
                             <span class="caret"></span> &rarr; At Division
+                            @if (!Model.SelectedProcessingDivisionsCount.HasValue)
+                            {
+                                <span class="badge">@Model.ProcessingDivisions.Count()</span>
+                            }
                         </a>
                         @if (Model.SelectedProcessingDivisionsCount.HasValue)
                             {
@@ -254,6 +262,10 @@ TODO: Amounts of approved bills will display in green
                     <div class="panel-title">
                         <a class="collapsed" data-toggle="collapse" href="#fsApprovers" aria-expanded="false" aria-controls="fsApprovers">
                             <span class="caret"></span> Approvers
+                            @if (!Model.SelectedApproversCount.HasValue)
+                            {
+                                <span class="badge">@Model.Approvers.Count()</span>
+                            }
                         </a>
                         @if (Model.SelectedApproversCount.HasValue)
                             {
