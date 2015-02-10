@@ -1,4 +1,8 @@
-﻿@model PhpaAll.Bills.BillModel
+﻿
+@*The approve button has the approve class. The unapprove button has the unapprove class. It is your reponsibility to implement the behavior
+of these buttons by writing appropriate scripts*@
+
+@model PhpaAll.Bills.BillModel
 <div class="row">
     <div class="col-md-3">
         <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
@@ -29,7 +33,7 @@
             </div>
             <div title="@Model.ContractorName">@Html.DisplayFor(m => m.ContractorName)</div>
         </div>
-        </div>
+    </div>
     <div class="col-md-5">
         <div class="pull-right">
             <strong>@Html.DisplayFor(m => m.Amount)</strong>
@@ -49,7 +53,7 @@
             <div class="btn-group btn-group-xs" role="group" aria-label="...">
                 @if (Model.ApprovedDate == null)
                 {
-                    <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.BillId))" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span> Approve</a>
+                        <button class="btn btn-default btn-xs approve"><span class="glyphicon glyphicon-thumbs-up"></span> Approve</button>
                 }
                 else
                 {
@@ -60,7 +64,7 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-                                <li><button class="btn btn-danger btn-block btn-xs"><span class="glyphicon glyphicon-thumbs-down"></span> Unapprove</button></li>
+                                <li><button class="btn btn-danger btn-block btn-xs unapprove"><span class="glyphicon glyphicon-thumbs-down"></span> Unapprove</button></li>
                             </ul>
                         </div>
                     </div>
@@ -69,7 +73,7 @@
         </div>
     </div>
 </div>
-<span class="text-muted">
+<div class="text-muted">
     @Html.DisplayFor(m => m.Particulars)
-</span>
+</div>
 

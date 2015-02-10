@@ -29,6 +29,12 @@
                 }).prop('disabled', true);
                 //return false;
             });
+
+            // Handle approve and unapprove buttons
+            $('#billGroup').on('click', '.approve', function (e) {
+                // Approve button was clicked
+                alert('Hi');
+            });
         });
     </script>
 }
@@ -405,7 +411,7 @@ Paid / Unpaid
                         </div>
                     </div>
                 </div>
-                <ul class="list-group">
+                <ul class="list-group" id="billGroup">
                     <li class="list-group-item list-group-item-info">
                         <div class="row">
                             <div class="col-md-3">
