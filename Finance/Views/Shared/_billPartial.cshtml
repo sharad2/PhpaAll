@@ -44,7 +44,7 @@
 
     <div class="col-md-2">
         <div class="text-right">
-            <strong>@Html.DisplayFor(m => m.Amount)</strong>
+            <strong style=@(Model.ApprovedDate != null ? "color:green" : "color:red")>@Html.DisplayFor(m => m.Amount)</strong>
         </div>
         <div class="text-right">
             <div class="btn-group">
