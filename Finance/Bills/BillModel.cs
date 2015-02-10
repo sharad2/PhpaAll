@@ -18,7 +18,7 @@ namespace PhpaAll.Bills
                               Particulars = bill.Particulars,
                               BillNumber = bill.BillNumber,
                               BillDate = bill.BillDate,
-                              ContractorId = bill.ContractorId,
+                              //ContractorId = bill.ContractorId,
                               ContractorName = bill.Contractor.ContractorName,
                               //DivisionId = bill.SubmitedToDivisionId,
                               DivisionName = bill.SubmittedToDivision.DivisionName,
@@ -26,8 +26,8 @@ namespace PhpaAll.Bills
                               //PaidDate = bill.PaidDate,
                               ApprovedDate = bill.ApprovedOn,
                               ApprovedBy = bill.ApprovedBy,
-                              Remarks = bill.Remarks,
-                              SubmittedOnDate = bill.SubmittedOnDate,
+                              //Remarks = bill.Remarks,
+                              //SubmittedOnDate = bill.SubmittedOnDate,
                               BillId = bill.Id,
                               //StationId = bill.StationId,
                               StationName = bill.Station.StationName,
@@ -63,8 +63,8 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? DueDate { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime? SubmittedOnDate { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:d}")]
+        //public DateTime? SubmittedOnDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? FinanceSubmittedDate { get; set; }
@@ -82,7 +82,7 @@ namespace PhpaAll.Bills
 
         public string CurrentDivisionName { get; set; }
 
-        public int? ContractorId { get; set; }
+        //public int? ContractorId { get; set; }
 
         public string ContractorName { get; set; }
 
@@ -96,7 +96,7 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? ApprovedDate { get; set; }
 
-        public string Remarks { get; set; }
+        //public string Remarks { get; set; }
 
         public DateTime? VoucherDate { get; set; }
     }
