@@ -327,6 +327,17 @@ namespace PhpaAll.Controllers
             return Redirect(url);
         }
 
+        /// <summary>
+        /// Approves a single bill. Designed to be called via AJAX
+        /// </summary>
+        /// <param name="billId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual ActionResult ApproveBill(int billId)
+        {
+            throw new NotImplementedException();
+        }
+
         private class MyTestGroup
         {
 

@@ -1,6 +1,5 @@
 ﻿
-@*The approve button has the approve class. The unapprove button has the unapprove class. It is your reponsibility to implement the behavior
-of these buttons by writing appropriate scripts*@
+@*The approve and unapprove buttons have the approve class. Their values are true and false respectively *@
 
 @model PhpaAll.Bills.BillModel
 <div class="row">
@@ -53,7 +52,7 @@ of these buttons by writing appropriate scripts*@
             <div class="btn-group btn-group-xs" role="group" aria-label="...">
                 @if (Model.ApprovedDate == null)
                 {
-                        <button class="btn btn-default btn-xs approve"><span class="glyphicon glyphicon-thumbs-up"></span> Approve</button>
+                        <button type="button" class="btn btn-default btn-xs approve" value="true"><span class="glyphicon glyphicon-thumbs-up"></span> Approve</button>
                 }
                 else
                 {
@@ -64,7 +63,7 @@ of these buttons by writing appropriate scripts*@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-                                <li><button class="btn btn-danger btn-block btn-xs unapprove"><span class="glyphicon glyphicon-thumbs-down"></span> Unapprove</button></li>
+                                <li><button type="button" class="btn btn-danger btn-block btn-xs approve" value="false"><span class="glyphicon glyphicon-thumbs-down"></span> Unapprove</button></li>
                             </ul>
                         </div>
                     </div>

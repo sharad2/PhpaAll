@@ -72,6 +72,12 @@ namespace PhpaAll.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ApproveBill()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ApproveBill);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult OutstandingBills()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.OutstandingBills);
@@ -94,6 +100,7 @@ namespace PhpaAll.Controllers
         {
             public readonly string RecentBills = "RecentBills";
             public readonly string ApproveBills = "ApproveBills";
+            public readonly string ApproveBill = "ApproveBill";
             public readonly string OutstandingBills = "OutstandingBills";
         }
 
@@ -102,6 +109,7 @@ namespace PhpaAll.Controllers
         {
             public const string RecentBills = "RecentBills";
             public const string ApproveBills = "ApproveBills";
+            public const string ApproveBill = "ApproveBill";
             public const string OutstandingBills = "OutstandingBills";
         }
 
@@ -140,6 +148,14 @@ namespace PhpaAll.Controllers
             public readonly string minAmount = "minAmount";
             public readonly string maxAmount = "maxAmount";
             public readonly string approve = "approve";
+        }
+        static readonly ActionParamsClass_ApproveBill s_params_ApproveBill = new ActionParamsClass_ApproveBill();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ApproveBill ApproveBillParams { get { return s_params_ApproveBill; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ApproveBill
+        {
+            public readonly string billId = "billId";
         }
         static readonly ActionParamsClass_OutstandingBills s_params_OutstandingBills = new ActionParamsClass_OutstandingBills();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -213,6 +229,18 @@ namespace PhpaAll.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "maxAmount", maxAmount);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "approve", approve);
             ApproveBillsOverride(callInfo, listBillId, approvers, divisions, processingDivisions, contractors, stations, dateFrom, dateTo, minAmount, maxAmount, approve);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ApproveBillOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int billId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ApproveBill(int billId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ApproveBill);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "billId", billId);
+            ApproveBillOverride(callInfo, billId);
             return callInfo;
         }
 
