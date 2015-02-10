@@ -24,7 +24,7 @@
 
     </div>
     <div class="col-md-4">
-        @Html.DisplayFor(m => m.SubmittedToDivisionName)
+        @Html.DisplayFor(m => m.DivisionName)
         @@
         @Html.DisplayFor(m => m.StationName)
         <br />
@@ -44,7 +44,7 @@
 
     <div class="col-md-2">
         <div class="text-right">
-            <strong style=@(Model.ApprovedDate != null ? "color:green" : "color:red")>@Html.DisplayFor(m => m.Amount)</strong>
+            <strong>@Html.DisplayFor(m => m.Amount)</strong>
         </div>
         <div class="text-right">
             <div class="btn-group">

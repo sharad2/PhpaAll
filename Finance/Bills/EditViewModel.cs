@@ -7,7 +7,7 @@ using System.Web;
 
 namespace PhpaAll.Controllers
 {
-   public class EditViewModel
+    public class EditViewModel
     {
         //For internal use to retrive row for editing
         public int Id { get; set; }
@@ -29,10 +29,6 @@ namespace PhpaAll.Controllers
         [Display(Name = "Submitted to division")]
         [DataType(DataType.Date)]
         public DateTime? SubmittedOnDate { get; set; }
-
-        [Display(Name = "Pro Date")]
-        [DataType(DataType.Date)]
-        public DateTime? PaidDate { get; set; }
 
         [Display(Name = "Bill Type")]
         [StringLength(10, ErrorMessage = "The Bill Type value cannot exceed 10 characters. ")]
@@ -63,7 +59,7 @@ namespace PhpaAll.Controllers
         [StringLength(255, ErrorMessage = "Max limit is 255 characters")]
         public string Remarks { get; set; }
 
-      
+
 
     }
 }

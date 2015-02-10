@@ -7,36 +7,36 @@
     <script type="text/javascript">
         function tbJobs_Search(event, ui) {
             var contractorId = $('#tbContractors').autocompleteEx('selectedValue');
-            if (!contractorId) {
-                alert('Please select contractor first');
-                return false;
-            }
+            //if (!contractorId) {
+            //    alert('Please select contractor first');
+            //    return false;
+            //}
             $(this).autocompleteEx('option', 'parameters', { contractorId: contractorId, term: $(this).val() });
             return true;
         }
-        function tbJobs_KeyPress() {
-            var contractorId = $('#tbContractors').autocompleteEx('selectedValue');
-            if (!contractorId) {
-                alert('Please select contractor first');
-                return false;
-            }
-        }
+        //function tbJobs_KeyPress() {
+        //    //var contractorId = $('#tbContractors').autocompleteEx('selectedValue');
+        //    //if (!contractorId) {
+        //    //    alert('Please select contractor first');
+        //    //    return false;
+        //    //}
+        //}
 
-        function tbJobs_Change() {
-            var contractorId = $('#tbContractors').autocompleteEx('selectedValue');
-            if (!contractorId) {
-                alert('Please select contractor first');
-                return false;
-            }
-            //$(this).autocompleteEx('option', 'parameters', { contractorId: contractorId, term: $(this).val() });
-            //var badJob = $(this).autocompleteEx('validate');
-            //var job = $(this).autocompleteEx('selectedValue');
-            //if (!job) {
-            //    alert('Job is invalid or it does not belongs contractor. Please re-enter valid job');
-            //    $(this).val('');
-            //    $(this).focus();
-            //}
-        }
+        //function tbJobs_Change() {
+        //    //var contractorId = $('#tbContractors').autocompleteEx('selectedValue');
+        //    //if (!contractorId) {
+        //    //    alert('Please select contractor first');
+        //    //    return false;
+        //    //}
+        //    //$(this).autocompleteEx('option', 'parameters', { contractorId: contractorId, term: $(this).val() });
+        //    //var badJob = $(this).autocompleteEx('validate');
+        //    //var job = $(this).autocompleteEx('selectedValue');
+        //    //if (!job) {
+        //    //    alert('Job is invalid or it does not belongs contractor. Please re-enter valid job');
+        //    //    $(this).val('');
+        //    //    $(this).focus();
+        //    //}
+        //}
     </script>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="cphSideNavigation" runat="server">
@@ -74,7 +74,7 @@
             </Validators>
         </i:AutoComplete>--%>
         <i:AutoComplete ID="tbJob" runat="server" ClientIDMode="Static" Width="25em" WebMethod="GetJobsForContractor"
-            WebServicePath="~/Services/Contractors.asmx" OnClientSearch="tbJobs_Search" OnClientKeyPress="tbJobs_KeyPress" OnClientChange="tbJobs_Change" ValidateWebMethodName="ValidateJobForContractor" AutoValidate="false" Delay="1000">
+            WebServicePath="~/Services/Contractors.asmx" OnClientSearch="tbJobs_Search"  ValidateWebMethodName="ValidateJobForContractor" AutoValidate="false" Delay="1000">
         </i:AutoComplete>
         <br />
         <i:ButtonEx ID="btnGo" runat="server" Text="Go" CausesValidation="true" Action="Submit"

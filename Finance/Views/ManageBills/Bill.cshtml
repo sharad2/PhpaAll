@@ -69,10 +69,10 @@
         <p>
             <strong>Amount(Nu.) @Html.DisplayFor(m => m.Amount)</strong>
 
-            @if (Model.PaidDate != null)
+            @if (Model.VoucherDate != null)
             {
                 <span>
-                    paid on @Html.DisplayFor(m => m.PaidDate)
+                    Voucher Date @Html.DisplayFor(m => m.VoucherDate) TODO: Create link to voucher
                 </span>
             }
 

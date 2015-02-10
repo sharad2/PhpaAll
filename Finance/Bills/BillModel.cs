@@ -18,21 +18,22 @@ namespace PhpaAll.Bills
                               Particulars = bill.Particulars,
                               BillNumber = bill.BillNumber,
                               BillDate = bill.BillDate,
-                              ContractorId = bill.ContractorId,
+                              //ContractorId = bill.ContractorId,
                               ContractorName = bill.Contractor.ContractorName,
-                              SubmittedToDivisionId = bill.SubmitedToDivisionId,
-                              SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
+                              //DivisionId = bill.SubmitedToDivisionId,
+                              DivisionName = bill.SubmittedToDivision.DivisionName,
                               DueDate = bill.DueDate,
-                              PaidDate = bill.PaidDate,
+                              //PaidDate = bill.PaidDate,
                               ApprovedDate = bill.ApprovedOn,
                               ApprovedBy = bill.ApprovedBy,
-                              Remarks = bill.Remarks,
-                              SubmittedOnDate = bill.SubmittedOnDate,
+                              //Remarks = bill.Remarks,
+                              //SubmittedOnDate = bill.SubmittedOnDate,
                               BillId = bill.Id,
-                              StationId = bill.StationId,
+                              //StationId = bill.StationId,
                               StationName = bill.Station.StationName,
-                              CurrentDivisionId = bill.CurrentDivisionId,
-                              CurrentDivisionName = bill.CurrentDivision.DivisionName
+                              //CurrentDivisionId = bill.CurrentDivisionId,
+                              CurrentDivisionName = bill.CurrentDivision.DivisionName,
+                              VoucherDate = bill.Voucher.VoucherDate
                           };
             return results;
         }
@@ -48,8 +49,8 @@ namespace PhpaAll.Bills
         /// <summary>
         /// ScaffoldColumn means do not display in Excel
         /// </summary>
-        [ScaffoldColumn(false)]
-        public int StationId { get; set; }
+        //[ScaffoldColumn(false)]
+        //public int StationId { get; set; }
 
         [Display(ShortName = "Station")]
         public string StationName { get; set; }
@@ -62,25 +63,26 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? DueDate { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime? SubmittedOnDate { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:d}")]
+        //public DateTime? SubmittedOnDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? FinanceSubmittedDate { get; set; }
 
+        [Obsolete]
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? PaidDate { get; set; }
 
 
-        public int? SubmittedToDivisionId { get; set; }
+        //public int? DivisionId { get; set; }
 
-        public string SubmittedToDivisionName { get; set; }
+        public string DivisionName { get; set; }
 
-        public int? CurrentDivisionId { get; set; }
+        //public int? CurrentDivisionId { get; set; }
 
         public string CurrentDivisionName { get; set; }
 
-        public int? ContractorId { get; set; }
+        //public int? ContractorId { get; set; }
 
         public string ContractorName { get; set; }
 
@@ -94,9 +96,9 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? ApprovedDate { get; set; }
 
-        public string Remarks { get; set; }
+        //public string Remarks { get; set; }
 
-        //public Image BillImage { get; set; }
+        public DateTime? VoucherDate { get; set; }
     }
 
 }

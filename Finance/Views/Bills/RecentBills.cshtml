@@ -333,78 +333,77 @@ Paid / Unpaid
         {
 
             <form action="@Url.Action(MVC.Bills.ApproveBills())" method="post">
-                <div class="form-inline">
-                    @if (Model.Approvers.Any(p => !p.Selected))
+                @if (Model.Approvers.Any(p => !p.Selected))
+                {
+                    foreach (var item in Model.Approvers.Where(p => p.Selected))
                     {
-                        foreach (var item in Model.Approvers.Where(p => p.Selected))
-                        {
-                            <input type="hidden" name="@MVC.Bills.ApproveBillsParams.approvers" value="@item.Id" />
-                        }
+                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.approvers" value="@item.Id" />
                     }
-                    @if (Model.Divisions.Any(p => !p.Selected))
+                }
+                @if (Model.Divisions.Any(p => !p.Selected))
+                {
+                    foreach (var item in Model.Divisions.Where(p => p.Selected))
                     {
-                        foreach (var item in Model.Divisions.Where(p => p.Selected))
-                        {
-                            <input type="hidden" name="@MVC.Bills.ApproveBillsParams.divisions" value="@item.Id" />
-                        }
+                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.divisions" value="@item.Id" />
                     }
-                    @if (Model.ProcessingDivisions.Any(p => !p.Selected))
+                }
+                @if (Model.ProcessingDivisions.Any(p => !p.Selected))
+                {
+                    foreach (var item in Model.ProcessingDivisions.Where(p => p.Selected))
                     {
-                        foreach (var item in Model.ProcessingDivisions.Where(p => p.Selected))
-                        {
-                            <input type="hidden" name="@MVC.Bills.ApproveBillsParams.processingDivisions" value="@item.Id" />
-                        }
+                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.processingDivisions" value="@item.Id" />
                     }
-                    @if (Model.Contractors.Any(p => !p.Selected))
+                }
+                @if (Model.Contractors.Any(p => !p.Selected))
+                {
+                    foreach (var item in Model.Contractors.Where(p => p.Selected))
                     {
-                        foreach (var item in Model.Contractors.Where(p => p.Selected))
-                        {
-                            <input type="hidden" name="@MVC.Bills.ApproveBillsParams.contractors" value="@item.Id" />
-                        }
+                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.contractors" value="@item.Id" />
                     }
-                    @if (Model.Stations.Any(p => !p.Selected))
+                }
+                @if (Model.Stations.Any(p => !p.Selected))
+                {
+                    foreach (var item in Model.Stations.Where(p => p.Selected))
                     {
-                        foreach (var item in Model.Stations.Where(p => p.Selected))
-                        {
-                            <input type="hidden" name="@MVC.Bills.ApproveBillsParams.stations" value="@item.Id" />
-                        }
+                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.stations" value="@item.Id" />
                     }
-                    @if (Model.DateFrom != null)
-                    {
-                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dateFrom" value="@Model.DateFrom.Value" />
-                    }
-                    @if (Model.DateTo != null)
-                    {
-                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dateTo" value="@Model.DateTo.Value" />
-                    }
-                    @if (Model.FilterMinAmount != null)
-                    {
-                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.minAmount" value="@Model.FilterMinAmount.Value" />
-                    }
-                    @if (Model.FilterMaxAmount != null)
-                    {
-                        <input type="hidden" name="@MVC.Bills.ApproveBillsParams.maxAmount" value="@Model.FilterMaxAmount.Value" />
-                    }
-                    @if (Model.Bills.Count > 0)
-                    {
-                        <label style="color:lightblue"> <i>Showing @Model.Bills.Count Bills</i></label>
-                        <strong><a href="@Model.UrlExcel">Export to Excel</a></strong>
-                        <span class="glyphicon glyphicon-export"></span>
-                    }
-                    <br />
-                    <div class="form-group form-group-sm">
-                        <label for="tbActivityDate">Date</label>
-                        <div class='input-group date' id='billApproveDatePicker'>
-
-                            <input id="tbActivityDate" type="date" title="Select bill approval date" class="form-control" size="12" placeholder="Date of Approval"
-                                   name="@MVC.Bills.ApproveBillsParams.approvalDate" value="@DateTime.Now">
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
+                }
+                @if (Model.DateFrom != null)
+                {
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dateFrom" value="@Model.DateFrom.Value" />
+                }
+                @if (Model.DateTo != null)
+                {
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dateTo" value="@Model.DateTo.Value" />
+                }
+                @if (Model.FilterMinAmount != null)
+                {
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.minAmount" value="@Model.FilterMinAmount.Value" />
+                }
+                @if (Model.FilterMaxAmount != null)
+                {
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.maxAmount" value="@Model.FilterMaxAmount.Value" />
+                }
+                @if (Model.Bills.Count > 0)
+                {
+                    <label style="color:lightblue"> <i>Showing @Model.Bills.Count Bills</i></label>
+                    <strong><a href="@Model.UrlExcel">Export to Excel</a></strong>
+                    <span class="glyphicon glyphicon-export"></span>
+                }
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Selected Bills</div>
+                    <div class="panel-body">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button type="submit" name="@MVC.Bills.ApproveBillsParams.approve" value="true" class="btn btn-success">
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                                Approve
+                            </button>
+                            <button type="submit" name="@MVC.Bills.ApproveBillsParams.approve" value="false" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-thumbs-down"></span>
+                                Unapprove
+                            </button>
                         </div>
                     </div>
-                    <button type="submit" name="@MVC.Bills.ApproveBillsParams.approve" value="true" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Approve Selected</button>
-                    <button type="submit" name="@MVC.Bills.ApproveBillsParams.approve" value="false" class="btn btn-danger"><span class="glyphicon glyphicon-thumbs-down"></span> Disapprove Selected</button>
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-info">

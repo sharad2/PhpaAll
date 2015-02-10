@@ -236,7 +236,7 @@ namespace PhpaAll.Controllers
         /// <returns></returns>
         [Authorize(Roles = "BillsManager")]
         [HttpPost]
-        public virtual ActionResult ApproveBills(int[] listBillId, DateTime? approvalDate, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors,
+        public virtual ActionResult ApproveBills(int[] listBillId, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors,
                                                 int[] stations, DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount,
             bool approve)
         {
@@ -254,7 +254,7 @@ namespace PhpaAll.Controllers
                 {
                     if (approve)
                     {
-                        bill.ApprovedOn = approvalDate;
+                        bill.ApprovedOn = DateTime.Now;
                         bill.ApprovedBy = User.Identity.Name;
                     }
                     else
@@ -348,10 +348,9 @@ namespace PhpaAll.Controllers
                 OrderByField = field,
                 OverDueOnly = overdueOnly
             };
-            
+
             var query = from bill in _db.Value.Bills
-                            where bill.PaidDate == null
-                            //where (overdueOnly?? false) ? (bill.PaidDate == null && bill.DueDate < DateTime.Now) : (bill.PaidDate == null)
+                            where bill.Voucher == null
                             select bill;
             if (overdueOnly == true)
             {
