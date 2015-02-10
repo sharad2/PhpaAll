@@ -111,11 +111,18 @@ namespace PhpaAll.Controllers
                              SubmittedToDivisionId = bill.SubmitedToDivisionId,
                              DueDate = bill.DueDate,
                              //PaidDate = bill.PaidDate,
+                             StationId = bill.StationId,
                              Remarks = bill.Remarks,
                              SubmittedOnDate = bill.SubmittedOnDate,
                              SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
                              ContractorName = bill.Contractor.ContractorName
                          }).FirstOrDefault();
+            var list = from stations in _db.Value.Stations select stations;
+            model.StationList = list.Select(p => new SelectListItem
+            {
+                Text = p.StationName,
+                Value = p.StationId.ToString()
+            });
 
             return View(Views.Edit, model);
         }
@@ -137,7 +144,7 @@ namespace PhpaAll.Controllers
                 edit.ContractorId = model.ContractorId;
                 edit.SubmitedToDivisionId = model.SubmittedToDivisionId;
                 edit.DueDate = model.DueDate;
-                //edit.PaidDate = model.PaidDate;
+                edit.StationId = model.StationId;
                 edit.Remarks = model.Remarks;
                 edit.SubmittedOnDate = model.SubmittedOnDate;
                 _db.Value.SubmitChanges();
