@@ -220,16 +220,6 @@ namespace PhpaAll.Controllers
                                  select new BillAuditModel(ba)
                                  ).ToList();
 
-            //from ba in _db.Value.BillAudits
-            //join bad in db.Value.BillAudits
-            //on recordA.Id equals recordB.aId
-            //join recordC in context.TableC
-            //on recordB.cId equals recordC.Id
-            //select new 
-            //{
-            //   // whatever columns are appropriate
-            //};
-
             return View(Views.Bill, model);
         }
 
