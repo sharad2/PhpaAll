@@ -150,6 +150,8 @@ namespace PhpaAll.Controllers
             public readonly string minAmount = "minAmount";
             public readonly string maxAmount = "maxAmount";
             public readonly string approve = "approve";
+            public readonly string OnlyApprovedBills = "OnlyApprovedBills";
+            public readonly string OnlyUnapprovedBills = "OnlyUnapprovedBills";
         }
         static readonly ActionParamsClass_ApproveBill s_params_ApproveBill = new ActionParamsClass_ApproveBill();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -215,10 +217,10 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void ApproveBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int[] listBillId, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors, int[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount, bool approve);
+        partial void ApproveBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int[] listBillId, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors, int[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount, bool approve, bool? OnlyApprovedBills, bool? OnlyUnapprovedBills);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult ApproveBills(int[] listBillId, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors, int[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount, bool approve)
+        public override System.Web.Mvc.ActionResult ApproveBills(int[] listBillId, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors, int[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount, bool approve, bool? OnlyApprovedBills, bool? OnlyUnapprovedBills)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ApproveBills);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "listBillId", listBillId);
@@ -232,7 +234,9 @@ namespace PhpaAll.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "minAmount", minAmount);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "maxAmount", maxAmount);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "approve", approve);
-            ApproveBillsOverride(callInfo, listBillId, approvers, divisions, processingDivisions, contractors, stations, dateFrom, dateTo, minAmount, maxAmount, approve);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "OnlyApprovedBills", OnlyApprovedBills);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "OnlyUnapprovedBills", OnlyUnapprovedBills);
+            ApproveBillsOverride(callInfo, listBillId, approvers, divisions, processingDivisions, contractors, stations, dateFrom, dateTo, minAmount, maxAmount, approve, OnlyApprovedBills, OnlyUnapprovedBills);
             return callInfo;
         }
 

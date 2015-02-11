@@ -241,7 +241,7 @@ namespace PhpaAll.Controllers
         [HttpPost]
         public virtual ActionResult ApproveBills(int[] listBillId, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors,
                                                 int[] stations, DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount,
-            bool approve)
+                                                bool approve, bool? OnlyApprovedBills, bool? OnlyUnapprovedBills)
         {
             if (string.IsNullOrWhiteSpace(User.Identity.Name))
             {
@@ -317,6 +317,16 @@ namespace PhpaAll.Controllers
             if (dateTo != null)
             {
                 dict.Add(Actions.RecentBillsParams.dateTo, new DateTime[] { dateTo.Value });
+            }
+
+            if (OnlyApprovedBills == true) 
+            {
+                dict.Add(Actions.RecentBillsParams.OnlyApprovedBills, new bool[] { OnlyApprovedBills.Value });
+            }
+
+            if (OnlyUnapprovedBills == true)
+            {
+                dict.Add(Actions.RecentBillsParams.OnlyUnapprovedBills, new bool[] { OnlyUnapprovedBills.Value });
             }
 
             if (dict.Count > 0)
