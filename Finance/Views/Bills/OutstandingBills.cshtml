@@ -126,7 +126,7 @@
                     <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].DueDate)</td>
                     @if (Model.OrderByField != PhpaAll.Bills.OrderByField.Division)
                     {
-                        <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].SubmittedToDivisionName)</td>
+                        <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].DivisionName)</td>
                     }
                     @if (Model.OrderByField != PhpaAll.Bills.OrderByField.Station)
                     {

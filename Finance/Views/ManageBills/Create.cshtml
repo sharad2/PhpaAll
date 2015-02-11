@@ -70,11 +70,11 @@
                     </span>
                 </div>
                 <small class="help-block">The division which received this bill.</small>
-                @Html.ValidationMessageFor(m => m.SubmittedToDivisionId, null, new
+                @Html.ValidationMessageFor(m => m.DivisionId, null, new
            {
                @class = "help-block"
            })
-                @Html.TextBoxFor(m => m.SubmittedToDivisionId, new
+                @Html.TextBoxFor(m => m.DivisionId, new
                {
                    style = "height:0; width:0; border:none"
                })
@@ -138,7 +138,7 @@
         <div class="form-group">
             <label for="divSubDate">Received on</label>
             <div class='input-group date' id='divSubDatePicker'>
-                @Html.TextBoxFor(m => m.SubmittedOnDate, new
+                @Html.TextBoxFor(m => m.ReceivedDate, new
            {
                id = "divSubDate",
                @class = "form-control",
@@ -149,7 +149,7 @@
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
             </div>
-            @Html.ValidationMessageFor(m => m.SubmittedOnDate, null, new
+            @Html.ValidationMessageFor(m => m.ReceivedDate, null, new
            {
                @class = "help-block"
            })

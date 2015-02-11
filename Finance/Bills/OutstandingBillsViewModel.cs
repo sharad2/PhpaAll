@@ -35,10 +35,9 @@ namespace PhpaAll.Bills
 
         public String BillNumber { get; set; }
 
-        [Obsolete("Change name")]
-        public int? SubmittedToDivisionId { get; set; }
+        public int? DivisionId { get; set; }
 
-        public string SubmittedToDivisionName { get; set; }
+        public string DivisionName { get; set; }
 
         public int? ContractorId { get; set; }
 

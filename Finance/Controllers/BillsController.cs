@@ -449,8 +449,8 @@ namespace PhpaAll.Controllers
                                           {
                                               BillId = bill.Id,
                                               BillNumber = bill.BillNumber,
-                                              SubmittedToDivisionId = bill.DivisionId,
-                                              SubmittedToDivisionName = bill.Division.DivisionName,
+                                              DivisionId = bill.DivisionId,
+                                              DivisionName = bill.Division.DivisionName,
                                               ContractorId = bill.ContractorId,
                                               ContractorName = bill.Contractor.ContractorName,
                                               BillDate = bill.BillDate,

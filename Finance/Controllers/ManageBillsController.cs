@@ -78,11 +78,11 @@ namespace PhpaAll.Controllers
                 BillDate = model.BillDate,
                 //BillImage = imageData,
                 ContractorId = model.ContractorId,
-                DivisionId = model.SubmittedToDivisionId,
+                DivisionId = model.DivisionId,
                 DueDate = model.DueDate,
                 //PaidDate = model.PaidDate,
                 Remarks = model.Remarks,
-                ReceivedDate = model.SubmittedOnDate,
+                ReceivedDate = model.ReceivedDate,
                 Id = model.Id,
                 StationId = model.StationId
             };
@@ -106,13 +106,13 @@ namespace PhpaAll.Controllers
                              Particulars = bill.Particulars,
                              BillDate = bill.BillDate,
                              ContractorId = bill.ContractorId,
-                             SubmittedToDivisionId = bill.DivisionId,
+                             DivisionId = bill.DivisionId,
                              DueDate = bill.DueDate,
                              //PaidDate = bill.PaidDate,
                              StationId = bill.StationId,
                              Remarks = bill.Remarks,
-                             SubmittedOnDate = bill.ReceivedDate,
-                             SubmittedToDivisionName = bill.Division.DivisionName,
+                             ReceivedDate = bill.ReceivedDate,
+                             DivisionName = bill.Division.DivisionName,
                              ContractorName = bill.Contractor.ContractorName
                          }).FirstOrDefault();
             var list = from stations in _db.Value.Stations select stations;
@@ -142,11 +142,11 @@ namespace PhpaAll.Controllers
             edit.BillDate = model.BillDate;
             //edit.BillImage = imageData;
             edit.ContractorId = model.ContractorId;
-            edit.DivisionId = model.SubmittedToDivisionId;
+            edit.DivisionId = model.DivisionId;
             edit.DueDate = model.DueDate;
             edit.StationId = model.StationId;
             edit.Remarks = model.Remarks;
-            edit.ReceivedDate = model.SubmittedOnDate;
+            edit.ReceivedDate = model.ReceivedDate;
             _db.Value.SubmitChanges();
 
             return RedirectToAction(MVC.ManageBills.ShowBill(model.Id));
@@ -190,13 +190,13 @@ namespace PhpaAll.Controllers
                              Particulars = bill.Particulars,
                              BillDate = bill.BillDate,
                              ContractorId = bill.ContractorId,
-                             SubmittedToDivisionId = bill.DivisionId,
+                             DivisionId = bill.DivisionId,
                              DueDate = bill.DueDate,
                              //PaidDate = bill.PaidDate,
                              Remarks = bill.Remarks,
-                             SubmittedOnDate = bill.ReceivedDate,
+                             ReceivedDate = bill.ReceivedDate,
                              isEditMode = true,
-                             SubmittedToDivisionName = bill.Division.DivisionName,
+                             DivisionName = bill.Division.DivisionName,
                              ContractorName = bill.Contractor.ContractorName,
                              ApprovedDate = bill.ApprovedOn,
                              ApprovedBy = bill.ApprovedBy,

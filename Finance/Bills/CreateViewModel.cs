@@ -30,8 +30,7 @@ namespace PhpaAll.Bills
 
         [Display(Name = "Submitted to division")]
         [DataType(DataType.Date)]
-        [Obsolete("Change to ReceivedDate")]
-        public DateTime? SubmittedOnDate { get; set; }
+        public DateTime? ReceivedDate { get; set; }
 
         //[Display(Name = "Pro Date")]
         //[DataType(DataType.Date)]
@@ -44,8 +43,7 @@ namespace PhpaAll.Bills
 
         [Display(Name = "Division Id")]
         [Required (ErrorMessage="Division is required.")]
-        [Obsolete("Change Name")]
-        public int? SubmittedToDivisionId { get; set; }
+        public int? DivisionId { get; set; }
 
         public string SubmittedToDivisionName { get; set; }
 

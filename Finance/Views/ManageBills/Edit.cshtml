@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label for="divSubDate">Received on</label>
                     <div class='input-group date' id='divSubDatePicker'>
-                        @Html.TextBoxFor(m => m.SubmittedOnDate, new
+                        @Html.TextBoxFor(m => m.ReceivedDate, new
            {
                id = "divSubDate",
                @class = "form-control",
@@ -46,7 +46,7 @@
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
-                    @Html.ValidationMessageFor(m => m.SubmittedOnDate)
+                    @Html.ValidationMessageFor(m => m.ReceivedDate)
                 </div>
             </div>
             <div class="col-md-3">
@@ -122,15 +122,15 @@
                 <div class="form-group">
                     <label for="tbDivision">Division *</label>
                     <div class="input-group input-group-sm">
-                        <input type="text" id="tbDivision" class="form-control typeahead" value="@Model.SubmittedToDivisionName" required placeholder="Start typing..."
+                        <input type="text" id="tbDivision" class="form-control typeahead" value="@Model.DivisionName" required placeholder="Start typing..."
                                data-url="@Url.Action(MVC.ManageBills.GetDivision("~"))" />
                         <span class="input-group-btn ">
                             <button class="btn btn-default" type="button" tabindex="-1"><span class="glyphicon glyphicon-search"></span></button>
                         </span>
                     </div>
                     <small class="help-block">The division which received this bill.</small>
-                    @Html.ValidationMessageFor(m => m.SubmittedToDivisionId)
-                    @Html.HiddenFor(m => m.SubmittedToDivisionId)
+                    @Html.ValidationMessageFor(m => m.DivisionId)
+                    @Html.HiddenFor(m => m.DivisionId)
 
                 </div>
             </div>

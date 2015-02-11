@@ -29,8 +29,7 @@ namespace PhpaAll.Controllers
 
         [Display(Name = "Submitted to division")]
         [DataType(DataType.Date)]
-        [Obsolete("Change to ReceivedDate")]
-        public DateTime? SubmittedOnDate { get; set; }
+        public DateTime? ReceivedDate { get; set; }
 
         [Display(Name = "Bill Type")]
         [StringLength(10, ErrorMessage = "The Bill Type value cannot exceed 10 characters. ")]
@@ -38,11 +37,9 @@ namespace PhpaAll.Controllers
 
         [Display(Name = "Division Id")]
         [Required(ErrorMessage = "Division Id is required.")]
-        [Obsolete("Change Name")]
-        public int? SubmittedToDivisionId { get; set; }
+        public int? DivisionId { get; set; }
 
-        [Obsolete("Change Name")]
-        public string SubmittedToDivisionName { get; set; }
+        public string DivisionName { get; set; }
 
         [Display(Name = "Contractor Id")]
         public int? ContractorId { get; set; }
