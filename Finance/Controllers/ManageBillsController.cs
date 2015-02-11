@@ -126,8 +126,12 @@ namespace PhpaAll.Controllers
         }
 
         [HttpPost]
-        public virtual ActionResult Edit(EditViewModel model)
+        public virtual ActionResult UpdateOrDelete(EditViewModel model, bool? delete)
         {
+            if (delete.HasValue && delete.Value)
+            {
+                return DeleteBill(model.Id);
+            }
             var edit = (from b in _db.Value.Bills
                         where b.Id == model.Id
                         select b).SingleOrDefault();
@@ -148,10 +152,7 @@ namespace PhpaAll.Controllers
             return RedirectToAction(MVC.ManageBills.ShowBill(model.Id));
         }
 
-
-
-        [HttpPost]
-        public virtual ActionResult Delete(int id)
+        private ActionResult DeleteBill(int id)
         {
             Bill edit = _db.Value.Bills.Where(bill => bill.Id == id).SingleOrDefault();
 

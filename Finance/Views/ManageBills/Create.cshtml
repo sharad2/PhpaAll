@@ -66,7 +66,7 @@
                     <input type="text" id="tbDivision" class="form-control typeahead" value="@Model.SubmittedToDivisionName" required placeholder="Start typing..."
                            data-url="@Url.Action(MVC.ManageBills.GetDivision("~"))" />
                     <span class="input-group-btn ">
-                        <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
                 </div>
                 <small class="help-block">The division which received this bill.</small>
@@ -85,24 +85,14 @@
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <label for="tbContractor">Contractor</label>
 
-                <div class="input-group input-group-sm">
-                    <input type="text" id="tbContractor" class="form-control typeahead" value="@Model.ContractorName" required placeholder="Start typing..."
-                           data-url="@Url.Action(MVC.ManageBills.GetContractor("~"))" />
-                    <span class="input-group-btn ">
-                        <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                    </span>
-                </div>
-                @Html.ValidationMessageFor(m => m.ContractorId, null, new
-           {
-               @class = "help-block"
-           })
-                @Html.TextBoxFor(m => m.ContractorId, new
-               {
-                   style = "height:0; width:0; border:none"
-               })
-
+                <label for="particulars">Station</label>
+                @Html.DropDownListFor(m => m.StationId, Model.StationList, "Select station",
+                    new { @class = "form-control", @required = "required" })
+                @Html.ValidationMessageFor(m => m.StationId, null, new
+                                   {
+                                       @class = "help-block"
+                                   })
             </div>
 
         </div>
@@ -190,13 +180,24 @@
     </div>
     <div class="col-md-3">
         <div class="form-group">
-            <label for="particulars">Station</label>
-            @Html.DropDownListFor(m => m.StationId, Model.StationList, "Select station",
-                    new { @class = "form-control", @required = "required" })
-            @Html.ValidationMessageFor(m => m.StationId, null, new
-                                   {
-                                       @class = "help-block"
-                                   })
+            <label for="tbContractor">Contractor</label>
+
+            <div class="input-group input-group-sm">
+                <input type="text" id="tbContractor" class="form-control typeahead" value="@Model.ContractorName" required placeholder="Start typing..."
+                       data-url="@Url.Action(MVC.ManageBills.GetContractor("~"))" />
+                <span class="input-group-btn ">
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+            @Html.ValidationMessageFor(m => m.ContractorId, null, new
+           {
+               @class = "help-block"
+           })
+            @Html.TextBoxFor(m => m.ContractorId, new
+               {
+                   style = "height:0; width:0; border:none"
+               })
+        
         </div>
     </div>
     <div class="row">
