@@ -201,6 +201,12 @@ namespace PhpaAll.Controllers
                 model.FilterApprovedBills = approved;
             }
 
+            if (false)
+            {
+                // Paid filter
+                filteredBills = filteredBills.Where(p => p.Voucher != null);
+            }
+
             if (model.UrlExcel.Contains("?"))
             {
                 model.UrlExcel += "&";
