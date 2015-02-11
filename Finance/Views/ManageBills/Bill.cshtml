@@ -4,33 +4,40 @@
     ViewBag.Title = "View Bill";
 }
 
-<form action="@Url.Action(MVC.ManageBills.UpdateOrDelete())" method="post">
-    <div class="well well-sm">
+<label class="col1-sm-6 control-label">Bill No.</label>
+<div class="col1-sm-6">
+    <p class="form-control-static">@Html.DisplayFor(m => m.BillNumber)</p>
+</div>
+<div class="well well-sm">
+    <div class="form-horizontal">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
-                    <label for="billDate">Bill Date *</label>
-                    <p class="form-control-static">@Html.DisplayFor(m => m.BillDate)</p>
+                    <label class="col-sm-6 control-label">Bill Date</label>
+                    <div class="col-sm-6">
+                        <p class="form-control-static">@Html.DisplayFor(m => m.BillDate)</p>
+                    </div>
+
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
-                    <label for="divSubDate">Received on</label>
+                    <label class="col-sm-6 control-label">Received on</label>
+                    <div class="col-sm-6">
                         <p class="form-control-static">@Html.DisplayFor(m => m.ReceivedDate)</p>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
-                    <label for="dueDate">Payment Due Date</label>
-                    <p class="form-control-static">@Html.DisplayFor(m => m.DueDate)</p>
+                    <label class="col-sm-6 control-label">Payment Due Date</label>
+                    <div class="col-sm-6">
+                        <p class="form-control-static">@Html.DisplayFor(m => m.DueDate)</p>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="billNumber">Bill No.</label>
-                    <p class="form-control-static">@Html.DisplayFor(m => m.BillNumber)</p>
-                </div>
-            </div>
+        </div>
+        <div class="row">
 
         </div>
         <div class="row">
@@ -39,7 +46,7 @@
                     <label for="particulars">Particulars</label>
                     <p class="form-control-static">@Html.DisplayFor(m => m.Particulars)</p>
                 </div>
-                </div>
+            </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="amount">Amount</label>
@@ -50,7 +57,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>Division @@ Station</label>                  
+                    <label>Division @@ Station</label>
                     <p class="form-control-static">@Html.DisplayFor(m => m.DivisionName) @@ @Html.DisplayFor(m => m.StationName)</p>
                 </div>
             </div>
@@ -62,11 +69,12 @@
             </div>
         </div>
     </div>
+</div>
 
-    <div class="form-group">
-        <label>Remarks</label>
-        <p class="form-control-static">@Html.DisplayFor(m => m.Remarks)</p>
-    </div>
+<div class="form-group">
+    <label>Remarks</label>
+    <p class="form-control-static">@Html.DisplayFor(m => m.Remarks)</p>
+</div>
 
 </form>
 
@@ -161,33 +169,6 @@
 </div>
 
 
-
-
-
-@if (Model.AttachedImageCount < 10)
-{
-    <em>
-        <small>Note: @Model.AttachedImageCount images have been uploaded</small>
-        |
-        <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.BillId))">
-            <span class="glyphicon glyphicon-refresh"></span>Refresh
-        </a>
-    </em>
-    <form action="@Url.Action(MVC.ManageBills.UploadImage())"
-          class="dropzone"
-          id="my-dropzone">
-        <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.BillId" />
-        <div class="fallback">
-            <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
-        </div>
-    </form>
-}
-else
-{
-    <p class="alert alert-info">Max 10 files allowed. Remove some images to add more.</p>
-}
-
-<br />
 @if (Model.AttachedImageCount > 0)
 {
     <nav class="text-center">
@@ -206,6 +187,11 @@ else
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
+            <li>
+                <a href="#" aria-label="Next" data-target="#carousel-attachment" data-slide-to="@(Model.AttachedImageCount)">
+                    <span aria-hidden="true">Add</span>
+                </a>
+            </li>
         </ul>
 
     </nav>
@@ -216,14 +202,14 @@ else
     <div class="carousel-inner" role="listbox">
         @for (var i = 0; i < Model.AttachedImageCount; ++i)
         {
-            <div class="item @(i == 0 ? "active" : "")" style="border: 5px solid #4196c7">
+            <div class="item @(i == 0 ? "active" : "")">
                 @if (i == 0)
                 {
-                    <img src="@Url.Action(MVC.ManageBills.Image(Model.BillId, i))" alt="..." />
+                    <img src="@Url.Action(MVC.ManageBills.Image(Model.BillId, i))" alt="..." width="950" height="654" />
                 }
                 else
                 {
-                    <img data-src="@Url.Action(MVC.ManageBills.Image(Model.BillId, i))" alt="..." />
+                    <img data-src="@Url.Action(MVC.ManageBills.Image(Model.BillId, i))" alt="..." width="950" height="654" />
                 }
 
                 <div class="carousel-caption">
@@ -239,6 +225,30 @@ else
                 </div>
             </div>
         }
+        <div class="item @(Model.AttachedImageCount == 0 ? "active" : "")">
+            @if (Model.AttachedImageCount < 10)
+            {
+                <em>
+                    <small>Note: @Model.AttachedImageCount images have been uploaded</small>
+                    |
+                    <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.BillId))">
+                        <span class="glyphicon glyphicon-refresh"></span>Refresh
+                    </a>
+                </em>
+                <form action="@Url.Action(MVC.ManageBills.UploadImage())"
+                      class="dropzone"
+                      id="my-dropzone">
+                    <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.BillId" />
+                    <div class="fallback">
+                        <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
+                    </div>
+                </form>
+            }
+            else
+            {
+                <p class="alert alert-info">Max 10 files allowed. Remove some images to add more.</p>
+            }
+        </div>
     </div>
     @if (Model.AttachedImageCount > 0)
     {
@@ -302,19 +312,19 @@ else
 
 
 @section scripts {
-    <style type="text/css">
-        /*Styleing form thead crousel indicator aside cite was not visible over thead white background*/
-        .carousel-control span.glyphicon {
-            border-color: #4196c7;
-            color: #0b4e75;
-        }
+    @*<style type="text/css">
+            /*Styleing form thead crousel indicator aside cite was not visible over thead white background*/
+            .carousel-control span.glyphicon {
+                border-color: #4196c7;
+                color: #0b4e75;
+            }
 
-        /*Styling form the crousel upload dragable area*/
-        #my-dropzone {
-            border: 5px dashed #4196c7;
-            background-color: rgba(241, 236, 212, 0.48);
-        }
-    </style>
+            /*Styling form the crousel upload dragable area*/
+            #my-dropzone {
+                border: 5px dashed #4196c7;
+                background-color: rgba(241, 236, 212, 0.48);
+            }
+        </style>*@
 
 
     <link rel="stylesheet" href="@Links.Views.ManageBills.Bill_css" />
