@@ -30,6 +30,7 @@ namespace PhpaAll.Bills
 
         [Display(Name = "Submitted to division")]
         [DataType(DataType.Date)]
+        [Obsolete("Change to ReceivedDate")]
         public DateTime? SubmittedOnDate { get; set; }
 
         //[Display(Name = "Bill Type")]

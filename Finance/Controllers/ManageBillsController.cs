@@ -82,7 +82,7 @@ namespace PhpaAll.Controllers
                 DueDate = model.DueDate,
                 //PaidDate = model.PaidDate,
                 Remarks = model.Remarks,
-                SubmittedOnDate = model.SubmittedOnDate,
+                ReceivedDate = model.SubmittedOnDate,
                 Id = model.Id,
                 StationId = model.StationId
             };
@@ -91,7 +91,7 @@ namespace PhpaAll.Controllers
             return RedirectToAction(MVC.ManageBills.Create());
 
         }
-        
+
         // GET:Edit
         [HttpGet]
         public virtual ActionResult Edit(int id)
@@ -111,7 +111,7 @@ namespace PhpaAll.Controllers
                              //PaidDate = bill.PaidDate,
                              StationId = bill.StationId,
                              Remarks = bill.Remarks,
-                             SubmittedOnDate = bill.SubmittedOnDate,
+                             SubmittedOnDate = bill.ReceivedDate,
                              SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
                              ContractorName = bill.Contractor.ContractorName
                          }).FirstOrDefault();
@@ -128,29 +128,23 @@ namespace PhpaAll.Controllers
         [HttpPost]
         public virtual ActionResult Edit(EditViewModel model)
         {
-            try
-            {
-                var edit = (from b in _db.Value.Bills
-                            where b.Id == model.Id
-                            select b).SingleOrDefault();
+            var edit = (from b in _db.Value.Bills
+                        where b.Id == model.Id
+                        select b).SingleOrDefault();
 
-                edit.Amount = model.Amount;
-                edit.Particulars = model.Particulars;
-                edit.BillNumber = model.BillNumber;
-                edit.BillDate = model.BillDate;
-                //edit.BillImage = imageData;
-                edit.ContractorId = model.ContractorId;
-                edit.SubmitedToDivisionId = model.SubmittedToDivisionId;
-                edit.DueDate = model.DueDate;
-                edit.StationId = model.StationId;
-                edit.Remarks = model.Remarks;
-                edit.SubmittedOnDate = model.SubmittedOnDate;
-                _db.Value.SubmitChanges();
-            }
-            catch (DataException)
-            {
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-            }
+            edit.Amount = model.Amount;
+            edit.Particulars = model.Particulars;
+            edit.BillNumber = model.BillNumber;
+            edit.BillDate = model.BillDate;
+            //edit.BillImage = imageData;
+            edit.ContractorId = model.ContractorId;
+            edit.SubmitedToDivisionId = model.SubmittedToDivisionId;
+            edit.DueDate = model.DueDate;
+            edit.StationId = model.StationId;
+            edit.Remarks = model.Remarks;
+            edit.ReceivedDate = model.SubmittedOnDate;
+            _db.Value.SubmitChanges();
+
             return RedirectToAction(MVC.ManageBills.ShowBill(model.Id));
         }
 
@@ -163,12 +157,12 @@ namespace PhpaAll.Controllers
 
             //delete images first before attaimpting to delete the bill
             var deleteImages = from image in _db.Value.BillImages
-                                          where image.BillId == id
-                                          select image;
+                               where image.BillId == id
+                               select image;
             foreach (var images in deleteImages)
             {
                 _db.Value.BillImages.DeleteOnSubmit(images);
-                
+
             }
 
             if (edit != null)
@@ -199,7 +193,7 @@ namespace PhpaAll.Controllers
                              DueDate = bill.DueDate,
                              //PaidDate = bill.PaidDate,
                              Remarks = bill.Remarks,
-                             SubmittedOnDate = bill.SubmittedOnDate,
+                             SubmittedOnDate = bill.ReceivedDate,
                              isEditMode = true,
                              SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
                              ContractorName = bill.Contractor.ContractorName,

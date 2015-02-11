@@ -34,7 +34,7 @@
       <Column Name="BillNumber" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
       <Column Name="BillDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="DueDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="SubmittedOnDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="SubmittedOnDate" Member="ReceivedDate" Storage="_SubmittedOnDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="SubmitedToDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ContractorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />

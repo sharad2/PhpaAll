@@ -566,8 +566,8 @@ namespace PhpaAll.Bills
     partial void OnBillDateChanged();
     partial void OnDueDateChanging(System.Nullable<System.DateTime> value);
     partial void OnDueDateChanged();
-    partial void OnSubmittedOnDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnSubmittedOnDateChanged();
+    partial void OnReceivedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnReceivedDateChanged();
     partial void OnSubmitedToDivisionIdChanging(System.Nullable<int> value);
     partial void OnSubmitedToDivisionIdChanged();
     partial void OnContractorIdChanging(System.Nullable<int> value);
@@ -687,8 +687,8 @@ namespace PhpaAll.Bills
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubmittedOnDate", DbType="SmallDateTime", UpdateCheck=UpdateCheck.Never)]
-		public System.Nullable<System.DateTime> SubmittedOnDate
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="SubmittedOnDate", Storage="_SubmittedOnDate", DbType="SmallDateTime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> ReceivedDate
 		{
 			get
 			{
@@ -698,11 +698,11 @@ namespace PhpaAll.Bills
 			{
 				if ((this._SubmittedOnDate != value))
 				{
-					this.OnSubmittedOnDateChanging(value);
+					this.OnReceivedDateChanging(value);
 					this.SendPropertyChanging();
 					this._SubmittedOnDate = value;
-					this.SendPropertyChanged("SubmittedOnDate");
-					this.OnSubmittedOnDateChanged();
+					this.SendPropertyChanged("ReceivedDate");
+					this.OnReceivedDateChanged();
 				}
 			}
 		}
