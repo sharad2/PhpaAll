@@ -88,12 +88,10 @@ namespace PhpaAll.Controllers
             };
             _db.Value.Bills.InsertOnSubmit(bill);
             _db.Value.SubmitChanges();
-            return RedirectToAction(MVC.ManageBills.ShowBill(bill.Id));
+            return RedirectToAction(MVC.ManageBills.Create());
 
         }
-
-
-
+        
         // GET:Edit
         [HttpGet]
         public virtual ActionResult Edit(int id)
