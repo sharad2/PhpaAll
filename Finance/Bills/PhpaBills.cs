@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Linq;
+using System.Globalization;
 using System.IO;
-using System.Web;
 using System.Linq;
+using System.Reflection;
+using System.Web;
 
 namespace PhpaAll.Bills
 {
@@ -27,6 +29,11 @@ namespace PhpaAll.Bills
 
             _sw = new StringWriter();
             this.Log = _sw;
+
+            // Always load audit details with audit
+            var dlo = new DataLoadOptions();
+            dlo.LoadWith<BillAudit2>(p => p.BillAuditDetails);
+            this.LoadOptions = dlo;
         }
 
         protected override void Dispose(bool disposing)
@@ -53,7 +60,7 @@ namespace PhpaAll.Bills
         }
 
         /// <summary>
-        /// 
+        /// Add rows to bill audit tables
         /// </summary>
         /// <param name="failureMode"></param>
         /// <remarks>
@@ -66,27 +73,70 @@ namespace PhpaAll.Bills
             // Put the updated objects into a IEnumerable
             IEnumerable<object> updatedEntities = changeSet.Updates;
 
-            foreach (var bill in updatedEntities.OfType<Bill>())
+            var table = this.GetTable(typeof(Bill));
+
+            foreach (var billEntity in updatedEntities.OfType<Bill>())
             {
                 // For each bill updated
-                var properties = this.GetTable(bill.GetType()).GetModifiedMembers(bill);
+                var modifiedMembers = table.GetModifiedMembers(billEntity);
                 // Do something with the old values
                 var audit = new BillAudit2();
 
-                audit.BillId = bill.Id;
+                audit.BillId = billEntity.Id;
                 audit.CreatedBy = _context.User.Identity.Name;
                 audit.Created = DateTime.Now;
 
                 this.BillAudit2s.InsertOnSubmit(audit);
 
-                foreach (var prop in properties)
+                foreach (var prop in modifiedMembers)
                 {
                     // For each property updated
                     var auditDetail = new BillAuditDetail();
 
-                    auditDetail.OldValue = string.Format("{0}", prop.OriginalValue);
-                    auditDetail.NewValue = string.Format("{0}", prop.CurrentValue);
-                    auditDetail.FieldName = prop.Member.Name;
+                    var propInfo = (PropertyInfo)prop.Member;
+
+                    var propType = Nullable.GetUnderlyingType(propInfo.PropertyType) ?? propInfo.PropertyType;
+
+                    if (propType == typeof(DateTime))
+                    {
+                        // Round trip date time pattern
+                        if (prop.OriginalValue != null)
+                        {
+                            auditDetail.OldValue = string.Format("{0:r}", prop.OriginalValue);
+                        }
+                        if (prop.CurrentValue != null)
+                        {
+                            auditDetail.NewValue = string.Format("{0:r}", prop.CurrentValue);
+                        }
+                        auditDetail.FieldType = (int)TypeCode.DateTime;  
+                    }
+                    //else if (propType == typeof(int))
+                    //{
+                    //}
+                    //else if (propType == typeof(decimal))
+                    //{
+
+                    //}
+                    else
+                    {
+                        // Store as simple string
+                        if (prop.OriginalValue != null)
+                        {
+                            auditDetail.OldValue = prop.OriginalValue.ToString();
+                        }
+                        if (prop.CurrentValue != null)
+                        {
+                            auditDetail.NewValue = prop.CurrentValue.ToString();
+                        }
+                        auditDetail.FieldType = (int)Type.GetTypeCode(propType);  
+                    }
+
+
+                    //auditDetail.OldValue = string.Format("{0}", prop.OriginalValue);
+                    //auditDetail.NewValue = string.Format("{0}", prop.CurrentValue);
+                    auditDetail.FieldName = propInfo.Name;
+
+
                     auditDetail.CreatedBy = _context.User.Identity.Name;
                     auditDetail.Created = DateTime.Now;
 
@@ -97,6 +147,102 @@ namespace PhpaAll.Bills
             base.SubmitChanges(failureMode);
         }
     }
-    
+
+    internal partial class BillAuditDetail
+    {
+        /// <summary>
+        /// Set the display values after an audit detail is loaded
+        /// </summary>
+        partial void OnLoaded()
+        {
+            var tc = FieldType.HasValue ? (TypeCode)FieldType : TypeCode.String;
+
+            switch (tc)
+            {
+                case TypeCode.DateTime:
+                    // Round trip date time pattern
+                    if (OldValue != null)
+                    {
+                        // Here we might need to decide whether to show time or not
+                        try
+                        {
+                            OldValueDisplay = string.Format("{0:d}", DateTime.Parse(OldValue));
+                        }
+                        catch (FormatException)
+                        {
+                            // Use the value as is
+                            OldValueDisplay = "Date " + OldValue;
+                        }
+                    }
+                    if (NewValue != null)
+                    {
+                        try
+                        {
+                            NewValueDisplay = string.Format("{0:d}", DateTime.Parse(NewValue));
+                        }
+                        catch (FormatException)
+                        {
+                            // Use the value as is
+                            NewValueDisplay = "Date " + NewValue;
+                        }
+                    }
+                    break;
+                case TypeCode.Decimal:
+                    // This must be amount so display with commas
+                    if (OldValue != null)
+                    {
+                        OldValueDisplay = string.Format("{0:C}", decimal.Parse(OldValue));
+                    }
+                    if (NewValue != null)
+                    {
+                        NewValueDisplay = string.Format("{0:C}", decimal.Parse(NewValue));
+                    }
+                    break;
+                default:
+                    // Display as is
+                    OldValueDisplay = OldValue;
+                    NewValueDisplay = NewValue;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Returns the new value in a displayable format
+        /// </summary>
+        public string NewValueDisplay
+        {
+            get;
+            private set;
+        }
+
+        public string OldValueDisplay
+        {
+            get;
+            private set;
+        }
+
+        ///// <summary>
+        ///// TODO: Make this a database field
+        ///// </summary>
+        //public TypeCode FieldType
+        //{
+        //    get
+        //    {
+        //        return TypeCode.DateTime;
+        //    }
+        //    set
+        //    {
+
+        //    }
+        //}
+
+    }
+
+    //[Obsolete("Use BillAutit2s")]
+    //partial class BillAudit
+    //{
+        
+    //}
+
 
 }

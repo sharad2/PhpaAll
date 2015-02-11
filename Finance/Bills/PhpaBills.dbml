@@ -71,40 +71,6 @@
       <Association Name="Station_Bill" Member="Bills" ThisKey="StationId" OtherKey="StationId" Type="Bill" />
     </Type>
   </Table>
-  <Table Name="dbo.BillAudit" Member="BillAudits">
-    <Type Name="BillAudit">
-      <Column Name="BillNumberOld" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
-      <Column Name="BillNumberNew" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
-      <Column Name="BillDateOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="BillDateNew" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="DueDateOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="DueDateNew" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="SubmittedOnDateOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="SubmittedOnDateNew" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="PaidDateOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="PaidDateNew" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="SubmittedToDivisionNameOld" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
-      <Column Name="SubmittedToDivisionNameNew" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
-      <Column Name="ContractorNameOld" Type="System.String" DbType="NVarChar(120)" CanBeNull="true" />
-      <Column Name="ContractorNameNew" Type="System.String" DbType="NVarChar(120)" CanBeNull="true" />
-      <Column Name="AmountOld" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="AmountNew" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ApprovedByOld" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ApprovedByNew" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ApprovedOnOld" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="ApprovedOnNew" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="RemarksOld" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="RemarksNew" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="ParticularsOld" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="ParticularsNew" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="BillId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StationNameOld" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="StationNameNew" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.BillImage" Member="BillImages" AccessModifier="Internal">
     <Type Name="BillImage" AccessModifier="Internal">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -158,6 +124,7 @@
       <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="NewValue" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="FieldType" Type="System.Int32" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="BillAudit2_BillAuditDetail" Member="BillAudit2" ThisKey="BillAuditId" OtherKey="Id" Type="BillAudit2" IsForeignKey="true" />
     </Type>
   </Table>
