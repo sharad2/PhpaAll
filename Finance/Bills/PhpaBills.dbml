@@ -7,7 +7,7 @@
       <Column Name="DivisionGroup" Type="System.String" DbType="NVarChar(30) NOT NULL" IsReadOnly="true" CanBeNull="false" />
       <Column Name="DivisionName" Type="System.String" DbType="NVarChar(80) NOT NULL" IsReadOnly="true" CanBeNull="false" />
       <Association Name="Division_Bill" Member="Bills" ThisKey="DivisionId" OtherKey="DivisionId" Type="Bill" />
-      <Association Name="Division_Bill1" Member="Bills1" ThisKey="DivisionId" OtherKey="CurrentDivisionId" Type="Bill" />
+      <Association Name="Division_Bill1" Member="Bills1" ThisKey="DivisionId" OtherKey="AtDivisionId" Type="Bill" />
     </Type>
   </Table>
   <Table Name="dbo.Contractor" Member="Contractors" AccessModifier="Internal">
@@ -48,13 +48,13 @@
       <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="StationId" Type="System.Int32" DbType="Int" CanBeNull="false" />
-      <Column Name="CurrentDivisionId" Type="System.Int32" CanBeNull="true" />
+      <Column Name="CurrentDivisionId" Member="AtDivisionId" Storage="_CurrentDivisionId" Type="System.Int32" CanBeNull="true" />
       <Association Name="Bill_BillImage" Member="BillImages" ThisKey="Id" OtherKey="BillId" Type="BillImage" />
       <Association Name="Bill_Voucher" Member="Voucher" Storage="_Vouchers" ThisKey="Id" OtherKey="BillId" Type="Voucher" Cardinality="One" />
       <Association Name="Contractor_Bill" Member="Contractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="Contractor" IsForeignKey="true" />
       <Association Name="Division_Bill" Member="Division" ThisKey="DivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
       <Association Name="Station_Bill" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
-      <Association Name="Division_Bill1" Member="CurrentDivision" ThisKey="CurrentDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+      <Association Name="Division_Bill1" Member="AtDivision" Storage="_CurrentDivision" ThisKey="AtDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="PIS.Station" Member="Stations" AccessModifier="Internal">

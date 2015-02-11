@@ -23,7 +23,7 @@ namespace PhpaAll.Bills
                               ApprovedBy = bill.ApprovedBy,
                               BillId = bill.Id,
                               StationName = bill.Station.StationName,
-                              CurrentDivisionName = bill.CurrentDivision.DivisionName,
+                              CurrentDivisionName = bill.AtDivision.DivisionName,
                               VoucherDate = bill.Voucher.VoucherDate
                           };
             return results;

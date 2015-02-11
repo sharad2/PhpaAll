@@ -200,7 +200,7 @@ namespace PhpaAll.Controllers
                              ApprovedDate = bill.ApprovedOn,
                              ApprovedBy = bill.ApprovedBy,
                              StationName = bill.Station.StationName,
-                             CurrentDivision = bill.CurrentDivision.DivisionName,
+                             CurrentDivision = bill.AtDivision.DivisionName,
                              AttachedImageCount = bill.BillImages.Count
                          }).FirstOrDefault();
 

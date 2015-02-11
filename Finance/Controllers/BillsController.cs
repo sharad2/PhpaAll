@@ -55,7 +55,7 @@ namespace PhpaAll.Controllers
                             bill.Division,
                             bill.Contractor,
                             bill.Station,
-                            bill.CurrentDivision
+                            bill.AtDivision
                         } into g
                         select new
                         {
@@ -63,8 +63,8 @@ namespace PhpaAll.Controllers
                             SubmittedToDivisionId = g.Key.Division == null ? (int?)null : g.Key.Division.DivisionId,
                             ContractorId = g.Key.Contractor == null ? (int?)null : g.Key.Contractor.ContractorId,
                             DivisionName = g.Key.Division.DivisionName,
-                            CurrentDivisionId = g.Key.CurrentDivision == null ? (int?)null : g.Key.CurrentDivision.DivisionId,
-                            CurrentDivisionName = g.Key.CurrentDivision.DivisionName,
+                            CurrentDivisionId = g.Key.AtDivision == null ? (int?)null : g.Key.AtDivision.DivisionId,
+                            CurrentDivisionName = g.Key.AtDivision.DivisionName,
                             ContractorName = g.Key.Contractor.ContractorName,
                             Count = g.Count(),
                             StationId = g.Key.Station == null ? (int?)null : g.Key.Station.StationId,
@@ -141,7 +141,7 @@ namespace PhpaAll.Controllers
 
             if (processingDivisions != null && processingDivisions.Length > 0)
             {
-                filteredBills = filteredBills.Where(p => processingDivisions.Contains(p.CurrentDivisionId));
+                filteredBills = filteredBills.Where(p => processingDivisions.Contains(p.AtDivisionId));
                 model.IsFiltered = true;
             }
 

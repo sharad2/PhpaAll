@@ -231,7 +231,7 @@ namespace PhpaAll.Bills
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_Bill1", Storage="_Bills1", ThisKey="DivisionId", OtherKey="CurrentDivisionId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_Bill1", Storage="_Bills1", ThisKey="DivisionId", OtherKey="AtDivisionId")]
 		public EntitySet<Bill> Bills1
 		{
 			get
@@ -279,13 +279,13 @@ namespace PhpaAll.Bills
 		private void attach_Bills1(Bill entity)
 		{
 			this.SendPropertyChanging();
-			entity.CurrentDivision = this;
+			entity.AtDivision = this;
 		}
 		
 		private void detach_Bills1(Bill entity)
 		{
 			this.SendPropertyChanging();
-			entity.CurrentDivision = null;
+			entity.AtDivision = null;
 		}
 	}
 	
@@ -592,8 +592,8 @@ namespace PhpaAll.Bills
     partial void OnParticularsChanged();
     partial void OnStationIdChanging(int value);
     partial void OnStationIdChanged();
-    partial void OnCurrentDivisionIdChanging(System.Nullable<int> value);
-    partial void OnCurrentDivisionIdChanged();
+    partial void OnAtDivisionIdChanging(System.Nullable<int> value);
+    partial void OnAtDivisionIdChanged();
     #endregion
 		
 		public Bill()
@@ -964,8 +964,8 @@ namespace PhpaAll.Bills
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CurrentDivisionId", UpdateCheck=UpdateCheck.Never)]
-		public System.Nullable<int> CurrentDivisionId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="CurrentDivisionId", Storage="_CurrentDivisionId", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<int> AtDivisionId
 		{
 			get
 			{
@@ -975,15 +975,11 @@ namespace PhpaAll.Bills
 			{
 				if ((this._CurrentDivisionId != value))
 				{
-					if (this._CurrentDivision.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCurrentDivisionIdChanging(value);
+					this.OnAtDivisionIdChanging(value);
 					this.SendPropertyChanging();
 					this._CurrentDivisionId = value;
-					this.SendPropertyChanged("CurrentDivisionId");
-					this.OnCurrentDivisionIdChanged();
+					this.SendPropertyChanged("AtDivisionId");
+					this.OnAtDivisionIdChanged();
 				}
 			}
 		}
@@ -1132,8 +1128,8 @@ namespace PhpaAll.Bills
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_Bill1", Storage="_CurrentDivision", ThisKey="CurrentDivisionId", OtherKey="DivisionId", IsForeignKey=true)]
-		public Division CurrentDivision
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_Bill1", Storage="_CurrentDivision", ThisKey="AtDivisionId", OtherKey="DivisionId", IsForeignKey=true)]
+		public Division AtDivision
 		{
 			get
 			{
@@ -1161,7 +1157,7 @@ namespace PhpaAll.Bills
 					{
 						this._CurrentDivisionId = default(Nullable<int>);
 					}
-					this.SendPropertyChanged("CurrentDivision");
+					this.SendPropertyChanged("AtDivision");
 				}
 			}
 		}
