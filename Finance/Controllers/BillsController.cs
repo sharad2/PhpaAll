@@ -42,8 +42,9 @@ namespace PhpaAll.Controllers
         /// <returns></returns>
         [Authorize(Roles = "BillsExecutive")]
         public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] processingDivisions, int?[] contractors, int?[] stations,
-            DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount,bool? OnlyApprovedBills,bool? OnlyUnapprovedBills, bool exportToExcel = false)
+            DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount, bool? approved, bool exportToExcel = false)
         {
+
             var query = from bill in _db.Value.Bills
                         group bill by new
                         {
@@ -185,19 +186,19 @@ namespace PhpaAll.Controllers
                 model.IsFiltered = true;
                 model.FilterMaxAmount = maxAmount;
             }
-           if (OnlyApprovedBills == true)
+
+            if (approved.HasValue)
             {
-                // Max Amount
-                filteredBills = filteredBills.Where(p => p.ApprovedOn != null);
+                if (approved.Value)
+                {
+                    filteredBills = filteredBills.Where(p => p.ApprovedOn != null);
+                }
+                else
+                {
+                    filteredBills = filteredBills.Where(p => p.ApprovedOn == null);
+                }
                 model.IsFiltered = true;
-                model.FilterApprovedBills = true;
-            }
-            if (OnlyUnapprovedBills == true)
-            {
-                // Max Amount
-                filteredBills = filteredBills.Where(p => p.ApprovedOn == null);
-                model.IsFiltered = true;
-                model.FilterUnapprovedBills = true;
+                model.FilterApprovedBills = approved;
             }
 
             if (model.UrlExcel.Contains("?"))
@@ -241,7 +242,7 @@ namespace PhpaAll.Controllers
         [HttpPost]
         public virtual ActionResult ApproveBills(int[] listBillId, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors,
                                                 int[] stations, DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount,
-                                                bool approve, bool? OnlyApprovedBills, bool? OnlyUnapprovedBills)
+                                                bool approve, bool? approvedFilter)
         {
             if (string.IsNullOrWhiteSpace(User.Identity.Name))
             {
@@ -302,31 +303,26 @@ namespace PhpaAll.Controllers
             }
             if (maxAmount != null)
             {
-                dict.Add(Actions.RecentBillsParams.maxAmount, new decimal[] { maxAmount.Value });
+                dict.Add(Actions.RecentBillsParams.maxAmount, new [] { maxAmount.Value });
             }
             if (minAmount != null)
             {
-                dict.Add(Actions.RecentBillsParams.minAmount, new decimal[] { minAmount.Value });
+                dict.Add(Actions.RecentBillsParams.minAmount, new [] { minAmount.Value });
             }
 
             if (dateFrom != null)
             {
-                dict.Add(Actions.RecentBillsParams.dateFrom, new DateTime[] { dateFrom.Value });
+                dict.Add(Actions.RecentBillsParams.dateFrom, new [] { dateFrom.Value });
             }
 
             if (dateTo != null)
             {
-                dict.Add(Actions.RecentBillsParams.dateTo, new DateTime[] { dateTo.Value });
+                dict.Add(Actions.RecentBillsParams.dateTo, new [] { dateTo.Value });
             }
 
-            if (OnlyApprovedBills == true) 
+            if (approvedFilter.HasValue)
             {
-                dict.Add(Actions.RecentBillsParams.OnlyApprovedBills, new bool[] { OnlyApprovedBills.Value });
-            }
-
-            if (OnlyUnapprovedBills == true)
-            {
-                dict.Add(Actions.RecentBillsParams.OnlyUnapprovedBills, new bool[] { OnlyUnapprovedBills.Value });
+                dict.Add(Actions.RecentBillsParams.approved, new [] { approvedFilter.Value });
             }
 
             if (dict.Count > 0)
@@ -354,13 +350,13 @@ namespace PhpaAll.Controllers
                 throw new HttpException("You must be logged in to approve or disapprove bills");
             }
             var query = (from bill in _db.Value.Bills
-                             where bill.Id == billId
-                             select bill).SingleOrDefault();
+                         where bill.Id == billId
+                         select bill).SingleOrDefault();
 
             query.ApprovedOn = DateTime.Now;
             query.ApprovedBy = User.Identity.Name;
             _db.Value.SubmitChanges();
-            
+
             return Json("Done");
         }
 

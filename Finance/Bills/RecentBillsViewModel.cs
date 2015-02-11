@@ -132,9 +132,11 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public Decimal? FilterMaxAmount { get; set; }
 
-        public bool FilterApprovedBills;
+        /// <summary>
+        /// True means approved bills, false means unapproved bills, null means all
+        /// </summary>
+        public bool? FilterApprovedBills;
 
-        public bool FilterUnapprovedBills;
         /// <summary>
         /// URL which will cause the current data to be displayed in Excel
         /// </summary>
