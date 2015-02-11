@@ -98,24 +98,29 @@ namespace PhpaAll.Bills
                     var propType = Nullable.GetUnderlyingType(propInfo.PropertyType) ?? propInfo.PropertyType;
 
                     int id;
-                    if (billEntity._list.ContainsKey(propInfo.Name))
+                    if (billEntity.Changes.ContainsKey(propInfo.Name))
                     {
-                        var info = billEntity._list[propInfo.Name];
+                        var info = billEntity.Changes[propInfo.Name];
 
+                        
                         switch (info.IdKind)
                         {
+                            
+                            //Value of non id columns are store as is.
                             case IdKindType.None:
                                 auditDetail.OldValue = info.OldValue;
                                 auditDetail.NewValue = info.NewValue;
                                 break;
+                            //for all Id columns retreinve the value against the Id from their master table, before inserting into audit detail table.
                             case IdKindType.Division:
+                            case IdKindType.AtDivision:
                                 if (!string.IsNullOrWhiteSpace(info.OldValue))
                                 {
                                     id = int.Parse(info.OldValue);
                                     auditDetail.OldValue = Divisions.Where(p => p.DivisionId == id).Select(p => p.DivisionName).FirstOrDefault();
                                 }
                                 if (!string.IsNullOrWhiteSpace(info.NewValue))
-                                { 
+                                {
                                     id = int.Parse(info.NewValue);
                                     auditDetail.NewValue = Divisions.Where(p => p.DivisionId == id).Select(p => p.DivisionName).FirstOrDefault();
                                 }
@@ -125,12 +130,14 @@ namespace PhpaAll.Bills
                             case IdKindType.Contractor:
                                 break;
                             case IdKindType.Station:
-                                if (!string.IsNullOrWhiteSpace(info.OldValue)) { 
-                                id = int.Parse(info.OldValue);
+                                if (!string.IsNullOrWhiteSpace(info.OldValue))
+                                {
+                                    id = int.Parse(info.OldValue);
                                     auditDetail.OldValue = Stations.Where(p => p.StationId == id).Select(p => p.StationName).FirstOrDefault();
                                 }
-                                if (!string.IsNullOrWhiteSpace(info.NewValue)) { 
-                                id = int.Parse(info.NewValue);
+                                if (!string.IsNullOrWhiteSpace(info.NewValue))
+                                {
+                                    id = int.Parse(info.NewValue);
                                     auditDetail.NewValue = Stations.Where(p => p.StationId == id).Select(p => p.StationName).FirstOrDefault();
                                 }
                                 break;
@@ -138,42 +145,44 @@ namespace PhpaAll.Bills
                             default:
                                 break;
                         }
-                        auditDetail.FieldType = (int)TypeCode.String;
+                        //auditDetail.FieldType = (int)TypeCode.String;
+                        auditDetail.FieldName = propInfo.Name;
+                        auditDetail.CreatedBy = _context.User.Identity.Name;
+                        auditDetail.Created = DateTime.Now;
+
+                        audit.BillAuditDetails.Add(auditDetail);
                     }
-                    else if (propType == typeof(DateTime))
-                    {
-                        // Round trip date time pattern
-                        if (prop.OriginalValue != null)
-                        {
-                            auditDetail.OldValue = string.Format("{0:r}", prop.OriginalValue);
-                        }
-                        if (prop.CurrentValue != null)
-                        {
-                            auditDetail.NewValue = string.Format("{0:r}", prop.CurrentValue);
-                        }
-                        auditDetail.FieldType = (int)TypeCode.DateTime;  
-                    }
-                    else
-                    {
-                        // Store as simple string
-                        if (prop.OriginalValue != null)
-                        {
-                            auditDetail.OldValue = prop.OriginalValue.ToString();
-                        }
-                        if (prop.CurrentValue != null)
-                        {
-                            auditDetail.NewValue = prop.CurrentValue.ToString();
-                        }
-                        auditDetail.FieldType = (int)Type.GetTypeCode(propType);  
-                    }
-
-                    auditDetail.FieldName = propInfo.Name;
+                    //else if (propType == typeof(DateTime))
+                    //{
+                    //    // Round trip date time pattern
+                    //    if (prop.OriginalValue != null)
+                    //    {
+                    //        auditDetail.OldValue = string.Format("{0:r}", prop.OriginalValue);
+                    //    }
+                    //    if (prop.CurrentValue != null)
+                    //    {
+                    //        auditDetail.NewValue = string.Format("{0:r}", prop.CurrentValue);
+                    //    }
+                    //    //auditDetail.FieldType = (int)TypeCode.DateTime;  
+                    //}
+                    //else
+                    //{
+                    //    // Store as simple string
+                    //    if (prop.OriginalValue != null)
+                    //    {
+                    //        auditDetail.OldValue = prop.OriginalValue.ToString();
+                    //    }
+                    //    if (prop.CurrentValue != null)
+                    //    {
+                    //        auditDetail.NewValue = prop.CurrentValue.ToString();
+                    //    }
+                    //    //auditDetail.FieldType = (int)Type.GetTypeCode(propType);  
+                    //}
 
 
-                    auditDetail.CreatedBy = _context.User.Identity.Name;
-                    auditDetail.Created = DateTime.Now;
 
-                    audit.BillAuditDetails.Add(auditDetail);
+
+
                 }
 
             }
@@ -181,32 +190,49 @@ namespace PhpaAll.Bills
         }
     }
 
-
-    internal enum IdKindType {
+    
+    internal enum IdKindType
+    {
         None,
         Division,
+        AtDivision,
         Contractor,
         Station
     };
 
-    internal class MyChanges
-    {
-        public IdKindType IdKind { get; set; }
 
-        /// <summary>
-        /// If IdKind is not None, then this is an id
-        /// </summary>
-        public string OldValue { get; set; }
-        public string NewValue { get; set; }
-    }
 
     internal partial class Bill
     {
-        public Dictionary<string, MyChanges> _list = new Dictionary<string, MyChanges>();
+        internal class BillFieldChanges
+        {
+            public IdKindType IdKind { get; set; }
 
+            /// <summary>
+            /// If IdKind is not None, then this is an id
+            /// </summary>
+            public string OldValue { get; set; }
+            public string NewValue { get; set; }
+        }
+
+        private Dictionary<string, BillFieldChanges> _dict;
+
+        public Dictionary<string, BillFieldChanges> Changes
+        {
+            get
+            {
+                if (_dict == null)
+                {
+                    _dict = new Dictionary<string, BillFieldChanges>();
+                }
+                return _dict;
+            }
+        }
+
+       
         partial void OnContractorIdChanging(int? value)
         {
-            _list["ContractorId"] = new MyChanges
+            Changes["ContractorId"] = new BillFieldChanges
             {
                 IdKind = IdKindType.Contractor,
                 OldValue = this.ContractorId.HasValue ? this.ContractorId.Value.ToString() : null,
@@ -216,7 +242,7 @@ namespace PhpaAll.Bills
 
         partial void OnDivisionIdChanging(int? value)
         {
-            _list["DivisionId"] = new MyChanges
+            Changes["DivisionId"] = new BillFieldChanges
             {
                 IdKind = IdKindType.Division,
                 OldValue = this.DivisionId.HasValue ? this.DivisionId.Value.ToString() : null,
@@ -226,7 +252,7 @@ namespace PhpaAll.Bills
 
         partial void OnStationIdChanging(int value)
         {
-            _list["StationId"] = new MyChanges
+            Changes["StationId"] = new BillFieldChanges
             {
                 IdKind = IdKindType.Station,
                 OldValue = this.StationId.ToString(),
@@ -236,93 +262,179 @@ namespace PhpaAll.Bills
 
         partial void OnAtDivisionIdChanging(int? value)
         {
-            throw new NotImplementedException();
+            Changes["AtDivisionId"] = new BillFieldChanges
+            {
+                IdKind = IdKindType.AtDivision,
+                OldValue = this.AtDivisionId.HasValue ? this.AtDivisionId.Value.ToString() : null,
+                NewValue = value.HasValue ? value.Value.ToString() : null,
+            };
         }
+        /// <summary>
+        /// Stroing formated value 
+        /// </summary>
+        /// <param name="value"></param>
         partial void OnAmountChanging(decimal? value)
         {
-            _list["Amount"] = new MyChanges
+            Changes["Amount"] = new BillFieldChanges
             {
                 IdKind = IdKindType.None,
-                OldValue = string.Format("{0:C}",this.Amount),
-                NewValue = string.Format("{0:C}",value),
+                OldValue = string.Format("{0:C}", this.Amount),
+                NewValue = string.Format("{0:C}", value),
+            };
+        }
+        partial void OnApprovedOnChanging(DateTime? value)
+        {
+            Changes["ApprovedOn"] = new BillFieldChanges
+            {
+                IdKind = IdKindType.None,
+                OldValue = string.Format("{0:g}", this.ApprovedOn),
+                NewValue = string.Format("{0:g}", value),
             };
         }
 
-    }
-
-    internal partial class BillAuditDetail
-    {
-        /// <summary>
-        /// Set the display values after an audit detail is loaded
-        /// </summary>
-        partial void OnLoaded()
+        partial void OnApprovedByChanging(string value)
         {
-            var tc = FieldType.HasValue ? (TypeCode)FieldType : TypeCode.String;
-
-            switch (tc)
+            Changes["ApprovedBy"] = new BillFieldChanges
             {
-                case TypeCode.DateTime:
-                    // Round trip date time pattern
-                    if (OldValue != null)
-                    {
-                        // Here we might need to decide whether to show time or not
-                        try
-                        {
-                            OldValueDisplay = string.Format("{0:g}", DateTime.Parse(OldValue));
-                        }
-                        catch (FormatException)
-                        {
-                            // Use the value as is
-                            OldValueDisplay = "Date " + OldValue;
-                        }
-                    }
-                    if (NewValue != null)
-                    {
-                        try
-                        {
-                            NewValueDisplay = string.Format("{0:g}", DateTime.Parse(NewValue));
-                        }
-                        catch (FormatException)
-                        {
-                            // Use the value as is
-                            NewValueDisplay = "Date " + NewValue;
-                        }
-                    }
-                    break;
-                case TypeCode.Decimal:
-                    // This must be amount so display with commas
-                    if (OldValue != null)
-                    {
-                        OldValueDisplay = string.Format("{0:C}", decimal.Parse(OldValue));
-                    }
-                    if (NewValue != null)
-                    {
-                        NewValueDisplay = string.Format("{0:C}", decimal.Parse(NewValue));
-                    }
-                    break;
-                default:
-                    // Display as is
-                    OldValueDisplay = OldValue;
-                    NewValueDisplay = NewValue;
-                    break;
-            }
+                IdKind = IdKindType.None,
+                OldValue = this.ApprovedBy,
+                NewValue = value.ToString(),
+            };
         }
 
-        /// <summary>
-        /// Returns the new value in a displayable format
-        /// </summary>
-        public string NewValueDisplay
+        partial void OnBillDateChanging(DateTime? value)
         {
-            get;
-            private set;
+            Changes["BillDate"] = new BillFieldChanges
+            {
+                IdKind = IdKindType.None,
+                OldValue = string.Format("{0:d}", this.BillDate),
+                NewValue = string.Format("{0:d}", value),
+            };
         }
 
-        public string OldValueDisplay
+        partial void OnBillNumberChanging(string value)
         {
-            get;
-            private set;
+            Changes["BillNumber"] = new BillFieldChanges
+            {
+                IdKind = IdKindType.None,
+                OldValue = this.BillNumber,
+                NewValue = value.ToString(),
+            };
         }
+
+        partial void OnDueDateChanging(DateTime? value)
+        {
+            Changes["DueDate"] = new BillFieldChanges
+            {
+                IdKind = IdKindType.None,
+                OldValue = string.Format("{0:d}", this.DueDate),
+                NewValue = string.Format("{0:d}", value),
+            };
+        }
+
+        partial void OnParticularsChanging(string value)
+        {
+            Changes["Particulars"] = new BillFieldChanges
+            {
+                IdKind = IdKindType.None,
+                OldValue = this.Particulars,
+                NewValue = value.ToString(),
+            };
+        }
+
+        partial void OnReceivedDateChanging(DateTime? value)
+        {
+            Changes["ReceivedDate"] = new BillFieldChanges
+            {
+                IdKind = IdKindType.None,
+                OldValue = string.Format("{0:d}", this.ReceivedDate),
+                NewValue = string.Format("{0:d}", value),
+            };
+        }
+        partial void OnRemarksChanging(string value)
+        {
+            Changes["Remarks"] = new BillFieldChanges
+            {
+                IdKind = IdKindType.None,
+                OldValue = this.Remarks,
+                NewValue = value.ToString(),
+            };
+        }        
     }
+
+    //internal partial class BillAuditDetail
+    //{
+    //    /// <summary>
+    //    /// Set the display values after an audit detail is loaded
+    //    /// </summary>
+    //    partial void OnLoaded()
+    //    {
+    //        var tc = FieldType.HasValue ? (TypeCode)FieldType : TypeCode.String;
+
+    //        switch (tc)
+    //        {
+    //            case TypeCode.DateTime:
+    //                // Round trip date time pattern
+    //                if (OldValue != null)
+    //                {
+    //                    // Here we might need to decide whether to show time or not
+    //                    try
+    //                    {
+    //                        OldValueDisplay = string.Format("{0:g}", DateTime.Parse(OldValue));
+    //                    }
+    //                    catch (FormatException)
+    //                    {
+    //                        // Use the value as is
+    //                        OldValueDisplay = "Date " + OldValue;
+    //                    }
+    //                }
+    //                if (NewValue != null)
+    //                {
+    //                    try
+    //                    {
+    //                        NewValueDisplay = string.Format("{0:g}", DateTime.Parse(NewValue));
+    //                    }
+    //                    catch (FormatException)
+    //                    {
+    //                        // Use the value as is
+    //                        NewValueDisplay = "Date " + NewValue;
+    //                    }
+    //                }
+    //                break;
+    //            case TypeCode.Decimal:
+    //                // This must be amount so display with commas
+    //                if (OldValue != null)
+    //                {
+    //                    OldValueDisplay = string.Format("{0:C}", decimal.Parse(OldValue));
+    //                }
+    //                if (NewValue != null)
+    //                {
+    //                    NewValueDisplay = string.Format("{0:C}", decimal.Parse(NewValue));
+    //                }
+    //                break;
+    //            default:
+    //                // Display as is
+    //                OldValueDisplay = OldValue;
+    //                NewValueDisplay = NewValue;
+    //                break;
+    //        }
+    //    }
+
+    //    /// <summary>
+    //    /// Returns the new value in a displayable format
+    //    /// </summary>
+    //    public string NewValueDisplay
+    //    {
+    //        get;
+    //        private set;
+    //    }
+
+    //    public string OldValueDisplay
+    //    {
+    //        get;
+    //        private set;
+    //    }
+    //}
 
 
 }

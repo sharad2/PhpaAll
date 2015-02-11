@@ -34,6 +34,7 @@ namespace PhpaAll
             CultureInfo newCulture = (CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
             newCulture.DateTimeFormat.ShortDatePattern = "d/M/yyyy";
             newCulture.DateTimeFormat.DateSeparator = "/";
+            newCulture.NumberFormat.CurrencySymbol = "";
             Thread.CurrentThread.CurrentCulture = newCulture;
         }
 

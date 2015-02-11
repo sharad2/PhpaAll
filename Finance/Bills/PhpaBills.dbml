@@ -124,7 +124,6 @@
       <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="NewValue" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="FieldType" Type="System.Int32" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="BillAudit2_BillAuditDetail" Member="BillAudit2" ThisKey="BillAuditId" OtherKey="Id" Type="BillAudit2" IsForeignKey="true" />
     </Type>
   </Table>
