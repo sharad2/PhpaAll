@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace PhpaAll.Bills
 {
@@ -18,110 +19,125 @@ namespace PhpaAll.Bills
     public class BillAuditModel
     {
         private readonly IList<BillAuditFieldChangeModel> _fieldChanges;
-        internal BillAuditModel(BillAudit entity)
+        internal BillAuditModel(BillAudit2 entity)
         {
             DateCreated = entity.Created;
             CreatedBy = entity.CreatedBy;
 
             _fieldChanges = new List<BillAuditFieldChangeModel>();
-            if (entity.RemarksOld != entity.RemarksNew)
-            {
-                _fieldChanges.Add(new BillAuditFieldChangeModel
-                {
-                    FieldName = "Remarks",
-                    OldValue = entity.RemarksOld,
-                    NewValue = entity.RemarksNew
-                });
-            }
 
-            if (entity.SubmittedOnDateOld != entity.SubmittedOnDateNew)
+            if (entity.BillAuditDetails != null)
             {
-                _fieldChanges.Add(new BillAuditFieldChangeModel
-                {
-                    FieldName = "Submit Date",
-                    OldValue = string.Format("{0:d}", entity.SubmittedOnDateOld),
-                    NewValue = string.Format("{0:d}", entity.SubmittedOnDateNew)
-                });
+                _fieldChanges = (from change in entity.BillAuditDetails
+                                 select new BillAuditFieldChangeModel
+                                 {
+                                     FieldName = change.FieldName,
+                                     NewValue = change.NewValueDisplay,
+                                     OldValue = change.OldValueDisplay
+                                 }).ToList();
             }
+            else
+            {
+                _fieldChanges = new BillAuditFieldChangeModel[0];       // Empty array
+            }
+            //if (entity.RemarksOld != entity.RemarksNew)
+            //{
+            //    _fieldChanges.Add(new BillAuditFieldChangeModel
+            //    {
+            //        FieldName = "Remarks",
+            //        OldValue = entity.RemarksOld,
+            //        NewValue = entity.RemarksNew
+            //    });
+            //}
 
-            if (entity.SubmittedToDivisionNameNew != entity.SubmittedToDivisionNameOld)
-            {
-                _fieldChanges.Add(new BillAuditFieldChangeModel
-                {
-                    FieldName = "Division",
-                    OldValue = entity.SubmittedToDivisionNameOld,
-                    NewValue = entity.SubmittedToDivisionNameNew
-                });
-            }
-            if (entity.PaidDateNew != entity.PaidDateOld)
-            {
-                _fieldChanges.Add(new BillAuditFieldChangeModel
-                {
-                    FieldName = "Due Date",
-                    OldValue = string.Format("{0:d}", entity.PaidDateOld),
-                    NewValue = string.Format("{0:d}", entity.PaidDateNew)
-                });
-            }
-            if (entity.DueDateNew != entity.DueDateNew)
-            {
-                _fieldChanges.Add(new BillAuditFieldChangeModel
-                {
-                    FieldName = "Due Date",
-                    OldValue = string.Format("{0:d}", entity.DueDateOld),
-                    NewValue = string.Format("{0:d}", entity.DueDateOld)
-                });
-            }
-            if (entity.ContractorNameNew != entity.ContractorNameOld)
-            {
-                _fieldChanges.Add(new BillAuditFieldChangeModel
-                {
-                    FieldName = "Contractor Name",
-                    OldValue = entity.ContractorNameOld,
-                    NewValue = entity.ContractorNameNew
-                });
-            }
-            if (entity.BillNumberNew != entity.BillNumberOld)
-            {
-                _fieldChanges.Add(new BillAuditFieldChangeModel
-                {
-                    FieldName = "Bill Number",
-                    OldValue = entity.BillNumberOld,
-                    NewValue = entity.BillNumberNew
-                });
-            }
-            if (entity.BillDateNew != entity.BillDateOld)
-            {
-                _fieldChanges.Add(new BillAuditFieldChangeModel
-                {
-                    FieldName = "Bill Date",
-                    OldValue = string.Format("{0:d}", entity.BillDateOld),
-                    NewValue = string.Format("{0:d}", entity.BillDateNew)
-                });
-            }
-            if (entity.ApprovedOnNew != entity.ApprovedOnOld)
-            {
-                _fieldChanges.Add(new BillAuditFieldChangeModel
-                {
-                    FieldName = "Approved On",
-                    OldValue = string.Format("{0:g}", entity.ApprovedOnOld),
-                    NewValue = string.Format("{0:g}", entity.ApprovedOnNew)
-                });
-            }
-            if (entity.AmountNew != entity.AmountOld)
-            {
-                _fieldChanges.Add(new BillAuditFieldChangeModel
-                {
-                    FieldName = "Amount",
-                    OldValue = string.Format("{0:N2}", entity.AmountOld),
-                    NewValue = string.Format("{0:N2}", entity.AmountNew)
-                });
-            }
+            //if (entity.SubmittedOnDateOld != entity.SubmittedOnDateNew)
+            //{
+            //    _fieldChanges.Add(new BillAuditFieldChangeModel
+            //    {
+            //        FieldName = "Submit Date",
+            //        OldValue = string.Format("{0:d}", entity.SubmittedOnDateOld),
+            //        NewValue = string.Format("{0:d}", entity.SubmittedOnDateNew)
+            //    });
+            //}
+
+            //if (entity.SubmittedToDivisionNameNew != entity.SubmittedToDivisionNameOld)
+            //{
+            //    _fieldChanges.Add(new BillAuditFieldChangeModel
+            //    {
+            //        FieldName = "Division",
+            //        OldValue = entity.SubmittedToDivisionNameOld,
+            //        NewValue = entity.SubmittedToDivisionNameNew
+            //    });
+            //}
+            //if (entity.PaidDateNew != entity.PaidDateOld)
+            //{
+            //    _fieldChanges.Add(new BillAuditFieldChangeModel
+            //    {
+            //        FieldName = "Due Date",
+            //        OldValue = string.Format("{0:d}", entity.PaidDateOld),
+            //        NewValue = string.Format("{0:d}", entity.PaidDateNew)
+            //    });
+            //}
+            //if (entity.DueDateNew != entity.DueDateNew)
+            //{
+            //    _fieldChanges.Add(new BillAuditFieldChangeModel
+            //    {
+            //        FieldName = "Due Date",
+            //        OldValue = string.Format("{0:d}", entity.DueDateOld),
+            //        NewValue = string.Format("{0:d}", entity.DueDateOld)
+            //    });
+            //}
+            //if (entity.ContractorNameNew != entity.ContractorNameOld)
+            //{
+            //    _fieldChanges.Add(new BillAuditFieldChangeModel
+            //    {
+            //        FieldName = "Contractor Name",
+            //        OldValue = entity.ContractorNameOld,
+            //        NewValue = entity.ContractorNameNew
+            //    });
+            //}
+            //if (entity.BillNumberNew != entity.BillNumberOld)
+            //{
+            //    _fieldChanges.Add(new BillAuditFieldChangeModel
+            //    {
+            //        FieldName = "Bill Number",
+            //        OldValue = entity.BillNumberOld,
+            //        NewValue = entity.BillNumberNew
+            //    });
+            //}
+            //if (entity.BillDateNew != entity.BillDateOld)
+            //{
+            //    _fieldChanges.Add(new BillAuditFieldChangeModel
+            //    {
+            //        FieldName = "Bill Date",
+            //        OldValue = string.Format("{0:d}", entity.BillDateOld),
+            //        NewValue = string.Format("{0:d}", entity.BillDateNew)
+            //    });
+            //}
+            //if (entity.ApprovedOnNew != entity.ApprovedOnOld)
+            //{
+            //    _fieldChanges.Add(new BillAuditFieldChangeModel
+            //    {
+            //        FieldName = "Approved On",
+            //        OldValue = string.Format("{0:g}", entity.ApprovedOnOld),
+            //        NewValue = string.Format("{0:g}", entity.ApprovedOnNew)
+            //    });
+            //}
+            //if (entity.AmountNew != entity.AmountOld)
+            //{
+            //    _fieldChanges.Add(new BillAuditFieldChangeModel
+            //    {
+            //        FieldName = "Amount",
+            //        OldValue = string.Format("{0:N2}", entity.AmountOld),
+            //        NewValue = string.Format("{0:N2}", entity.AmountNew)
+            //    });
+            //}
 
 
         }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString="{0:g}")]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTime? DateCreated { get; set; }
 
         public string CreatedBy { get; set; }

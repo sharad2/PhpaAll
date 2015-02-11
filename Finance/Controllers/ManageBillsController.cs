@@ -211,10 +211,9 @@ namespace PhpaAll.Controllers
                          }).FirstOrDefault();
 
             // Getting Bill history from Bill Audit.  
-            model.BillHistory = (from ba in _db.Value.BillAudits
-                                 join bad in _db.Value.BillAuditDetails
-                                 on ba.Id equals bad.BillAuditId
+            model.BillHistory = (from ba in _db.Value.BillAudit2s
                                  where ba.BillId == id
+                                 orderby ba.Created descending
                                  select new BillAuditModel(ba)
                                  ).ToList();
 
