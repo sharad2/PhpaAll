@@ -117,7 +117,7 @@
                         </a>
                         @if (Model.FilterApprovedBills.HasValue)
                         {
-                        <span>TODO: Show Filter</span>
+                            <span>TODO: Show Filter</span>
                         }
                     </div>
                 </div>
@@ -133,6 +133,26 @@
                             <label>
                                 <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" value="false" checked="@(Model.FilterApprovedBills == false ? true: (bool?)null)">
                                 Unapproved
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" checked="@(Model.FilterApprovedBills == null ? true: (bool?)null)">
+                                Both
+                            </label>
+                        </div>
+
+                        <hr />
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" value="true" checked="@(Model.FilterApprovedBills == true ? true: (bool?)null)">
+                                Paid
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" value="false" checked="@(Model.FilterApprovedBills == false ? true: (bool?)null)">
+                                Unpaid
                             </label>
                         </div>
                         <div class="radio">
