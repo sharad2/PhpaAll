@@ -138,7 +138,7 @@
                 <div class="form-group">
                     <label for="ddlStation">Station</label>
                     <div class="input-group input-group-sm">
-
+                        <span class="input-group-addon">@@</span>
                         @Html.DropDownListFor(m => m.StationId, Model.StationList, "Not Set",
                     new { @class = "form-control", @required = "required", id = "ddlStation" })
                         @Html.ValidationMessageFor(m => m.StationId)
@@ -207,7 +207,11 @@
         $(document).ready(function () {
             "use strict";
             $('#tbDivision,#tbContractor').each(function (index, elem) {
-                $(elem).typeahead(null, {
+                $(elem).typeahead({
+                    minLength: 0,
+                    highlight: true,
+                    hint:false
+                }, {
                     //name: 'Division',
                     displayKey: 'label',
                     source: function (query, cb) {
@@ -233,8 +237,6 @@
                 }).on('input', function (e) {
                     // When user changes the divisionId, empty the hidden field
                     $(this).closest('div.form-group').find('input:not(".typeahead")').val('');
-                }).on('dblclick', function (e) {
-                    $(this).typeahead('open');
                 });
 
             });

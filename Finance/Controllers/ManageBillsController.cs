@@ -254,7 +254,7 @@ namespace PhpaAll.Controllers
 
             var imagesUploadedCount = (from imageCount in _db.Value.BillImages
                                        where imageCount.BillId == billId
-                                       select imageCount.id).Count();
+                                       select imageCount.Id).Count();
 
             if (imagesUploadedCount == 10)
             {
@@ -276,7 +276,7 @@ namespace PhpaAll.Controllers
                 _db.Value.SubmitChanges();
                 return Json(new
                 {
-                    DeleteUrl = Url.Action(Actions.DeleteImage(bill.id))
+                    DeleteUrl = Url.Action(Actions.DeleteImage(bill.Id))
                 });
             }
         }
@@ -290,7 +290,7 @@ namespace PhpaAll.Controllers
         public virtual ActionResult DeleteImage(int billImageId)
         {
             var query = (from image in _db.Value.BillImages
-                         where image.id == billImageId
+                         where image.Id == billImageId
                          select image).FirstOrDefault();
             _db.Value.BillImages.DeleteOnSubmit(query);
             _db.Value.SubmitChanges();

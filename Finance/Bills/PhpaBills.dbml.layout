@@ -92,7 +92,7 @@
         <elementListCompartment Id="f0cb3a17-d18b-4239-96a2-08ee3909f9c6" absoluteBounds="3.8899999999999997, 13.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3 : 13.6017976888021); (3.875 : 13.6017976888021)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3 : 13.6017976888021); (3.875 : 13.6017976888021)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PhpaBillsDataContext/BillAudit2/BillAudit2_BillAuditDetail" />
       <nodes>
         <classShapeMoniker Id="fd776207-1e38-4773-97e9-7a6a9da23717" />

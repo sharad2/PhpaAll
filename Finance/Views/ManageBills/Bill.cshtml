@@ -165,7 +165,9 @@ else
                     <h3 class="text-danger">
                         Image @(i + 1)
                     </h3>
-                    <form method="post" action="@Url.Action(MVC.ManageBills.DeleteImageofBill(Model.Id, i))">
+                    <form method="post" action="@Url.Action(MVC.ManageBills.DeleteImageofBill())">
+                        <input type="hidden" name="@MVC.ManageBills.DeleteImageofBillParams.billId" value="@Model.Id" />
+                        <input type="hidden" name="@MVC.ManageBills.DeleteImageofBillParams.index" value="@i" />
                         <button class="btn btn-danger btn-xs">Delete me</button>
                     </form>
 

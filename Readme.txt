@@ -1,3 +1,8 @@
+Sharad 11 Feb 2015:
+---------------------
+Field order in create should be similar to field order in Edit. Edit field ordering is good.
+
+
 Sharad 8 Feb 2015
 -----------------
 TODO: Remove amount filter from recent pages
