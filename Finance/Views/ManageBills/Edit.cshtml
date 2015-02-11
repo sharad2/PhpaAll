@@ -33,8 +33,6 @@
                @class = "help-block"
            })
                 </div>
-
-
             </div>
             <div class="col-md-3">
                 <div class="form-group">
@@ -99,23 +97,24 @@
             </div>
 
         </div>
-        <div class="col-md-9">
-            <div class="form-group form-group-sm">
-                <label for="particulars">Particulars</label>
-                @Html.TextBoxFor(m => m.Particulars, new
+        <div class="row">
+            <div class="col-md-9">
+                <div class="form-group">
+                    <label for="particulars">Particulars</label>
+                    @Html.TextBoxFor(m => m.Particulars, new
            {
                id = "particulars",
                @class = "form-control",
-               maxlength = "255",
+               maxlength = 255,
                placeholder = "You can mention the subject of the bill"
 
            })
+                </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group form-group-sm">
-                <label for="amount">Amount *</label>
-                @Html.TextBoxFor(m => m.Amount, new
+            <div class="col-md-3">
+                <div class="form-group form-group-sm">
+                    <label for="amount">Amount *</label>
+                    @Html.TextBoxFor(m => m.Amount, new
            {
                id = "amount",
                @class = "form-control",
@@ -125,11 +124,12 @@
                placeholder = "Amount(Nu)"
 
            })
-                @Html.ValidationMessageFor(m => m.Amount, null, new
+                    @Html.ValidationMessageFor(m => m.Amount, null, new
            {
                @class = "help-block"
            })
 
+                </div>
             </div>
         </div>
         <div class="row">
