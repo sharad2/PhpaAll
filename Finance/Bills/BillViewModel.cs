@@ -39,6 +39,7 @@ namespace PhpaAll.Bills
 
         [Display(Name = "Division Id")]
         [Required(ErrorMessage = "Division Id is required.")]
+        [Obsolete("Change Name")]
         public int? SubmittedToDivisionId { get; set; }
 
         public string SubmittedToDivisionName { get; set; }

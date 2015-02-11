@@ -6,7 +6,7 @@
       <Column Name="DivisionCode" Type="System.String" DbType="NVarChar(25) NOT NULL" IsReadOnly="true" CanBeNull="false" />
       <Column Name="DivisionGroup" Type="System.String" DbType="NVarChar(30) NOT NULL" IsReadOnly="true" CanBeNull="false" />
       <Column Name="DivisionName" Type="System.String" DbType="NVarChar(80) NOT NULL" IsReadOnly="true" CanBeNull="false" />
-      <Association Name="Division_Bill" Member="Bills" ThisKey="DivisionId" OtherKey="SubmitedToDivisionId" Type="Bill" />
+      <Association Name="Division_Bill" Member="Bills" ThisKey="DivisionId" OtherKey="DivisionId" Type="Bill" />
       <Association Name="Division_Bill1" Member="Bills1" ThisKey="DivisionId" OtherKey="CurrentDivisionId" Type="Bill" />
     </Type>
   </Table>
@@ -35,7 +35,7 @@
       <Column Name="BillDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="DueDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="SubmittedOnDate" Member="ReceivedDate" Storage="_SubmittedOnDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="SubmitedToDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubmitedToDivisionId" Member="DivisionId" Storage="_SubmitedToDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ContractorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="ApprovedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
@@ -52,7 +52,7 @@
       <Association Name="Bill_BillImage" Member="BillImages" ThisKey="Id" OtherKey="BillId" Type="BillImage" />
       <Association Name="Bill_Voucher" Member="Voucher" Storage="_Vouchers" ThisKey="Id" OtherKey="BillId" Type="Voucher" Cardinality="One" />
       <Association Name="Contractor_Bill" Member="Contractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="Contractor" IsForeignKey="true" />
-      <Association Name="Division_Bill" Member="SubmittedToDivision" Storage="_Division" ThisKey="SubmitedToDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+      <Association Name="Division_Bill" Member="SubmittedToDivision" Storage="_Division" ThisKey="DivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
       <Association Name="Station_Bill" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
       <Association Name="Division_Bill1" Member="CurrentDivision" ThisKey="CurrentDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
     </Type>

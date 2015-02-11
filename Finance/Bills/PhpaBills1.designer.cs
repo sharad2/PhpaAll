@@ -218,7 +218,7 @@ namespace PhpaAll.Bills
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_Bill", Storage="_Bills", ThisKey="DivisionId", OtherKey="SubmitedToDivisionId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_Bill", Storage="_Bills", ThisKey="DivisionId", OtherKey="DivisionId")]
 		public EntitySet<Bill> Bills
 		{
 			get
@@ -568,8 +568,8 @@ namespace PhpaAll.Bills
     partial void OnDueDateChanged();
     partial void OnReceivedDateChanging(System.Nullable<System.DateTime> value);
     partial void OnReceivedDateChanged();
-    partial void OnSubmitedToDivisionIdChanging(System.Nullable<int> value);
-    partial void OnSubmitedToDivisionIdChanged();
+    partial void OnDivisionIdChanging(System.Nullable<int> value);
+    partial void OnDivisionIdChanged();
     partial void OnContractorIdChanging(System.Nullable<int> value);
     partial void OnContractorIdChanged();
     partial void OnAmountChanging(System.Nullable<decimal> value);
@@ -707,8 +707,8 @@ namespace PhpaAll.Bills
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubmitedToDivisionId", DbType="Int", UpdateCheck=UpdateCheck.Never)]
-		public System.Nullable<int> SubmitedToDivisionId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="SubmitedToDivisionId", Storage="_SubmitedToDivisionId", DbType="Int", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<int> DivisionId
 		{
 			get
 			{
@@ -718,15 +718,11 @@ namespace PhpaAll.Bills
 			{
 				if ((this._SubmitedToDivisionId != value))
 				{
-					if (this._Division.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnSubmitedToDivisionIdChanging(value);
+					this.OnDivisionIdChanging(value);
 					this.SendPropertyChanging();
 					this._SubmitedToDivisionId = value;
-					this.SendPropertyChanged("SubmitedToDivisionId");
-					this.OnSubmitedToDivisionIdChanged();
+					this.SendPropertyChanged("DivisionId");
+					this.OnDivisionIdChanged();
 				}
 			}
 		}
@@ -1068,7 +1064,7 @@ namespace PhpaAll.Bills
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_Bill", Storage="_Division", ThisKey="SubmitedToDivisionId", OtherKey="DivisionId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_Bill", Storage="_Division", ThisKey="DivisionId", OtherKey="DivisionId", IsForeignKey=true)]
 		public Division SubmittedToDivision
 		{
 			get

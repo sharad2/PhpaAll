@@ -78,7 +78,7 @@ namespace PhpaAll.Controllers
                 BillDate = model.BillDate,
                 //BillImage = imageData,
                 ContractorId = model.ContractorId,
-                SubmitedToDivisionId = model.SubmittedToDivisionId,
+                DivisionId = model.SubmittedToDivisionId,
                 DueDate = model.DueDate,
                 //PaidDate = model.PaidDate,
                 Remarks = model.Remarks,
@@ -106,7 +106,7 @@ namespace PhpaAll.Controllers
                              Particulars = bill.Particulars,
                              BillDate = bill.BillDate,
                              ContractorId = bill.ContractorId,
-                             SubmittedToDivisionId = bill.SubmitedToDivisionId,
+                             SubmittedToDivisionId = bill.DivisionId,
                              DueDate = bill.DueDate,
                              //PaidDate = bill.PaidDate,
                              StationId = bill.StationId,
@@ -138,7 +138,7 @@ namespace PhpaAll.Controllers
             edit.BillDate = model.BillDate;
             //edit.BillImage = imageData;
             edit.ContractorId = model.ContractorId;
-            edit.SubmitedToDivisionId = model.SubmittedToDivisionId;
+            edit.DivisionId = model.SubmittedToDivisionId;
             edit.DueDate = model.DueDate;
             edit.StationId = model.StationId;
             edit.Remarks = model.Remarks;
@@ -189,7 +189,7 @@ namespace PhpaAll.Controllers
                              Particulars = bill.Particulars,
                              BillDate = bill.BillDate,
                              ContractorId = bill.ContractorId,
-                             SubmittedToDivisionId = bill.SubmitedToDivisionId,
+                             SubmittedToDivisionId = bill.DivisionId,
                              DueDate = bill.DueDate,
                              //PaidDate = bill.PaidDate,
                              Remarks = bill.Remarks,

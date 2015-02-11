@@ -135,7 +135,7 @@ namespace PhpaAll.Controllers
 
             if (divisions != null && divisions.Length > 0)
             {
-                filteredBills = filteredBills.Where(p => divisions.Contains(p.SubmitedToDivisionId));
+                filteredBills = filteredBills.Where(p => divisions.Contains(p.DivisionId));
                 model.IsFiltered = true;
             }
 
@@ -391,7 +391,7 @@ namespace PhpaAll.Controllers
                     groupedQuery = from item in query
                                    group item by new MyTestGroup
                                    {
-                                       GroupId = item.SubmitedToDivisionId,
+                                       GroupId = item.DivisionId,
                                        GroupValue = item.SubmittedToDivision.DivisionName,
                                        GroupDisplayName = "Division"
                                    } into g
@@ -453,7 +453,7 @@ namespace PhpaAll.Controllers
                                           {
                                               BillId = bill.Id,
                                               BillNumber = bill.BillNumber,
-                                              SubmittedToDivisionId = bill.SubmitedToDivisionId,
+                                              SubmittedToDivisionId = bill.DivisionId,
                                               SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
                                               ContractorId = bill.ContractorId,
                                               ContractorName = bill.Contractor.ContractorName,
