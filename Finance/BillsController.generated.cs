@@ -129,6 +129,8 @@ namespace PhpaAll.Controllers
             public readonly string dateTo = "dateTo";
             public readonly string minAmount = "minAmount";
             public readonly string maxAmount = "maxAmount";
+            public readonly string OnlyApproveBills = "OnlyApproveBills";
+            public readonly string OnlyUnapproveBills = "OnlyUnapproveBills";
             public readonly string exportToExcel = "exportToExcel";
         }
         static readonly ActionParamsClass_ApproveBills s_params_ApproveBills = new ActionParamsClass_ApproveBills();
@@ -190,10 +192,10 @@ namespace PhpaAll.Controllers
         public T4MVC_BillsController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void RecentBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string[] approvers, int?[] divisions, int?[] processingDivisions, int?[] contractors, int?[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount, bool exportToExcel);
+        partial void RecentBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string[] approvers, int?[] divisions, int?[] processingDivisions, int?[] contractors, int?[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount, bool? OnlyApproveBills, bool? OnlyUnapproveBills, bool exportToExcel);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] processingDivisions, int?[] contractors, int?[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount, bool exportToExcel)
+        public override System.Web.Mvc.ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] processingDivisions, int?[] contractors, int?[] stations, System.DateTime? dateFrom, System.DateTime? dateTo, decimal? minAmount, decimal? maxAmount, bool? OnlyApproveBills, bool? OnlyUnapproveBills, bool exportToExcel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RecentBills);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "approvers", approvers);
@@ -205,8 +207,10 @@ namespace PhpaAll.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dateTo", dateTo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "minAmount", minAmount);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "maxAmount", maxAmount);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "OnlyApproveBills", OnlyApproveBills);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "OnlyUnapproveBills", OnlyUnapproveBills);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "exportToExcel", exportToExcel);
-            RecentBillsOverride(callInfo, approvers, divisions, processingDivisions, contractors, stations, dateFrom, dateTo, minAmount, maxAmount, exportToExcel);
+            RecentBillsOverride(callInfo, approvers, divisions, processingDivisions, contractors, stations, dateFrom, dateTo, minAmount, maxAmount, OnlyApproveBills, OnlyUnapproveBills, exportToExcel);
             return callInfo;
         }
 

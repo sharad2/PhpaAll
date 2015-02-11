@@ -42,7 +42,7 @@ namespace PhpaAll.Controllers
         /// <returns></returns>
         [Authorize(Roles = "BillsExecutive")]
         public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] processingDivisions, int?[] contractors, int?[] stations,
-            DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount, bool exportToExcel = false)
+            DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount,bool? OnlyApproveBills,bool? OnlyUnapproveBills, bool exportToExcel = false)
         {
             //if (dates != null)
             //{
@@ -189,8 +189,20 @@ namespace PhpaAll.Controllers
                 model.IsFiltered = true;
                 model.FilterMaxAmount = maxAmount;
             }
-
-
+           if (OnlyApproveBills == true)
+            {
+                // Max Amount
+                filteredBills = filteredBills.Where(p => p.ApprovedOn != null);
+                model.IsFiltered = true;
+                model.FilterApproveBills = true;
+            }
+            if (OnlyUnapproveBills == true)
+            {
+                // Max Amount
+                filteredBills = filteredBills.Where(p => p.ApprovedOn == null);
+                model.IsFiltered = true;
+                model.FilterUnapproveBills = true;
+            }
 
             if (model.UrlExcel.Contains("?"))
             {
@@ -225,6 +237,7 @@ namespace PhpaAll.Controllers
                 result.AddWorkSheet(model.Bills, "Bills", "My Heading");
                 return result;
             }
+
             return View(Views.RecentBills, model);
         }
 

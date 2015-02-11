@@ -15,7 +15,7 @@
             // Code to clean up the URL by not posting unnecessary filters
             $('#frmFilters').on('submit', function (e) {
                 // If all checkboxes in a group are checked, uncheck all so that they do not get posted
-                $('#fsDivisions,#fsContractors,#fsApprovers,#fsStations,#fsprocessingDivision').each(function (index, elem) {
+                $('#fsDivisions,#fsContractors,#fsApprovers,#fsStations,#fsprocessingDivision,#fsApprovePaid').each(function (index, elem) {
                     if ($('input:not(:checked)', elem).length == 0) {
                         //alert('Hi');
                         $('input:checked', elem).prop('checked', false);
@@ -337,7 +337,29 @@
                     </div>
                 </div>
             </div>
-
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <div class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" href="#fsApprovePaid" aria-expanded="false" aria-controls="#fsApprovePaid">
+                            <span class="caret"></span>  Approved , Paid
+                        </a>
+                    </div>
+                </div>
+                <div id="fsApprovePaid" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body" style="padding-left:4mm; padding-right:1mm">
+                        <div class="form-inline">
+                            <div class="form-group @(Model.FilterApproveBills ? "has-success" : "")">
+                                <input type="checkbox" class="form-control input-sm" name="@MVC.Bills.RecentBillsParams.OnlyApproveBills" value="true" checked="@Model.FilterApproveBills" />
+                            </div>
+                            Only Approved
+                            <div class="form-group @(Model.FilterUnapproveBills ? "has-success" : "")">
+                                <input type="checkbox" class="form-control input-sm" name="@MVC.Bills.RecentBillsParams.OnlyUnapproveBills" value="true" checked="@Model.FilterUnapproveBills" />
+                            </div>
+                            Only Unapproved
+                        </div>
+                    </div>
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary">Apply Filters</button>
             @if (Model.IsFiltered)
             {
@@ -434,9 +456,9 @@ Paid / Unpaid
                                     Bill Date <em style="white-space:nowrap"><small>Due Date</small></em>
                                 </strong>
                                 <br />
-                               <small>
-                                   Bill Number
-                               </small>
+                                <small>
+                                    Bill Number
+                                </small>
                             </div>
                             <div class="col-md-4">
                                 <strong>
