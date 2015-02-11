@@ -104,6 +104,10 @@ namespace PhpaAll.Bills
 
                         switch (info.IdKind)
                         {
+                            case IdKindType.None:
+                                auditDetail.OldValue = info.OldValue;
+                                auditDetail.NewValue = info.NewValue;
+                                break;
                             case IdKindType.Division:
                                 if (!string.IsNullOrWhiteSpace(info.OldValue))
                                 {
@@ -233,6 +237,15 @@ namespace PhpaAll.Bills
         partial void OnAtDivisionIdChanging(int? value)
         {
             throw new NotImplementedException();
+        }
+        partial void OnAmountChanging(decimal? value)
+        {
+            _list["Amount"] = new MyChanges
+            {
+                IdKind = IdKindType.None,
+                OldValue = string.Format("{0:C}",this.Amount),
+                NewValue = string.Format("{0:C}",value),
+            };
         }
 
     }
