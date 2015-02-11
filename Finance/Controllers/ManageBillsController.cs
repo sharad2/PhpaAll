@@ -112,7 +112,7 @@ namespace PhpaAll.Controllers
                              StationId = bill.StationId,
                              Remarks = bill.Remarks,
                              SubmittedOnDate = bill.ReceivedDate,
-                             SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
+                             SubmittedToDivisionName = bill.Division.DivisionName,
                              ContractorName = bill.Contractor.ContractorName
                          }).FirstOrDefault();
             var list = from stations in _db.Value.Stations select stations;
@@ -195,7 +195,7 @@ namespace PhpaAll.Controllers
                              Remarks = bill.Remarks,
                              SubmittedOnDate = bill.ReceivedDate,
                              isEditMode = true,
-                             SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
+                             SubmittedToDivisionName = bill.Division.DivisionName,
                              ContractorName = bill.Contractor.ContractorName,
                              ApprovedDate = bill.ApprovedOn,
                              ApprovedBy = bill.ApprovedBy,

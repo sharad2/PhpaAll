@@ -267,13 +267,13 @@ namespace PhpaAll.Bills
 		private void attach_Bills(Bill entity)
 		{
 			this.SendPropertyChanging();
-			entity.SubmittedToDivision = this;
+			entity.Division = this;
 		}
 		
 		private void detach_Bills(Bill entity)
 		{
 			this.SendPropertyChanging();
-			entity.SubmittedToDivision = null;
+			entity.Division = null;
 		}
 		
 		private void attach_Bills1(Bill entity)
@@ -1065,7 +1065,7 @@ namespace PhpaAll.Bills
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Division_Bill", Storage="_Division", ThisKey="DivisionId", OtherKey="DivisionId", IsForeignKey=true)]
-		public Division SubmittedToDivision
+		public Division Division
 		{
 			get
 			{
@@ -1093,7 +1093,7 @@ namespace PhpaAll.Bills
 					{
 						this._SubmitedToDivisionId = default(Nullable<int>);
 					}
-					this.SendPropertyChanged("SubmittedToDivision");
+					this.SendPropertyChanged("Division");
 				}
 			}
 		}

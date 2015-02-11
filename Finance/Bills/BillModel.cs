@@ -17,7 +17,7 @@ namespace PhpaAll.Bills
                               BillNumber = bill.BillNumber,
                               BillDate = bill.BillDate,
                               ContractorName = bill.Contractor.ContractorName,
-                              DivisionName = bill.SubmittedToDivision.DivisionName,
+                              DivisionName = bill.Division.DivisionName,
                               DueDate = bill.DueDate,
                               ApprovedDate = bill.ApprovedOn,
                               ApprovedBy = bill.ApprovedBy,

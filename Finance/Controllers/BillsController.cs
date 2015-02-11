@@ -52,7 +52,7 @@ namespace PhpaAll.Controllers
                         group bill by new
                         {
                             ApprovedBy = (bill.ApprovedBy ?? "").Trim() == "" ? "" : bill.ApprovedBy,
-                            bill.SubmittedToDivision,
+                            bill.Division,
                             bill.Contractor,
                             bill.Station,
                             bill.CurrentDivision
@@ -60,9 +60,9 @@ namespace PhpaAll.Controllers
                         select new
                         {
                             ApprovedBy = g.Key.ApprovedBy,
-                            SubmittedToDivisionId = g.Key.SubmittedToDivision == null ? (int?)null : g.Key.SubmittedToDivision.DivisionId,
+                            SubmittedToDivisionId = g.Key.Division == null ? (int?)null : g.Key.Division.DivisionId,
                             ContractorId = g.Key.Contractor == null ? (int?)null : g.Key.Contractor.ContractorId,
-                            DivisionName = g.Key.SubmittedToDivision.DivisionName,
+                            DivisionName = g.Key.Division.DivisionName,
                             CurrentDivisionId = g.Key.CurrentDivision == null ? (int?)null : g.Key.CurrentDivision.DivisionId,
                             CurrentDivisionName = g.Key.CurrentDivision.DivisionName,
                             ContractorName = g.Key.Contractor.ContractorName,
@@ -392,7 +392,7 @@ namespace PhpaAll.Controllers
                                    group item by new MyTestGroup
                                    {
                                        GroupId = item.DivisionId,
-                                       GroupValue = item.SubmittedToDivision.DivisionName,
+                                       GroupValue = item.Division.DivisionName,
                                        GroupDisplayName = "Division"
                                    } into g
                                    select g;
@@ -454,7 +454,7 @@ namespace PhpaAll.Controllers
                                               BillId = bill.Id,
                                               BillNumber = bill.BillNumber,
                                               SubmittedToDivisionId = bill.DivisionId,
-                                              SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
+                                              SubmittedToDivisionName = bill.Division.DivisionName,
                                               ContractorId = bill.ContractorId,
                                               ContractorName = bill.Contractor.ContractorName,
                                               BillDate = bill.BillDate,

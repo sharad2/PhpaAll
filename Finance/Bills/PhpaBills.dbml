@@ -52,7 +52,7 @@
       <Association Name="Bill_BillImage" Member="BillImages" ThisKey="Id" OtherKey="BillId" Type="BillImage" />
       <Association Name="Bill_Voucher" Member="Voucher" Storage="_Vouchers" ThisKey="Id" OtherKey="BillId" Type="Voucher" Cardinality="One" />
       <Association Name="Contractor_Bill" Member="Contractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="Contractor" IsForeignKey="true" />
-      <Association Name="Division_Bill" Member="SubmittedToDivision" Storage="_Division" ThisKey="DivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+      <Association Name="Division_Bill" Member="Division" ThisKey="DivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
       <Association Name="Station_Bill" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
       <Association Name="Division_Bill1" Member="CurrentDivision" ThisKey="CurrentDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
     </Type>

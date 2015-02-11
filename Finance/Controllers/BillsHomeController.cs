@@ -112,7 +112,7 @@ namespace PhpaAll.Controllers
                              let billNumber = (bill.BillNumber ?? "").ToLower()
                              let particularsMatch = bill.Particulars.ToLower().Contains(token)
                              let contractorMatch = bill.Contractor.ContractorName.ToLower().Contains(token)
-                             let divisionMatch = bill.SubmittedToDivision.DivisionName.ToLower().Contains(token)
+                             let divisionMatch = bill.Division.DivisionName.ToLower().Contains(token)
                              let currDivMatch = bill.CurrentDivision.DivisionName.ToLower().Contains(token)
                              let remarksMatch = bill.Remarks.ToLower().Contains(token)
                              let stationMatch = bill.Station.StationName.ToLower().Contains(token)
@@ -187,11 +187,11 @@ namespace PhpaAll.Controllers
                 text1 = string.Empty;
                 text2 = string.Empty;
             }
-            else if (bill.SubmittedToDivision != null && tokens.Any(p => bill.SubmittedToDivision.DivisionName.ToLower().Contains(p)))
+            else if (bill.Division != null && tokens.Any(p => bill.Division.DivisionName.ToLower().Contains(p)))
             {
                 // Bill number is always shown so we use particulars here
                 text1 = "For Division";
-                text2 = bill.SubmittedToDivision.DivisionName;
+                text2 = bill.Division.DivisionName;
             }
             else if (bill.CurrentDivision != null && tokens.Any(p => bill.CurrentDivision.DivisionName.ToLower().Contains(p)))
             {
