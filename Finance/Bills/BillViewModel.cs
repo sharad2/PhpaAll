@@ -11,7 +11,7 @@ namespace PhpaAll.Bills
     public class BillViewModel
     {
 
-        public int Id { get; set; }
+        public int BillId { get; set; }
 
         [Display(Name = "Bill")]
         [StringLength(60, ErrorMessage = "The Bill number cannot exceed 60 characters.")]
@@ -21,7 +21,7 @@ namespace PhpaAll.Bills
         [Display(Name = "Bill Date")]
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Bill date is required.")]
-        [DisplayFormat(DataFormatString="{0:g}")]
+        [DisplayFormat(DataFormatString="{0:d}")]
         public DateTime? BillDate { get; set; }
 
         [Display(Name = "Due Date")]
@@ -75,6 +75,7 @@ namespace PhpaAll.Bills
 
 
         [Display(Name = "CurrentDivision")]
+        [Obsolete("Change to AtDivisionName")]
         public string CurrentDivision { get; set; }
 
         [Display(Name = "Paid On")]

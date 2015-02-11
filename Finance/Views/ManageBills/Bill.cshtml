@@ -4,6 +4,71 @@
     ViewBag.Title = "View Bill";
 }
 
+<form action="@Url.Action(MVC.ManageBills.UpdateOrDelete())" method="post">
+    <div class="well well-sm">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="billDate">Bill Date *</label>
+                    <p class="form-control-static">@Html.DisplayFor(m => m.BillDate)</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="divSubDate">Received on</label>
+                        <p class="form-control-static">@Html.DisplayFor(m => m.ReceivedDate)</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="dueDate">Payment Due Date</label>
+                    <p class="form-control-static">@Html.DisplayFor(m => m.DueDate)</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="billNumber">Bill No.</label>
+                    <p class="form-control-static">@Html.DisplayFor(m => m.BillNumber)</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="form-group">
+                    <label for="particulars">Particulars</label>
+                    <p class="form-control-static">@Html.DisplayFor(m => m.Particulars)</p>
+                </div>
+                </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <p class="form-control-static">@Html.DisplayFor(m => m.Amount)</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Division @@ Station</label>                  
+                    <p class="form-control-static">@Html.DisplayFor(m => m.DivisionName) @@ @Html.DisplayFor(m => m.StationName)</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Contractor</label>
+                    <p class="form-control-static">@Html.DisplayFor(m => m.ContractorName)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Remarks</label>
+        <p class="form-control-static">@Html.DisplayFor(m => m.Remarks)</p>
+    </div>
+
+</form>
 
 <div style="margin-top:0" class="text-center h2">
     @Html.DisplayFor(m => m.ContractorName)
@@ -28,7 +93,7 @@
     </div>
 </div>
 <div class="bg-info">
-    <a href="@Url.Action(MVC.ManageBills.Edit(Model.Id))" class="btn btn-link">
+    <a href="@Url.Action(MVC.ManageBills.Edit(Model.BillId))" class="btn btn-link">
         Edit
     </a>
     |
@@ -104,14 +169,14 @@
     <em>
         <small>Note: @Model.AttachedImageCount images have been uploaded</small>
         |
-        <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))">
+        <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.BillId))">
             <span class="glyphicon glyphicon-refresh"></span>Refresh
         </a>
     </em>
     <form action="@Url.Action(MVC.ManageBills.UploadImage())"
           class="dropzone"
           id="my-dropzone">
-        <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.Id" />
+        <input type="hidden" name="@MVC.ManageBills.UploadImageParams.billId" value="@Model.BillId" />
         <div class="fallback">
             <input name="@MVC.ManageBills.UploadImageParams.file" type="file" multiple />
         </div>
@@ -154,11 +219,11 @@ else
             <div class="item @(i == 0 ? "active" : "")" style="border: 5px solid #4196c7">
                 @if (i == 0)
                 {
-                    <img src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="..." />
+                    <img src="@Url.Action(MVC.ManageBills.Image(Model.BillId, i))" alt="..." />
                 }
                 else
                 {
-                    <img data-src="@Url.Action(MVC.ManageBills.Image(Model.Id, i))" alt="..." />
+                    <img data-src="@Url.Action(MVC.ManageBills.Image(Model.BillId, i))" alt="..." />
                 }
 
                 <div class="carousel-caption">
@@ -166,7 +231,7 @@ else
                         Image @(i + 1)
                     </h3>
                     <form method="post" action="@Url.Action(MVC.ManageBills.DeleteImageofBill())">
-                        <input type="hidden" name="@MVC.ManageBills.DeleteImageofBillParams.billId" value="@Model.Id" />
+                        <input type="hidden" name="@MVC.ManageBills.DeleteImageofBillParams.billId" value="@Model.BillId" />
                         <input type="hidden" name="@MVC.ManageBills.DeleteImageofBillParams.index" value="@i" />
                         <button class="btn btn-danger btn-xs">Delete me</button>
                     </form>

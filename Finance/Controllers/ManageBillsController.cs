@@ -184,7 +184,7 @@ namespace PhpaAll.Controllers
                          where bill.Id == id
                          select new BillViewModel
                          {
-                             Id = bill.Id,
+                             BillId = bill.Id,
                              Amount = bill.Amount,
                              BillNumber = bill.BillNumber,
                              Particulars = bill.Particulars,
