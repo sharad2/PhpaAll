@@ -97,7 +97,32 @@ namespace PhpaAll.Bills
 
                     var propType = Nullable.GetUnderlyingType(propInfo.PropertyType) ?? propInfo.PropertyType;
 
-                    if (propType == typeof(DateTime))
+                    if (billEntity._list.ContainsKey(propInfo.Name))
+                    {
+                        var info = billEntity._list[propInfo.Name];
+
+                        switch (info.IdKind)
+                        {
+                            case IdKindType.Division:
+                                if (info.OldId.HasValue) { 
+                                auditDetail.OldValue = Divisions.Where(p => p.DivisionId == (info.OldId ?? 0)).Select(p => p.DivisionName).FirstOrDefault();
+                                }
+                                if (info.NewId.HasValue)
+                                {
+                                    auditDetail.NewValue = Divisions.Where(p => p.DivisionId == (info.NewId ?? 0)).Select(p => p.DivisionName).FirstOrDefault();
+                                }
+
+                                break;
+
+                            case IdKindType.Contractor:
+                                break;
+
+                            default:
+                                break;
+                        }
+                        auditDetail.FieldType = (int)TypeCode.String;
+                    }
+                    else if (propType == typeof(DateTime))
                     {
                         // Round trip date time pattern
                         if (prop.OriginalValue != null)
@@ -110,13 +135,6 @@ namespace PhpaAll.Bills
                         }
                         auditDetail.FieldType = (int)TypeCode.DateTime;  
                     }
-                    //else if (propType == typeof(int))
-                    //{
-                    //}
-                    //else if (propType == typeof(decimal))
-                    //{
-
-                    //}
                     else
                     {
                         // Store as simple string
@@ -131,9 +149,6 @@ namespace PhpaAll.Bills
                         auditDetail.FieldType = (int)Type.GetTypeCode(propType);  
                     }
 
-
-                    //auditDetail.OldValue = string.Format("{0}", prop.OriginalValue);
-                    //auditDetail.NewValue = string.Format("{0}", prop.CurrentValue);
                     auditDetail.FieldName = propInfo.Name;
 
 
@@ -146,6 +161,55 @@ namespace PhpaAll.Bills
             }
             base.SubmitChanges(failureMode);
         }
+    }
+
+
+    internal enum IdKindType {
+        Division,
+        Contractor
+    };
+
+    internal class MyChanges
+    {
+        public IdKindType IdKind { get; set; }
+        public int? OldId { get; set; }
+        public int? NewId { get; set; }
+    }
+
+    internal partial class Bill
+    {
+        public Dictionary<string, MyChanges> _list = new Dictionary<string, MyChanges>();
+
+        partial void OnContractorIdChanging(int? value)
+        {
+            _list["ContractorId"] = new MyChanges
+            {
+                IdKind = IdKindType.Contractor,
+                OldId = this.ContractorId,
+                NewId = value
+            };
+        }
+
+        partial void OnDivisionIdChanging(int? value)
+        {
+            _list["DivisionId"] = new MyChanges
+            {
+                IdKind = IdKindType.Division,
+                OldId = this.DivisionId,
+                NewId = value
+            };
+        }
+
+        partial void OnStationIdChanging(int value)
+        {
+            throw new NotImplementedException();
+        }
+
+        partial void OnAtDivisionIdChanging(int? value)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 
     internal partial class BillAuditDetail
@@ -220,29 +284,7 @@ namespace PhpaAll.Bills
             get;
             private set;
         }
-
-        ///// <summary>
-        ///// TODO: Make this a database field
-        ///// </summary>
-        //public TypeCode FieldType
-        //{
-        //    get
-        //    {
-        //        return TypeCode.DateTime;
-        //    }
-        //    set
-        //    {
-
-        //    }
-        //}
-
     }
-
-    //[Obsolete("Use BillAutit2s")]
-    //partial class BillAudit
-    //{
-        
-    //}
 
 
 }
