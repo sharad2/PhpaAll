@@ -28,10 +28,7 @@
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
-                    @Html.ValidationMessageFor(m => m.BillDate, null, new
-           {
-               @class = "help-block"
-           })
+                    @Html.ValidationMessageFor(m => m.BillDate)
                 </div>
             </div>
             <div class="col-md-3">
@@ -49,10 +46,7 @@
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
-                    @Html.ValidationMessageFor(m => m.SubmittedOnDate, null, new
-           {
-               @class = "help-block"
-           })
+                    @Html.ValidationMessageFor(m => m.SubmittedOnDate)
                 </div>
             </div>
             <div class="col-md-3">
@@ -70,10 +64,7 @@
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
-                    @Html.ValidationMessageFor(m => m.DueDate, null, new
-           {
-               @class = "help-block"
-           })
+                    @Html.ValidationMessageFor(m => m.DueDate)
 
                 </div>
             </div>
@@ -88,10 +79,7 @@
                                        @class = "form-control",
                                        @required = "required"
                                    })
-                    @Html.ValidationMessageFor(m => m.BillNumber, null, new
-                                   {
-                                       @class = "help-block"
-                                   })
+                    @Html.ValidationMessageFor(m => m.BillNumber)
 
                 </div>
             </div>
@@ -124,10 +112,7 @@
                placeholder = "Amount(Nu)"
 
            })
-                    @Html.ValidationMessageFor(m => m.Amount, null, new
-           {
-               @class = "help-block"
-           })
+                    @Html.ValidationMessageFor(m => m.Amount)
 
                 </div>
             </div>
@@ -144,10 +129,7 @@
                         </span>
                     </div>
                     <small class="help-block">The division which received this bill.</small>
-                    @Html.ValidationMessageFor(m => m.SubmittedToDivisionId, null, new
-           {
-               @class = "help-block"
-           })
+                    @Html.ValidationMessageFor(m => m.SubmittedToDivisionId)
                     @Html.HiddenFor(m => m.SubmittedToDivisionId)
 
                 </div>
@@ -158,17 +140,10 @@
                     <div class="input-group input-group-sm">
 
                         @Html.DropDownListFor(m => m.StationId, Model.StationList, "Not Set",
-                    new { @class = "form-control", @required = "required", id="ddlStation" })
-                        @Html.ValidationMessageFor(m => m.StationId, null, new
-                                   {
-                                       @class = "help-block"
-                                   })
+                    new { @class = "form-control", @required = "required", id = "ddlStation" })
+                        @Html.ValidationMessageFor(m => m.StationId)
 
                     </div>
-                    @Html.ValidationMessageFor(m => m.StationId, null, new
-           {
-               @class = "help-block"
-           })
                     @Html.HiddenFor(m => m.StationId)
 
                 </div>
@@ -183,10 +158,7 @@
                             <button class="btn btn-default" type="button" tabindex="-1"><span class="glyphicon glyphicon-search"></span></button>
                         </span>
                     </div>
-                    @Html.ValidationMessageFor(m => m.ContractorId, null, new
-           {
-               @class = "help-block"
-           })
+                    @Html.ValidationMessageFor(m => m.ContractorId)
                     @Html.HiddenFor(m => m.ContractorId)
 
                 </div>
@@ -200,12 +172,9 @@
            {
                id = "remarks",
                @class = "form-control",
-               maxlength = "255"
+               maxlength = 255
            })
-        @Html.ValidationMessageFor(m => m.Remarks, null, new
-           {
-               @class = "help-block"
-           })
+        @Html.ValidationMessageFor(m => m.Remarks)
     </div>
 
     <div class="btn-group btn-group-justified" role="group" aria-label="...">
@@ -226,7 +195,7 @@
                 </ul>
             </div>
         </div>
-            </div>
+    </div>
 </form>
 
 @section scripts {
