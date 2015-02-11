@@ -15,7 +15,7 @@
             // Code to clean up the URL by not posting unnecessary filters
             $('#frmFilters').on('submit', function (e) {
                 // If all checkboxes in a group are checked, uncheck all so that they do not get posted
-                $('#fsDivisions,#fsContractors,#fsApprovers,#fsStations,#fsprocessingDivision').each(function (index, elem) {
+                $('#fsDivisions,#fsContractors,#fsApprovers,#fsStations,#fsprocessingDivision,#fsApprovePaid').each(function (index, elem) {
                     if ($('input:not(:checked)', elem).length == 0) {
                         //alert('Hi');
                         $('input:checked', elem).prop('checked', false);
@@ -105,6 +105,29 @@
                                     </span>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <div class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" href="#fsApprovePaid" aria-expanded="false" aria-controls="#fsApprovePaid">
+                            <span class="caret"></span>  Approved or Paid
+                        </a>
+                    </div>
+                </div>
+                <div id="fsApprovePaid" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body" style="padding-left:4mm; padding-right:1mm">
+                        <div class="form-inline">
+                            <div class="form-group @(Model.FilterApprovedBills ? "has-success" : "")">
+                                <input type="checkbox" class="form-control input-sm" name="@MVC.Bills.RecentBillsParams.OnlyApprovedBills" value="true" checked="@Model.FilterApprovedBills" />
+                            </div>
+                            Approved Bills
+                            <div class="form-group @(Model.FilterUnapprovedBills == true ? "has-success" : "")">
+                                <input type="checkbox" class="form-control input-sm" name="@MVC.Bills.RecentBillsParams.OnlyUnapprovedBills" value="true" checked="@Model.FilterUnapprovedBills" />
+                            </div>
+                            Unapproved Bills
                         </div>
                     </div>
                 </div>
@@ -337,7 +360,6 @@
                     </div>
                 </div>
             </div>
-
             <button type="submit" class="btn btn-primary">Apply Filters</button>
             @if (Model.IsFiltered)
             {
@@ -411,6 +433,14 @@ Paid / Unpaid
                     <strong><a href="@Model.UrlExcel">Export to Excel</a></strong>
                     <span class="glyphicon glyphicon-export"></span>
                 }
+                @if (Model.FilterApprovedBills == true)
+                {
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.OnlyApprovedBills" value="true" />
+                }
+                @if (Model.FilterUnapprovedBills == true)
+                {
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.OnlyUnapprovedBills" value="true" />
+                }
                 <div class="panel panel-primary">
                     <div class="panel-heading">Selected Bills</div>
                     <div class="panel-body">
@@ -434,9 +464,9 @@ Paid / Unpaid
                                     Bill Date <em style="white-space:nowrap"><small>Due Date</small></em>
                                 </strong>
                                 <br />
-                               <small>
-                                   Bill Number
-                               </small>
+                                <small>
+                                    Bill Number
+                                </small>
                             </div>
                             <div class="col-md-4">
                                 <strong>

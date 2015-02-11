@@ -42,12 +42,8 @@ namespace PhpaAll.Controllers
         /// <returns></returns>
         [Authorize(Roles = "BillsExecutive")]
         public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] processingDivisions, int?[] contractors, int?[] stations,
-            DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount, bool exportToExcel = false)
+            DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount,bool? OnlyApprovedBills,bool? OnlyUnapprovedBills, bool exportToExcel = false)
         {
-            //if (dates != null)
-            //{
-            //    throw new NotImplementedException(string.Format("Dates {0}", dates[0]));
-            //}
             var query = from bill in _db.Value.Bills
                         group bill by new
                         {
@@ -189,8 +185,20 @@ namespace PhpaAll.Controllers
                 model.IsFiltered = true;
                 model.FilterMaxAmount = maxAmount;
             }
-
-
+           if (OnlyApprovedBills == true)
+            {
+                // Max Amount
+                filteredBills = filteredBills.Where(p => p.ApprovedOn != null);
+                model.IsFiltered = true;
+                model.FilterApprovedBills = true;
+            }
+            if (OnlyUnapprovedBills == true)
+            {
+                // Max Amount
+                filteredBills = filteredBills.Where(p => p.ApprovedOn == null);
+                model.IsFiltered = true;
+                model.FilterUnapprovedBills = true;
+            }
 
             if (model.UrlExcel.Contains("?"))
             {
@@ -212,19 +220,13 @@ namespace PhpaAll.Controllers
                 bill.CheckBoxName = MVC.Bills.Actions.ApproveBillsParams.listBillId;
             }
 
-            //model.Bills = (from bill in filteredBills
-            //               orderby bill.BillDate descending
-            //               select new BillModel
-            //               {
-
-            //               }).Take(200).ToList();
-
             if (exportToExcel)
             {
                 var result = new ExcelResult("List of Bills");
                 result.AddWorkSheet(model.Bills, "Bills", "My Heading");
                 return result;
             }
+
             return View(Views.RecentBills, model);
         }
 
@@ -239,7 +241,7 @@ namespace PhpaAll.Controllers
         [HttpPost]
         public virtual ActionResult ApproveBills(int[] listBillId, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors,
                                                 int[] stations, DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount,
-            bool approve)
+                                                bool approve, bool? OnlyApprovedBills, bool? OnlyUnapprovedBills)
         {
             if (string.IsNullOrWhiteSpace(User.Identity.Name))
             {
@@ -317,6 +319,16 @@ namespace PhpaAll.Controllers
                 dict.Add(Actions.RecentBillsParams.dateTo, new DateTime[] { dateTo.Value });
             }
 
+            if (OnlyApprovedBills == true) 
+            {
+                dict.Add(Actions.RecentBillsParams.OnlyApprovedBills, new bool[] { OnlyApprovedBills.Value });
+            }
+
+            if (OnlyUnapprovedBills == true)
+            {
+                dict.Add(Actions.RecentBillsParams.OnlyUnapprovedBills, new bool[] { OnlyUnapprovedBills.Value });
+            }
+
             if (dict.Count > 0)
             {
                 var query = from item in dict
@@ -387,7 +399,6 @@ namespace PhpaAll.Controllers
             switch (field)
             {
                 case OrderByField.Division:
-                    //query = query.OrderBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Station.StationName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
                     groupedQuery = from item in query
                                    group item by new MyTestGroup
                                    {
@@ -398,7 +409,6 @@ namespace PhpaAll.Controllers
                                    select g;
                     break;
                 case OrderByField.Station:
-                    //query = query.OrderBy(p => p.Station.StationName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Contractor.ContractorName).ThenBy(p => p.DueDate);
                     groupedQuery = from item in query
                                    group item by new MyTestGroup
                                    {
@@ -409,7 +419,6 @@ namespace PhpaAll.Controllers
                                    select g;
                     break;
                 case OrderByField.Contractor:
-                    //query = query.OrderBy(p => p.Contractor.ContractorName).ThenBy(p => p.SubmittedToDivision.DivisionName).ThenBy(p => p.Station.StationName).ThenBy(p => p.DueDate);
                     groupedQuery = from item in query
                                    group item by new MyTestGroup
                                    {
@@ -423,21 +432,6 @@ namespace PhpaAll.Controllers
                 default:
                     throw new NotImplementedException();
             }
-
-
-            //var finalquery = from bill in query
-            //                 select new OutstandingBillModel
-            //                 {
-            //                     BillId = bill.Id,
-            //                     BillNumber = bill.BillNumber,
-            //                     SubmittedToDivisionId = bill.SubmitedToDivisionId,
-            //                     SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
-            //                     ContractorId = bill.ContractorId,
-            //                     ContractorName = bill.Contractor.ContractorName,
-            //                     BillDate = bill.BillDate,
-            //                     DueDate = bill.DueDate,
-            //                     Amount = bill.Amount
-            //                 };
 
             var finalquery = from mygroup in groupedQuery
                              orderby mygroup.Key.GroupValue
@@ -463,70 +457,7 @@ namespace PhpaAll.Controllers
                                           }).Take(2000).ToList()
 
                              };
-
-            //var finalquery2 = from bill2 in query
-            //                  group bill2 by bill2.SubmittedToDivision into g
-            //                  orderby g.Key.DivisionName
-            //                  select new OutstandingBillGroupModel
-            //                  {
-            //                      DatabaseCount = g.Count(),
-            //                           GroupTotal = g.Sum(p => p.Amount),
-            //                           OrderByValue = g.Key.DivisionName,
-            //                           Bills = (from bill in g
-            //                                    orderby bill.DueDate descending
-            //                                    select new OutstandingBillModel
-            //                                    {
-            //                                        BillId = bill.Id,
-            //                                        BillNumber = bill.BillNumber,
-            //                                        SubmittedToDivisionId = bill.SubmitedToDivisionId,
-            //                                        SubmittedToDivisionName = bill.SubmittedToDivision.DivisionName,
-            //                                        ContractorId = bill.ContractorId,
-            //                                        ContractorName = bill.Contractor.ContractorName,
-            //                                        BillDate = bill.BillDate,
-            //                                        DueDate = bill.DueDate,
-            //                                        Amount = bill.Amount
-            //                                    }).Take(2000).ToList()
-
-            //                  };
-
-            //model.BillGroups = finalquery2.ToList();
             model.BillGroups = finalquery.ToList();
-            //foreach (var row in finalquery2)
-            //{
-            //    model.Bills2[row.Division] = row.Bills.ToList();
-            //}
-
-            //model.Bills = finalquery.Take(5000).ToList();
-
-            //foreach (var billmodel in model.Bills)
-            //{
-            //    switch (field)
-            //    {
-            //        case OrderByField.Division:
-            //            billmodel.OrderByValue = billmodel.SubmittedToDivisionName;
-            //            break;
-            //        case OrderByField.Station:
-            //            billmodel.OrderByValue = billmodel.StationName;
-            //            break;
-            //        case OrderByField.Contractor:
-            //            billmodel.OrderByValue = billmodel.ContractorName;
-            //            break;
-            //        default:
-            //            throw new NotImplementedException();
-            //    }
-            //}
-
-            //var query2 = (from item in model.Bills
-            //             group item by item.OrderByValue into g
-            //             select new
-            //             {
-            //                 OrderByValue = g.Key,
-            //                 Amount = g.Sum(p => p.Amount)
-            //             }).ToDictionary(p => p.OrderByValue??"", p => p.Amount);
-            //foreach (var billmodel in model.Bills)
-            //{
-            //    billmodel.GroupTotal = query2[billmodel.OrderByValue??""];
-            //}
 
             return View(Views.OutstandingBills, model);
         }
