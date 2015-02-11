@@ -487,39 +487,7 @@ Paid / Unpaid
                 </div>
                 <ul class="list-group" id="billGroup" data-approve-url="@Url.Action(MVC.Bills.ApproveBill())" data-approve-paramname="@MVC.Bills.ApproveBillParams.billId">
                     <li class="list-group-item list-group-item-info">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <strong>
-                                    Bill Date <em style="white-space:nowrap"><small>Due Date</small></em>
-                                </strong>
-                                <br />
-                                <small>
-                                    Bill Number
-                                </small>
-                            </div>
-                            <div class="col-md-4">
-                                <strong>
-                                    Division @@ Station
-                                    <br />
-                                    Contractor
-                                    <br />
-                                </strong>
-                            </div>
-                            <div class="col-md-3">
-                                <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
-                                    <strong>
-                                        &rarr; At Division
-                                        <br />
-                                    </strong>
-                                </div>
-                            </div>
-
-                            <div class="col-md-2">
-                                <div class="text-right">
-                                    <strong>Amount(Nu.)</strong>
-                                </div>
-                            </div>
-                        </div>
+                        @Html.Partial(MVC.Shared.Views._billHeaderPartial)
                     </li>
                     @for (var i = 0; i < Model.Bills.Count; ++i)
                     {

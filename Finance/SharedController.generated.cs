@@ -37,12 +37,14 @@ namespace T4MVC
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _billHeaderPartial = "_billHeaderPartial";
                 public readonly string _billPartial = "_billPartial";
                 public readonly string _Layout = "_Layout";
                 public readonly string jqueryval_js = "jqueryval.js";
                 public readonly string layout_css = "layout.css";
                 public readonly string layout_js = "layout.js";
             }
+            public readonly string _billHeaderPartial = "~/Views/Shared/_billHeaderPartial.cshtml";
             public readonly string _billPartial = "~/Views/Shared/_billPartial.cshtml";
             public readonly string _Layout = "~/Views/Shared/_Layout.cshtml";
             public readonly string jqueryval_js = "~/Views/Shared/jqueryval.js.bundle";

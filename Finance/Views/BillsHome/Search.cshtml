@@ -5,6 +5,9 @@
 
 <h2>Search </h2>
 <ul class="list-group">
+    <li class="list-group-item list-group-item-info">
+        @Html.Partial(MVC.Shared.Views._billHeaderPartial)
+    </li>
     @for (var i = 0; i < Model.Bills.Count; ++i)
     {
         <li class="list-group-item">

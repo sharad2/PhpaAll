@@ -385,6 +385,7 @@
     <Content Include="Views\Shared\layout.min.js.map">
       <DependentUpon>layout.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Shared\_billHeaderPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">
