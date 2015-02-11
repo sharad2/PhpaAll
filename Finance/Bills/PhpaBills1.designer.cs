@@ -2425,8 +2425,6 @@ namespace PhpaAll.Bills
 		
 		private string _NewValue;
 		
-		private System.Nullable<int> _FieldType;
-		
 		private EntityRef<BillAudit2> _BillAudit2;
 		
     #region Extensibility Method Definitions
@@ -2447,8 +2445,6 @@ namespace PhpaAll.Bills
     partial void OnCreatedByChanged();
     partial void OnNewValueChanging(string value);
     partial void OnNewValueChanged();
-    partial void OnFieldTypeChanging(System.Nullable<int> value);
-    partial void OnFieldTypeChanged();
     #endregion
 		
 		public BillAuditDetail()
@@ -2597,26 +2593,6 @@ namespace PhpaAll.Bills
 					this._NewValue = value;
 					this.SendPropertyChanged("NewValue");
 					this.OnNewValueChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FieldType", UpdateCheck=UpdateCheck.Never)]
-		public System.Nullable<int> FieldType
-		{
-			get
-			{
-				return this._FieldType;
-			}
-			set
-			{
-				if ((this._FieldType != value))
-				{
-					this.OnFieldTypeChanging(value);
-					this.SendPropertyChanging();
-					this._FieldType = value;
-					this.SendPropertyChanged("FieldType");
-					this.OnFieldTypeChanged();
 				}
 			}
 		}

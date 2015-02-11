@@ -32,8 +32,8 @@ namespace PhpaAll.Bills
                                  select new BillAuditFieldChangeModel
                                  {
                                      FieldName = change.FieldName,
-                                     NewValue = change.NewValueDisplay,
-                                     OldValue = change.OldValueDisplay
+                                     NewValue = change.NewValue,
+                                     OldValue = change.OldValue
                                  }).ToList();
             }
             else
