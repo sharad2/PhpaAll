@@ -166,7 +166,7 @@ namespace PhpaAll.Bills
                         // Here we might need to decide whether to show time or not
                         try
                         {
-                            OldValueDisplay = string.Format("{0:d}", DateTime.Parse(OldValue));
+                            OldValueDisplay = string.Format("{0:g}", DateTime.Parse(OldValue));
                         }
                         catch (FormatException)
                         {
@@ -178,7 +178,7 @@ namespace PhpaAll.Bills
                     {
                         try
                         {
-                            NewValueDisplay = string.Format("{0:d}", DateTime.Parse(NewValue));
+                            NewValueDisplay = string.Format("{0:g}", DateTime.Parse(NewValue));
                         }
                         catch (FormatException)
                         {
