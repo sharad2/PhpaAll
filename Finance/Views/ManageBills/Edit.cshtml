@@ -160,9 +160,9 @@
                     <label for="tbContractor">Station</label>
                     <div class="input-group input-group-sm">
 
-                            @Html.DropDownListFor(m => m.StationId, Model.StationList, "Not Set",
+                        @Html.DropDownListFor(m => m.StationId, Model.StationList, "Not Set",
                     new { @class = "form-control", @required = "required" })
-                            @Html.ValidationMessageFor(m => m.StationId, null, new
+                        @Html.ValidationMessageFor(m => m.StationId, null, new
                                    {
                                        @class = "help-block"
                                    })
@@ -179,23 +179,26 @@
 
                 </div>
             </div>
-            <div class="col-md-offset-3 col-md-3">
-                <label for="tbContractor">Contractor</label>
-                <div class="input-group input-group-sm">
-                    <input type="text" id="tbContractor" class="form-control typeahead" value="@Model.ContractorName" required placeholder="Start typing..."
-                           data-url="@Url.Action(MVC.ManageBills.GetContractor("~"))" />
-                    <span class="input-group-btn ">
-                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-                    </span>
-                </div>
-                @Html.ValidationMessageFor(m => m.ContractorId, null, new
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="tbContractor">Contractor</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" id="tbContractor" class="form-control typeahead" value="@Model.ContractorName" required placeholder="Start typing..."
+                               data-url="@Url.Action(MVC.ManageBills.GetContractor("~"))" />
+                        <span class="input-group-btn ">
+                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.ContractorId, null, new
            {
                @class = "help-block"
            })
-                @Html.TextBoxFor(m => m.ContractorId, new
+                    @Html.TextBoxFor(m => m.ContractorId, new
                {
-                   style = "height:0; width:0; border:none"
+                   style = "height:50px; width:250px; border:5px"
                })
+
+                </div>
             </div>
         </div>
     </div>
@@ -215,18 +218,24 @@
     </div>
 
     <div class="btn-group btn-group-justified" role="group" aria-label="...">
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))" class="btn btn-link">Cancel</a>
-        <div class="btn-group" role="group">
-            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                <span class="glyphicon glyphicon-trash"></span>                Delete
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><button type="submit" class="btn btn-danger btn-block" name="@MVC.ManageBills.UpdateOrDeleteParams.delete" value="true">Confirm</button></li>
-            </ul>
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary">Save</button>
         </div>
-    </div>
+        <div class="btn-group">
+            <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))" class="btn btn-link">Cancel</a>
+        </div>
+        <div class="btn-group">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <span class="glyphicon glyphicon-trash"></span>                Delete
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><button type="submit" class="btn btn-danger btn-block" name="@MVC.ManageBills.UpdateOrDeleteParams.delete" value="true">Confirm</button></li>
+                </ul>
+            </div>
+        </div>
+            </div>
 </form>
 
 @section scripts {
@@ -266,7 +275,6 @@
                 });
 
             });
-
 
             $("#billDatePicker,#divSubDatePicker,#dueDatePicker").datetimepicker({
                 format: 'D/M/YYYY'
