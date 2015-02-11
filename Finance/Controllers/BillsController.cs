@@ -24,7 +24,7 @@ namespace PhpaAll.Controllers
         {
             base.Initialize(requestContext);
 
-            _db = new Lazy<PhpaBillsDataContext>(() => new PhpaBillsDataContext(requestContext.HttpContext.Trace));
+            _db = new Lazy<PhpaBillsDataContext>(() => new PhpaBillsDataContext(requestContext.HttpContext));
         }
 
         protected override void Dispose(bool disposing)
