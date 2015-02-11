@@ -72,9 +72,9 @@ namespace PhpaAll.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Delete()
+        public virtual System.Web.Mvc.ActionResult UpdateOrDelete()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateOrDelete);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -137,7 +137,7 @@ namespace PhpaAll.Controllers
             public readonly string Create = "Create";
             public readonly string CreateBill = "CreateBill";
             public readonly string Edit = "Edit";
-            public readonly string Delete = "Delete";
+            public readonly string UpdateOrDelete = "UpdateOrDelete";
             public readonly string ShowBill = "ShowBill";
             public readonly string Image = "Image";
             public readonly string UploadImage = "UploadImage";
@@ -153,7 +153,7 @@ namespace PhpaAll.Controllers
             public const string Create = "Create";
             public const string CreateBill = "CreateBill";
             public const string Edit = "Edit";
-            public const string Delete = "Delete";
+            public const string UpdateOrDelete = "UpdateOrDelete";
             public const string ShowBill = "ShowBill";
             public const string Image = "Image";
             public const string UploadImage = "UploadImage";
@@ -179,15 +179,15 @@ namespace PhpaAll.Controllers
         public class ActionParamsClass_Edit
         {
             public readonly string id = "id";
-            public readonly string model = "model";
         }
-        static readonly ActionParamsClass_Delete s_params_Delete = new ActionParamsClass_Delete();
+        static readonly ActionParamsClass_UpdateOrDelete s_params_UpdateOrDelete = new ActionParamsClass_UpdateOrDelete();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Delete DeleteParams { get { return s_params_Delete; } }
+        public ActionParamsClass_UpdateOrDelete UpdateOrDeleteParams { get { return s_params_UpdateOrDelete; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Delete
+        public class ActionParamsClass_UpdateOrDelete
         {
-            public readonly string id = "id";
+            public readonly string model = "model";
+            public readonly string delete = "delete";
         }
         static readonly ActionParamsClass_ShowBill s_params_ShowBill = new ActionParamsClass_ShowBill();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -313,26 +313,15 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, PhpaAll.Controllers.EditViewModel model);
+        partial void UpdateOrDeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, PhpaAll.Controllers.EditViewModel model, bool? delete);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Edit(PhpaAll.Controllers.EditViewModel model)
+        public override System.Web.Mvc.ActionResult UpdateOrDelete(PhpaAll.Controllers.EditViewModel model, bool? delete)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateOrDelete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            EditOverride(callInfo, model);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Delete(int id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            DeleteOverride(callInfo, id);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "delete", delete);
+            UpdateOrDeleteOverride(callInfo, model, delete);
             return callInfo;
         }
 

@@ -9,7 +9,7 @@
 </h2>
 
 
-<form action="@Url.Action(MVC.ManageBills.Edit())" method="post" enctype="multipart/form-data">
+<form action="@Url.Action(MVC.ManageBills.UpdateOrDelete())" method="post">
     @Html.HiddenFor(m => m.Id)
     <div class="well well-sm">
         <div class="row">
@@ -228,27 +228,21 @@
         <button type="submit" class="btn btn-primary">Save Bill</button>
         <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.Id))">Cancel</a>
     </div>
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <button type="button" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-link">Cancel</button>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <span class="glyphicon glyphicon-trash"></span>                Delete
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><button type="submit" class="btn btn-danger btn-block" name="@MVC.ManageBills.UpdateOrDeleteParams.delete" value="true">Confirm</button></li>
+            </ul>
+        </div>
     </div>
 </form>
-<div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-        Delete
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-        <li role="presentation" style="text-align:center">
-            <div>
-                Are you sure ?
-                <form action="@Url.Action(MVC.ManageBills.Delete())" method="post">
-                    @Html.HiddenFor(m => m.Id)
-                    <button type="submit" class="btn btn-primary">
-                        Yes
-                    </button>
-                </form>
-            </div>
-        </li>
-    </ul>
-</div>
+
 @section scripts {
     <script type="text/javascript" src="@Links.Views.Shared.jqueryval_js"></script>
 
