@@ -34,8 +34,8 @@
       <Column Name="BillNumber" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
       <Column Name="BillDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="DueDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="SubmittedOnDate" Member="ReceivedDate" Storage="_SubmittedOnDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="SubmitedToDivisionId" Member="DivisionId" Storage="_SubmitedToDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReceiviedDate" Member="ReceivedDate" Storage="_SubmittedOnDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="DivisionId" Storage="_SubmitedToDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ContractorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="ApprovedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
@@ -48,7 +48,7 @@
       <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="StationId" Type="System.Int32" DbType="Int" CanBeNull="false" />
-      <Column Name="CurrentDivisionId" Member="AtDivisionId" Storage="_CurrentDivisionId" Type="System.Int32" CanBeNull="true" />
+      <Column Name="AtDivisionId" Storage="_CurrentDivisionId" Type="System.Int32" CanBeNull="true" />
       <Association Name="Bill_BillImage" Member="BillImages" ThisKey="Id" OtherKey="BillId" Type="BillImage" />
       <Association Name="Bill_Voucher" Member="Voucher" Storage="_Vouchers" ThisKey="Id" OtherKey="BillId" Type="Voucher" Cardinality="One" />
       <Association Name="Contractor_Bill" Member="Contractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="Contractor" IsForeignKey="true" />
