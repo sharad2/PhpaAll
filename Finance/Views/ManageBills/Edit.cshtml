@@ -140,7 +140,7 @@
                         <input type="text" id="tbDivision" class="form-control typeahead" value="@Model.SubmittedToDivisionName" required placeholder="Start typing..."
                                data-url="@Url.Action(MVC.ManageBills.GetDivision("~"))" />
                         <span class="input-group-btn ">
-                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                            <button class="btn btn-default" type="button" tabindex="-1"><span class="glyphicon glyphicon-search"></span></button>
                         </span>
                     </div>
                     <small class="help-block">The division which received this bill.</small>
@@ -148,10 +148,7 @@
            {
                @class = "help-block"
            })
-                    @Html.TextBoxFor(m => m.SubmittedToDivisionId, new
-               {
-                   style = "height:0; width:0; border:none"
-               })
+                    @Html.HiddenFor(m => m.SubmittedToDivisionId)
 
                 </div>
             </div>
@@ -172,10 +169,7 @@
            {
                @class = "help-block"
            })
-                    @Html.TextBoxFor(m => m.StationId, new
-               {
-                   style = "height:0; width:0; border:none"
-               })
+                    @Html.HiddenFor(m => m.StationId)
 
                 </div>
             </div>
@@ -186,7 +180,7 @@
                         <input type="text" id="tbContractor" class="form-control typeahead" value="@Model.ContractorName" required placeholder="Start typing..."
                                data-url="@Url.Action(MVC.ManageBills.GetContractor("~"))" />
                         <span class="input-group-btn ">
-                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                            <button class="btn btn-default" type="button" tabindex="-1"><span class="glyphicon glyphicon-search"></span></button>
                         </span>
                     </div>
                     @Html.ValidationMessageFor(m => m.ContractorId, null, new
@@ -248,6 +242,7 @@
                     //name: 'Division',
                     displayKey: 'label',
                     source: function (query, cb) {
+                        //alert(query);
                         var url = $(elem).attr('data-url').replace('~', query);
                         $.get(url).done(function (data, textStatus, jqXHR) {
                             this.cb(data);
@@ -269,6 +264,8 @@
                 }).on('input', function (e) {
                     // When user changes the divisionId, empty the hidden field
                     $(this).closest('div.form-group').find('input:not(".typeahead")').val('');
+                }).on('dblclick', function (e) {
+                    $(this).typeahead('open');
                 });
 
             });
