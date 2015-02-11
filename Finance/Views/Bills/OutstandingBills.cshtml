@@ -120,7 +120,7 @@
             for (var j = 0; j < Model.BillGroups[i].Bills.Count; ++j)
             {
                 <tr>
-                    <td>@i</td>
+                    <td>@(j+1)</td>
                     <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].BillNumber)</td>
                     <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].BillDate)</td>
                     <td>@Html.DisplayFor(m => m.BillGroups[i].Bills[j].DueDate)</td>
