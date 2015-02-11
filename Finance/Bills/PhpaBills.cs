@@ -97,6 +97,7 @@ namespace PhpaAll.Bills
 
                     var propType = Nullable.GetUnderlyingType(propInfo.PropertyType) ?? propInfo.PropertyType;
 
+                    int id;
                     if (billEntity._list.ContainsKey(propInfo.Name))
                     {
                         var info = billEntity._list[propInfo.Name];
@@ -104,17 +105,30 @@ namespace PhpaAll.Bills
                         switch (info.IdKind)
                         {
                             case IdKindType.Division:
-                                if (info.OldId.HasValue) { 
-                                auditDetail.OldValue = Divisions.Where(p => p.DivisionId == (info.OldId ?? 0)).Select(p => p.DivisionName).FirstOrDefault();
-                                }
-                                if (info.NewId.HasValue)
+                                if (!string.IsNullOrWhiteSpace(info.OldValue))
                                 {
-                                    auditDetail.NewValue = Divisions.Where(p => p.DivisionId == (info.NewId ?? 0)).Select(p => p.DivisionName).FirstOrDefault();
+                                    id = int.Parse(info.OldValue);
+                                    auditDetail.OldValue = Divisions.Where(p => p.DivisionId == id).Select(p => p.DivisionName).FirstOrDefault();
+                                }
+                                if (!string.IsNullOrWhiteSpace(info.NewValue))
+                                { 
+                                    id = int.Parse(info.NewValue);
+                                    auditDetail.NewValue = Divisions.Where(p => p.DivisionId == id).Select(p => p.DivisionName).FirstOrDefault();
                                 }
 
                                 break;
 
                             case IdKindType.Contractor:
+                                break;
+                            case IdKindType.Station:
+                                if (!string.IsNullOrWhiteSpace(info.OldValue)) { 
+                                id = int.Parse(info.OldValue);
+                                    auditDetail.OldValue = Stations.Where(p => p.StationId == id).Select(p => p.StationName).FirstOrDefault();
+                                }
+                                if (!string.IsNullOrWhiteSpace(info.NewValue)) { 
+                                id = int.Parse(info.NewValue);
+                                    auditDetail.NewValue = Stations.Where(p => p.StationId == id).Select(p => p.StationName).FirstOrDefault();
+                                }
                                 break;
 
                             default:
@@ -165,15 +179,21 @@ namespace PhpaAll.Bills
 
 
     internal enum IdKindType {
+        None,
         Division,
-        Contractor
+        Contractor,
+        Station
     };
 
     internal class MyChanges
     {
         public IdKindType IdKind { get; set; }
-        public int? OldId { get; set; }
-        public int? NewId { get; set; }
+
+        /// <summary>
+        /// If IdKind is not None, then this is an id
+        /// </summary>
+        public string OldValue { get; set; }
+        public string NewValue { get; set; }
     }
 
     internal partial class Bill
@@ -185,8 +205,8 @@ namespace PhpaAll.Bills
             _list["ContractorId"] = new MyChanges
             {
                 IdKind = IdKindType.Contractor,
-                OldId = this.ContractorId,
-                NewId = value
+                OldValue = this.ContractorId.HasValue ? this.ContractorId.Value.ToString() : null,
+                NewValue = value.HasValue ? value.Value.ToString() : null,
             };
         }
 
@@ -195,14 +215,19 @@ namespace PhpaAll.Bills
             _list["DivisionId"] = new MyChanges
             {
                 IdKind = IdKindType.Division,
-                OldId = this.DivisionId,
-                NewId = value
+                OldValue = this.DivisionId.HasValue ? this.DivisionId.Value.ToString() : null,
+                NewValue = value.HasValue ? value.Value.ToString() : null,
             };
         }
 
         partial void OnStationIdChanging(int value)
         {
-            throw new NotImplementedException();
+            _list["StationId"] = new MyChanges
+            {
+                IdKind = IdKindType.Station,
+                OldValue = this.StationId.ToString(),
+                NewValue = value.ToString(),
+            };
         }
 
         partial void OnAtDivisionIdChanging(int? value)
