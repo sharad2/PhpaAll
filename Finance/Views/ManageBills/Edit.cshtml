@@ -157,11 +157,11 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <label for="tbContractor">Station</label>
+                    <label for="ddlStation">Station</label>
                     <div class="input-group input-group-sm">
 
                         @Html.DropDownListFor(m => m.StationId, Model.StationList, "Not Set",
-                    new { @class = "form-control", @required = "required" })
+                    new { @class = "form-control", @required = "required", id="ddlStation" })
                         @Html.ValidationMessageFor(m => m.StationId, null, new
                                    {
                                        @class = "help-block"
@@ -172,7 +172,7 @@
            {
                @class = "help-block"
            })
-                    @Html.TextBoxFor(m => m.ContractorId, new
+                    @Html.TextBoxFor(m => m.StationId, new
                {
                    style = "height:0; width:0; border:none"
                })
@@ -193,10 +193,7 @@
            {
                @class = "help-block"
            })
-                    @Html.TextBoxFor(m => m.ContractorId, new
-               {
-                   style = "height:50px; width:250px; border:5px"
-               })
+                    @Html.HiddenFor(m => m.ContractorId)
 
                 </div>
             </div>

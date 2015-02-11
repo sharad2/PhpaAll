@@ -41,6 +41,7 @@ namespace PhpaAll.Controllers
         [Obsolete("Change Name")]
         public int? SubmittedToDivisionId { get; set; }
 
+        [Obsolete("Change Name")]
         public string SubmittedToDivisionName { get; set; }
 
         [Display(Name = "Contractor Id")]
