@@ -15,11 +15,15 @@ namespace PhpaAll.Bills
     {
         private readonly StringWriter _sw;
 
-        private readonly TraceContext _trace;
+        //[Obsolete]
+        //private readonly TraceContext _trace;
 
-        public PhpaBillsDataContext(TraceContext trace): base(ConfigurationManager.ConnectionStrings["default"].ConnectionString)
+        private HttpContextBase _context;
+
+        public PhpaBillsDataContext(HttpContextBase context)
+            : base(ConfigurationManager.ConnectionStrings["default"].ConnectionString)
         {
-            _trace = trace;
+            _context = context;
 
             _sw = new StringWriter();
             this.Log = _sw;
@@ -31,20 +35,20 @@ namespace PhpaAll.Bills
 
             if (_sw != null)
             {
-                _trace.Write(_sw.ToString());
+                _context.Trace.Write(_sw.ToString());
             }
         }
 
         partial void UpdateBill(Bill instance)
         {
-            instance.ModifiedBy = HttpContext.Current.User.Identity.Name;
+            instance.ModifiedBy = _context.User.Identity.Name;
             instance.Modified = DateTime.Now;
             ExecuteDynamicUpdate(instance);
         }
 
         partial void InsertBill(PhpaAll.Bills.Bill instance)
         {
-            instance.CreatedBy = HttpContext.Current.User.Identity.Name;
+            instance.CreatedBy = _context.User.Identity.Name;
             ExecuteDynamicInsert(instance);
         }
 
@@ -70,7 +74,7 @@ namespace PhpaAll.Bills
                 var audit = new BillAudit2();
 
                 audit.BillId = bill.Id;
-                audit.CreatedBy = HttpContext.Current.User.Identity.Name;
+                audit.CreatedBy = _context.User.Identity.Name;
                 audit.Created = DateTime.Now;
 
                 this.BillAudit2s.InsertOnSubmit(audit);
@@ -83,7 +87,7 @@ namespace PhpaAll.Bills
                     auditDetail.OldValue = string.Format("{0}", prop.OriginalValue);
                     auditDetail.NewValue = string.Format("{0}", prop.CurrentValue);
                     auditDetail.FieldName = prop.Member.Name;
-                    auditDetail.CreatedBy = HttpContext.Current.User.Identity.Name;
+                    auditDetail.CreatedBy = _context.User.Identity.Name;
                     auditDetail.Created = DateTime.Now;
 
                     audit.BillAuditDetails.Add(auditDetail);
