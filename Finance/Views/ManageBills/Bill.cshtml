@@ -19,7 +19,18 @@
                 </div>
                 <div class="btn-group" role="group" aria-label="...">
                     @*For contractor bills, show other bills of this contractor. TODO: Think of what to show for non contractor bills*@
-                    <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(@MVC.Bills.RecentBillsParams.contractors, Model.ContractorId))" class="btn btn-link">
+                    @{
+                        var actionRecentBills = MVC.Bills.RecentBills();
+                        if (Model.ContractorId.HasValue)
+                        {
+                            actionRecentBills.AddRouteValue(MVC.Bills.RecentBillsParams.contractors, Model.ContractorId);
+                        }
+                        if (Model.DivisionId.HasValue)
+                        {
+                            actionRecentBills.AddRouteValue(MVC.Bills.RecentBillsParams.divisions, Model.DivisionId);
+                        }
+                    }
+                    <a href="@Url.Action(actionRecentBills)" class="btn btn-link">
                         Similar Bills
                     </a>
                 </div>
