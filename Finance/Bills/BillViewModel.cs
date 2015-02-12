@@ -51,7 +51,7 @@ namespace PhpaAll.Bills
 
 
         [Display(Name = "Amount")]
-        [Required(ErrorMessage = "Amount is required.")]
+        [DisplayFormat(DataFormatString="{0:N2}")]
         public Decimal? Amount { get; set; }
 
         [Display(Name = "Bill For")]
@@ -60,7 +60,6 @@ namespace PhpaAll.Bills
 
 
         [Display(Name = "Remarks")]
-        [StringLength(255, ErrorMessage = "Max limit is 255 characters")]
         public string Remarks { get; set; }
 
 
@@ -74,9 +73,8 @@ namespace PhpaAll.Bills
         public IList<BillAuditModel> BillHistory { get; set; }
 
 
-        [Display(Name = "CurrentDivision")]
-        [Obsolete("Change to AtDivisionName")]
-        public string CurrentDivision { get; set; }
+        [Display(Name = "At Division")]
+        public string AtDivision { get; set; }
 
         [Display(Name = "Paid On")]
         [DataType(DataType.Date)]

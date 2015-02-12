@@ -4,168 +4,91 @@
     ViewBag.Title = "View Bill";
 }
 
-<label class="col1-sm-6 control-label">Bill No.</label>
-<div class="col1-sm-6">
-    <p class="form-control-static">@Html.DisplayFor(m => m.BillNumber)</p>
+<div class="page-header">
+    <h2>Bill from @Html.DisplayFor(m => m.ContractorName) <small>dated @Html.DisplayFor(m => m.BillDate) for Nu @Html.DisplayFor(m => m.Amount)</small></h2>
 </div>
+
 <div class="well well-sm">
-    <div class="form-horizontal">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label class="col-sm-6 control-label">Bill Date</label>
-                    <div class="col-sm-6">
-                        <p class="form-control-static">@Html.DisplayFor(m => m.BillDate)</p>
-                    </div>
+    <div class="text-center">
+        <div style="display:inline-block">
+            <div class="btn-toolbar" role="toolbar" aria-label="...">
+                <div class="btn-group" role="group" aria-label="...">
+                    <a href="@Url.Action(MVC.ManageBills.Edit(Model.BillId))" class="btn btn-link">
+                        Edit
+                    </a>
+                </div>
+                <div class="btn-group" role="group" aria-label="...">
+                    @*For contractor bills, show other bills of this contractor. TODO: Think of what to show for non contractor bills*@
+                    <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(@MVC.Bills.RecentBillsParams.contractors, Model.ContractorId))" class="btn btn-link">
+                        Similar Bills
+                    </a>
+                </div>
+                <div class="btn-group" role="group" aria-label="...">
+                    <a href="~/Finance/InsertVoucher.aspx" class="btn btn-link">
+                        Create Voucher for this bill
+                    </a>
+                </div>
 
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label class="col-sm-6 control-label">Received on</label>
-                    <div class="col-sm-6">
-                        <p class="form-control-static">@Html.DisplayFor(m => m.ReceivedDate)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label class="col-sm-6 control-label">Payment Due Date</label>
-                    <div class="col-sm-6">
-                        <p class="form-control-static">@Html.DisplayFor(m => m.DueDate)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-
-        </div>
-        <div class="row">
-            <div class="col-md-9">
-                <div class="form-group">
-                    <label for="particulars">Particulars</label>
-                    <p class="form-control-static">@Html.DisplayFor(m => m.Particulars)</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="amount">Amount</label>
-                    <p class="form-control-static">@Html.DisplayFor(m => m.Amount)</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Division @@ Station</label>
-                    <p class="form-control-static">@Html.DisplayFor(m => m.DivisionName) @@ @Html.DisplayFor(m => m.StationName)</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Contractor</label>
-                    <p class="form-control-static">@Html.DisplayFor(m => m.ContractorName)</p>
-                </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="form-group">
-    <label>Remarks</label>
-    <p class="form-control-static">@Html.DisplayFor(m => m.Remarks)</p>
-</div>
-
-</form>
-
-<div style="margin-top:0" class="text-center h2">
-    @Html.DisplayFor(m => m.ContractorName)
-    @if (Model.ApprovedDate != null)
-    {
-
-        <label class="label label-success">
-            Approved on
-            @Html.DisplayFor(m => m.ApprovedDate)
-            <em>by  @Html.DisplayFor(m => m.ApprovedBy) </em>
-        </label>
-
-    }
-    &nbsp;
-    <div class="btn-group-vertical btn-group-xs" role="group" aria-label="...">
-        <button type="button" class="btn btn-success">
-            <spn class="glyphicon glyphicon-thumbs-up"></spn> Approve
-        </button>
-        <button type="button" class="btn btn-danger">
-            <spn class="glyphicon glyphicon-thumbs-down"></spn> Unapprove
-        </button>
-    </div>
-</div>
-<div class="bg-info">
-    <a href="@Url.Action(MVC.ManageBills.Edit(Model.BillId))" class="btn btn-link">
-        Edit
-    </a>
-    |
-    <a href="~/Finance/InsertVoucher.aspx" class="btn btn-link">
-        Create Voucher
-    </a>
-    |
-    <a href="@Url.Action(MVC.Bills.RecentBills())" class="btn btn-link">
-        Recent Bills
-    </a>
-</div>
-<div class="well">
     <div class="row">
-        <div class="col-md-8">
-            <strong><mark>No: @Html.DisplayFor(m => m.BillNumber)</mark></strong>
-            &nbsp;
-            <span class="label label-info">
-                Processing Division:
-                @Html.DisplayFor(m => m.CurrentDivision)
-            </span>
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>Bill Date</dt>
+                <dd>@Html.DisplayFor(m => m.BillDate)</dd>
+                <dt>Bill Number</dt>
+                <dd>@Html.DisplayFor(m => m.BillNumber)</dd>
+                <dt>For Division @@ Station</dt>
+                <dd>@Html.DisplayFor(m => m.DivisionName) @@ @Html.DisplayFor(m => m.StationName)</dd>
+                <dt>Contractor</dt>
+                <dd>@Html.DisplayFor(m => m.ContractorName)</dd>
+                <dt>Received on</dt>
+                <dd>@Html.DisplayFor(m => m.ReceivedDate)</dd>
+                <dt>Payment due</dt>
+                <dd>@Html.DisplayFor(m => m.DueDate)</dd>
+            </dl>
         </div>
-        <div class="col-md-4" style="text-align:right">
-            <strong class="pull-right1">Dated: @Html.DisplayFor(m => m.BillDate)</strong>
-            @if (Model.DueDate < DateTime.Now)
-            {
-                <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
-            }
-            else
-            {
-                <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em><br />
-            }
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+
+                <dt>Amount</dt>
+                <dd><span> @Html.DisplayFor(m => m.Amount)</span></dd>
+                <dt>Particulars</dt>
+                <dd>@Html.DisplayFor(m => m.Particulars)</dd>
+                <dt>Remarks</dt>
+                <dd>@Html.DisplayFor(m => m.Remarks)</dd>
+                <dt>Approved</dt>
+                <dd>
+                    @if (Model.ApprovedDate != null)
+                    {
+                        <span class="label label-success">
+                            Approved on
+                            @Html.DisplayFor(m => m.ApprovedDate)
+                            by  @Html.DisplayFor(m => m.ApprovedBy)
+                        </span>
+                        <button type="button" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-thumbs-down"></span> Unapprove
+                        </button>
+                    }
+                    else
+                    {
+                        <span>Not approved for payment</span>
+                        <button type="button" class="btn btn-success btn-xs">
+                            <spn class="glyphicon glyphicon-thumbs-up"></spn> Approve
+                        </button>
+                    }
+                </dd>
+                <dt>
+                    Sent to Division
+                </dt>
+                <dd>
+                    @Html.DisplayFor(m => m.AtDivision)
+                </dd>
+            </dl>
         </div>
+
     </div>
-    <small class="text-info">
-        <strong>Particulars:</strong> @Html.DisplayFor(m => m.Particulars)
-    </small>
-    <blockquote class="blockquote-reverse">
-        <p>
-            <strong>Amount(Nu.) @Html.DisplayFor(m => m.Amount)</strong>
-
-            @if (Model.VoucherDate != null)
-            {
-                <span>
-                    Voucher Date @Html.DisplayFor(m => m.VoucherDate) TODO: Create link to voucher
-                </span>
-            }
-
-            <small>
-                <label>Received at division</label>
-                @Html.DisplayFor(m => m.DivisionName)
-                <em>on @Html.DisplayFor(m => m.ReceivedDate)</em>
-                <strong>@@Station</strong>
-                @Html.DisplayFor(m => m.StationName)
-
-            </small>
-        </p>
-    </blockquote>
-    <em class="text-muted">
-        <small>
-            <label>Remarks:</label>
-            @Html.DisplayFor(m => m.Remarks)
-        </small>
-    </em>
-
 </div>
 
 
@@ -312,21 +235,6 @@
 
 
 @section scripts {
-    @*<style type="text/css">
-            /*Styleing form thead crousel indicator aside cite was not visible over thead white background*/
-            .carousel-control span.glyphicon {
-                border-color: #4196c7;
-                color: #0b4e75;
-            }
-
-            /*Styling form the crousel upload dragable area*/
-            #my-dropzone {
-                border: 5px dashed #4196c7;
-                background-color: rgba(241, 236, 212, 0.48);
-            }
-        </style>*@
-
-
     <link rel="stylesheet" href="@Links.Views.ManageBills.Bill_css" />
     <script type="text/javascript" src="@Links.Views.ManageBills.Bill_js"></script>
 
