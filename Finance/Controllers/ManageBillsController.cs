@@ -143,7 +143,7 @@ namespace PhpaAll.Controllers
             edit.Particulars = model.Particulars;
             edit.BillNumber = model.BillNumber;
             edit.BillDate = model.BillDate;
-            //edit.BillImage = imageData;
+            edit.AtDivisionId = model.AtDivisionId;
             edit.ContractorId = model.ContractorId;
             edit.DivisionId = model.DivisionId;
             edit.DueDate = model.DueDate;
