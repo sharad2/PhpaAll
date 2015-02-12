@@ -309,7 +309,32 @@ namespace PhpaAll.Controllers
             return string.Format(fmtString, billDate);
         }
 
-        public virtual ActionResult SearchAutoComplete(string searchText)
+        /// <summary>
+        /// Called by webform page insertvoucher.aspx
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <returns></returns>
+        public virtual JsonResult SearchAutoComplete2(string term)
+        {
+            var query = SearchQuery(term).Take(50);
+
+            var tokens = term.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            // AsEnumerable() executes the SQL query. After that we are free to use any C# function without SQL server complaining
+            var data = query.AsEnumerable().Select(bill => new
+            {
+                Relevance = 100,
+                Value = bill.Id,
+                Text = bill.BillNumber
+            }).ToList();
+
+            return Json(new
+            {
+                d = data
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public virtual JsonResult SearchAutoComplete(string searchText)
         {
             var query = SearchQuery(searchText).Take(50);
 

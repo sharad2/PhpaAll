@@ -154,6 +154,14 @@
                             <i:Required DependsOn="ddlMoreColumns" DependsOnState="Value" DependsOnValue="J" />
                         </Validators>
                     </i:AutoComplete>
+                    <i:AutoComplete ID="AutoComplete1" runat="server" FriendlyName="Division" WebMethod="SearchAutoComplete2"
+                        WebServicePath="~/BillsHome" Value='<%# Bind("DivisionId") %>'
+                        Text='<%# Eval("Division.DivisionCode", "{0}: ") +  Eval("Division.DivisionName", "{0}") %>'
+                        ValidateWebMethodName="ValidateDivision" AutoValidate="false" Delay="1000" Width="25em">
+                        <Validators>
+                            <i:Required DependsOn="ddlMoreColumns" DependsOnState="Value" DependsOnValue="J" />
+                        </Validators>
+                    </i:AutoComplete>
                     <eclipse:LeftLabel ID="lblCheckNumber" runat="server" Text="Cheque #" />
                     <i:TextBoxEx ID="tbCheckNumber" runat="server" QueryStringValue='<%# Bind("CheckNumber") %>'
                         MaxLength="9" ClientIDMode="Static" QueryString="CheckNumber">

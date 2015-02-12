@@ -66,9 +66,15 @@ namespace PhpaAll.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult SearchAutoComplete()
+        public virtual System.Web.Mvc.JsonResult SearchAutoComplete2()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SearchAutoComplete);
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SearchAutoComplete2);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult SearchAutoComplete()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SearchAutoComplete);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -88,6 +94,7 @@ namespace PhpaAll.Controllers
         {
             public readonly string Index = "Index";
             public readonly string Search = "Search";
+            public readonly string SearchAutoComplete2 = "SearchAutoComplete2";
             public readonly string SearchAutoComplete = "SearchAutoComplete";
             public readonly string Logoff = "Logoff";
         }
@@ -97,6 +104,7 @@ namespace PhpaAll.Controllers
         {
             public const string Index = "Index";
             public const string Search = "Search";
+            public const string SearchAutoComplete2 = "SearchAutoComplete2";
             public const string SearchAutoComplete = "SearchAutoComplete";
             public const string Logoff = "Logoff";
         }
@@ -109,6 +117,14 @@ namespace PhpaAll.Controllers
         public class ActionParamsClass_Search
         {
             public readonly string searchText = "searchText";
+        }
+        static readonly ActionParamsClass_SearchAutoComplete2 s_params_SearchAutoComplete2 = new ActionParamsClass_SearchAutoComplete2();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SearchAutoComplete2 SearchAutoComplete2Params { get { return s_params_SearchAutoComplete2; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SearchAutoComplete2
+        {
+            public readonly string term = "term";
         }
         static readonly ActionParamsClass_SearchAutoComplete s_params_SearchAutoComplete = new ActionParamsClass_SearchAutoComplete();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -165,12 +181,24 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void SearchAutoCompleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string searchText);
+        partial void SearchAutoComplete2Override(T4MVC_System_Web_Mvc_JsonResult callInfo, string term);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult SearchAutoComplete(string searchText)
+        public override System.Web.Mvc.JsonResult SearchAutoComplete2(string term)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SearchAutoComplete);
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SearchAutoComplete2);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
+            SearchAutoComplete2Override(callInfo, term);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SearchAutoCompleteOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string searchText);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult SearchAutoComplete(string searchText)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SearchAutoComplete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "searchText", searchText);
             SearchAutoCompleteOverride(callInfo, searchText);
             return callInfo;
