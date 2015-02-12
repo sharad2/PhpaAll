@@ -41,6 +41,12 @@ namespace PhpaAll.Controllers
 
         public string DivisionName { get; set; }
 
+        [Display(Name = "At Division Id")]
+        [Required(ErrorMessage = "At Division Id is required.")]
+        public int? AtDivisionId { get; set; }
+
+        public string AtDivisionName { get; set; }
+
         [Display(Name = "Contractor Id")]
         public int? ContractorId { get; set; }
 

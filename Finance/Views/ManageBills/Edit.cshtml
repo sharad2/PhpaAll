@@ -150,6 +150,21 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group">
+                    <label for="tbAtDivision">At Division</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" id="tbAtDivision" class="form-control typeahead" value="@Model.AtDivisionName" required placeholder="Start typing..."
+                               data-url="@Url.Action(MVC.ManageBills.GetDivision("~"))" />
+                        <span class="input-group-btn ">
+                            <button class="btn btn-default" type="button" tabindex="-1"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.AtDivisionId)
+                    @Html.HiddenFor(m => m.AtDivisionId)
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
                     <label for="tbContractor">Contractor</label>
                     <div class="input-group input-group-sm">
                         <input type="text" id="tbContractor" class="form-control typeahead" value="@Model.ContractorName" required placeholder="Start typing..."
@@ -160,7 +175,6 @@
                     </div>
                     @Html.ValidationMessageFor(m => m.ContractorId)
                     @Html.HiddenFor(m => m.ContractorId)
-
                 </div>
             </div>
         </div>
@@ -206,7 +220,7 @@
 
         $(document).ready(function () {
             "use strict";
-            $('#tbDivision,#tbContractor').each(function (index, elem) {
+            $('#tbDivision,#tbContractor,#tbAtDivision').each(function (index, elem) {
                 $(elem).typeahead({
                     minLength: 0,
                     highlight: true,
@@ -233,6 +247,7 @@
                 }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
                     // Store the id of the selected division in the hdden field
                     //$('#hfDivisionId').val(sug.value);
+                    alert('Hi');
                     $(this).closest('div.form-group').find('input:not(".typeahead")').val(sug.value);
                 }).on('input', function (e) {
                     // When user changes the divisionId, empty the hidden field
