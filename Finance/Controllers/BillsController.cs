@@ -337,9 +337,9 @@ namespace PhpaAll.Controllers
 
             if (approvedFilter.HasValue)
             {
-                dict.Add(Actions.RecentBillsParams.approved, new [] { approvedFilter.Value });
+                dict.Add(Actions.RecentBillsParams.approved, new[] { approvedFilter.Value });
             }
-
+           
             if (paidFilter.HasValue)
             {
                 dict.Add(Actions.RecentBillsParams.paid, new[] { paidFilter.Value });
