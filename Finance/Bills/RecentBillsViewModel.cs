@@ -138,6 +138,11 @@ namespace PhpaAll.Bills
         public bool? FilterApprovedBills;
 
         /// <summary>
+        /// True means paid bills, false means unpaid bills, null means all
+        /// </summary>
+        public bool? FilterPaidBills;
+
+        /// <summary>
         /// URL which will cause the current data to be displayed in Excel
         /// </summary>
         public string UrlExcel { get; set; }

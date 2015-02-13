@@ -322,7 +322,7 @@ namespace PhpaAll.Bills
             {
                 IdKind = IdKindType.None,
                 OldValue = this.ApprovedBy,
-                NewValue = value.ToString(),
+                NewValue = !string.IsNullOrEmpty(value) ? value : null,
                 FieldDisplayName = "Approved By",
             };
         }
@@ -344,7 +344,7 @@ namespace PhpaAll.Bills
             {
                 IdKind = IdKindType.None,
                 OldValue = this.BillNumber,
-                NewValue = value.ToString(),
+                NewValue = !string.IsNullOrEmpty(value) ? value : null,
                 FieldDisplayName = "Bill Number",
             };
         }
@@ -366,7 +366,7 @@ namespace PhpaAll.Bills
             {
                 IdKind = IdKindType.None,
                 OldValue = this.Particulars,
-                NewValue = value.ToString(),
+                NewValue = !string.IsNullOrEmpty(value) ? value : null,
                 FieldDisplayName = "Particulars"
             };
         }
@@ -387,7 +387,7 @@ namespace PhpaAll.Bills
             {
                 IdKind = IdKindType.None,
                 OldValue = this.Remarks,
-                NewValue = value.ToString(),
+                NewValue = !string.IsNullOrEmpty(value) ? value : null,
                 FieldDisplayName = "Remarks",
             };
         }        
