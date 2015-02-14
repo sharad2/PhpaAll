@@ -322,7 +322,7 @@ namespace PhpaAll.Bills
             {
                 IdKind = IdKindType.None,
                 OldValue = this.ApprovedBy,
-                NewValue = !string.IsNullOrEmpty(value) ? value : null,
+                NewValue = !string.IsNullOrEmpty(value) ? value.ToString() : null,
                 FieldDisplayName = "Approved By",
             };
         }
