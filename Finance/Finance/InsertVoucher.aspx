@@ -148,7 +148,7 @@
                     <br />
                     First time in the session, you must enter a code here. then it will keep incrementing.
                    
-                    <eclipse:LeftLabel runat="server" Text="Division" />
+                    <eclipse:LeftLabel runat="server" Text="Division and Bill" />
                     <i:AutoComplete ID="tbDivisionCode" runat="server" FriendlyName="Division" WebMethod="GetDivisions"
                         WebServicePath="~/Services/Divisions.asmx" Value='<%# Bind("DivisionId") %>'
                         Text='<%# Eval("Division.DivisionCode", "{0}: ") +  Eval("Division.DivisionName", "{0}") %>'
@@ -159,7 +159,7 @@
                     </i:AutoComplete>
                     <i:AutoComplete ID="tbBills" runat="server" ClientIDMode="Static" Width="25em" WebMethod="BillsForDivisionAutoComplete"
                         WebServicePath="~/BillsHome" OnClientSearch="tbBills_Search" AutoValidate="false" Delay="1000" 
-                        Value='<%# Bind("BillId") %>' Text='<%# Eval("BillId") %>'>
+                        Value='<%# Bind("BillId") %>' Text='<%# Eval("Bill.BillNumber") + Eval("Bill.Amount", " for Nu {0:C}") %>'>
                     </i:AutoComplete>
                     <eclipse:LeftLabel ID="lblCheckNumber" runat="server" Text="Cheque #" />
                     <i:TextBoxEx ID="tbCheckNumber" runat="server" QueryStringValue='<%# Bind("CheckNumber") %>'

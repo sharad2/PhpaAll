@@ -20,6 +20,7 @@ namespace PhpaAll.Finance
             FinanceDataContext db = (FinanceDataContext)dsVoucher.Database;
             DataLoadOptions dlo = new DataLoadOptions();
             dlo.LoadWith<Voucher>(v => v.Division);
+            dlo.LoadWith<Voucher>(v => v.Bill);
             dlo.LoadWith<Voucher>(v => v.VoucherDetails);
             db.LoadOptions = dlo;
         }       

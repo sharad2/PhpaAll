@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Phpa2-20012012" Class="FinanceDataContext" BaseType="DataContextBase" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=scotland;Initial Catalog=Phpa2-20012012;User ID=sa" SettingsObjectName="Eclipse.PhpaLibrary.Properties.Settings" SettingsPropertyName="Phpa2_20012012ConnectionString1" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PHPADEV" Class="FinanceDataContext" BaseType="DataContextBase" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=w12obama;Initial Catalog=PHPADEV;Persist Security Info=True;User ID=sa;MultipleActiveResultSets=True" SettingsObjectName="Eclipse.PhpaLibrary.Properties.Settings" SettingsPropertyName="PHPADEVConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.HeadOfAccount" Member="HeadOfAccounts">
     <Type Name="HeadOfAccount">
       <Column Name="HeadOfAccountId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -51,6 +51,7 @@
       <Association Name="Voucher_VoucherDetail" Member="VoucherDetails" ThisKey="VoucherId" OtherKey="VoucherId" Type="VoucherDetail" />
       <Association Name="Division_Voucher" Member="Division" ThisKey="DivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
       <Association Name="Station_Voucher" Member="Station1" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
+      <Association Name="Bill_Voucher" Member="Bill" ThisKey="BillId" OtherKey="Id" Type="Bill" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.VoucherDetail" Member="VoucherDetails">
@@ -94,6 +95,8 @@
       <Association Name="Division_Job" Member="Jobs" ThisKey="DivisionId" OtherKey="DivisionId" Type="Job" />
       <Association Name="Division_BankGuarantee" Member="BankGuarantees" ThisKey="DivisionId" OtherKey="DivisionId" Type="BankGuarantee" />
       <Association Name="Division_Employee" Member="Employees" ThisKey="DivisionId" OtherKey="DivisionId" Type="Employee" />
+      <Association Name="Division_Bill" Member="Bills" ThisKey="DivisionId" OtherKey="DivisionId" Type="Bill" />
+      <Association Name="Division_Bill1" Member="Bills1" ThisKey="DivisionId" OtherKey="AtDivisionId" Type="Bill" />
     </Type>
   </Table>
   <Table Name="dbo.Job" Member="Jobs">
@@ -173,6 +176,7 @@
       <Association Name="Contractor_VoucherDetail" Member="VoucherDetails" ThisKey="ContractorId" OtherKey="ContractorId" Type="VoucherDetail" />
       <Association Name="Contractor_Job" Member="Jobs" ThisKey="ContractorId" OtherKey="ContractorId" Type="Job" />
       <Association Name="Contractor_BankGuarantee" Member="BankGuarantees" ThisKey="ContractorId" OtherKey="ContractorId" Type="BankGuarantee" />
+      <Association Name="Contractor_Bill" Member="Bills" ThisKey="ContractorId" OtherKey="ContractorId" Type="Bill" />
     </Type>
   </Table>
   <Table Name="dbo.BankGuarantee" Member="BankGuarantees">
@@ -242,6 +246,35 @@
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
       <Association Name="Station_HeadOfAccount" Member="HeadOfAccounts" ThisKey="StationId" OtherKey="StationId" Type="HeadOfAccount" />
       <Association Name="Station_Voucher" Member="Vouchers" ThisKey="StationId" OtherKey="StationId" Type="Voucher" />
+      <Association Name="Station_Bill" Member="Bills" ThisKey="StationId" OtherKey="StationId" Type="Bill" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Bill" Member="Bills">
+    <Type Name="Bill">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BillNumber" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="BillDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="DueDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ReceiviedDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContractorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ApprovedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ApprovedOn" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="StationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AtDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Bill_Voucher" Member="Vouchers" ThisKey="Id" OtherKey="BillId" Type="Voucher" Cardinality="One" />
+      <Association Name="Contractor_Bill" Member="Contractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="Contractor" IsForeignKey="true" />
+      <Association Name="Division_Bill" Member="Division" ThisKey="DivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+      <Association Name="Division_Bill1" Member="Division1" ThisKey="AtDivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
+      <Association Name="Station_Bill" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

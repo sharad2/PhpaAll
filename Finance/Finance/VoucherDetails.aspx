@@ -39,6 +39,8 @@
                             <asp:Label ID="Label6" runat="server" Text='<%# Eval("VoucherCode") %>' />
                             <eclipse:LeftLabel ID="LeftLabel7" runat="server" Text="Division" />
                             <asp:Label ID="Label7" runat="server" Text='<%# Eval("Division.DivisionName") %>' />
+                            <eclipse:LeftLabel ID="LeftLabel9" runat="server" Text="Bill" />
+                            <asp:Label Text='<%# Eval("Bill.BillNumber") + Eval("Bill.Amount", " for Nu {0:C}") %>' runat="server" />
                             <eclipse:LeftLabel ID="LeftLabel8" runat="server" Text="Particulars" />
                             <asp:Label ID="Label8" runat="server" Text='<%# Eval("Particulars") %>' />
                         </eclipse:TwoColumnPanel>
