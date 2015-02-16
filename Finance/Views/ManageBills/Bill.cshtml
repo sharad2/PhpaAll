@@ -116,16 +116,35 @@
                             @Html.DisplayFor(m => m.ApprovedDate)
                             by  @Html.DisplayFor(m => m.ApprovedBy)
                         </span>
-                        @*<button type="button" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-thumbs-down"></span> Unapprove
-                        </button>*@
                     }
                     else
                     {
                         <span>Not approved for payment</span>
-                        @*<button type="button" class="btn btn-success btn-xs">
-                            <spn class="glyphicon glyphicon-thumbs-up"></spn> Approve
-                        </button>*@
+
+                    }
+
+                    @if (@Model.ApprovedBy == null)
+                    {
+                        <form action="@Url.Action(MVC.ManageBills.ApproveBill())" method="post" >
+                            <button class="btn btn-info" name="@MVC.ManageBills.ApproveBillParams.billId"
+                                    value="@Model.BillId" type="submit">
+                                <span class="glyphicon glyphicon-play"></span>
+                                Approve
+                            </button>
+                        </form>
+
+                    }
+                    else
+                    {
+                        <form action="@Url.Action(MVC.ManageBills.UnApproveBill())" method="post">
+                            <br />
+                            <button class="btn btn-warning"
+                                    name="@MVC.ManageBills.ApproveBillParams.billId"
+                                    value="@Model.BillId" type="submit">
+                                <span class="glyphicon glyphicon-pause"></span>
+                                Unapprove
+                            </button>
+                        </form>
                     }
                 </dd>
                 <dt>
