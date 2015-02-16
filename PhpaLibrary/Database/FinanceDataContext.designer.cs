@@ -5864,16 +5864,6 @@ namespace Eclipse.PhpaLibrary.Database
 		
 		private string _Remarks;
 		
-		private System.Data.Linq.Binary _Version;
-		
-		private System.Nullable<System.DateTime> _Created;
-		
-		private string _CreatedBy;
-		
-		private System.Nullable<System.DateTime> _Modified;
-		
-		private string _ModifiedBy;
-		
 		private string _Particulars;
 		
 		private int _StationId;
@@ -5916,16 +5906,6 @@ namespace Eclipse.PhpaLibrary.Database
     partial void OnApprovedOnChanged();
     partial void OnRemarksChanging(string value);
     partial void OnRemarksChanged();
-    partial void OnVersionChanging(System.Data.Linq.Binary value);
-    partial void OnVersionChanged();
-    partial void OnCreatedChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedChanged();
-    partial void OnCreatedByChanging(string value);
-    partial void OnCreatedByChanged();
-    partial void OnModifiedChanging(System.Nullable<System.DateTime> value);
-    partial void OnModifiedChanged();
-    partial void OnModifiedByChanging(string value);
-    partial void OnModifiedByChanged();
     partial void OnParticularsChanging(string value);
     partial void OnParticularsChanged();
     partial void OnStationIdChanging(int value);
@@ -6168,106 +6148,6 @@ namespace Eclipse.PhpaLibrary.Database
 					this._Remarks = value;
 					this.SendPropertyChanged("Remarks");
 					this.OnRemarksChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary Version
-		{
-			get
-			{
-				return this._Version;
-			}
-			set
-			{
-				if ((this._Version != value))
-				{
-					this.OnVersionChanging(value);
-					this.SendPropertyChanging();
-					this._Version = value;
-					this.SendPropertyChanged("Version");
-					this.OnVersionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created", DbType="SmallDateTime", UpdateCheck=UpdateCheck.Never)]
-		public System.Nullable<System.DateTime> Created
-		{
-			get
-			{
-				return this._Created;
-			}
-			set
-			{
-				if ((this._Created != value))
-				{
-					this.OnCreatedChanging(value);
-					this.SendPropertyChanging();
-					this._Created = value;
-					this.SendPropertyChanged("Created");
-					this.OnCreatedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
-		public string CreatedBy
-		{
-			get
-			{
-				return this._CreatedBy;
-			}
-			set
-			{
-				if ((this._CreatedBy != value))
-				{
-					this.OnCreatedByChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedBy = value;
-					this.SendPropertyChanged("CreatedBy");
-					this.OnCreatedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Modified", DbType="SmallDateTime", UpdateCheck=UpdateCheck.Never)]
-		public System.Nullable<System.DateTime> Modified
-		{
-			get
-			{
-				return this._Modified;
-			}
-			set
-			{
-				if ((this._Modified != value))
-				{
-					this.OnModifiedChanging(value);
-					this.SendPropertyChanging();
-					this._Modified = value;
-					this.SendPropertyChanged("Modified");
-					this.OnModifiedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedBy", DbType="NVarChar(256)", UpdateCheck=UpdateCheck.Never)]
-		public string ModifiedBy
-		{
-			get
-			{
-				return this._ModifiedBy;
-			}
-			set
-			{
-				if ((this._ModifiedBy != value))
-				{
-					this.OnModifiedByChanging(value);
-					this.SendPropertyChanging();
-					this._ModifiedBy = value;
-					this.SendPropertyChanged("ModifiedBy");
-					this.OnModifiedByChanged();
 				}
 			}
 		}
