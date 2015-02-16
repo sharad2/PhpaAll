@@ -24,7 +24,8 @@ namespace PhpaAll.Bills
                               BillId = bill.Id,
                               StationName = bill.Station.StationName,
                               CurrentDivisionName = bill.AtDivision.DivisionName,
-                              VoucherDate = bill.Voucher.VoucherDate
+                              VoucherDate = bill.Voucher.VoucherDate,
+                              VoucherId = bill.Voucher.VoucherId
                           };
             return results;
         }
@@ -71,6 +72,8 @@ namespace PhpaAll.Bills
         
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? VoucherDate { get; set; }
+
+        public int? VoucherId { get; set; }
     }
 
 }
