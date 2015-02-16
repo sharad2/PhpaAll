@@ -1,5 +1,7 @@
 ﻿using PhpaAll.Bills;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
@@ -27,11 +29,46 @@ namespace PhpaAll.Controllers
             }
             base.Dispose(disposing);
         }
+
         // GET: BillsHome
         public virtual ActionResult Index()
         {
-            //SearchAutoComplete("a");
-            return View(Views.Index);
+
+            var query = (from bill in _db.Value.Bills
+                         where bill.Voucher == null
+                         group bill by new
+                         {
+                             DueInMonth = (bill.DueDate ?? DateTime.Today).Month,
+                             bill.Station
+                         } into g
+                         select new
+                         {
+                             StationName = g.Key.Station.StationName,
+                             DueInMonth = g.Key.DueInMonth,
+                             Amount = g.Sum(p => p.Amount)
+                         }).ToLookup(p => p.StationName);
+
+            var model = new BillHomeIndexViewModel
+            {
+                Stations = new List<BillHomeIndexStationModel>()
+            };
+            foreach (var group in query)
+            {
+                var station = new BillHomeIndexStationModel
+                {
+                    StationName = group.Key,
+                    FundsAvailable = 1234,
+                    Amounts = group.Select(p => new BillHomeStationAmountModel
+                    {
+                        DueInMonth = p.DueInMonth,
+                        Amount = p.Amount
+                    }).ToList()
+                };
+                model.Stations.Add(station);
+            }
+
+
+            return View(Views.Index, model);
         }
 
         /// <summary>

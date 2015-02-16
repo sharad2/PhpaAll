@@ -1,10 +1,31 @@
-﻿@{
+﻿@model PhpaAll.Bills.BillHomeIndexViewModel
+@{
     ViewBag.Title = "Index";
 }
 <h2>Index</h2>
 <p>
     A bill is an invoice sent by a contractor to PHPA. Approving authority authorizes its payment and then a voucher can be created for it.
 </p>
+
+<ul>
+    @for (var i = 0; i < Model.Stations.Count; ++i)
+    {
+        <li>
+            @Html.DisplayFor(m => m.Stations[i].StationName) &bull;
+            @Html.DisplayFor(m => m.Stations[i].FundsAvailable)
+            <ul>
+                @for (var j = 0; j < Model.Stations[i].Amounts.Count; ++j)
+                {
+                    <li>
+                        @Html.DisplayFor(m => m.Stations[i].Amounts[j].DueInMonth) &bull;
+                        @Html.DisplayFor(m => m.Stations[i].Amounts[j].Amount)
+                    </li>
+                }
+            </ul>
+
+        </li>
+    }
+</ul>
 <div class="row">
     <div class="col-md-4">
         <div class="well">
