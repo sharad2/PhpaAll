@@ -6,14 +6,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="InsertVoucher.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
-        function tbBills_Search(event, ui) {
-            var divisionId = $('#tbDivisionCode').autocompleteEx('selectedValue');
-            $(this).autocompleteEx('option', 'parameters', { divisionId: divisionId, term: $(this).val() });
-            return true;
-        }
-    </script>
-
 
 </asp:Content>
 <asp:Content ID="c4" ContentPlaceHolderID="cphSideNavigation" runat="server">
@@ -65,6 +57,7 @@
             <asp:Parameter Name="Particulars" Type="String" />
             <asp:Parameter Name="PayeeName" Type="String" />
             <asp:Parameter Name="StationId" Type="String" ConvertEmptyStringToNull="true" />
+            <asp:Parameter Name="BillId" Type="Int32" />
         </UpdateParameters>
         <InsertParameters>
             <asp:Parameter Name="VoucherDate" Type="DateTime" />
@@ -164,20 +157,8 @@
                             <i:Required DependsOn="ddlMoreColumns" DependsOnState="Value" DependsOnValue="J" />
                         </Validators>
                     </i:AutoComplete>
-             <%--       <i:AutoComplete ID="AutoComplete1" runat="server" FriendlyName="Division" WebMethod="SearchAutoComplete2"
-                        WebServicePath="~/BillsHome" Value='<%# Bind("DivisionId") %>'
-                        Text='<%# Eval("Division.DivisionCode", "{0}: ") +  Eval("Division.DivisionName", "{0}") %>'
-                        ValidateWebMethodName="ValidateDivision" AutoValidate="false" Delay="1000" Width="25em">
-                        <Validators>
-                            <i:Required DependsOn="ddlMoreColumns" DependsOnState="Value" DependsOnValue="J" />
-                        </Validators>
-                    </i:AutoComplete>--%>
-<%--                    <i:AutoComplete ID="tbDivisionCode" runat="server" ClientIDMode="Static" Width="25em"
-                        WebMethod="GetDivisions" WebServicePath="~/Services/Divisions.asmx">
-                    </i:AutoComplete>--%>
-
-                    <i:AutoComplete ID="tbBills" runat="server" ClientIDMode="Static" Width="25em" WebMethod="GetBillsForDivision"
-                        WebServicePath="~/Services/Divisions.asmx" OnClientSearch="tbBills_Search" AutoValidate="false" Delay="1000"
+                    <i:AutoComplete ID="tbBills" runat="server" ClientIDMode="Static" Width="25em" WebMethod="BillsForDivisionAutoComplete"
+                        WebServicePath="~/BillsHome" OnClientSearch="tbBills_Search" AutoValidate="false" Delay="1000" 
                         Value='<%# Bind("BillId") %>' Text='<%# Eval("BillId") %>'>
                     </i:AutoComplete>
                     <eclipse:LeftLabel ID="lblCheckNumber" runat="server" Text="Cheque #" />
