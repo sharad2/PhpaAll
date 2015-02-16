@@ -108,6 +108,18 @@ namespace PhpaAll.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ApproveBill()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ApproveBill);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult UnApproveBill()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnApproveBill);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.JsonResult GetDivision()
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetDivision);
@@ -143,6 +155,8 @@ namespace PhpaAll.Controllers
             public readonly string UploadImage = "UploadImage";
             public readonly string DeleteImage = "DeleteImage";
             public readonly string DeleteImageofBill = "DeleteImageofBill";
+            public readonly string ApproveBill = "ApproveBill";
+            public readonly string UnApproveBill = "UnApproveBill";
             public readonly string GetDivision = "GetDivision";
             public readonly string GetContractor = "GetContractor";
         }
@@ -159,6 +173,8 @@ namespace PhpaAll.Controllers
             public const string UploadImage = "UploadImage";
             public const string DeleteImage = "DeleteImage";
             public const string DeleteImageofBill = "DeleteImageofBill";
+            public const string ApproveBill = "ApproveBill";
+            public const string UnApproveBill = "UnApproveBill";
             public const string GetDivision = "GetDivision";
             public const string GetContractor = "GetContractor";
         }
@@ -231,6 +247,22 @@ namespace PhpaAll.Controllers
         {
             public readonly string billId = "billId";
             public readonly string index = "index";
+        }
+        static readonly ActionParamsClass_ApproveBill s_params_ApproveBill = new ActionParamsClass_ApproveBill();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ApproveBill ApproveBillParams { get { return s_params_ApproveBill; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ApproveBill
+        {
+            public readonly string billId = "billId";
+        }
+        static readonly ActionParamsClass_UnApproveBill s_params_UnApproveBill = new ActionParamsClass_UnApproveBill();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UnApproveBill UnApproveBillParams { get { return s_params_UnApproveBill; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UnApproveBill
+        {
+            public readonly string billId = "billId";
         }
         static readonly ActionParamsClass_GetDivision s_params_GetDivision = new ActionParamsClass_GetDivision();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -385,6 +417,30 @@ namespace PhpaAll.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "billId", billId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "index", index);
             DeleteImageofBillOverride(callInfo, billId, index);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ApproveBillOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int billId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ApproveBill(int billId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ApproveBill);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "billId", billId);
+            ApproveBillOverride(callInfo, billId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UnApproveBillOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int billId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UnApproveBill(int billId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnApproveBill);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "billId", billId);
+            UnApproveBillOverride(callInfo, billId);
             return callInfo;
         }
 

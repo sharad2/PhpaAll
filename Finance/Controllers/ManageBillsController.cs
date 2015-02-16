@@ -336,6 +336,54 @@ namespace PhpaAll.Controllers
             return RedirectToAction(MVC.ManageBills.ShowBill(billId));
         }
 
+        /// <summary>
+        /// Approves a single bill.
+        /// </summary>
+        /// <param name="billId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Authorize(Roles = "BillsManager")]
+        public virtual ActionResult ApproveBill(int billId)
+        {
+            if (string.IsNullOrWhiteSpace(User.Identity.Name))
+            {
+                throw new HttpException("You must be logged in to approve or disapprove bills");
+            }
+            var query = (from bill in _db.Value.Bills
+                         where bill.Id == billId
+                         select bill).SingleOrDefault();
+
+            query.ApprovedOn = DateTime.Now;
+            query.ApprovedBy = User.Identity.Name;
+            _db.Value.SubmitChanges();
+            return RedirectToAction(MVC.ManageBills.ShowBill(billId));
+        }
+
+        /// <summary>
+        /// Approves a single bill. Designed to be called via AJAX
+        /// </summary>
+        /// <param name="billId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Authorize(Roles = "BillsManager")]
+        public virtual ActionResult UnApproveBill(int billId)
+        {
+            if (string.IsNullOrWhiteSpace(User.Identity.Name))
+            {
+                throw new HttpException("You must be logged in to approve or disapprove bills");
+            }
+            var query = (from bill in _db.Value.Bills
+                         where bill.Id == billId
+                         select bill).SingleOrDefault();
+
+            query.ApprovedOn = null;
+            query.ApprovedBy = null;
+            _db.Value.SubmitChanges();
+
+            return RedirectToAction(MVC.ManageBills.ShowBill(billId));
+        }
+
+
         #endregion
 
         #region Autocomplete
