@@ -79,6 +79,7 @@
       <Column Name="IsDefault" Type="System.Boolean" DbType="bit" CanBeNull="false" />
       <Column Name="AdjustmentCategoryId" Type="System.Int32" DbType="int" CanBeNull="true" />
       <Column Name="ShortDescription" Type="System.String" DbType="nvarchar(30)" CanBeNull="true" />
+      <Column Name="FractionOfGross" Type="System.Double" CanBeNull="true" />
       <Association Name="Adjustment_EmployeeAdjustment" Member="EmployeeAdjustments" ThisKey="AdjustmentId" OtherKey="AdjustmentId" Type="EmployeeAdjustment" />
       <Association Name="Adjustment_PeriodEmployeeAdjustment" Member="PeriodEmployeeAdjustments" ThisKey="AdjustmentId" OtherKey="AdjustmentId" Type="PeriodEmployeeAdjustment" />
       <Association Name="HeadOfAccount_Adjustment" Member="HeadOfAccount" ThisKey="HeadOfAccountId" OtherKey="HeadOfAccountId" Type="HeadOfAccount" IsForeignKey="true" />
@@ -103,6 +104,8 @@
       <Column Name="ModifiedBy" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
       <Column Name="Comment" Type="System.String" DbType="NvarChar(256)" CanBeNull="true" />
+      <Column Name="FractionOfGross" Type="System.Double" CanBeNull="true" />
+      <Column Name="IsFractionGrossOverridden" Type="System.Boolean" CanBeNull="true" UpdateCheck="Always" />
       <Association Name="Adjustment_EmployeeAdjustment" Member="Adjustment" ThisKey="AdjustmentId" OtherKey="AdjustmentId" Type="Adjustment" IsForeignKey="true" />
       <Association Name="Employee_EmployeeAdjustment" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
     </Type>
@@ -126,7 +129,7 @@
       <Column Name="BankName" Type="System.String" DbType="NvarChar(50)" CanBeNull="true" />
       <Column Name="StationId" Type="System.Int32" CanBeNull="true" UpdateCheck="Always" />
       <Column Name="MRNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Always" />
-      <Column Name="MRNumberDate" Type="System.DateTime" CanBeNull="true"/>
+      <Column Name="MRNumberDate" Type="System.DateTime" CanBeNull="true" />
       <Association Name="SalaryPeriod_EmployeePeriod" Member="EmployeePeriods" ThisKey="SalaryPeriodId" OtherKey="SalaryPeriodId" Type="EmployeePeriod" />
       <Association Name="Station_SalaryPeriod" Member="Station" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
     </Type>
@@ -178,6 +181,7 @@
       <Column Name="VoucherId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="BankId" Type="System.Int32" CanBeNull="true" UpdateCheck="Always" />
       <Column Name="BankAccountNo" Type="System.String" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="Designation" Type="System.String" CanBeNull="true" />
       <Association Name="EmployeePeriod_PeriodEmployeeAdjustment" Member="PeriodEmployeeAdjustments" ThisKey="EmployeePeriodId" OtherKey="EmployeePeriodId" Type="PeriodEmployeeAdjustment" />
       <Association Name="Employee_EmployeePeriod" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
       <Association Name="SalaryPeriod_EmployeePeriod" Member="SalaryPeriod" ThisKey="SalaryPeriodId" OtherKey="SalaryPeriodId" Type="SalaryPeriod" IsForeignKey="true" />

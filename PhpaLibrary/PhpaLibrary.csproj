@@ -216,6 +216,9 @@
     <None Include="Database\PackageActivityDataContext.dbml.layout">
       <DependentUpon>PackageActivityDataContext.dbml</DependentUpon>
     </None>
+    <None Include="Database\PayrollDataContext.dbml.layout">
+      <DependentUpon>PayrollDataContext.dbml</DependentUpon>
+    </None>
     <EmbeddedResource Include="Database\StoreDataContext.dbml.views_def.layout">
       <DependentUpon>StoreDataContext.dbml</DependentUpon>
     </EmbeddedResource>
@@ -230,9 +233,6 @@
     </None>
     <None Include="Reporting\ReportingDataContext.dbml.layout">
       <DependentUpon>ReportingDataContext.dbml</DependentUpon>
-    </None>
-    <None Include="Database\PayrollDataContext.dbml.layout">
-      <DependentUpon>PayrollDataContext.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
