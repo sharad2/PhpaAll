@@ -472,7 +472,7 @@
                     <input type="hidden" name="@MVC.Bills.ApproveBillsParams.paidFilter" value="@Model.FilterPaidBills.Value.ToString().ToLower()" />
                 }
 
-                @if (Model.FilterPaidBills.HasValue && Model.FilterPaidBills.Value != true)
+                @if (!Model.FilterPaidBills.HasValue || Model.FilterPaidBills.Value == false)
                 {
                     <div class="panel panel-primary">
                         <div class="panel-heading">Selected Bills</div>
