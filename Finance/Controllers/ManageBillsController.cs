@@ -73,11 +73,7 @@ namespace PhpaAll.Controllers
             //    model.BillImage.InputStream.CopyTo(ms);
             //    imageData = ms.ToArray();
             //}
-            var ms = new MemoryStream(16498);
-                HttpPostedFileBase file = Request.Files[0];
-                var image = new System.Web.UI.WebControls.Image();
-                byte[] imgbyte = new byte[file.ContentLength];
-                file.InputStream.Read(imgbyte, 0, file.ContentLength);
+       
 
             var bill = new Bill
             {
@@ -85,7 +81,6 @@ namespace PhpaAll.Controllers
                 BillNumber = model.BillNumber,
                 Particulars = model.Particulars,
                 BillDate = model.BillDate,
-                BillImage = imgbyte,
                 ContractorId = model.ContractorId,
                 DivisionId = model.DivisionId,
                 AtDivisionId = model.DivisionId,
@@ -97,6 +92,20 @@ namespace PhpaAll.Controllers
                 StationId = model.StationId
             };
             _db.Value.Bills.InsertOnSubmit(bill);
+            _db.Value.SubmitChanges();
+
+            var ms = new MemoryStream(16498);
+            HttpPostedFileBase file = Request.Files[0];
+            var input = new byte[file.ContentLength];
+            file.InputStream.Read(input, 0, file.ContentLength);
+
+            var billImage = new BillImage
+            {
+                BillImageData = input,
+                BillId = bill.Id,
+                ImageContentType = file.ContentType
+            };
+            _db.Value.BillImages.InsertOnSubmit(billImage);
             _db.Value.SubmitChanges();
             return RedirectToAction(MVC.ManageBills.Create());
 
