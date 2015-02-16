@@ -81,69 +81,86 @@ namespace PhpaAll.Controllers
         /// </summary>
         /// <param name="searchText"></param>
         /// <returns></returns>
+        /// <remarks>
+        /// If no searchText is passed, the query simply returns all bills.
+        /// </remarks>
         private IQueryable<Bill> SearchQuery(string searchText)
         {
+            string[] tokens;
+            IQueryable<MyClass> query;
+
             if (string.IsNullOrWhiteSpace(searchText))
             {
-                throw new ArgumentNullException("searchText");
+                tokens = new string[0];
             }
-            var tokens = searchText.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            else
+            {
+                tokens = searchText.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            }
+
             if (tokens.Length == 0)
             {
-                throw new NotImplementedException();
+                // Search string is empty. Show all
+                query = from bill in _db.Value.Bills
+                        select new MyClass
+                        {
+                            Score = 100,
+                            Bill = bill
+                        };
             }
-
-            IQueryable<MyClass> query = null;
-
-            foreach (var token in tokens)
+            else
             {
-                // If any token represnts an amount, search within 20% of bill amount
-                decimal amount;
-                bool isAmount = decimal.TryParse(token, out amount);
-
-                // If any token represents date, search for nearby bill dates
-                var date = ParseDate(token);
-                DateTime dateParam = date ?? DateTime.Today;
-
-                // It is a hit if any token is contained in any of the searrch fields
-                var query1 = from bill in _db.Value.Bills
-                             let dateMatch = (date.HasValue && bill.BillDate >= dateParam.AddDays(-7) && bill.BillDate <= dateParam.AddDays(7))
-                             let amountMatch = (isAmount && bill.Amount >= amount * 0.8m && bill.Amount <= 1.2m * amount)
-                             let billNumber = (bill.BillNumber ?? "").ToLower()
-                             let particularsMatch = bill.Particulars.ToLower().Contains(token)
-                             let contractorMatch = bill.Contractor.ContractorName.ToLower().Contains(token)
-                             let divisionMatch = bill.Division.DivisionName.ToLower().Contains(token)
-                             let currDivMatch = bill.AtDivision.DivisionName.ToLower().Contains(token)
-                             let remarksMatch = bill.Remarks.ToLower().Contains(token)
-                             let stationMatch = bill.Station.StationName.ToLower().Contains(token)
-                             where billNumber.Contains(token) || particularsMatch || contractorMatch ||
-                                divisionMatch || currDivMatch || remarksMatch || stationMatch ||
-                                amountMatch || dateMatch
-                             select new MyClass
-                             {
-                                 Score = (billNumber.StartsWith(token) ? 100 : 0) +
-                                     (billNumber.EndsWith(token) ? 100 : 0) +
-                                     (billNumber.Contains(token) ? 100 : 0) +
-                                     (billNumber == token ? 1000 : 0) +
-                                     (particularsMatch ? 100 : 0) +
-                                     (contractorMatch ? 100 : 0) +
-                                     (divisionMatch ? 100 : 0) +
-                                     (currDivMatch ? 100 : 0) +
-                                     (remarksMatch ? 50 : 0) +
-                                     (stationMatch ? 100 : 0) +
-                                     (amountMatch ? 100 : 0) +
-                                     (dateMatch ? 100 : 0),
-                                 Bill = bill
-                             };
-
-
-                if (query == null)
+                query = null;
+                foreach (var token in tokens)
                 {
-                    query = query1;
-                }
-                else
-                {
-                    query = query.Concat(query1);
+                    // If any token represnts an amount, search within 20% of bill amount
+                    decimal amount;
+                    bool isAmount = decimal.TryParse(token, out amount);
+
+                    // If any token represents date, search for nearby bill dates
+                    var date = ParseDate(token);
+                    DateTime dateParam = date ?? DateTime.Today;
+
+                    // It is a hit if any token is contained in any of the searrch fields
+                    var query1 = from bill in _db.Value.Bills
+                                 let dateMatch = (date.HasValue && bill.BillDate >= dateParam.AddDays(-7) && bill.BillDate <= dateParam.AddDays(7))
+                                 let amountMatch = (isAmount && bill.Amount >= amount * 0.8m && bill.Amount <= 1.2m * amount)
+                                 let billNumber = (bill.BillNumber ?? "").ToLower()
+                                 let particularsMatch = bill.Particulars.ToLower().Contains(token)
+                                 let contractorMatch = bill.Contractor.ContractorName.ToLower().Contains(token)
+                                 let divisionMatch = bill.Division.DivisionName.ToLower().Contains(token)
+                                 let currDivMatch = bill.AtDivision.DivisionName.ToLower().Contains(token)
+                                 let remarksMatch = bill.Remarks.ToLower().Contains(token)
+                                 let stationMatch = bill.Station.StationName.ToLower().Contains(token)
+                                 where billNumber.Contains(token) || particularsMatch || contractorMatch ||
+                                    divisionMatch || currDivMatch || remarksMatch || stationMatch ||
+                                    amountMatch || dateMatch
+                                 select new MyClass
+                                 {
+                                     Score = (billNumber.StartsWith(token) ? 100 : 0) +
+                                         (billNumber.EndsWith(token) ? 100 : 0) +
+                                         (billNumber.Contains(token) ? 100 : 0) +
+                                         (billNumber == token ? 1000 : 0) +
+                                         (particularsMatch ? 100 : 0) +
+                                         (contractorMatch ? 100 : 0) +
+                                         (divisionMatch ? 100 : 0) +
+                                         (currDivMatch ? 100 : 0) +
+                                         (remarksMatch ? 50 : 0) +
+                                         (stationMatch ? 100 : 0) +
+                                         (amountMatch ? 100 : 0) +
+                                         (dateMatch ? 100 : 0),
+                                     Bill = bill
+                                 };
+
+
+                    if (query == null)
+                    {
+                        query = query1;
+                    }
+                    else
+                    {
+                        query = query.Concat(query1);
+                    }
                 }
             }
 
@@ -310,13 +327,13 @@ namespace PhpaAll.Controllers
         }
 
         /// <summary>
-        /// Called by webform page insertvoucher.aspx
+        /// Called by webform page insertvoucher.aspx. Returns only approved bills
         /// </summary>
         /// <param name="searchText"></param>
         /// <returns></returns>
         public virtual JsonResult BillsForDivisionAutoComplete(string term, int? divisionId)
         {
-            var query = SearchQuery(term).Where(p => p.DivisionId == divisionId).Take(50);
+            var query = SearchQuery(term).Where(p => p.DivisionId == divisionId && p.ApprovedOn != null).Take(50);
 
             var tokens = term.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
