@@ -42,6 +42,7 @@ namespace PhpaAll.Controllers
             base.Dispose(disposing);
         }
 
+        [HttpGet]
         public virtual ActionResult Create()
         {
             var model = new CreateViewModel();
@@ -57,7 +58,7 @@ namespace PhpaAll.Controllers
 
 
         [HttpPost]
-        public virtual ActionResult CreateBill(CreateViewModel model)
+        public virtual ActionResult Create(CreateViewModel model)
         {
             if (!ModelState.IsValid)
             {

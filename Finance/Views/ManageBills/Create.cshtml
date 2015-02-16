@@ -2,19 +2,16 @@
 
 @{
     ViewBag.Title = "Create Bill";
-    //Html.EnableClientValidation();
-    //Html.EnableUnobtrusiveJavaScript();
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
 }
 
 <h2 style="margin-top:0">
     @ViewBag.Title
 </h2>
 
-<p>
-    The bill is created as soon as it is received by the division. Creation of the bill implies that it has been approved for payment by the division.
-    It becomes visible to finance as soon as it is created. Finance must then approve it for payment.
-</p>
-<form action="@Url.Action(MVC.ManageBills.CreateBill())" method="post" enctype="multipart/form-data">
+
+<form action="@Url.Action(MVC.ManageBills.Create())" method="post" enctype="multipart/form-data">
     @Html.HiddenFor(m => m.Id)
     <div class="row">
         <div class="col-md-3">
@@ -31,7 +28,10 @@
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
-                @Html.ValidationMessageFor(m => m.BillDate)
+                @Html.ValidationMessageFor(m => m.BillDate, null, new
+           {
+               @class = "help-block"
+           })
             </div>
         </div>
         <div class="col-md-3">
@@ -50,7 +50,6 @@
                                    {
                                        @class = "help-block"
                                    })
-
             </div>
         </div>
         <div class="col-md-3">
@@ -64,11 +63,15 @@
                         <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
                 </div>
-                @Html.HiddenFor(m => m.DivisionId)
-                @Html.ValidationMessageFor(m => m.DivisionId)
-
+                @Html.TextBoxFor(m => m.DivisionId, new
+           {
+               @class = "hidden"
+           })
+                @Html.ValidationMessageFor(m => m.DivisionId, null, new
+                                   {
+                                       @class = "help-block"
+                                   })
             </div>
-
         </div>
         <div class="col-md-3">
             <div class="form-group">
@@ -76,9 +79,11 @@
                 <label for="particulars">Station *</label>
                 @Html.DropDownListFor(m => m.StationId, Model.StationList, "Select station",
                     new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.StationId)
+                @Html.ValidationMessageFor(m => m.StationId, null, new
+                                   {
+                                       @class = "help-block"
+                                   })
             </div>
-
         </div>
     </div>
     <div class="row">
@@ -94,6 +99,10 @@
                placeholder = "You can mention the subject of the bill"
 
            })
+                @Html.ValidationMessageFor(m => m.Particulars, null, new
+                                   {
+                                       @class = "help-block"
+                                   })
             </div>
         </div>
         <div class="col-md-3">
@@ -132,7 +141,10 @@
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
-                @Html.ValidationMessageFor(m => m.ReceivedDate)
+                @Html.ValidationMessageFor(m => m.ReceivedDate, null, new
+                                   {
+                                       @class = "help-block"
+                                   })
 
             </div>
 
@@ -152,7 +164,10 @@
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
-                @Html.ValidationMessageFor(m => m.DueDate)
+                @Html.ValidationMessageFor(m => m.DueDate, null, new
+                                   {
+                                       @class = "help-block"
+                                   })
             </div>
         </div>
         <div class="col-md-3">
@@ -166,7 +181,10 @@
                         <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
                 </div>
-                @Html.ValidationMessageFor(m => m.ContractorId)
+                @Html.ValidationMessageFor(m => m.ContractorId, null, new
+                                   {
+                                       @class = "help-block"
+                                   })
                 @Html.HiddenFor(m => m.ContractorId)
 
             </div>
@@ -195,7 +213,10 @@
                @class = "form-control",
                maxlength = "255"
            })
-        @Html.ValidationMessageFor(m => m.Remarks)
+        @Html.ValidationMessageFor(m => m.Remarks, null, new
+                                   {
+                                       @class = "help-block"
+                                   })
     </div>
 
 
