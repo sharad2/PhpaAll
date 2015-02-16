@@ -39,12 +39,14 @@ namespace PhpaAll.Controllers
                          group bill by new
                          {
                              DueInMonth = (bill.DueDate ?? DateTime.Today).Month,
+                             DueInYear = (bill.DueDate ?? DateTime.Today).Year,
                              bill.Station
                          } into g
                          select new
                          {
                              StationName = g.Key.Station.StationName,
                              DueInMonth = g.Key.DueInMonth,
+                             DueInYear = g.Key.DueInYear,
                              Amount = g.Sum(p => p.Amount)
                          }).ToLookup(p => p.StationName);
 
@@ -61,9 +63,10 @@ namespace PhpaAll.Controllers
                 };
                 foreach (var p in group)
                 {
-                    station.Amounts[p.DueInMonth - 1] = new BillHomeStationAmountModel
+                    var monthStart = new DateTime(p.DueInYear, p.DueInMonth, 1);
+                    station.AmountDictionary[monthStart] = new BillHomeStationAmountModel
                     {
-                        DueInMonth = p.DueInMonth,
+                        MonthStartDate = monthStart,
                         Amount = p.Amount
                     };
                 }

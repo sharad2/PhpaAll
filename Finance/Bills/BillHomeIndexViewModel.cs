@@ -8,7 +8,9 @@ namespace PhpaAll.Bills
 {
     public class BillHomeStationAmountModel
     {
-        public int DueInMonth { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTime MonthStartDate { get; set; }
+
         [DisplayFormat (DataFormatString="{0:C}")]
         public decimal? Amount { get; set; }
     }
@@ -17,12 +19,12 @@ namespace PhpaAll.Bills
     {
         public BillHomeIndexStationModel()
         {
-            Amounts = new List<BillHomeStationAmountModel>();
+            AmountDictionary = new SortedList<DateTime, BillHomeStationAmountModel>();
 
-            for (var i = 0; i < 12; ++i)
-            {
-                Amounts.Add(null);
-            }
+            //for (var i = 0; i < 12; ++i)
+            //{
+            //    Amounts.Add(null);
+            //}
         }
 
         [Key]
@@ -31,7 +33,7 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal? FundsAvailable { get; set; }
 
-        public IList<BillHomeStationAmountModel> Amounts
+        public SortedList<DateTime, BillHomeStationAmountModel> AmountDictionary
         {
             get;
             private set;
@@ -43,6 +45,27 @@ namespace PhpaAll.Bills
 
     public class BillHomeIndexViewModel
     {
+        private IList<DateTime> _allMonths;
+
+        public IList<DateTime> AllMonths
+        {
+            get
+            {
+                if (_allMonths == null)
+                {
+                    var minMonth = Stations.SelectMany(p => p.AmountDictionary.Keys).Min();
+                    var maxMonth = Stations.SelectMany(p => p.AmountDictionary.Keys).Max();
+                    _allMonths = new List<DateTime>();
+
+                    for (var month = minMonth; month <= maxMonth; month = month.AddMonths(1))
+                    {
+                        _allMonths.Add(month);
+                    }
+                }
+                return _allMonths;
+
+            }
+        }
 
         public IList<BillHomeIndexStationModel> Stations { get; set; }
     }

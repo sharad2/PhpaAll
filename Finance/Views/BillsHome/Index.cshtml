@@ -7,26 +7,6 @@
     A bill is an invoice sent by a contractor to PHPA. Approving authority authorizes its payment and then a voucher can be created for it.
 </p>
 
-<ul>
-    @for (var i = 0; i < Model.Stations.Count; ++i)
-    {
-        <li>
-            @Html.DisplayFor(m => m.Stations[i].StationName) &bull;
-            @Html.DisplayFor(m => m.Stations[i].FundsAvailable)
-            <ul>
-                @for (var j = 0; j < Model.Stations[i].Amounts.Count; ++j)
-                {
-                    <li>
-                        @Html.DisplayFor(m => m.Stations[i].Amounts[j].DueInMonth) &bull;
-                        @Html.DisplayFor(m => m.Stations[i].Amounts[j].Amount)
-                    </li>
-                }
-            </ul>
-
-        </li>
-    }
-</ul>
-
 <table class="table table-striped">
     <thead>
         <tr>
@@ -36,42 +16,12 @@
             <th>
                 Funds Available
             </th>
-            <th>
-                January
-            </th>
-            <th>
-                Feburary
-            </th>
-            <th>
-                March
-            </th>
-            <th>
-                April
-            </th>
-            <th>
-                May
-            </th>
-            <th>
-                June
-            </th>
-            <th>
-                July
-            </th>
-            <th>
-                August
-            </th>
-            <th>
-                September
-            </th>
-            <th>
-                October
-            </th>
-            <th>
-                November
-            </th>
-            <th>
-                December
-            </th>
+            @for (var i = 0; i < Model.AllMonths.Count; ++i)
+            {
+                <th style="white-space:nowrap">
+                    @string.Format("{0:MMM yy}", Model.AllMonths[i])
+                </th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -84,11 +34,16 @@
                 <td>
                     @Html.DisplayFor(m => m.Stations[i].FundsAvailable)
                 </td>
-                @for (var j = 0; j < Model.Stations[i].Amounts.Count; ++j)
+                @for (var j = 0; j < Model.AllMonths.Count; ++j)
                 {
                     <td style="text-align:right">
-                        @*@Html.DisplayFor(m => m.Stations[i].Amounts[j].DueInMonth) &bull;*@
-                        @Html.DisplayFor(m => m.Stations[i].Amounts[j].Amount)
+                        @if (Model.Stations[i].AmountDictionary.ContainsKey(Model.AllMonths[j]))
+                        {
+                            <span>
+                                @Html.DisplayFor(m => m.Stations[i].AmountDictionary[Model.AllMonths[j]].MonthStartDate) &bull;
+                                @Html.DisplayFor(m => m.Stations[i].AmountDictionary[Model.AllMonths[j]].Amount)
+                            </span>
+                        }
                     </td>
                 }
             </tr>
