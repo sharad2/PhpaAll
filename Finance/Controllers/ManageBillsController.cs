@@ -360,7 +360,7 @@ namespace PhpaAll.Controllers
         }
 
         /// <summary>
-        /// Approves a single bill. Designed to be called via AJAX
+        /// Unpproves a single bill. 
         /// </summary>
         /// <param name="billId"></param>
         /// <returns></returns>
