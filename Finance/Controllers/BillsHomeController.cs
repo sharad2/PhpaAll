@@ -333,7 +333,7 @@ namespace PhpaAll.Controllers
         /// <returns></returns>
         public virtual JsonResult BillsForDivisionAutoComplete(string term, int? divisionId)
         {
-            var query = SearchQuery(term).Where(p => p.DivisionId == divisionId && p.ApprovedOn != null).Take(50);
+            var query = SearchQuery(term).Where(p => p.DivisionId == divisionId && p.ApprovedOn != null && p.Voucher == null).Take(50);
 
             var tokens = term.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -342,7 +342,7 @@ namespace PhpaAll.Controllers
             {
                 Relevance = 100,
                 Value = bill.Id,
-                Text = string.Format("{0} <strong>{1:C}</strong><br/>{2}", bill.BillNumber, bill.Amount, bill.Particulars)
+                Text = string.Format("{0} {1:C} {2}", bill.BillNumber, bill.Amount, bill.Particulars)
             }).ToList();
 
             return Json(new
