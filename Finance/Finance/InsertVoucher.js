@@ -67,6 +67,17 @@ $(document).ready(function () {
 
 });
 
+function tbBills_Search(event, ui) {
+    var divisionId = $('#tbDivisionCode').autocompleteEx('selectedValue');
+    if (!divisionId) {
+        alert('Please select division first');
+        return false;
+    }
+    $(this).autocompleteEx('option', 'parameters', { divisionId: divisionId, term: $(this).val() });
+    return true;
+}
+
+
 // Show hide Check number and payee text boxes when voucher type changes
 function rblVoucherTypes_Change(e) {
     switch ($(this).radioButtonListEx('val')) {

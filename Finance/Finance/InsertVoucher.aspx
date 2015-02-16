@@ -6,14 +6,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="InsertVoucher.js" type="text/javascript"></script>
 
-     <script type="text/javascript">
-        function tbBills_Search(event, ui) {
-            var divisionId = $('#tbDivisionCode').autocompleteEx('selectedValue');
-            $(this).autocompleteEx('option', 'parameters', { divisionId: divisionId, term: $(this).val() });
-            return true;
-        }
-    </script>
-
 
 </asp:Content>
 <asp:Content ID="c4" ContentPlaceHolderID="cphSideNavigation" runat="server">
@@ -26,12 +18,11 @@
     <phpa:PhpaLinqDataSource ID="dsFiscalYear" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FiscalDataContext"
         TableName="FinancialYears" RenderLogVisible="False" OrderBy="Name desc" Where='Freeze == "N"' OnSelected="dsFiscalYear_Selected">
     </phpa:PhpaLinqDataSource>
-    <br/>
+    <br />
     <asp:ListView runat="server" ID="lvEditableDates" DataSourceID="dsFiscalYear" ItemType="Eclipse.PhpaLibrary.Database.FinancialYear">
         <LayoutTemplate>
             <fieldset>
-                <legend>
-                    Vouchers can be created or edited for
+                <legend>Vouchers can be created or edited for
                 </legend>
                 <ul>
                     <li runat="server" id="itemPlaceholder"></li>
@@ -44,11 +35,11 @@
             </li>
         </ItemTemplate>
         <EmptyDataTemplate>
-            <asp:Label runat="server" Text="All financial years have been closed. Vouchers cannot be created or edited." ForeColor="Red"></asp:Label>    
+            <asp:Label runat="server" Text="All financial years have been closed. Vouchers cannot be created or edited." ForeColor="Red"></asp:Label>
             <asp:HyperLink runat="server" Text="Manage" NavigateUrl="~/Finance/ManageFinancialYears.aspx"></asp:HyperLink>
         </EmptyDataTemplate>
     </asp:ListView>
-        <br />
+    <br />
     <phpa:PhpaLinqDataSource ID="dsEditVouchers" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FinanceDataContext"
         TableName="Vouchers" AutoGenerateWhereClause="false" Where="VoucherId == @VoucherId"
         EnableInsert="true" EnableUpdate="true" OnContextCreating="ds_ContextCreating"
@@ -66,6 +57,7 @@
             <asp:Parameter Name="Particulars" Type="String" />
             <asp:Parameter Name="PayeeName" Type="String" />
             <asp:Parameter Name="StationId" Type="String" ConvertEmptyStringToNull="true" />
+            <asp:Parameter Name="BillId" Type="Int32" />
         </UpdateParameters>
         <InsertParameters>
             <asp:Parameter Name="VoucherDate" Type="DateTime" />
@@ -75,6 +67,7 @@
             <asp:Parameter Name="Particulars" Type="String" />
             <asp:Parameter Name="PayeeName" Type="String" />
             <asp:Parameter Name="StationId" Type="String" ConvertEmptyStringToNull="true" />
+            <asp:Parameter Name="BillId" Type="Int32" />
         </InsertParameters>
     </phpa:PhpaLinqDataSource>
     <phpa:PhpaLinqDataSource ID="dsEditVoucherDetail" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Database.FinanceDataContext"
@@ -155,8 +148,8 @@
                     <br />
                     First time in the session, you must enter a code here. then it will keep incrementing.
                    
-                    <eclipse:LeftLabel runat="server" Text="Division" />
-                    <%--<i:AutoComplete ID="tbDivisionCode" runat="server" FriendlyName="Division" WebMethod="GetDivisions"
+                    <eclipse:LeftLabel runat="server" Text="Division and Bill" />
+                    <i:AutoComplete ID="tbDivisionCode" runat="server" FriendlyName="Division" WebMethod="GetDivisions"
                         WebServicePath="~/Services/Divisions.asmx" Value='<%# Bind("DivisionId") %>'
                         Text='<%# Eval("Division.DivisionCode", "{0}: ") +  Eval("Division.DivisionName", "{0}") %>'
                         ValidateWebMethodName="ValidateDivision" AutoValidate="true" Delay="1000" Width="25em">
@@ -164,21 +157,10 @@
                             <i:Required DependsOn="ddlMoreColumns" DependsOnState="Value" DependsOnValue="J" />
                         </Validators>
                     </i:AutoComplete>
-                    <i:AutoComplete ID="AutoComplete1" runat="server" FriendlyName="Division" WebMethod="SearchAutoComplete2"
-                        WebServicePath="~/BillsHome" Value='<%# Bind("DivisionId") %>'
-                        Text='<%# Eval("Division.DivisionCode", "{0}: ") +  Eval("Division.DivisionName", "{0}") %>'
-                        ValidateWebMethodName="ValidateDivision" AutoValidate="false" Delay="1000" Width="25em">
-                        <Validators>
-                            <i:Required DependsOn="ddlMoreColumns" DependsOnState="Value" DependsOnValue="J" />
-                        </Validators>
-                    </i:AutoComplete>--%>
-                    <i:AutoComplete ID="tbDivisionCode" runat="server" ClientIDMode="Static" Width="25em"
-            WebMethod="GetDivisions" WebServicePath="~/Services/Divisions.asmx">
-        </i:AutoComplete>
-       
-        <i:AutoComplete ID="tbBills" runat="server" ClientIDMode="Static" Width="25em" WebMethod="GetBillsForDivision"
-            WebServicePath="~/Services/Divisions.asmx" OnClientSearch="tbBills_Search" AutoValidate="false" Delay="1000">
-        </i:AutoComplete>
+                    <i:AutoComplete ID="tbBills" runat="server" ClientIDMode="Static" Width="25em" WebMethod="BillsForDivisionAutoComplete"
+                        WebServicePath="~/BillsHome" OnClientSearch="tbBills_Search" AutoValidate="false" Delay="1000" 
+                        Value='<%# Bind("BillId") %>' Text='<%# Eval("Bill.BillNumber") + Eval("Bill.Amount", " for Nu {0:C}") %>'>
+                    </i:AutoComplete>
                     <eclipse:LeftLabel ID="lblCheckNumber" runat="server" Text="Cheque #" />
                     <i:TextBoxEx ID="tbCheckNumber" runat="server" QueryStringValue='<%# Bind("CheckNumber") %>'
                         MaxLength="9" ClientIDMode="Static" QueryString="CheckNumber">

@@ -89,6 +89,7 @@ namespace PhpaAll.Services
 
 
         [WebMethod]
+        [Obsolete]
         public object[] GetBillsForDivision(string term, int divisionId)
         {
             string BillId = string.Empty;
