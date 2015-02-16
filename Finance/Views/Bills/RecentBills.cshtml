@@ -81,8 +81,9 @@
                         </a>
                         @if (Model.FilterApprovedBills.HasValue || Model.FilterPaidBills.HasValue)
                         {
-                            <em><span class="glyphicon glyphicon-filter"></span><small>@(Model.FilterApprovedBills.HasValue ? ((Model.FilterApprovedBills == true) ? "Approved" : "Unapproved") : null)</small>
-                                <small>@(Model.FilterPaidBills.HasValue ? ((Model.FilterPaidBills == true) ? "Paid" : "Unpaid") : null )</small>
+                            <em>
+                                <span class="glyphicon glyphicon-filter"></span><small>@(Model.FilterApprovedBills.HasValue ? ((Model.FilterApprovedBills == true) ? "Approved" : "Unapproved") : null)</small>
+                                <small>@(Model.FilterPaidBills.HasValue ? ((Model.FilterPaidBills == true) ? "Paid" : "Unpaid") : null)</small>
                             </em>
                         }
                     </div>
@@ -470,22 +471,25 @@
                 {
                     <input type="hidden" name="@MVC.Bills.ApproveBillsParams.paidFilter" value="@Model.FilterPaidBills.Value.ToString().ToLower()" />
                 }
-                
-                <div class="panel panel-primary">
-                    <div class="panel-heading">Selected Bills</div>
-                    <div class="panel-body">
-                        <div class="btn-group btn-group-sm" role="group">
-                            <button type="submit" name="@MVC.Bills.ApproveBillsParams.approve" value="true" class="btn btn-success">
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
-                                Approve
-                            </button>
-                            <button type="submit" name="@MVC.Bills.ApproveBillsParams.approve" value="false" class="btn btn-danger">
-                                <span class="glyphicon glyphicon-thumbs-down"></span>
-                                Unapprove
-                            </button>
+
+                @if (!Model.FilterPaidBills.HasValue || Model.FilterPaidBills.Value == false)
+                {
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Selected Bills</div>
+                        <div class="panel-body">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="submit" name="@MVC.Bills.ApproveBillsParams.approve" value="true" class="btn btn-success">
+                                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                                    Approve
+                                </button>
+                                <button type="submit" name="@MVC.Bills.ApproveBillsParams.approve" value="false" class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                                    Unapprove
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
                 <ul class="list-group" id="billGroup" data-approve-url="@Url.Action(MVC.Bills.ApproveBill())" data-approve-paramname="@MVC.Bills.ApproveBillParams.billId">
                     <li class="list-group-item list-group-item-info">
                         @Html.Partial(MVC.Shared.Views._billHeaderPartial)

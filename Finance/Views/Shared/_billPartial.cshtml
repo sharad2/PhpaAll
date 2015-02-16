@@ -71,7 +71,7 @@
     <br />
     @if (Model.VoucherDate != null)
     {
-        <em class="text-info text-danger" style="white-space:nowrap"><strong>PAID (Voucher created on :@Html.DisplayFor(m => m.VoucherDate))</strong></em>
+        <a href="~/Finance/InsertVoucher.aspx?VoucherId=@Model.VoucherId"><em class="text-info text-danger" style="white-space:nowrap"><strong>Paid (Voucher created on :@Html.DisplayFor(m => m.VoucherDate))</strong></em></a>
     }
 </div>
 

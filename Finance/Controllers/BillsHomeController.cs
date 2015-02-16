@@ -292,8 +292,6 @@ namespace PhpaAll.Controllers
                 text2 = string.Empty;
                 // Should never happen
             }
-
-
             return text1 + " " + HighlightTokens(text2, tokens);
         }
 
