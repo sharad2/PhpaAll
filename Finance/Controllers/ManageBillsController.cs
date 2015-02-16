@@ -45,8 +45,8 @@ namespace PhpaAll.Controllers
         public virtual ActionResult Create()
         {
             var model = new CreateViewModel();
-            var list = from stations in _db.Value.Stations select stations;
-            model.StationList = list.Select(p => new SelectListItem
+           // var list = from stations in _db.Value.Stations select stations;
+            model.StationList = _db.Value.Stations.Select(p => new SelectListItem
             {
                 Text = p.StationName,
                 Value = p.StationId.ToString()
@@ -61,20 +61,14 @@ namespace PhpaAll.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var x = ModelState.SelectMany(p => p.Value.Errors).Select(p => p.ErrorMessage);
-                throw new NotImplementedException(string.Join(";", x));
+                model.StationList = _db.Value.Stations.Select(p => new SelectListItem
+                {
+                    Text = p.StationName,
+                    Value = p.StationId.ToString()
+                });
+                return View(Views.Create, model);
             }
-            //byte[] imageData = null;
-
-            //if (model.BillImage != null && model.BillImage.ContentLength > 0)
-            //{
-            //    // Image Upload using MVC   http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/  
-            //    var ms = new MemoryStream(model.BillImage.ContentLength);
-            //    model.BillImage.InputStream.CopyTo(ms);
-            //    imageData = ms.ToArray();
-            //}
        
-
             var bill = new Bill
             {
                 Amount = model.Amount,

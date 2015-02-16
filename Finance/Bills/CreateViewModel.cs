@@ -32,20 +32,15 @@ namespace PhpaAll.Bills
         [DataType(DataType.Date)]
         public DateTime? ReceivedDate { get; set; }
 
-        //[Display(Name = "Pro Date")]
-        //[DataType(DataType.Date)]
-        //[Obsolete]
-        //public DateTime? PaidDate { get; set; }
-
-        [Display(Name = "Bill Type")]
-        [StringLength(10, ErrorMessage = "The Bill Type value cannot exceed 10 characters. ")]
-        public string BillType { get; set; }
+        //[Display(Name = "Bill Type")]
+        //[StringLength(10, ErrorMessage = "The Bill Type value cannot exceed 10 characters. ")]
+        //public string BillType { get; set; }
 
         [Display(Name = "Division Id")]
         [Required (ErrorMessage="Division is required.")]
         public int? DivisionId { get; set; }
 
-        public string SubmittedToDivisionName { get; set; }
+        //public string SubmittedToDivisionName { get; set; }
 
         [Display(Name = "Contractor Id")]
         public int? ContractorId { get; set; }

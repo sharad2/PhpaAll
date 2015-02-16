@@ -20,8 +20,15 @@ namespace PhpaAll
                 {
                     return null;
                 }
-                var x = DateTime.ParseExact(value.AttemptedValue, "d/M/yyyy", CultureInfo.InvariantCulture);
-                return x;
+                try
+                {
+                    var x = DateTime.ParseExact(value.AttemptedValue, "d/M/yyyy", CultureInfo.InvariantCulture);
+                    return x;
+                }
+                catch (FormatException)
+                {
+                    return null;
+                }
             }
         }
 
