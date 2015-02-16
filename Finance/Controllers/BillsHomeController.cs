@@ -33,13 +33,17 @@ namespace PhpaAll.Controllers
         // GET: BillsHome
         public virtual ActionResult Index()
         {
-
+            var minDate = DateTime.Today;
+            var maxDate = minDate.AddMonths(12);
             var query = (from bill in _db.Value.Bills
                          where bill.Voucher == null
+                         let dueDate1 = bill.DueDate ?? minDate
+                         let dueDate2 = dueDate1 <= minDate ? minDate : dueDate1
+                         let dueDate3 = dueDate2 >= maxDate ? maxDate : dueDate2
                          group bill by new
                          {
-                             DueInMonth = (bill.DueDate ?? DateTime.Today).Month,
-                             DueInYear = (bill.DueDate ?? DateTime.Today).Year,
+                             DueInMonth = dueDate3.Month,
+                             DueInYear = dueDate3.Year,
                              bill.Station
                          } into g
                          select new

@@ -40,7 +40,6 @@
                         @if (Model.Stations[i].AmountDictionary.ContainsKey(Model.AllMonths[j]))
                         {
                             <span>
-                                @Html.DisplayFor(m => m.Stations[i].AmountDictionary[Model.AllMonths[j]].MonthStartDate) &bull;
                                 @Html.DisplayFor(m => m.Stations[i].AmountDictionary[Model.AllMonths[j]].Amount)
                             </span>
                         }
