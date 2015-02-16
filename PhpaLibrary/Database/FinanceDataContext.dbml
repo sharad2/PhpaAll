@@ -47,6 +47,7 @@
       <Column Name="ModifiedWorkstation" AutoSync="Always" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="IsChequeReconcile" Type="System.Boolean" DbType="bit" CanBeNull="true" />
       <Column Name="StationId" Type="System.Int32" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="BillId" Type="System.Int32" DbType="int" CanBeNull="true" />
       <Association Name="Voucher_VoucherDetail" Member="VoucherDetails" ThisKey="VoucherId" OtherKey="VoucherId" Type="VoucherDetail" />
       <Association Name="Division_Voucher" Member="Division" ThisKey="DivisionId" OtherKey="DivisionId" Type="Division" IsForeignKey="true" />
       <Association Name="Station_Voucher" Member="Station1" ThisKey="StationId" OtherKey="StationId" Type="Station" IsForeignKey="true" />
