@@ -15,7 +15,7 @@
             // Code to clean up the URL by not posting unnecessary filters
             $('#frmFilters').on('submit', function (e) {
                 // If all checkboxes in a group are checked, uncheck all so that they do not get posted
-                $('#fsDivisions,#fsContractors,#fsApprovers,#fsStations,#fsprocessingDivision,#fsApprovePaid').each(function (index, elem) {
+                $('#fsDivisions,#fsContractors,#fsApprovers,#fsStations,#fsprocessingDivision').each(function (index, elem) {
                     if ($('input:not(:checked)', elem).length == 0) {
                         //alert('Hi');
                         $('input:checked', elem).prop('checked', false);
@@ -76,6 +76,64 @@
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
                     <div class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" href="#fsApprovePaid" aria-expanded="false" aria-controls="#fsApprovePaid">
+                            <span class="caret"></span>  Approved or Paid
+                        </a>
+                        @if (Model.FilterApprovedBills.HasValue || Model.FilterPaidBills.HasValue)
+                        {
+                            <em><span class="glyphicon glyphicon-filter"></span><small>@(Model.FilterApprovedBills.HasValue ? ((Model.FilterApprovedBills == true) ? "Approved" : "Unapproved") : null)</small>
+                                <small>@(Model.FilterPaidBills.HasValue ? ((Model.FilterPaidBills == true) ? "Paid" : "Unpaid") : null )</small>
+                            </em>
+                        }
+                    </div>
+                </div>
+                <div id="fsApprovePaid" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body" style="padding-left:4mm; padding-right:1mm">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" value="true" checked="@(Model.FilterApprovedBills == true ? true: (bool?)null)">
+                                Approved
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" value="false" checked="@(Model.FilterApprovedBills == false ? true: (bool?)null)">
+                                Unapproved
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" checked="@(Model.FilterApprovedBills == null ? true: (bool?)null)">
+                                Both
+                            </label>
+                        </div>
+
+                        <hr />
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="@MVC.Bills.RecentBillsParams.paid" value="true" checked="@(Model.FilterPaidBills == true ? true: (bool?)null)">
+                                Paid
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="@MVC.Bills.RecentBillsParams.paid" value="false" checked="@(Model.FilterPaidBills == false ? true: (bool?)null)">
+                                Unpaid
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="@MVC.Bills.RecentBillsParams.paid" checked="@(Model.FilterPaidBills == null ? true: (bool?)null)">
+                                Both
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <div class="panel-title">
                         <a class="collapsed" data-toggle="collapse" href="#fsBillDates" aria-expanded="false" aria-controls="fsBillDates">
                             <span class="caret"></span>  Bill Dates
                         </a>
@@ -105,61 +163,6 @@
                                     </span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingOne">
-                    <div class="panel-title">
-                        <a class="collapsed" data-toggle="collapse" href="#fsApprovePaid" aria-expanded="false" aria-controls="#fsApprovePaid">
-                            <span class="caret"></span>  Approved or Paid
-                        </a>
-                        @if (Model.FilterApprovedBills.HasValue)
-                        {
-                            <span>TODO: Show Filter</span>
-                        }
-                    </div>
-                </div>
-                <div id="fsApprovePaid" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body" style="padding-left:4mm; padding-right:1mm">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" value="true" checked="@(Model.FilterApprovedBills == true ? true: (bool?)null)">
-                                Approved
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" value="false" checked="@(Model.FilterApprovedBills == false ? true: (bool?)null)">
-                                Unapproved
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" checked="@(Model.FilterApprovedBills == null ? true: (bool?)null)">
-                                Both
-                            </label>
-                        </div>
-
-                        <hr />
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" value="true" checked="@(Model.FilterApprovedBills == true ? true: (bool?)null)">
-                                Paid
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" value="false" checked="@(Model.FilterApprovedBills == false ? true: (bool?)null)">
-                                Unpaid
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" checked="@(Model.FilterApprovedBills == null ? true: (bool?)null)">
-                                Both
-                            </label>
                         </div>
                     </div>
                 </div>
@@ -470,6 +473,11 @@ Paid / Unpaid
                 {
                     <input type="hidden" name="@MVC.Bills.ApproveBillsParams.approvedFilter" value="true" />
                 }
+                @if (Model.FilterPaidBills == true)
+                {
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.paidFilter" value="true" />
+                }
+                
                 <div class="panel panel-primary">
                     <div class="panel-heading">Selected Bills</div>
                     <div class="panel-body">

@@ -42,7 +42,7 @@ namespace PhpaAll.Controllers
         /// <returns></returns>
         [Authorize(Roles = "BillsExecutive")]
         public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] processingDivisions, int?[] contractors, int?[] stations,
-            DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount, bool? approved, bool exportToExcel = false)
+            DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount, bool? approved, bool? paid, bool exportToExcel = false)
         {
 
             var query = from bill in _db.Value.Bills
@@ -201,10 +201,19 @@ namespace PhpaAll.Controllers
                 model.FilterApprovedBills = approved;
             }
 
-            if (false)
+            if (paid.HasValue)
             {
                 // Paid filter
-                filteredBills = filteredBills.Where(p => p.Voucher != null);
+                if (paid.Value)
+                {
+                    filteredBills = filteredBills.Where(p => p.Voucher != null);
+                }
+                else
+                {
+                    filteredBills = filteredBills.Where(p => p.Voucher == null);
+                }
+                model.IsFiltered = true;
+                model.FilterPaidBills = paid;
             }
 
             if (model.UrlExcel.Contains("?"))
@@ -248,7 +257,7 @@ namespace PhpaAll.Controllers
         [HttpPost]
         public virtual ActionResult ApproveBills(int[] listBillId, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors,
                                                 int[] stations, DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount,
-                                                bool approve, bool? approvedFilter)
+                                                bool approve, bool? approvedFilter, bool? paidFilter)
         {
             if (string.IsNullOrWhiteSpace(User.Identity.Name))
             {
@@ -328,7 +337,12 @@ namespace PhpaAll.Controllers
 
             if (approvedFilter.HasValue)
             {
-                dict.Add(Actions.RecentBillsParams.approved, new [] { approvedFilter.Value });
+                dict.Add(Actions.RecentBillsParams.approved, new[] { approvedFilter.Value });
+            }
+           
+            if (paidFilter.HasValue)
+            {
+                dict.Add(Actions.RecentBillsParams.paid, new[] { paidFilter.Value });
             }
 
             if (dict.Count > 0)

@@ -5,6 +5,16 @@
     TagPrefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="InsertVoucher.js" type="text/javascript"></script>
+
+     <script type="text/javascript">
+        function tbBills_Search(event, ui) {
+            var divisionId = $('#tbDivisionCode').autocompleteEx('selectedValue');
+            $(this).autocompleteEx('option', 'parameters', { divisionId: divisionId, term: $(this).val() });
+            return true;
+        }
+    </script>
+
+
 </asp:Content>
 <asp:Content ID="c4" ContentPlaceHolderID="cphSideNavigation" runat="server">
     <asp:HyperLink ID="HyperLink1" runat="server" Text="Help" NavigateUrl="~/Doc/InsertVoucher.doc.aspx" />
@@ -146,7 +156,7 @@
                     First time in the session, you must enter a code here. then it will keep incrementing.
                    
                     <eclipse:LeftLabel runat="server" Text="Division" />
-                    <i:AutoComplete ID="tbDivisionCode" runat="server" FriendlyName="Division" WebMethod="GetDivisions"
+                    <%--<i:AutoComplete ID="tbDivisionCode" runat="server" FriendlyName="Division" WebMethod="GetDivisions"
                         WebServicePath="~/Services/Divisions.asmx" Value='<%# Bind("DivisionId") %>'
                         Text='<%# Eval("Division.DivisionCode", "{0}: ") +  Eval("Division.DivisionName", "{0}") %>'
                         ValidateWebMethodName="ValidateDivision" AutoValidate="true" Delay="1000" Width="25em">
@@ -161,7 +171,14 @@
                         <Validators>
                             <i:Required DependsOn="ddlMoreColumns" DependsOnState="Value" DependsOnValue="J" />
                         </Validators>
-                    </i:AutoComplete>
+                    </i:AutoComplete>--%>
+                    <i:AutoComplete ID="tbDivisionCode" runat="server" ClientIDMode="Static" Width="25em"
+            WebMethod="GetDivisions" WebServicePath="~/Services/Divisions.asmx">
+        </i:AutoComplete>
+       
+        <i:AutoComplete ID="tbBills" runat="server" ClientIDMode="Static" Width="25em" WebMethod="GetBillsForDivision"
+            WebServicePath="~/Services/Divisions.asmx" OnClientSearch="tbBills_Search" AutoValidate="false" Delay="1000">
+        </i:AutoComplete>
                     <eclipse:LeftLabel ID="lblCheckNumber" runat="server" Text="Cheque #" />
                     <i:TextBoxEx ID="tbCheckNumber" runat="server" QueryStringValue='<%# Bind("CheckNumber") %>'
                         MaxLength="9" ClientIDMode="Static" QueryString="CheckNumber">
