@@ -57,13 +57,21 @@ namespace PhpaAll.Controllers
                 var station = new BillHomeIndexStationModel
                 {
                     StationName = group.Key,
-                    FundsAvailable = 1234,
-                    Amounts = group.Select(p => new BillHomeStationAmountModel
+                    FundsAvailable = 1234
+                };
+                foreach (var p in group)
+                {
+                    station.Amounts[p.DueInMonth - 1] = new BillHomeStationAmountModel
                     {
                         DueInMonth = p.DueInMonth,
                         Amount = p.Amount
-                    }).ToList()
-                };
+                    };
+                }
+                //station.Amounts[Mo = group.Select(p => new BillHomeStationAmountModel
+                //{
+                //    DueInMonth = p.DueInMonth,
+                //    Amount = p.Amount
+                //}).ToList()
                 model.Stations.Add(station);
             }
 
