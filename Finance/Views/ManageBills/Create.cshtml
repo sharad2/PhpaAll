@@ -197,29 +197,23 @@
                {
                    style = "height:0; width:0; border:none"
                })
-        
+
         </div>
     </div>
     <div class="row">
-        @*<div class="col-md-3">
+        <div class="col-md-3">
                 <div class="form-group">
                     <label for="image">Image</label>
 
-                    @Html.TextBoxFor(m => m.BillImage, new
-               {
-                   id = "image",
-                   @class = "form-control",
-                   type = "File"
-
-               })
+                    <input type="file" multiple="multiple" name="File1" id="File1" accept="image/*" />
 
                 </div>
-            </div>*@
+            </div>
 
-        <input type="file" multiple="multiple" name="File1" id="File1" accept="image/*" />
+        @*<input type="file" multiple="multiple" name="File1" id="File1" accept="image/*" />*@
     </div>
 
- 
+
 
     <div class="form-group">
         <label for="remarks">Remarks</label>
