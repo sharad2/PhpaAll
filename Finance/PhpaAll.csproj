@@ -301,17 +301,23 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Views\ManageBills\Bill.css">
-      <DependentUpon>Bill.css.bundle</DependentUpon>
-    </Content>
     <Content Include="Views\ManageBills\Bill.js">
       <DependentUpon>Bill.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Views\ManageBills\Bill.min.css">
-      <DependentUpon>Bill.css</DependentUpon>
-    </Content>
     <Content Include="Views\ManageBills\Bill.min.js">
       <DependentUpon>Bill.js</DependentUpon>
+    </Content>
+    <Content Include="Views\ManageBills\Create.js">
+      <DependentUpon>Create.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Views\ManageBills\Create.min.js">
+      <DependentUpon>Create.js</DependentUpon>
+    </Content>
+    <Content Include="Views\ManageBills\dropzone.css">
+      <DependentUpon>dropzone.css.bundle</DependentUpon>
+    </Content>
+    <Content Include="Views\ManageBills\dropzone.min.css">
+      <DependentUpon>dropzone.css</DependentUpon>
     </Content>
     <Content Include="Views\Shared\jqueryval.js">
       <DependentUpon>jqueryval.js.bundle</DependentUpon>
@@ -381,12 +387,17 @@
     <Content Include="Views\ManageBills\Bill.min.js.map">
       <DependentUpon>Bill.min.js</DependentUpon>
     </Content>
-    <Content Include="Views\ManageBills\Bill.css.bundle" />
+    <Content Include="Views\ManageBills\dropzone.css.bundle" />
     <Content Include="Views\Shared\layout.css.bundle" />
     <Content Include="Views\Shared\layout.min.js.map">
       <DependentUpon>layout.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Shared\_billHeaderPartial.cshtml" />
+    <Content Include="Views\ManageBills\Create.partial.js" />
+    <Content Include="Views\ManageBills\Create.js.bundle" />
+    <Content Include="Views\ManageBills\Create.min.js.map">
+      <DependentUpon>Create.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">

@@ -68,6 +68,8 @@ See http://mvccontrib.codeplex.com/workitem/7163 for potential issues with this 
     <Extension>.intellisense.js</Extension>
     <Extension>.map</Extension>
     <Extension>.bundle</Extension>
+    <Extension>.partial.css</Extension>
+    <Extension>.partial.js</Extension>
   </ExcludedStaticFileExtensions>
   <!--Files to exclude from the generated views-->
   <ExcludedViewExtensions>
