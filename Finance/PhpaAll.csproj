@@ -248,6 +248,7 @@
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\PHPALogo2.png" />
     <Content Include="MIS\ProgressFormatManager.aspx" />
+    <Content Include="MvcDiagnostics.aspx" />
     <Content Include="Payroll\ManageEmployeePeriod.aspx" />
     <Content Include="PIS\Masters\Banks.aspx" />
     <Content Include="PIS\Masters\Stations.aspx" />
