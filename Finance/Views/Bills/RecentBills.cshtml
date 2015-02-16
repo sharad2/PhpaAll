@@ -103,7 +103,7 @@
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" checked="@(Model.FilterApprovedBills == null ? true: (bool?)null)">
+                                <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" checked="@(Model.FilterApprovedBills == null ? true: (bool?)null)" value="" />
                                 Both
                             </label>
                         </div>
@@ -123,7 +123,7 @@
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="@MVC.Bills.RecentBillsParams.paid" checked="@(Model.FilterPaidBills == null ? true: (bool?)null)">
+                                <input type="radio" name="@MVC.Bills.RecentBillsParams.paid" checked="@(Model.FilterPaidBills == null ? true: (bool?)null)" value="">
                                 Both
                             </label>
                         </div>
@@ -337,7 +337,7 @@
                                 <span class="caret"></span> Approvers
                                 @if (!Model.SelectedApproversCount.HasValue)
                                 {
-                                    <span class="badge">@Model.Approvers.Count()</span>
+                                    <span class="badge">@Model.Approvers.Count</span>
                                 }
                             </a>
                             @if (Model.SelectedApproversCount.HasValue)
@@ -408,9 +408,11 @@ Paid / Unpaid
     </div>
 
     <div class="col-md-9">
-        @if (Model.Bills.Count() > 0)
+        @if (Model.Bills.Count > 0)
         {
-
+            <label style="color:lightblue"> <i>Showing @Model.Bills.Count Bills</i></label>
+            <strong><a href="@Model.UrlExcel">Export to Excel</a></strong>
+            <span class="glyphicon glyphicon-export"></span>
             <form action="@Url.Action(MVC.Bills.ApproveBills())" method="post">
                 @if (Model.Approvers.Any(p => !p.Selected))
                 {
@@ -463,19 +465,13 @@ Paid / Unpaid
                 {
                     <input type="hidden" name="@MVC.Bills.ApproveBillsParams.maxAmount" value="@Model.FilterMaxAmount.Value" />
                 }
-                @if (Model.Bills.Count > 0)
+                @if (Model.FilterApprovedBills.HasValue)
                 {
-                    <label style="color:lightblue"> <i>Showing @Model.Bills.Count Bills</i></label>
-                    <strong><a href="@Model.UrlExcel">Export to Excel</a></strong>
-                    <span class="glyphicon glyphicon-export"></span>
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.approvedFilter" value="@Model.FilterApprovedBills.Value.ToString().ToLower()" />
                 }
-                @if (Model.FilterApprovedBills == true)
+                @if (Model.FilterPaidBills.HasValue)
                 {
-                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.approvedFilter" value="true" />
-                }
-                @if (Model.FilterPaidBills == true)
-                {
-                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.paidFilter" value="true" />
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.paidFilter" value="@Model.FilterPaidBills.Value.ToString().ToLower()" />
                 }
                 
                 <div class="panel panel-primary">
