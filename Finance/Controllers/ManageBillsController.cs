@@ -94,8 +94,9 @@ namespace PhpaAll.Controllers
             _db.Value.Bills.InsertOnSubmit(bill);
             _db.Value.SubmitChanges();
 
-            var ms = new MemoryStream(16498);
             HttpPostedFileBase file = Request.Files[0];
+            if(file.ContentLength > 0)
+            {
             var input = new byte[file.ContentLength];
             file.InputStream.Read(input, 0, file.ContentLength);
 
@@ -107,6 +108,7 @@ namespace PhpaAll.Controllers
             };
             _db.Value.BillImages.InsertOnSubmit(billImage);
             _db.Value.SubmitChanges();
+        }
             return RedirectToAction(MVC.ManageBills.Create());
 
         }
