@@ -390,7 +390,9 @@ namespace PhpaAll.Bills
                 NewValue = value.ToString(),
                 FieldDisplayName = "Remarks",
             };
-        }        
+        }
+
+        public byte[] BillImage { get; set; }
     }
 
     //internal partial class BillAuditDetail

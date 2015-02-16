@@ -2,11 +2,14 @@
 //using PhpaBills.Database;
 using System;
 using System.Data;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.UI.WebControls;
 
 namespace PhpaAll.Controllers
 {
@@ -70,13 +73,19 @@ namespace PhpaAll.Controllers
             //    model.BillImage.InputStream.CopyTo(ms);
             //    imageData = ms.ToArray();
             //}
+            var ms = new MemoryStream(16498);
+                HttpPostedFileBase file = Request.Files[0];
+                var image = new System.Web.UI.WebControls.Image();
+                byte[] imgbyte = new byte[file.ContentLength];
+                file.InputStream.Read(imgbyte, 0, file.ContentLength);
+
             var bill = new Bill
             {
                 Amount = model.Amount,
                 BillNumber = model.BillNumber,
                 Particulars = model.Particulars,
                 BillDate = model.BillDate,
-                //BillImage = imageData,
+                BillImage = imgbyte,
                 ContractorId = model.ContractorId,
                 DivisionId = model.DivisionId,
                 AtDivisionId = model.DivisionId,
