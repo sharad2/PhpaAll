@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-md-3">
         <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
-            @if (!string.IsNullOrWhiteSpace(Model.CheckBoxName))
+            @if (!string.IsNullOrWhiteSpace(Model.CheckBoxName) && (Model.VoucherDate == null))
             {
                 <input type="checkbox" name="@Model.CheckBoxName" value="@Model.BillId" />
             }
@@ -46,7 +46,10 @@
         <div class="btn-toolbar" role="toolbar" aria-label="...">
             <div class="btn-group btn-group-xs" role="group" aria-label="...">
                 <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.BillId))" class="btn btn-link"><span class="glyphicon glyphicon-zoom-in"></span> View</a>
-                <a href="@Url.Action(MVC.ManageBills.Edit(Model.BillId))" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+                @if (Model.VoucherDate == null)
+                {
+                    <a href="@Url.Action(MVC.ManageBills.Edit(Model.BillId))" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+                }
             </div>
             <div class="btn-group btn-group-xs" role="group" aria-label="...">
                 @if (Model.ApprovedDate == null)
@@ -65,5 +68,10 @@
 </div>
 <div class="text-muted">
     @Html.DisplayFor(m => m.Particulars)
+    <br />
+    @if (Model.VoucherDate != null)
+    {
+        <em class="text-info text-danger" style="white-space:nowrap"><strong>PAID (Voucher created on :@Html.DisplayFor(m => m.VoucherDate))</strong></em>
+    }
 </div>
 

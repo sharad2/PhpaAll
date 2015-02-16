@@ -68,7 +68,8 @@ namespace PhpaAll.Bills
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTime? ApprovedDate { get; set; }
-
+        
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? VoucherDate { get; set; }
     }
 
