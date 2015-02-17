@@ -81,7 +81,7 @@ namespace PhpaAll.Controllers
                                  Name = g.Select(p => p.DivisionName).FirstOrDefault(),
                                  Count = g.Sum(p => p.Count),
                                  Selected = divisions == null || divisions.Contains(g.Key)
-                             }).ToList(),
+                             }).OrderBy(p => p.Name).ToList(),
                 ProcessingDivisions = (from d in aggQuery
                                        group d by d.CurrentDivisionId into g
                                        select new RecentBillsFilterModel
@@ -90,7 +90,7 @@ namespace PhpaAll.Controllers
                                            Name = g.Select(p => p.CurrentDivisionName).FirstOrDefault(),
                                            Count = g.Sum(p => p.Count),
                                            Selected = processingDivisions == null || processingDivisions.Contains(g.Key)
-                                       }).ToList(),
+                                       }).OrderBy(p => p.Name).ToList(),
                 Contractors = (from d in aggQuery
                                group d by d.ContractorId into g
                                select new RecentBillsFilterModel
@@ -108,7 +108,7 @@ namespace PhpaAll.Controllers
                                  Name = g.Key,
                                  Count = g.Sum(p => p.Count),
                                  Selected = approvers == null || approvers.Any(p => string.Compare(p.Trim(), g.Key, true) == 0)
-                             }).ToList(),
+                             }).OrderBy(p => p.Name).ToList(),
 
                 Stations = (from d in aggQuery
                             group d by d.StationId into g
@@ -118,7 +118,7 @@ namespace PhpaAll.Controllers
                                 Name = g.Select(p => p.StationName).FirstOrDefault(),
                                 Count = g.Sum(p => p.Count),
                                 Selected = stations == null || stations.Contains(g.Key)
-                            }).ToList(),
+                            }).OrderBy(p => p.Name).ToList(),
                 UrlExcel = Request.RawUrl
             };
 
