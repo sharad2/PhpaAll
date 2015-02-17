@@ -76,7 +76,7 @@
                         @if (Model.Stations[i].AmountDictionary.ContainsKey(Model.AllMonths[j]))
                         {
                             <span>
-                                @Html.DisplayFor(m => m.Stations[i].AmountDictionary[Model.AllMonths[j]].Amount)
+                                @string.Format("{0:C}", Model.Stations[i].AmountDictionary[Model.AllMonths[j]])
                             </span>
                         }
                     </td>

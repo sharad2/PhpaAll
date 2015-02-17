@@ -56,23 +56,22 @@ namespace PhpaAll.Controllers
             //var x = queryFunds.ToList();
             var minDate = DateTime.Today;
             var maxDate = minDate.AddMonths(12);
-            var query = (from bill in _db.Value.Bills
-                         where bill.Voucher == null
-                         let dueDate1 = bill.DueDate ?? minDate
-                         let dueDate2 = dueDate1 <= minDate ? minDate : dueDate1
-                         let dueDate3 = dueDate2 >= maxDate ? maxDate : dueDate2
+            var queryBills = (from bill in _db.Value.Bills
+                         where bill.Voucher == null  // Only unpaid bills
+                         let dueDate1 = bill.DueDate ?? minDate  // If due date not specified, it is due immediately
+                         let dueDate2 = dueDate1 <= minDate ? minDate : dueDate1  // bills due before today are due immediately
+                         let dueDateFinal = dueDate2 >= maxDate ? maxDate : dueDate2  // bills due after 12 months are clubbed together
                          group bill by new
                          {
-                             DueInMonth = dueDate3.Month,
-                             DueInYear = dueDate3.Year,
-                             bill.Station
+                             DueInMonth = dueDateFinal.Month,
+                             DueInYear = dueDateFinal.Year,
+                             Station = bill.Station
                          } into g
+                         let minDueDate = g.Min(p => p.DueDate) ?? DateTime.Today
                          select new
                          {
                              Station = g.Key.Station,
-                             //StationName = g.Key.Station.StationName,
-                             DueInMonth = g.Key.DueInMonth,
-                             DueInYear = g.Key.DueInYear,
+                             MinDueDate = minDueDate <= minDate ? minDate : (minDueDate >= maxDate ? maxDate : minDueDate),
                              Amount = g.Sum(p => p.Amount)
                          }).ToLookup(p => p.Station);
 
@@ -80,22 +79,14 @@ namespace PhpaAll.Controllers
             {
                 Stations = new List<BillHomeIndexStationModel>()
             };
-            foreach (var group in query)
+            foreach (var group in queryBills)
             {
                 var station = new BillHomeIndexStationModel
                 {
                     StationName = group.Key.StationName,
-                    FundsAvailable = queryFunds.ContainsKey(group.Key.StationId) ? queryFunds[group.Key.StationId] : (decimal?)null
+                    FundsAvailable = queryFunds.ContainsKey(group.Key.StationId) ? queryFunds[group.Key.StationId] : (decimal?)null,
+                    AmountDictionary = group.ToDictionary(p => p.MinDueDate.MonthEndDate(), p => p.Amount)
                 };
-                foreach (var p in group)
-                {
-                    var monthStart = new DateTime(p.DueInYear, p.DueInMonth, 1);
-                    station.AmountDictionary[monthStart] = new BillHomeStationAmountModel
-                    {
-                        MonthStartDate = monthStart,
-                        Amount = p.Amount
-                    };
-                }
                 model.Stations.Add(station);
             }
 
