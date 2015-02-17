@@ -28,6 +28,9 @@ namespace PhpaAll.Bills
     {
         private IList<DateTime> _allMonths;
 
+        /// <summary>
+        /// List of all possible months between min and max due dates
+        /// </summary>
         public IList<DateTime> AllMonths
         {
             get

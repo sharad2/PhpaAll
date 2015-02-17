@@ -54,7 +54,15 @@
             </th>
             @for (var i = 0; i < Model.AllMonths.Count; ++i)
             {
-                <th style="white-space:nowrap; text-align:right" >
+                <th style="white-space:nowrap; text-align:right">
+                    @if (i == 0)
+                    {
+                        @:&le;
+                    }
+                    else if (i == Model.AllMonths.Count - 1)
+                    {
+                        @:&ge;
+                    }
                     @string.Format("{0:MMM yyyy}", Model.AllMonths[i])
                 </th>
             }

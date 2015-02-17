@@ -86,17 +86,6 @@ namespace PhpaAll.Controllers
                             }).ToList()
             };
 
-            //foreach (var group in queryBills)
-            //{
-            //    var station = new BillHomeIndexStationModel
-            //    {
-            //        StationName = group.Key.StationName,
-            //        FundsAvailable = queryFunds.ContainsKey(group.Key.StationId) ? queryFunds[group.Key.StationId] : (decimal?)null,
-            //        AmountDictionary = group.ToDictionary(p => p.MinDueDate.MonthEndDate(), p => p.Amount)
-            //    };
-            //    model.Stations.Add(station);
-            //}
-
 
             return View(Views.Index, model);
         }
