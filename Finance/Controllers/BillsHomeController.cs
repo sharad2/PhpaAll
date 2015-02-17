@@ -78,11 +78,12 @@ namespace PhpaAll.Controllers
             var model = new BillHomeIndexViewModel
             {
                 Stations = (from item in queryBills
+                            orderby item.Key.StationName
                             select new BillHomeIndexStationModel
                             {
                                 StationName = item.Key.StationName,
                                 FundsAvailable = queryFunds.ContainsKey(item.Key.StationId) ? queryFunds[item.Key.StationId] : (decimal?)null,
-                                AmountDictionary = item.ToDictionary(p => p.MinDueDate.MonthEndDate(), p => p.Amount)
+                                AmountsByMonth = item.ToDictionary(p => p.MinDueDate.MonthEndDate(), p => p.Amount)
                             }).ToList()
             };
 

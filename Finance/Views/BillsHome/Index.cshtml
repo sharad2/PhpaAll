@@ -81,10 +81,10 @@
                 @for (var j = 0; j < Model.AllMonths.Count; ++j)
                 {
                     <td style="text-align:right">
-                        @if (Model.Stations[i].AmountDictionary.ContainsKey(Model.AllMonths[j]))
+                        @if (Model.Stations[i].AmountsByMonth.ContainsKey(Model.AllMonths[j]))
                         {
                             <span>
-                                @string.Format("{0:C}", Model.Stations[i].AmountDictionary[Model.AllMonths[j]])
+                                @string.Format("{0:C}", Model.Stations[i].AmountsByMonth[Model.AllMonths[j]])
                             </span>
                         }
                     </td>

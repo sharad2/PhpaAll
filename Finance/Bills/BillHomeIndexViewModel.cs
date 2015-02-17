@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
 
 namespace PhpaAll.Bills
 {
@@ -14,7 +13,10 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal? FundsAvailable { get; set; }
 
-        public IDictionary<DateTime, decimal?> AmountDictionary
+        /// <summary>
+        /// Key is month in which the amount is due. Value is the bill amount
+        /// </summary>
+        public IDictionary<DateTime, decimal?> AmountsByMonth
         {
             get;
             set;
@@ -37,8 +39,8 @@ namespace PhpaAll.Bills
             {
                 if (_allMonths == null)
                 {
-                    var minMonth = Stations.SelectMany(p => p.AmountDictionary.Keys).Min();
-                    var maxMonth = Stations.SelectMany(p => p.AmountDictionary.Keys).Max();
+                    var minMonth = Stations.SelectMany(p => p.AmountsByMonth.Keys).Min();
+                    var maxMonth = Stations.SelectMany(p => p.AmountsByMonth.Keys).Max();
                     _allMonths = new List<DateTime>();
 
                     for (var month = minMonth; month <= maxMonth; month = month.AddMonths(1))
