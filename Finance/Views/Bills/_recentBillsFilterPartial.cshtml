@@ -76,6 +76,12 @@
                     <span class="glyphicon glyphicon-filter"></span> <span>Bill Date from @Html.DisplayFor(m => m.DateFrom) to @Html.DisplayFor(m => m.DateTo)</span>
                 </div>
             }
+            @if (Model.DueDateFrom != null || Model.DueDateTo != null)
+            {
+                <div class="text-success">
+                    <span class="glyphicon glyphicon-filter"></span> <span>Due Date from @Html.DisplayFor(m => m.DueDateFrom) to @Html.DisplayFor(m => m.DueDateTo)</span>
+                </div>
+            }
             @if (Model.FilterMinAmount != null || Model.FilterMaxAmount != null)
             {
                 <div class="text-success">
@@ -106,6 +112,27 @@
                         </div>
                     </div>
 
+                </fieldset>
+                <fieldset>
+                    <legend>Due Date</legend>
+
+                    <div class="form-group @(Model.DueDateFrom.HasValue ? "has-success" : "")">
+                        <div class='input-group input-group-sm date' id='dueDatePickerFrom'>
+                            <input type="date" class="form-control input-sm" size="7" placeholder="From" name="@MVC.Bills.RecentBillsParams.dueDateFrom"
+                                   value="@Html.DisplayFor(m => m.DueDateFrom)" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group @(Model.DueDateTo.HasValue ? "has-success" : "")">
+                        <div class='input-group input-group-sm date' id='dueDatePickerTo'>
+                            <input type="date" class="form-control input-sm" size="7" placeholder="To" name="@MVC.Bills.RecentBillsParams.dueDateTo" value="@Html.DisplayFor(m => m.DueDateTo)" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
                 </fieldset>
                 <fieldset>
                     <legend>Amount</legend>
