@@ -13,10 +13,10 @@
                 </a>
                 @if (Model.FilterApprovedBills.HasValue || Model.FilterPaidBills.HasValue)
                 {
-                <em>
-                    <span class="glyphicon glyphicon-filter"></span><small>@(Model.FilterApprovedBills.HasValue ? ((Model.FilterApprovedBills == true) ? "Approved" : "Unapproved") : null)</small>
-                    <small>@(Model.FilterPaidBills.HasValue ? ((Model.FilterPaidBills == true) ? "Paid" : "Unpaid") : null)</small>
-                </em>
+                    <em>
+                        <span class="glyphicon glyphicon-filter"></span><small>@(Model.FilterApprovedBills.HasValue ? ((Model.FilterApprovedBills == true) ? "Approved" : "Unapproved") : null)</small>
+                        <small>@(Model.FilterPaidBills.HasValue ? ((Model.FilterPaidBills == true) ? "Paid" : "Unpaid") : null)</small>
+                    </em>
                 }
             </div>
         </div>
@@ -128,7 +128,11 @@
                 <div class="panel-title">
                     <a class="collapsed" data-toggle="collapse" href="#fsContractors" aria-expanded="false" aria-controls="fsContractors">
                         <span class="caret"></span> Contractors
-                        @if (!Model.SelectedContracatorsCount.HasValue)
+                        @if (Model.SelectedContracatorsCount.HasValue)
+                        {
+                            <span class="glyphicon glyphicon-filter"></span>
+                        }
+                        else
                         {
                         <span class="badge">@Model.Contractors.Count</span>
                         }
@@ -137,9 +141,6 @@
                 @if (Model.SelectedContracatorsCount.HasValue)
                 {
                     <ul class="list-unstyled text-success">
-                        <li>
-                            <span class="glyphicon glyphicon-filter"></span>
-                        </li>
                         @for (var i = 0; i < Model.Contractors.Count; ++i)
                         {
                             if (Model.Contractors[i].Selected)
@@ -157,20 +158,20 @@
                 <div class="panel-body">
                     @for (var i = 0; i < Model.Contractors.Count; ++i)
                     {
-                    <div class="@(Model.Contractors[i].Selected ? "has-success" : (string)null)">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.contractors" value="@Model.Contractors[i].Id" checked="@Model.Contractors[i].Selected" />
-                                @Html.DisplayFor(m => m.Contractors[i].Name)
-                                <small style="white-space:nowrap">
-                                    <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.contractors, Model.Contractors[i].Id))">
-                                        only
-                                        <span class="badge">@Html.DisplayFor(m => m.Contractors[i].Count)</span>
-                                    </a>
-                                </small>
-                            </label>
+                        <div class="@(Model.Contractors[i].Selected ? "has-success" : (string)null)">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.contractors" value="@Model.Contractors[i].Id" checked="@Model.Contractors[i].Selected" />
+                                    @Html.DisplayFor(m => m.Contractors[i].Name)
+                                    <small style="white-space:nowrap">
+                                        <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.contractors, Model.Contractors[i].Id))">
+                                            only
+                                            <span class="badge">@Html.DisplayFor(m => m.Contractors[i].Count)</span>
+                                        </a>
+                                    </small>
+                                </label>
+                            </div>
                         </div>
-                    </div>
                     }
                 </div>
             </div>
@@ -186,27 +187,27 @@
                         <span class="caret"></span> Division
                         @if (!Model.SelectedDivisionsCount.HasValue && !Model.SelectedStationsCount.HasValue)
                         {
-                        <span class="badge">@Model.Divisions.Count</span>
+                            <span class="badge">@Model.Divisions.Count</span>
                         }
                         @@Station
                         @if (!Model.SelectedDivisionsCount.HasValue && !Model.SelectedStationsCount.HasValue)
                         {
-                        <span class="badge">@Model.Stations.Count</span>
+                            <span class="badge">@Model.Stations.Count</span>
                         }
                     </a>
                     @if (Model.SelectedDivisionsCount.HasValue || Model.SelectedStationsCount.HasValue)
                     {
-                    <div>
-                        <small>              <span class="glyphicon glyphicon-filter"></span></small>
-                        @if (Model.SelectedDivisionsCount.HasValue)
+                        <div>
+                            <small>              <span class="glyphicon glyphicon-filter"></span></small>
+                            @if (Model.SelectedDivisionsCount.HasValue)
                             {
-                            <small> @Html.DisplayFor(m => m.SelectedDivisionsCount) Division(s)</small>
+                                <small> @Html.DisplayFor(m => m.SelectedDivisionsCount) Division(s)</small>
                             }
-                        @if (Model.SelectedStationsCount.HasValue)
+                            @if (Model.SelectedStationsCount.HasValue)
                             {
-                            <small>@Html.DisplayFor(m => m.SelectedStationsCount) Stations(s)</small>
+                                <small>@Html.DisplayFor(m => m.SelectedStationsCount) Stations(s)</small>
                             }
-                    </div>
+                        </div>
                     }
                 </div>
             </div>
@@ -214,40 +215,40 @@
                 <div class="panel-body">
                     @for (var i = 0; i < Model.Divisions.Count; ++i)
                     {
-                    <div class="@(Model.Divisions[i].Selected ? "has-success" : (string)null)">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.divisions" value="@Model.Divisions[i].Id" checked="@Model.Divisions[i].Selected">
-                                @Html.DisplayFor(m => m.Divisions[i].Name)
-                                <small style="white-space:nowrap">
-                                    <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.divisions, Model.Divisions[i].Id))">
-                                        only
-                                        <span class="badge"> @Html.DisplayFor(m => m.Divisions[i].Count)</span>
-                                    </a>
-                                </small>
-                            </label>
+                        <div class="@(Model.Divisions[i].Selected ? "has-success" : (string)null)">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.divisions" value="@Model.Divisions[i].Id" checked="@Model.Divisions[i].Selected">
+                                    @Html.DisplayFor(m => m.Divisions[i].Name)
+                                    <small style="white-space:nowrap">
+                                        <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.divisions, Model.Divisions[i].Id))">
+                                            only
+                                            <span class="badge"> @Html.DisplayFor(m => m.Divisions[i].Count)</span>
+                                        </a>
+                                    </small>
+                                </label>
+                            </div>
                         </div>
-                    </div>
                     }
 
                     <hr />
                     <div id="fsStations">
                         @for (var i = 0; i < Model.Stations.Count; ++i)
                         {
-                        <div class="@(Model.Stations[i].Selected ? "has-success" : (string)null)">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.stations" value="@Model.Stations[i].Id" checked="@Model.Stations[i].Selected" />
-                                    @Html.DisplayFor(m => m.Stations[i].Name)
-                                    <small style="white-space:nowrap">
-                                        <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.stations, Model.Stations[i].Id))">
-                                            only
-                                            <span class="badge">@Html.DisplayFor(m => m.Stations[i].Count)</span>
-                                        </a>
-                                    </small>
-                                </label>
+                            <div class="@(Model.Stations[i].Selected ? "has-success" : (string)null)">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="@MVC.Bills.RecentBillsParams.stations" value="@Model.Stations[i].Id" checked="@Model.Stations[i].Selected" />
+                                        @Html.DisplayFor(m => m.Stations[i].Name)
+                                        <small style="white-space:nowrap">
+                                            <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.stations, Model.Stations[i].Id))">
+                                                only
+                                                <span class="badge">@Html.DisplayFor(m => m.Stations[i].Count)</span>
+                                            </a>
+                                        </small>
+                                    </label>
+                                </div>
                             </div>
-                        </div>
                         }
                     </div>
                 </div>
@@ -263,12 +264,12 @@
                         <span class="caret"></span> &rarr; At Division
                         @if (!Model.SelectedProcessingDivisionsCount.HasValue)
                         {
-                        <span class="badge">@Model.ProcessingDivisions.Count()</span>
+                            <span class="badge">@Model.ProcessingDivisions.Count()</span>
                         }
                     </a>
                     @if (Model.SelectedProcessingDivisionsCount.HasValue)
                     {
-                    <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedProcessingDivisionsCount) Division(s)</em></small>
+                        <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedProcessingDivisionsCount) Division(s)</em></small>
                     }
                 </div>
             </div>
@@ -276,20 +277,20 @@
                 <div class="panel-body">
                     @for (var i = 0; i < Model.ProcessingDivisions.Count; ++i)
                     {
-                    <div class="@(Model.ProcessingDivisions[i].Selected ? "has-success" : (string)null)">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.processingDivisions" value="@Model.ProcessingDivisions[i].Id" checked="@Model.[i].Selected">
-                                @Html.DisplayFor(m => m.ProcessingDivisions[i].Name)
-                                <small style="white-space:nowrap">
-                                    <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.processingDivisions, Model.ProcessingDivisions[i].Id))">
-                                        only
-                                        <span class="badge"> @Html.DisplayFor(m => m.ProcessingDivisions[i].Count)</span>
-                                    </a>
-                                </small>
-                            </label>
+                        <div class="@(Model.ProcessingDivisions[i].Selected ? "has-success" : (string)null)">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.processingDivisions" value="@Model.ProcessingDivisions[i].Id" checked="@Model.[i].Selected">
+                                    @Html.DisplayFor(m => m.ProcessingDivisions[i].Name)
+                                    <small style="white-space:nowrap">
+                                        <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.processingDivisions, Model.ProcessingDivisions[i].Id))">
+                                            only
+                                            <span class="badge"> @Html.DisplayFor(m => m.ProcessingDivisions[i].Count)</span>
+                                        </a>
+                                    </small>
+                                </label>
+                            </div>
                         </div>
-                    </div>
                     }
                 </div>
             </div>
@@ -305,12 +306,12 @@
                         <span class="caret"></span> Approvers
                         @if (!Model.SelectedApproversCount.HasValue)
                         {
-                        <span class="badge">@Model.Approvers.Count</span>
+                            <span class="badge">@Model.Approvers.Count</span>
                         }
                     </a>
                     @if (Model.SelectedApproversCount.HasValue)
                     {
-                    <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedApproversCount) Approver(s)</em></small>
+                        <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedApproversCount) Approver(s)</em></small>
                     }
                 </div>
             </div>
@@ -318,44 +319,26 @@
                 <div class="panel-body">
                     @for (var i = 0; i < Model.Approvers.Count; ++i)
                     {
-                    <div class="@(Model.Approvers[i].Selected ? "has-success" : (string)null)">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="@MVC.Bills.RecentBillsParams.approvers" value="@Model.Approvers[i].Id" checked="@Model.Approvers[i].Selected">
-                                @Html.DisplayFor(m => m.Approvers[i].Name)
-                            </label>
-                            <small style="white-space:nowrap">
-                                <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.approvers, Model.Approvers[i].Id))">
-                                    only
-                                    <span class="badge">@Html.DisplayFor(m => m.Approvers[i].Count)</span>
-                                </a>
-                            </small>
+                        <div class="@(Model.Approvers[i].Selected ? "has-success" : (string)null)">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.approvers" value="@Model.Approvers[i].Id" checked="@Model.Approvers[i].Selected">
+                                    @Html.DisplayFor(m => m.Approvers[i].Name)
+                                </label>
+                                <small style="white-space:nowrap">
+                                    <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.approvers, Model.Approvers[i].Id))">
+                                        only
+                                        <span class="badge">@Html.DisplayFor(m => m.Approvers[i].Count)</span>
+                                    </a>
+                                </small>
+                            </div>
                         </div>
-                    </div>
                     }
                 </div>
             </div>
         </div>
     }
 
-    <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
-            <div class="panel-title">
-                <a class="collapsed" data-toggle="collapse" href="#fsAmounts" aria-expanded="false" aria-controls="fsAmounts">
-                    <span class="caret"></span>  Amount (Nu.)
-                </a>
-                @if (Model.FilterMinAmount != null || Model.FilterMaxAmount != null)
-                {
-                    <em><span class="glyphicon glyphicon-filter"></span> <small>Min @Html.DisplayFor(m => m.FilterMinAmount) Max @Html.DisplayFor(m => m.FilterMaxAmount)</small></em>
-                }
-            </div>
-        </div>
-        <div id="fsAmounts" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-            <div class="panel-body" style="padding-left:1mm; padding-right:1mm">
-
-            </div>
-        </div>
-    </div>
     <button type="submit" class="btn btn-primary">Apply Filters</button>
     @if (Model.IsFiltered)
     {
