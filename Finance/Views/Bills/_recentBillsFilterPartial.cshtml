@@ -262,14 +262,30 @@
                 <div class="panel-title">
                     <a class="collapsed" data-toggle="collapse" href="#fsprocessingDivision" aria-expanded="false" aria-controls="fsprocessingDivision">
                         <span class="caret"></span> &rarr; At Division
-                        @if (!Model.SelectedProcessingDivisionsCount.HasValue)
+                        @if (Model.SelectedProcessingDivisionsCount.HasValue)
                         {
-                            <span class="badge">@Model.ProcessingDivisions.Count()</span>
+                            <span class="glyphicon glyphicon-filter"></span>
+                        }
+                        else
+                        {
+                            <span class="badge">@Model.ProcessingDivisions.Count</span>
                         }
                     </a>
                     @if (Model.SelectedProcessingDivisionsCount.HasValue)
                     {
-                        <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedProcessingDivisionsCount) Division(s)</em></small>
+                        <ul class="list-unstyled text-success">
+                            @for (var i = 0; i < Model.ProcessingDivisions.Count; ++i)
+                            {
+                                if (Model.ProcessingDivisions[i].Selected)
+                                {
+                                    <li style="white-space: nowrap; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; max-width: 12em;">
+                                        @Html.DisplayFor(m => m.ProcessingDivisions[i].Name)
+                                    </li>
+                                }
+                            }
+                        </ul>
+
+                        @*<small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedProcessingDivisionsCount) Division(s)</em></small>*@
                     }
                 </div>
             </div>
@@ -304,14 +320,31 @@
                 <div class="panel-title">
                     <a class="collapsed" data-toggle="collapse" href="#fsApprovers" aria-expanded="false" aria-controls="fsApprovers">
                         <span class="caret"></span> Approvers
-                        @if (!Model.SelectedApproversCount.HasValue)
+                        @if (Model.SelectedApproversCount.HasValue)
+                        {
+                            <span class="glyphicon glyphicon-filter"></span>
+                        }
+                        else
                         {
                             <span class="badge">@Model.Approvers.Count</span>
                         }
+
                     </a>
                     @if (Model.SelectedApproversCount.HasValue)
                     {
-                        <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedApproversCount) Approver(s)</em></small>
+                        <ul class="list-unstyled text-success">
+                            @for (var i = 0; i < Model.Approvers.Count; ++i)
+                            {
+                                if (Model.Approvers[i].Selected)
+                                {
+                                    <li style="white-space: nowrap; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; max-width: 12em;">
+                                        @Html.DisplayFor(m => m.Approvers[i].Name)
+                                    </li>
+                                }
+                            }
+                        </ul>
+
+                        @*<small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedApproversCount) Approver(s)</em></small>*@
                     }
                 </div>
             </div>
