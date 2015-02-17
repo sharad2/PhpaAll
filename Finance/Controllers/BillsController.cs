@@ -42,7 +42,7 @@ namespace PhpaAll.Controllers
         /// <returns></returns>
         [Authorize(Roles = "BillsExecutive")]
         public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] processingDivisions, int?[] contractors, int?[] stations,
-            DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount, bool? approved, bool? paid, bool exportToExcel = false)
+            DateTime? dateFrom, DateTime? dateTo, DateTime? dueDateFrom, DateTime? dueDateTo, Decimal? minAmount, Decimal? maxAmount, bool? approved, bool? paid, bool exportToExcel = false)
         {
 
             var query = from bill in _db.Value.Bills
@@ -81,7 +81,7 @@ namespace PhpaAll.Controllers
                                  Name = g.Select(p => p.DivisionName).FirstOrDefault(),
                                  Count = g.Sum(p => p.Count),
                                  Selected = divisions == null || divisions.Contains(g.Key)
-                             }).ToList(),
+                             }).OrderBy(p => p.Name).ToList(),
                 ProcessingDivisions = (from d in aggQuery
                                        group d by d.CurrentDivisionId into g
                                        select new RecentBillsFilterModel
@@ -90,7 +90,7 @@ namespace PhpaAll.Controllers
                                            Name = g.Select(p => p.CurrentDivisionName).FirstOrDefault(),
                                            Count = g.Sum(p => p.Count),
                                            Selected = processingDivisions == null || processingDivisions.Contains(g.Key)
-                                       }).ToList(),
+                                       }).OrderBy(p => p.Name).ToList(),
                 Contractors = (from d in aggQuery
                                group d by d.ContractorId into g
                                select new RecentBillsFilterModel
@@ -108,7 +108,7 @@ namespace PhpaAll.Controllers
                                  Name = g.Key,
                                  Count = g.Sum(p => p.Count),
                                  Selected = approvers == null || approvers.Any(p => string.Compare(p.Trim(), g.Key, true) == 0)
-                             }).ToList(),
+                             }).OrderBy(p => p.Name).ToList(),
 
                 Stations = (from d in aggQuery
                             group d by d.StationId into g
@@ -118,7 +118,7 @@ namespace PhpaAll.Controllers
                                 Name = g.Select(p => p.StationName).FirstOrDefault(),
                                 Count = g.Sum(p => p.Count),
                                 Selected = stations == null || stations.Contains(g.Key)
-                            }).ToList(),
+                            }).OrderBy(p => p.Name).ToList(),
                 UrlExcel = Request.RawUrl
             };
 
@@ -170,6 +170,21 @@ namespace PhpaAll.Controllers
                 model.DateTo = dateTo;
             }
 
+            // Assume that there will always be two due dates
+            if (dueDateFrom != null)
+            {
+                // From Date
+                filteredBills = filteredBills.Where(p => p.DueDate >= dueDateFrom);
+                model.IsFiltered = true;
+                model.DueDateFrom = dueDateFrom;
+            }
+            if (dueDateTo != null)
+            {
+                // From Date
+                filteredBills = filteredBills.Where(p => p.DueDate <= dueDateTo);
+                model.IsFiltered = true;
+                model.DueDateTo = dueDateTo;
+            }
             // Assume that there will always min and max amount value
             if (minAmount != null)
             {
@@ -256,7 +271,7 @@ namespace PhpaAll.Controllers
         [Authorize(Roles = "BillsManager")]
         [HttpPost]
         public virtual ActionResult ApproveBills(int[] listBillId, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors,
-                                                int[] stations, DateTime? dateFrom, DateTime? dateTo, Decimal? minAmount, Decimal? maxAmount,
+                                                int[] stations, DateTime? dateFrom, DateTime? dateTo, DateTime? dueDateFrom, DateTime? dueDateTo, Decimal? minAmount, Decimal? maxAmount,
                                                 bool approve, bool? approvedFilter, bool? paidFilter)
         {
             if (string.IsNullOrWhiteSpace(User.Identity.Name))
@@ -333,6 +348,16 @@ namespace PhpaAll.Controllers
             if (dateTo != null)
             {
                 dict.Add(Actions.RecentBillsParams.dateTo, new [] { dateTo.Value });
+            }
+
+            if (dueDateFrom != null)
+            {
+                dict.Add(Actions.RecentBillsParams.dueDateFrom, new[] { dueDateFrom.Value });
+            }
+
+            if (dueDateTo != null)
+            {
+                dict.Add(Actions.RecentBillsParams.dueDateTo, new[] { dueDateTo.Value });
             }
 
             if (approvedFilter.HasValue)

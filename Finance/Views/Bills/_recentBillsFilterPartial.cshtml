@@ -13,10 +13,9 @@
                 </a>
                 @if (Model.FilterApprovedBills.HasValue || Model.FilterPaidBills.HasValue)
                 {
-                    <em>
-                        <span class="glyphicon glyphicon-filter"></span><small>@(Model.FilterApprovedBills.HasValue ? ((Model.FilterApprovedBills == true) ? "Approved" : "Unapproved") : null)</small>
-                        <small>@(Model.FilterPaidBills.HasValue ? ((Model.FilterPaidBills == true) ? "Paid" : "Unpaid") : null)</small>
-                    </em>
+                    <span class="glyphicon glyphicon-filter"></span><small>@(Model.FilterApprovedBills.HasValue ? ((Model.FilterApprovedBills == true) ? "Approved" : "Unapproved") : null)</small>
+                    <small>@(Model.FilterPaidBills.HasValue ? ((Model.FilterPaidBills == true) ? "Paid" : "Unpaid") : null)</small>
+
                 }
             </div>
         </div>
@@ -77,6 +76,12 @@
                     <span class="glyphicon glyphicon-filter"></span> <span>Bill Date from @Html.DisplayFor(m => m.DateFrom) to @Html.DisplayFor(m => m.DateTo)</span>
                 </div>
             }
+            @if (Model.DueDateFrom != null || Model.DueDateTo != null)
+            {
+                <div class="text-success">
+                    <span class="glyphicon glyphicon-filter"></span> <span>Due Date from @Html.DisplayFor(m => m.DueDateFrom) to @Html.DisplayFor(m => m.DueDateTo)</span>
+                </div>
+            }
             @if (Model.FilterMinAmount != null || Model.FilterMaxAmount != null)
             {
                 <div class="text-success">
@@ -109,6 +114,27 @@
 
                 </fieldset>
                 <fieldset>
+                    <legend>Due Date</legend>
+
+                    <div class="form-group @(Model.DueDateFrom.HasValue ? "has-success" : "")">
+                        <div class='input-group input-group-sm date' id='dueDatePickerFrom'>
+                            <input type="date" class="form-control input-sm" size="7" placeholder="From" name="@MVC.Bills.RecentBillsParams.dueDateFrom"
+                                   value="@Html.DisplayFor(m => m.DueDateFrom)" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group @(Model.DueDateTo.HasValue ? "has-success" : "")">
+                        <div class='input-group input-group-sm date' id='dueDatePickerTo'>
+                            <input type="date" class="form-control input-sm" size="7" placeholder="To" name="@MVC.Bills.RecentBillsParams.dueDateTo" value="@Html.DisplayFor(m => m.DueDateTo)" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
                     <legend>Amount</legend>
                     <div class="form-group @(Model.FilterMinAmount.HasValue ? "has-success" : "")">
                         <input type="number" class="form-control input-sm" size="8" placeholder="Min" name="@MVC.Bills.RecentBillsParams.minAmount" value="@Model.FilterMinAmount" />
@@ -134,7 +160,7 @@
                         }
                         else
                         {
-                        <span class="badge">@Model.Contractors.Count</span>
+                            <span class="badge">@Model.Contractors.Count</span>
                         }
                     </a>
                 </div>
@@ -185,12 +211,20 @@
                 <div class="panel-title">
                     <a class="collapsed" data-toggle="collapse" href="#fsDivisions" aria-expanded="false" aria-controls="fsDivisions">
                         <span class="caret"></span> Division
-                        @if (!Model.SelectedDivisionsCount.HasValue && !Model.SelectedStationsCount.HasValue)
+                        @if (Model.SelectedDivisionsCount.HasValue)
+                        {
+                            <span class="glyphicon glyphicon-filter"></span>
+                        }
+                        else
                         {
                             <span class="badge">@Model.Divisions.Count</span>
                         }
                         @@Station
-                        @if (!Model.SelectedDivisionsCount.HasValue && !Model.SelectedStationsCount.HasValue)
+                        @if (Model.SelectedStationsCount.HasValue)
+                        {
+                            <span class="glyphicon glyphicon-filter"></span>
+                        }
+                        else
                         {
                             <span class="badge">@Model.Stations.Count</span>
                         }
@@ -198,14 +232,35 @@
                     @if (Model.SelectedDivisionsCount.HasValue || Model.SelectedStationsCount.HasValue)
                     {
                         <div>
-                            <small>              <span class="glyphicon glyphicon-filter"></span></small>
                             @if (Model.SelectedDivisionsCount.HasValue)
                             {
-                                <small> @Html.DisplayFor(m => m.SelectedDivisionsCount) Division(s)</small>
+                                <ul class="list-unstyled text-success">
+                                    @for (var i = 0; i < Model.Divisions.Count; ++i)
+                                    {
+                                        if (Model.Divisions[i].Selected)
+                                        {
+                                            <li style="white-space: nowrap; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; max-width: 12em;">
+                                                @Html.DisplayFor(m => m.Divisions[i].Name)
+                                            </li>
+                                        }
+                                    }
+                                </ul>
                             }
                             @if (Model.SelectedStationsCount.HasValue)
                             {
-                                <small>@Html.DisplayFor(m => m.SelectedStationsCount) Stations(s)</small>
+                                <ul class="list-unstyled text-success">
+                                    @@
+                                    @for (var i = 0; i < Model.Stations.Count; ++i)
+                                    {
+                                        if (Model.Stations[i].Selected)
+                                        {
+                                            <li style="white-space: nowrap; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; max-width: 12em;">
+                                                @Html.DisplayFor(m => m.Stations[i].Name)
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+
                             }
                         </div>
                     }
@@ -378,4 +433,3 @@
         <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
     }
 </form>
-

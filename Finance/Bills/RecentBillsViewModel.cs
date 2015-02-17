@@ -126,6 +126,12 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? DateTo { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTime? DueDateFrom { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTime? DueDateTo { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public Decimal? FilterMinAmount { get; set; }
 

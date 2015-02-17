@@ -8,7 +8,7 @@
         $(document).ready(function () {
 
 
-            $("#billDatePickerTo,#billDatePickerFrom,#billApproveDatePicker").datetimepicker({
+            $("#billDatePickerTo,#billDatePickerFrom,#dueDatePickerFrom,#dueDatePickerTo,#billApproveDatePicker").datetimepicker({
                 format: 'D/M/YYYY'
             });
 
@@ -120,6 +120,14 @@
                 @if (Model.DateTo != null)
                 {
                     <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dateTo" value="@Model.DateTo.Value" />
+                }
+                @if (Model.DueDateFrom != null)
+                {
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dueDateFrom" value="@Model.DueDateFrom.Value" />
+                }
+                @if (Model.DueDateTo != null)
+                {
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dueDateTo" value="@Model.DueDateTo.Value" />
                 }
                 @if (Model.FilterMinAmount != null)
                 {
