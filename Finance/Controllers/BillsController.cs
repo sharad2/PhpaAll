@@ -15,7 +15,7 @@ namespace PhpaAll.Controllers
     /// This controller contains all readonly bill actions
     /// </summary>
     [Authorize(Roles = "Bills")]
-    public partial class BillsController : Controller
+    public partial class BillsController : PhpaBaseController
     {
 
         private Lazy<PhpaBillsDataContext> _db;

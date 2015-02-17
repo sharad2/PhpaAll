@@ -12,7 +12,7 @@ using System.Web.Security;
 
 namespace PhpaAll.Controllers
 {
-    public partial class BillsHomeController : Controller
+    public partial class BillsHomeController : PhpaBaseController
     {
         private Lazy<PhpaBillsDataContext> _db;
         private Lazy<ReportingDataContext> _dbReporting;
