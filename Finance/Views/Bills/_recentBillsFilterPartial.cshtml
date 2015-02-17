@@ -13,8 +13,8 @@
                 </a>
                 @if (Model.FilterApprovedBills.HasValue || Model.FilterPaidBills.HasValue)
                 {
-                        <span class="glyphicon glyphicon-filter"></span><small>@(Model.FilterApprovedBills.HasValue ? ((Model.FilterApprovedBills == true) ? "Approved" : "Unapproved") : null)</small>
-                        <small>@(Model.FilterPaidBills.HasValue ? ((Model.FilterPaidBills == true) ? "Paid" : "Unpaid") : null)</small>
+                    <span class="glyphicon glyphicon-filter"></span><small>@(Model.FilterApprovedBills.HasValue ? ((Model.FilterApprovedBills == true) ? "Approved" : "Unapproved") : null)</small>
+                    <small>@(Model.FilterPaidBills.HasValue ? ((Model.FilterPaidBills == true) ? "Paid" : "Unpaid") : null)</small>
 
                 }
             </div>
@@ -133,7 +133,7 @@
                         }
                         else
                         {
-                        <span class="badge">@Model.Contractors.Count</span>
+                            <span class="badge">@Model.Contractors.Count</span>
                         }
                     </a>
                 </div>
@@ -184,12 +184,20 @@
                 <div class="panel-title">
                     <a class="collapsed" data-toggle="collapse" href="#fsDivisions" aria-expanded="false" aria-controls="fsDivisions">
                         <span class="caret"></span> Division
-                        @if (!Model.SelectedDivisionsCount.HasValue && !Model.SelectedStationsCount.HasValue)
+                        @if (Model.SelectedDivisionsCount.HasValue)
+                        {
+                            <span class="glyphicon glyphicon-filter"></span>
+                        }
+                        else
                         {
                             <span class="badge">@Model.Divisions.Count</span>
                         }
                         @@Station
-                        @if (!Model.SelectedDivisionsCount.HasValue && !Model.SelectedStationsCount.HasValue)
+                        @if (Model.SelectedStationsCount.HasValue)
+                        {
+                            <span class="glyphicon glyphicon-filter"></span>
+                        }
+                        else
                         {
                             <span class="badge">@Model.Stations.Count</span>
                         }
@@ -197,14 +205,35 @@
                     @if (Model.SelectedDivisionsCount.HasValue || Model.SelectedStationsCount.HasValue)
                     {
                         <div>
-                            <small>              <span class="glyphicon glyphicon-filter"></span></small>
                             @if (Model.SelectedDivisionsCount.HasValue)
                             {
-                                <small> @Html.DisplayFor(m => m.SelectedDivisionsCount) Division(s)</small>
+                                <ul class="list-unstyled text-success">
+                                    @for (var i = 0; i < Model.Divisions.Count; ++i)
+                                    {
+                                        if (Model.Divisions[i].Selected)
+                                        {
+                                            <li style="white-space: nowrap; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; max-width: 12em;">
+                                                @Html.DisplayFor(m => m.Divisions[i].Name)
+                                            </li>
+                                        }
+                                    }
+                                </ul>
                             }
                             @if (Model.SelectedStationsCount.HasValue)
                             {
-                                <small>@Html.DisplayFor(m => m.SelectedStationsCount) Stations(s)</small>
+                                <ul class="list-unstyled text-success">
+                                    @@
+                                    @for (var i = 0; i < Model.Stations.Count; ++i)
+                                    {
+                                        if (Model.Stations[i].Selected)
+                                        {
+                                            <li style="white-space: nowrap; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; max-width: 12em;">
+                                                @Html.DisplayFor(m => m.Stations[i].Name)
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+
                             }
                         </div>
                     }
@@ -377,4 +406,3 @@
         <a href="@Url.Action(MVC.Bills.RecentBills())">Reset Filters</a>
     }
 </form>
-
