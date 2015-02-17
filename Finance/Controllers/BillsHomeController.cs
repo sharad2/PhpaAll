@@ -1,7 +1,9 @@
-﻿using PhpaAll.Bills;
+﻿using Eclipse.PhpaLibrary.Reporting;
+using PhpaAll.Bills;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
@@ -13,12 +15,14 @@ namespace PhpaAll.Controllers
     public partial class BillsHomeController : Controller
     {
         private Lazy<PhpaBillsDataContext> _db;
+        private Lazy<ReportingDataContext> _dbReporting;
 
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
 
             _db = new Lazy<PhpaBillsDataContext>(() => new PhpaBillsDataContext(requestContext.HttpContext));
+            _dbReporting = new Lazy<ReportingDataContext>(() => new ReportingDataContext(ConfigurationManager.ConnectionStrings["default"].ConnectionString));
         }
 
         protected override void Dispose(bool disposing)
@@ -27,12 +31,29 @@ namespace PhpaAll.Controllers
             {
                 _db.Value.Dispose();
             }
+            if (_dbReporting != null && _dbReporting.IsValueCreated)
+            {
+                _dbReporting.Value.Dispose();
+            }
             base.Dispose(disposing);
         }
 
         // GET: BillsHome
         public virtual ActionResult Index()
         {
+
+            var queryFunds = (from vd in _dbReporting.Value.RoVoucherDetails
+                             where vd.HeadOfAccount.HeadOfAccountId != null && vd.HeadOfAccount.StationId != null
+                                    && vd.HeadOfAccount.RoAccountType != null
+                                    && (vd.DebitAmount.HasValue || vd.CreditAmount.HasValue) &&
+                                    HeadOfAccountHelpers.AllBanks.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                             group vd by vd.HeadOfAccount.StationId into g
+                             select new
+                             {
+                                 StationId = g.Key,
+                                 Balance = -g.Sum(p => (p.CreditAmount ?? 0) - (p.DebitAmount ?? 0)),
+                             }).ToDictionary(p => p.StationId, p => p.Balance);
+            //var x = queryFunds.ToList();
             var minDate = DateTime.Today;
             var maxDate = minDate.AddMonths(12);
             var query = (from bill in _db.Value.Bills
@@ -48,11 +69,12 @@ namespace PhpaAll.Controllers
                          } into g
                          select new
                          {
-                             StationName = g.Key.Station.StationName,
+                             Station = g.Key.Station,
+                             //StationName = g.Key.Station.StationName,
                              DueInMonth = g.Key.DueInMonth,
                              DueInYear = g.Key.DueInYear,
                              Amount = g.Sum(p => p.Amount)
-                         }).ToLookup(p => p.StationName);
+                         }).ToLookup(p => p.Station);
 
             var model = new BillHomeIndexViewModel
             {
@@ -62,8 +84,8 @@ namespace PhpaAll.Controllers
             {
                 var station = new BillHomeIndexStationModel
                 {
-                    StationName = group.Key,
-                    FundsAvailable = 1234
+                    StationName = group.Key.StationName,
+                    FundsAvailable = queryFunds.ContainsKey(group.Key.StationId) ? queryFunds[group.Key.StationId] : (decimal?)null
                 };
                 foreach (var p in group)
                 {
@@ -74,11 +96,6 @@ namespace PhpaAll.Controllers
                         Amount = p.Amount
                     };
                 }
-                //station.Amounts[Mo = group.Select(p => new BillHomeStationAmountModel
-                //{
-                //    DueInMonth = p.DueInMonth,
-                //    Amount = p.Amount
-                //}).ToList()
                 model.Stations.Add(station);
             }
 
