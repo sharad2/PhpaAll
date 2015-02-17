@@ -147,6 +147,16 @@ namespace PhpaAll.Controllers
         [HttpPost]
         public virtual ActionResult UpdateOrDelete(EditViewModel model, bool? delete)
         {
+            if (!ModelState.IsValid)
+            {
+                model.StationList = _db.Value.Stations.Select(p => new SelectListItem
+                {
+                    Text = p.StationName,
+                    Value = p.StationId.ToString()
+                });
+                return View(Views.Edit, model);
+            }
+
             if (delete.HasValue && delete.Value)
             {
                 return DeleteBill(model.Id);
