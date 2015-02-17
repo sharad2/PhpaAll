@@ -72,10 +72,10 @@
         @for (var i = 0; i < Model.Stations.Count; ++i)
         {
             <tr>
-                <td>
+                <td style="font-weight:bold">
                     @Html.DisplayFor(m => m.Stations[i].StationName)
                 </td>
-                <td style="text-align:right">
+                <td style="text-align:right" class="text-primary">
                     @Html.DisplayFor(m => m.Stations[i].FundsAvailable)
                 </td>
                 @for (var j = 0; j < Model.AllMonths.Count; ++j)
