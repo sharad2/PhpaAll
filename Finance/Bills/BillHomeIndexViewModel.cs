@@ -6,27 +6,8 @@ using System.Web;
 
 namespace PhpaAll.Bills
 {
-    //public class BillHomeStationAmountModel
-    //{
-    //    //[DisplayFormat(DataFormatString = "{0:d}")]
-    //    //public DateTime MonthStartDate { get; set; }
-
-    //    [DisplayFormat (DataFormatString="{0:C}")]
-    //    public decimal? Amount { get; set; }
-    //}
-
     public class BillHomeIndexStationModel
     {
-        //public BillHomeIndexStationModel()
-        //{
-        //    AmountDictionary = new SortedList<DateTime, decimal?>();
-
-        //    //for (var i = 0; i < 12; ++i)
-        //    //{
-        //    //    Amounts.Add(null);
-        //    //}
-        //}
-
         [Key]
         public string StationName { get; set; }
 

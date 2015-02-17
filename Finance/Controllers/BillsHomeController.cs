@@ -43,52 +43,59 @@ namespace PhpaAll.Controllers
         {
 
             var queryFunds = (from vd in _dbReporting.Value.RoVoucherDetails
-                             where vd.HeadOfAccount.HeadOfAccountId != null && vd.HeadOfAccount.StationId != null
-                                    && vd.HeadOfAccount.RoAccountType != null
-                                    && (vd.DebitAmount.HasValue || vd.CreditAmount.HasValue) &&
-                                    HeadOfAccountHelpers.AllBanks.Contains(vd.HeadOfAccount.HeadOfAccountType)
-                             group vd by vd.HeadOfAccount.StationId into g
-                             select new
-                             {
-                                 StationId = g.Key,
-                                 Balance = -g.Sum(p => (p.CreditAmount ?? 0) - (p.DebitAmount ?? 0)),
-                             }).ToDictionary(p => p.StationId, p => p.Balance);
+                              where vd.HeadOfAccount.HeadOfAccountId != null && vd.HeadOfAccount.StationId != null
+                                     && vd.HeadOfAccount.RoAccountType != null
+                                     && (vd.DebitAmount.HasValue || vd.CreditAmount.HasValue) &&
+                                     HeadOfAccountHelpers.AllBanks.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                              group vd by vd.HeadOfAccount.StationId into g
+                              select new
+                              {
+                                  StationId = g.Key,
+                                  Balance = -g.Sum(p => (p.CreditAmount ?? 0) - (p.DebitAmount ?? 0)),
+                              }).ToDictionary(p => p.StationId, p => p.Balance);
             //var x = queryFunds.ToList();
             var minDate = DateTime.Today;
             var maxDate = minDate.AddMonths(12);
             var queryBills = (from bill in _db.Value.Bills
-                         where bill.Voucher == null  // Only unpaid bills
-                         let dueDate1 = bill.DueDate ?? minDate  // If due date not specified, it is due immediately
-                         let dueDate2 = dueDate1 <= minDate ? minDate : dueDate1  // bills due before today are due immediately
-                         let dueDateFinal = dueDate2 >= maxDate ? maxDate : dueDate2  // bills due after 12 months are clubbed together
-                         group bill by new
-                         {
-                             DueInMonth = dueDateFinal.Month,
-                             DueInYear = dueDateFinal.Year,
-                             Station = bill.Station
-                         } into g
-                         let minDueDate = g.Min(p => p.DueDate) ?? DateTime.Today
-                         select new
-                         {
-                             Station = g.Key.Station,
-                             MinDueDate = minDueDate <= minDate ? minDate : (minDueDate >= maxDate ? maxDate : minDueDate),
-                             Amount = g.Sum(p => p.Amount)
-                         }).ToLookup(p => p.Station);
+                              where bill.Voucher == null  // Only unpaid bills
+                              let dueDate1 = bill.DueDate ?? minDate  // If due date not specified, it is due immediately
+                              let dueDate2 = dueDate1 <= minDate ? minDate : dueDate1  // bills due before today are due immediately
+                              let dueDateFinal = dueDate2 >= maxDate ? maxDate : dueDate2  // bills due after 12 months are clubbed together
+                              group bill by new
+                              {
+                                  DueInMonth = dueDateFinal.Month,
+                                  DueInYear = dueDateFinal.Year,
+                                  Station = bill.Station
+                              } into g
+                              let minDueDate = g.Min(p => p.DueDate) ?? DateTime.Today
+                              select new
+                              {
+                                  Station = g.Key.Station,
+                                  MinDueDate = minDueDate <= minDate ? minDate : (minDueDate >= maxDate ? maxDate : minDueDate),
+                                  Amount = g.Sum(p => p.Amount)
+                              }).ToLookup(p => p.Station);
 
             var model = new BillHomeIndexViewModel
             {
-                Stations = new List<BillHomeIndexStationModel>()
+                Stations = (from item in queryBills
+                            select new BillHomeIndexStationModel
+                            {
+                                StationName = item.Key.StationName,
+                                FundsAvailable = queryFunds.ContainsKey(item.Key.StationId) ? queryFunds[item.Key.StationId] : (decimal?)null,
+                                AmountDictionary = item.ToDictionary(p => p.MinDueDate.MonthEndDate(), p => p.Amount)
+                            }).ToList()
             };
-            foreach (var group in queryBills)
-            {
-                var station = new BillHomeIndexStationModel
-                {
-                    StationName = group.Key.StationName,
-                    FundsAvailable = queryFunds.ContainsKey(group.Key.StationId) ? queryFunds[group.Key.StationId] : (decimal?)null,
-                    AmountDictionary = group.ToDictionary(p => p.MinDueDate.MonthEndDate(), p => p.Amount)
-                };
-                model.Stations.Add(station);
-            }
+
+            //foreach (var group in queryBills)
+            //{
+            //    var station = new BillHomeIndexStationModel
+            //    {
+            //        StationName = group.Key.StationName,
+            //        FundsAvailable = queryFunds.ContainsKey(group.Key.StationId) ? queryFunds[group.Key.StationId] : (decimal?)null,
+            //        AmountDictionary = group.ToDictionary(p => p.MinDueDate.MonthEndDate(), p => p.Amount)
+            //    };
+            //    model.Stations.Add(station);
+            //}
 
 
             return View(Views.Index, model);
