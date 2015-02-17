@@ -180,9 +180,11 @@ namespace PhpaAll.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _recentBillsFilterPartial = "_recentBillsFilterPartial";
                 public readonly string OutstandingBills = "OutstandingBills";
                 public readonly string RecentBills = "RecentBills";
             }
+            public readonly string _recentBillsFilterPartial = "~/Views/Bills/_recentBillsFilterPartial.cshtml";
             public readonly string OutstandingBills = "~/Views/Bills/OutstandingBills.cshtml";
             public readonly string RecentBills = "~/Views/Bills/RecentBills.cshtml";
         }

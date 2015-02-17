@@ -398,6 +398,7 @@
     <Content Include="Views\ManageBills\Create.min.js.map">
       <DependentUpon>Create.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Bills\_recentBillsFilterPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">
