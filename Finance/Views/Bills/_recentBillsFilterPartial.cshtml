@@ -13,10 +13,9 @@
                 </a>
                 @if (Model.FilterApprovedBills.HasValue || Model.FilterPaidBills.HasValue)
                 {
-                    <em>
                         <span class="glyphicon glyphicon-filter"></span><small>@(Model.FilterApprovedBills.HasValue ? ((Model.FilterApprovedBills == true) ? "Approved" : "Unapproved") : null)</small>
                         <small>@(Model.FilterPaidBills.HasValue ? ((Model.FilterPaidBills == true) ? "Paid" : "Unpaid") : null)</small>
-                    </em>
+
                 }
             </div>
         </div>
