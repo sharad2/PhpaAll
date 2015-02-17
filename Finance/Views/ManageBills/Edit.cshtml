@@ -8,7 +8,6 @@
     <span>Edit Bill <mark class="small">@Html.DisplayFor(m => m.BillNumber)</mark></span>
 </h2>
 
-
 <form action="@Url.Action(MVC.ManageBills.UpdateOrDelete())" method="post">
     @Html.HiddenFor(m => m.Id)
     <div class="well well-sm">
@@ -21,7 +20,6 @@
            {
                id = "billDate",
                @class = "form-control",
-               @required = "required",
                @placeholder = "dd/mm/yyyy"
            })
                         <span class="input-group-addon">
@@ -76,8 +74,7 @@
                                    {
                                        id = "billNumber",
                                        maxlength = "60",
-                                       @class = "form-control",
-                                       @required = "required"
+                                       @class = "form-control"                      
                                    })
                     @Html.ValidationMessageFor(m => m.BillNumber)
 
@@ -108,7 +105,6 @@
                @class = "form-control",
                min = "0",
                type = "number",
-               @required = "required",
                placeholder = "Amount(Nu)"
 
            })
@@ -122,7 +118,7 @@
                 <div class="form-group">
                     <label for="tbDivision">Division *</label>
                     <div class="input-group input-group-sm">
-                        <input type="text" id="tbDivision" class="form-control typeahead" value="@Model.DivisionName" required placeholder="Start typing..."
+                        <input type="text" id="tbDivision" class="form-control typeahead" value="@Model.DivisionName" placeholder="Start typing..."
                                data-url="@Url.Action(MVC.ManageBills.GetDivision("~"))" />
                         <span class="input-group-btn ">
                             <button class="btn btn-default" type="button" tabindex="-1"><span class="glyphicon glyphicon-search"></span></button>
@@ -140,9 +136,8 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon">@@</span>
                         @Html.DropDownListFor(m => m.StationId, Model.StationList, "Not Set",
-                    new { @class = "form-control", @required = "required", id = "ddlStation" })
+                    new { @class = "form-control", id = "ddlStation" })
                         @Html.ValidationMessageFor(m => m.StationId)
-
                     </div>
                     @Html.HiddenFor(m => m.StationId)
 
@@ -152,7 +147,7 @@
                 <div class="form-group">
                     <label for="tbAtDivision">At Division</label>
                     <div class="input-group input-group-sm">
-                        <input type="text" id="tbAtDivision" class="form-control typeahead" value="@Model.AtDivisionName" required placeholder="Start typing..."
+                        <input type="text" id="tbAtDivision" class="form-control typeahead" value="@Model.AtDivisionName" placeholder="Start typing..."
                                data-url="@Url.Action(MVC.ManageBills.GetDivision("~"))" />
                         <span class="input-group-btn ">
                             <button class="btn btn-default" type="button" tabindex="-1"><span class="glyphicon glyphicon-search"></span></button>
@@ -167,7 +162,7 @@
                 <div class="form-group">
                     <label for="tbContractor">Contractor</label>
                     <div class="input-group input-group-sm">
-                        <input type="text" id="tbContractor" class="form-control typeahead" value="@Model.ContractorName" required placeholder="Start typing..."
+                        <input type="text" id="tbContractor" class="form-control typeahead" value="@Model.ContractorName" placeholder="Start typing..."
                                data-url="@Url.Action(MVC.ManageBills.GetContractor("~"))" />
                         <span class="input-group-btn ">
                             <button class="btn btn-default" type="button" tabindex="-1"><span class="glyphicon glyphicon-search"></span></button>
@@ -247,7 +242,6 @@
                 }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
                     // Store the id of the selected division in the hdden field
                     //$('#hfDivisionId').val(sug.value);
-                    alert('Hi');
                     $(this).closest('div.form-group').find('input:not(".typeahead")').val(sug.value);
                 }).on('input', function (e) {
                     // When user changes the divisionId, empty the hidden field

@@ -1,7 +1,9 @@
-﻿using PhpaAll.Bills;
+﻿using Eclipse.PhpaLibrary.Reporting;
+using PhpaAll.Bills;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
@@ -10,15 +12,17 @@ using System.Web.Security;
 
 namespace PhpaAll.Controllers
 {
-    public partial class BillsHomeController : Controller
+    public partial class BillsHomeController : PhpaBaseController
     {
         private Lazy<PhpaBillsDataContext> _db;
+        private Lazy<ReportingDataContext> _dbReporting;
 
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
 
             _db = new Lazy<PhpaBillsDataContext>(() => new PhpaBillsDataContext(requestContext.HttpContext));
+            _dbReporting = new Lazy<ReportingDataContext>(() => new ReportingDataContext(ConfigurationManager.ConnectionStrings["default"].ConnectionString));
         }
 
         protected override void Dispose(bool disposing)
@@ -27,60 +31,61 @@ namespace PhpaAll.Controllers
             {
                 _db.Value.Dispose();
             }
+            if (_dbReporting != null && _dbReporting.IsValueCreated)
+            {
+                _dbReporting.Value.Dispose();
+            }
             base.Dispose(disposing);
         }
 
         // GET: BillsHome
         public virtual ActionResult Index()
         {
+
+            var queryFunds = (from vd in _dbReporting.Value.RoVoucherDetails
+                              where vd.HeadOfAccount.HeadOfAccountId != null && vd.HeadOfAccount.StationId != null
+                                     && vd.HeadOfAccount.RoAccountType != null
+                                     && (vd.DebitAmount.HasValue || vd.CreditAmount.HasValue) &&
+                                     HeadOfAccountHelpers.AllBanks.Contains(vd.HeadOfAccount.HeadOfAccountType)
+                              group vd by vd.HeadOfAccount.StationId into g
+                              select new
+                              {
+                                  StationId = g.Key,
+                                  Balance = -g.Sum(p => (p.CreditAmount ?? 0) - (p.DebitAmount ?? 0)),
+                              }).ToDictionary(p => p.StationId, p => p.Balance);
+            //var x = queryFunds.ToList();
             var minDate = DateTime.Today;
             var maxDate = minDate.AddMonths(12);
-            var query = (from bill in _db.Value.Bills
-                         where bill.Voucher == null
-                         let dueDate1 = bill.DueDate ?? minDate
-                         let dueDate2 = dueDate1 <= minDate ? minDate : dueDate1
-                         let dueDate3 = dueDate2 >= maxDate ? maxDate : dueDate2
-                         group bill by new
-                         {
-                             DueInMonth = dueDate3.Month,
-                             DueInYear = dueDate3.Year,
-                             bill.Station
-                         } into g
-                         select new
-                         {
-                             StationName = g.Key.Station.StationName,
-                             DueInMonth = g.Key.DueInMonth,
-                             DueInYear = g.Key.DueInYear,
-                             Amount = g.Sum(p => p.Amount)
-                         }).ToLookup(p => p.StationName);
+            var queryBills = (from bill in _db.Value.Bills
+                              where bill.Voucher == null  // Only unpaid bills
+                              let dueDate1 = bill.DueDate ?? minDate  // If due date not specified, it is due immediately
+                              let dueDate2 = dueDate1 <= minDate ? minDate : dueDate1  // bills due before today are due immediately
+                              let dueDateFinal = dueDate2 >= maxDate ? maxDate : dueDate2  // bills due after 12 months are clubbed together
+                              group bill by new
+                              {
+                                  DueInMonth = dueDateFinal.Month,
+                                  DueInYear = dueDateFinal.Year,
+                                  Station = bill.Station
+                              } into g
+                              let minDueDate = g.Min(p => p.DueDate) ?? DateTime.Today
+                              select new
+                              {
+                                  Station = g.Key.Station,
+                                  MinDueDate = minDueDate <= minDate ? minDate : (minDueDate >= maxDate ? maxDate : minDueDate),
+                                  Amount = g.Sum(p => p.Amount)
+                              }).ToLookup(p => p.Station);
 
             var model = new BillHomeIndexViewModel
             {
-                Stations = new List<BillHomeIndexStationModel>()
+                Stations = (from item in queryBills
+                            orderby item.Key.StationName
+                            select new BillHomeIndexStationModel
+                            {
+                                StationName = item.Key.StationName,
+                                FundsAvailable = queryFunds.ContainsKey(item.Key.StationId) ? queryFunds[item.Key.StationId] : (decimal?)null,
+                                AmountsByMonth = item.ToDictionary(p => p.MinDueDate.MonthEndDate(), p => p.Amount)
+                            }).ToList()
             };
-            foreach (var group in query)
-            {
-                var station = new BillHomeIndexStationModel
-                {
-                    StationName = group.Key,
-                    FundsAvailable = 1234
-                };
-                foreach (var p in group)
-                {
-                    var monthStart = new DateTime(p.DueInYear, p.DueInMonth, 1);
-                    station.AmountDictionary[monthStart] = new BillHomeStationAmountModel
-                    {
-                        MonthStartDate = monthStart,
-                        Amount = p.Amount
-                    };
-                }
-                //station.Amounts[Mo = group.Select(p => new BillHomeStationAmountModel
-                //{
-                //    DueInMonth = p.DueInMonth,
-                //    Amount = p.Amount
-                //}).ToList()
-                model.Stations.Add(station);
-            }
 
 
             return View(Views.Index, model);

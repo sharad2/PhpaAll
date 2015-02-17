@@ -443,6 +443,7 @@
     <Compile Include="Controllers\BillsController.cs" />
     <Compile Include="Controllers\BillsHomeController.cs" />
     <Compile Include="Controllers\ManageBillsController.cs" />
+    <Compile Include="Controllers\PhpaBaseController.cs" />
     <Compile Include="Controls\SearchEmployee.ascx.cs">
       <DependentUpon>SearchEmployee.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2031,6 +2032,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\PhpaBase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MIS\NestedMIS.master" />

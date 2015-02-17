@@ -54,8 +54,16 @@
             </th>
             @for (var i = 0; i < Model.AllMonths.Count; ++i)
             {
-                <th style="white-space:nowrap; text-align:right" >
-                    @string.Format("{0:MMM yy}", Model.AllMonths[i])
+                <th style="white-space:nowrap; text-align:right">
+                    @if (i == 0)
+                    {
+                        @:&le;
+                    }
+                    else if (i == Model.AllMonths.Count - 1)
+                    {
+                        @:&ge;
+                    }
+                    @string.Format("{0:MMM yyyy}", Model.AllMonths[i])
                 </th>
             }
         </tr>
@@ -64,80 +72,27 @@
         @for (var i = 0; i < Model.Stations.Count; ++i)
         {
             <tr>
-                <td>
+                <td style="font-weight:bold">
                     @Html.DisplayFor(m => m.Stations[i].StationName)
                 </td>
-                <td style="text-align:right">
+                <td style="text-align:right" class="text-primary">
                     @Html.DisplayFor(m => m.Stations[i].FundsAvailable)
                 </td>
                 @for (var j = 0; j < Model.AllMonths.Count; ++j)
                 {
                     <td style="text-align:right">
-                        @if (Model.Stations[i].AmountDictionary.ContainsKey(Model.AllMonths[j]))
+                        @if (Model.Stations[i].AmountsByMonth.ContainsKey(Model.AllMonths[j]))
                         {
                             <span>
-                                @Html.DisplayFor(m => m.Stations[i].AmountDictionary[Model.AllMonths[j]].Amount)
+                                @string.Format("{0:C}", Model.Stations[i].AmountsByMonth[Model.AllMonths[j]])
                             </span>
                         }
                     </td>
                 }
             </tr>
         }
-
-
-
     </tbody>
 </table>
-
-@*<div class="row">
-    <div class="col-md-4">
-        <div class="row">
-            <h4>Station wise Outstandings</h4>
-            <div class="col-md-8">
-                Wangdue<br />
-                Thimpu<br />
-                Phuntsholing
-            </div>
-            <div class="col-md-4">
-                5,000,000<br />
-                5,000,000<br />
-                5,000,000
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="row">
-            <h4>Division wise Outstandings</h4>
-            <div class="col-md-8">
-                MC1 (DAM)<br />
-                MC2 (HRT & Adit)<br />
-                MC3 (PH Complex)
-            </div>
-            <div class="col-md-4">
-                <ul>
-                    <li>5,000,000</li>
-                    <li>5,000,000</li>
-                    <li>5,000,000</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <h4>Contracotr wise Outstandings</h4>
-        <div class="col-md-8">
-            MC1 (DAM)<br />
-            MC2 (HRT & Adit)<br />
-            MC3 (PH Complex)
-        </div>
-        <div class="col-md-4">
-            <ul>
-                <li>5,000,000</li>
-                <li>5,000,000</li>
-                <li>5,000,000</li>
-            </ul>
-        </div>
-    </div>
-</div>*@
 
 <pre>
 Main features of the Bill Management module include:

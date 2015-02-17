@@ -13,7 +13,8 @@ using System.Web.UI.WebControls;
 
 namespace PhpaAll.Controllers
 {
-    public partial class ManageBillsController : Controller
+    [Authorize(Roles = "BillsOperator")]
+    public partial class ManageBillsController : PhpaBaseController
     {
         //[Obsolete]
         //private Lazy<ManageBillsService> _service;
@@ -46,7 +47,7 @@ namespace PhpaAll.Controllers
         public virtual ActionResult Create()
         {
             var model = new CreateViewModel();
-           // var list = from stations in _db.Value.Stations select stations;
+            // var list = from stations in _db.Value.Stations select stations;
             model.StationList = _db.Value.Stations.Select(p => new SelectListItem
             {
                 Text = p.StationName,
@@ -69,7 +70,7 @@ namespace PhpaAll.Controllers
                 });
                 return View(Views.Create, model);
             }
-       
+
             var bill = new Bill
             {
                 Amount = model.Amount,
@@ -90,20 +91,21 @@ namespace PhpaAll.Controllers
             _db.Value.SubmitChanges();
 
             HttpPostedFileBase file = Request.Files[0];
-            if(file.ContentLength > 0)
+            if (file.ContentLength > 0)
             {
-            var input = new byte[file.ContentLength];
-            file.InputStream.Read(input, 0, file.ContentLength);
+                var input = new byte[file.ContentLength];
+                file.InputStream.Read(input, 0, file.ContentLength);
 
-            var billImage = new BillImage
-            {
-                BillImageData = input,
-                BillId = bill.Id,
-                ImageContentType = file.ContentType
-            };
-            _db.Value.BillImages.InsertOnSubmit(billImage);
-            _db.Value.SubmitChanges();
-        }
+                var billImage = new BillImage
+                {
+                    BillImageData = input,
+                    BillId = bill.Id,
+                    ImageContentType = file.ContentType
+                };
+                _db.Value.BillImages.InsertOnSubmit(billImage);
+                _db.Value.SubmitChanges();
+            }
+            AddStatusMessage("Bill Created");
             return RedirectToAction(MVC.ManageBills.Create());
 
         }
@@ -146,6 +148,16 @@ namespace PhpaAll.Controllers
         [HttpPost]
         public virtual ActionResult UpdateOrDelete(EditViewModel model, bool? delete)
         {
+            if (!ModelState.IsValid)
+            {
+                model.StationList = _db.Value.Stations.Select(p => new SelectListItem
+                {
+                    Text = p.StationName,
+                    Value = p.StationId.ToString()
+                });
+                return View(Views.Edit, model);
+            }
+
             if (delete.HasValue && delete.Value)
             {
                 return DeleteBill(model.Id);

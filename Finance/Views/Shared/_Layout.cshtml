@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var phpaController = this.ViewContext.Controller as PhpaAll.Controllers.PhpaBaseController;
+    IEnumerable<string> statusMessages = null;
+    if (phpaController != null)
+    {
+        statusMessages = phpaController.StatusMessages;
+    }
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
@@ -81,6 +89,19 @@
         </div>
     </div>
     <div class="container">
+        @if (statusMessages != null)
+        {
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <ul class="list-unstyled">
+                    @foreach (var msg in statusMessages)
+                    {
+                        <li>@msg</li>
+                    }
+                </ul>
+            </div>
+
+        }
         @RenderBody()
         <hr />
         <footer>
@@ -90,10 +111,13 @@
 
     <script type="text/javascript" src="@Links.Views.Shared.layout_js"></script>
 
-    <script type="text/javascript">
-
-    </script>
-
     @RenderSection("scripts", required: false)
 </body>
+
+
+
+
+
+
+
 </html>
