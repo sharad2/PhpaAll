@@ -13,7 +13,7 @@ namespace PhpaAll.Bills
 
         public string StationName { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:C}")]
+        [DisplayFormat(DataFormatString = "{0:C0}")]
         public decimal? FundsAvailable { get; set; }
 
         /// <summary>

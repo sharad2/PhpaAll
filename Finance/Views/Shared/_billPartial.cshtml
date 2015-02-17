@@ -23,12 +23,13 @@
 
     </div>
     <div class="col-md-4">
-        <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
-            <div title="@Html.DisplayFor(m => m.DivisionName) at @Html.DisplayFor(m => m.StationName) ">
+        <div >
+            <div title="@Html.DisplayFor(m => m.DivisionName) at @Html.DisplayFor(m => m.StationName)" 
+                 style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; max-width:15em">
                 @Html.DisplayFor(m => m.DivisionName)
-                @@
-                @Html.DisplayFor(m => m.StationName)
             </div>
+            @@
+            @Html.DisplayFor(m => m.StationName)
             <div title="@Model.ContractorName">@Html.DisplayFor(m => m.ContractorName)</div>
         </div>
     </div>
@@ -37,7 +38,7 @@
             <strong>@Html.DisplayFor(m => m.Amount)</strong>
         </div>
         <div title="@Html.DisplayFor(m => m.CurrentDivisionName)"
-             style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; width:15em">
+             style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; max-width:15em">
             &rarr;  @Html.DisplayFor(m => m.CurrentDivisionName)
         </div>
 

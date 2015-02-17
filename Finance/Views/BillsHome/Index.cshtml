@@ -85,7 +85,7 @@
                             {MVC.Bills.RecentBillsParams.dueDateTo, string.Format("{0:d}", Model.AllMonths[j].MonthEndDate)},
                             {MVC.Bills.RecentBillsParams.paid, false},
                             {MVC.Bills.RecentBillsParams.stations, Model.Stations[i].StationId}
-                        }))">@string.Format("{0:C}", Model.Stations[i].AmountsByMonth[Model.AllMonths[j].MonthKey])</a>
+                        }))">@string.Format("{0:C0}", Model.Stations[i].AmountsByMonth[Model.AllMonths[j].MonthKey])</a>
                         }
                     </td>
                 }
