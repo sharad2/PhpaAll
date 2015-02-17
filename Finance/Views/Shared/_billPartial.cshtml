@@ -6,16 +6,16 @@
         <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
             @if (!string.IsNullOrWhiteSpace(Model.CheckBoxName) && (Model.VoucherDate == null))
             {
-                <input type="checkbox" name="@Model.CheckBoxName" value="@Model.BillId" />
+            <input type="checkbox" name="@Model.CheckBoxName" value="@Model.BillId" />
             }
             @Html.DisplayFor(m => m.BillDate)
             @if (Model.DueDate < DateTime.Today)
             {
-                <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em>
+            <em class="label label-danger" style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em>
             }
             else
             {
-                <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em>
+            <em style="white-space:nowrap"><small>Due @Html.DisplayFor(m => m.DueDate)</small></em>
             }
             <br />
             <small title="@Html.DisplayFor(m => m.BillNumber)">@Html.DisplayFor(m => m.BillNumber)</small>
@@ -36,12 +36,11 @@
         <div class="pull-right">
             <strong>@Html.DisplayFor(m => m.Amount)</strong>
         </div>
-        <div style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">
-            <div title="@Html.DisplayFor(m => m.CurrentDivisionName)">
-                &rarr;  @Html.DisplayFor(m => m.CurrentDivisionName)
-            </div>
-
+        <div title="@Html.DisplayFor(m => m.CurrentDivisionName)"
+             style="-ms-text-overflow: ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; width:15em">
+            &rarr;  @Html.DisplayFor(m => m.CurrentDivisionName)
         </div>
+
         <div class="btn-toolbar" role="toolbar" aria-label="...">
             <div class="btn-group btn-group-xs" role="group" aria-label="...">
                 <a href="@Url.Action(MVC.ManageBills.ShowBill(Model.BillId))" class="btn btn-link"><span class="glyphicon glyphicon-zoom-in"></span> View</a>

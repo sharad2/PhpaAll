@@ -26,7 +26,11 @@ namespace PhpaAll.Bills
         }
     }
 
-    public class BillHomeIndexMonthModel
+
+    /// <summary>
+    /// IComparable interface allows us to sort the list based on month key
+    /// </summary>
+    public class BillHomeIndexMonthModel : IComparable<BillHomeIndexMonthModel>
     {
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}", NullDisplayText = "&le;", HtmlEncode = false)]
         public DateTime? MonthStartDate { get; set; }
@@ -38,6 +42,23 @@ namespace PhpaAll.Bills
         /// The amounts are stored in a dictionary against this key.
         /// </summary>
         public int MonthKey { get; set; }
+
+        [DisplayFormat(HtmlEncode = false)]
+        public string DisplayName
+        {
+            get
+            {
+                if (MonthStartDate == null)
+                {
+                    return string.Format("&le; {0:MMM yyyy}", MonthEndDate);
+                }
+                if (MonthEndDate == null)
+                {
+                    return string.Format("&ge; {0:MMM yyyy}", MonthStartDate);
+                }
+                return string.Format("{0:MMM yyyy}", MonthEndDate);
+            }
+        }
 
         /// <summary>
         /// The key is the same for all dates which belong to the same month and year
@@ -54,6 +75,11 @@ namespace PhpaAll.Bills
             return new DateTime(key / 100, key % 100, 1);
         }
 
+
+        public int CompareTo(BillHomeIndexMonthModel other)
+        {
+            return MonthKey.CompareTo(other.MonthKey);
+        }
     }
 
 
@@ -74,7 +100,7 @@ namespace PhpaAll.Bills
                 {
                     var minMonthKey = Stations.SelectMany(p => p.AmountsByMonth.Keys).Min();
                     var maxMonthKey = Stations.SelectMany(p => p.AmountsByMonth.Keys).Max();
-                    _allMonths = new List<BillHomeIndexMonthModel>
+                    var list = new List<BillHomeIndexMonthModel>
                     {
                         new BillHomeIndexMonthModel
                         {
@@ -93,13 +119,15 @@ namespace PhpaAll.Bills
                     for (var month = BillHomeIndexMonthModel.GetMonthStartDateFromKey(minMonthKey).AddMonths(1);
                         month < BillHomeIndexMonthModel.GetMonthStartDateFromKey(maxMonthKey); month = month.AddMonths(1))
                     {
-                        _allMonths.Add(new BillHomeIndexMonthModel
+                        list.Add(new BillHomeIndexMonthModel
                         {
                             MonthStartDate = month.MonthStartDate(),
                             MonthEndDate = month.MonthEndDate(),
                             MonthKey = BillHomeIndexMonthModel.GetMonthKeyFromDate(month)
                         });
                     }
+                    list.Sort();
+                    _allMonths = list;
                 }
                 return _allMonths;
 

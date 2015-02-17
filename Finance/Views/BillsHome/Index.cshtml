@@ -55,9 +55,8 @@
             @for (var i = 0; i < Model.AllMonths.Count; ++i)
             {
                 <th style="white-space:nowrap; text-align:right">
-                    @Html.DisplayFor(m => m.AllMonths[i].MonthStartDate)
-                    @Html.DisplayFor(m => m.AllMonths[i].MonthEndDate)
-                    @*@string.Format("{0:dd MMM yyyy} to {1:dd MMM yyyy}", Model.AllMonths[i].MonthStartDate, Model.AllMonths[i].MonthEndDate)*@
+                    @*@Html.DisplayFor(m => m.AllMonths[i].MonthStartDate)*@
+                    @Html.DisplayFor(m => m.AllMonths[i].DisplayName)
                 </th>
             }
         </tr>
@@ -77,13 +76,15 @@
                     <td style="text-align:right">
                         @if (Model.Stations[i].AmountsByMonth.ContainsKey(Model.AllMonths[j].MonthKey))
                         {
-                            <span>
+                            @*<span>
                                 @string.Format("{0:C}", Model.Stations[i].AmountsByMonth[Model.AllMonths[j].MonthKey])
-                            </span>
+                            </span>*@
                             <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValues(new RouteValueDictionary
                         {
-                            {MVC.Bills.RecentBillsParams.dueDateFrom, false},
-                            {MVC.Bills.RecentBillsParams.paid, false}
+                            {MVC.Bills.RecentBillsParams.dueDateFrom, string.Format("{0:d}", Model.AllMonths[j].MonthStartDate)},
+                            {MVC.Bills.RecentBillsParams.dueDateTo, string.Format("{0:d}", Model.AllMonths[j].MonthEndDate)},
+                            {MVC.Bills.RecentBillsParams.paid, false},
+                            {MVC.Bills.RecentBillsParams.stations, Model.Stations[i].StationId}
                         }))">@string.Format("{0:C}", Model.Stations[i].AmountsByMonth[Model.AllMonths[j].MonthKey])</a>
                         }
                     </td>
