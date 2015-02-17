@@ -13,6 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace PhpaAll.Controllers
 {
+    [Authorize(Roles = "BillsOperator")]
     public partial class ManageBillsController : Controller
     {
         //[Obsolete]
