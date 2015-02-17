@@ -99,7 +99,7 @@ namespace PhpaAll.Controllers
                                    Name = g.Select(p => p.ContractorName).FirstOrDefault(),
                                    Count = g.Sum(p => p.Count),
                                    Selected = contractors == null || contractors.Contains(g.Key)
-                               }).ToList(),
+                               }).OrderBy(p => p.Name).ToList(),
                 Approvers = (from d in aggQuery
                              group d by d.ApprovedBy into g
                              select new RecentBillsFilterModel

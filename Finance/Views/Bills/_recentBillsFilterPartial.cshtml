@@ -133,11 +133,25 @@
                         <span class="badge">@Model.Contractors.Count</span>
                         }
                     </a>
-                    @if (Model.SelectedContracatorsCount.HasValue)
-                    {
-                    <small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedContracatorsCount) Contractor(s)</em></small>
-                    }
                 </div>
+                @if (Model.SelectedContracatorsCount.HasValue)
+                {
+                    <ul class="list-unstyled text-success">
+                        <li>
+                            <span class="glyphicon glyphicon-filter"></span>
+                        </li>
+                        @for (var i = 0; i < Model.Contractors.Count; ++i)
+                        {
+                            if (Model.Contractors[i].Selected)
+                            {
+                                <li style="white-space: nowrap; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; max-width: 12em;">
+                                    @Html.DisplayFor(m => m.Contractors[i].Name)
+                                </li>
+                            }
+                        }
+                    </ul>
+                    @*<small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedContracatorsCount) Contractor(s)</em></small>*@
+                }
             </div>
             <div id="fsContractors" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">
