@@ -154,7 +154,7 @@
                 <div class="panel-title">
                     <a class="collapsed" data-toggle="collapse" href="#fsContractors" aria-expanded="false" aria-controls="fsContractors">
                         <span class="caret"></span> Contractors
-                        @if (Model.SelectedContracatorsCount.HasValue)
+                        @if (Model.SelectedContractorsCount.HasValue)
                         {
                             <span class="glyphicon glyphicon-filter"></span>
                         }
@@ -164,7 +164,7 @@
                         }
                     </a>
                 </div>
-                @if (Model.SelectedContracatorsCount.HasValue)
+                @if (Model.SelectedContractorsCount.HasValue)
                 {
                     <ul class="list-unstyled text-success">
                         @for (var i = 0; i < Model.Contractors.Count; ++i)

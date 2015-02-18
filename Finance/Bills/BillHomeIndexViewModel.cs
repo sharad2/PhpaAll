@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Eclipse.PhpaLibrary.Reporting;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Eclipse.PhpaLibrary.Reporting;
 
 namespace PhpaAll.Bills
 {
+    /// <summary>
+    /// Contains all the information needed to display funds available at a station
+    /// </summary>
     public class BillHomeIndexStationModel
     {
         [Key]
@@ -32,10 +35,10 @@ namespace PhpaAll.Bills
     /// </summary>
     public class BillHomeIndexMonthModel : IComparable<BillHomeIndexMonthModel>
     {
-        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}", NullDisplayText = "&le;", HtmlEncode = false)]
+        //[DisplayFormat(DataFormatString = "{0:dd MMM yyyy}", NullDisplayText = "&le;", HtmlEncode = false)]
         public DateTime? MonthStartDate { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}", NullDisplayText = "&ge;", HtmlEncode = false)]
+        //[DisplayFormat(DataFormatString = "{0:dd MMM yyyy}", NullDisplayText = "&ge;", HtmlEncode = false)]
         public DateTime? MonthEndDate { get; set; }
 
         /// <summary>

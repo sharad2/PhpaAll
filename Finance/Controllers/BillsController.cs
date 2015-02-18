@@ -3,7 +3,6 @@ using PhpaAll.MvcHelpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,6 +16,8 @@ namespace PhpaAll.Controllers
     [Authorize(Roles = "Bills")]
     public partial class BillsController : PhpaBaseController
     {
+
+        private const string ROLE_APPROVE = "BillsManager";
 
         private Lazy<PhpaBillsDataContext> _db;
 
@@ -119,7 +120,8 @@ namespace PhpaAll.Controllers
                                 Count = g.Sum(p => p.Count),
                                 Selected = stations == null || stations.Contains(g.Key)
                             }).OrderBy(p => p.Name).ToList(),
-                UrlExcel = Request.RawUrl
+                UrlExcel = Request.RawUrl,
+                RoleApproveButtons = ROLE_APPROVE
             };
 
             IQueryable<Bill> filteredBills = _db.Value.Bills;
@@ -246,9 +248,13 @@ namespace PhpaAll.Controllers
 
             model.Bills = BillModel.FromQuery<BillModel>(filteredBills).ToList();
 
-            foreach (var bill in model.Bills)
+            if (this.HttpContext.User.IsInRole(ROLE_APPROVE))
             {
-                bill.CheckBoxName = MVC.Bills.Actions.ApproveBillsParams.listBillId;
+                foreach (var bill in model.Bills)
+                {
+                    // Checkbox is needed only for unpaid bills
+                    bill.CheckBoxName = bill.VoucherId.HasValue ? MVC.Bills.Actions.ApproveBillsParams.listBillId : null;
+                }
             }
 
             if (exportToExcel)
@@ -268,7 +274,7 @@ namespace PhpaAll.Controllers
         /// <param name="approvalDate"></param>
         /// <param name="approvers">Used to pass to Recent Bills while redirecting</param>
         /// <returns></returns>
-        [Authorize(Roles = "BillsManager")]
+        [Authorize(Roles = ROLE_APPROVE)]
         [HttpPost]
         public virtual ActionResult ApproveBills(int[] listBillId, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors,
                                                 int[] stations, DateTime? dateFrom, DateTime? dateTo, DateTime? dueDateFrom, DateTime? dueDateTo, Decimal? minAmount, Decimal? maxAmount,
@@ -333,21 +339,21 @@ namespace PhpaAll.Controllers
             }
             if (maxAmount != null)
             {
-                dict.Add(Actions.RecentBillsParams.maxAmount, new [] { maxAmount.Value });
+                dict.Add(Actions.RecentBillsParams.maxAmount, new[] { maxAmount.Value });
             }
             if (minAmount != null)
             {
-                dict.Add(Actions.RecentBillsParams.minAmount, new [] { minAmount.Value });
+                dict.Add(Actions.RecentBillsParams.minAmount, new[] { minAmount.Value });
             }
 
             if (dateFrom != null)
             {
-                dict.Add(Actions.RecentBillsParams.dateFrom, new [] { dateFrom.Value });
+                dict.Add(Actions.RecentBillsParams.dateFrom, new[] { dateFrom.Value });
             }
 
             if (dateTo != null)
             {
-                dict.Add(Actions.RecentBillsParams.dateTo, new [] { dateTo.Value });
+                dict.Add(Actions.RecentBillsParams.dateTo, new[] { dateTo.Value });
             }
 
             if (dueDateFrom != null)
@@ -364,7 +370,7 @@ namespace PhpaAll.Controllers
             {
                 dict.Add(Actions.RecentBillsParams.approved, new[] { approvedFilter.Value });
             }
-           
+
             if (paidFilter.HasValue)
             {
                 dict.Add(Actions.RecentBillsParams.paid, new[] { paidFilter.Value });
@@ -387,7 +393,7 @@ namespace PhpaAll.Controllers
         /// <param name="billId"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize(Roles = "BillsManager")]
+        [Authorize(Roles = ROLE_APPROVE)]
         public virtual ActionResult ApproveBill(int billId)
         {
             if (string.IsNullOrWhiteSpace(User.Identity.Name))

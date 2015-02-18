@@ -68,7 +68,7 @@ namespace PhpaAll.Bills
         /// Returns null if all contractors are selected. Else retuns the count of selected contractors.
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? SelectedContracatorsCount
+        public int? SelectedContractorsCount
         {
             get
             {
@@ -152,5 +152,10 @@ namespace PhpaAll.Bills
         /// URL which will cause the current data to be displayed in Excel
         /// </summary>
         public string UrlExcel { get; set; }
+
+        /// <summary>
+        /// The role required to enable approve buttons
+        /// </summary>
+        public string RoleApproveButtons { get; set; }
     }
 }
