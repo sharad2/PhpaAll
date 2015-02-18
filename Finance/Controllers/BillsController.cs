@@ -253,7 +253,7 @@ namespace PhpaAll.Controllers
                 foreach (var bill in model.Bills)
                 {
                     // Checkbox is needed only for unpaid bills
-                    bill.CheckBoxName = bill.VoucherId.HasValue ? MVC.Bills.Actions.ApproveBillsParams.listBillId : null;
+                    bill.CheckBoxName = bill.VoucherId == null ? MVC.Bills.Actions.ApproveBillsParams.listBillId : null;
                 }
             }
 
