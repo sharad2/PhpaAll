@@ -43,7 +43,9 @@ namespace PhpaAll.Controllers
         /// <returns></returns>
         [Authorize(Roles = "BillsExecutive")]
         public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] processingDivisions, int?[] contractors, int?[] stations,
-            DateTime? dateFrom, DateTime? dateTo, DateTime? dueDateFrom, DateTime? dueDateTo, Decimal? minAmount, Decimal? maxAmount, bool? approved, bool? paid, bool exportToExcel = false)
+            DateTime? dateFrom, DateTime? dateTo,
+            DateTime? dueDateFrom, DateTime? dueDateTo, bool? dueDateNull,
+            decimal? minAmount, decimal? maxAmount, bool? approved, bool? paid, bool exportToExcel = false)
         {
 
             var query = from bill in _db.Value.Bills
@@ -156,7 +158,7 @@ namespace PhpaAll.Controllers
                 model.IsFiltered = true;
             }
 
-            // Assume that there will always be two dates
+
             if (dateFrom != null)
             {
                 // From Date
@@ -172,20 +174,28 @@ namespace PhpaAll.Controllers
                 model.DateTo = dateTo;
             }
 
-            // Assume that there will always be two due dates
-            if (dueDateFrom != null)
+            if (dueDateNull.HasValue && dueDateNull.Value)
             {
-                // From Date
-                filteredBills = filteredBills.Where(p => p.DueDate >= dueDateFrom);
+                filteredBills = filteredBills.Where(p => p.DueDate == null);
                 model.IsFiltered = true;
-                model.DueDateFrom = dueDateFrom;
+                model.FilterDueDateNull = true;
             }
-            if (dueDateTo != null)
+            else
             {
-                // From Date
-                filteredBills = filteredBills.Where(p => p.DueDate <= dueDateTo);
-                model.IsFiltered = true;
-                model.DueDateTo = dueDateTo;
+                if (dueDateFrom != null)
+                {
+                    // From Date
+                    filteredBills = filteredBills.Where(p => p.DueDate >= dueDateFrom);
+                    model.IsFiltered = true;
+                    model.DueDateFrom = dueDateFrom;
+                }
+                if (dueDateTo != null)
+                {
+                    // From Date
+                    filteredBills = filteredBills.Where(p => p.DueDate <= dueDateTo);
+                    model.IsFiltered = true;
+                    model.DueDateTo = dueDateTo;
+                }
             }
             // Assume that there will always min and max amount value
             if (minAmount != null)
@@ -277,7 +287,7 @@ namespace PhpaAll.Controllers
         [Authorize(Roles = ROLE_APPROVE)]
         [HttpPost]
         public virtual ActionResult ApproveBills(int[] listBillId, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors,
-                                                int[] stations, DateTime? dateFrom, DateTime? dateTo, DateTime? dueDateFrom, DateTime? dueDateTo, Decimal? minAmount, Decimal? maxAmount,
+                                                int[] stations, DateTime? dateFrom, DateTime? dateTo, DateTime? dueDateFrom, DateTime? dueDateTo, decimal? minAmount, decimal? maxAmount,
                                                 bool approve, bool? approvedFilter, bool? paidFilter)
         {
             if (string.IsNullOrWhiteSpace(User.Identity.Name))
