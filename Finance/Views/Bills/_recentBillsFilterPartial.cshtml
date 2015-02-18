@@ -11,13 +11,18 @@
                 <a class="collapsed" data-toggle="collapse" href="#fsApprovePaid" aria-expanded="false" aria-controls="#fsApprovePaid">
                     <span class="caret"></span>  Approved or Paid
                 </a>
-                @if (Model.FilterApprovedBills.HasValue || Model.FilterPaidBills.HasValue)
-                {
-                    <span class="glyphicon glyphicon-filter"></span><small>@(Model.FilterApprovedBills.HasValue ? ((Model.FilterApprovedBills == true) ? "Approved" : "Unapproved") : null)</small>
-                    <small>@(Model.FilterPaidBills.HasValue ? ((Model.FilterPaidBills == true) ? "Paid" : "Unpaid") : null)</small>
-
-                }
             </div>
+            @if (Model.FilterApprovedBills.HasValue || Model.FilterPaidBills.HasValue)
+            {
+                <ul class="list-inline text-success">
+                    <li>
+                        <span class="glyphicon glyphicon-filter"></span>
+                    </li>
+                    <li>@(Model.FilterApprovedBills.HasValue ? ((Model.FilterApprovedBills == true) ? "Approved" : "Unapproved") : null)</li>
+                    <li>@(Model.FilterPaidBills.HasValue ? ((Model.FilterPaidBills == true) ? "Paid" : "Unpaid") : null)</li>
+                </ul>
+
+            }
         </div>
         <div id="fsApprovePaid" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body" style="padding-left:4mm; padding-right:1mm">
@@ -111,8 +116,7 @@
                     </div>
                     <div class="form-group @(Model.DateTo.HasValue ? "has-success" : "")">
                         <div class='input-group input-group-sm date' id='billDatePickerTo'>
-                            <input type="date" class="form-control input-sm" size="7" placeholder="To" name="@MVC.Bills.RecentBillsParams.dateTo" value="@Html.DisplayFor(m => m.DateTo)"
-                                   />
+                            <input type="date" class="form-control input-sm" size="7" placeholder="To" name="@MVC.Bills.RecentBillsParams.dateTo" value="@Html.DisplayFor(m => m.DateTo)" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -167,13 +171,14 @@
                 <div class="panel-title">
                     <a class="collapsed" data-toggle="collapse" href="#fsContractors" aria-expanded="false" aria-controls="fsContractors">
                         <span class="caret"></span> Contractors
-                        @if (Model.SelectedContractorsCount.HasValue)
+                        @if (Model.SelectedContractorsCount == null)
                         {
-                            <span class="glyphicon glyphicon-filter"></span>
+                            <span class="badge">@Model.Contractors.Count</span>
                         }
                         else
                         {
-                            <span class="badge">@Model.Contractors.Count</span>
+
+                            <span class="glyphicon glyphicon-filter"></span>
                         }
                     </a>
                 </div>
@@ -184,13 +189,12 @@
                         {
                             if (Model.Contractors[i].Selected)
                             {
-                                <li style="white-space: nowrap; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; max-width: 12em;">
+                                <li class="filter-truncated">
                                     @Html.DisplayFor(m => m.Contractors[i].Name)
                                 </li>
                             }
                         }
                     </ul>
-                    @*<small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedContracatorsCount) Contractor(s)</em></small>*@
                 }
             </div>
             <div id="fsContractors" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
@@ -227,60 +231,52 @@
                 <div class="panel-title">
                     <a class="collapsed" data-toggle="collapse" href="#fsDivisions" aria-expanded="false" aria-controls="fsDivisions">
                         <span class="caret"></span> Division
-                        @if (Model.SelectedDivisionsCount.HasValue)
-                        {
-                            <span class="glyphicon glyphicon-filter"></span>
-                        }
-                        else
+                        @if (Model.SelectedDivisionsCount == null)
                         {
                             <span class="badge">@Model.Divisions.Count</span>
                         }
                         @@Station
-                        @if (Model.SelectedStationsCount.HasValue)
-                        {
-                            <span class="glyphicon glyphicon-filter"></span>
-                        }
-                        else
+                        @if (Model.SelectedStationsCount == null)
                         {
                             <span class="badge">@Model.Stations.Count</span>
                         }
                     </a>
                     @if (Model.SelectedDivisionsCount.HasValue || Model.SelectedStationsCount.HasValue)
                     {
-                        <div>
-                            @if (Model.SelectedDivisionsCount.HasValue)
-                            {
-                                <ul class="list-unstyled text-success">
-                                    @for (var i = 0; i < Model.Divisions.Count; ++i)
-                                    {
-                                        if (Model.Divisions[i].Selected)
-                                        {
-                                            <li style="white-space: nowrap; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; max-width: 12em;">
-                                                @Html.DisplayFor(m => m.Divisions[i].Name)
-                                            </li>
-                                        }
-                                    }
-                                </ul>
-                            }
-                            @if (Model.SelectedStationsCount.HasValue)
-                            {
-                                <ul class="list-unstyled text-success">
-                                    @@
-                                    @for (var i = 0; i < Model.Stations.Count; ++i)
-                                    {
-                                        if (Model.Stations[i].Selected)
-                                        {
-                                            <li style="white-space: nowrap; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; max-width: 12em;">
-                                                @Html.DisplayFor(m => m.Stations[i].Name)
-                                            </li>
-                                        }
-                                    }
-                                </ul>
-
-                            }
-                        </div>
+                        <span class="glyphicon glyphicon-filter"></span>
                     }
                 </div>
+
+                @if (Model.SelectedDivisionsCount.HasValue)
+                {
+                    <ul class="list-unstyled text-success">
+                        @for (var i = 0; i < Model.Divisions.Count; ++i)
+                        {
+                            if (Model.Divisions[i].Selected)
+                            {
+                                <li class="filter-truncated">
+                                    @Html.DisplayFor(m => m.Divisions[i].Name)
+                                </li>
+                            }
+                        }
+                    </ul>
+                }
+                @if (Model.SelectedStationsCount.HasValue)
+                {
+                    <ul class="list-inline text-success">
+                        @for (var i = 0; i < Model.Stations.Count; ++i)
+                        {
+                            if (Model.Stations[i].Selected)
+                            {
+                                <li>
+                                    @Html.DisplayFor(m => m.Stations[i].Name)
+                                </li>
+                            }
+                        }
+                    </ul>
+
+                }
+
             </div>
             <div id="fsDivisions" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">
@@ -345,23 +341,21 @@
                             <span class="badge">@Model.ProcessingDivisions.Count</span>
                         }
                     </a>
-                    @if (Model.SelectedProcessingDivisionsCount.HasValue)
-                    {
-                        <ul class="list-unstyled text-success">
-                            @for (var i = 0; i < Model.ProcessingDivisions.Count; ++i)
-                            {
-                                if (Model.ProcessingDivisions[i].Selected)
-                                {
-                                    <li style="white-space: nowrap; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; max-width: 12em;">
-                                        @Html.DisplayFor(m => m.ProcessingDivisions[i].Name)
-                                    </li>
-                                }
-                            }
-                        </ul>
-
-                        @*<small><em><span class="glyphicon glyphicon-filter"></span> @Html.DisplayFor(m => m.SelectedProcessingDivisionsCount) Division(s)</em></small>*@
-                    }
                 </div>
+                @if (Model.SelectedProcessingDivisionsCount.HasValue)
+                {
+                    <ul class="list-unstyled text-success">
+                        @for (var i = 0; i < Model.ProcessingDivisions.Count; ++i)
+                        {
+                            if (Model.ProcessingDivisions[i].Selected)
+                            {
+                                <li class="filter-truncated">
+                                    @Html.DisplayFor(m => m.ProcessingDivisions[i].Name)
+                                </li>
+                            }
+                        }
+                    </ul>
+                }
             </div>
             <div id="fsprocessingDivision" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">
@@ -407,21 +401,21 @@
                         }
 
                     </a>
-                    @if (Model.SelectedApproversCount.HasValue)
-                    {
-                        <ul class="list-unstyled text-success">
-                            @for (var i = 0; i < Model.Approvers.Count; ++i)
-                            {
-                                if (Model.Approvers[i].Selected)
-                                {
-                                    <li style="white-space: nowrap; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; max-width: 12em;">
-                                        @Html.DisplayFor(m => m.Approvers[i].Name)
-                                    </li>
-                                }
-                            }
-                        </ul>
-                    }
                 </div>
+                @if (Model.SelectedApproversCount.HasValue)
+                {
+                    <ul class="list-inline text-success">
+                        @for (var i = 0; i < Model.Approvers.Count; ++i)
+                        {
+                            if (Model.Approvers[i].Selected)
+                            {
+                                <li>
+                                    @Html.DisplayFor(m => m.Approvers[i].Name)
+                                </li>
+                            }
+                        }
+                    </ul>
+                }
             </div>
             <div id="fsApprovers" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">

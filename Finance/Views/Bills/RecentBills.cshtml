@@ -3,10 +3,18 @@
     ViewBag.Title = "Recent Bills";
 }
 @section scripts {
+    <style type="text/css">
+        /* Displays text in one line and truncates long text */
+        .filter-truncated {
+            white-space: nowrap;
+            overflow: hidden;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            max-width: 15em;
+        }
+    </style>
     <script type="text/javascript" src="@Links.Views.Bills.RecentBills_js"></script>
-    <script type="text/javascript">
-
-    </script>
 }
 <h2>
     @ViewBag.Title
@@ -79,7 +87,7 @@
                 @if (Model.FilterDueDateNull.HasValue && Model.FilterDueDateNull.Value)
                 {
                     <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dueDateNull" value="true" />
-                }                
+                }
                 @if (Model.DueDateFrom != null)
                 {
                     <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dueDateFrom" value="@Html.DisplayFor(m => m.DueDateFrom)" />

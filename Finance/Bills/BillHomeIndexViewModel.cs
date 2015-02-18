@@ -35,10 +35,8 @@ namespace PhpaAll.Bills
     /// </summary>
     public class BillHomeIndexMonthModel : IComparable<BillHomeIndexMonthModel>
     {
-        //[DisplayFormat(DataFormatString = "{0:dd MMM yyyy}", NullDisplayText = "&le;", HtmlEncode = false)]
         public DateTime? MonthStartDate { get; set; }
 
-        //[DisplayFormat(DataFormatString = "{0:dd MMM yyyy}", NullDisplayText = "&ge;", HtmlEncode = false)]
         public DateTime? MonthEndDate { get; set; }
 
         /// <summary>
@@ -51,6 +49,10 @@ namespace PhpaAll.Bills
         {
             get
             {
+                if (MonthStartDate == null && MonthEndDate == null)
+                {
+                    return "No Due Date";
+                }
                 if (MonthStartDate == null)
                 {
                     return string.Format("&le; {0:MMM yyyy}", MonthEndDate);
@@ -68,13 +70,21 @@ namespace PhpaAll.Bills
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        internal static int GetMonthKeyFromDate(DateTime date)
+        internal static int GetMonthKeyFromDate(DateTime? date)
         {
-            return date.Year * 100 + date.Month;
+            if (date == null)
+            {
+                return 0;
+            }
+            return date.Value.Year * 100 + date.Value.Month;
         }
 
-        internal static DateTime GetMonthStartDateFromKey(int key)
+        internal static DateTime? GetMonthStartDateFromKey(int key)
         {
+            if (key == 0)
+            {
+                return null;
+            }
             return new DateTime(key / 100, key % 100, 1);
         }
 
@@ -101,14 +111,15 @@ namespace PhpaAll.Bills
             {
                 if (_allMonths == null)
                 {
-                    var minMonthKey = Stations.SelectMany(p => p.AmountsByMonth.Keys).Min();
+                    var minMonthKey = Stations.SelectMany(p => p.AmountsByMonth.Keys).Where(p => p > 0).Min();  // Exclude null dates
                     var maxMonthKey = Stations.SelectMany(p => p.AmountsByMonth.Keys).Max();
+                    var minMonthStartDate = BillHomeIndexMonthModel.GetMonthStartDateFromKey(minMonthKey).Value;
                     var list = new List<BillHomeIndexMonthModel>
                     {
                         new BillHomeIndexMonthModel
                         {
                             MonthStartDate = null,
-                            MonthEndDate = BillHomeIndexMonthModel.GetMonthStartDateFromKey(minMonthKey).MonthEndDate(),
+                            MonthEndDate = minMonthStartDate.MonthEndDate(),
                             MonthKey = minMonthKey
                         },
                         new BillHomeIndexMonthModel
@@ -119,7 +130,18 @@ namespace PhpaAll.Bills
                         }
                     };
 
-                    for (var month = BillHomeIndexMonthModel.GetMonthStartDateFromKey(minMonthKey).AddMonths(1);
+                    if (Stations.SelectMany(p => p.AmountsByMonth.Keys).Any(p => p == 0))
+                    {
+                        // Some bills have null due date
+                        list.Add(new BillHomeIndexMonthModel
+                        {
+                            MonthStartDate = null,
+                            MonthEndDate = null,
+                            MonthKey = 0
+                        });
+                    }
+
+                    for (var month = minMonthStartDate.AddMonths(1);
                         month < BillHomeIndexMonthModel.GetMonthStartDateFromKey(maxMonthKey); month = month.AddMonths(1))
                     {
                         list.Add(new BillHomeIndexMonthModel
