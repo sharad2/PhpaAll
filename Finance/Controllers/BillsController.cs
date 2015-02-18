@@ -350,22 +350,22 @@ namespace PhpaAll.Controllers
 
             if (dateFrom != null)
             {
-                dict.Add(Actions.RecentBillsParams.dateFrom, new[] { dateFrom.Value });
+                dict.Add(Actions.RecentBillsParams.dateFrom, new[] { dateFrom.Value.ToShortDateString() });
             }
 
             if (dateTo != null)
             {
-                dict.Add(Actions.RecentBillsParams.dateTo, new[] { dateTo.Value });
+                dict.Add(Actions.RecentBillsParams.dateTo, new[] { dateTo.Value.ToShortDateString() });
             }
 
             if (dueDateFrom != null)
             {
-                dict.Add(Actions.RecentBillsParams.dueDateFrom, new[] { dueDateFrom.Value });
+                dict.Add(Actions.RecentBillsParams.dueDateFrom, new[] { dueDateFrom.Value.ToShortDateString() });
             }
 
             if (dueDateTo != null)
             {
-                dict.Add(Actions.RecentBillsParams.dueDateTo, new[] { dueDateTo.Value });
+                dict.Add(Actions.RecentBillsParams.dueDateTo, new[] { dueDateTo.Value.ToShortDateString() });
             }
 
             if (approvedFilter.HasValue)

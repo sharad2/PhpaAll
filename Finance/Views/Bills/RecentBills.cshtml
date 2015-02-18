@@ -70,19 +70,19 @@
                 }
                 @if (Model.DateFrom != null)
                 {
-                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dateFrom" value="@Model.DateFrom.Value" />
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dateFrom" value="@Html.DisplayFor(m => m.DateFrom)" />
                 }
                 @if (Model.DateTo != null)
                 {
-                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dateTo" value="@Model.DateTo.Value" />
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dateTo" value="@Html.DisplayFor(m => m.DateTo)" />
                 }
                 @if (Model.DueDateFrom != null)
                 {
-                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dueDateFrom" value="@Model.DueDateFrom.Value" />
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dueDateFrom" value="@Html.DisplayFor(m => m.DueDateFrom)" />
                 }
                 @if (Model.DueDateTo != null)
                 {
-                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dueDateTo" value="@Model.DueDateTo.Value" />
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dueDateTo" value="@Html.DisplayFor(m => m.DueDateTo)" />
                 }
                 @if (Model.FilterMinAmount != null)
                 {
