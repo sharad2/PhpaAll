@@ -9,42 +9,42 @@
 </div>
 
 @*<li role="presentation" class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-        <span><span class="label label-default">Approve/Unapprove</span> <span class="caret"></span></span>
-    </a>
-    @if (Model.ApprovedBy == null)
-    {
-        <ul class="dropdown-menu" role="menu">
-            <li class="divider"></li>
-            <li role="presentation">
-                <form action="@Url.Action(MVC.ManageBills.ApproveBill())" method="post" style="text-align:center; margin:1mm">
-                    <button class="btn btn-info" name="@MVC.ManageBills.ApproveBillParams.billId"
-                            value="@Model.BillId" type="submit">
-                        <span class="glyphicon glyphicon-play"></span>
-                        Approve
-                    </button>
-                </form>
-            </li>
-        </ul>
-    }
-    else
-    {
-        <ul class="dropdown-menu" role="menu">
-            <li>
-                <form action="@Url.Action(MVC.ManageBills.UnApproveBill())" method="post" style="text-align:center; margin:1mm">
-                    <br />
-                    <button class="btn btn-warning"
-                            name="@MVC.ManageBills.ApproveBillParams.billId"
-                            value="@Model.BillId" type="submit">
-                        <span class="glyphicon glyphicon-pause"></span>
-                        Unapprove
-                    </button>
-                </form>
-            </li>
-            <li class="divider"></li>
-        </ul>
-    }
-</li>*@
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+            <span><span class="label label-default">Approve/Unapprove</span> <span class="caret"></span></span>
+        </a>
+        @if (Model.ApprovedBy == null)
+        {
+            <ul class="dropdown-menu" role="menu">
+                <li class="divider"></li>
+                <li role="presentation">
+                    <form action="@Url.Action(MVC.ManageBills.ApproveBill())" method="post" style="text-align:center; margin:1mm">
+                        <button class="btn btn-info" name="@MVC.ManageBills.ApproveBillParams.billId"
+                                value="@Model.BillId" type="submit">
+                            <span class="glyphicon glyphicon-play"></span>
+                            Approve
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        }
+        else
+        {
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <form action="@Url.Action(MVC.ManageBills.UnApproveBill())" method="post" style="text-align:center; margin:1mm">
+                        <br />
+                        <button class="btn btn-warning"
+                                name="@MVC.ManageBills.ApproveBillParams.billId"
+                                value="@Model.BillId" type="submit">
+                            <span class="glyphicon glyphicon-pause"></span>
+                            Unapprove
+                        </button>
+                    </form>
+                </li>
+                <li class="divider"></li>
+            </ul>
+        }
+    </li>*@
 
 <div class="well well-sm">
     <div class="text-center">
@@ -73,9 +73,18 @@
                     </a>
                 </div>
                 <div class="btn-group" role="group" aria-label="...">
-                    <a href="~/Finance/InsertVoucher.aspx" class="btn btn-link">
-                        Create Voucher for this bill
-                    </a>
+                    @if (Model.VoucherDate == null)
+                    {
+                        <a href="~/Finance/InsertVoucher.aspx" class="btn btn-link">
+                            Create Voucher for this bill
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="~/Finance/InsertVoucher.aspx?VoucherId=@Model.VoucherId" class="btn btn-link">
+                            Voucher Number: @Model.VoucherCode
+                        </a>
+                    }
                 </div>
 
             </div>
@@ -125,7 +134,7 @@
 
                     @if (@Model.ApprovedBy == null)
                     {
-                        <form action="@Url.Action(MVC.ManageBills.ApproveBill())" method="post" >
+                        <form action="@Url.Action(MVC.ManageBills.ApproveBill())" method="post">
                             <button class="btn btn-info" name="@MVC.ManageBills.ApproveBillParams.billId"
                                     value="@Model.BillId" type="submit">
                                 <span class="glyphicon glyphicon-play"></span>

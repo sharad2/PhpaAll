@@ -72,13 +72,14 @@ namespace PhpaAll.Bills
 
         public IList<BillAuditModel> BillHistory { get; set; }
 
-
         [Display(Name = "At Division")]
         public string AtDivision { get; set; }
 
         [Display(Name = "Paid On")]
         [DataType(DataType.Date)]
         public DateTime? VoucherDate { get; set; }
+
+        public int? VoucherId { get; set; } 
 
         [DataType(DataType.Date)]
         public DateTime? ApprovedDate { get; set; }
@@ -90,6 +91,8 @@ namespace PhpaAll.Bills
         public int AttachedImageCount { get; set; }
 
 
+
+        public string VoucherCode { get; set; }
     }
 
 }

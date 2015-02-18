@@ -105,7 +105,7 @@ namespace PhpaAll.Controllers
                 _db.Value.BillImages.InsertOnSubmit(billImage);
                 _db.Value.SubmitChanges();
             }
-            AddStatusMessage(string.Format("Bill {0} created.",bill.BillNumber));
+            AddStatusMessage(string.Format("Bill {0} of amount {1} created.", bill.BillNumber, bill.Amount));
             return RedirectToAction(MVC.ManageBills.Create());
 
         }
@@ -223,6 +223,9 @@ namespace PhpaAll.Controllers
                              DivisionId = bill.DivisionId,
                              DueDate = bill.DueDate,
                              //PaidDate = bill.PaidDate,
+                             VoucherId = bill.Voucher.VoucherId,
+                             VoucherCode = bill.Voucher.VoucherCode,
+                             VoucherDate = bill.Voucher.Created,
                              Remarks = bill.Remarks,
                              ReceivedDate = bill.ReceivedDate,
                              isEditMode = true,
