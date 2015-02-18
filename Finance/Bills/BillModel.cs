@@ -34,7 +34,8 @@ namespace PhpaAll.Bills
         public int BillId { get; set; }
 
         /// <summary>
-        /// If this is non null, a check box is displayed with this name and the value will be bill id
+        /// If this is non null, a check box is displayed with this name and the value will be bill id.
+        /// Additionally, a button is displayed for approving the bill
         /// </summary>
         [ScaffoldColumn(false)]
         public string CheckBoxName { get; set; }

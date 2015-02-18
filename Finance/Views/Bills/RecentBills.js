@@ -4779,7 +4779,9 @@ $(document).ready(function () {
         //alert(url);
         var data = new Object();
         data[$(e.delegateTarget).attr('data-approve-paramname')] = billId;
-        $.post(url, data).done(function () {
+        $.post(url, data, function (data, textStatus, jqXHR) {
+            var y = 0;
+        }, 'json').done(function (data, textStatus, jqXHR) {
             $(e.target).addClass('btn-success  btn-xs disabled').removeClass('btn-default approve');
         }).fail(function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 500) {
