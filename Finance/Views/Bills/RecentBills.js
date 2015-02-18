@@ -4769,6 +4769,10 @@ $(document).ready(function () {
             return $(elem).val() == '';
         }).prop('disabled', true);
         //return false;
+    }).on('click', 'a.uncheck', function (e) {
+        // Uncheck all checkboxes within panel body
+        $(e.target).closest('.panel-body').find('input:checkbox:checked').prop('checked', false);
+        return false;
     });
 
     // Handle approve and unapprove buttons
