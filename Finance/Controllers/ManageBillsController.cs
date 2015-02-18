@@ -128,13 +128,19 @@ namespace PhpaAll.Controllers
                              AtDivisionId = bill.AtDivisionId,
                              AtDivisionName = bill.AtDivision.DivisionName,
                              DueDate = bill.DueDate,
-                             //PaidDate = bill.PaidDate,
+                             BillApproveDate = bill.ApprovedOn,
                              StationId = bill.StationId,
                              Remarks = bill.Remarks,
                              ReceivedDate = bill.ReceivedDate,
                              DivisionName = bill.Division.DivisionName,
                              ContractorName = bill.Contractor.ContractorName
                          }).FirstOrDefault();
+
+            if (model.BillApproveDate != null)
+            {
+                AddStatusMessage(string.Format("You cannot edit bill{0} since it is already approved on {1}.", model.BillNumber, model.BillApproveDate));
+                return RedirectToAction(MVC.ManageBills.ShowBill(model.Id));
+            }
             var list = from stations in _db.Value.Stations select stations;
             model.StationList = list.Select(p => new SelectListItem
             {

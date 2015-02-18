@@ -74,5 +74,7 @@ namespace PhpaAll.Controllers
         [StringLength(255, ErrorMessage = "Max limit is 255 characters")]
         public string Remarks { get; set; }
 
+
+        public DateTime? BillApproveDate { get; set; }
     }
 }
