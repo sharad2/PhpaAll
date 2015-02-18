@@ -105,7 +105,7 @@ namespace PhpaAll.Controllers
                 _db.Value.BillImages.InsertOnSubmit(billImage);
                 _db.Value.SubmitChanges();
             }
-            AddStatusMessage(string.Format("Bill {0} created.",bill.BillNumber));
+            AddStatusMessage(string.Format("Bill {0} of amount {1} created.", bill.BillNumber, bill.Amount));
             return RedirectToAction(MVC.ManageBills.Create());
 
         }
