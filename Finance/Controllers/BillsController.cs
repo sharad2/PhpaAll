@@ -284,6 +284,8 @@ namespace PhpaAll.Controllers
             {
                 throw new HttpException("You must be logged in to approve or disapprove bills");
             }
+
+            var countApproved = 0;
             if (listBillId != null)
             {
                 var query = from bill in _db.Value.Bills
@@ -302,7 +304,7 @@ namespace PhpaAll.Controllers
                         bill.ApprovedOn = null;
                         bill.ApprovedBy = null;
                     }
-
+                    ++countApproved;
                 }
                 _db.Value.SubmitChanges();
             }
@@ -383,6 +385,16 @@ namespace PhpaAll.Controllers
                             select string.Format("{0}={1}", item.Key, val);
                 url += "?" + string.Join("&", query);
             }
+
+            if (approve)
+            {
+                AddStatusMessage(string.Format("{0} bills approved", countApproved));
+            }
+            else
+            {
+                AddStatusMessage(string.Format("{0} bills unapproved", countApproved));
+            }
+
 
             return Redirect(url);
         }
