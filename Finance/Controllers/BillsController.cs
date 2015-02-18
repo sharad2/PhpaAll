@@ -518,7 +518,7 @@ namespace PhpaAll.Controllers
                                  GroupValue = mygroup.Key.GroupValue,
                                  GroupDisplayName = mygroup.Key.GroupDisplayName,
                                  Bills = (from bill in mygroup
-                                          orderby bill.DueDate descending
+                                          orderby bill.DueDate
                                           select new OutstandingBillModel
                                           {
                                               BillId = bill.Id,
