@@ -72,14 +72,18 @@
                 }
             </div>
         </div>
+        <div class="text-success">
+            @if (Model.VoucherDate != null)
+            {
+                <span class="glyphicon glyphicon-check"></span>
+                <span>Paid @Html.DisplayFor(m => m.VoucherDate)</span>
+                <a href="~/Finance/InsertVoucher.aspx?VoucherId=@Model.VoucherId">View Voucher</a>
+            }
+        </div>
+
     </div>
 </div>
 <div class="text-muted">
     @Html.DisplayFor(m => m.Particulars)
-    <br />
-    @if (Model.VoucherDate != null)
-    {
-        <a href="~/Finance/InsertVoucher.aspx?VoucherId=@Model.VoucherId"><em class="text-info text-danger" style="white-space:nowrap"><strong>Paid (Voucher created on :@Html.DisplayFor(m => m.VoucherDate))</strong></em></a>
-    }
 </div>
 
