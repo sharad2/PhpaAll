@@ -19,23 +19,23 @@ namespace PhpaAll.Controllers
 
         private const string ROLE_APPROVE = "BillsManager";
 
-        private Lazy<PhpaBillsDataContext> _db;
+        //private Lazy<PhpaBillsDataContext> _db;
 
-        protected override void Initialize(RequestContext requestContext)
-        {
-            base.Initialize(requestContext);
+        //protected override void Initialize(RequestContext requestContext)
+        //{
+        //    base.Initialize(requestContext);
 
-            _db = new Lazy<PhpaBillsDataContext>(() => new PhpaBillsDataContext(requestContext.HttpContext));
-        }
+        //    _db = new Lazy<PhpaBillsDataContext>(() => new PhpaBillsDataContext(requestContext.HttpContext));
+        //}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (_db != null && _db.IsValueCreated)
-            {
-                _db.Value.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (_db != null && _db.IsValueCreated)
+        //    {
+        //        _db.Value.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
         /// <summary>
         /// Display recent bills. Option to create new bill

@@ -14,23 +14,23 @@ namespace PhpaAll.Controllers
 {
     public partial class BillsHomeController : PhpaBaseController
     {
-        private Lazy<PhpaBillsDataContext> _db;
+        //private Lazy<PhpaBillsDataContext> _db;
         private Lazy<ReportingDataContext> _dbReporting;
 
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
 
-            _db = new Lazy<PhpaBillsDataContext>(() => new PhpaBillsDataContext(requestContext.HttpContext));
+            //_db = new Lazy<PhpaBillsDataContext>(() => new PhpaBillsDataContext(requestContext.HttpContext));
             _dbReporting = new Lazy<ReportingDataContext>(() => new ReportingDataContext(ConfigurationManager.ConnectionStrings["default"].ConnectionString));
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (_db != null && _db.IsValueCreated)
-            {
-                _db.Value.Dispose();
-            }
+            //if (_db != null && _db.IsValueCreated)
+            //{
+            //    _db.Value.Dispose();
+            //}
             if (_dbReporting != null && _dbReporting.IsValueCreated)
             {
                 _dbReporting.Value.Dispose();

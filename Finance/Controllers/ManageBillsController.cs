@@ -19,29 +19,29 @@ namespace PhpaAll.Controllers
         //[Obsolete]
         //private Lazy<ManageBillsService> _service;
 
-        private Lazy<PhpaBillsDataContext> _db;
+        //private Lazy<PhpaBillsDataContext> _db;
 
-        protected override void Initialize(RequestContext requestContext)
-        {
-            base.Initialize(requestContext);
+        //protected override void Initialize(RequestContext requestContext)
+        //{
+        //    base.Initialize(requestContext);
 
-            //_service = new Lazy<ManageBillsService>(() => new ManageBillsService("default", requestContext.HttpContext.Trace));
-            _db = new Lazy<PhpaBillsDataContext>(() => new PhpaBillsDataContext(requestContext.HttpContext));
-        }
+        //    //_service = new Lazy<ManageBillsService>(() => new ManageBillsService("default", requestContext.HttpContext.Trace));
+        //    _db = new Lazy<PhpaBillsDataContext>(() => new PhpaBillsDataContext(requestContext.HttpContext));
+        //}
 
-        protected override void Dispose(bool disposing)
-        {
-            //if (_service != null && _service.IsValueCreated)
-            //{
-            //    _service.Value.Dispose();
-            //}
+        //protected override void Dispose(bool disposing)
+        //{
+        //    //if (_service != null && _service.IsValueCreated)
+        //    //{
+        //    //    _service.Value.Dispose();
+        //    //}
 
-            if (_db != null && _db.IsValueCreated)
-            {
-                _db.Value.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //    if (_db != null && _db.IsValueCreated)
+        //    {
+        //        _db.Value.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
         [HttpGet]
         public virtual ActionResult Create()
