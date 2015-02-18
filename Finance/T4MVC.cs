@@ -89,7 +89,8 @@ namespace Links
             private const string URLPATH = "~/Views/Bills";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        }
+            public static readonly string RecentBills_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/RecentBills.min.js") ? Url("RecentBills.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/RecentBills.min.js") : Url("RecentBills.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/RecentBills.js");
+                    }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class BillsHome {

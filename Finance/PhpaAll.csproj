@@ -301,6 +301,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Views\Bills\RecentBills.js">
+      <DependentUpon>RecentBills.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Views\Bills\RecentBills.min.js">
+      <DependentUpon>RecentBills.js</DependentUpon>
+    </Content>
+    <Content Include="Views\Bills\RecentBills.partial.js" />
     <Content Include="Views\ManageBills\Bill.js">
       <DependentUpon>Bill.js.bundle</DependentUpon>
     </Content>
@@ -399,6 +406,10 @@
       <DependentUpon>Create.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Bills\_recentBillsFilterPartial.cshtml" />
+    <Content Include="Views\Bills\RecentBills.js.bundle" />
+    <Content Include="Views\Bills\RecentBills.min.js.map">
+      <DependentUpon>RecentBills.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ChangePassword.aspx.cs">

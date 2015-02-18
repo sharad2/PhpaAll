@@ -187,10 +187,12 @@ namespace PhpaAll.Controllers
                 public readonly string _recentBillsFilterPartial = "_recentBillsFilterPartial";
                 public readonly string OutstandingBills = "OutstandingBills";
                 public readonly string RecentBills = "RecentBills";
+                public readonly string RecentBills_js = "RecentBills.js";
             }
             public readonly string _recentBillsFilterPartial = "~/Views/Bills/_recentBillsFilterPartial.cshtml";
             public readonly string OutstandingBills = "~/Views/Bills/OutstandingBills.cshtml";
             public readonly string RecentBills = "~/Views/Bills/RecentBills.cshtml";
+            public readonly string RecentBills_js = "~/Views/Bills/RecentBills.js.bundle";
         }
     }
 
