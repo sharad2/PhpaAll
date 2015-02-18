@@ -152,7 +152,7 @@
                     <i:AutoComplete ID="tbDivisionCode" runat="server" FriendlyName="Division" WebMethod="GetDivisions"
                         WebServicePath="~/Services/Divisions.asmx" Value='<%# Bind("DivisionId") %>'
                         Text='<%# Eval("Division.DivisionCode", "{0}: ") +  Eval("Division.DivisionName", "{0}") %>'
-                        ValidateWebMethodName="ValidateDivision" AutoValidate="true" Delay="1000" Width="25em">
+                        ValidateWebMethodName="ValidateDivision" AutoValidate="false" Delay="1000" Width="25em">
                         <Validators>
                             <i:Required DependsOn="ddlMoreColumns" DependsOnState="Value" DependsOnValue="J" />
                         </Validators>
