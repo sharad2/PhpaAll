@@ -287,7 +287,9 @@ namespace PhpaAll.Controllers
         [Authorize(Roles = ROLE_APPROVE)]
         [HttpPost]
         public virtual ActionResult ApproveBills(int[] listBillId, string[] approvers, int[] divisions, int[] processingDivisions, int[] contractors,
-                                                int[] stations, DateTime? dateFrom, DateTime? dateTo, DateTime? dueDateFrom, DateTime? dueDateTo, decimal? minAmount, decimal? maxAmount,
+                                                int[] stations, DateTime? dateFrom, DateTime? dateTo,
+            DateTime? dueDateFrom, DateTime? dueDateTo, bool? dueDateNull,
+            decimal? minAmount, decimal? maxAmount,
                                                 bool approve, bool? approvedFilter, bool? paidFilter)
         {
             if (string.IsNullOrWhiteSpace(User.Identity.Name))
@@ -376,6 +378,11 @@ namespace PhpaAll.Controllers
             if (dueDateTo != null)
             {
                 dict.Add(Actions.RecentBillsParams.dueDateTo, new[] { dueDateTo.Value.ToShortDateString() });
+            }
+
+            if (dueDateNull.HasValue && dueDateNull.Value)
+            {
+                dict.Add(Actions.RecentBillsParams.dueDateNull, new[] { dueDateNull });
             }
 
             if (approvedFilter.HasValue)

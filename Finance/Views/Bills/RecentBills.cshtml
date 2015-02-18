@@ -76,6 +76,10 @@
                 {
                     <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dateTo" value="@Html.DisplayFor(m => m.DateTo)" />
                 }
+                @if (Model.FilterDueDateNull.HasValue && Model.FilterDueDateNull.Value)
+                {
+                    <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dueDateNull" value="true" />
+                }                
                 @if (Model.DueDateFrom != null)
                 {
                     <input type="hidden" name="@MVC.Bills.ApproveBillsParams.dueDateFrom" value="@Html.DisplayFor(m => m.DueDateFrom)" />
