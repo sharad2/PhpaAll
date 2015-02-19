@@ -34,7 +34,7 @@ namespace PhpaAll.Bills
         [ScaffoldColumn(false)]
         public int BillId { get; set; }
 
-        [Display(Order=10)]
+        [Display(Order=10, ShortName="Bill Number")]
         public String BillNumber { get; set; }
 
         [ScaffoldColumn(false)]
@@ -46,7 +46,7 @@ namespace PhpaAll.Bills
          [ScaffoldColumn(false)]
         public int? ContractorId { get; set; }
 
-        [Display(Order = 30)]
+        [Display(Order = 30, ShortName="Contractor")]
         public string ContractorName { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
@@ -61,12 +61,14 @@ namespace PhpaAll.Bills
         public Decimal? Amount { get; set; }
 
         [Obsolete]
+        [ScaffoldColumn(false)]
         [DisplayFormat(NullDisplayText="(Not Set)")]
         public String OrderByValue { get; set; }
 
         public string StationName { get; set; }
 
         [Obsolete]
+        [ScaffoldColumn(false)]
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public decimal? GroupTotal { get; set; }
 
