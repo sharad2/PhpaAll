@@ -143,10 +143,10 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public Decimal? FilterMaxAmount { get; set; }
 
-        /// <summary>
-        /// True means approved bills, false means unapproved bills, null means all
-        /// </summary>
-        public bool? FilterApprovedBills;
+        ///// <summary>
+        ///// True means approved bills, false means unapproved bills, null means all
+        ///// </summary>
+        //public bool? FilterApprovedBills;
 
         /// <summary>
         /// True means paid bills, false means unpaid bills, null means all

@@ -19,15 +19,32 @@ namespace PhpaAll.Controllers
 
         private const string ROLE_APPROVE = "BillsManager";
 
+
         /// <summary>
-        /// Display recent bills. Option to create new bill
+        /// 
         /// </summary>
+        /// <param name="approvers">Pass " " to see unapproved bills. Pass "*" to see approved bills. Pass individual approver names to see bills approved by
+        /// specific approvers. If "*" is passed, all other entries in the array are ignored</param>
+        /// <param name="divisions"></param>
+        /// <param name="processingDivisions"></param>
+        /// <param name="contractors"></param>
+        /// <param name="stations"></param>
+        /// <param name="dateFrom"></param>
+        /// <param name="dateTo"></param>
+        /// <param name="dueDateFrom"></param>
+        /// <param name="dueDateTo"></param>
+        /// <param name="dueDateNull"></param>
+        /// <param name="minAmount"></param>
+        /// <param name="maxAmount"></param>
+        /// <param name="approved"></param>
+        /// <param name="paid"></param>
+        /// <param name="exportToExcel"></param>
         /// <returns></returns>
         [Authorize(Roles = "BillsExecutive")]
         public virtual ActionResult RecentBills(string[] approvers, int?[] divisions, int?[] processingDivisions, int?[] contractors, int?[] stations,
             DateTime? dateFrom, DateTime? dateTo,
             DateTime? dueDateFrom, DateTime? dueDateTo, bool? dueDateNull,
-            decimal? minAmount, decimal? maxAmount, bool? approved, bool? paid, bool exportToExcel = false)
+            decimal? minAmount, decimal? maxAmount, bool? paid, bool exportToExcel = false)
         {
 
             var query = from bill in _db.Value.Bills
@@ -112,10 +129,18 @@ namespace PhpaAll.Controllers
 
             if (approvers != null && approvers.Length > 0)
             {
-                // Sanitize approvers. Important to change null to empty string to ensure that the where clause of the query succeeds
-                approvers = approvers.Select(p => (p ?? string.Empty).Trim().ToLower()).ToArray();
-                filteredBills = filteredBills.Where(p => approvers.Contains(p.ApprovedBy ?? ""));
-                model.IsFiltered = true;
+                if (approvers.Contains("*"))
+                {
+                    // Special handling. Show all approved bills
+                    filteredBills = filteredBills.Where(p => p.ApprovedBy != null);
+                }
+                else
+                {
+                    // Sanitize approvers. Important to change null to empty string to ensure that the where clause of the query succeeds
+                    approvers = approvers.Select(p => (p ?? string.Empty).Trim().ToLower()).ToArray();
+                    filteredBills = filteredBills.Where(p => approvers.Contains(p.ApprovedBy ?? ""));
+                    model.IsFiltered = true;
+                }
             }
 
             if (divisions != null && divisions.Length > 0)
@@ -199,19 +224,19 @@ namespace PhpaAll.Controllers
                 model.FilterMaxAmount = maxAmount;
             }
 
-            if (approved.HasValue)
-            {
-                if (approved.Value)
-                {
-                    filteredBills = filteredBills.Where(p => p.ApprovedOn != null);
-                }
-                else
-                {
-                    filteredBills = filteredBills.Where(p => p.ApprovedOn == null);
-                }
-                model.IsFiltered = true;
-                model.FilterApprovedBills = approved;
-            }
+            //if (approved.HasValue)
+            //{
+            //    if (approved.Value)
+            //    {
+            //        filteredBills = filteredBills.Where(p => p.ApprovedOn != null);
+            //    }
+            //    else
+            //    {
+            //        filteredBills = filteredBills.Where(p => p.ApprovedOn == null);
+            //    }
+            //    model.IsFiltered = true;
+            //    model.FilterApprovedBills = approved;
+            //}
 
             if (paid.HasValue)
             {
@@ -312,7 +337,7 @@ namespace PhpaAll.Controllers
                                                 int[] stations, DateTime? dateFrom, DateTime? dateTo,
             DateTime? dueDateFrom, DateTime? dueDateTo, bool? dueDateNull,
             decimal? minAmount, decimal? maxAmount,
-                                                bool approve, bool? approvedFilter, bool? paidFilter)
+                                                bool approve, bool? paidFilter)
         {
             if (string.IsNullOrWhiteSpace(User.Identity.Name))
             {
@@ -405,11 +430,6 @@ namespace PhpaAll.Controllers
             if (dueDateNull.HasValue && dueDateNull.Value)
             {
                 dict.Add(Actions.RecentBillsParams.dueDateNull, new[] { dueDateNull });
-            }
-
-            if (approvedFilter.HasValue)
-            {
-                dict.Add(Actions.RecentBillsParams.approved, new[] { approvedFilter.Value });
             }
 
             if (paidFilter.HasValue)

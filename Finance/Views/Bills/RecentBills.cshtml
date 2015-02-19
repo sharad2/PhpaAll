@@ -104,10 +104,10 @@
                 {
                     <input type="hidden" name="@MVC.Bills.ApproveBillsParams.maxAmount" value="@Model.FilterMaxAmount.Value" />
                 }
-                @if (Model.FilterApprovedBills.HasValue)
+                @*@if (Model.FilterApprovedBills.HasValue)
                 {
                     <input type="hidden" name="@MVC.Bills.ApproveBillsParams.approvedFilter" value="@Model.FilterApprovedBills.Value.ToString().ToLower()" />
-                }
+                }*@
                 @if (Model.FilterPaidBills.HasValue)
                 {
                     <input type="hidden" name="@MVC.Bills.ApproveBillsParams.paidFilter" value="@Model.FilterPaidBills.Value.ToString().ToLower()" />

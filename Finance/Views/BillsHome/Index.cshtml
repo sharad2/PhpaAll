@@ -25,7 +25,7 @@
                 <li class="list-group-item">
                     <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValues(new RouteValueDictionary
                         {
-                            {MVC.Bills.RecentBillsParams.approved, false},
+                            {MVC.Bills.RecentBillsParams.approvers, " "},
                             {MVC.Bills.RecentBillsParams.paid, false}
                         }))">Approve for Payment</a>
                 </li>
@@ -73,7 +73,7 @@
                     <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValues(new RouteValueDictionary
                         {
                             {MVC.Bills.RecentBillsParams.paid, false},
-                            {MVC.Bills.RecentBillsParams.approved, true},
+                            {MVC.Bills.RecentBillsParams.approvers, "*"},
                             {MVC.Bills.RecentBillsParams.stations, Model.Stations[i].StationId}
                         }))">
                         @Html.DisplayFor(m => m.Stations[i].StationName)
@@ -94,7 +94,7 @@
                         {
                             {MVC.Bills.RecentBillsParams.dueDateNull, true},
                             {MVC.Bills.RecentBillsParams.paid, false},
-                            {MVC.Bills.RecentBillsParams.approved, true},                            
+                            {MVC.Bills.RecentBillsParams.approvers, "*"},                            
                             {MVC.Bills.RecentBillsParams.stations, Model.Stations[i].StationId}
                         }))">
                                     @string.Format("{0:C0}", Model.Stations[i].AmountsByMonth[Model.AllMonths[j].MonthKey])
@@ -107,7 +107,7 @@
                             {MVC.Bills.RecentBillsParams.dueDateFrom, string.Format("{0:d}", Model.AllMonths[j].MonthStartDate)},
                             {MVC.Bills.RecentBillsParams.dueDateTo, string.Format("{0:d}", Model.AllMonths[j].MonthEndDate)},
                             {MVC.Bills.RecentBillsParams.paid, false},
-                            {MVC.Bills.RecentBillsParams.approved, true},                            
+                            {MVC.Bills.RecentBillsParams.approvers, "*"},                            
                             {MVC.Bills.RecentBillsParams.stations, Model.Stations[i].StationId}
                         }))">
                                     @string.Format("{0:C0}", Model.Stations[i].AmountsByMonth[Model.AllMonths[j].MonthKey])

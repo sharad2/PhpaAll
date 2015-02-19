@@ -12,7 +12,7 @@
                     <span class="caret"></span>  Approved or Paid
                 </a>
             </div>
-            @if (Model.FilterApprovedBills.HasValue || Model.FilterPaidBills.HasValue)
+            @*@if (Model.FilterApprovedBills.HasValue || Model.FilterPaidBills.HasValue)
             {
                 <ul class="list-inline text-success">
                     <li>
@@ -22,11 +22,11 @@
                     <li>@(Model.FilterPaidBills.HasValue ? ((Model.FilterPaidBills == true) ? "Paid" : "Unpaid") : null)</li>
                 </ul>
 
-            }
+            }*@
         </div>
         <div id="fsApprovePaid" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body" style="padding-left:4mm; padding-right:1mm">
-                <div class="radio">
+                @*<div class="radio">
                     <label>
                         <input type="radio" name="@MVC.Bills.RecentBillsParams.approved" value="true" checked="@(Model.FilterApprovedBills == true ? true: (bool?)null)">
                         Approved
@@ -45,7 +45,7 @@
                     </label>
                 </div>
 
-                <hr />
+                <hr />*@
                 <div class="radio">
                     <label>
                         <input type="radio" name="@MVC.Bills.RecentBillsParams.paid" value="true" checked="@(Model.FilterPaidBills == true ? true: (bool?)null)">
