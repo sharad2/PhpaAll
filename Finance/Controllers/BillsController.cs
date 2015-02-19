@@ -530,7 +530,8 @@ namespace PhpaAll.Controllers
                                               ContractorName = bill.Contractor.ContractorName,
                                               BillDate = bill.BillDate,
                                               DueDate = bill.DueDate,
-                                              Amount = bill.Amount
+                                              Amount = bill.Amount,
+                                              StationName = bill.Station.StationName
                                           }).Take(2000).ToList(),
                              };
             model.UrlExcel = Request.RawUrl;
@@ -549,7 +550,7 @@ namespace PhpaAll.Controllers
             if (exportToExcel)
             {
                 var result = new ExcelResult("List of Outstanding Bills");
-                result.AddWorkSheet(model.BillGroups.SelectMany(p => p.Bills).OrderBy(p => p.BillDate).ToList(), "Sharad", "Sgharad");
+                result.AddWorkSheet(model.BillGroups.SelectMany(p => p.Bills).OrderBy(p => p.BillDate).ToList(), "Bills", "Outstanding Bills");
                 
                 return result;
             }
