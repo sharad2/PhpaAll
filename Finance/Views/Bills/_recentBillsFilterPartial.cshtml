@@ -204,7 +204,7 @@
                     </div>
                     @for (var i = 0; i < Model.Contractors.Count; ++i)
                     {
-                        <div class="@(Model.Contractors[i].Selected ? "has-success" : (string)null)">
+                        <div class="@(Model.Contractors[i].Selected && Model.SelectedContractorsCount.HasValue ? "has-success" : (string)null)">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" name="@MVC.Bills.RecentBillsParams.contractors" value="@Model.Contractors[i].Id" checked="@Model.Contractors[i].Selected" />
@@ -285,7 +285,7 @@
                     </div>
                     @for (var i = 0; i < Model.Divisions.Count; ++i)
                     {
-                        <div class="@(Model.Divisions[i].Selected ? "has-success" : (string)null)">
+                        <div class="@(Model.Divisions[i].Selected && Model.SelectedDivisionsCount.HasValue ? "has-success" : (string)null)">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" name="@MVC.Bills.RecentBillsParams.divisions" value="@Model.Divisions[i].Id" checked="@Model.Divisions[i].Selected">
@@ -305,7 +305,7 @@
                     <div id="fsStations">
                         @for (var i = 0; i < Model.Stations.Count; ++i)
                         {
-                            <div class="@(Model.Stations[i].Selected ? "has-success" : (string)null)">
+                            <div class="@(Model.Stations[i].Selected && Model.SelectedStationsCount.HasValue ? "has-success" : (string)null)">
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="@MVC.Bills.RecentBillsParams.stations" value="@Model.Stations[i].Id" checked="@Model.Stations[i].Selected" />
@@ -364,7 +364,7 @@
                     </div>
                     @for (var i = 0; i < Model.AtDivisions.Count; ++i)
                     {
-                        <div class="@(Model.AtDivisions[i].Selected ? "has-success" : (string)null)">
+                        <div class="@(Model.AtDivisions[i].Selected && Model.SelectedAtDivisionsCount.HasValue ? "has-success" : (string)null)">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" name="@MVC.Bills.RecentBillsParams.processingDivisions" value="@Model.AtDivisions[i].Id" checked="@Model.AtDivisions[i].Selected">
@@ -424,7 +424,7 @@
                     </div>
                     @for (var i = 0; i < Model.Approvers.Count; ++i)
                     {
-                        <div class="@(Model.Approvers[i].Selected ? "has-success" : (string)null)">
+                        <div class="@(Model.Approvers[i].Selected && Model.SelectedApproversCount.HasValue ? "has-success" : (string)null)">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" name="@MVC.Bills.RecentBillsParams.approvers" value="@Model.Approvers[i].Id" checked="@Model.Approvers[i].Selected">
