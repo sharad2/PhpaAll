@@ -55,9 +55,9 @@
                         <input type="hidden" name="@MVC.Bills.ApproveBillsParams.divisions" value="@item.Id" />
                     }
                 }
-                @if (Model.ProcessingDivisions.Any(p => !p.Selected))
+                @if (Model.AtDivisions.Any(p => !p.Selected))
                 {
-                    foreach (var item in Model.ProcessingDivisions.Where(p => p.Selected))
+                    foreach (var item in Model.AtDivisions.Where(p => p.Selected))
                     {
                         <input type="hidden" name="@MVC.Bills.ApproveBillsParams.processingDivisions" value="@item.Id" />
                     }

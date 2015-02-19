@@ -44,21 +44,21 @@ namespace PhpaAll.Bills
             }
         }
 
-        public IList<RecentBillsFilterModel> ProcessingDivisions { get; set; }
+        public IList<RecentBillsFilterModel> AtDivisions { get; set; }
 
         /// <summary>
         /// Returns null if all contractors are selected. Else retuns the count of selected contractors.
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? SelectedProcessingDivisionsCount
+        public int? SelectedAtDivisionsCount
         {
             get
             {
-                if (ProcessingDivisions.All(p => p.Selected))
+                if (AtDivisions.All(p => p.Selected))
                 {
                     return null;
                 }
-                return ProcessingDivisions.Count(p => p.Selected);
+                return AtDivisions.Count(p => p.Selected);
             }
         }
 

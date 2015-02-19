@@ -202,7 +202,6 @@
                     <div class="pull-right">
                         <a href="#" class="uncheck">Uncheck All</a>
                     </div>
-                    <input type="checkbox" /> Show All
                     @for (var i = 0; i < Model.Contractors.Count; ++i)
                     {
                         <div class="@(Model.Contractors[i].Selected ? "has-success" : (string)null)">
@@ -326,32 +325,32 @@
             </div>
         </div>
     }
-    @if (Model.ProcessingDivisions.Count > 1)
+    @if (Model.AtDivisions.Count > 1)
     {
         <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingTwo">
                 <div class="panel-title">
                     <a class="collapsed" data-toggle="collapse" href="#fsprocessingDivision" aria-expanded="false" aria-controls="fsprocessingDivision">
                         <span class="caret"></span> &rarr; At Division
-                        @if (Model.SelectedProcessingDivisionsCount.HasValue)
+                        @if (Model.SelectedAtDivisionsCount.HasValue)
                         {
                             <span class="glyphicon glyphicon-filter"></span>
                         }
                         else
                         {
-                            <span class="badge">@Model.ProcessingDivisions.Count</span>
+                            <span class="badge">@Model.AtDivisions.Count</span>
                         }
                     </a>
                 </div>
-                @if (Model.SelectedProcessingDivisionsCount.HasValue)
+                @if (Model.SelectedAtDivisionsCount.HasValue)
                 {
                     <ul class="list-unstyled text-success">
-                        @for (var i = 0; i < Model.ProcessingDivisions.Count; ++i)
+                        @for (var i = 0; i < Model.AtDivisions.Count; ++i)
                         {
-                            if (Model.ProcessingDivisions[i].Selected)
+                            if (Model.AtDivisions[i].Selected)
                             {
                                 <li class="filter-truncated">
-                                    @Html.DisplayFor(m => m.ProcessingDivisions[i].Name)
+                                    @Html.DisplayFor(m => m.AtDivisions[i].Name)
                                 </li>
                             }
                         }
@@ -363,17 +362,17 @@
                     <div class="pull-right">
                         <a href="#" class="uncheck">Uncheck All</a>
                     </div>
-                    @for (var i = 0; i < Model.ProcessingDivisions.Count; ++i)
+                    @for (var i = 0; i < Model.AtDivisions.Count; ++i)
                     {
-                        <div class="@(Model.ProcessingDivisions[i].Selected ? "has-success" : (string)null)">
+                        <div class="@(Model.AtDivisions[i].Selected ? "has-success" : (string)null)">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.processingDivisions" value="@Model.ProcessingDivisions[i].Id" checked="@Model.[i].Selected">
-                                    @Html.DisplayFor(m => m.ProcessingDivisions[i].Name)
+                                    <input type="checkbox" name="@MVC.Bills.RecentBillsParams.processingDivisions" value="@Model.AtDivisions[i].Id" checked="@Model.AtDivisions[i].Selected">
+                                    @Html.DisplayFor(m => m.AtDivisions[i].Name)
                                     <small style="white-space:nowrap">
-                                        <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.processingDivisions, Model.ProcessingDivisions[i].Id))">
+                                        <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValue(MVC.Bills.RecentBillsParams.processingDivisions, Model.AtDivisions[i].Id))">
                                             only
-                                            <span class="badge"> @Html.DisplayFor(m => m.ProcessingDivisions[i].Count)</span>
+                                            <span class="badge"> @Html.DisplayFor(m => m.AtDivisions[i].Count)</span>
                                         </a>
                                     </small>
                                 </label>

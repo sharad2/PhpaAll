@@ -23,7 +23,7 @@ namespace PhpaAll.Bills
                               ApprovedBy = bill.ApprovedBy,
                               BillId = bill.Id,
                               StationName = bill.Station.StationName,
-                              CurrentDivisionName = bill.AtDivision.DivisionName,
+                              AtDivisionName = bill.AtDivision.DivisionName,
                               VoucherDate = bill.Voucher.VoucherDate,
                               VoucherId = bill.Voucher.VoucherId
                           };
@@ -54,7 +54,7 @@ namespace PhpaAll.Bills
         public string DivisionName { get; set; }
 
         [DisplayFormat(NullDisplayText="(Unknown)")]
-        public string CurrentDivisionName { get; set; }
+        public string AtDivisionName { get; set; }
 
         public string ContractorName { get; set; }
 
