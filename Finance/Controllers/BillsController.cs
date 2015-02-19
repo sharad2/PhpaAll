@@ -42,11 +42,11 @@ namespace PhpaAll.Controllers
                         select new
                         {
                             ApprovedBy = g.Key.ApprovedBy,
-                            SubmittedToDivisionId = g.Key.Division == null ? (int?)null : g.Key.Division.DivisionId,
+                            DivisionId = g.Key.Division == null ? (int?)null : g.Key.Division.DivisionId,
                             ContractorId = g.Key.Contractor == null ? (int?)null : g.Key.Contractor.ContractorId,
                             DivisionName = g.Key.Division.DivisionName,
-                            CurrentDivisionId = g.Key.AtDivision == null ? (int?)null : g.Key.AtDivision.DivisionId,
-                            CurrentDivisionName = g.Key.AtDivision.DivisionName,
+                            AtDivisionId = g.Key.AtDivision == null ? (int?)null : g.Key.AtDivision.DivisionId,
+                            AtDivisionName = g.Key.AtDivision.DivisionName,
                             ContractorName = g.Key.Contractor.ContractorName,
                             //Count = g.Count(),
                             StationId = g.Key.Station == null ? (int?)null : g.Key.Station.StationId,
@@ -59,20 +59,20 @@ namespace PhpaAll.Controllers
             var model = new RecentBillsViewModel
             {
                 Divisions = (from d in aggQuery
-                             group d by d.SubmittedToDivisionId into g
+                             group d by d.DivisionId into g
                              select new RecentBillsFilterModel
                              {
-                                 Id = string.Format("{0}", g.Key),
+                                 Id = g.Key.HasValue ? g.Key.Value.ToString() : " ",  // Need a space here to ensure that it gets posted
                                  Name = g.Select(p => p.DivisionName).FirstOrDefault(),
                                  //Count = g.Sum(p => p.Count),
                                  Selected = divisions == null || divisions.Contains(g.Key)
                              }).OrderBy(p => p.Name).ToList(),
                 AtDivisions = (from d in aggQuery
-                                       group d by d.CurrentDivisionId into g
+                                       group d by d.AtDivisionId into g
                                        select new RecentBillsFilterModel
                                        {
-                                           Id = string.Format("{0}", g.Key),
-                                           Name = g.Select(p => p.CurrentDivisionName).FirstOrDefault(),
+                                           Id = g.Key.HasValue ? g.Key.Value.ToString() : " ",  // Need a space here to ensure that it gets posted
+                                           Name = g.Select(p => p.AtDivisionName).FirstOrDefault(),
                                            //Count = g.Sum(p => p.Count),
                                            Selected = processingDivisions == null || processingDivisions.Contains(g.Key)
                                        }).OrderBy(p => p.Name).ToList(),
@@ -80,7 +80,7 @@ namespace PhpaAll.Controllers
                                group d by d.ContractorId into g
                                select new RecentBillsFilterModel
                                {
-                                   Id = string.Format("{0} ", g.Key),
+                                   Id = g.Key.HasValue ? g.Key.Value.ToString() : " ",  // Need a space here to ensure that it gets posted
                                    Name = g.Select(p => p.ContractorName).FirstOrDefault(),
                                    //Count = g.Sum(p => p.Count),
                                    Selected = contractors == null || contractors.Contains(g.Key)
@@ -89,7 +89,7 @@ namespace PhpaAll.Controllers
                              group d by d.ApprovedBy into g
                              select new RecentBillsFilterModel
                              {
-                                 Id = string.Format("{0}", g.Key),
+                                 Id = string.IsNullOrWhiteSpace(g.Key) ? " " : g.Key, // // Need a space here to ensure that it gets posted
                                  Name = g.Key,
                                  //Count = g.Sum(p => p.Count),
                                  Selected = approvers == null || approvers.Any(p => string.Compare(p.Trim(), g.Key, true) == 0)
@@ -99,7 +99,7 @@ namespace PhpaAll.Controllers
                             group d by d.StationId into g
                             select new RecentBillsFilterModel
                             {
-                                Id = string.Format("{0}", g.Key),
+                                Id = g.Key.HasValue ? g.Key.Value.ToString() : " ",  // Need a space here to ensure that it gets posted
                                 Name = g.Select(p => p.StationName).FirstOrDefault(),
                                 //Count = g.Sum(p => p.Count),
                                 Selected = stations == null || stations.Contains(g.Key)
@@ -112,6 +112,8 @@ namespace PhpaAll.Controllers
 
             if (approvers != null && approvers.Length > 0)
             {
+                // Sanitize approvers. Important to change null to empty string to ensure that the where clause of the query succeeds
+                approvers = approvers.Select(p => (p ?? string.Empty).Trim().ToLower()).ToArray();
                 filteredBills = filteredBills.Where(p => approvers.Contains(p.ApprovedBy ?? ""));
                 model.IsFiltered = true;
             }
@@ -130,7 +132,8 @@ namespace PhpaAll.Controllers
 
             if (contractors != null && contractors.Length > 0)
             {
-                filteredBills = filteredBills.Where(p => contractors.Contains(p.ContractorId));
+                var includeNulls = contractors.Any(p => p == null);
+                filteredBills = filteredBills.Where(p => contractors.Contains(p.ContractorId) || (p.ContractorId == null && includeNulls));
                 model.IsFiltered = true;
             }
 
@@ -241,7 +244,7 @@ namespace PhpaAll.Controllers
             model.Bills = BillModel.FromQuery<BillModel>(filteredBills).ToList();
 
             // Populate the counts now
-            var query2 = from item in model.Bills
+            var queryBillCounts = from item in model.Bills
                          group item by new
                          {
                              item.StationName,
@@ -257,24 +260,24 @@ namespace PhpaAll.Controllers
 
             foreach (var x in model.Contractors)
             {
-                x.Count = query2.Where(p => (p.Group.ContractorName ?? string.Empty) == (x.Name ?? string.Empty)).Sum(p => p.Count);
+                x.Count = queryBillCounts.Where(p => (p.Group.ContractorName ?? string.Empty) == (x.Name ?? string.Empty)).Sum(p => p.Count);
             }
             foreach (var x in model.Divisions)
             {
-                x.Count = query2.Where(p => p.Group.DivisionName == x.Name).Sum(p => p.Count);
+                x.Count = queryBillCounts.Where(p => p.Group.DivisionName == x.Name).Sum(p => p.Count);
             }
             foreach (var x in model.AtDivisions)
             {
-                x.Count = query2.Where(p => p.Group.AtDivisionName == x.Name).Sum(p => p.Count);
+                x.Count = queryBillCounts.Where(p => p.Group.AtDivisionName == x.Name).Sum(p => p.Count);
             }
             foreach (var x in model.Approvers)
             {
-                var z = query2.Where(p => (p.Group.ApprovedBy ?? string.Empty) == (x.Name ?? string.Empty)).ToList();
-                x.Count = query2.Where(p => (p.Group.ApprovedBy ?? string.Empty) == (x.Name ?? string.Empty)).Sum(p => p.Count);
+                var z = queryBillCounts.Where(p => (p.Group.ApprovedBy ?? string.Empty) == (x.Name ?? string.Empty)).ToList();
+                x.Count = queryBillCounts.Where(p => (p.Group.ApprovedBy ?? string.Empty) == (x.Name ?? string.Empty)).Sum(p => p.Count);
             }
             foreach (var x in model.Stations)
             {
-                x.Count = query2.Where(p => p.Group.StationName == x.Name).Sum(p => p.Count);
+                x.Count = queryBillCounts.Where(p => p.Group.StationName == x.Name).Sum(p => p.Count);
             }
 
             if (this.HttpContext.User.IsInRole(ROLE_APPROVE))
