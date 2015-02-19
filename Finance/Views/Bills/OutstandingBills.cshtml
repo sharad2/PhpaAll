@@ -9,6 +9,8 @@
     <input type="checkbox" id="chkOverDue"  name="@MVC.Bills.OutstandingBillsParams.overdueOnly" value="true" checked="@Model.OverDueOnly"/>Show only Overdue Bills
     <input type="hidden" value="@Model.OrderByField" name="@MVC.Bills.OutstandingBillsParams.field" />
     <button type="submit">Apply</button>
+    <strong><a href="@Model.UrlExcel">Export to Excel</a></strong>
+    <span class="glyphicon glyphicon-export"></span>
 </form>
 <ul class="nav nav-tabs">
     <li role="presentation" class="@(Model.OrderByField == PhpaAll.Bills.OrderByField.Division ? "active" : null)">

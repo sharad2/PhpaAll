@@ -454,12 +454,13 @@ namespace PhpaAll.Controllers
         /// </summary>
         [Authorize(Roles = "BillsExecutive")]
         [HttpGet]
-        public virtual ActionResult OutstandingBills(bool? overdueOnly, OrderByField field = OrderByField.Division)
+        public virtual ActionResult OutstandingBills(bool? overdueOnly, OrderByField field = OrderByField.Division, bool exportToExcel = false)
         {
             var model = new OutstandingBillsViewModel
             {
                 OrderByField = field,
                 OverDueOnly = overdueOnly
+
             };
 
             var query = from bill in _db.Value.Bills
@@ -530,11 +531,27 @@ namespace PhpaAll.Controllers
                                               BillDate = bill.BillDate,
                                               DueDate = bill.DueDate,
                                               Amount = bill.Amount
-                                          }).Take(2000).ToList()
-
+                                          }).Take(2000).ToList(),
                              };
+            model.UrlExcel = Request.RawUrl;
             model.BillGroups = finalquery.ToList();
+            if (model.UrlExcel.Contains("?"))
+            {
+                model.UrlExcel += "&";
+            }
+            else
+            {
+                model.UrlExcel += "?";
+            }
+            model.UrlExcel += Actions.OutstandingBillsParams.exportToExcel + "=true";
 
+
+            if (exportToExcel)
+            {
+                var result = new ExcelResult("List of Outstanding Bills");
+                result.AddWorkSheet(model.BillGroups, "Bills", "My Heading");
+                return result;
+            }
             return View(Views.OutstandingBills, model);
         }
     }

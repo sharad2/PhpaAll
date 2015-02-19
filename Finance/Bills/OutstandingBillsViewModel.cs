@@ -26,6 +26,7 @@ namespace PhpaAll.Bills
         public IList<OutstandingBillModel> Bills { get; set; }
 
         public int DatabaseCount { get; set; }
+
     }
    
     public class OutstandingBillModel
@@ -61,6 +62,7 @@ namespace PhpaAll.Bills
         [Obsolete]
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public decimal? GroupTotal { get; set; }
+
     }
 
     public class OutstandingBillsViewModel
@@ -85,10 +87,14 @@ namespace PhpaAll.Bills
         //    }
 
         //}
+        /// <summary>
+        /// URL which will cause the current data to be displayed in Excel
+        /// </summary>
+        public string UrlExcel { get; set; }
+
         public bool? OverDueOnly { get; set; }
 
         public IList<OutstandingBillGroupModel> BillGroups { get; set; }
-
 
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public decimal? TotalAmount

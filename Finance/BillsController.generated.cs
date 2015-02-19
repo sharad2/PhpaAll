@@ -175,6 +175,7 @@ namespace PhpaAll.Controllers
         {
             public readonly string overdueOnly = "overdueOnly";
             public readonly string field = "field";
+            public readonly string exportToExcel = "exportToExcel";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -269,15 +270,16 @@ namespace PhpaAll.Controllers
         }
 
         [NonAction]
-        partial void OutstandingBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, bool? overdueOnly, PhpaAll.Bills.OrderByField field);
+        partial void OutstandingBillsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, bool? overdueOnly, PhpaAll.Bills.OrderByField field, bool exportToExcel);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult OutstandingBills(bool? overdueOnly, PhpaAll.Bills.OrderByField field)
+        public override System.Web.Mvc.ActionResult OutstandingBills(bool? overdueOnly, PhpaAll.Bills.OrderByField field, bool exportToExcel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.OutstandingBills);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "overdueOnly", overdueOnly);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "field", field);
-            OutstandingBillsOverride(callInfo, overdueOnly, field);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "exportToExcel", exportToExcel);
+            OutstandingBillsOverride(callInfo, overdueOnly, field, exportToExcel);
             return callInfo;
         }
 
