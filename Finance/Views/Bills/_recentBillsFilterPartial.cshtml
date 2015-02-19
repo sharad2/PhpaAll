@@ -202,6 +202,7 @@
                     <div class="pull-right">
                         <a href="#" class="uncheck">Uncheck All</a>
                     </div>
+                    <input type="checkbox" /> Show All
                     @for (var i = 0; i < Model.Contractors.Count; ++i)
                     {
                         <div class="@(Model.Contractors[i].Selected ? "has-success" : (string)null)">

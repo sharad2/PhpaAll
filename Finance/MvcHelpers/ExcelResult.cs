@@ -29,6 +29,8 @@ namespace PhpaAll.MvcHelpers
     /// 
     /// [Display(ShortName="Station")] -> Specifies that the column header of this property will be Station
     /// [ScaffoldColumn(false)] -> Do not display a column for this property
+    /// [DataType(DataType.Currency)] -> Apply currency formatting
+    /// [DataType(DataType.DateTime)] -> Show time along with date
     /// </para>
     /// </remarks>
     public class ExcelResult : ActionResult

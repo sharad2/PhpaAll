@@ -549,7 +549,8 @@ namespace PhpaAll.Controllers
             if (exportToExcel)
             {
                 var result = new ExcelResult("List of Outstanding Bills");
-                result.AddWorkSheet(model.BillGroups, "Bills", "My Heading");
+                result.AddWorkSheet(model.BillGroups.SelectMany(p => p.Bills).OrderBy(p => p.BillDate).ToList(), "Sharad", "Sgharad");
+                
                 return result;
             }
             return View(Views.OutstandingBills, model);

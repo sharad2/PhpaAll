@@ -31,26 +31,33 @@ namespace PhpaAll.Bills
    
     public class OutstandingBillModel
     {
-
+        [ScaffoldColumn(false)]
         public int BillId { get; set; }
 
+        [Display(Order=10)]
         public String BillNumber { get; set; }
 
+        [ScaffoldColumn(false)]
         public int? DivisionId { get; set; }
 
+        [Display(Order = 20, ShortName="Division")]
         public string DivisionName { get; set; }
 
+         [ScaffoldColumn(false)]
         public int? ContractorId { get; set; }
 
+        [Display(Order = 30)]
         public string ContractorName { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
+        [Display(Order = 5)]
         public DateTime? BillDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? DueDate { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:N2}")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        [DataType(DataType.Currency)]
         public Decimal? Amount { get; set; }
 
         [Obsolete]
