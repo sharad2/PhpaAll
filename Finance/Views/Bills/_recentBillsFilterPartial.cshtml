@@ -9,20 +9,19 @@
         <div class="panel-heading" role="tab" id="headingOne">
             <div class="panel-title">
                 <a class="collapsed" data-toggle="collapse" href="#fsApprovePaid" aria-expanded="false" aria-controls="#fsApprovePaid">
-                    <span class="caret"></span>  Approved or Paid
+                    <span class="caret"></span>  Paid
                 </a>
             </div>
-            @*@if (Model.FilterApprovedBills.HasValue || Model.FilterPaidBills.HasValue)
+            @if (Model.FilterPaidBills.HasValue)
             {
                 <ul class="list-inline text-success">
                     <li>
                         <span class="glyphicon glyphicon-filter"></span>
                     </li>
-                    <li>@(Model.FilterApprovedBills.HasValue ? ((Model.FilterApprovedBills == true) ? "Approved" : "Unapproved") : null)</li>
                     <li>@(Model.FilterPaidBills.HasValue ? ((Model.FilterPaidBills == true) ? "Paid" : "Unpaid") : null)</li>
                 </ul>
 
-            }*@
+            }
         </div>
         <div id="fsApprovePaid" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body" style="padding-left:4mm; padding-right:1mm">
