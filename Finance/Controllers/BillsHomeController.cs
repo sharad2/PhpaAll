@@ -57,21 +57,21 @@ namespace PhpaAll.Controllers
             var minDate = DateTime.Today;
             var maxDate = minDate.AddMonths(12);
             var queryBills = (from bill in _db.Value.Bills
-                              where bill.Voucher == null  // Only unpaid bills
-                              let dueDate1 = bill.DueDate ?? minDate  // If due date not specified, it is due immediately
+                              where bill.Voucher == null && bill.ApprovedOn != null  // Only unpaid and approved bills
+                              let dueDate1 = bill.DueDate  // If due date not specified, it is due immediately
                               let dueDate2 = dueDate1 <= minDate ? minDate : dueDate1  // bills due before today are due immediately
                               let dueDateFinal = dueDate2 >= maxDate ? maxDate : dueDate2  // bills due after 12 months are clubbed together
                               group bill by new
                               {
-                                  DueInMonth = dueDateFinal.Month,
-                                  DueInYear = dueDateFinal.Year,
+                                  DueInMonth = dueDateFinal == null ? 0 : dueDateFinal.Value.Month,
+                                  DueInYear = dueDateFinal == null ? 0 : dueDateFinal.Value.Year,
                                   Station = bill.Station
                               } into g
                               let minDueDate = g.Min(p => p.DueDate) ?? DateTime.Today
                               select new
                               {
                                   Station = g.Key.Station,
-                                  MinDueDate = minDueDate <= minDate ? minDate : (minDueDate >= maxDate ? maxDate : minDueDate),
+                                  MinDueDate = g.Key.DueInMonth == 0 ? (DateTime?) null :( minDueDate <= minDate ? minDate : (minDueDate >= maxDate ? maxDate : minDueDate)),
                                   Amount = g.Sum(p => p.Amount)
                               }).ToLookup(p => p.Station);
 

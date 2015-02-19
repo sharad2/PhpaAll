@@ -4773,6 +4773,9 @@ $(document).ready(function () {
         // Uncheck all checkboxes within panel body
         $(e.target).closest('.panel-body').find('input:checkbox:checked').prop('checked', false);
         return false;
+    }).on('click', '#cbDueDateNull', function (e) {
+        // When user wants null due dates, disable due date from/to
+        $(e.target).closest('fieldset').find('input[type="date"]').prop('disabled', $(e.target).prop('checked'));
     });
 
     // Handle approve and unapprove buttons

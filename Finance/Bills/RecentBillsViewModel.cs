@@ -132,6 +132,11 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? DueDateTo { get; set; }
 
+        /// <summary>
+        /// True if bills of null due dates are being displayed
+        /// </summary>
+        public bool? FilterDueDateNull { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public Decimal? FilterMinAmount { get; set; }
 
@@ -157,5 +162,7 @@ namespace PhpaAll.Bills
         /// The role required to enable approve buttons
         /// </summary>
         public string RoleApproveButtons { get; set; }
+
+
     }
 }

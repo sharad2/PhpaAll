@@ -44,19 +44,22 @@
 </div>
 
 <table class="table table-bordered table-striped table-condensed">
-    <caption>Quick Summary of Fund Requirements by Station</caption>
+    <caption>Fund Requirements by Station for <em>Approved Unpaid</em> Bills Aged by Payment Due Date</caption>
     <thead>
         <tr>
-            <th>
+            <th rowspan="2" style="text-align:center;vertical-align:middle">
                 Station
             </th>
-            <th style="text-align:right">
-                Funds Available
+            <th style="text-align:center;vertical-align:middle" rowspan="2">
+                Funds Available (Nu.)
             </th>
+            <th style="text-align:center" colspan="@Model.AllMonths.Count">
+                Fund Requirement (Nu.)
+            </th>
+        <tr>
             @for (var i = 0; i < Model.AllMonths.Count; ++i)
             {
                 <th style="white-space:nowrap; text-align:right">
-                    @*@Html.DisplayFor(m => m.AllMonths[i].MonthStartDate)*@
                     @Html.DisplayFor(m => m.AllMonths[i].DisplayName)
                 </th>
             }
@@ -67,8 +70,16 @@
         {
             <tr>
                 <td style="font-weight:bold">
-                    @Html.DisplayFor(m => m.Stations[i].StationName)
-                </td>
+                    <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValues(new RouteValueDictionary
+                        {
+                            {MVC.Bills.RecentBillsParams.paid, false},
+                            {MVC.Bills.RecentBillsParams.approved, true},
+                            {MVC.Bills.RecentBillsParams.stations, Model.Stations[i].StationId}
+                        }))">
+                        @Html.DisplayFor(m => m.Stations[i].StationName)
+                    </a>
+                       
+</td>
                 <td style="text-align:right" class="info">
                     @Html.DisplayFor(m => m.Stations[i].FundsAvailable)
                 </td>
@@ -77,16 +88,31 @@
                     <td style="text-align:right">
                         @if (Model.Stations[i].AmountsByMonth.ContainsKey(Model.AllMonths[j].MonthKey))
                         {
-                            @*<span>
-                                @string.Format("{0:C}", Model.Stations[i].AmountsByMonth[Model.AllMonths[j].MonthKey])
-                            </span>*@
-                            <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValues(new RouteValueDictionary
+                            if (Model.AllMonths[j].MonthStartDate == null && Model.AllMonths[j].MonthEndDate == null)
+                            {
+                                <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValues(new RouteValueDictionary
+                        {
+                            {MVC.Bills.RecentBillsParams.dueDateNull, true},
+                            {MVC.Bills.RecentBillsParams.paid, false},
+                            {MVC.Bills.RecentBillsParams.approved, true},                            
+                            {MVC.Bills.RecentBillsParams.stations, Model.Stations[i].StationId}
+                        }))">
+                                    @string.Format("{0:C0}", Model.Stations[i].AmountsByMonth[Model.AllMonths[j].MonthKey])
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action(MVC.Bills.RecentBills().AddRouteValues(new RouteValueDictionary
                         {
                             {MVC.Bills.RecentBillsParams.dueDateFrom, string.Format("{0:d}", Model.AllMonths[j].MonthStartDate)},
                             {MVC.Bills.RecentBillsParams.dueDateTo, string.Format("{0:d}", Model.AllMonths[j].MonthEndDate)},
                             {MVC.Bills.RecentBillsParams.paid, false},
+                            {MVC.Bills.RecentBillsParams.approved, true},                            
                             {MVC.Bills.RecentBillsParams.stations, Model.Stations[i].StationId}
-                        }))">@string.Format("{0:C0}", Model.Stations[i].AmountsByMonth[Model.AllMonths[j].MonthKey])</a>
+                        }))">
+                                    @string.Format("{0:C0}", Model.Stations[i].AmountsByMonth[Model.AllMonths[j].MonthKey])
+                                </a>
+                            }
                         }
                     </td>
                 }
@@ -95,15 +121,15 @@
     </tbody>
 </table>
 
-<pre>
-Main features of the Bill Management module include:
-•	Top management will be able to see outstanding bills by contractor, division, station or any combination thereof.
-•	Estimate future fund requirements based on the entered bills. This will improve cash flow planning.
-•	Scanned image of the bill will be captured for future reference.
-•	Authorized managers will have the capability to approve, reject or delay payment of the bill.
-•	Full audit trail of the approval process will be visible.
-•	Capability to search for any bill based on multiple criteria.
-•	Capability to enter future bills. This will help in planning future expenses.
-•	Will help in ensuring that bills are paid by their due date.
-•	Capability to view overdue bills
-</pre>
+@*<pre>
+    Main features of the Bill Management module include:
+    •	Top management will be able to see outstanding bills by contractor, division, station or any combination thereof.
+    •	Estimate future fund requirements based on the entered bills. This will improve cash flow planning.
+    •	Scanned image of the bill will be captured for future reference.
+    •	Authorized managers will have the capability to approve, reject or delay payment of the bill.
+    •	Full audit trail of the approval process will be visible.
+    •	Capability to search for any bill based on multiple criteria.
+    •	Capability to enter future bills. This will help in planning future expenses.
+    •	Will help in ensuring that bills are paid by their due date.
+    •	Capability to view overdue bills
+    </pre>*@
