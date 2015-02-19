@@ -107,9 +107,10 @@ namespace PhpaAll.Controllers
                              select new RecentBillsFilterModel
                              {
                                  Id = string.IsNullOrWhiteSpace(g.Key) ? " " : g.Key, // // Need a space here to ensure that it gets posted
-                                 Name = g.Key,
+                                 Name = string.IsNullOrWhiteSpace(g.Key) ? "(Unapproved)" : g.Key,
                                  //Count = g.Sum(p => p.Count),
-                                 Selected = approvers == null || approvers.Any(p => string.Compare(p.Trim(), g.Key, true) == 0)
+                                 Selected = approvers == null || approvers.Any(p => string.Compare(p.Trim(), (g.Key ?? "").Trim(), true) == 0 ||
+                                     (p == "*" && !string.IsNullOrWhiteSpace(g.Key)))
                              }).OrderBy(p => p.Name).ToList(),
 
                 Stations = (from d in aggQuery
@@ -139,8 +140,8 @@ namespace PhpaAll.Controllers
                     // Sanitize approvers. Important to change null to empty string to ensure that the where clause of the query succeeds
                     approvers = approvers.Select(p => (p ?? string.Empty).Trim().ToLower()).ToArray();
                     filteredBills = filteredBills.Where(p => approvers.Contains(p.ApprovedBy ?? ""));
-                    model.IsFiltered = true;
                 }
+                model.IsFiltered = true;
             }
 
             if (divisions != null && divisions.Length > 0)
@@ -297,8 +298,8 @@ namespace PhpaAll.Controllers
             }
             foreach (var x in model.Approvers)
             {
-                var z = queryBillCounts.Where(p => (p.Group.ApprovedBy ?? string.Empty) == (x.Name ?? string.Empty)).ToList();
-                x.Count = queryBillCounts.Where(p => (p.Group.ApprovedBy ?? string.Empty) == (x.Name ?? string.Empty)).Sum(p => p.Count);
+                //var z = queryBillCounts.Where(p => (p.Group.ApprovedBy ?? string.Empty) == (x.Name ?? string.Empty)).ToList();
+                x.Count = queryBillCounts.Where(p => (p.Group.ApprovedBy ?? string.Empty).Trim() == (x.Id ?? string.Empty).Trim()).Sum(p => p.Count);
             }
             foreach (var x in model.Stations)
             {
