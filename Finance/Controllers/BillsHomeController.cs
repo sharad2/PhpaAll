@@ -398,7 +398,8 @@ namespace PhpaAll.Controllers
             {
                 Relevance = 100,
                 Value = bill.Id,
-                Text = string.Format("{0} {1:C} {2}", bill.BillNumber, bill.Amount, bill.Particulars)
+                Text = string.Format("{0} {1:C} {2}", bill.BillNumber, bill.Amount, bill.Particulars),
+                Contractor = bill.Contractor == null ? "" : bill.Contractor.ContractorName
             }).ToList();
 
             return Json(new
