@@ -226,7 +226,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr runat="server" onprerender="Asset_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkwip" runat="server" Text="Work In Progress" NavigateUrl="~/Finance/AccountHeads.aspx?Types=EXPENDITURE"></asp:HyperLink>
                         </td>
@@ -236,7 +236,7 @@
                                 onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="Asset_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkStockSuspense" runat="server" Text="Stock Suspense" NavigateUrl="~/Finance/AccountHeads.aspx?Types=STOCK_SUSPENSE"></asp:HyperLink>
                         </td>

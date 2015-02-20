@@ -283,6 +283,7 @@ namespace PhpaAll.Reports
         #region Excel
         ExcelPackage _pkg;
         ExcelWorksheet _wksLiability;
+        ExcelWorksheet _wksAsset;
 
         private int _curRow = 1;
 
@@ -302,6 +303,24 @@ namespace PhpaAll.Reports
         }
            
         }
+
+        protected void Asset_PreRender(object sender, EventArgs e)
+        {
+            if (_pkg != null)
+            {
+                var row = (Control)sender;
+                var x = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<HyperLink>()).ToList();
+                if (x.Count > 0)
+                {
+                    _wksAsset.Cells[_curRow, 1].Value = x[0].Text;
+                    _wksAsset.Cells[_curRow, 2].Value = x[1].Text;
+                    ++_curRow;
+                }
+            }
+
+        }
+
+
 
         protected override void OnPreRenderComplete(EventArgs e)
         {
@@ -332,6 +351,7 @@ namespace PhpaAll.Reports
         {
             _pkg = new ExcelPackage();
             _wksLiability = _pkg.Workbook.Worksheets.Add("Liabilities");
+            _wksAsset = _pkg.Workbook.Worksheets.Add("Assets");
 
         }
         //var wks = pkg.Workbook.Worksheets.Add("Tab1");
