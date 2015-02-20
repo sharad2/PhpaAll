@@ -285,7 +285,8 @@ namespace PhpaAll.Reports
         ExcelWorksheet _wksLiability;
         ExcelWorksheet _wksAsset;
 
-        private int _curRow = 1;
+        private int _curRowAsset = 1;
+        private int _curRowLiabilities = 1;
 
 
         protected void liability_PreRender(object sender, EventArgs e)
@@ -296,9 +297,9 @@ namespace PhpaAll.Reports
             var x = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<HyperLink>()).ToList();
             if (x.Count > 0)
             {
-                _wksLiability.Cells[_curRow, 1].Value = x[0].Text;
-                _wksLiability.Cells[_curRow, 2].Value = x[1].Text;
-                ++_curRow;
+                _wksLiability.Cells[_curRowLiabilities, 1].Value = x[0].Text;
+                _wksLiability.Cells[_curRowLiabilities, 2].Value = x[1].Text;
+                ++_curRowLiabilities;
             }
         }
            
@@ -312,9 +313,9 @@ namespace PhpaAll.Reports
                 var x = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<HyperLink>()).ToList();
                 if (x.Count > 0)
                 {
-                    _wksAsset.Cells[_curRow, 1].Value = x[0].Text;
-                    _wksAsset.Cells[_curRow, 2].Value = x[1].Text;
-                    ++_curRow;
+                    _wksAsset.Cells[_curRowAsset, 1].Value = x[0].Text;
+                    _wksAsset.Cells[_curRowAsset, 2].Value = x[1].Text;
+                    ++_curRowAsset;
                 }
             }
 
