@@ -159,6 +159,7 @@
                     </i:AutoComplete>
                     <i:AutoComplete ID="tbBills" runat="server" ClientIDMode="Static" Width="25em" WebMethod="BillsForDivisionAutoComplete"
                         WebServicePath="~/BillsHome" OnClientSearch="tbBills_Search" AutoValidate="false" Delay="1000" FriendlyName="Bill"
+                        OnClientSelect="tbBills_Select"
                         Value='<%# Bind("BillId") %>' Text='<%# Eval("Bill.BillNumber") + Eval("Bill.Amount", " for Nu {0:C}") %>'>
                         <Validators>
                             <i:Required DependsOn="rblVoucherTypes" DependsOnState="AnyValue" DependsOnValue="B,C" />
