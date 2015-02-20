@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Eclipse.PhpaLibrary.Web.Providers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web.Security;
 
 namespace PhpaAll.Bills
 {
@@ -22,7 +24,9 @@ namespace PhpaAll.Bills
         internal BillAuditModel(BillAudit2 entity)
         {
             DateCreated = entity.Created;
-            CreatedBy = entity.CreatedBy;
+
+            var user = Membership.GetUser(entity.CreatedBy) as PhpaMembershipUser;
+            CreatedBy = user == null ? entity.CreatedBy : user.FullName;
 
             _fieldChanges = new List<BillAuditFieldChangeModel>();
 

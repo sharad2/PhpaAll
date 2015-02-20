@@ -5,6 +5,20 @@
     {
         statusMessages = phpaController.StatusMessages;
     }
+
+    string userFullName = null;
+    if (this.ViewContext.HttpContext.User.Identity.IsAuthenticated)
+    {
+        var user = Membership.GetUser(this.ViewContext.HttpContext.User.Identity.Name) as Eclipse.PhpaLibrary.Web.Providers.PhpaMembershipUser;
+        if (user == null)
+        {
+            userFullName = this.ViewContext.HttpContext.User.Identity.Name;
+        }
+        else
+        {
+            userFullName = user.FullName;
+        }
+    }
 }
 <!DOCTYPE html>
 <html>
@@ -76,7 +90,10 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (this.ViewContext.HttpContext.User.Identity.IsAuthenticated)
                     {
-                        <li><a href="@Url.Content("~/Admin/ChangePassword.aspx")">Welcome @ViewContext.HttpContext.User.Identity.Name</a></li>
+                        <li>
+                            <a href="@Url.Content("~/Admin/ChangePassword.aspx")" 
+                               style="white-space: nowrap; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; overflow: hidden; max-width: 10em">@userFullName</a>
+                        </li>
                         <li><a href="@Url.Action(MVC.BillsHome.Logoff())">Logout</a></li>
                     }
                     else

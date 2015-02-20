@@ -1,4 +1,5 @@
-﻿using PhpaAll.Bills;
+﻿using Eclipse.PhpaLibrary.Web.Providers;
+using PhpaAll.Bills;
 using PhpaAll.MvcHelpers;
 using System;
 using System.Collections;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 
 namespace PhpaAll.Controllers
 {
@@ -104,10 +106,11 @@ namespace PhpaAll.Controllers
                                }).OrderBy(p => p.Name).ToList(),
                 Approvers = (from d in aggQuery
                              group d by d.ApprovedBy into g
+                             let user = string.IsNullOrWhiteSpace(g.Key) ? null : Membership.GetUser(g.Key) as PhpaMembershipUser
                              select new RecentBillsFilterModel
                              {
                                  Id = string.IsNullOrWhiteSpace(g.Key) ? " " : g.Key, // // Need a space here to ensure that it gets posted
-                                 Name = string.IsNullOrWhiteSpace(g.Key) ? "(Unapproved)" : g.Key,
+                                 Name = string.IsNullOrWhiteSpace(g.Key) ? "(Unapproved)" : (user == null ? g.Key : user.FullName),
                                  //Count = g.Sum(p => p.Count),
                                  Selected = approvers == null || approvers.Any(p => string.Compare(p.Trim(), (g.Key ?? "").Trim(), true) == 0 ||
                                      (p == "*" && !string.IsNullOrWhiteSpace(g.Key)))
