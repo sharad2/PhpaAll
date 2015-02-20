@@ -127,6 +127,10 @@ namespace PhpaAll.Reports
             }
             ReportingDataContext db = (ReportingDataContext)this.dsContractorPayment.Database;
 
+            var dlo = new DataLoadOptions();
+            dlo.LoadWith<RoJob>(p => p.RoContractor);
+            db.LoadOptions = dlo;
+
             var otherRecoveryHeadExclusion = new[] { HeadOfAccountHelpers.TaxSubTypes.BhutanIncomeTax, HeadOfAccountHelpers.ReceiptSubType.InterestReceipt,
                 HeadOfAccountHelpers.DepositSubTypes.SecurityDeposit}
                                                        .Concat(HeadOfAccountHelpers.JobAdvances)
