@@ -25,6 +25,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
+using OfficeOpenXml;
+using System.IO;
+using OfficeOpenXml.FormulaParsing;
 
 
 namespace PhpaAll.Reports
@@ -35,6 +38,7 @@ namespace PhpaAll.Reports
 
         protected override void OnLoad(EventArgs e)
         {
+
             m_db = (ReportingDataContext)dsQueries.Database;
 
             if (!Page.IsPostBack)
@@ -275,5 +279,71 @@ namespace PhpaAll.Reports
             lblSumLiabilities.Text = sumLiability.ToString("N2");
             lblSumAssets.Text = sumAssets.ToString("N2");
         }
+
+        #region Excel
+        ExcelPackage _pkg;
+        ExcelWorksheet _wksLiability;
+
+        private int _curRow = 1;
+
+
+        protected void liability_PreRender(object sender, EventArgs e)
+        {
+            if (_pkg != null)
+            { 
+            var row = (Control)sender;
+            var x = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<HyperLink>()).ToList();
+            _wksLiability.Cells[_curRow, 1].Value = x[0].Text;
+            _wksLiability.Cells[_curRow, 2].Value = x[1].Text;
+            ++_curRow;
+        }
+           
+        }
+
+        protected override void OnPreRenderComplete(EventArgs e)
+        {
+            if (_pkg != null)
+            {
+                var bytes = _pkg.GetAsByteArray();
+                Response.Clear();
+                MemoryStream ms = new MemoryStream(bytes);
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment;filename=labtest.xls");
+                Response.Buffer = true;
+                ms.WriteTo(Response.OutputStream);
+                Response.End();
+            }
+            base.OnPreRenderComplete(e);
+        }
+
+        public override void Dispose()
+        {
+            if (_pkg != null)
+            {
+                _pkg.Dispose();
+            }
+            base.Dispose();
+        }
+
+        protected void btnExport_Click(object sender, EventArgs e)
+        {
+            _pkg = new ExcelPackage();
+            _wksLiability = _pkg.Workbook.Worksheets.Add("Liabilities");
+
+        }
+        //var wks = pkg.Workbook.Worksheets.Add("Tab1");
+        //wks.Cells[1, 1].Value = "Sharad";
+        //wks.Cells[1, 2].Value = "Sharad2";
+
+        //// http://stackoverflow.com/questions/3623797/how-to-convert-pdf-byte-array-to-downloadable-file-using-itextsharp
+        //var bytes = pkg.GetAsByteArray();
+        //Response.Clear();
+        //MemoryStream ms = new MemoryStream(bytes);
+        //Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+        //Response.AddHeader("content-disposition", "attachment;filename=labtest.xls");
+        //Response.Buffer = true;
+        //ms.WriteTo(Response.OutputStream);
+        //Response.End();
+        #endregion
     }
 }

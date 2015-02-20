@@ -49,6 +49,15 @@ namespace PhpaAll.Reports {
         protected global::EclipseLibrary.Web.JQuery.Input.TextBoxEx tbdate;
         
         /// <summary>
+        /// btnExport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::EclipseLibrary.Web.JQuery.Input.ButtonEx btnExport;
+        
+        /// <summary>
         /// ValidationSummary1 control.
         /// </summary>
         /// <remarks>

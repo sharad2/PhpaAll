@@ -158,8 +158,11 @@
                         </Validators>
                     </i:AutoComplete>
                     <i:AutoComplete ID="tbBills" runat="server" ClientIDMode="Static" Width="25em" WebMethod="BillsForDivisionAutoComplete"
-                        WebServicePath="~/BillsHome" OnClientSearch="tbBills_Search" AutoValidate="false" Delay="1000" 
+                        WebServicePath="~/BillsHome" OnClientSearch="tbBills_Search" AutoValidate="false" Delay="1000" FriendlyName="Bill"
                         Value='<%# Bind("BillId") %>' Text='<%# Eval("Bill.BillNumber") + Eval("Bill.Amount", " for Nu {0:C}") %>'>
+                        <Validators>
+                            <i:Required />
+                        </Validators>
                     </i:AutoComplete>
                     <eclipse:LeftLabel ID="lblCheckNumber" runat="server" Text="Cheque #" />
                     <i:TextBoxEx ID="tbCheckNumber" runat="server" QueryStringValue='<%# Bind("CheckNumber") %>'
