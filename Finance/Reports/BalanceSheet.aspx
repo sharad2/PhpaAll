@@ -70,6 +70,8 @@
         </i:TextBoxEx>
         <br />
         <i:ButtonEx runat="server" Text="Recalculate" CausesValidation="true" Action="Submit" IsDefault="true"/>
+           <i:ButtonEx ID="btnExport" runat="server" Text="Export" OnClick="btnExport_Click"
+            Action="Submit" Icon="None" CausesValidation="true" />
     </eclipse:TwoColumnPanel>
     <br />
     <i:ValidationSummary ID="ValidationSummary1" runat="server" />
