@@ -161,7 +161,7 @@
                         WebServicePath="~/BillsHome" OnClientSearch="tbBills_Search" AutoValidate="false" Delay="1000" FriendlyName="Bill"
                         Value='<%# Bind("BillId") %>' Text='<%# Eval("Bill.BillNumber") + Eval("Bill.Amount", " for Nu {0:C}") %>'>
                         <Validators>
-                            <i:Required />
+                            <i:Required DependsOn="rblVoucherTypes" DependsOnState="AnyValue" DependsOnValue="B,C" />
                         </Validators>
                     </i:AutoComplete>
                     <eclipse:LeftLabel ID="lblCheckNumber" runat="server" Text="Cheque #" />
