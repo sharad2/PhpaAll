@@ -11,23 +11,6 @@ $(document).ready(function () {
         } else {
             $('#btnSave,#btnSave2').buttonEx('disable');
         }
-    }).bind('selectableselected', function (event, ui) {
-
-        //Following code was commented in consultation with Mr Pal 
-
-        // Propose discrepancy as the amount if nothing has been entered in this newly selected row
-        //        var $debit = $('input:text[name$=tbDebit]', ui.selected);
-        //        var $credit = $('input:text[name$=tbCredit]', ui.selected);
-        //        if (!$debit.val() && !$credit.val()) {
-        //            var discrep = Number($(this).gridViewEx('footerCell', "Head").text());
-        //            if (!isNaN(discrep)) {
-        //                if (discrep > 0) {
-        //                    $credit.val(discrep);
-        //                } else {
-        //                    $debit.val(discrep);
-        //                }
-        //            }
-        //        }
     }).on('change autocompletechange', function (e) {
         var $tr = $(e.target).closest('tr');
         var $ddlStatus = $('select', $tr);
@@ -195,6 +178,12 @@ function tbJob_Select(event, ui) {
     $(tbContractor).autocompleteEx('select', ui.item.ContractorValue, ui.item.ContractorText);
     $(tbHead).autocompleteEx('select', ui.item.HeadOfAccountValue, ui.item.HeadOfAccountText);
     return false;
+}
+
+// Set payee to contractor name when bill selected
+function tbBills_Select(event, ui) {
+    //alert(ui.item.Contractor)
+    $('#tbPayee').autocompleteEx('select', ui.item.Contractor, ui.item.Contractor);
 }
 
 // Dependency custom function. Returns true if the element is part of a selected row.
