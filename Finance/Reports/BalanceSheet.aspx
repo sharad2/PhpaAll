@@ -97,7 +97,7 @@
                             &nbsp;
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="liability_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkGrant" runat="server" NavigateUrl="~/Finance/AccountHeads.aspx?Types=GRANT_RECEIVED_GOINU,GRANT_RECEIVED_GOIFE">Grant Received from GOI</asp:HyperLink>
                         </td>
@@ -107,7 +107,7 @@
                                 onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="liability_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkLoan" runat="server" NavigateUrl="~/Finance/AccountHeads.aspx?Types=LOAN_RECEIVED_GOINU,LOAN_RECEIVED_GOIFE">Loan Received from GOI</asp:HyperLink>
                         </td>
@@ -117,7 +117,7 @@
                                 onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr >
                         <td class="bs_SectionHeader">
                             Accumulated Receipts
                         </td>
@@ -125,7 +125,7 @@
                             &nbsp;
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="liability_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplInterest" runat="server" Text="Interest" NavigateUrl="~/Finance/AccountHeads.aspx?Types=INTEREST"></asp:HyperLink>
                         </td>
@@ -134,7 +134,7 @@
                                 onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="liability_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkAccRec" runat="server" Text="Other Earnings" NavigateUrl="~/Finance/AccountHeads.aspx?Types=ACCUMULATED_RECEIPTS,TENDER_SALE"></asp:HyperLink>
                         </td>
@@ -152,7 +152,7 @@
                             &nbsp;
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="liability_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkemd" runat="server" Text="Earnest Money Deposit" NavigateUrl="~/Finance/AccountHeads.aspx?Types=EMD"></asp:HyperLink>
                         </td>
@@ -161,7 +161,7 @@
                                 onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="liability_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnksd" runat="server" Text="Security Deposit" NavigateUrl="~/Finance/AccountHeads.aspx?Types=SD"></asp:HyperLink>
                         </td>
@@ -178,7 +178,7 @@
                             &nbsp;
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="liability_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkbit" runat="server" Text="BIT" NavigateUrl="~/Finance/AccountHeads.aspx?Types=BIT"></asp:HyperLink>
                         </td>
@@ -187,7 +187,7 @@
                                 onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="liability_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnksalrem" runat="server" Text="Salary Remittances" NavigateUrl="~/Finance/AccountHeads.aspx?Types=SALARY_REMITANCES"></asp:HyperLink>
                         </td>
@@ -196,7 +196,7 @@
                                 ToolTip="Click to list voucher entries for Salary Allownces" onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="liability_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkotlib" runat="server" Text="Other Liablities" NavigateUrl="~/Finance/AccountHeads.aspx?Types=LIABILITY"></asp:HyperLink>
                         </td>
