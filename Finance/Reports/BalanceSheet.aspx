@@ -253,7 +253,7 @@
                             &nbsp;
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="Asset_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkEmployee" runat="server" Text="Employee" NavigateUrl="~/Finance/AccountHeads.aspx?Types=EMPLOYEE_ADVANCE"></asp:HyperLink>
                         </td>
@@ -262,7 +262,7 @@
                                 ToolTip="Click to list voucher entries for Employee Advances" onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="Asset_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkparties" runat="server" Text="Parties" NavigateUrl="~/Finance/AccountHeads.aspx?Types=PARTY_ADVANCE"></asp:HyperLink>
                         </td>
@@ -279,7 +279,7 @@
                             &nbsp;
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="Asset_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkbst" runat="server" Text="BST" NavigateUrl="~/Finance/AccountHeads.aspx?Types=BST"></asp:HyperLink>
                         </td>
@@ -288,7 +288,7 @@
                                 onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="Asset_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="HyperLink1" runat="server" Text="Service Tax" NavigateUrl="~/Finance/AccountHeads.aspx?Types=Service_Tax"></asp:HyperLink>
                         </td>
@@ -296,7 +296,7 @@
                             <asp:HyperLink ID="SVCTAX" runat="server" Text="0.00" EnableViewState="false" onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="Asset_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkExciseGOI" runat="server" Text="Excise Duty(GOI)" NavigateUrl="~/Finance/AccountHeads.aspx?Types=EDGOI"></asp:HyperLink>
                         </td>
@@ -305,7 +305,7 @@
                                 onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="Asset_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkExciseRGOB" runat="server" Text="Excise Duty(RGOB)" NavigateUrl="~/Finance/AccountHeads.aspx?Types=EDRGOB"></asp:HyperLink>
                         </td>
@@ -314,14 +314,14 @@
                                 onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="Asset_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hpllnkGreenTax" runat="server" Text="Green Tax(RGOB)" NavigateUrl="~/Finance/AccountHeads.aspx?Types=GREEN_TAX"></asp:HyperLink>
                         </td>
                         <td class="bs_RightColumn"><asp:HyperLink ID="hplnkgtax" runat="server" Text="0.00" EnableViewState="false" ToolTip="Click to list the voucher entries for Green tax(RGOB)" onclick="return ShowDisclaimer();"></asp:HyperLink>
                             </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="Asset_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkotassets" runat="server" Text="Other Assets" NavigateUrl="~/Finance/AccountHeads.aspx?Types=ASSETS"></asp:HyperLink>
                         </td>
@@ -338,7 +338,7 @@
                             &nbsp;
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="Asset_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkfundintransit" runat="server" Text="Funds in Transit" NavigateUrl="~/Finance/AccountHeads.aspx?Types=FUNDS_TRANSIT"></asp:HyperLink>
                         </td>
@@ -347,7 +347,7 @@
                                 ToolTip="Click to list voucher entries for Funds Transfer" onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="Asset_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkinv" runat="server" Text="Investment" NavigateUrl="~/Finance/AccountHeads.aspx?Types=INVESTMENT"></asp:HyperLink>
                         </td>
@@ -356,7 +356,7 @@
                                 ToolTip="Click to list voucher entries for Investment" onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="Asset_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkcashinhand" runat="server" Text="Cash in Hand" NavigateUrl="~/Finance/AccountHeads.aspx?Types=CASH"></asp:HyperLink>
                         </td>
@@ -365,7 +365,7 @@
                                 onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="Asset_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkcashatbnkFE" runat="server" Text="Cash at Bank(FE)" NavigateUrl="~/Finance/AccountHeads.aspx?Types=BANKFE"></asp:HyperLink>
                         </td>
@@ -374,7 +374,7 @@
                                 onclick="return ShowDisclaimer();"></asp:HyperLink>
                         </td>
                     </tr>
-                    <tr>
+                    <tr runat="server" onprerender="Asset_PreRender">
                         <td class="bs_LeftColumn">
                             <asp:HyperLink ID="hplnkcashatbnkNU" runat="server" Text="Cash at Bank(NU)" NavigateUrl="~/Finance/AccountHeads.aspx?Types=BANKNU"></asp:HyperLink>
                         </td>
