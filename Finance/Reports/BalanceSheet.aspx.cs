@@ -293,9 +293,12 @@ namespace PhpaAll.Reports
             { 
             var row = (Control)sender;
             var x = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<HyperLink>()).ToList();
-            _wksLiability.Cells[_curRow, 1].Value = x[0].Text;
-            _wksLiability.Cells[_curRow, 2].Value = x[1].Text;
-            ++_curRow;
+            if (x.Count > 0)
+            {
+                _wksLiability.Cells[_curRow, 1].Value = x[0].Text;
+                _wksLiability.Cells[_curRow, 2].Value = x[1].Text;
+                ++_curRow;
+            }
         }
            
         }
