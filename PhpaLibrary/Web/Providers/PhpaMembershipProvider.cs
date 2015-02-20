@@ -7,6 +7,16 @@ using Eclipse.PhpaLibrary.Database;
 
 namespace Eclipse.PhpaLibrary.Web.Providers
 {
+    public class PhpaMembershipUser : MembershipUser
+    {
+        public PhpaMembershipUser(string providerName, string name, object providerUserKey, string email, string passwordQuestion, string comment, bool isApproved, bool isLockedOut, DateTime creationDate, DateTime lastLoginDate, DateTime lastActivityDate, DateTime lastPasswordChangedDate, DateTime lastLockoutDate)
+            : base(providerName, name, providerUserKey, email, passwordQuestion, comment, isApproved, isLockedOut, creationDate, lastLoginDate, lastActivityDate, lastPasswordChangedDate, lastLockoutDate)
+        {
+
+        }
+        public string FullName { get; set; }
+    }
+
     public class PhpaMembershipProvider : MembershipProvider
     {
         public PhpaMembershipProvider()
@@ -117,8 +127,11 @@ namespace Eclipse.PhpaLibrary.Web.Providers
             {
                 var query = (from user in ctx.PhpaUsers
                              where user.UserName == username
-                             select new MembershipUser(this.Name, username, user.UserId, null, null, user.AdminComment, true, false,
-                                 user.Created ?? DateTime.Today, DateTime.Today, DateTime.Today, DateTime.Today, DateTime.Today)).SingleOrDefault();
+                             select new PhpaMembershipUser(this.Name, username, user.UserId, null, null, user.AdminComment, true, false,
+                                 user.Created ?? DateTime.Today, DateTime.Today, DateTime.Today, DateTime.Today, DateTime.Today)
+                                 {
+                                     FullName = user.FullName
+                                 }).SingleOrDefault();
                 return query;
             }
 
