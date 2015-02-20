@@ -1,3 +1,4 @@
+using Eclipse.PhpaLibrary.Web.Providers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Web.Security;
 
 namespace PhpaAll.Bills
 {
@@ -318,13 +320,41 @@ namespace PhpaAll.Bills
 
         partial void OnApprovedByChanging(string value)
         {
-            Changes["ApprovedBy"] = new BillFieldChanges
+            var changes = new BillFieldChanges
             {
                 IdKind = IdKindType.None,
                 OldValue = this.ApprovedBy,
                 NewValue = !string.IsNullOrEmpty(value) ? value.ToString() : null,
                 FieldDisplayName = "Approved By",
             };
+
+            if (!string.IsNullOrWhiteSpace(this.ApprovedBy))
+            {
+                var user = Membership.GetUser(this.ApprovedBy) as PhpaMembershipUser;
+                if (user == null) {
+                    changes.OldValue = this.ApprovedBy;
+                }
+                else
+                {
+                    changes.OldValue = user.FullName;
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                var user = Membership.GetUser(value) as PhpaMembershipUser;
+                if (user == null)
+                {
+                    changes.NewValue = value;
+                }
+                else
+                {
+                    changes.NewValue = user.FullName;
+                }
+            }
+
+
+            Changes["ApprovedBy"] = changes;
         }
 
         partial void OnBillDateChanging(DateTime? value)
