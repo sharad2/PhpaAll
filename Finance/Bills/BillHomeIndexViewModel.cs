@@ -55,11 +55,11 @@ namespace PhpaAll.Bills
                 }
                 if (MonthStartDate == null)
                 {
-                    return string.Format("&le; {0:MMM yyyy}", MonthEndDate);
+                    return string.Format("Upto {0:MMM yyyy}", MonthEndDate);
                 }
                 if (MonthEndDate == null)
                 {
-                    return string.Format("&ge; {0:MMM yyyy}", MonthStartDate);
+                    return string.Format("{0:MMM yyyy} and beyond", MonthStartDate);
                 }
                 return string.Format("{0:MMM yyyy}", MonthEndDate);
             }
