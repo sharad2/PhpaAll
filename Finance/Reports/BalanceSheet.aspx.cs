@@ -301,6 +301,12 @@ namespace PhpaAll.Reports
                 _wksLiability.Cells[_curRowLiabilities, 2].Value = x[1].Text;
                 ++_curRowLiabilities;
             }
+            var libTotal = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<Label>()).ToList();
+            if (libTotal.Count > 0)
+            {
+                _wksLiability.Cells[_curRowLiabilities, 1].Value = "Sum Liabilities";
+                _wksLiability.Cells[_curRowLiabilities, 2].Value = libTotal[0].Text;
+            }
         }
            
         }
@@ -315,6 +321,13 @@ namespace PhpaAll.Reports
                 {
                     _wksAsset.Cells[_curRowAsset, 1].Value = x[0].Text;
                     _wksAsset.Cells[_curRowAsset, 2].Value = x[1].Text;
+                    ++_curRowAsset;
+                }
+                var total = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<Label>()).ToList();
+                if (total.Count > 0)
+                {
+                    _wksAsset.Cells[_curRowAsset, 1].Value = "Sum Asset";
+                    _wksAsset.Cells[_curRowAsset, 2].Value = total[0].Text;
                     ++_curRowAsset;
                 }
             }
