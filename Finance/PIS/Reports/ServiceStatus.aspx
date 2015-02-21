@@ -9,7 +9,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph" runat="server">
     <eclipse:TwoColumnPanel runat="server" ID="tcp" IsValidationContainer="true">
-        <eclipse:LeftLabel runat="server" Text="Termination Reason" />
+        <eclipse:LeftLabel runat="server" Text="Reason For Discontinuation" />
         <phpa:PhpaLinqDataSource runat="server" ID="dsEmployeeStatus" ContextTypeName="Eclipse.PhpaLibrary.Database.PIS.PISDataContext"
             Select="new (EmployeeStatusId, EmployeeStatusType)" TableName="EmployeeStatus"
             OrderBy="EmployeeStatusType" RenderLogVisible="false" />
