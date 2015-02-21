@@ -576,7 +576,16 @@ namespace PhpaAll.Controllers
                                               ContractorName = bill.Contractor.ContractorName,
                                               BillDate = bill.BillDate,
                                               DueDate = bill.DueDate,
-                                              Amount = bill.Amount
+                                              Amount = bill.Amount,
+                                              CurrentDivision = bill.AtDivision.DivisionName,
+                                              ApprovedDate = bill.ApprovedOn,
+                                              ApprovedBy = bill.ApprovedBy,
+                                              CreatedDate = bill.Created,
+                                              CreatedBy = bill.CreatedBy,
+                                              StationName = bill.Station.StationName,
+                                              ReceivedDate= bill.ReceivedDate,
+                                              Particulars = bill.Particulars,
+                                              Remarks = bill.Remarks
                                           }).Take(2000).ToList(),
                              };
             model.UrlExcel = Request.RawUrl;

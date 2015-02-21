@@ -25,12 +25,18 @@ namespace PhpaAll.Bills
                               StationName = bill.Station.StationName,
                               AtDivisionName = bill.AtDivision.DivisionName,
                               VoucherDate = bill.Voucher.VoucherDate,
-                              VoucherId = bill.Voucher.VoucherId
+                              VoucherId = bill.Voucher.VoucherId,
+                              Remarks = bill.Remarks,
+                              ReceivedDate = bill.ReceivedDate,
+                              CreatedBy = bill.CreatedBy,
+                              CreatedDate = bill.Created,
+                              VoucherCode = bill.Voucher.VoucherCode
                           };
             return results;
         }
 
         //For internal use to retrive row for editing
+        [ScaffoldColumn(false)]
         public int BillId { get; set; }
 
         /// <summary>
@@ -40,40 +46,68 @@ namespace PhpaAll.Bills
         [ScaffoldColumn(false)]
         public string CheckBoxName { get; set; }
 
-        [Display(ShortName = "Station")]
-        public string StationName { get; set; }
-
-        public string BillNumber { get; set; }
-
         [DisplayFormat(DataFormatString = "{0:d}")]
+        [Display(Order=5, ShortName = "Bill Date")]
         public DateTime? BillDate { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime? DueDate { get; set; }
+        [Display(Order=10, ShortName="Bill Number")]
+        public string BillNumber { get; set; }
 
+        [Display(Order=20, ShortName = "Division")]
         public string DivisionName { get; set; }
 
-        [DisplayFormat(NullDisplayText="(Unknown)")]
-        public string AtDivisionName { get; set; }
-
+        [Display(Order=30, ShortName = "Contractor")]
         public string ContractorName { get; set; }
 
-        public string Particulars { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        [Display(Order=40, ShortName = "Due Date")]
+        public DateTime? DueDate { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:N2}")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        [DataType(DataType.Currency)]
+        [Display(Order=50)]
         public Decimal? Amount { get; set; }
 
+        [Display(Order=60, ShortName = "Station")]
+        public string StationName { get; set; }
+
+        [Display(ShortName = "Approved By")]
         public string ApprovedBy { get; set; }
 
         /// <summary>
         /// Display time as well
         /// </summary>
-        [DisplayFormat(DataFormatString = "{0:g}")]
-        public DateTime? ApprovedDate { get; set; }
-        
         [DisplayFormat(DataFormatString = "{0:d}")]
+        [Display(ShortName = "Approved On")]
+        public DateTime? ApprovedDate { get; set; }
+
+        [DisplayFormat(NullDisplayText="(Unknown)")]
+        [Display(ShortName = "Current Division")]
+        public string AtDivisionName { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        [Display(ShortName = "Received On")]
+        public DateTime? ReceivedDate { get; set; }
+
+        [Display(ShortName = "Bill Created By")]
+        public string CreatedBy { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        [Display(ShortName = "Bill Created On")]
+        public DateTime? CreatedDate { get; set; }
+
+        public string Particulars { get; set; }
+
+        public string Remarks { get; set; }   
+        
+        [ScaffoldColumn(false)]
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        [Display(ShortName = "Voucher Date")]
         public DateTime? VoucherDate { get; set; }
 
+        [Display(ShortName="Voucher Number")]
+        public string VoucherCode { get; set; } 
+        [ScaffoldColumn(false)]
         public int? VoucherId { get; set; }
     }
 

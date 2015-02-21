@@ -50,14 +50,16 @@ namespace PhpaAll.Bills
         public string ContractorName { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
-        [Display(Order = 5)]
+        [Display(Order = 5, ShortName="Bill Date")]
         public DateTime? BillDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
+        [Display(Order=40, ShortName="Due Date")]
         public DateTime? DueDate { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:C}")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         [DataType(DataType.Currency)]
+        [Display(Order=50)]
         public Decimal? Amount { get; set; }
 
         [Obsolete]
@@ -65,6 +67,7 @@ namespace PhpaAll.Bills
         [DisplayFormat(NullDisplayText="(Not Set)")]
         public String OrderByValue { get; set; }
 
+        [Display(Order=60, ShortName="Station")]
         public string StationName { get; set; }
 
         [Obsolete]
@@ -72,6 +75,35 @@ namespace PhpaAll.Bills
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public decimal? GroupTotal { get; set; }
 
+
+        [Display(ShortName="Approved By")]
+        public string ApprovedBy { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        [Display(ShortName="Approved On")]
+        public DateTime? ApprovedDate { get; set; }
+
+        [Display(ShortName="Current Division")]
+        public string CurrentDivision { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        [Display(ShortName = "Received On")]
+        public DateTime? ReceivedDate { get; set; }
+
+        [Display(ShortName="Bill Created By")]
+        public string CreatedBy { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        [Display(ShortName = "Bill Created On")]
+        public DateTime? CreatedDate { get; set; }
+
+
+
+        public string Particulars { get; set; }
+
+        public string Remarks { get; set; }
+
+        
     }
 
     public class OutstandingBillsViewModel
