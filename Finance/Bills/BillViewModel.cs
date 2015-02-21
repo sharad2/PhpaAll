@@ -72,7 +72,7 @@ namespace PhpaAll.Bills
 
         public IList<BillAuditModel> BillHistory { get; set; }
 
-        [Display(Name = "At Division")]
+        [Display(Name = "Current Division")]
         public string AtDivision { get; set; }
 
         [Display(Name = "Paid On")]

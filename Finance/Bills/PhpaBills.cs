@@ -290,7 +290,7 @@ namespace PhpaAll.Bills
                 IdKind = IdKindType.AtDivision,
                 OldValue = this.AtDivisionId.HasValue ? this.AtDivisionId.Value.ToString() : null,
                 NewValue = value.HasValue ? value.Value.ToString() : null,
-                FieldDisplayName = "At Division",
+                FieldDisplayName = "Current Division",
             };
         }
         /// <summary>
