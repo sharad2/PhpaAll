@@ -94,7 +94,16 @@ namespace PhpaAll.Bills
                 // Do something with the old values
                 var audit = new BillAudit2();
 
+                var user = Membership.GetUser(_context.User.Identity.Name) as PhpaMembershipUser;
                 audit.BillId = billEntity.Id;
+                if (user == null)
+                {
+                    audit.CreatedBy = _context.User.Identity.Name;
+                }
+                else
+                {
+                    audit.CreatedBy = user.FullName;
+                }
                 audit.CreatedBy = _context.User.Identity.Name;
                 audit.Created = DateTime.Now;
 

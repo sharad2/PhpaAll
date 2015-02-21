@@ -4,6 +4,26 @@
     ViewBag.Title = "View Bill";
 }
 
+@{
+    var phpaController = this.ViewContext.Controller as PhpaAll.Controllers.PhpaBaseController;
+    IEnumerable<string> statusMessages = null;
+    if (phpaController != null)
+    {
+        statusMessages = phpaController.StatusMessages;
+    }
+
+    string userFullName = null;
+        var user = Membership.GetUser(Model.ApprovedBy) as Eclipse.PhpaLibrary.Web.Providers.PhpaMembershipUser;
+        if (user == null)
+        {
+            userFullName = this.ViewContext.HttpContext.User.Identity.Name;
+        }
+        else
+        {
+            userFullName = user.FullName;
+        }
+
+}
 <div class="page-header">
     <h2>Bill from @Html.DisplayFor(m => m.ContractorName) <small>dated @Html.DisplayFor(m => m.BillDate) for Nu @Html.DisplayFor(m => m.Amount)</small></h2>
 </div>
@@ -125,7 +145,8 @@
                         <span class="label label-success">
                             Approved on
                             @Html.DisplayFor(m => m.ApprovedDate)
-                            by  @Html.DisplayFor(m => m.ApprovedBy)
+                            by  @userFullName
+                            @*@Html.DisplayFor(m => m.ApprovedBy)*@
                         </span>
                     }
                     else
