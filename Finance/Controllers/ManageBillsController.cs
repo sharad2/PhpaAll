@@ -241,7 +241,9 @@ namespace PhpaAll.Controllers
                              ApprovedBy = bill.ApprovedBy,
                              StationName = bill.Station.StationName,
                              AtDivision = bill.AtDivision.DivisionName,
-                             AttachedImageCount = bill.BillImages.Count
+                             AttachedImageCount = bill.BillImages.Count,
+                             BillCreateDate = bill.Created,
+                             BillCreatedby = bill.CreatedBy
                          }).FirstOrDefault();
 
             // Getting Bill history from Bill Audit.  

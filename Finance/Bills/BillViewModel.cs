@@ -93,6 +93,11 @@ namespace PhpaAll.Bills
 
 
         public string VoucherCode { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTime? BillCreateDate { get; set; }
+
+        public string BillCreatedby { get; set; }
     }
 
 }
