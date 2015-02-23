@@ -30,6 +30,8 @@
         </i:DropDownListEx>
         <br />
         <i:ButtonEx ID="btnShowEmpAdv" runat="server" Text="Go" Action="Submit" CausesValidation="true" Icon="Refresh" IsDefault="true"/>
+    <i:ButtonEx ID="ExportBtn" runat="server" Text="ExportToExcel" OnClick="ExportBtn_Click" CausesValidation="true"
+            Action="Submit" IsDefault="true"/>
     </eclipse:TwoColumnPanel>
     <i:ValidationSummary ID="ValidationSummary1" runat="server" />
     <phpa:PhpaLinqDataSource ID="dsEmpAdv" runat="server" ContextTypeName="Eclipse.PhpaLibrary.Reporting.ReportingDataContext"

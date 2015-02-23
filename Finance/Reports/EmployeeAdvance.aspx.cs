@@ -21,6 +21,8 @@ using System.Linq;
 using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
+using System.IO;
+using System.Web.UI;
 
 
 namespace PhpaAll.Reports
@@ -85,6 +87,28 @@ namespace PhpaAll.Reports
                     // Prevents footer from printing on each page
                     e.Row.TableSection = TableRowSection.TableBody;
                     break;
+            }
+        }
+
+        protected void ExportBtn_Click(object sender, EventArgs e)
+        {
+            Response.Clear();
+            Response.Buffer = true;
+            // Response.AddHeader("content-disposition", "attachment;filename=TrialBalance.xls");
+            Response.Charset = "";
+            // Response.ContentType = "application/vnd.ms-excel";
+
+
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-disposition", "attachment;filename=labtest.xls");
+
+            using (StringWriter sw = new StringWriter())
+            {
+                HtmlTextWriter hw = new HtmlTextWriter(sw);
+                grdEmpAdv.RenderControl(hw);
+                Response.Output.Write(sw.ToString());
+                Response.Flush();
+                Response.End();
             }
         }
     }
