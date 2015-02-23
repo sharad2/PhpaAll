@@ -30,10 +30,14 @@
         <br />
         <i:ButtonEx ID="btnShowReport" runat="server" Text="Go" OnClick="btnShowReport_Click"
             CausesValidation="true" Action="Submit" IsDefault="true"/>
+
+        <i:ButtonEx ID="ExportBtn" runat="server" Text="ExportToExcel" OnClick="ExportBtn_Click" CausesValidation="true"
+            Action="Submit" IsDefault="true"/>
         <i:ValidationSummary ID="vsMonth" runat="server" />
+        
     </eclipse:TwoColumnPanel>
     <jquery:GridViewEx ID="gvTrialBalance" runat="server" ShowFooter="true" AutoGenerateColumns="false"
-        DataSourceID="dsVoucherDetails" OnRowDataBound="gvTrialBalance_RowDataBound"
+        DataSourceID="dsVoucherDetails" OnRowDataBound="gvTrialBalance_RowDataBound" 
         CellPadding="3">
         <FooterStyle CssClass="ui-priority-primary" Font-Size="Larger" />
         <Columns>

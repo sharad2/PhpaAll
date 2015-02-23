@@ -18,6 +18,10 @@ using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
 using EclipseLibrary.Web.JQuery.Input;
+using OfficeOpenXml;
+using System.IO;
+using System.Drawing;
+using System.Web.UI;
 
 namespace PhpaAll.Reports
 {
@@ -224,6 +228,8 @@ namespace PhpaAll.Reports
                     cellCCS.Text = _sumCYUDC.ToString("N2");
                     break;
             }
+            
+
         }
 
         /// <summary>
@@ -376,6 +382,27 @@ namespace PhpaAll.Reports
                 return new ResultItem(head, true);
             }
         }
+        protected void ExportBtn_Click(object sender, EventArgs e)
+        {
+            Response.Clear();
+            Response.Buffer = true;
+           // Response.AddHeader("content-disposition", "attachment;filename=TrialBalance.xls");
+            Response.Charset = "";
+           // Response.ContentType = "application/vnd.ms-excel";
+
+
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-disposition", "attachment;filename=labtest.xls");
+
+            using (StringWriter sw = new StringWriter())
+            {
+                HtmlTextWriter hw = new HtmlTextWriter(sw);
+                gvTrialBalance.RenderControl(hw);
+                Response.Output.Write(sw.ToString());
+                Response.Flush();
+                Response.End();
+            }
+        }  
     }
 
 }
