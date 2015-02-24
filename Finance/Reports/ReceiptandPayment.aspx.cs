@@ -17,6 +17,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Eclipse.PhpaLibrary.Reporting;
 using Eclipse.PhpaLibrary.Web;
+using OfficeOpenXml;
+using System.IO;
 
 namespace PhpaAll.Reports
 {
@@ -86,9 +88,9 @@ namespace PhpaAll.Reports
                              select new
                              {
                                  grouping.Key,
-                                 PreviousYearSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate < m_dtPreviousYear ? (hoa.CreditAmount?? 0 - hoa.DebitAmount?? 0) : 0),
+                                 PreviousYearSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate < m_dtPreviousYear ? (hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0) : 0),
                                  ForMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtMonthStart && hoa.RoVoucher.VoucherDate <= m_dtPassed ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0),
-                                 UptoMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount?? 0 - hoa.DebitAmount?? 0 : 0)
+                                 UptoMonthSum = grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0)
                              });
 
             foreach (var grp in query)
@@ -132,7 +134,7 @@ namespace PhpaAll.Reports
                     SetHyperLinkProperties(hplnkInterestForMonth, grp.ForMonthSum, SumType.ReceiptsForMonth);
                     SetHyperLinkProperties(hplnkInterestUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
                     SetLabelProperties(lblInterestsum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
-                    }
+                }
                 else if (HeadOfAccountHelpers.SalaryRemittances.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     SetHyperLinkProperties(hplnkRecoveryPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
@@ -176,7 +178,7 @@ namespace PhpaAll.Reports
                     SetHyperLinkProperties(hplnkEmpAdvUptoMonth, (-(grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsUptoMonth);
                     SetLabelProperties(lblEmpAdvsum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
                 }
-                else if(HeadOfAccountHelpers.JobAdvances.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (HeadOfAccountHelpers.JobAdvances.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     SetAdditiveHyperLinkProperties(hplnkContAdvPreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetAdditiveHyperLinkProperties(hplnkContAdvForMonth, -grp.ForMonthSum, SumType.PaymentsForMonth);
@@ -218,7 +220,7 @@ namespace PhpaAll.Reports
                     SetHyperLinkProperties(hplnkExciseDutyRGOBUptoMonth, (-(grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsUptoMonth);
                     SetLabelProperties(lblExciseDutyRGOBsum, (-(grp.UptoMonthSum + grp.ForMonthSum + grp.PreviousYearSum)), SumType.PaymentsSum);
                 }
-                else if(HeadOfAccountHelpers.TaxSubTypes.GreenTax.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (HeadOfAccountHelpers.TaxSubTypes.GreenTax.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     SetHyperLinkProperties(hplnkGreenTaxPreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
                     SetHyperLinkProperties(hplnkGreenTaxForMonth, -grp.ForMonthSum, SumType.PaymentsForMonth);
@@ -226,31 +228,32 @@ namespace PhpaAll.Reports
                     SetLabelProperties(lblGreenTaxRGOBsum, (-(grp.UptoMonthSum + grp.ForMonthSum + grp.PreviousYearSum)), SumType.PaymentsSum);
                 }
                 //Funds Transit Group
-                else if(HeadOfAccountHelpers.FundTransit.Contains(grp.Key.RoAccountType.HeadOfAccountType))
+                else if (HeadOfAccountHelpers.FundTransit.Contains(grp.Key.RoAccountType.HeadOfAccountType))
                 {
                     hplnkFundTransitPreviousYear.Text = grp.PreviousYearSum.ToString(MONEY_FORMAT_SPECIFIER);
                     hplnkFundTransitForMonth.Text = grp.ForMonthSum.ToString(MONEY_FORMAT_SPECIFIER);
                     hplnkFundTransitUptoMonth.Text = (grp.UptoMonthSum + grp.ForMonthSum).ToString(MONEY_FORMAT_SPECIFIER);
                 }
-                else {
-                if (grp.Key.RoAccountType.Category == "R" || grp.Key.RoAccountType.Category == "A" || grp.Key.RoAccountType.Category == "L")
-                        {
-                            SetAdditiveHyperLinkProperties(hplnkOtherPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
-                            SetAdditiveHyperLinkProperties(hplnkOtherForMonth, grp.ForMonthSum, SumType.ReceiptsForMonth);
-                            SetAdditiveHyperLinkProperties(hplnkOtheruptoMonth, grp.UptoMonthSum + grp.ForMonthSum, SumType.ReceiptsUptoMonth);
+                else
+                {
+                    if (grp.Key.RoAccountType.Category == "R" || grp.Key.RoAccountType.Category == "A" || grp.Key.RoAccountType.Category == "L")
+                    {
+                        SetAdditiveHyperLinkProperties(hplnkOtherPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
+                        SetAdditiveHyperLinkProperties(hplnkOtherForMonth, grp.ForMonthSum, SumType.ReceiptsForMonth);
+                        SetAdditiveHyperLinkProperties(hplnkOtheruptoMonth, grp.UptoMonthSum + grp.ForMonthSum, SumType.ReceiptsUptoMonth);
 
-                            SetAdditiveLabelProperties(lblOthersum, grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum, SumType.ReceiptsSum);
-                        }
-                        else if (grp.Key.RoAccountType.Category == "E")
-                        {
-                            SetAdditiveHyperLinkProperties(hplnkExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
-                            SetAdditiveHyperLinkProperties(hplnkExpenditureForMonth, -grp.ForMonthSum, SumType.PaymentsForMonth);
-                            SetAdditiveHyperLinkProperties(hplnkExpenditureUptoMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
+                        SetAdditiveLabelProperties(lblOthersum, grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum, SumType.ReceiptsSum);
+                    }
+                    else if (grp.Key.RoAccountType.Category == "E")
+                    {
+                        SetAdditiveHyperLinkProperties(hplnkExpenditurePreviousYear, -grp.PreviousYearSum, SumType.PaymentsPreviousYear);
+                        SetAdditiveHyperLinkProperties(hplnkExpenditureForMonth, -grp.ForMonthSum, SumType.PaymentsForMonth);
+                        SetAdditiveHyperLinkProperties(hplnkExpenditureUptoMonth, -(grp.UptoMonthSum + grp.ForMonthSum), SumType.PaymentsUptoMonth);
 
-                            SetAdditiveLabelProperties(lblExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
-                        }
+                        SetAdditiveLabelProperties(lblExpendituresum, (-(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum)), SumType.PaymentsSum);
+                    }
                 }
-                
+
 
                 //switch (grp.Key.RoAccountType.HeadOfAccountType)
                 //{
@@ -266,7 +269,7 @@ namespace PhpaAll.Reports
                 //    case "BANKFE":
                 //        SetHyperLinkProperties(hplnkOpBalForTheMonthFE, -(grp.PreviousYearSum + grp.UptoMonthSum), SumType.ReceiptsForMonth);
                 //        SetHyperLinkProperties(hplnkOpBalUptoTheMonthFE, -grp.PreviousYearSum, SumType.ReceiptsUptoMonth);
-                        
+
                 //        SetHyperLinkProperties(hplnkClBalForMonthFE, -(grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.test);
                 //        break;
 
@@ -302,7 +305,7 @@ namespace PhpaAll.Reports
                 //        SetHyperLinkProperties(hplnkRecoveryPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                 //        SetHyperLinkProperties(hplnkRecoveryForMonth, grp.ForMonthSum, SumType.ReceiptsForMonth);
                 //        SetHyperLinkProperties(hplnkRecoveryUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
-                        
+
                 //        SetLabelProperties(lblRecoverysum, grp.PreviousYearSum + grp.ForMonthSum + grp.UptoMonthSum,SumType.ReceiptsSum);
                 //        break;
 
@@ -310,7 +313,7 @@ namespace PhpaAll.Reports
                 //        SetHyperLinkProperties(hplnkTenderSalePreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                 //        SetHyperLinkProperties(hplnkTenderSaleForMonth, grp.ForMonthSum, SumType.ReceiptsForMonth);
                 //        SetHyperLinkProperties(hplnkTenderSaleUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
-                        
+
                 //        SetLabelProperties(lblTenderSalesum, grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum, SumType.ReceiptsSum);
                 //        break;
 
@@ -318,7 +321,7 @@ namespace PhpaAll.Reports
                 //        SetHyperLinkProperties(hplnkEMDPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                 //        SetHyperLinkProperties(hplnkEMDForMonth, grp.ForMonthSum, SumType.ReceiptsForMonth);
                 //        SetHyperLinkProperties(hplnkEMDUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
-                        
+
                 //        SetLabelProperties(lblEMDsum, grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum, SumType.ReceiptsSum);
                 //        break;
 
@@ -326,7 +329,7 @@ namespace PhpaAll.Reports
                 //        SetHyperLinkProperties(hplnkSecurityDepositPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                 //        SetHyperLinkProperties(hplnkSecurityDepositForMonth, grp.ForMonthSum, SumType.ReceiptsForMonth);
                 //        SetHyperLinkProperties(hplnkSecurityDepositUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
-                        
+
                 //        SetLabelProperties(lblSecurityDepositsum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
                 //        break;
 
@@ -334,7 +337,7 @@ namespace PhpaAll.Reports
                 //        SetHyperLinkProperties(hplnkBITPreviousYear, grp.PreviousYearSum, SumType.ReceiptsPreviousYear);
                 //        SetHyperLinkProperties(hplnkBITForMonth, grp.ForMonthSum, SumType.ReceiptsForMonth);
                 //        SetHyperLinkProperties(hplnkBITUptoMonth, (grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsUptoMonth);
-                        
+
                 //        SetLabelProperties(lblBITsum, (grp.PreviousYearSum + grp.UptoMonthSum + grp.ForMonthSum), SumType.ReceiptsSum);
                 //        break;
 
@@ -434,7 +437,7 @@ namespace PhpaAll.Reports
             }
 
             // Update the copy cat properties
-            
+
 
             // Update hyperlink and label amounts
             foreach (KeyValuePair<Control, decimal> kvp in m_controlAmounts)
@@ -480,7 +483,7 @@ namespace PhpaAll.Reports
         protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
-  
+
             // Using an arbitrary hyperlink to determine the container of all hyperlinks
             foreach (Control ctl in hplnkClBalUptoMonth.NamingContainer.Controls)
             {
@@ -607,7 +610,7 @@ namespace PhpaAll.Reports
             ClCummulative
         }
 
-        Dictionary<ClSum, decimal> dictClSum = new Dictionary<ClSum, decimal>();        
+        Dictionary<ClSum, decimal> dictClSum = new Dictionary<ClSum, decimal>();
         private void UpdateClTotals(decimal amount, ClSum sumType)
         {
             if (dictClSum.ContainsKey(sumType))
@@ -688,6 +691,55 @@ namespace PhpaAll.Reports
                         break;
                 }
             }
+        }
+        ExcelPackage _pkg;
+        ExcelWorksheet _wksReceiptAndPayment;
+        private int _curRowReceiptAndPayment = 1;
+
+
+        protected void Unnamed_PreRender(object sender, EventArgs e)
+        {
+            if (_pkg != null)
+            {
+                var row = (Control)sender;
+                var x = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<HyperLink>()).ToList();
+                if (x.Count > 0)
+                {
+                    _wksReceiptAndPayment.Cells[_curRowReceiptAndPayment, 1].Value = x[0].Text;
+                    _wksReceiptAndPayment.Cells[_curRowReceiptAndPayment, 2].Value = x[1].Text;
+                    ++_curRowReceiptAndPayment;
+                }
+                var libTotal = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<Label>()).ToList();
+                
+                if (libTotal.Count > 0)
+                {   
+                    _wksReceiptAndPayment.Cells[_curRowReceiptAndPayment, 1].Value = "Sum Liabilities";
+                    _wksReceiptAndPayment.Cells[_curRowReceiptAndPayment, 2].Value = libTotal[0].Text;
+                }
+            }
+
+        }
+
+        protected override void OnPreRenderComplete(EventArgs e)
+        {
+            if (_pkg != null)
+            {
+                var bytes = _pkg.GetAsByteArray();
+                Response.Clear();
+                MemoryStream ms = new MemoryStream(bytes);
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment;filename=labtest.xls");
+                Response.Buffer = true;
+                ms.WriteTo(Response.OutputStream);
+                Response.End();
+            }
+            base.OnPreRenderComplete(e);
+        }
+
+        protected void ExcelBtn_Click(object sender, EventArgs e)
+        {
+            _pkg = new ExcelPackage();
+            _wksReceiptAndPayment = _pkg.Workbook.Worksheets.Add("ReceiptAndPayment");
         }
     }
 }

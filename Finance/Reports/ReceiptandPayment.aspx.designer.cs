@@ -58,6 +58,15 @@ namespace PhpaAll.Reports {
         protected global::EclipseLibrary.Web.JQuery.Input.ButtonEx btnGo;
         
         /// <summary>
+        /// ExcelBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::EclipseLibrary.Web.JQuery.Input.ButtonEx ExcelBtn;
+        
+        /// <summary>
         /// ValidationSummary1 control.
         /// </summary>
         /// <remarks>
