@@ -113,7 +113,7 @@
                     Opening Balances
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="AlternatingRow" >
                 <td style="text-indent: 4mm; font-weight: bold">
                     <%--Using this div to force a min column width. Report must print on a single A4 page--%>
                     <div style="white-space: nowrap">
