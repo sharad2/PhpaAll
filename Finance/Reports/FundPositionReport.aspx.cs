@@ -189,6 +189,10 @@ namespace PhpaAll.Reports
 
         public decimal? BalanceFund { get; set; }
 
+        /// <summary>
+        /// Outstanding bills amount
+        /// </summary>
+        public decimal? OutstandingBillsAmount { get; set; }
     }
 
     public partial class FundPositionReport : PageBase
@@ -773,7 +777,13 @@ namespace PhpaAll.Reports
             //                  + grouping.Sum(hoa => hoa.RoVoucher.VoucherDate >= m_dtPreviousYear && hoa.RoVoucher.VoucherDate < m_dtMonthStart ? hoa.CreditAmount ?? 0 - hoa.DebitAmount ?? 0 : 0))),
             //                  BankHead = grouping.Max(p => p.HeadOfAccountId)
             //              });
-
+            var query5 = (from q in db.RoBills
+                          where q.RoVouchers == null
+                          group q by 1 into grouping
+                          select new
+                          {
+                              outstandingBillsAmount = grouping.Sum(p => p.Amount) ?? 0
+                          }).FirstOrDefault();
             //Getting sum of amount ahainst headofaccount type
             var query = (from vd in db.RoVoucherDetails
                          where vd.HeadOfAccount.HeadOfAccountId != null
@@ -964,8 +974,9 @@ namespace PhpaAll.Reports
 
                              CurrentMonthExpenditure = g.Where(p => allExpenditureHeadTypes.Contains(p.HeadOfAccount.HeadOfAccountType) &&
                                  p.RoVoucher.VoucherDate >= dtMonthStart && p.RoVoucher.VoucherDate <= dtPassed)
-                                .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0)
+                                .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
 
+                             OutstandingBillsAmount = query5.outstandingBillsAmount
                          });
             //throw new NotImplementedException();
             return query.FirstOrDefault();

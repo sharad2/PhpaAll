@@ -197,7 +197,7 @@
                                 Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.FundsReceivedGOILoanFeCum) %>' />
                         </td>
                     </tr>
-                    <tr class="RowHeader" >
+                    <tr class="RowHeader">
                         <td style="text-align: center"><strong>II</strong></td>
                         <td style="text-align: right">Total Fund GOI
                         </td>
@@ -216,9 +216,8 @@
                         </td>
                     </tr>
                     <tr class="AlternatingRow">
-                        <td style="text-align: center; font-style:oblique"><strong>III</strong></td>
-                        <td title="TOTAL FUND GOI">
-                            Other Receipts:Ineterst,Sale of Tender,EMD,SD,other receipts etc.
+                        <td style="text-align: center; font-style: oblique"><strong>III</strong></td>
+                        <td title="TOTAL FUND GOI">Other Receipts:Ineterst,Sale of Tender,EMD,SD,other receipts etc.
                         </td>
                         <td class="vd-amountcol">
 
@@ -438,7 +437,7 @@
                         <ItemStyle HorizontalAlign="Right" Width="200px" />
                     </eclipse:MultiBoundField>
                 </Columns>
-                <HeaderStyle Height="9mm"  CssClass="RowHeader ui-state-default"/>
+                <HeaderStyle Height="9mm" CssClass="RowHeader ui-state-default" />
                 <RowStyle CssClass="GridRow" />
                 <AlternatingRowStyle CssClass="GridAlternatingRow" />
                 <FooterStyle HorizontalAlign="Right" Height="9mm" CssClass="RowHeader ui-state-active ui-widget-header" />
@@ -484,9 +483,14 @@
                     </tr>
                 </tfoot>
             </table>
-
-
-
+            <tr class="AlternatingRow">
+                <td style="text-align: Left"><b>
+                    <asp:Label ID="Label6" runat="server"
+                        Text="Total amount of Bills outstanding"></asp:Label></b></td>
+                <td class="vd-amountcol">
+                    <asp:Label ID="Label7" runat="server"
+                        EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.OutstandingBillsAmount) %>' /></td>
+            </tr>
         </ItemTemplate>
     </asp:FormView>
 

@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Phpa2" Class="ReportingDataContext" BaseType="Eclipse.PhpaLibrary.Database.DataContextBase" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PHPADEV" Class="ReportingDataContext" BaseType="Eclipse.PhpaLibrary.Database.DataContextBase" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=w12obama;Initial Catalog=PHPADEV;Persist Security Info=True;User ID=sa;MultipleActiveResultSets=True" SettingsObjectName="Eclipse.PhpaLibrary.Properties.Settings" SettingsPropertyName="PHPADEVConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.VoucherDetail" Member="RoVoucherDetails">
     <Type Name="RoVoucherDetail">
       <Column Name="VoucherDetailId" Type="System.Int32" DbType="Int NOT NULL" IsReadOnly="true" IsPrimaryKey="true" CanBeNull="false" />
@@ -30,8 +31,10 @@
       <Column Name="Created" Type="System.DateTime" IsReadOnly="true" CanBeNull="true" />
       <Column Name="Modified" Type="System.DateTime" IsReadOnly="true" CanBeNull="true" />
       <Column Name="StationId" Type="System.Int32" CanBeNull="true" />
+      <Column Name="BillId" Type="System.Int32" DbType="Int" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="RoVoucher_RoVoucherDetail" Member="RoVoucherDetails" ThisKey="VoucherId" OtherKey="VoucherId" Type="RoVoucherDetail" />
       <Association Name="RoDivision_RoVoucher" Member="RoDivision" ThisKey="DivisionId" OtherKey="DivisionId" Type="RoDivision" IsForeignKey="true" />
+      <Association Name="Bill_RoVoucher" Member="RoBill" ThisKey="BillId" OtherKey="Id" Type="RoBill" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.HeadHierarchy" Member="RoHeadHierarchies">
@@ -104,6 +107,7 @@
       <Column Name="Nationality" Type="System.String" DbType="nvarchar(2)" IsReadOnly="true" CanBeNull="false" />
       <Association Name="RoContractor_RoVoucherDetail" Member="RoVoucherDetails" ThisKey="ContractorId" OtherKey="ContractorId" Type="RoVoucherDetail" />
       <Association Name="RoContractor_RoJob" Member="RoJobs" ThisKey="ContractorId" OtherKey="ContractorId" Type="RoJob" />
+      <Association Name="RoContractor_Bill" Member="RoBills" ThisKey="ContractorId" OtherKey="ContractorId" Type="RoBill" />
     </Type>
   </Table>
   <Table Name="dbo.Division" Member="RoDivisions">
@@ -115,6 +119,8 @@
       <Association Name="RoDivision_RoVoucher" Member="RoVouchers" ThisKey="DivisionId" OtherKey="DivisionId" Type="RoVoucher" />
       <Association Name="RoDivision_RoJob" Member="RoJobs" ThisKey="DivisionId" OtherKey="DivisionId" Type="RoJob" />
       <Association Name="RoDivision_RoEmployee" Member="RoEmployees" ThisKey="DivisionId" OtherKey="DivisionId" Type="RoEmployee" />
+      <Association Name="RoDivision_Bill" Member="Bills" ThisKey="DivisionId" OtherKey="DivisionId" Type="RoBill" />
+      <Association Name="RoDivision_Bill1" Member="RoBills" ThisKey="DivisionId" OtherKey="AtDivisionId" Type="RoBill" />
     </Type>
   </Table>
   <Table Name="dbo.Budget" Member="RoBudgets">
@@ -169,6 +175,33 @@
       <Column Name="PaidDate" Type="System.DateTime" DbType="SmallDateTime" IsReadOnly="true" CanBeNull="true" />
       <Column Name="SalaryperiodCode" Type="System.String" DbType="NVarChar(50) NOT NULL" IsReadOnly="true" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="NVarChar(50)" IsReadOnly="true" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Bill" Member="RoBills">
+    <Type Name="RoBill">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BillNumber" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="BillDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="DueDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ReceiviedDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="DivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContractorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ApprovedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ApprovedOn" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Particulars" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="StationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AtDivisionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Bill_RoVoucher" Member="RoVouchers" ThisKey="Id" OtherKey="BillId" Type="RoVoucher" Cardinality="One" />
+      <Association Name="RoContractor_Bill" Member="RoContractor" ThisKey="ContractorId" OtherKey="ContractorId" Type="RoContractor" IsForeignKey="true" />
+      <Association Name="RoDivision_Bill" Member="RoDivision" ThisKey="DivisionId" OtherKey="DivisionId" Type="RoDivision" IsForeignKey="true" />
+      <Association Name="RoDivision_Bill1" Member="RoDivision1" ThisKey="AtDivisionId" OtherKey="DivisionId" Type="RoDivision" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
