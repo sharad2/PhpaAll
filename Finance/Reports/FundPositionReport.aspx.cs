@@ -139,6 +139,17 @@ namespace PhpaAll.Reports
 
         public string EstablishmentExpendituresHead { get; set; }
 
+        /// <summary>
+        /// VII - a1
+        /// </summary>
+        public decimal? WapcosExpendituresUpToPrev { get; set; }
+
+        public decimal? WapcosExpendituresCurr { get; set; }
+
+        public decimal? WapcosExpendituresCum { get; set; }
+
+        public string WapcosExpendituresHead { get; set; }
+
 
         /// <summary>
         /// VII - b
@@ -762,6 +773,7 @@ namespace PhpaAll.Reports
                 HeadOfAccountHelpers.LoanSubType.LoanNu, HeadOfAccountHelpers.LoanSubType.LoanFe };
 
             var allExpenditureHeadTypes = HeadOfAccountHelpers.EstablishmentExpenditures
+                                .Concat(HeadOfAccountHelpers.WapcosExpenditures)
                                  .Concat(HeadOfAccountHelpers.CivilExpenditures).Concat(HeadOfAccountHelpers.ElectricalExpenditures)
                                  .Concat(HeadOfAccountHelpers.TransmissionExpenditures);
 
@@ -919,6 +931,17 @@ namespace PhpaAll.Reports
                                          .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
 
                              EstablishmentExpendituresHead = string.Join(",", HeadOfAccountHelpers.EstablishmentExpenditures),
+
+                             //VII -a1
+                             WapcosExpendituresUpToPrev = prevYearVouchers.Where(p => HeadOfAccountHelpers.WapcosExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                                         .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
+
+                             WapcosExpendituresCurr = currYearVouchers.Where(p => HeadOfAccountHelpers.WapcosExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                             .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
+                             WapcosExpendituresCum = g.Where(p => HeadOfAccountHelpers.WapcosExpenditures.Contains(p.HeadOfAccount.HeadOfAccountType))
+                                         .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
+
+                             WapcosExpendituresHead = string.Join(",", HeadOfAccountHelpers.WapcosExpenditures),
 
 
                              //VII -b

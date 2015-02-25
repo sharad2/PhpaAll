@@ -305,7 +305,7 @@
                 <tbody>
                     <tr>
                         <td style="text-align: right"><strong>a)</strong></td>
-                        <td>Establishment (including WAPCOS)
+                        <td>Establishment
                         </td>
 
                         <td class="vd-amountcol">
@@ -323,6 +323,28 @@
                         <td class="vd-amountcol">
                             <asp:Label ID="lblEstablishExpendituresum" runat="server" ToolTip="Expenditure incured till date"
                                 EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.EstablishmentExpendituresCum) %>' />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right"><strong>a)</strong></td>
+                        <td>WAPCOS
+                        </td>
+
+                        <td class="vd-amountcol">
+
+                            <asp:HyperLink ID="HyperLink1" runat="server" ToolTip="Click to list voucher entries for expenditure for input month"
+                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateTo={1:d}", Item.WapcosExpendituresHead, Item.PreviousYearEndDate) %>'
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.WapcosExpendituresUpToPrev) %>' />
+                        </td>
+                        <td class="vd-amountcol">
+
+                            <asp:HyperLink ID="HyperLink3" runat="server" ToolTip="Click to list voucher entries for expenditure from financial year start till input month"
+                                EnableViewState="false" NavigateUrl='<%# string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={0}&DateFrom={1:d}&DateTo={2:d}", Item.WapcosExpendituresHead, Item.DateFrom, Item.DateTo) %>'
+                                Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.WapcosExpendituresCurr) %>' />
+                        </td>
+                        <td class="vd-amountcol">
+                            <asp:Label ID="Label5" runat="server" ToolTip="Expenditure incured till date"
+                                EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.WapcosExpendituresCum) %>' />
                         </td>
                     </tr>
                     <tr class="AlternatingRow">
@@ -483,14 +505,22 @@
                     </tr>
                 </tfoot>
             </table>
+            <br />
+            <br />
+            <br />
+            <table rules="all" style="padding: 4mm; width: 1000px" class="MainTable">
+                <tbody>
             <tr class="AlternatingRow">
-                <td style="text-align: Left"><b>
-                    <asp:Label ID="Label6" runat="server"
-                        Text="Total amount of Bills outstanding"></asp:Label></b></td>
+                <td style="text-align: Left">
+                    <asp:Label ID="Label4" runat="server" Text="Total amount of Bills outstanding"></asp:Label></td>
+                    <%--<asp:Label ID="Label6" runat="server"
+                        Text="Total amount of Bills outstanding"></asp:Label></b></td>--%>
                 <td class="vd-amountcol">
                     <asp:Label ID="Label7" runat="server"
                         EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.OutstandingBillsAmount) %>' /></td>
             </tr>
+                    </tbody>
+                </table>
         </ItemTemplate>
     </asp:FormView>
 
