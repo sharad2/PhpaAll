@@ -521,7 +521,21 @@
             </tr>
                     </tbody>
                 </table>
-        </ItemTemplate>
+         
+           <table rules="all" style="padding: 4mm; width: 1000px" class="MainTable">
+            <tbody>
+                <tr class="AlternativeRow">
+                    <td style="text-align:left">
+                        <asp:Label ID="lblShortFall" runat="server" Text="Short falls"></asp:Label>
+                    </td>
+                    <td class="vd-amountcol">
+                        <asp:Label runat="server" ID="lblShortAmount" EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.BalanceFund-Item.OutstandingBillsAmount) %>'></asp:Label>
+                            
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+            </ItemTemplate>
     </asp:FormView>
 
     <%-- <table rules="all" cellpadding="4mm" class="MainTable" width="1000px">
