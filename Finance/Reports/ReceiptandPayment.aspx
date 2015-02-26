@@ -113,7 +113,7 @@
                     Opening Balances
                 </td>
             </tr>
-            <tr class="AlternatingRow" >
+            <tr class="AlternatingRow">
                 <td style="text-indent: 4mm; font-weight: bold">
                     <%--Using this div to force a min column width. Report must print on a single A4 page--%>
                     <div style="white-space: nowrap">
@@ -134,7 +134,7 @@
                     &bull;
                 </td>
             </tr>
-            <tr  runat="server" onprerender="Unnamed_PreRender">
+            <tr>
                 <td style="text-indent: 4mm">
                     Opening Balance FE
                 </td>
@@ -384,7 +384,7 @@
                     Payments
                 </td>
             </tr>
-            <tr runat="server" onprerender="Unnamed_PreRender">
+            <tr runat="server" onprerender="Payment_PreRender">
                 <td>
                     <asp:HyperLink ID="hplnkexp" ToolTip="Click to get list of Heads involved" Text="Expenditure"
                         runat="server"></asp:HyperLink>
@@ -411,7 +411,7 @@
                     Advances
                 </td>
             </tr>
-            <tr runat="server" onprerender="Unnamed_PreRender">
+            <tr runat="server" onprerender="Payment_PreRender">
                 <td style="text-indent: 4mm">
                     a)
                     <asp:HyperLink ID="hplnkemp" ToolTip="Click to get list of Heads involved" Text="Employees"
@@ -434,7 +434,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr runat="server" onprerender="Unnamed_PreRender">
+            <tr runat="server" onprerender="Payment_PreRender">
                 <td style="text-indent: 4mm">
                     b)
                     <asp:HyperLink ID="hplnkparty" ToolTip="Click to get list of Heads involved" Text="Parties"
@@ -460,7 +460,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="AlternatingRow" runat="server" onprerender="Payment_PreRender">
                 <td>
                     <asp:HyperLink ID="hplnkstock" ToolTip="Click to get list of Heads involved" Text="Stock Suspense"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=STOCK_SUSPENSE" runat="server"></asp:HyperLink>
@@ -482,7 +482,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr runat="server" onprerender="Unnamed_PreRender">
+            <tr runat="server" onprerender="Payment_PreRender">
                 <td>
                     <asp:HyperLink ID="hplnkbst" ToolTip="Click to get list of Heads involved" Text="BST"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=BST" runat="server"></asp:HyperLink>
@@ -503,7 +503,7 @@
                     <asp:Label ID="lblBSTsum" runat="server" ToolTip="Service Tax paid till date" EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="AlternatingRow" runat="server" onprerender="Payment_PreRender">
                 <td>
                     <asp:HyperLink ID="hplnksvctax" ToolTip="Click to get list of Heads involved" Text="Service Tax"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=SVCTAX" runat="server"></asp:HyperLink>
@@ -525,7 +525,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr runat="server" onprerender="Unnamed_PreRender">
+            <tr runat="server" onprerender="Payment_PreRender">
                 <td>
                     <asp:HyperLink ID="hplnkedGOI" ToolTip="Click to get list of Heads involved" Text="Excise Duty to G.O.I."
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=EDGOI" runat="server"></asp:HyperLink>
@@ -547,7 +547,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="AlternatingRow" runat="server" onprerender="Payment_PreRender">
                 <td>
                     <asp:HyperLink ID="hplnkedRGOB" ToolTip="Click to get list of Heads involved" Text="Excise Duty to R.G.O.B."
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=EDRGOB" runat="server"></asp:HyperLink>
@@ -569,7 +569,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="alternatingRow" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="alternatingRow" runat="server" onprerender="Payment_PreRender">
                 <td><asp:HyperLink ID="hplnkGreenTax" ToolTip="Click to get list of Heads involved" Text="Green Tax"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=GREEN_TAX" runat="server"></asp:HyperLink>
                 </td>
@@ -582,7 +582,7 @@
                 <td class="vd-amountcol"><asp:Label ID="lblGreenTaxRGOBsum" runat="server" ToolTip="Green Tax paid to Royal Government of Bhutan till date"
                         EnableViewState="false" /></td>
             </tr>
-            <tr class="RowHeader" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="RowHeader" runat="server" onprerender="Payment_PreRender">
                 <td align="right">
                     Total Payments
                 </td>
@@ -603,7 +603,7 @@
                         OnPreRender="lbl_PreRenderShowSum" />
                 </td>
             </tr>
-            <tr runat="server" onprerender="Unnamed_PreRender">
+            <tr runat="server" onprerender="Payment_PreRender">
                 <td>
                     <asp:HyperLink ID="hplnkfunds" ToolTip="Click to get list of Heads involved" Text="Funds in Transit"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=FUNDS_TRANSIT" runat="server"></asp:HyperLink>
@@ -625,7 +625,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="AlternatingRow" runat="server" onprerender="Payment_PreRender">
                 <td colspan="5" style="font-style: italic">
                     Closing Balances
                 </td>
@@ -650,7 +650,7 @@
                     <asp:Label ID="lblClBalSum" runat="server" EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="AlternatingRow" runat="server" onprerender="Payment_PreRender">
                 <td style="text-indent: 4mm">
                     Closing Balance FE
                 </td>
@@ -669,7 +669,7 @@
                     <asp:Label ID="lblClBalFESum" runat="server" EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="RowHeader" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="RowHeader" runat="server" onprerender="Payment_PreRender">
                 <td align="right">
                     Total
                 </td>

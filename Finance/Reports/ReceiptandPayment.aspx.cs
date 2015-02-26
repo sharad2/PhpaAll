@@ -693,8 +693,10 @@ namespace PhpaAll.Reports
             }
         }
         ExcelPackage _pkg;
-        ExcelWorksheet _wksReceiptAndPayment;
+        ExcelWorksheet _wksReceipt;
+        ExcelWorksheet _wksPayment;
         private int _curRowReceiptAndPayment = 1;
+        private int _curPayment = 1;
 
 
         protected void Unnamed_PreRender(object sender, EventArgs e)
@@ -705,17 +707,49 @@ namespace PhpaAll.Reports
                 var x = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<HyperLink>()).ToList();
                 if (x.Count > 0)
                 {
-                    _wksReceiptAndPayment.Cells[_curRowReceiptAndPayment, 1].Value = x[0].Text;
-                    _wksReceiptAndPayment.Cells[_curRowReceiptAndPayment, 2].Value = x[1].Text;
+                    _wksReceipt.Cells[_curRowReceiptAndPayment, 1].Value = x[0].Text;
+                    _wksReceipt.Cells[_curRowReceiptAndPayment, 2].Value = x[1].Text;
+                    _wksReceipt.Cells[_curRowReceiptAndPayment, 3].Value = x[2].Text;
+                    _wksReceipt.Cells[_curRowReceiptAndPayment, 4].Value = x[3].Text;
                     ++_curRowReceiptAndPayment;
                 }
-                var libTotal = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<Label>()).ToList();
-                
-                if (libTotal.Count > 0)
-                {   
-                    _wksReceiptAndPayment.Cells[_curRowReceiptAndPayment, 1].Value = "Sum Liabilities";
-                    _wksReceiptAndPayment.Cells[_curRowReceiptAndPayment, 2].Value = libTotal[0].Text;
+                //var Lbl = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<Label>()).ToList();
+                //if (Lbl.Count > 0)
+                //{
+                //    _wksReceipt.Cells[_curRowReceiptAndPayment, 1].Value = Lbl[0].Text;
+                //    ++_curRowReceiptAndPayment;
+                //}
+            }
+
+        }
+
+        protected void Payment_PreRender(object sender, EventArgs e)
+        {
+            if (_pkg != null)
+            {
+                var row = (Control)sender;
+                var x = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<HyperLink>()).ToList();
+                if (x.Count > 0)
+                {
+                    _wksPayment.Cells[_curPayment, 1].Value = x[0].Text;
+                    _wksPayment.Cells[_curPayment, 2].Value = x[1].Text;
+                    _wksPayment.Cells[_curPayment, 3].Value = x[2].Text;
+                    if (x.Count == 4)
+                    {
+                        _wksPayment.Cells[_curPayment, 4].Value = x[3].Text;
+                    }
+                    else {
+
+                        _wksPayment.Cells[_curPayment, 4].Value = "";
+                    }
+                    ++_curPayment;
                 }
+                //var Lbl = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<Label>()).ToList();
+                //if (Lbl.Count > 0)
+                //{
+                //    _wksPayment.Cells[_curPayment, 1].Value = Lbl[0].Text;
+                //    ++_curPayment;
+                //}
             }
 
         }
@@ -739,7 +773,8 @@ namespace PhpaAll.Reports
         protected void ExcelBtn_Click(object sender, EventArgs e)
         {
             _pkg = new ExcelPackage();
-            _wksReceiptAndPayment = _pkg.Workbook.Worksheets.Add("ReceiptAndPayment");
+            _wksReceipt = _pkg.Workbook.Worksheets.Add("Receipt");
+            _wksPayment = _pkg.Workbook.Worksheets.Add("Payment");
         }
     }
 }
