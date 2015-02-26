@@ -12,6 +12,8 @@ namespace Eclipse.PhpaLibrary.Reporting
             internal const string EstablishmentExpenditure = "ESTABL_EXPENDITURE";
             internal const string EstablishmentTourExpenditure = "ESTABLISHMENT_TOUR";
 
+            internal const string WapcosExpenditure = "WAPCOS_EXPENDITURE";
+
             internal const string CivilExpenditure = "CIVIL_EXPENDITURE";
             internal const string CivilTourExpenditure = "CIVIL_TOUR";
 
@@ -31,7 +33,7 @@ namespace Eclipse.PhpaLibrary.Reporting
             };
 
         private readonly static IEnumerable<string> ProjectExpenditures = new[] {
-                ExpenditureSubTypes.EstablishmentExpenditure, ExpenditureSubTypes.CivilExpenditure,ExpenditureSubTypes.MainCivilExpenditure, ExpenditureSubTypes.ElectricalExpenditure,
+                ExpenditureSubTypes.EstablishmentExpenditure, ExpenditureSubTypes.WapcosExpenditure, ExpenditureSubTypes.CivilExpenditure,ExpenditureSubTypes.MainCivilExpenditure, ExpenditureSubTypes.ElectricalExpenditure,
                 ExpenditureSubTypes.TransmissionExpenditure
             };
 
@@ -43,13 +45,14 @@ namespace Eclipse.PhpaLibrary.Reporting
             public const string MaterialAdvance = "MATERIAL_ADVANCE";
             public const string EmployeeAdvance = "EMPLOYEE_ADVANCE";
             public const string EstablishmentPartyAdvance = "ESTB_PARTY_ADVANCE";
+            public const string WapcospartyAdvance = "WAPCOS_PARTY_ADVANCE";
             public const string CivilPartyAdance = "CIVIL_PARTY_ADVANCE";
             public const string ElectricalPartyAdvance = "ELEC_PARTY_ADVANCE";
             public const string TransmissionPartyAdance = "TRAN_PARTY_ADVANCE";
 
         }
         public readonly static IEnumerable<string> PartyAdvances = new[] { 
-            AdvanceSubTypes.EstablishmentPartyAdvance, AdvanceSubTypes.CivilPartyAdance, AdvanceSubTypes.ElectricalPartyAdvance, AdvanceSubTypes.TransmissionPartyAdance };
+            AdvanceSubTypes.EstablishmentPartyAdvance, AdvanceSubTypes.WapcospartyAdvance, AdvanceSubTypes.CivilPartyAdance, AdvanceSubTypes.ElectricalPartyAdvance, AdvanceSubTypes.TransmissionPartyAdance };
 
         public readonly static IEnumerable<string> JobAdvances = new[] { AdvanceSubTypes.MaterialAdvance }.Concat(PartyAdvances);
 
@@ -137,6 +140,10 @@ namespace Eclipse.PhpaLibrary.Reporting
         public readonly static IEnumerable<string> EstablishmentExpenditures = new[] {
             ExpenditureSubTypes.EstablishmentExpenditure, ExpenditureSubTypes.EstablishmentTourExpenditure, AdvanceSubTypes.EmployeeAdvance,
             AdvanceSubTypes.EstablishmentPartyAdvance, TaxSubTypes.ServiceTax
+        };
+
+        public readonly static IEnumerable<string> WapcosExpenditures = new[]{
+            ExpenditureSubTypes.WapcosExpenditure, AdvanceSubTypes.WapcospartyAdvance
         };
 
         public readonly static IEnumerable<string> OtherFundReceipts = new[] {TaxSubTypes.BhutanIncomeTax, ReceiptSubType.InterestReceipt, ReceiptSubType.TenderSale,
