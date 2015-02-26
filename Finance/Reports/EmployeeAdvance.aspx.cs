@@ -95,7 +95,7 @@ namespace PhpaAll.Reports
             Response.Clear();
             Response.Buffer = true;
             // Response.AddHeader("content-disposition", "attachment;filename=TrialBalance.xls");
-            Response.Charset = "";
+            //Response.Charset = "";
             // Response.ContentType = "application/vnd.ms-excel";
 
 

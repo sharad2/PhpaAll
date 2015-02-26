@@ -58,13 +58,13 @@ namespace PhpaAll.Reports {
         protected global::EclipseLibrary.Web.JQuery.Input.ButtonEx btnGo;
         
         /// <summary>
-        /// ExcelBtn control.
+        /// btnExport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::EclipseLibrary.Web.JQuery.Input.ButtonEx ExcelBtn;
+        protected global::EclipseLibrary.Web.JQuery.Input.ButtonEx btnExport;
         
         /// <summary>
         /// ValidationSummary1 control.
@@ -74,6 +74,15 @@ namespace PhpaAll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::EclipseLibrary.Web.JQuery.Input.ValidationSummary ValidationSummary1;
+        
+        /// <summary>
+        /// tblExport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblExport;
         
         /// <summary>
         /// hplnkOpBalForTheMonth control.

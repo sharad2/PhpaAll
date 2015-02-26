@@ -692,89 +692,21 @@ namespace PhpaAll.Reports
                 }
             }
         }
-        ExcelPackage _pkg;
-        ExcelWorksheet _wksReceipt;
-        ExcelWorksheet _wksPayment;
-        private int _curRowReceiptAndPayment = 1;
-        private int _curPayment = 1;
-
-
-        protected void Unnamed_PreRender(object sender, EventArgs e)
+        protected void ExportBtn_Click(object sender, EventArgs e)
         {
-            if (_pkg != null)
+            Response.Clear();
+            Response.Buffer = true;
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-disposition", "attachment;filename=Receipt&Payment.xls");
+
+            using (StringWriter sw = new StringWriter())
             {
-                var row = (Control)sender;
-                var x = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<HyperLink>()).ToList();
-                if (x.Count > 0)
-                {
-                    _wksReceipt.Cells[_curRowReceiptAndPayment, 1].Value = x[0].Text;
-                    _wksReceipt.Cells[_curRowReceiptAndPayment, 2].Value = x[1].Text;
-                    _wksReceipt.Cells[_curRowReceiptAndPayment, 3].Value = x[2].Text;
-                    _wksReceipt.Cells[_curRowReceiptAndPayment, 4].Value = x[3].Text;
-                    ++_curRowReceiptAndPayment;
-                }
-                //var Lbl = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<Label>()).ToList();
-                //if (Lbl.Count > 0)
-                //{
-                //    _wksReceipt.Cells[_curRowReceiptAndPayment, 1].Value = Lbl[0].Text;
-                //    ++_curRowReceiptAndPayment;
-                //}
-            }
-
-        }
-
-        protected void Payment_PreRender(object sender, EventArgs e)
-        {
-            if (_pkg != null)
-            {
-                var row = (Control)sender;
-                var x = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<HyperLink>()).ToList();
-                if (x.Count > 0)
-                {
-                    _wksPayment.Cells[_curPayment, 1].Value = x[0].Text;
-                    _wksPayment.Cells[_curPayment, 2].Value = x[1].Text;
-                    _wksPayment.Cells[_curPayment, 3].Value = x[2].Text;
-                    if (x.Count == 4)
-                    {
-                        _wksPayment.Cells[_curPayment, 4].Value = x[3].Text;
-                    }
-                    else {
-
-                        _wksPayment.Cells[_curPayment, 4].Value = "";
-                    }
-                    ++_curPayment;
-                }
-                //var Lbl = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<Label>()).ToList();
-                //if (Lbl.Count > 0)
-                //{
-                //    _wksPayment.Cells[_curPayment, 1].Value = Lbl[0].Text;
-                //    ++_curPayment;
-                //}
-            }
-
-        }
-
-        protected override void OnPreRenderComplete(EventArgs e)
-        {
-            if (_pkg != null)
-            {
-                var bytes = _pkg.GetAsByteArray();
-                Response.Clear();
-                MemoryStream ms = new MemoryStream(bytes);
-                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                Response.AddHeader("content-disposition", "attachment;filename=labtest.xls");
-                Response.Buffer = true;
-                ms.WriteTo(Response.OutputStream);
+                HtmlTextWriter hw = new HtmlTextWriter(sw);
+                tblExport.RenderControl(hw);
+                Response.Output.Write(sw.ToString());
+                Response.Flush();
                 Response.End();
             }
-            base.OnPreRenderComplete(e);
-        }
-
-        protected void ExcelBtn_Click(object sender, EventArgs e)
-        {
-            _pkg = new ExcelPackage();
-            _wksReceipt = _pkg.Workbook.Worksheets.Add("Receipt");
-            _wksPayment = _pkg.Workbook.Worksheets.Add("Payment");
         }
     }
 }

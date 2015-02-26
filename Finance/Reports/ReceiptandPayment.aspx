@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" CodeBehind="ReceiptandPayment.aspx.cs"
-    Inherits="PhpaAll.Reports.ReceiptandPayment" Title="Receipts and Payments" EnableViewState="false" %>
+    Inherits="PhpaAll.Reports.ReceiptandPayment" Title="Receipts and Payments" EnableViewState="true" %>
 
 <%@ Register Src="../Controls/PrinterFriendlyButton.ascx" TagName="PrinterFriendlyButton"
     TagPrefix="uc2" %>
@@ -65,10 +65,13 @@
         </i:TextBoxEx>
         <br />
         <i:ButtonEx runat="server" ID="btnGo" Text="Recalculate" CausesValidation="true" Action="Submit" IsDefault="true"/>
-        <i:ButtonEx runat="server" ID="ExcelBtn" Text="ExportToExcel" OnClick="ExcelBtn_Click" CausesValidation="true" Action="Submit" IsDefault="true"/>
-    </eclipse:TwoColumnPanel>
+    <i:ButtonEx ID="btnExport" runat="server" Text="ExportToExcel" OnClick="ExportBtn_Click" CausesValidation="true"
+            Action="Submit" IsDefault="true"/>
+         </eclipse:TwoColumnPanel>
     <i:ValidationSummary ID="ValidationSummary1" runat="server" />
-    <table rules="all" cellpadding="4mm" class="MainTable">
+
+    <div id="ExportToExcel">
+    <table enableviewstate="true" class="MainTable" id="tblExport" runat="server">
         <col style="min-width: 20em" />
         <colgroup style="width: 8em; text-align: right" span="4" />
         <thead class="TableHeader">
@@ -122,11 +125,13 @@
                 <td align="center" title="Not applicable">
                     &bull;
                 </td>
-                <td class="vd-amountcol">
+                <td title="Opening balances as of for local currency Cash and Bank accounts. Click to see opening balances of individual accounts."
+                    class="vd-amountcol">
                     <asp:HyperLink ID="hplnkOpBalForTheMonth" runat="server" EnableViewState="false"
                         NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=CASH,BANKNU,INVESTMENT&DateTo={4:d}" />
                 </td>
-                <td class="vd-amountcol">
+                <td title="Opening local currency cash and bank balance as of"
+                    class="vd-amountcol">
                     <asp:HyperLink ID="hplnkOpBalUptoTheMonth" runat="server" EnableViewState="false"
                         NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=CASH,BANKNU,INVESTMENT&DateTo={3:d}" />
                 </td>
@@ -141,11 +146,13 @@
                 <td align="center" title="Not applicable">
                     &bull;
                 </td>
-                <td class="vd-amountcol" >
+                <td title="Opening balances as of for Foreign Currency Bank accounts. Click to see opening balances of individual accounts."
+                    class="vd-amountcol">
                     <asp:HyperLink ID="hplnkOpBalForTheMonthFE" runat="server" EnableViewState="false"
                         NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=BANKFE&FromDate={0:d}&DateTo={1:d}" />
                 </td>
-                <td class="vd-amountcol">
+                <td title="Opening local currency cash and bank balance as of"
+                    class="vd-amountcol">
                     <asp:HyperLink ID="hplnkOpBalUptoTheMonthFE" runat="server" EnableViewState="false"
                         NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=BANKFE&FromDate={0:d}&DateTo={1:d}" />
                 </td>
@@ -153,7 +160,7 @@
                     &bull;
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="AlternatingRow">
                 <td>
                     <asp:HyperLink ID="hplnkgoinu" Text="Funds Received From GOI(Rs./NU.)" ToolTip="Click to get list of Heads involved"
                         NavigateUrl="~/Finance/VoucherSearch.aspx?Types=GRANT_RECEIVED_GOINU,LOAN_RECEIVED_GOINU"
@@ -178,7 +185,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr runat="server" onprerender="Unnamed_PreRender">
+            <tr>
                 <td>
                     <asp:HyperLink ID="hplnkgoife" Text="Funds Received From GOI (F.E.)" ToolTip="Click to get list of Heads involved"
                         NavigateUrl="~/Finance/VoucherSearch.aspx?Types=GRANT_RECEIVED_GOIFE,LOAN_RECEIVED_GOIFE"
@@ -201,7 +208,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="AlternatingRow">
                 <td>
                     <asp:HyperLink ID="hplnkint" Text="Interest<b/>" ToolTip="Click to get list of Heads involved"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=INTEREST" runat="server"></asp:HyperLink>
@@ -223,7 +230,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr runat="server" onprerender="Unnamed_PreRender">
+            <tr>
                 <td>
                     <asp:HyperLink ID="hplnkrecovery" Text="Recovery Awaiting Remittances" ToolTip="Click to get list of Heads involved"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=SALARY_REMITANCES" runat="server"></asp:HyperLink>
@@ -245,7 +252,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="AlternatingRow">
                 <td>
                     <asp:HyperLink ID="hplnktender" Text="Sale of Tender Documents" ToolTip="Click to get list of Heads involved"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=TENDER_SALE" runat="server" />
@@ -267,7 +274,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr runat="server" onprerender="Unnamed_PreRender">
+            <tr>
                 <td>
                     <asp:HyperLink ID="hplnkemd" Text="Earnest Money Deposit" ToolTip="Click to get list of Heads involved"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=EMD" runat="server"></asp:HyperLink>
@@ -289,7 +296,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="AlternatingRow">
                 <td>
                     <asp:HyperLink ID="hplnksd" Text="Security Deposit" ToolTip="Click to get list of Heads involved"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=SD" runat="server"></asp:HyperLink>
@@ -312,7 +319,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr runat="server" onprerender="Unnamed_PreRender">
+            <tr>
                 <td>
                     <asp:HyperLink ID="hplnkbit" Text="BIT / Contract Tax" ToolTip="Click to get list of Heads involved"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=BIT" runat="server"></asp:HyperLink>
@@ -333,7 +340,7 @@
                     <asp:Label ID="lblBITsum" runat="server" ToolTip="Contractor Tax till date" EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="AlternatingRow">
                 <td>
                     <asp:HyperLink ID="hplnkothrec" ToolTip="Click to get list of Heads involved" Text="Other Receipts"
                         runat="server" NavigateUrl="~/Finance/AccountHeads.aspx?Types=ACCUMULATED_RECEIPTS,ASSETS,LIABILITY"></asp:HyperLink>
@@ -358,33 +365,33 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="RowHeader" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="RowHeader">
                 <td align="right">
                     Total Receipts
                 </td>
                 <td class="vd-amountcol">
-                    <asp:Label ID="lblReceiptsPreviousYear" runat="server" EnableViewState="false" OnPreRender="lbl_PreRenderShowSum"
+                    <asp:Label ID="lblReceiptsPreviousYear" runat="server" EnableViewState="true" OnPreRender="lbl_PreRenderShowSum"
                         SumType="ReceiptsPreviousYear" />
                 </td>
                 <td class="vd-amountcol">
-                    <asp:Label ID="lblReceiptsForMonth" runat="server" EnableViewState="false" OnPreRender="lbl_PreRenderShowSum"
+                    <asp:Label ID="lblReceiptsForMonth" runat="server" EnableViewState="true" OnPreRender="lbl_PreRenderShowSum"
                         SumType="ReceiptsForMonth" />
                 </td>
                 <td class="vd-amountcol">
-                    <asp:Label ID="lblReceiptsUptoMonth" runat="server" EnableViewState="false" OnPreRender="lbl_PreRenderShowSum"
+                    <asp:Label ID="lblReceiptsUptoMonth" runat="server" EnableViewState="true" OnPreRender="lbl_PreRenderShowSum"
                         SumType="ReceiptsUptoMonth" />
                 </td>
                 <td class="vd-amountcol">
-                    <asp:Label ID="Label1" runat="server" EnableViewState="false" OnPreRender="lbl_PreRenderShowSum"
+                    <asp:Label ID="Label1" runat="server" EnableViewState="true" OnPreRender="lbl_PreRenderShowSum"
                         SumType="ReceiptsSum" />
                 </td>
             </tr>
-            <tr class="RowHeader" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="RowHeader">
                 <td colspan="5" class="RowHeader">
                     Payments
                 </td>
             </tr>
-            <tr runat="server" onprerender="Payment_PreRender">
+            <tr>
                 <td>
                     <asp:HyperLink ID="hplnkexp" ToolTip="Click to get list of Heads involved" Text="Expenditure"
                         runat="server"></asp:HyperLink>
@@ -406,12 +413,12 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Unnamed_PreRender">
+            <tr class="AlternatingRow">
                 <td colspan="5" style="font-style: italic">
                     Advances
                 </td>
             </tr>
-            <tr runat="server" onprerender="Payment_PreRender">
+            <tr>
                 <td style="text-indent: 4mm">
                     a)
                     <asp:HyperLink ID="hplnkemp" ToolTip="Click to get list of Heads involved" Text="Employees"
@@ -434,7 +441,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr runat="server" onprerender="Payment_PreRender">
+            <tr>
                 <td style="text-indent: 4mm">
                     b)
                     <asp:HyperLink ID="hplnkparty" ToolTip="Click to get list of Heads involved" Text="Parties"
@@ -460,7 +467,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Payment_PreRender">
+            <tr class="AlternatingRow">
                 <td>
                     <asp:HyperLink ID="hplnkstock" ToolTip="Click to get list of Heads involved" Text="Stock Suspense"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=STOCK_SUSPENSE" runat="server"></asp:HyperLink>
@@ -482,7 +489,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr runat="server" onprerender="Payment_PreRender">
+            <tr>
                 <td>
                     <asp:HyperLink ID="hplnkbst" ToolTip="Click to get list of Heads involved" Text="BST"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=BST" runat="server"></asp:HyperLink>
@@ -503,7 +510,7 @@
                     <asp:Label ID="lblBSTsum" runat="server" ToolTip="Service Tax paid till date" EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Payment_PreRender">
+            <tr class="AlternatingRow">
                 <td>
                     <asp:HyperLink ID="hplnksvctax" ToolTip="Click to get list of Heads involved" Text="Service Tax"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=SVCTAX" runat="server"></asp:HyperLink>
@@ -525,7 +532,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr runat="server" onprerender="Payment_PreRender">
+            <tr>
                 <td>
                     <asp:HyperLink ID="hplnkedGOI" ToolTip="Click to get list of Heads involved" Text="Excise Duty to G.O.I."
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=EDGOI" runat="server"></asp:HyperLink>
@@ -547,7 +554,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Payment_PreRender">
+            <tr class="AlternatingRow">
                 <td>
                     <asp:HyperLink ID="hplnkedRGOB" ToolTip="Click to get list of Heads involved" Text="Excise Duty to R.G.O.B."
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=EDRGOB" runat="server"></asp:HyperLink>
@@ -569,7 +576,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="alternatingRow" runat="server" onprerender="Payment_PreRender">
+            <tr class="alternatingRow">
                 <td><asp:HyperLink ID="hplnkGreenTax" ToolTip="Click to get list of Heads involved" Text="Green Tax"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=GREEN_TAX" runat="server"></asp:HyperLink>
                 </td>
@@ -582,28 +589,28 @@
                 <td class="vd-amountcol"><asp:Label ID="lblGreenTaxRGOBsum" runat="server" ToolTip="Green Tax paid to Royal Government of Bhutan till date"
                         EnableViewState="false" /></td>
             </tr>
-            <tr class="RowHeader" runat="server" onprerender="Payment_PreRender">
+            <tr class="RowHeader">
                 <td align="right">
                     Total Payments
                 </td>
                 <td class="vd-amountcol">
-                    <asp:Label ID="lblPaymentsPreviousYear" runat="server" EnableViewState="false" OnPreRender="lbl_PreRenderShowSum"
+                    <asp:Label ID="lblPaymentsPreviousYear" runat="server" EnableViewState="true" OnPreRender="lbl_PreRenderShowSum"
                         SumType="PaymentsPreviousYear" />
                 </td>
                 <td class="vd-amountcol">
-                    <asp:Label ID="lblPaymentForMonth" runat="server" EnableViewState="false" SumType="PaymentsForMonth"
+                    <asp:Label ID="lblPaymentForMonth" runat="server" EnableViewState="true" SumType="PaymentsForMonth"
                         OnPreRender="lbl_PreRenderShowSum" />
                 </td>
                 <td class="vd-amountcol">
-                    <asp:Label ID="lblPaymentsumUptoMonth" runat="server" EnableViewState="false" SumType="PaymentsUptoMonth"
+                    <asp:Label ID="lblPaymentsumUptoMonth" runat="server" EnableViewState="true" SumType="PaymentsUptoMonth"
                         OnPreRender="lbl_PreRenderShowSum" />
                 </td>
                 <td class="vd-amountcol">
-                    <asp:Label ID="lblPaymentsum" runat="server" EnableViewState="false" SumType="PaymentsSum"
+                    <asp:Label ID="lblPaymentsum" runat="server" EnableViewState="true" SumType="PaymentsSum"
                         OnPreRender="lbl_PreRenderShowSum" />
                 </td>
             </tr>
-            <tr runat="server" onprerender="Payment_PreRender">
+            <tr>
                 <td>
                     <asp:HyperLink ID="hplnkfunds" ToolTip="Click to get list of Heads involved" Text="Funds in Transit"
                         NavigateUrl="~/Finance/AccountHeads.aspx?Types=FUNDS_TRANSIT" runat="server"></asp:HyperLink>
@@ -625,7 +632,7 @@
                         EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Payment_PreRender">
+            <tr class="AlternatingRow">
                 <td colspan="5" style="font-style: italic">
                     Closing Balances
                 </td>
@@ -634,15 +641,15 @@
                 <td style="text-indent: 4mm">
                     Closing Balance Rs./Nu
                 </td>
-                <td title="Closing balances as of <%# m_dtPreviousYear.AddDays(-1).ToString("d MMM'&nbsp;'yyyy")%> for local currency Cash & Bank accounts. Click to see closing balances of individual accounts."
+                <td title="Closing balances as of  for local currency Cash & Bank accounts. Click to see closing balances of individual accounts."
                     class="vd-amountcol">
                     <asp:HyperLink ID="hplnkClBalPreviousYear" runat="server" EnableViewState="false" />
                 </td>
-                <td title="Closing balances as of <%# m_dtPassed.ToString("d MMM'&nbsp;'yyyy")%> for local currency Cash & Bank accounts. Click to see opening balances of individual accounts."
+                <td title="Closing balances as of  for local currency Cash & Bank accounts. Click to see opening balances of individual accounts."
                     class="vd-amountcol">
                     <asp:HyperLink ID="hplnkClBalForMonth" runat="server" EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=CASH,BANKNU,INVESTMENT&DateTo={2:d}" />
                 </td>
-                <td title="Closing balances as of <%# m_dtPassed.ToString("d MMM'&nbsp;'yyyy")%> for local currency Cash & Bank accounts. Click to see opening balances of individual accounts."
+                <td title="Closing balances as of  for local currency Cash & Bank accounts. Click to see opening balances of individual accounts."
                     class="vd-amountcol">
                     <asp:HyperLink ID="hplnkClBalUptoMonth" runat="server" EnableViewState="false" />
                 </td>
@@ -650,18 +657,21 @@
                     <asp:Label ID="lblClBalSum" runat="server" EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="AlternatingRow" runat="server" onprerender="Payment_PreRender">
+            <tr class="AlternatingRow">
                 <td style="text-indent: 4mm">
                     Closing Balance FE
                 </td>
-                <td class="vd-amountcol">
+                <td title="Closing balances as of Foreign Currency Bank accounts. Click to see closing balances of individual accounts."
+                    class="vd-amountcol">
                     <asp:HyperLink ID="hplnkClBalPreviousYearFE" runat="server" EnableViewState="false"
                         NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=BANKFE&FromDate={0:d}&ToDate={1:d}" />
                 </td>
-                <td class="vd-amountcol">
+                <td title="Closing balances as of  for Foreign Currency Bank accounts. Click to see closing balances of individual accounts."
+                    class="vd-amountcol">
                     <asp:HyperLink ID="hplnkClBalForMonthFE" runat="server" EnableViewState="false" NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=BANKFE&ToDate={0:d}" />
                 </td>
-                <td class="vd-amountcol">
+                <td title="Closing balance as of for Foreign Currency Bank accounts. Click to see closing balances of individual accounts."
+                    class="vd-amountcol">
                     <asp:HyperLink ID="hplnkClBalUptoMonthFE" runat="server" EnableViewState="false"
                         NavigateUrl="~/Finance/VoucherSearch.aspx?AccountTypes=BANKFE&FromDate={0:d}&ToDate={1:d}" />
                 </td>
@@ -669,27 +679,28 @@
                     <asp:Label ID="lblClBalFESum" runat="server" EnableViewState="false" />
                 </td>
             </tr>
-            <tr class="RowHeader" runat="server" onprerender="Payment_PreRender">
+            <tr class="RowHeader">
                 <td align="right">
                     Total
                 </td>
                 <td>
-                    <asp:Label ID="lblClosingBalancePreviousYear" runat="server" ToolTip="Closing local currency balance prior to Financial year end"
-                        EnableViewState="false" />
+                 <asp:Label ID="lblClosingBalancePreviousYear" runat="server" 
+                        EnableViewState="true" />
+
                 </td>
                 <td class="vd-amountcol">
-                    <asp:Label ID="lblClosingBalanceForMonth" runat="server" ToolTip="Closing local currency balance for month"
-                        EnableViewState="false" />
+                    <asp:Label ID="lblClosingBalanceForMonth" runat="server" 
+                        EnableViewState="true" />
                 </td>
                 <td class="vd-amountcol">
-                    <asp:Label ID="lblClosingBalanceUptoMonth" runat="server" ToolTip="Closing local currency balance upto month"
-                        EnableViewState="false" />
+                    <asp:Label ID="lblClosingBalanceUptoMonth" runat="server" 
+                        EnableViewState="true" />
                 </td>
                 <td class="vd-amountcol">
-                    <asp:Label ID="lblCummulativeClosingBalance" runat="server" ToolTip="Closing local currency balance till date"
-                        EnableViewState="false" />
+                    <asp:Label ID="lblCummulativeClosingBalance" runat="server" 
+                        EnableViewState="true" />
                 </td>
             </tr>
         </tbody>
-    </table>
+    </table></div>
 </asp:Content>
