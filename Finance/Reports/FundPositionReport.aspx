@@ -526,7 +526,7 @@
             <tbody>
                 <tr class="AlternativeRow">
                     <td style="text-align:left">
-                        <asp:Label ID="lblShortFall" runat="server" Text="Short falls"></asp:Label>
+                        <asp:Label ID="lblShortFall" runat="server" Text="Short falls (Balance funds - Total Outstanding) "></asp:Label>
                     </td>
                     <td class="vd-amountcol">
                         <asp:Label runat="server" ID="lblShortAmount" EnableViewState="false" Text='<%# string.Format("{0:#,###,,.000;(#,###,,.000)}", Item.BalanceFund-Item.OutstandingBillsAmount) %>'></asp:Label>
