@@ -46,7 +46,7 @@
             </eclipse:MultiBoundField>
             <asp:TemplateField AccessibleHeaderText="CurrentMonthGrossDebitSum" HeaderText="During the Month |Debit">
                 <HeaderTemplate>
-                    <asp:Label ID="lblDebit" runat="server" Text="Debit" ToolTip='<%# string.Format("Month to date total debits {0: d MMMM yyyy} to {1: d MMMM yyyy}", DateFrom, DateTo) %>'></asp:Label>
+                    <asp:Label ID="lblDebit" runat="server" Text="During the Month Debit" ToolTip='<%# string.Format("Month to date total debits {0: d MMMM yyyy} to {1: d MMMM yyyy}", DateFrom, DateTo) %>'></asp:Label>
                 </HeaderTemplate>
                 <ItemTemplate>
                     <asp:HyperLink runat="server" ID="hlMonthDebit" Text='<%# Eval("CurrentMonthGrossDebitSum","{0:C2}") %>'
@@ -58,7 +58,7 @@
             </asp:TemplateField>
             <asp:TemplateField AccessibleHeaderText="CurrentMonthGrossCreditSum" HeaderText="During the Month |Credit">
                 <HeaderTemplate>
-                    <asp:Label ID="lblCredit" runat="server" Text="Credit" ToolTip='<%# string.Format("Month to date total credits {0: d MMMM yyyy} to {1: d MMMM yyyy}", DateFrom, DateTo) %>'></asp:Label>
+                    <asp:Label ID="lblCredit" runat="server" Text="During the Month Credit" ToolTip='<%# string.Format("Month to date total credits {0: d MMMM yyyy} to {1: d MMMM yyyy}", DateFrom, DateTo) %>'></asp:Label>
                 </HeaderTemplate>
                 <ItemTemplate>
                     <asp:HyperLink runat="server" ID="hlMonthCredit" Text='<%# Eval("CurrentMonthGrossCreditSum","{0:C2}") %>'
@@ -70,7 +70,7 @@
             </asp:TemplateField>
             <asp:TemplateField AccessibleHeaderText="CurrentYearNetDebitSum" HeaderText="During the Year |Debit">
                 <HeaderTemplate>
-                    <asp:Label ID="lblDebitNet" runat="server" Text="Debit" ToolTip='<%# string.Format("Financial year to date total debits {0: d MMMM yyyy} to {1: d MMMM yyyy}", DateFrom, DateTo) %>'></asp:Label>
+                    <asp:Label ID="lblDebitNet" runat="server" Text="During the Year Debit" ToolTip='<%# string.Format("Financial year to date total debits {0: d MMMM yyyy} to {1: d MMMM yyyy}", DateFrom, DateTo) %>'></asp:Label>
                 </HeaderTemplate>
                 <ItemTemplate>
                     <asp:HyperLink runat="server" ID="hlYearDebit" Text='<%# Eval("CurrentYearNetDebitSum","{0:C2}") %>'
@@ -82,7 +82,7 @@
             </asp:TemplateField>
             <asp:TemplateField AccessibleHeaderText="CurrentYearNetCreditSum" HeaderText="During the Year |Credit">
                 <HeaderTemplate>
-                    <asp:Label ID="lblCreditNet" runat="server" Text="Credit" ToolTip='<%# string.Format("Financial year to date total credits {0: d MMMM yyyy} to {1: d MMMM yyyy}", DateFrom, DateTo) %>'></asp:Label>
+                    <asp:Label ID="lblCreditNet" runat="server" Text="During the Year Credit" ToolTip='<%# string.Format("Financial year to date total credits {0: d MMMM yyyy} to {1: d MMMM yyyy}", DateFrom, DateTo) %>'></asp:Label>
                 </HeaderTemplate>
                 <ItemTemplate>
                     <asp:HyperLink runat="server" ID="hlYearCredit" Text='<%# Eval("CurrentYearNetCreditSum","{0:C2}") %>'
