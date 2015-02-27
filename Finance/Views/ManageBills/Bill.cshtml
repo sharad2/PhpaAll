@@ -13,7 +13,7 @@
     }
 
     string userFullName = null;
-        var user = Membership.GetUser(Model.ApprovedBy) as Eclipse.PhpaLibrary.Web.Providers.PhpaMembershipUser;
+        var user = Membership.GetUser(Model.ApprovedBy ?? "") as Eclipse.PhpaLibrary.Web.Providers.PhpaMembershipUser;
         if (user == null)
         {
             userFullName = this.ViewContext.HttpContext.User.Identity.Name;
