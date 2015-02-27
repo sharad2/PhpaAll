@@ -208,9 +208,6 @@
                 </tbody>
                 <tfoot>
                     <tr runat="server" onprerender="liability_PreRender">
-                        <td>
-                            <asp:Label runat
-                        </td>
                         <td class="bs_FooterCell" colspan="2">
                             <asp:Label ID="lblSumLiabilities" runat="server" Text="0.00" EnableViewState="false"></asp:Label>
                         </td>
