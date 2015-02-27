@@ -88,5 +88,5 @@ using System.Runtime.InteropServices;
  * information should display correctly with old data
 
 */
-[assembly: AssemblyVersion("7.0.0.0")]
-[assembly: AssemblyFileVersion("7.0.0.0")]
+[assembly: AssemblyVersion("8.0.0.0")]
+[assembly: AssemblyFileVersion("8.0.0.0")]
