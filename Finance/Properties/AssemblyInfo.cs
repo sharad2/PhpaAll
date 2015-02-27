@@ -88,5 +88,10 @@ using System.Runtime.InteropServices;
  * information should display correctly with old data
 
 */
+/* Introducing Following features :-
+ * 1. Provided Export To Excel button in four reports.
+ * 2. Provided Bill Management module.
+ */
+
 [assembly: AssemblyVersion("8.0.0.0")]
 [assembly: AssemblyFileVersion("8.0.0.0")]
