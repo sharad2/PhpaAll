@@ -76,6 +76,15 @@ namespace PhpaAll.Reports {
         protected global::System.Web.UI.WebControls.PlaceHolder plhTable;
         
         /// <summary>
+        /// TblBalanceSheet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable TblBalanceSheet;
+        
+        /// <summary>
         /// hplnkGrant control.
         /// </summary>
         /// <remarks>
@@ -245,6 +254,15 @@ namespace PhpaAll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSumLiabilities;
+        
+        /// <summary>
+        /// TblAssets control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable TblAssets;
         
         /// <summary>
         /// hplnkwip control.

@@ -137,8 +137,8 @@ namespace PhpaAll.Reports
                     accsum += Convert.ToDouble(grp.Amount);
                     hplnkAcc_Rec.Text = accsum.ToString(fmt);
                     sumLiability += Convert.ToDouble(grp.Amount);
-                    hplnkAcc_Rec.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={1},{2}&DateTo={0:d}", 
-                       dt, HeadOfAccountHelpers.ReceiptSubType.AccumulatedReceipt,HeadOfAccountHelpers.ReceiptSubType.TenderSale);
+                    hplnkAcc_Rec.NavigateUrl = string.Format("~/Finance/VoucherSearch.aspx?AccountTypes={1},{2}&DateTo={0:d}",
+                       dt, HeadOfAccountHelpers.ReceiptSubType.AccumulatedReceipt, HeadOfAccountHelpers.ReceiptSubType.TenderSale);
                 }
                 else
                 {
@@ -281,93 +281,115 @@ namespace PhpaAll.Reports
         }
 
         #region Excel
-        ExcelPackage _pkg;
-        ExcelWorksheet _wksLiability;
-        ExcelWorksheet _wksAsset;
+        //ExcelPackage _pkg;
+        //ExcelWorksheet _wksLiability;
+        //ExcelWorksheet _wksAsset;
 
-        private int _curRowAsset = 1;
-        private int _curRowLiabilities = 1;
+        //private int _curRowAsset = 1;
+        //private int _curRowLiabilities = 1;
 
 
         protected void liability_PreRender(object sender, EventArgs e)
         {
-            if (_pkg != null)
-            { 
-            var row = (Control)sender;
-            var x = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<HyperLink>()).ToList();
-            if (x.Count > 0)
-            {
-                _wksLiability.Cells[_curRowLiabilities, 1].Value = x[0].Text;
-                _wksLiability.Cells[_curRowLiabilities, 2].Value = x[1].Text;
-                ++_curRowLiabilities;
-            }
-            var libTotal = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<Label>()).ToList();
-            if (libTotal.Count > 0)
-            {
-                _wksLiability.Cells[_curRowLiabilities, 1].Value = "Sum Liabilities";
-                _wksLiability.Cells[_curRowLiabilities, 2].Value = libTotal[0].Text;
-            }
-        }
-           
+            //    if (_pkg != null)
+            //    { 
+            //    var row = (Control)sender;
+            //    var x = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<HyperLink>()).ToList();
+            //    if (x.Count > 0)
+            //    {
+            //        _wksLiability.Cells[_curRowLiabilities, 1].Value = x[0].Text;
+            //        _wksLiability.Cells[_curRowLiabilities, 2].Value = x[1].Text;
+            //        ++_curRowLiabilities;
+            //    }
+            //    var libTotal = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<Label>()).ToList();
+            //    if (libTotal.Count > 0)
+            //    {
+            //        _wksLiability.Cells[_curRowLiabilities, 1].Value = "Sum Liabilities";
+            //        _wksLiability.Cells[_curRowLiabilities, 2].Value = libTotal[0].Text;
+            //    }
+            //}
+
         }
 
         protected void Asset_PreRender(object sender, EventArgs e)
         {
-            if (_pkg != null)
-            {
-                var row = (Control)sender;
-                var x = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<HyperLink>()).ToList();
-                if (x.Count > 0)
-                {
-                    _wksAsset.Cells[_curRowAsset, 1].Value = x[0].Text;
-                    _wksAsset.Cells[_curRowAsset, 2].Value = x[1].Text;
-                    ++_curRowAsset;
-                }
-                var total = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<Label>()).ToList();
-                if (total.Count > 0)
-                {
-                    _wksAsset.Cells[_curRowAsset, 1].Value = "Sum Asset";
-                    _wksAsset.Cells[_curRowAsset, 2].Value = total[0].Text;
-                    ++_curRowAsset;
-                }
-            }
+            //if (_pkg != null)
+            //{
+            //    var row = (Control)sender;
+            //    var x = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<HyperLink>()).ToList();
+            //    if (x.Count > 0)
+            //    {
+            //        _wksAsset.Cells[_curRowAsset, 1].Value = x[0].Text;
+            //        _wksAsset.Cells[_curRowAsset, 2].Value = x[1].Text;
+            //        ++_curRowAsset;
+            //    }
+            //    var total = row.Controls.OfType<Control>().SelectMany(p => p.Controls.OfType<Label>()).ToList();
+            //    if (total.Count > 0)
+            //    {
+            //        _wksAsset.Cells[_curRowAsset, 1].Value = "Sum Asset";
+            //        _wksAsset.Cells[_curRowAsset, 2].Value = total[0].Text;
+            //        ++_curRowAsset;
+            //    }
+            //}
 
         }
 
 
 
-        protected override void OnPreRenderComplete(EventArgs e)
-        {
-            if (_pkg != null)
-            {
-                var bytes = _pkg.GetAsByteArray();
-                Response.Clear();
-                MemoryStream ms = new MemoryStream(bytes);
-                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                Response.AddHeader("content-disposition", "attachment;filename=labtest.xls");
-                Response.Buffer = true;
-                ms.WriteTo(Response.OutputStream);
-                Response.End();
-            }
-            base.OnPreRenderComplete(e);
-        }
+        //protected override void OnPreRenderComplete(EventArgs e)
+        //{
+        //    if (_pkg != null)
+        //    {
+        //        var bytes = _pkg.GetAsByteArray();
+        //        Response.Clear();
+        //        MemoryStream ms = new MemoryStream(bytes);
+        //        Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+        //        Response.AddHeader("content-disposition", "attachment;filename=labtest.xls");
+        //        Response.Buffer = true;
+        //        ms.WriteTo(Response.OutputStream);
+        //        Response.End();
+        //    }
+        //    base.OnPreRenderComplete(e);
+        //}
 
-        public override void Dispose()
-        {
-            if (_pkg != null)
-            {
-                _pkg.Dispose();
-            }
-            base.Dispose();
-        }
+        //public override void Dispose()
+        //{
+        //    if (_pkg != null)
+        //    {
+        //        _pkg.Dispose();
+        //    }
+        //    base.Dispose();
+        //}
+
+        //protected void btnExport_Click(object sender, EventArgs e)
+        //{
+        //    _pkg = new ExcelPackage();
+        //    _wksLiability = _pkg.Workbook.Worksheets.Add("Liabilities");
+        //    _wksAsset = _pkg.Workbook.Worksheets.Add("Assets");
+
+        //}
+
+
 
         protected void btnExport_Click(object sender, EventArgs e)
         {
-            _pkg = new ExcelPackage();
-            _wksLiability = _pkg.Workbook.Worksheets.Add("Liabilities");
-            _wksAsset = _pkg.Workbook.Worksheets.Add("Assets");
+            Response.Clear();
+            Response.Buffer = true;
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-disposition", "attachment;filename=BalanceSheet.xls");
+            using (StringWriter sw = new StringWriter())
+            {
+                HtmlTextWriter hw = new HtmlTextWriter(sw);
+                TblBalanceSheet.RenderControl(hw);
+                TblAssets.RenderControl(hw);
+                Response.Output.Write(sw.ToString());
+                Response.Flush();
+                Response.End();
+            }
 
         }
+
+
         //var wks = pkg.Workbook.Worksheets.Add("Tab1");
         //wks.Cells[1, 1].Value = "Sharad";
         //wks.Cells[1, 2].Value = "Sharad2";

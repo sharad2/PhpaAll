@@ -70,14 +70,14 @@
         </i:TextBoxEx>
         <br />
         <i:ButtonEx runat="server" Text="Recalculate" CausesValidation="true" Action="Submit" IsDefault="true"/>
-           <i:ButtonEx ID="btnExport" runat="server" Text="Export" OnClick="btnExport_Click"
+           <i:ButtonEx ID="btnExport" runat="server" Text="ExportToExcel" OnClick="btnExport_Click"
             Action="Submit" Icon="None" CausesValidation="true" />
     </eclipse:TwoColumnPanel>
     <br />
     <i:ValidationSummary ID="ValidationSummary1" runat="server" />
     <asp:PlaceHolder runat="server" ID="plhTable">
         <div style="min-width: 60em; width: 100%; height: 5.5in">
-            <table cellspacing="0" class="bs_table" rules="cols" >
+             <table cellspacing="0" class="bs_table" id="TblBalanceSheet" runat="server">
                 <thead>
                     <tr>
                         <th align="center" class="bs_LeftColumn bs_HeaderCell">
@@ -208,13 +208,16 @@
                 </tbody>
                 <tfoot>
                     <tr runat="server" onprerender="liability_PreRender">
+                        <td>
+                            <asp:Label runat
+                        </td>
                         <td class="bs_FooterCell" colspan="2">
                             <asp:Label ID="lblSumLiabilities" runat="server" Text="0.00" EnableViewState="false"></asp:Label>
                         </td>
                     </tr>
                 </tfoot>
             </table>
-            <table cellspacing="0" class="bs_table" rules="cols">
+            <table cellspacing="0" class="bs_table" rules="cols" id="TblAssets" runat="server">
                 <thead>
                     <tr>
                         <th align="center" class="bs_LeftColumn bs_HeaderCell">
