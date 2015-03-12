@@ -522,9 +522,10 @@
                     </tbody>
                 </table>
          
-           <table rules="all" style="padding: 4mm; width: 1000px" class="MainTable">
+           <table rules="all" style="padding: 4mm; width: 1000px" class="MainTable"
+                runat="server" visible='<%#Item.BalanceFund < Item.OutstandingBillsAmount%>'>
             <tbody>
-                <tr class="AlternativeRow">
+                <tr class="AlternativeRow" style="font-size:large">
                     <td style="text-align:left">
                         <asp:Label ID="lblShortFall" runat="server" Text="Short falls (Balance funds - Total Outstanding) "></asp:Label>
                     </td>
