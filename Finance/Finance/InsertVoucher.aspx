@@ -27,7 +27,7 @@
                 <ul>
                     <li runat="server" id="itemPlaceholder"></li>
                 </ul>
-                <asp:HyperLink runat="server" Text="Manage" NavigateUrl="~/Finance/ManageFinancialYears.aspx"></asp:HyperLink>
+                <asp:HyperLink runat="server" Text="Manage" NavigateUrl="~/Admin/ManageFinancialYears.aspx"></asp:HyperLink>
             </fieldset>
         </LayoutTemplate>
         <ItemTemplate>
@@ -36,7 +36,7 @@
         </ItemTemplate>
         <EmptyDataTemplate>
             <asp:Label runat="server" Text="All financial years have been closed. Vouchers cannot be created or edited." ForeColor="Red"></asp:Label>
-            <asp:HyperLink runat="server" Text="Manage" NavigateUrl="~/Finance/ManageFinancialYears.aspx"></asp:HyperLink>
+            <asp:HyperLink runat="server" Text="Manage" NavigateUrl="~/Admin/ManageFinancialYears.aspx"></asp:HyperLink>
         </EmptyDataTemplate>
     </asp:ListView>
     <br />
