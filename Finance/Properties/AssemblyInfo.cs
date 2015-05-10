@@ -91,7 +91,8 @@ using System.Runtime.InteropServices;
 /* Introducing Following features :-
  * 1. Provided Export To Excel button in four reports.
  * 2. Provided Bill Management module.
+ * 3. Financial year can only be managed by administrator.
  */
 
-[assembly: AssemblyVersion("8.0.0.0")]
-[assembly: AssemblyFileVersion("8.0.0.0")]
+[assembly: AssemblyVersion("8.0.1.0")]
+[assembly: AssemblyFileVersion("8.0.1.0")]
