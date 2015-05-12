@@ -999,7 +999,8 @@ namespace PhpaAll.Reports
                                  p.RoVoucher.VoucherDate >= dtMonthStart && p.RoVoucher.VoucherDate <= dtPassed)
                                 .Sum(p => p.DebitAmount ?? 0 - p.CreditAmount ?? 0),
 
-                             OutstandingBillsAmount = query5.outstandingBillsAmount
+                                // query5 will be null if there are no outstanding bills
+                             OutstandingBillsAmount = query5 == null ? (decimal?)null : query5.outstandingBillsAmount
                          });
             //throw new NotImplementedException();
             return query.FirstOrDefault();
