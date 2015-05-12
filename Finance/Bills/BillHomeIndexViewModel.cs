@@ -111,6 +111,12 @@ namespace PhpaAll.Bills
             {
                 if (_allMonths == null)
                 {
+                    if (Stations.Count == 0)
+                    {
+                        // Handle special case. No bills yet
+                        _allMonths = new BillHomeIndexMonthModel[0];
+                        return _allMonths;
+                    }
                     var minMonthKey = Stations.SelectMany(p => p.AmountsByMonth.Keys).Where(p => p > 0).Min();  // Exclude null dates
                     var maxMonthKey = Stations.SelectMany(p => p.AmountsByMonth.Keys).Max();
                     var minMonthStartDate = BillHomeIndexMonthModel.GetMonthStartDateFromKey(minMonthKey).Value;
