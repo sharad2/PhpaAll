@@ -756,7 +756,7 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", CanBeNull=true, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -1960,7 +1960,7 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", CanBeNull=true, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -2275,7 +2275,7 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 		
 		private System.Nullable<double> _FractionOfGross;
 		
-		private System.Nullable<bool> _IsFractionGrossOverridden;
+		private bool _IsFractionGrossOverridden;
 		
 		private EntityRef<Adjustment> _Adjustment;
 		
@@ -2317,7 +2317,7 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
     partial void OnCommentChanged();
     partial void OnFractionOfGrossChanging(System.Nullable<double> value);
     partial void OnFractionOfGrossChanged();
-    partial void OnIsFractionGrossOverriddenChanging(System.Nullable<bool> value);
+    partial void OnIsFractionGrossOverriddenChanging(bool value);
     partial void OnIsFractionGrossOverriddenChanged();
     #endregion
 		
@@ -2596,7 +2596,7 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", CanBeNull=true, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -2657,7 +2657,7 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsFractionGrossOverridden")]
-		public System.Nullable<bool> IsFractionGrossOverridden
+		public bool IsFractionGrossOverridden
 		{
 			get
 			{
@@ -3080,7 +3080,7 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", CanBeNull=true, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -4189,7 +4189,7 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", CanBeNull=true, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -4684,7 +4684,7 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", CanBeNull=true, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -5356,7 +5356,7 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", CanBeNull=true, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -5875,7 +5875,7 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", CanBeNull=true, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Version
 		{
 			get
@@ -6241,7 +6241,7 @@ namespace Eclipse.PhpaLibrary.Database.Payroll
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", CanBeNull=true, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Version
 		{
 			get

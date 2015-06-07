@@ -105,7 +105,7 @@
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
       <Column Name="Comment" Type="System.String" DbType="NvarChar(256)" CanBeNull="true" />
       <Column Name="FractionOfGross" Type="System.Double" CanBeNull="true" />
-      <Column Name="IsFractionGrossOverridden" Type="System.Boolean" CanBeNull="true" UpdateCheck="Always" />
+      <Column Name="IsFractionGrossOverridden" Type="System.Boolean" CanBeNull="false" UpdateCheck="Always" />
       <Association Name="Adjustment_EmployeeAdjustment" Member="Adjustment" ThisKey="AdjustmentId" OtherKey="AdjustmentId" Type="Adjustment" IsForeignKey="true" />
       <Association Name="Employee_EmployeeAdjustment" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
     </Type>
