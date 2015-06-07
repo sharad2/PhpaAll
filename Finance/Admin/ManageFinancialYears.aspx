@@ -49,7 +49,7 @@
                     <i:TextBoxEx runat="server" ID="tbFYEndDate" Text='<%# Bind("EndDate", "{0:d}") %>' FriendlyName="Financial Year End Date">
                         <Validators>
                             <i:Required />
-                            <i:Date DateType="ToDate" AssociatedControlID="tbFYStartDate" MaxRange="364" />
+                            <i:Date DateType="ToDate" AssociatedControlID="tbFYStartDate" MaxRange="366" />
                         </Validators>
                     </i:TextBoxEx>
                 </EditItemTemplate>
