@@ -58,7 +58,11 @@ namespace PhpaAll.Payroll.Reports
                              AccountNumber = pea.EmployeePeriod.BankAccountNo ?? pea.EmployeePeriod.Employee.BankAccountNo,
                              HeadOfAccountId = pea.Adjustment.HeadOfAccountId,
                              BankId= pea.EmployeePeriod.BankId ?? pea.EmployeePeriod.Employee.BankId,
-                             SalaryPeriodStartDate = pea.EmployeePeriod.SalaryPeriod.SalaryPeriodStart
+                             SalaryPeriodStartDate = pea.EmployeePeriod.SalaryPeriod.SalaryPeriodStart,
+                             // Sharad 8 Jun 2015
+                             // Loan account number is in the Comment field of EmployeeAdjustments
+                             // We show the employee adjustment corresponding to this adjustment
+                             Remarks = pea.Adjustment.EmployeeAdjustments.Where(p => p.AdjustmentId == pea.AdjustmentId).Max(p => p.Comment) ?? "Sharad"
                          });
             if (!string.IsNullOrEmpty(tbAccountNo.Text))
             {

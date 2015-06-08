@@ -73,7 +73,7 @@
              <eclipse:MultiBoundField DataFields="SalaryPeriodStartDate" HeaderText="For"
                 DataFormatString="{0:MMM yyyy}"  Visible="false" ItemStyle-Wrap="false" AccessibleHeaderText="SalaryPeriodDate">
             </eclipse:MultiBoundField>
-            <eclipse:MultiBoundField HeaderText="Remarks" DataFormatString="">
+            <eclipse:MultiBoundField HeaderText="Remarks" DataFields="Remarks">
                 <ItemStyle Width="2in" />
             </eclipse:MultiBoundField>
         </Columns>
