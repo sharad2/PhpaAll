@@ -101,5 +101,14 @@ using System.Runtime.InteropServices;
  * IsFractionGrossOverridden is now non nullable
  */
 
-[assembly: AssemblyVersion("9.1.0.0")]
-[assembly: AssemblyFileVersion("9.1.0.0")]
+/*
+ * 9.1.0.2 -> 10 Jun 2015
+ * Fixed: the loan account number showing in the loan recovery schedule are all in duplication,
+ * where the loan account number of one employee is repeating to the remaining employees too.
+ * wrongly  generated loan recovery schedule is attached below.
+ * 
+ * Loan Account Number displayed instead of bank account number. Remarks column remains empty
+ */
+
+[assembly: AssemblyVersion("9.1.0.2")]
+[assembly: AssemblyFileVersion("9.1.0.2")]

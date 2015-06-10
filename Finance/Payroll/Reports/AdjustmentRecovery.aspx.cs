@@ -55,14 +55,17 @@ namespace PhpaAll.Payroll.Reports
                              Designation = pea.EmployeePeriod.Designation ?? pea.EmployeePeriod.Employee.Designation,
                              DivisionName = pea.EmployeePeriod.Employee.Division.DivisionName,
                              Amount = pea.Amount ?? 0,
-                             AccountNumber = pea.EmployeePeriod.BankAccountNo ?? pea.EmployeePeriod.Employee.BankAccountNo,
+                             // Sharad 10 Jun 2015 Loan Account Number displayed instead of bank account number. Remarks column remains empty
+                             Remarks = "", //pea.EmployeePeriod.BankAccountNo ?? pea.EmployeePeriod.Employee.BankAccountNo,
                              HeadOfAccountId = pea.Adjustment.HeadOfAccountId,
                              BankId= pea.EmployeePeriod.BankId ?? pea.EmployeePeriod.Employee.BankId,
                              SalaryPeriodStartDate = pea.EmployeePeriod.SalaryPeriod.SalaryPeriodStart,
                              // Sharad 8 Jun 2015
                              // Loan account number is in the Comment field of EmployeeAdjustments
                              // We show the employee adjustment corresponding to this adjustment
-                             Remarks = pea.Adjustment.EmployeeAdjustments.Where(p => p.AdjustmentId == pea.AdjustmentId).Max(p => p.Comment) ?? "Sharad"
+                             AccountNumber = pea.Adjustment.EmployeeAdjustments
+                                .Where(p => p.AdjustmentId == pea.AdjustmentId && p.EmployeeId == pea.EmployeePeriod.EmployeeId)
+                                .Max(p => p.Comment)
                          });
             if (!string.IsNullOrEmpty(tbAccountNo.Text))
             {
