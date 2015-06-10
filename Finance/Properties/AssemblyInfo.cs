@@ -94,5 +94,12 @@ using System.Runtime.InteropServices;
  * 3. Financial year can only be managed by administrator.
  */
 
-[assembly: AssemblyVersion("8.0.1.0")]
-[assembly: AssemblyFileVersion("8.0.1.0")]
+/*
+ * 9.1.0.0
+ * Financial year can be up to 366 days. Earlier it was max 364 days.
+ * Showing loan account number in loan recovery report
+ * IsFractionGrossOverridden is now non nullable
+ */
+
+[assembly: AssemblyVersion("9.1.0.0")]
+[assembly: AssemblyFileVersion("9.1.0.0")]
