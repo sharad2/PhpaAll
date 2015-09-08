@@ -33,7 +33,13 @@ using System.Web.UI;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.5.0.1")]
-[assembly: AssemblyFileVersion("3.5.0.1")]
+
+// 
+// Sharad 8 Sep 2015: 3.5.0.1 -> 3.5.0.2
+// File DataContextBase.cs. Increased command timeout to 2 min to prevent timeout errors in
+// Expenditure Reports - Contract, Work Order
+
+[assembly: AssemblyVersion("3.5.0.2")]
+[assembly: AssemblyFileVersion("3.5.0.2")]
 [assembly: TagPrefix("Eclipse.PhpaLibrary.Web", "phpa")]
 

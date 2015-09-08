@@ -81,6 +81,9 @@ namespace Eclipse.PhpaLibrary.Database
         {
             m_sbLog = new StringBuilder();
             this.Log = new StringWriter(m_sbLog);
+            // Sharad 8 Sep 2015: Increased command timeout to 2 min to prevent timeout errors in
+            // Expenditure Reports - Contract, Work Order
+            this.CommandTimeout = 120;
             AddRef();
         }
 
@@ -89,6 +92,9 @@ namespace Eclipse.PhpaLibrary.Database
         {
             m_sbLog = new StringBuilder();
             this.Log = new StringWriter(m_sbLog);
+            // Sharad 8 Sep 2015: Increased command timeout to 2 min to prevent timeout errors in
+            // Expenditure Reports - Contract, Work Order
+            this.CommandTimeout = 120;
             AddRef();
         }
 
