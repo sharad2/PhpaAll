@@ -39,7 +39,10 @@ using System.Web.UI;
 // File DataContextBase.cs. Increased command timeout to 2 min to prevent timeout errors in
 // Expenditure Reports - Contract, Work Order
 
-[assembly: AssemblyVersion("3.5.0.2")]
-[assembly: AssemblyFileVersion("3.5.0.2")]
+// Sharad 15 Sep 2015: 3.5.0.2 -> 3.5.0.3
+// Added EDRGOB to Civil Expenditures to correct Fund Position Report as requested by PHPA-I
+
+[assembly: AssemblyVersion("3.5.0.3")]
+[assembly: AssemblyFileVersion("3.5.0.3")]
 [assembly: TagPrefix("Eclipse.PhpaLibrary.Web", "phpa")]
 

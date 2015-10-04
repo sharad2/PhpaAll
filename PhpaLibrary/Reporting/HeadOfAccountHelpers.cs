@@ -131,11 +131,12 @@ namespace Eclipse.PhpaLibrary.Reporting
         }
 
         #region Fund Position Report specific
+        // Sharad 15 Sep 2015: Added EDRGOB to Civil Expenditures to correct Fund Position Report as requested by PHPA-I
         public readonly static IEnumerable<string> CivilExpenditures = new[] { 
                 ExpenditureSubTypes.CivilTourExpenditure, ExpenditureSubTypes.CivilExpenditure, ExpenditureSubTypes.MainCivilExpenditure,                   
-                ExciseDutySubTypes.ExciseDutyGOI, AdvanceSubTypes.MaterialAdvance, AdvanceSubTypes.CivilPartyAdance, TaxSubTypes.GreenTax,
+                AdvanceSubTypes.MaterialAdvance, AdvanceSubTypes.CivilPartyAdance, TaxSubTypes.GreenTax,
                 TaxSubTypes.BhutanSalesTax
-            }.Concat(StockSuspense);
+            }.Concat(StockSuspense).Concat(AllExciseDuties);
 
         public readonly static IEnumerable<string> EstablishmentExpenditures = new[] {
             ExpenditureSubTypes.EstablishmentExpenditure, ExpenditureSubTypes.EstablishmentTourExpenditure, AdvanceSubTypes.EmployeeAdvance,
